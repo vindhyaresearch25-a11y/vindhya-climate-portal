@@ -416,6 +416,11 @@ canvas.chart-canvas{max-height:100%;}
         <div class="gate-role-title">Corporate</div>
       </div>
     </div>
+    <div style="text-align:center;margin-top:0.9rem;">
+      <a href="javascript:void(0)" onclick="skipLoginGate()" style="font-size:0.72rem;color:rgba(255,255,255,0.65);text-decoration:underline;cursor:pointer;">
+        Skip / अतिथि के रूप में देखें
+      </a>
+    </div>
   </div>
   <div class="gate-quote" id="gateQuote">
     <div class="gate-quote-line active" data-idx="0">
@@ -513,12 +518,12 @@ canvas.chart-canvas{max-height:100%;}
     <div class="sidebar-nav">
       <div class="nav-section-title">CORE SYSTEM</div>
       <div class="nav-item active" onclick="setNav(this,&#39;dashboard&#39;)"><span class="nav-icon"><i class="fa fa-gauge-high"></i></span><span class="nav-label">Dashboard</span></div>
-      <div class="nav-item" onclick="setNav(this,&#39;climate&#39;)"><span class="nav-icon"><i class="fa fa-map"></i></span><span class="nav-label">Climate Risk Atlas</span><span class="nav-badge">LIVE</span></div>
+      <div class="nav-item" onclick="setNav(this,&#39;climate&#39;)"><span class="nav-icon"><i class="fa fa-map"></i></span><span class="nav-label">Climate Risk Atlas</span></div>
       <div class="nav-item" onclick="setNav(this,&#39;ndvi&#39;)"><span class="nav-icon"><i class="fa fa-leaf"></i></span><span class="nav-label">NDVI Analytics</span></div>
       <div class="nav-item" onclick="setNav(this,&#39;rain&#39;)"><span class="nav-icon"><i class="fa fa-cloud-rain"></i></span><span class="nav-label">Rainfall Monitor</span></div>
       <div class="nav-item" onclick="setNav(this,&#39;soil&#39;)"><span class="nav-icon"><i class="fa fa-layer-group"></i></span><span class="nav-label">Soil Moisture</span></div>
       <div class="nav-section-title">CLIMATE HAZARD</div>
-      <div class="nav-item" onclick="setNav(this,&#39;heatwaves&#39;);focusHazard(&#39;heat&#39;)"><span class="nav-icon"><i class="fa fa-sun"></i></span><span class="nav-label">Heat Waves</span><span class="nav-badge">ALERT</span></div>
+      <div class="nav-item" onclick="setNav(this,&#39;heatwaves&#39;);focusHazard(&#39;heat&#39;)"><span class="nav-icon"><i class="fa fa-sun"></i></span><span class="nav-label">Heat Waves</span><span class="nav-badge" id="nav-badge-heat" style="display:none">ALERT</span></div>
       <div class="nav-item" onclick="setNav(this,&#39;precip&#39;);focusHazard(&#39;rain&#39;)"><span class="nav-icon"><i class="fa fa-cloud-showers-heavy"></i></span><span class="nav-label">Extreme Precipitation</span></div>
       <div class="nav-item" onclick="setNav(this,&#39;droughthazard&#39;);focusHazard(&#39;drought&#39;)"><span class="nav-icon"><i class="fa fa-droplet-slash"></i></span><span class="nav-label">Drought</span></div>
       <div class="nav-section-title">AGRICULTURE</div>
@@ -671,7 +676,7 @@ canvas.chart-canvas{max-height:100%;}
             </div>
           </div>
           <div class="metric-card alert">
-            <div class="metric-label">Rainfall Deficit</div>
+            <div class="metric-label">Rainfall Departure</div>
             <div class="metric-value red" id="m-rain">—</div>
             <div class="metric-bar"><div class="metric-bar-fill" style="width:0%;background:var(--orange)"></div></div>
             <div class="metric-trend"><i class="fa fa-cloud-rain" style="color:var(--cyan)"></i> <span id="m-rain-trend">Select a district</span></div>
@@ -798,6 +803,7 @@ canvas.chart-canvas{max-height:100%;}
         <div class="btm-tab" onclick="switchTab(this,&#39;pmfby&#39;)"><i class="fa fa-shield-halved"></i>PMFBY</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;agriculture&#39;)"><i class="fa fa-wheat-awn"></i>Agriculture</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;ecology&#39;)"><i class="fa fa-tree"></i>Ecology</div>
+        <div class="btm-tab" onclick="switchTab(this,&#39;village&#39;)"><i class="fa fa-house"></i>Village Intelligence</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;cadastral&#39;)"><i class="fa fa-draw-polygon"></i>Cadastral</div>
       </div>
 
@@ -869,81 +875,79 @@ canvas.chart-canvas{max-height:100%;}
             workflow (<code>scripts/05_gee_cmip6_2040.js</code>, <code>06_convert_gee_export.py</code>),
             which must be run explicitly — see <code>docs/METHODOLOGY.md</code> §5.
           </div>
-          <div class="neural-anim" style="padding:0 0.75rem;">
-            <div class="neural-line" style="top:30%;animation-delay:0s;width:40%"></div>
-            <div class="neural-line" style="top:60%;animation-delay:0.7s;width:60%"></div>
-            <div class="neural-line" style="top:80%;animation-delay:1.4s;width:30%"></div>
-          </div>
-          <div class="chart-wrap" style="height:100px;"><canvas id="chartAI"></canvas></div>
         </div>
         <!-- Satellites -->
         <div class="btm-pane" id="pane-sat">
           <div class="section-header"><i class="fa fa-satellite" style="color:var(--cyan);font-size:0.7rem"></i><div class="section-title">SATELLITE ANALYTICS PANEL</div></div>
-          <div class="sat-grid">
-            <div class="sat-card"><div class="sat-icon" style="color:var(--green)"><i class="fa fa-leaf"></i></div><div class="sat-name">NDVI</div><div class="sat-val">0.42</div><div class="sat-unit">Sentinel-2</div></div>
-            <div class="sat-card"><div class="sat-icon" style="color:var(--teal)"><i class="fa fa-seedling"></i></div><div class="sat-name">EVI</div><div class="sat-val">0.31</div><div class="sat-unit">MODIS</div></div>
-            <div class="sat-card"><div class="sat-icon" style="color:var(--red)"><i class="fa fa-temperature-high"></i></div><div class="sat-name">LST</div><div class="sat-val">43.8°C</div><div class="sat-unit">MODIS</div></div>
-            <div class="sat-card"><div class="sat-icon" style="color:var(--orange)"><i class="fa fa-cloud-rain"></i></div><div class="sat-name">RF Anomaly</div><div class="sat-val">-38%</div><div class="sat-unit">CHIRPS</div></div>
-            <div class="sat-card"><div class="sat-icon" style="color:var(--cyan)"><i class="fa fa-layer-group"></i></div><div class="sat-name">Soil Moisture</div><div class="sat-val">0.21 m³</div><div class="sat-unit">SMAP</div></div>
-            <div class="sat-card"><div class="sat-icon" style="color:var(--blue)"><i class="fa fa-water"></i></div><div class="sat-name">Water Body</div><div class="sat-val">-12%</div><div class="sat-unit">Landsat-8</div></div>
-            <div class="sat-card"><div class="sat-icon" style="color:var(--yellow)"><i class="fa fa-fire"></i></div><div class="sat-name">Fire Risk</div><div class="sat-val">HIGH</div><div class="sat-unit">VIIRS</div></div>
-            <div class="sat-card"><div class="sat-icon" style="color:var(--neon-blue)"><i class="fa fa-sun"></i></div><div class="sat-name">Solar Rad.</div><div class="sat-val">712 W/m²</div><div class="sat-unit">ERA5</div></div>
-            <div class="sat-card"><div class="sat-icon" style="color:var(--green)"><i class="fa fa-wind"></i></div><div class="sat-name">Wind Speed</div><div class="sat-val">28 km/h</div><div class="sat-unit">ERA5</div></div>
+          <div style="padding:20px;text-align:center;color:var(--text-dim);font-size:12px;line-height:1.8;">
+            <i class="fa fa-satellite" style="font-size:26px;display:block;margin-bottom:8px;opacity:0.6"></i>
+            <b>Not available yet</b><br>
+            Sentinel-2/MODIS/SMAP/VIIRS/ERA5 layers are not integrated into this dashboard. This panel previously
+            showed fixed placeholder values (NDVI, EVI, LST, soil moisture, etc.) that were never sourced from any
+            real satellite feed -- removed, see <code>docs/AUDIT_2026-08-01.md</code>. Real NDVI is available today
+            in the <b>NDVI Analytics</b> panel (UNDP DiCRA, district-level).
           </div>
         </div>
         <!-- API -->
         <div class="btm-pane" id="pane-api">
-          <div class="section-header"><i class="fa fa-code" style="color:var(--neon-blue);font-size:0.7rem"></i><div class="section-title">API HUB — REST ENDPOINTS</div></div>
-          <div style="overflow-y:auto;flex:1;padding-top:0.3rem;">
-            <div class="api-endpoint"><span class="api-method">GET</span><span class="api-path">/api/v1/ndvi</span><span class="api-desc">NDVI by district/village/date</span></div>
-            <div class="api-endpoint"><span class="api-method">GET</span><span class="api-path">/api/v1/risk</span><span class="api-desc">Climate vulnerability score</span></div>
-            <div class="api-endpoint"><span class="api-method">POST</span><span class="api-path">/api/v1/forecast</span><span class="api-desc">AI weather forecasting engine</span></div>
-            <div class="api-endpoint"><span class="api-method">GET</span><span class="api-path">/api/v1/advisory</span><span class="api-desc">Farmer advisory by GPS coords</span></div>
-            <div class="api-endpoint"><span class="api-method">GET</span><span class="api-path">/api/v1/weather</span><span class="api-desc">Real-time weather station data</span></div>
-            <div class="api-endpoint"><span class="api-method">GET</span><span class="api-path">/api/v1/soilmoisture</span><span class="api-desc">SMAP-based soil moisture layer</span></div>
-            <div class="api-endpoint"><span class="api-method">GET</span><span class="api-path">/api/v1/drought</span><span class="api-desc">SPI / PDSI drought indices</span></div>
-            <div class="api-endpoint"><span class="api-method">POST</span><span class="api-path">/api/v1/pmfby/score</span><span class="api-desc">PMFBY insurance risk scoring</span></div>
+          <div class="section-header"><i class="fa fa-code" style="color:var(--neon-blue);font-size:0.7rem"></i><div class="section-title">API ACCESS</div></div>
+          <div style="padding:20px;text-align:center;color:var(--text-dim);font-size:12px;line-height:1.8;">
+            <i class="fa fa-code" style="font-size:26px;display:block;margin-bottom:8px;opacity:0.6"></i>
+            <b>No public API yet</b><br>
+            This portal has no backend and serves static files from GitHub Pages. The endpoints previously listed
+            here (<code>/api/v1/...</code>) do not exist and were never implemented -- removed, see
+            <code>docs/AUDIT_2026-08-01.md</code>. The underlying data files themselves are public:
+            <code>dashboard/data/*.json</code> in the repository.
           </div>
         </div>
         <!-- Panchayat -->
         <div class="btm-pane" id="pane-panch">
           <div class="section-header"><i class="fa fa-building" style="color:var(--cyan);font-size:0.7rem"></i><div class="section-title">PANCHAYAT VULNERABILITY RANKING</div></div>
-          <div style="overflow-y:auto;flex:1;">
-            <div class="panch-row"><div class="panch-rank">#1</div><div class="panch-name">Alirajpur GP (Jhabua)</div><div class="panch-bar"><div class="panch-bar-fill" style="width:91%;background:var(--red)"></div></div><div class="panch-score" style="color:var(--red)">91</div></div>
-            <div class="panch-row"><div class="panch-rank">#2</div><div class="panch-name">Badwah GP (Khargone)</div><div class="panch-bar"><div class="panch-bar-fill" style="width:87%;background:var(--red)"></div></div><div class="panch-score" style="color:var(--red)">87</div></div>
-            <div class="panch-row"><div class="panch-rank">#3</div><div class="panch-name">Bijori GP (Dhar)</div><div class="panch-bar"><div class="panch-bar-fill" style="width:83%;background:var(--orange)"></div></div><div class="panch-score" style="color:var(--orange)">83</div></div>
-            <div class="panch-row"><div class="panch-rank">#4</div><div class="panch-name">Sidhi Sadar (Sidhi)</div><div class="panch-bar"><div class="panch-bar-fill" style="width:79%;background:var(--orange)"></div></div><div class="panch-score" style="color:var(--orange)">79</div></div>
-            <div class="panch-row"><div class="panch-rank">#5</div><div class="panch-name">Damua GP (Mandla)</div><div class="panch-bar"><div class="panch-bar-fill" style="width:74%;background:var(--orange)"></div></div><div class="panch-score" style="color:var(--orange)">74</div></div>
-            <div class="panch-row"><div class="panch-rank">#6</div><div class="panch-name">Khaniadhana (Shivpuri)</div><div class="panch-bar"><div class="panch-bar-fill" style="width:68%;background:var(--yellow)"></div></div><div class="panch-score" style="color:var(--yellow)">68</div></div>
-            <div class="panch-row"><div class="panch-rank">#7</div><div class="panch-name">Umrer GP (Balaghat)</div><div class="panch-bar"><div class="panch-bar-fill" style="width:52%;background:var(--green)"></div></div><div class="panch-score" style="color:var(--green)">52</div></div>
+          <div style="padding:20px;text-align:center;color:var(--text-dim);font-size:12px;line-height:1.8;">
+            <i class="fa fa-building" style="font-size:26px;display:block;margin-bottom:8px;opacity:0.6"></i>
+            <b>Not available yet</b><br>
+            No panchayat-level vulnerability assessment has been computed. This panel previously listed named Gram
+            Panchayats (Alirajpur, Badwah, Bijori and others) with invented vulnerability scores that were never
+            based on any real assessment -- removed, see <code>docs/AUDIT_2026-08-01.md</code>. A real ranking
+            would need panchayat-level boundaries and indices, which are not yet integrated
+            (see <code>docs/NATIONAL_SCALE_RESEARCH.md</code>).
           </div>
         </div>
         <!-- Forest -->
         <div class="btm-pane" id="pane-forest">
           <div class="section-header"><i class="fa fa-tree" style="color:var(--green);font-size:0.7rem"></i><div class="section-title">FOREST &amp; TRIBAL ANALYTICS</div></div>
-          <div style="overflow-y:auto;flex:1;">
-            <div class="forest-row"><div class="forest-indicator" style="background:var(--red)"></div><div class="forest-name">Forest Fire Risk — Umaria, Shahdol</div><div class="forest-val" style="color:var(--red)">EXTREME</div></div>
-            <div class="forest-row"><div class="forest-indicator" style="background:var(--orange)"></div><div class="forest-name">NTFP Collection Stress — Mandla</div><div class="forest-val" style="color:var(--orange)">HIGH</div></div>
-            <div class="forest-row"><div class="forest-indicator" style="background:var(--orange)"></div><div class="forest-name">Forest Degradation Index — Balaghat</div><div class="forest-val" style="color:var(--orange)">0.42</div></div>
-            <div class="forest-row"><div class="forest-indicator" style="background:var(--yellow)"></div><div class="forest-name">Tribal Livelihood Vulnerability — Jhabua</div><div class="forest-val" style="color:var(--yellow)">MEDIUM</div></div>
-            <div class="forest-row"><div class="forest-indicator" style="background:var(--yellow)"></div><div class="forest-name">Biodiversity Stress — Eco Zones Seoni</div><div class="forest-val" style="color:var(--yellow)">MODERATE</div></div>
-            <div class="forest-row"><div class="forest-indicator" style="background:var(--green)"></div><div class="forest-name">Forest Cover Change — Chhindwara</div><div class="forest-val" style="color:var(--green)">-1.2%</div></div>
-            <div class="forest-row"><div class="forest-indicator" style="background:var(--green)"></div><div class="forest-name">Carbon Stock Estimate — Satpura Reserve</div><div class="forest-val" style="color:var(--green)">38.4 Mg/ha</div></div>
+          <div style="padding:20px;text-align:center;color:var(--text-dim);font-size:12px;line-height:1.8;">
+            <i class="fa fa-tree" style="font-size:26px;display:block;margin-bottom:8px;opacity:0.6"></i>
+            <b>Not available yet</b><br>
+            Forest Survey of India / Bhuvan land-use data is not integrated. This panel previously named specific
+            districts (Umaria, Shahdol, Mandla and others) with invented risk levels and carbon-stock figures --
+            removed, see <code>docs/AUDIT_2026-08-01.md</code>. See the <b>Biodiversity Risk</b> panel for the
+            current honest "Not available" state on forest cover and biodiversity.
           </div>
         </div>
         <!-- PMFBY -->
         <div class="btm-pane" id="pane-pmfby">
           <div class="section-header"><i class="fa fa-shield-halved" style="color:var(--orange);font-size:0.7rem"></i><div class="section-title">PMFBY INSURANCE ANALYTICS</div></div>
-          <div style="display:flex;gap:0;flex:1;overflow:hidden;">
-            <div style="display:flex;flex-direction:column;flex:1;padding:0.5rem;">
-              <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
-                <div style="flex:1;min-width:100px;" class="pmfby-stat"><div class="pmfby-val">1,24,382</div><div class="pmfby-lbl">Enrolled Farmers</div></div>
-                <div style="flex:1;min-width:100px;" class="pmfby-stat"><div class="pmfby-val" style="color:var(--red)">₹ 847 Cr</div><div class="pmfby-lbl">Claim Exposure</div></div>
-                <div style="flex:1;min-width:100px;" class="pmfby-stat"><div class="pmfby-val" style="color:var(--yellow)">67%</div><div class="pmfby-lbl">AI Risk Score</div></div>
-                <div style="flex:1;min-width:100px;" class="pmfby-stat"><div class="pmfby-val" style="color:var(--green)">31,204 Ha</div><div class="pmfby-lbl">Insured Area</div></div>
-              </div>
-              <div style="margin-top:0.5rem;flex:1;min-height:0;"><canvas id="chartPMFBY"></canvas></div>
-            </div>
+          <div style="padding:20px;text-align:center;color:var(--text-dim);font-size:12px;line-height:1.8;">
+            <i class="fa fa-shield-halved" style="font-size:26px;display:block;margin-bottom:8px;opacity:0.6"></i>
+            <b>Not available yet</b><br>
+            No PMFBY enrollment or claims data is integrated. This panel previously showed invented enrollment,
+            claim-exposure and "AI risk score" figures -- removed, see <code>docs/AUDIT_2026-08-01.md</code>.
+            PMFBY publishes scheme data via data.gov.in; integrating it is tracked in
+            <code>docs/DATA_SOURCES.md</code>.
+          </div>
+        </div>
+        <!-- Village Intelligence -->
+        <div class="btm-pane" id="pane-village">
+          <div class="section-header"><i class="fa fa-house" style="color:var(--cyan);font-size:0.7rem"></i><div class="section-title">VILLAGE INTELLIGENCE</div></div>
+          <div style="padding:20px;text-align:center;color:var(--text-dim);font-size:12px;line-height:1.8;">
+            <i class="fa fa-house" style="font-size:26px;display:block;margin-bottom:8px;opacity:0.6"></i>
+            <b>Use the Location Selector</b><br>
+            Village-level IMD indices for the 5 covered districts (Bhopal, Indore, Jabalpur, Rewa, Sidhi) are shown
+            in the <b>Historical Indices</b> panel once you pick District &rarr; Block &rarr; Village from the
+            Location Selector on the map. Village names for the rest of India are listed there too (see
+            <code>dashboard/data/boundaries/</code>), but climate indices only exist for the 5 covered districts --
+            other villages show "Data not yet available".
           </div>
         </div>
         <!-- Agriculture -->
@@ -1004,13 +1008,20 @@ canvas.chart-canvas{max-height:100%;}
         </div>
         <!-- Cadastral -->
             <div class="btm-pane" id="pane-cadastral">
-              <div class="section-header"><i class="fa fa-draw-polygon" style="color:var(--orange);font-size:0.7rem"></i><div class="section-title">सीमांक CADASTRAL — <span id="cad-village-name">SAHIJANA</span> <span style="color:var(--teal)">|</span> KHASRA <span id="cad-selected-khasra" style="color:var(--orange)">—</span></div></div>
+              <div style="background:rgba(233,30,99,0.1);border:1px solid rgba(233,30,99,0.35);border-radius:6px;padding:0.5rem 0.7rem;margin:0.5rem 0.5rem 0;font-size:0.68rem;line-height:1.6;color:var(--text);">
+                <b style="color:#e91e63;letter-spacing:1px;">DEMONSTRATION / प्रदर्शन</b> — this is a structural preview of the
+                planned cadastral module. Real khasra boundaries will come from MP Bhulekh / Bhu-Naksha. No value shown here
+                is an actual land record.<br>
+                <span style="opacity:0.85">यह planned cadastral module का ढांचा है। असली खसरा सीमाएँ MP भूलेख / भू-नक्शा से आएँगी।
+                यहाँ दिखाया गया कोई भी आंकड़ा वास्तविक भूमि अभिलेख नहीं है।</span>
+              </div>
+              <div class="section-header"><i class="fa fa-draw-polygon" style="color:var(--orange);font-size:0.7rem"></i><div class="section-title">सीमांक CADASTRAL — <span id="cad-village-name">Sample village</span> <span style="color:var(--teal)">|</span> KHASRA <span id="cad-selected-khasra" style="color:var(--orange)">—</span></div></div>
               <div style="overflow-y:auto;flex:1;padding:0.5rem;">
                 <div style="display:flex;gap:0.5rem;margin-bottom:0.5rem;flex-wrap:wrap;">
                   <div style="flex:1;min-width:100px;">
                     <label style="font-size:0.65rem;font-weight:600;color:var(--text-dim);display:block;margin-bottom:0.2rem;">SEARCH KHASRA / PARCEL</label>
                     <select id="cadKhasraSelect" onchange="onKhasraChange(this.value)" style="width:100%;padding:0.3rem;border-radius:4px;border:1px solid var(--border);background:var(--bg-card);color:var(--text);font-size:0.65rem;">
-                      <option value="">-- Choose from 1,000 Parcels --</option>
+                      <option value="">-- Sample parcel (demo) --</option>
                     </select>
                   </div>
                   <div style="flex:1;min-width:100px;">
@@ -1037,8 +1048,8 @@ canvas.chart-canvas{max-height:100%;}
                 <div style="background:rgba(33,150,243,0.08);border:1px solid rgba(33,150,243,0.3);border-radius:6px;padding:0.4rem;margin-bottom:0.4rem;">
                   <div style="font-size:0.55rem;letter-spacing:2px;font-weight:700;color:var(--blue);margin-bottom:0.3rem;"><i class="fa fa-user"></i> FARMER IDENTITY</div>
                   <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.3rem;">
-                    <div><span style="font-size:0.5rem;color:var(--text-dim);display:block;">OWNER NAME</span><span id="cad-owner" style="font-size:0.7rem;color:#fff;font-weight:700;">—</span></div>
-                    <div><span style="font-size:0.5rem;color:var(--text-dim);display:block;">FATHER/HUSBAND</span><span id="cad-father" style="font-size:0.7rem;color:#fff;font-weight:700;">—</span></div>
+                    <div><span style="font-size:0.5rem;color:var(--text-dim);display:block;">OWNER NAME <span style="opacity:0.75">[MP Bhulekh field]</span></span><span id="cad-owner" style="font-size:0.7rem;color:#fff;font-weight:700;">—</span></div>
+                    <div><span style="font-size:0.5rem;color:var(--text-dim);display:block;">FATHER/HUSBAND <span style="opacity:0.75">[MP Bhulekh field]</span></span><span id="cad-father" style="font-size:0.7rem;color:#fff;font-weight:700;">—</span></div>
                   </div>
                 </div>
                 <!-- Parcel Details -->
@@ -1229,6 +1240,20 @@ function selectGateRole(role){
   var el=document.querySelector('.gate-role-card[data-role="'+role+'"]');
   if(el) el.classList.add('selected');
   submitLoginGate();
+}
+// Guest route (docs/AUDIT_2026-08-01.md P7): dismisses the gate without
+// requiring a name -- important for a public/government reviewer who wants
+// to see the portal without filling a form first.
+function skipLoginGate(){
+  try{
+    localStorage.setItem('vindhya_visitor',JSON.stringify({firstName:'Guest',organization:'',email:'',role:null,guest:true,ts:new Date().toISOString()}));
+  }catch(e){}
+  document.getElementById('loginGate').style.display='none';
+  clearInterval(gateSlideTimer);
+  clearInterval(gateQuoteTimer);
+  clearInterval(gateTaglineTimer);
+  location.hash='dashboard';
+  launchApp();
 }
 
 // Background slideshow (crossfade, same Ken Burns keyframes as the hero slideshow)
@@ -1444,11 +1469,29 @@ function setNav(el,section){
   } else if (section === 'rain') {
     setBtmTab('rainfall');
   } else if (section === 'soil') {
-    setBtmTab('ndvi');
+    // Soil Moisture has no real data source integrated (SMAP/Bhuvan) --
+    // previously silently opened the unrelated NDVI chart. The 'sat' pane
+    // explains the gap; the honest "Not available" soil-moisture metric
+    // card on the main dashboard is always visible above the tab strip.
+    setBtmTab('sat');
   } else if (section === 'crop' || section === 'advisory' || section === 'ground') {
     setBtmTab('agriculture');
-  } else if (section === 'forest' || section === 'bio') {
+  } else if (section === 'forest') {
+    setBtmTab('forest');
+  } else if (section === 'bio') {
     setBtmTab('ecology');
+  } else if (section === 'ai') {
+    setBtmTab('ai');
+  } else if (section === 'pmfby') {
+    setBtmTab('pmfby');
+  } else if (section === 'panch') {
+    setBtmTab('panch');
+  } else if (section === 'sat') {
+    setBtmTab('sat');
+  } else if (section === 'api') {
+    setBtmTab('api');
+  } else if (section === 'village') {
+    setBtmTab('village');
   } else if (section === 'cadastral') {
     setBtmTab('cadastral');
     if (window.leafletMap && typeof loadCadastralLayer === 'function') loadCadastralLayer();
@@ -1464,6 +1507,7 @@ function switchTab(tabEl,paneId){
   document.querySelectorAll('.btm-pane').forEach(p=>p.classList.remove('active'));
   const pane=document.getElementById('pane-'+paneId);
   if(pane) pane.classList.add('active');
+  if(paneId==='cadastral' && typeof loadCadastralLayer==='function') loadCadastralLayer();
 }
 
 // ============================================================
@@ -2000,23 +2044,55 @@ function applyDistrictMetrics(d){
   setTxt('m-ndvi', ndviIsReal ? ndviVal.toFixed(2) : 'Not available');
   setBar('bar-ndvi', ndviIsReal ? Math.round(ndviVal*100) : 0);
 
+  // Heatwave Severity: driven by heatwave_days/severe_heatwave_days per year
+  // (IMD heatwave-event criteria), not by absolute Tmax alone -- a district
+  // can record a hot day without meeting the IMD heatwave-day threshold.
+  // Thresholds documented in docs/METHODOLOGY.md section "Heatwave severity
+  // badge (dashboard)".
+  var hwDays = (indices && indices.heatwave_days_mean != null) ? indices.heatwave_days_mean : null;
+  var hwSevereDays = (indices && indices.severe_heatwave_days_mean != null) ? indices.severe_heatwave_days_mean : null;
   var heatVal = (indices && indices.max_summer_tmax != null) ? indices.max_summer_tmax : null;
-  if (heatVal != null) {
-    var hv = Number(heatVal);
-    var heatLabel = hv>=43?'EXTREME': hv>=40?'HIGH': hv>=37?'MODERATE':'LOW';
+  var navBadgeHeat = document.getElementById('nav-badge-heat');
+  if (hwDays != null) {
+    var heatLabel = (hwSevereDays != null && hwSevereDays >= 2) ? 'EXTREME'
+      : hwDays >= 8 ? 'HIGH' : hwDays >= 2 ? 'MODERATE' : 'LOW';
     setTxt('m-heat', heatLabel);
-    setBar('bar-heat', Math.min(100, Math.max(0, Math.round((hv/46)*100))));
-    setTxt('heat-detail', hv.toFixed(1)+'°C '+(d.name||''));
+    setBar('bar-heat', Math.min(100, Math.max(0, Math.round((hwDays/20)*100))));
+    setTxt('heat-detail', hwDays.toFixed(1)+' heatwave d/yr' + (heatVal != null ? ', max Tmax ' + heatVal.toFixed(1)+'°C' : '') + ' ' + (d.name||''));
+    // Sidebar ALERT badge: only shown when this district's own heatwave
+    // indices actually meet the HIGH/EXTREME threshold above -- previously
+    // hardcoded on regardless of the selected district or year.
+    if (navBadgeHeat) navBadgeHeat.style.display = (heatLabel === 'HIGH' || heatLabel === 'EXTREME') ? '' : 'none';
   } else {
     setTxt('m-heat', 'Not available');
     setBar('bar-heat', 0);
     setTxt('heat-detail', d.name||'');
+    if (navBadgeHeat) navBadgeHeat.style.display = 'none';
   }
-  var rainVal = (indices && indices.annual_rain_mm_mean != null) ? indices.annual_rain_mm_mean : null;
-  setTxt('m-rain', rainVal != null ? Number(rainVal).toFixed(0)+' mm' : 'Not available');
-  // Update rainfall deficit trend with district name
+
+  // Rainfall Departure: latest available year's annual rainfall minus the
+  // 2000-2024 district mean, with sign and percentage -- not the raw total
+  // (which was previously mislabelled "Rainfall Deficit").
+  var rainMean = (indices && indices.annual_rain_mm_mean != null) ? indices.annual_rain_mm_mean : null;
+  var rainLatest = null, rainLatestYear = null;
+  if (real && real.annual && real.annual.years && real.annual.years.length && real.annual.annual_rain_mm) {
+    var _yrs = real.annual.years;
+    rainLatestYear = _yrs[_yrs.length - 1];
+    rainLatest = real.annual.annual_rain_mm[_yrs.length - 1];
+  }
   var rtEl = document.getElementById('m-rain-trend');
-  if (rtEl) rtEl.textContent = d.name + (window._hazardYear ? ' (Yr '+window._hazardYear+')' : '');
+  var mEl = document.getElementById('m-rain');
+  if (rainMean != null && rainLatest != null) {
+    var departure = rainLatest - rainMean;
+    var departurePct = rainMean > 0 ? (departure / rainMean * 100) : null;
+    var sign = departure >= 0 ? '+' : '';
+    if (mEl) { mEl.textContent = sign + Math.round(departure) + ' mm'; mEl.style.color = departure < 0 ? 'var(--red)' : 'var(--green)'; }
+    if (rtEl) rtEl.textContent = d.name + ' ' + (rainLatestYear || '') + ' vs 2000-2024 mean' +
+      (departurePct != null ? ' (' + sign + departurePct.toFixed(0) + '%)' : '');
+  } else {
+    setTxt('m-rain', 'Not available');
+    if (rtEl) rtEl.textContent = d.name + (window._hazardYear ? ' (Yr '+window._hazardYear+')' : '');
+  }
 
   // Soil moisture requires SMAP/Bhuvan data, not integrated -- not derived from NDVI.
   setTxt('m-soil', 'Not available');
@@ -2374,23 +2450,10 @@ function initCharts(){
   // Skip Rainfall/Temperature/Drought — handled by mp_climate_loader
 
   // NDVI — handled by dicra_ndvi_loader.js; don't init here
-
-  // AI mini
-  try{
-    const ac=document.getElementById('chartAI');
-    if(ac) new Chart(ac,{type:'line',data:{
-      labels:Array.from({length:14},(_,i)=>'D'+(i+1)),
-      datasets:[{label:'Forecast Confidence',data:[88,90,91,93,92,94,95,94,96,95,96,97,96,96],borderColor:'#9cc0ef',backgroundColor:'rgba(127,169,232,0.12)',fill:true,tension:0.4,borderWidth:2,pointRadius:0}]
-    },options:chartOpts(grid)});
-  }catch(e){}
-  // PMFBY
-  try{
-    const pc=document.getElementById('chartPMFBY');
-    if(pc) new Chart(pc,{type:'doughnut',data:{
-      labels:['Low Risk','Moderate','High','Extreme'],
-      datasets:[{data:[28,34,26,12],backgroundColor:['#2d8f5c','#c9a843','#d4793a','#c0392b'],borderColor:'#dce1e8',borderWidth:2}]
-    },options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:10,font:{size:11,weight:'bold'}}}}}});
-  }catch(e){}
+  // AI Forecasting and PMFBY panels no longer render charts here -- they
+  // previously plotted hardcoded fake series (a rising "Forecast Confidence"
+  // line, a Low/Moderate/High/Extreme risk doughnut). Both panels now show
+  // an honest "not available" explanation instead; see docs/AUDIT_2026-08-01.md.
 }
 
 function chartOpts(grid){

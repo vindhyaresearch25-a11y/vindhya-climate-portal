@@ -194,6 +194,8 @@
       window.leafletMap.removeLayer(window._villageLayer);
       window._villageLayer = null;
     }
+    var navBadgeHeat = el('nav-badge-heat');
+    if (navBadgeHeat) navBadgeHeat.style.display = 'none';
   }
 
   function updateBreadcrumbNational(stateName, districtName, villageName) {

@@ -60,6 +60,23 @@ Reported per year per district:
 - `severe_heatwave_days`
 - `max_summer_tmax`, `mean_summer_tmax`
 
+#### Heatwave severity badge (dashboard)
+
+The dashboard's "Heatwave Severity" metric card classifies a district's
+multi-year mean `heatwave_days`/`severe_heatwave_days` (not absolute Tmax
+alone -- a hot day that doesn't meet the IMD heatwave-event criteria above
+must not read as severe):
+
+| Condition | Badge |
+|---|---|
+| `severe_heatwave_days_mean` ≥ 2 | EXTREME |
+| `heatwave_days_mean` ≥ 8 (and not EXTREME) | HIGH |
+| `heatwave_days_mean` ≥ 2 (and not HIGH/EXTREME) | MODERATE |
+| otherwise | LOW |
+
+`max_summer_tmax` is shown alongside the badge as context, not as the
+classification input. See `docs/AUDIT_2026-08-01.md` P3.
+
 ### 4.2 Drought — Standardized Precipitation Index (McKee et al., 1993)
 
 Monthly precipitation totals are fitted to a gamma distribution per calendar month using `scipy.stats.gamma.fit(positive_values, floc=0)`. Zero-precipitation months are handled with the mixed-distribution correction:
