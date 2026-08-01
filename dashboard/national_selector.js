@@ -85,6 +85,19 @@
     distSel.innerHTML = '<option value="">-- Select District --</option>';
     highlightStateOnMap(stateName);
 
+    if (stateName === 'Madhya Pradesh' && typeof populateDistricts === 'function') {
+      // Madhya Pradesh keeps its own original district list (the 5
+      // MP_DISTRICTS keys with live climate data) -- never overwrite it
+      // with the national district list, even if the user navigates away
+      // to another state and back. onDistrictChange/onVillageChange are
+      // already wrapped in boot() to route MP_DISTRICTS keys back to the
+      // original MP-specific handlers.
+      populateDistricts();
+      resetToNoData(stateName, null, null);
+      updateBreadcrumb();
+      return;
+    }
+
     var entry = namesIndex && namesIndex.states[stateName];
     if (entry && entry.status === 'pending') {
       var opt = document.createElement('option');
@@ -129,7 +142,7 @@
     var villSel = el('villageSelect');
     var villField = el('villageField');
     villSel.innerHTML = '<option value="">-- Select District First --</option>';
-    if (!districtName) { villField.style.display = 'none'; updateBreadcrumbNational(currentStateName, null, null); return; }
+    if (!districtName) { villField.style.display = 'none'; clearVillageLayerAndMarker(); updateBreadcrumbNational(currentStateName, null, null); return; }
 
     // Real MP districts with live climate data keep the existing, unmodified
     // flow (populateDistricts/onDistrictChange/MP_DISTRICTS) -- this
@@ -186,7 +199,14 @@
     resetToNoData(currentStateName, districtName, villageName);
     updateBreadcrumbNational(currentStateName, districtName, villageName);
 
-    if (!villageValue) { clearNationalHighlight(); return; }
+    if (!villageValue) {
+      // Deselecting the village: drop the marker, keep the district's
+      // green village layer (matches MP -- picking "-- Select --" doesn't
+      // remove window._villageLayer either).
+      var map = window.leafletMap;
+      if (map && window.villageMarker) { map.removeLayer(window.villageMarker); window.villageMarker = null; }
+      return;
+    }
 
     var entry = namesIndex && namesIndex.states[currentStateName];
     if (!entry || entry.status !== 'available') {
@@ -232,11 +252,12 @@
     if (advTitle) advTitle.textContent = 'Data not yet available for ' + label;
     var advBody = el('adv-body-0');
     if (advBody) advBody.textContent = 'This location is outside the 5 districts (Bhopal, Indore, Jabalpur, Rewa, Sidhi) currently covered by IMD-derived climate data. Coverage is being expanded -- see docs/NATIONAL_SCALE_RESEARCH.md.';
-
-    if (window.leafletMap && window._villageLayer) {
-      window.leafletMap.removeLayer(window._villageLayer);
-      window._villageLayer = null;
-    }
+    // Deliberately does NOT touch window._villageLayer/villageMarker here --
+    // matching the MP flow, the district's green village layer must stay
+    // visible when a specific village is then selected within it. Map
+    // layer clearing/redrawing is the job of highlightStateOnMap /
+    // highlightDistrictOnMap / highlightVillageOnMap below, called by the
+    // same code paths that call this function.
     var navBadgeHeat = el('nav-badge-heat');
     if (navBadgeHeat) navBadgeHeat.style.display = 'none';
   }
@@ -350,27 +371,41 @@
   window.loadNationalVillageGeometry = loadNationalVillageGeometry;
 
   // ---------------------------------------------------------------------
-  // Map highlighting: clear the previous selection's outline before ever
-  // adding a new one, so picking a new state doesn't leave the old one
-  // (e.g. Madhya Pradesh) drawn underneath -- this was the reported bug.
+  // Map behaviour for state/district/village selection outside Madhya
+  // Pradesh. This deliberately reuses the SAME mechanism the original MP
+  // flow already uses (dashboard/index.html: flyToDistrict, onVillageChange,
+  // applyVillageStyle/loadVillageBoundaries) rather than a separate look --
+  // same global layer variables (window._villageLayer, window.villageMarker),
+  // same colours, same flyTo/zoom levels, so a user can't tell there are two
+  // code paths underneath. See docs/AUDIT_2026-08-01.md follow-up and the
+  // MP pattern read directly from index.html before writing this.
+  //
+  //   District select (MP): flyTo(district centroid, zoom 9) + render every
+  //     village of that district as green (#2d8f5c) low-opacity polygons in
+  //     window._villageLayer (applyVillageStyle's default, non-hazard style).
+  //   Village select (MP): flyTo(village point, zoom 14) + a single marker
+  //     + popup in window.villageMarker -- the district's green village
+  //     layer stays visible underneath, it is not replaced by an outline.
   // ---------------------------------------------------------------------
-  var HIGHLIGHT_STYLE = { color: '#d4793a', weight: 3, fill: true, fillColor: '#d4793a', fillOpacity: 0.08 };
+  var VILLAGE_DEFAULT_STYLE = { color: '#2d8f5c', weight: 0.8, opacity: 0.7, fillColor: '#2d8f5c', fillOpacity: 0.06 };
+  var STATE_OUTLINE_STYLE = { color: '#ffd166', weight: 2.2, fill: false, opacity: 0.95 }; // same as india_boundaries_loader.js's state style -- MP has no state-select precedent of its own, so this reuses the one other state-outline convention already in the app
 
   function clearNationalHighlight() {
+    // No longer used by district/village (they now reuse window._villageLayer
+    // / window.villageMarker directly, cleared the same way the MP flow
+    // already clears them) -- kept only for the state-level outline, which
+    // has no MP equivalent to reuse.
     if (nationalHighlightLayer && window.leafletMap) {
       window.leafletMap.removeLayer(nationalHighlightLayer);
     }
     nationalHighlightLayer = null;
   }
 
-  function drawHighlight(geojsonFeature) {
+  function clearVillageLayerAndMarker() {
     var map = window.leafletMap;
-    if (!map || !geojsonFeature) return false;
-    clearNationalHighlight();
-    nationalHighlightLayer = L.geoJSON(geojsonFeature, { style: HIGHLIGHT_STYLE }).addTo(map);
-    var bounds = nationalHighlightLayer.getBounds();
-    if (bounds.isValid()) map.fitBounds(bounds, { padding: [40, 40], maxZoom: 13 });
-    return true;
+    if (!map) return;
+    if (window._villageLayer) { map.removeLayer(window._villageLayer); window._villageLayer = null; }
+    if (window.villageMarker) { map.removeLayer(window.villageMarker); window.villageMarker = null; }
   }
 
   function loadStatesGeo() {
@@ -383,36 +418,85 @@
 
   function highlightStateOnMap(stateName) {
     clearNationalHighlight();
+    clearVillageLayerAndMarker();
     loadStatesGeo().then(function (geo) {
       if (!geo) return;
       var feature = geo.features.filter(function (f) { return f.properties && f.properties.state === stateName; })[0];
-      if (feature) drawHighlight(feature);
+      var map = window.leafletMap;
+      if (!feature || !map) return;
+      nationalHighlightLayer = L.geoJSON(feature, { style: STATE_OUTLINE_STYLE }).addTo(map);
+      var bounds = nationalHighlightLayer.getBounds();
+      if (bounds.isValid()) map.fitBounds(bounds, { padding: [30, 30] });
     });
   }
 
+  // District select: same mechanism as MP's loadVillageBoundaries() +
+  // applyVillageStyle() + flyToDistrict() combined -- flies to the
+  // district's centroid at zoom 9, then draws every village of that
+  // district into window._villageLayer with the identical default style
+  // and popup format applyVillageStyle uses for MP villages.
   function highlightDistrictOnMap(stateName, districtName) {
-    clearNationalHighlight();
-    if (!districtsGeoData) return;
-    var feature = districtsGeoData.features.filter(function (f) {
-      return f.properties && f.properties.state === stateName && f.properties.district === districtName;
-    })[0];
-    if (feature) drawHighlight(feature);
+    clearNationalHighlight(); // the state outline is no longer needed once a district is picked
+    var map = window.leafletMap;
+    if (!map) return;
+
+    if (districtsGeoData) {
+      var distFeature = districtsGeoData.features.filter(function (f) {
+        return f.properties && f.properties.state === stateName && f.properties.district === districtName;
+      })[0];
+      if (distFeature) {
+        var b = L.geoJSON(distFeature).getBounds();
+        if (b.isValid()) map.flyTo(b.getCenter(), 9, { duration: 1.5 });
+      }
+    }
+
+    var entry = namesIndex && namesIndex.states[stateName];
+    if (!entry || entry.status !== 'available') {
+      clearVillageLayerAndMarker();
+      showBoundaryLoadStatus('<i class="fa fa-triangle-exclamation" style="color:var(--orange)"></i> ' +
+        t('Village boundary data pending official source for this state.', 'इस राज्य के लिए गाँव की सीमा डेटा अभी उपलब्ध नहीं है।'));
+      setTimeout(hideBoundaryLoadStatus, 5000);
+      return;
+    }
+    loadNationalVillageGeometry(stateName).then(function (geo) {
+      clearVillageLayerAndMarker();
+      if (!geo) return;
+      var features = geo.features.filter(function (f) { return f.properties && f.properties.district_name === districtName; });
+      if (!features.length) return;
+      window._villageLayer = L.geoJSON({ type: 'FeatureCollection', features: features }, {
+        style: function () { return VILLAGE_DEFAULT_STYLE; },
+        onEachFeature: function (feat, layer) {
+          var nm = feat.properties.village_name || 'Unnamed';
+          layer.bindPopup('<div><b style="color:var(--cyan)">' + nm + '</b><br>' +
+            '<span style="font-size:0.62rem;color:#5a6a7a">' + districtName + ' village</span></div>');
+        }
+      }).addTo(map);
+    });
   }
 
-  // Returns true if geometry for this village was found and drawn, false if
-  // the state's village layer is unavailable/pending, null while still
-  // loading (caller shows a "loading" vs "pending" message accordingly).
+  // Village select: same mechanism as MP's onVillageChange() -- flies to
+  // the village's point at zoom 14 and drops a single marker+popup into
+  // window.villageMarker. The district's green village layer (drawn by
+  // highlightDistrictOnMap above) is left in place, exactly like MP leaves
+  // window._villageLayer showing while a village marker is added on top.
   function highlightVillageOnMap(stateName, districtName, vilLgd) {
-    clearNationalHighlight();
     var entry = namesIndex && namesIndex.states[stateName];
     if (!entry || entry.status !== 'available') return Promise.resolve(false);
     return loadNationalVillageGeometry(stateName).then(function (geo) {
-      if (!geo) return false;
+      var map = window.leafletMap;
+      if (!geo || !map) return false;
       var feature = geo.features.filter(function (f) {
         return f.properties && String(f.properties.vil_lgd) === String(vilLgd) && f.properties.district_name === districtName;
       })[0];
       if (!feature) return false;
-      return drawHighlight(feature);
+      var center = L.geoJSON(feature).getBounds().getCenter();
+      map.flyTo(center, 14, { duration: 1.2 });
+      if (window.villageMarker) map.removeLayer(window.villageMarker);
+      window.villageMarker = L.marker(center).addTo(map)
+        .bindPopup('<b style="color:#1a8a9e">' + (feature.properties.village_name || 'Unnamed') + '</b><br/>' +
+          '<span style="font-size:0.65rem;color:#5a6a7a">' + districtName + ' District</span>')
+        .openPopup();
+      return true;
     });
   }
 
