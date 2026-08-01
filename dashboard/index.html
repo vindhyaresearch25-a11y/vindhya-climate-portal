@@ -44,26 +44,30 @@ body{background:#f5f7fa;color:var(--text);font-family:-apple-system,BlinkMacSyst
 .cad-tooltip{background:rgba(0,0,0,0.85);border:none;color:#fff;font-size:0.65rem;font-weight:600;padding:3px 8px;border-radius:4px;white-space:nowrap;}
 
 /* =========== LOGIN GATE =========== */
-#loginGate{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;z-index:1100;background:linear-gradient(135deg,#f5f7fa 0%,#e8ecf1 100%);padding:1.5rem;}
-.gate-slideshow{position:absolute;inset:0;z-index:0;overflow:hidden;filter:blur(4px) saturate(1.05);transform:scale(1.05);}
+#loginGate{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;z-index:1100;background:#1a2332;padding:1.5rem;}
+.gate-slideshow{position:absolute;inset:0;z-index:0;overflow:hidden;filter:blur(1.5px) saturate(1.1);transform:scale(1.03);}
 .gate-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 2.2s ease-in-out;transform:scale(1.08);}
-.gate-slide.active{opacity:0.55;animation:heroKenBurns 14s ease-out forwards;}
-#loginGate::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(245,247,250,0.5) 0%,rgba(232,236,241,0.62) 100%);z-index:1;}
-.login-card{position:relative;z-index:10;width:100%;max-width:380px;background:#ffffff;border:1px solid var(--border);border-radius:12px;padding:2rem 1.75rem;box-shadow:0 10px 40px rgba(26,138,158,0.12);text-align:center;}
-.login-title{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:1.6rem;font-weight:800;color:#1a2332;margin:0.75rem 0 0.35rem;}
-.login-sub{font-size:0.78rem;color:var(--text-dim);margin-bottom:1.5rem;line-height:1.5;}
+.gate-slide.active{opacity:0.88;animation:heroKenBurns 14s ease-out forwards;}
+#loginGate::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,16,26,0.35) 0%,rgba(10,16,26,0.55) 100%);z-index:1;}
+.gate-tagline{position:relative;z-index:10;max-width:480px;text-align:center;margin-bottom:1.25rem;min-height:1.4rem;padding:0 1rem;}
+.gate-tagline-line{display:none;font-size:0.85rem;font-weight:600;letter-spacing:0.5px;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,0.5);opacity:0;transition:opacity 0.8s ease-in-out;}
+.gate-tagline-line.active{display:block;opacity:1;}
+.login-card{position:relative;z-index:10;width:100%;max-width:380px;background:rgba(10,16,26,0.42);backdrop-filter:blur(14px) saturate(1.1);-webkit-backdrop-filter:blur(14px) saturate(1.1);border:1px solid rgba(255,255,255,0.16);border-radius:12px;padding:2rem 1.75rem;box-shadow:0 20px 60px rgba(0,0,0,0.35);text-align:center;}
+.login-title{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:1.6rem;font-weight:800;color:#ffffff;margin:0.75rem 0 0.35rem;}
+.login-sub{font-size:0.78rem;color:rgba(255,255,255,0.72);margin-bottom:1.5rem;line-height:1.5;}
 .login-field{text-align:left;margin-bottom:1rem;}
-.login-field label{display:block;font-size:0.7rem;font-weight:700;letter-spacing:1px;color:var(--text-dim);margin-bottom:0.35rem;}
-.login-req{color:var(--red);}
-.login-field input{width:100%;box-sizing:border-box;padding:0.6rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.85rem;color:var(--text);background:#fbfcfd;transition:border-color 0.2s;}
-.login-field input:focus{outline:none;border-color:var(--cyan);background:#fff;}
+.login-field label{display:block;font-size:0.7rem;font-weight:700;letter-spacing:1px;color:rgba(255,255,255,0.78);margin-bottom:0.35rem;}
+.login-req{color:#ff8a80;}
+.login-field input{width:100%;box-sizing:border-box;padding:0.6rem 0.75rem;border:1px solid rgba(255,255,255,0.22);border-radius:6px;font-size:0.85rem;color:#fff;background:rgba(255,255,255,0.08);transition:border-color 0.2s,background 0.2s;}
+.login-field input::placeholder{color:rgba(255,255,255,0.4);}
+.login-field input:focus{outline:none;border-color:var(--cyan);background:rgba(255,255,255,0.14);}
 #gateEnterBtn:not(:disabled){opacity:1 !important;cursor:pointer !important;}
-.gate-quote{position:relative;z-index:10;max-width:420px;margin-top:1.75rem;min-height:3.2rem;text-align:center;padding:0 1rem;}
+.gate-quote{position:relative;z-index:10;max-width:440px;margin-top:1.75rem;min-height:3.2rem;text-align:center;padding:0 1rem;}
 .gate-quote-line{display:none;opacity:0;transition:opacity 0.8s ease-in-out;}
 .gate-quote-line.active{display:block;opacity:1;}
-.gate-quote-hi{font-size:0.85rem;font-weight:600;color:#3a4a5a;line-height:1.5;}
-.gate-quote-en{font-size:0.72rem;font-weight:500;color:var(--text-dim);font-style:italic;margin-top:0.25rem;line-height:1.5;}
-@media(max-width:480px){.login-card{padding:1.5rem 1.25rem;}.login-title{font-size:1.35rem;}.gate-quote{margin-top:1.25rem;}.gate-quote-hi{font-size:0.78rem;}.gate-quote-en{font-size:0.68rem;}}
+.gate-quote-hi{font-size:0.88rem;font-weight:600;color:#ffffff;line-height:1.5;text-shadow:0 1px 6px rgba(0,0,0,0.5);}
+.gate-quote-en{font-size:0.74rem;font-weight:500;color:rgba(255,255,255,0.78);font-style:italic;margin-top:0.25rem;line-height:1.5;text-shadow:0 1px 6px rgba(0,0,0,0.5);}
+@media(max-width:480px){.login-card{padding:1.5rem 1.25rem;}.login-title{font-size:1.35rem;}.gate-tagline-line{font-size:0.76rem;}.gate-quote{margin-top:1.25rem;}.gate-quote-hi{font-size:0.8rem;}.gate-quote-en{font-size:0.68rem;}}
 
 /* =========== HERO =========== */
 #hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;z-index:1000;background:linear-gradient(135deg,#f5f7fa 0%,#e8ecf1 100%);}
@@ -366,6 +370,12 @@ canvas.chart-canvas{max-height:100%;}
     <div class="gate-slide" style="background-image:url('https://images.unsplash.com/photo-1530507629858-e4977d30e9e0?auto=format&fit=crop&w=1600&q=70')"></div>
     <div class="gate-slide" style="background-image:url('https://images.unsplash.com/photo-1560493676-04071c5f467b?auto=format&fit=crop&w=1600&q=70')"></div>
     <div class="gate-slide" style="background-image:url('https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=1600&q=70')"></div>
+  </div>
+  <div class="gate-tagline" id="gateTagline">
+    <div class="gate-tagline-line active" data-idx="0">अन्नदाता के लिए विज्ञान, हर मौसम में साथ / Science in service of those who feed us</div>
+    <div class="gate-tagline-line" data-idx="1">55,000+ गाँवों के लिए जलवायु सूचना / Climate intelligence for 55,000+ villages</div>
+    <div class="gate-tagline-line" data-idx="2">खेत से लेकर नीति तक, एक ही मंच पर / From the field to policy, on one platform</div>
+    <div class="gate-tagline-line" data-idx="3">हर बूँद, हर डिग्री गिनती है / Every drop, every degree counts</div>
   </div>
   <div class="login-card">
     <div class="hero-badge"><div class="hero-badge-dot"></div>VINDHYA CLIMATE INTELLIGENCE</div>
@@ -1181,6 +1191,7 @@ function submitLoginGate(){
   document.getElementById('hero').style.display='flex';
   clearInterval(gateSlideTimer);
   clearInterval(gateQuoteTimer);
+  clearInterval(gateTaglineTimer);
 }
 
 // Background slideshow (crossfade, same Ken Burns keyframes as the hero slideshow)
@@ -1190,16 +1201,25 @@ var gateSlideTimer=setInterval(function(){
   if(!gateSlides.length) return;
   gateSlideIdx=(gateSlideIdx+1)%gateSlides.length;
   gateSlides.forEach(function(s,i){ s.classList.toggle('active', i===gateSlideIdx); });
-},5000);
+},4500);
 
-// Rotating bilingual quote lines
+// Rotating bilingual quote lines (below the card)
 var gateQuoteLines=document.querySelectorAll('.gate-quote-line');
 var gateQuoteIdx=0;
 var gateQuoteTimer=setInterval(function(){
   if(!gateQuoteLines.length) return;
   gateQuoteIdx=(gateQuoteIdx+1)%gateQuoteLines.length;
   gateQuoteLines.forEach(function(q,i){ q.classList.toggle('active', i===gateQuoteIdx); });
-},4500);
+},5200);
+
+// Rotating short tagline (above the card), offset timing so it never changes in sync with the quote block
+var gateTaglineLines=document.querySelectorAll('.gate-tagline-line');
+var gateTaglineIdx=0;
+var gateTaglineTimer=setInterval(function(){
+  if(!gateTaglineLines.length) return;
+  gateTaglineIdx=(gateTaglineIdx+1)%gateTaglineLines.length;
+  gateTaglineLines.forEach(function(q,i){ q.classList.toggle('active', i===gateTaglineIdx); });
+},3800);
 
 // ============================================================
 // LAUNCH APP
@@ -2402,42 +2422,28 @@ function buildChatSystemPrompt(){
   var langLine=chatLangHi
     ? "IMPORTANT: Reply ONLY in Hindi (Devanagari script)."
     : "Reply in English unless the user writes in Hindi, in which case reply in Hindi.";
-  return `You are an AI Agriculture Expert for India. Answer farmer queries using district-wise data, weather forecasts, soil information, market prices, government schemes, and scientific crop recommendations. Provide responses in both English and Hindi. Use simple language suitable for farmers.
+  var kbLine = (typeof buildKnowledgeBaseContext === 'function') ? buildKnowledgeBaseContext(text) : '';
+  return `You are an AI Agriculture Expert for India. Answer farmer queries using the district/village data, knowledge-base excerpts, and government scheme information given below. Provide responses in both English and Hindi. Use simple language suitable for farmers.
 
-For every query, provide where possible:
-• Recommended crop(s)
-• Expected yield
-• Estimated profit
-• Fertilizer recommendation
-• Irrigation requirement
-• Pest and disease precautions
-• Nearest mandi information
-• Current mandi prices (estimate if unknown)
-• Weather advisory
-• Relevant government schemes
+Ground rule (non-negotiable): only state a number, price, alert, or fact if it is present in the data blocks below or in general, well-established agronomy knowledge (e.g. standard fertilizer ratios, crop calendars). Never invent a mandi price, a weather alert, or a statistic to fill a template field. If the data needed to answer isn't provided below, say so explicitly (in Hindi: "यह जानकारी उपलब्ध नहीं है") and suggest the farmer contact their nearest KVK (Krishi Vigyan Kendra) or check the cited official source/portal instead of guessing.
 
-Use this structure for common questions:
+For every query, structure the answer around what's actually knowable:
+• Recommended crop(s) — only if district/soil/climate data below supports it
+• Fertilizer/irrigation guidance — standard agronomic ranges are fine to state as general guidance, clearly labeled as general (not site-specific measurement)
+• Pest and disease precautions — general guidance, clearly labeled as general
+• Nearest mandi / current prices — ONLY if provided below; otherwise say live mandi price data is not integrated and point to Agmarknet (agmarknet.gov.in)
+• Relevant government schemes — PM-KISAN, PMFBY, Soil Health Card, KCC where relevant
+• Weather advisory — only from the climate data block below
 
-1. Best crop for my district? → Based on your district's climate, soil, rainfall, and market demand, the recommended crops are ______.
-2. Which crop gives highest profit? → The most profitable crops are ______ with estimated profit of ₹_____ per acre.
-3. Nearest mandi and today's prices? → Nearest mandi: ______. Today's market price: ______.
-4. Which crop is in high demand? → Currently, the highest demand crops are ______.
-5. How much fertilizer is needed? → N: ___ kg/acre, P: ___ kg/acre, K: ___ kg/acre.
-6. Best seed variety? → Recommended varieties: 1. ______ 2. ______
-7. Expected yield per acre? → Expected yield: ______ quintals/acre.
-8. Government schemes? → Applicable: PM-KISAN, PMFBY, Soil Health Card, KCC, state-specific schemes.
-9. Pest and disease control? → Major risks: ______. Recommended control: ______.
-10. Which crop this season? → Considering weather, soil, water, market demand: ______.
-
-Always answer with the district/village data provided below. Give actionable advice. Keep it practical for a farmer.
+Always cite which data block (district/village indices, knowledge base, or general agronomy knowledge) a claim comes from, and close with the nearest KVK contact if the query is location-specific and a KVK isn't already named.
 
 ${locLine}
 ${climLine}
 ${vilLine}
 ${fcLine}
-Active alerts: heatwave in Indore/Dhar/Barwani (~44C), drought watch in Bundelkhand (Sagar/Damoh/Tikamgarh), NDVI deficit in Jhabua, good rainfall forecast for Mandla/Balaghat.
+${kbLine}
 Cadastral context: ${buildCadastralContext()}
-If asked for exact live numbers you don't have, say it's an estimate based on available data. ${langLine}`;
+${langLine}`;
 }
 
 function askChatAboutCadastral(){
