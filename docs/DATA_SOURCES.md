@@ -13,7 +13,20 @@ CRS, processing, and quality status. Layers not listed must not be displayed.
 | `data/villages_*.geojson` (5 districts) | MP village boundary shapefile (LGD-coded) | vector | EPSG:4326 | reprojected, deduplicated on Vill_LGD | Verified | as shipped |
 | `data/boundaries/india_states.geojson` | Census of India 2011 (36 states/UTs, dissolved from districts) | vector, simplified 0.01° | EPSG:4326 | dissolve + Douglas-Peucker | Verified | 2026-08-01 |
 | `data/boundaries/india_districts.geojson` | Census of India 2011 (760 districts) | vector, simplified 0.005° | EPSG:4326 | simplification only | Verified | 2026-08-01 |
+| `data/mandi_prices.json` | AGMARKNET, published on data.gov.in by the Ministry of Agriculture and Farmers Welfare (resource `9ef84268-d588-465a-a308-a864a43d0070`) | APMC market, aggregated to district | not applicable (tabular) | `scripts/fetch_mandi_prices.py` on a daily GitHub Actions schedule; rows without a usable min/max/modal price, or with min above max, are dropped; nothing interpolated or carried forward | Verified | daily |
 | Cadastral parcels | **disabled** — pending MP Bhulekh / Bhu-Naksha Revenue Dept. records | — | — | — | Not available | — |
+
+## Market and trade sources: status
+
+| Source | Public API | Status in this portal |
+|---|---|---|
+| **AGMARKNET** (agmarknet.gov.in) | Yes — via data.gov.in resource `9ef84268-d588-465a-a308-a864a43d0070`, free key by registration | **Integrated.** Daily min/modal/max price per commodity per APMC market for the five covered districts. Verified live on 2026-08-01: 32 price rows across Bhopal, Indore, Jabalpur, Rewa and Sidhi, all dated the same day. |
+| **e-NAM** (enam.gov.in/web/dashboard/trade-data) | No documented public REST API found. The trade-data dashboard is a rendered web page; no bulk endpoint is published. | **Portal pointer only.** Do not scrape: the dashboard is served under portal terms, and e-NAM commodity coverage overlaps AGMARKNET, which already supplies the same trade in an authorised machine-readable form. Revisit if NIC publishes an e-NAM dataset on data.gov.in. |
+| **e-CHARAK** (echarak.ayush.gov.in) | No documented public API found. It is a Ministry of AYUSH buyer–seller platform for medicinal and aromatic plants, not a price-reporting service. | **Portal pointer only.** Relevant to a future medicinal-plants module for the Vindhya region, where such cultivation is significant. Requires an institutional data request to the National Medicinal Plants Board rather than an API call. |
+
+The rule applied to all three: cite and link the official portal, integrate
+only where the publisher provides a machine-readable endpoint under terms that
+permit it, and never scrape a dashboard to manufacture coverage.
 
 ## Geometry simplification for web delivery (2026-08)
 

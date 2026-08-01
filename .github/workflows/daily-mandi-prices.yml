@@ -1,0 +1,92 @@
+name: Daily mandi prices
+
+# Runs entirely on GitHub servers. Fetches AGMARKNET daily prices from
+# data.gov.in and commits the result, so GitHub Pages can serve it as a
+# static file with no backend and no API key in the browser.
+#
+# Setup: register at https://data.gov.in, then add the key as a repository
+# secret named DATA_GOV_API_KEY (Settings -> Secrets and variables ->
+# Actions -> New repository secret). Without it the script falls back to the
+# shared public sample key, which is heavily rate limited.
+
+on:
+  schedule:
+    # 12:30 IST — after the morning APMC session is published upstream
+    - cron: "0 7 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mandi-prices
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Fetch AGMARKNET daily prices
+        env:
+          DATA_GOV_API_KEY: ${{ secrets.DATA_GOV_API_KEY }}
+        run: python scripts/fetch_mandi_prices.py
+
+      - name: Validate the written file
+        run: |
+          python - <<'PY'
+          import json, sys
+          from pathlib import Path
+
+          p = Path("dashboard/data/mandi_prices.json")
+          if not p.exists():
+              sys.exit("mandi_prices.json was not written")
+
+          d = json.loads(p.read_text())
+          fails = []
+
+          if "metadata" not in d:
+              fails.append("missing metadata block")
+          expected = {"bhopal", "indore", "jabalpur", "rewa", "sidhi"}
+          if set(d.get("districts", {})) != expected:
+              fails.append(f"district set is {sorted(d.get('districts', {}))}")
+
+          for slug, dist in d.get("districts", {}).items():
+              for r in dist.get("records", []):
+                  mn, mx, md = r["min_price"], r["max_price"], r["modal_price"]
+                  if not (1 <= mn <= 200000 and 1 <= mx <= 200000 and 1 <= md <= 200000):
+                      fails.append(f"{slug}/{r['commodity']}: price out of range")
+                  if mn > mx:
+                      fails.append(f"{slug}/{r['commodity']}: min above max")
+                  if not r.get("arrival_date"):
+                      fails.append(f"{slug}/{r['commodity']}: no arrival date")
+
+          if fails:
+              print("VALIDATION FAILED")
+              for f in fails[:20]:
+                  print("  -", f)
+              sys.exit(1)
+
+          total = sum(x["count"] for x in d["districts"].values())
+          print(f"Validated {total} price rows across 5 districts.")
+          if total == 0:
+              print("No arrivals reported today. This is a normal market "
+                    "condition, not an error; no price is carried forward.")
+          PY
+
+      - name: Commit if prices changed
+        run: |
+          git config user.name  "vindhya-data-bot"
+          git config user.email "actions@github.com"
+          git add dashboard/data/mandi_prices.json
+          if git diff --staged --quiet; then
+            echo "Prices unchanged since the last run."
+          else
+            git commit -m "chore(data): daily AGMARKNET mandi prices [skip ci]"
+            git push
+          fi
