@@ -23,11 +23,12 @@ _URL_PATCHES = [
     ("'mp_districts.geojson'",             f"'{GITHUB_BASE}/mp_districts.geojson'"),
     ("'data/boundaries/india_states.geojson'",    f"'{GITHUB_RAW}/boundaries/india_states.geojson'"),
     ("'data/boundaries/india_districts.geojson'", f"'{GITHUB_RAW}/boundaries/india_districts.geojson'"),
+    ("'data/boundaries/names_index.json'", f"'{GITHUB_RAW}/boundaries/names_index.json'"),
     ("'mp_tehsils.geojson'",               f"'{GITHUB_BASE}/mp_tehsils.geojson'"),
     ("'mp_blocks.geojson'",                f"'{GITHUB_BASE}/mp_blocks.geojson'"),
 ]
 
-_JS_FILES = ['mp_climate_loader.js', 'dicra_ndvi_loader.js', 'cadastral_loader.js', 'india_boundaries_loader.js', 'knowledge_base_loader.js']
+_JS_FILES = ['mp_climate_loader.js', 'dicra_ndvi_loader.js', 'cadastral_loader.js', 'india_boundaries_loader.js', 'knowledge_base_loader.js', 'national_selector.js']
 
 
 def get_html_content():
@@ -52,10 +53,19 @@ def get_html_content():
             # Dynamic village URL: 'data/villages_'+distKey+'.geojson'
             pass  # handled by replace below
 
-    # Also patch the dynamic village URL pattern
+    # Also patch dynamic URL patterns built via string concatenation, which
+    # the literal-string _URL_PATCHES loop above can't catch (e.g.
+    # 'data/boundaries/' + entry.geometry_file in national_selector.js).
+    # This runs after the literal patches, so it only touches whatever
+    # 'data/boundaries/' occurrences remain -- the ones already rewritten
+    # above no longer contain that substring.
     html = html.replace(
         "'data/villages_'",
         f"'{GITHUB_RAW}/villages_'"
+    )
+    html = html.replace(
+        "'data/boundaries/'",
+        f"'{GITHUB_RAW}/boundaries/'"
     )
 
     # Fix viewport for iframe rendering

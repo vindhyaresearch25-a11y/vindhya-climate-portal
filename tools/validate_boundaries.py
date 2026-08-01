@@ -32,14 +32,18 @@ import sys
 from pathlib import Path
 
 import geopandas as gpd
+import shapely
+from shapely.errors import GEOSException
 
 
 def check_validity(gdf: gpd.GeoDataFrame) -> list[dict]:
     issues = []
     invalid = gdf[~gdf.geometry.is_valid]
     for idx, row in invalid.iterrows():
+        # shapely 2.x exposes this as a module-level function, not a
+        # geometry attribute/method -- geom.is_valid_reason does not exist.
         issues.append({"type": "invalid_geometry", "row": int(idx),
-                        "reason": row.geometry.is_valid_reason if hasattr(row.geometry, "is_valid_reason") else "invalid"})
+                        "reason": shapely.is_valid_reason(row.geometry)})
     empty = gdf[gdf.geometry.is_empty | gdf.geometry.isna()]
     for idx in empty.index:
         issues.append({"type": "empty_geometry", "row": int(idx)})
@@ -74,7 +78,15 @@ def check_duplicate_geometries(gdf: gpd.GeoDataFrame, area_tol: float = 1e-9) ->
             other = gdf.geometry.loc[cand_idx]
             if other is None or other.is_empty:
                 continue
-            if geom.equals_exact(other, tolerance=area_tol) or geom.symmetric_difference(other).area < area_tol:
+            try:
+                is_dup = geom.equals_exact(other, tolerance=area_tol) or geom.symmetric_difference(other).area < area_tol
+            except GEOSException:
+                # GEOS set operations can fail ("side location conflict") on
+                # topologically invalid input -- that's already reported by
+                # check_validity(); don't let it crash the duplicate scan too.
+                issues.append({"type": "geometry_op_failed", "check": "duplicate_geometry", "rows": [int(idx), int(cand_idx)]})
+                continue
+            if is_dup:
                 issues.append({"type": "duplicate_geometry", "rows": [int(idx), int(cand_idx)]})
     return issues
 
@@ -100,9 +112,15 @@ def check_overlaps(gdf: gpd.GeoDataFrame, overlap_fraction_threshold: float = 0.
                 continue
             seen.add((idx, cand_idx))
             other = projected.geometry.loc[cand_idx]
-            if other is None or other.is_empty or not geom.intersects(other):
+            if other is None or other.is_empty:
                 continue
-            inter_area = geom.intersection(other).area
+            try:
+                if not geom.intersects(other):
+                    continue
+                inter_area = geom.intersection(other).area
+            except GEOSException:
+                issues.append({"type": "geometry_op_failed", "check": "overlap", "rows": [int(idx), int(cand_idx)]})
+                continue
             smaller_area = min(geom.area, other.area)
             if smaller_area <= 0:
                 continue
