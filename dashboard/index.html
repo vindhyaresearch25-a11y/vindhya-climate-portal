@@ -2173,30 +2173,9 @@ function toggleLayer(type){
   }
   if(type==='heat'){
     if(window.heatLayer){map.removeLayer(window.heatLayer);window.heatLayer=null;}
-    else{
-      const heatPoints=[
-        {lat:22.7196,lng:75.8577,color:'#c0392b',name:'Indore - Extreme Heat'},
-        {lat:22.033,lng:74.901,color:'#d4793a',name:'Barwani - High Heat'},
-        {lat:22.599,lng:75.299,color:'#d4793a',name:'Dhar - High Heat'},
-        {lat:22.766,lng:74.583,color:'#c9a843',name:'Jhabua - Moderate Heat'}
-      ];
-      window.heatLayer=L.layerGroup(heatPoints.map(p=>
-        L.circle([p.lat,p.lng],{radius:30000,color:p.color,fillColor:p.color,fillOpacity:0.2,weight:1}).bindPopup(`<b style="color:${p.color}">${p.name}</b>`)
-      )).addTo(map);
-    }
   }
   if(type==='rain'){
     if(window.rainLayer){map.removeLayer(window.rainLayer);window.rainLayer=null;}
-    else{
-      const rainPoints=[
-        {lat:22.034,lng:79.968,color:'#1a8a9e',r:40000,name:'Balaghat - 80mm expected'},
-        {lat:22.604,lng:80.405,color:'#6fc8bd',r:35000,name:'Mandla - 65mm expected'},
-        {lat:23.311,lng:81.355,color:'#7fa9e8',r:25000,name:'Shahdol - 40mm expected'}
-      ];
-      window.rainLayer=L.layerGroup(rainPoints.map(p=>
-        L.circle([p.lat,p.lng],{radius:p.r,color:p.color,fillColor:p.color,fillOpacity:0.2,weight:1}).bindPopup(`<b style="color:${p.color}">${p.name}</b>`)
-      )).addTo(map);
-    }
   }
 }
 
@@ -2374,34 +2353,6 @@ function initMap(){
   }).addTo(map);
 
   L.control.zoom({position:'bottomright'}).addTo(map);
-
-  const riskColors={extreme:'#c0392b',high:'#d4793a',moderate:'#c9a843',low:'#2d8f5c'};
-
-  // Plot all MP districts from the hierarchy
-  Object.keys(MP_DISTRICTS).forEach(key=>{
-    const d=MP_DISTRICTS[key];
-    const color=riskColors[d.risk]||'#1a8a9e';
-    const marker=L.circleMarker([d.lat,d.lng],{
-      radius:8,color:color,fillColor:color,fillOpacity:0.7,weight:2
-    });
-    marker.bindPopup(`
-      <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;min-width:180px;">
-        <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:0.75rem;color:${color};margin-bottom:0.5rem;">${d.name.toUpperCase()}</div>
-        <div style="font-size:0.65rem;line-height:1.8;">
-          <span style="color:#5a6a7a">Risk Level:</span> <b style="color:${color}">${d.risk.toUpperCase()}</b><br/>
-          <span style="color:#5a6a7a">Drought Index:</span> <b style="color:#d4793a">${d.drought}%</b><br/>
-          <span style="color:#5a6a7a">Max Temp:</span> <b style="color:#c0392b">${d.heat}\u00b0C</b><br/>
-          <span style="color:#5a6a7a">NDVI:</span> <b style="color:#2d8f5c">${d.ndvi}</b>
-        </div>
-      </div>
-    `);
-    marker.on('click',()=>{ document.getElementById('districtSelect').value=key; onDistrictChange(key); });
-    marker.addTo(map);
-
-    if(d.risk==='extreme'){
-      L.circle([d.lat,d.lng],{radius:25000,color:color,fillColor:color,fillOpacity:0.05,weight:1,dashArray:'5,5'}).addTo(map);
-    }
-  });
 
   // Narmada river (simplified polyline)
   const narmada=[[22.9,73.8],[22.5,75.5],[22.3,77],[22.0,78.5],[21.7,80],[21.5,82]];
