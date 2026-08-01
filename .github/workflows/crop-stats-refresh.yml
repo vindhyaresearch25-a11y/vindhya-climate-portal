@@ -1,0 +1,82 @@
+name: Crop statistics refresh
+
+# Runs entirely on GitHub servers. Unlike mandi prices, this source
+# (data.gov.in resource 35be999b-0208-4354-b557-f6ca9a5355de) is a static
+# historical dataset last updated by its publisher on 2021-07-13 -- it does
+# not move daily. This workflow checks monthly (in case the publisher ever
+# refreshes it) plus a manual trigger, rather than running every day.
+
+on:
+  schedule:
+    - cron: "0 4 1 * *"   # 04:00 UTC on the 1st of each month
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # The sample key caps each page at 10 records; 5 districts x ~400-500
+      # rows each means several hundred sequential requests. Comfortably
+      # under GitHub Actions' job time limit, but not fast -- expect a few
+      # minutes.
+      - name: Fetch district-wise crop statistics
+        env:
+          DATA_GOV_API_KEY: ${{ secrets.DATA_GOV_API_KEY }}
+        run: python scripts/fetch_crop_stats.py
+
+      - name: Validate the written file
+        run: |
+          python - <<'PY'
+          import json, sys
+          from pathlib import Path
+
+          p = Path("dashboard/data/crop_stats.json")
+          if not p.exists():
+              sys.exit("crop_stats.json was not written")
+
+          d = json.loads(p.read_text())
+          fails = []
+
+          if "metadata" not in d:
+              fails.append("missing metadata block")
+          expected = {"bhopal", "indore", "jabalpur", "rewa", "sidhi"}
+          if set(d.get("districts", {})) != expected:
+              fails.append(f"district set is {sorted(d.get('districts', {}))}")
+
+          for slug, dist in d.get("districts", {}).items():
+              for r in dist.get("records", []):
+                  if r["area_ha"] < 0 or r["production_tonnes"] < 0:
+                      fails.append(f"{slug}/{r['crop']}/{r['year']}: negative area or production")
+                  if not r.get("season") or not r.get("crop"):
+                      fails.append(f"{slug}/{r['year']}: missing season or crop label")
+
+          if fails:
+              print("VALIDATION FAILED")
+              for f in fails[:20]:
+                  print("  -", f)
+              sys.exit(1)
+
+          total = sum(x["count"] for x in d["districts"].values())
+          print(f"Validated {total} crop-statistic rows across 5 districts.")
+          PY
+
+      - name: Commit if data changed
+        run: |
+          git config user.name  "vindhya-data-bot"
+          git config user.email "actions@github.com"
+          git add dashboard/data/crop_stats.json
+          if git diff --staged --quiet; then
+            echo "Crop statistics unchanged since the last run."
+          else
+            git commit -m "chore(data): refresh crop statistics [skip ci]"
+            git push
+          fi

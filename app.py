@@ -20,6 +20,7 @@ _URL_PATCHES = [
     ("'data/forecast_2040.json'",          f"'{GITHUB_RAW}/forecast_2040.json'"),
     ("'data/knowledge_base/index.json'",   f"'{GITHUB_RAW}/knowledge_base/index.json'"),
     ("'data/mandi_prices.json'",           f"'{GITHUB_RAW}/mandi_prices.json'"),
+    ("'data/crop_stats.json'",             f"'{GITHUB_RAW}/crop_stats.json'"),
     # Boundary GeoJSON files (in dashboard/ root, not dashboard/data/)
     ("'mp_districts.geojson'",             f"'{GITHUB_BASE}/mp_districts.geojson'"),
     ("'data/boundaries/india_states.geojson'",    f"'{GITHUB_RAW}/boundaries/india_states.geojson'"),
@@ -33,7 +34,8 @@ _URL_PATCHES = [
 # list, so neither module loaded at all on the Streamlit deployment (only on
 # GitHub Pages, which serves the scripts directly). See docs/AUDIT_2026-08-01.md J.
 _JS_FILES = ['mp_climate_loader.js', 'dicra_ndvi_loader.js', 'cadastral_loader.js', 'india_boundaries_loader.js',
-             'geoai_professional.js', 'mandi_loader.js', 'knowledge_base_loader.js', 'national_selector.js']
+             'geoai_professional.js', 'mandi_loader.js', 'crop_stats_loader.js', 'knowledge_base_loader.js',
+             'national_selector.js']
 
 
 def get_html_content():
