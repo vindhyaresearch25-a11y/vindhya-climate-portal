@@ -21,8 +21,11 @@
   var REAL_DATA_DISTRICTS = { bhopal: 1, indore: 1, jabalpur: 1, rewa: 1, sidhi: 1 };
   var namesIndex = null;               // dashboard/data/boundaries/names_index.json
   var districtsByState = {};           // state name -> [{district, dt_code}]
+  var districtsGeoData = null;         // full india_districts.geojson, cached from boot()
+  var statesGeoData = null;            // full india_states.geojson, fetched lazily on first use
   var currentStateName = 'Madhya Pradesh';
   var currentPerStateNames = null;     // loaded names/<slug>.json for the selected state
+  var nationalHighlightLayer = null;   // single tracked layer: the currently selected state/district/village outline
 
   function el(id) { return document.getElementById(id); }
 
@@ -80,6 +83,7 @@
     currentPerStateNames = null;
     var distSel = el('districtSelect');
     distSel.innerHTML = '<option value="">-- Select District --</option>';
+    highlightStateOnMap(stateName);
 
     var entry = namesIndex && namesIndex.states[stateName];
     if (entry && entry.status === 'pending') {
@@ -134,6 +138,7 @@
     if (mpKey) { return; } // handled by the original onDistrictChange via MP_DISTRICTS
 
     resetToNoData(currentStateName, districtName, null);
+    highlightDistrictOnMap(currentStateName, districtName);
     villField.style.display = 'block';
     var allVillages = currentPerStateNames && currentPerStateNames.districts && currentPerStateNames.districts[districtName];
     // Some source records have no name at all (~10% in parts of this
@@ -161,9 +166,43 @@
     updateBreadcrumbNational(currentStateName, districtName, null);
   }
 
-  function onNationalVillageChange(villageLabel) {
-    resetToNoData(currentStateName, el('districtSelect').value, villageLabel || null);
-    updateBreadcrumbNational(currentStateName, el('districtSelect').value, villageLabel || null);
+  // villageValue is the <option value>, which is the village's LGD code
+  // whenever one exists (see onNationalDistrictChange) -- not a display
+  // name. Resolve the real name from the already-loaded per-state names
+  // data before using it anywhere (breadcrumb, map popup); fall back to
+  // the raw value only if a name genuinely isn't available.
+  function resolveVillageName(districtName, villageValue) {
+    var villages = currentPerStateNames && currentPerStateNames.districts && currentPerStateNames.districts[districtName];
+    if (!villages) return villageValue;
+    var match = villages.filter(function (v) {
+      return (v.vil_lgd != null && String(v.vil_lgd) === String(villageValue)) || v.name === villageValue;
+    })[0];
+    return match ? match.name : villageValue;
+  }
+
+  function onNationalVillageChange(villageValue) {
+    var districtName = el('districtSelect').value;
+    var villageName = villageValue ? resolveVillageName(districtName, villageValue) : null;
+    resetToNoData(currentStateName, districtName, villageName);
+    updateBreadcrumbNational(currentStateName, districtName, villageName);
+
+    if (!villageValue) { clearNationalHighlight(); return; }
+
+    var entry = namesIndex && namesIndex.states[currentStateName];
+    if (!entry || entry.status !== 'available') {
+      clearNationalHighlight();
+      showBoundaryLoadStatus('<i class="fa fa-triangle-exclamation" style="color:var(--orange)"></i> ' +
+        t('Village boundary data pending official source for this state.', 'इस राज्य के लिए गाँव की सीमा डेटा अभी उपलब्ध नहीं है।'));
+      setTimeout(hideBoundaryLoadStatus, 5000);
+      return;
+    }
+    highlightVillageOnMap(currentStateName, districtName, villageValue).then(function (found) {
+      if (!found) {
+        showBoundaryLoadStatus('<i class="fa fa-triangle-exclamation" style="color:var(--orange)"></i> ' +
+          t('Village boundary data pending for ' + villageName + '.', villageName + ' के लिए सीमा डेटा उपलब्ध नहीं है।'));
+        setTimeout(hideBoundaryLoadStatus, 5000);
+      }
+    });
   }
 
   function mpDistrictKeyFor(stateName, districtName) {
@@ -311,6 +350,73 @@
   window.loadNationalVillageGeometry = loadNationalVillageGeometry;
 
   // ---------------------------------------------------------------------
+  // Map highlighting: clear the previous selection's outline before ever
+  // adding a new one, so picking a new state doesn't leave the old one
+  // (e.g. Madhya Pradesh) drawn underneath -- this was the reported bug.
+  // ---------------------------------------------------------------------
+  var HIGHLIGHT_STYLE = { color: '#d4793a', weight: 3, fill: true, fillColor: '#d4793a', fillOpacity: 0.08 };
+
+  function clearNationalHighlight() {
+    if (nationalHighlightLayer && window.leafletMap) {
+      window.leafletMap.removeLayer(nationalHighlightLayer);
+    }
+    nationalHighlightLayer = null;
+  }
+
+  function drawHighlight(geojsonFeature) {
+    var map = window.leafletMap;
+    if (!map || !geojsonFeature) return false;
+    clearNationalHighlight();
+    nationalHighlightLayer = L.geoJSON(geojsonFeature, { style: HIGHLIGHT_STYLE }).addTo(map);
+    var bounds = nationalHighlightLayer.getBounds();
+    if (bounds.isValid()) map.fitBounds(bounds, { padding: [40, 40], maxZoom: 13 });
+    return true;
+  }
+
+  function loadStatesGeo() {
+    if (statesGeoData) return Promise.resolve(statesGeoData);
+    return fetchWithTimeoutSafe('data/boundaries/india_states.geojson', FETCH_TIMEOUT_MS).then(function (d) {
+      statesGeoData = d;
+      return d;
+    });
+  }
+
+  function highlightStateOnMap(stateName) {
+    clearNationalHighlight();
+    loadStatesGeo().then(function (geo) {
+      if (!geo) return;
+      var feature = geo.features.filter(function (f) { return f.properties && f.properties.state === stateName; })[0];
+      if (feature) drawHighlight(feature);
+    });
+  }
+
+  function highlightDistrictOnMap(stateName, districtName) {
+    clearNationalHighlight();
+    if (!districtsGeoData) return;
+    var feature = districtsGeoData.features.filter(function (f) {
+      return f.properties && f.properties.state === stateName && f.properties.district === districtName;
+    })[0];
+    if (feature) drawHighlight(feature);
+  }
+
+  // Returns true if geometry for this village was found and drawn, false if
+  // the state's village layer is unavailable/pending, null while still
+  // loading (caller shows a "loading" vs "pending" message accordingly).
+  function highlightVillageOnMap(stateName, districtName, vilLgd) {
+    clearNationalHighlight();
+    var entry = namesIndex && namesIndex.states[stateName];
+    if (!entry || entry.status !== 'available') return Promise.resolve(false);
+    return loadNationalVillageGeometry(stateName).then(function (geo) {
+      if (!geo) return false;
+      var feature = geo.features.filter(function (f) {
+        return f.properties && String(f.properties.vil_lgd) === String(vilLgd) && f.properties.district_name === districtName;
+      })[0];
+      if (!feature) return false;
+      return drawHighlight(feature);
+    });
+  }
+
+  // ---------------------------------------------------------------------
   // Boot: wait for the app's own init (populateDistricts etc.) to have run,
   // then layer the national selector on top without disturbing the
   // existing Madhya Pradesh flow.
@@ -321,6 +427,7 @@
       var districtsGeo = results[1];
       if (!namesIndex || !districtsGeo) return;
       window._nationalBoundaryState = { namesIndex: namesIndex };
+      districtsGeoData = districtsGeo;
 
       districtsByState = {};
       districtsGeo.features.forEach(function (f) {
@@ -337,6 +444,10 @@
       // any other state) falls through to the honest "not available" path.
       var originalOnDistrictChange = window.onDistrictChange;
       window.onDistrictChange = function (distKey) {
+        // Always clear any state/district/village outline this module drew
+        // (e.g. from a previous non-MP selection) before either path runs,
+        // so it never lingers under the MP flow's own village layer.
+        clearNationalHighlight();
         if (currentStateName === 'Madhya Pradesh' && typeof MP_DISTRICTS !== 'undefined' && MP_DISTRICTS[distKey]) {
           originalOnDistrictChange(distKey);
         } else {
