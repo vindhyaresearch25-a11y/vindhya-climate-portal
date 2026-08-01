@@ -33,13 +33,17 @@
   }
 
   // ---------------------------------------------------------------------
-  // Load: names index (tiny) + all-India district list (already shipped)
+  // Load: names index (tiny) + all-India district list (already shipped).
+  // Both go through fetchWithTimeoutSafe (30s timeout, resolves null on any
+  // failure instead of rejecting/hanging) -- if either is missing or slow,
+  // boot() below leaves the selector in its original MP-only state instead
+  // of leaving Country/State locked-but-silent forever.
   // ---------------------------------------------------------------------
   function loadNamesIndex() {
-    return fetch('data/boundaries/names_index.json').then(function (r) { return r.ok ? r.json() : null; });
+    return fetchWithTimeoutSafe('data/boundaries/names_index.json', FETCH_TIMEOUT_MS);
   }
   function loadDistrictBoundaries() {
-    return fetch('data/boundaries/india_districts.geojson').then(function (r) { return r.ok ? r.json() : null; });
+    return fetchWithTimeoutSafe('data/boundaries/india_districts.geojson', FETCH_TIMEOUT_MS);
   }
 
   function unlockSelector() {
@@ -206,6 +210,105 @@
     if (villageName) parts.push('<b>' + villageName + '</b>');
     el2.innerHTML = parts.join(' &rsaquo; ');
   }
+
+  // ---------------------------------------------------------------------
+  // Village boundary GEOMETRY (5-63 MB per state, unlike the tiny names/
+  // index files above): 30s timeout, a loading indicator that states the
+  // real file size up front, a cached-in-memory result so a state never
+  // downloads twice, and a fallback that never blocks the page -- a
+  // timeout or network error just means no extra village layer draws,
+  // the rest of the app (including the existing MP flow) is unaffected.
+  // ---------------------------------------------------------------------
+  var villageGeomCache = {};      // geometry_file -> parsed GeoJSON
+  var villageGeomInflight = {};   // geometry_file -> Promise, de-dupes concurrent requests
+  var FETCH_TIMEOUT_MS = 30000;
+
+  function showBoundaryLoadStatus(html) {
+    var box = el('boundaryLoadStatus');
+    if (!box) return;
+    box.innerHTML = html;
+    box.style.display = 'block';
+  }
+  function hideBoundaryLoadStatus() {
+    var box = el('boundaryLoadStatus');
+    if (box) box.style.display = 'none';
+  }
+
+  function fetchWithTimeout(url, timeoutMs) {
+    var controller = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+    var timer = controller ? setTimeout(function () { controller.abort(); }, timeoutMs) : null;
+    return fetch(url, controller ? { signal: controller.signal } : {})
+      .then(function (r) {
+        if (timer) clearTimeout(timer);
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .catch(function (e) {
+        if (timer) clearTimeout(timer);
+        throw e;
+      });
+  }
+
+  // Same as fetchWithTimeout, but never rejects -- resolves null on any
+  // timeout/network/HTTP error. Used for the two boot()-time fetches so a
+  // missing or slow file degrades to "national selector stays MP-only"
+  // instead of an unhandled rejection or an indefinitely pending promise.
+  function fetchWithTimeoutSafe(url, timeoutMs) {
+    return fetchWithTimeout(url, timeoutMs).catch(function (e) {
+      console.warn('[national_selector] fetch failed, falling back to MP-only:', url, e);
+      return null;
+    });
+  }
+
+  // Loads the real village-boundary GeoJSON for a state, honouring cache.
+  // Returns a Promise resolving to the parsed GeoJSON, or null on any
+  // failure/timeout (never rejects -- callers should treat null as "no
+  // extra layer this time" and carry on).
+  function loadNationalVillageGeometry(stateName) {
+    var entry = namesIndex && namesIndex.states[stateName];
+    if (!entry || entry.status !== 'available' || !entry.geometry_file) return Promise.resolve(null);
+    var file = entry.geometry_file;
+
+    if (villageGeomCache[file]) return Promise.resolve(villageGeomCache[file]);
+    if (villageGeomInflight[file]) return villageGeomInflight[file];
+
+    var sizeMb = entry.geometry_file_size_mb;
+    var etaText = sizeMb == null ? '' : (sizeMb > 30 ? ' -- 2-3 minutes on a slow connection' : sizeMb > 8 ? ' -- 30-60 seconds on a slow connection' : '');
+    showBoundaryLoadStatus(
+      '<i class="fa fa-spinner fa-spin"></i> ' +
+      stateName + ' ' + t('ki seemayein laayi ja rahi hain', 'boundaries loading') +
+      (sizeMb != null ? ' (' + sizeMb + ' MB)' : '') + etaText + '...'
+    );
+
+    var p = fetchWithTimeout('data/boundaries/' + file, FETCH_TIMEOUT_MS)
+      .then(function (data) {
+        villageGeomCache[file] = data;
+        hideBoundaryLoadStatus();
+        return data;
+      })
+      .catch(function (e) {
+        var isTimeout = e && e.name === 'AbortError';
+        showBoundaryLoadStatus(
+          '<i class="fa fa-triangle-exclamation" style="color:var(--orange)"></i> ' +
+          stateName + ' ' + (isTimeout
+            ? t('ki boundaries load nahi ho payin (timeout). Naam/dropdown kaam karte rahenge, sirf map par extra layer nahi dikhega.', 'boundaries timed out loading -- names still work, just no extra map layer.')
+            : t('ki boundaries load nahi ho payin. Naam/dropdown kaam karte rahenge.', 'boundaries failed to load -- names still work.'))
+        );
+        setTimeout(hideBoundaryLoadStatus, 6000);
+        console.warn('[national_selector] village geometry load failed for', stateName, e);
+        return null;
+      })
+      .finally(function () { delete villageGeomInflight[file]; });
+    villageGeomInflight[file] = p;
+    return p;
+  }
+
+  function t(en, hi) {
+    try { return (window.LANG === 'hi' || document.body.classList.contains('lang-hi')) ? hi : en; }
+    catch (e) { return en; }
+  }
+
+  window.loadNationalVillageGeometry = loadNationalVillageGeometry;
 
   // ---------------------------------------------------------------------
   // Boot: wait for the app's own init (populateDistricts etc.) to have run,

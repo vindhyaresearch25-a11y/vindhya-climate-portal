@@ -635,6 +635,7 @@ canvas.chart-canvas{max-height:100%;}
           <div class="loc-breadcrumb" id="locBreadcrumb">
             <b>India</b> › <b>Madhya Pradesh</b>
           </div>
+          <div id="boundaryLoadStatus" style="display:none;font-size:0.68rem;line-height:1.5;padding:0.4rem 0.5rem;margin-top:0.3rem;background:rgba(26,138,158,0.08);border:1px solid rgba(26,138,158,0.25);border-radius:5px;color:var(--text);"></div>
 
           <div class="loc-divider"></div>
           <div class="loc-bar-title" style="margin-top:0.3rem"><i class="fa fa-layer-group"></i> Boundaries</div>
@@ -1684,29 +1685,22 @@ var _villageGeoData = null;
 // see national_selector.js) filtered down to one district. Village positions are
 // never invented -- if no real boundary source has this district, no village
 // layer is shown at all, rather than a Math.random()-generated placeholder.
+// Delegates the actual fetch to national_selector.js's
+// loadNationalVillageGeometry(), which owns the 30s timeout, the
+// size-aware loading indicator, in-memory caching, and the graceful
+// null-on-failure fallback so this (and the map) never hangs.
 async function loadNationalVillagesForDistrict(stateName, districtName){
-  if (typeof window._nationalBoundaryState === 'undefined' || !window._nationalBoundaryState) return null;
-  var entry = window._nationalBoundaryState.namesIndex && window._nationalBoundaryState.namesIndex.states[stateName];
-  if (!entry || entry.status !== 'available' || !entry.geometry_file) return null;
-  try {
-    var cacheKey = entry.geometry_file;
-    if (!window._nationalVillageGeomCache) window._nationalVillageGeomCache = {};
-    var full = window._nationalVillageGeomCache[cacheKey];
-    if (!full) {
-      var r = await fetch('data/boundaries/' + entry.geometry_file);
-      if (!r.ok) return null;
-      full = await r.json();
-      window._nationalVillageGeomCache[cacheKey] = full;
-    }
-    var features = full.features.filter(function(f){
-      return f.properties && f.properties.district_name === districtName;
-    }).map(function(f){
-      return {type:'Feature', geometry: f.geometry,
-        properties: {Vill_LGD: f.properties.vil_lgd, Villl_name: f.properties.village_name}};
-    });
-    if (!features.length) return null;
-    return {type:'FeatureCollection', features: features};
-  } catch(e) { return null; }
+  if (typeof window.loadNationalVillageGeometry !== 'function') return null;
+  var full = await window.loadNationalVillageGeometry(stateName);
+  if (!full) return null;
+  var features = full.features.filter(function(f){
+    return f.properties && f.properties.district_name === districtName;
+  }).map(function(f){
+    return {type:'Feature', geometry: f.geometry,
+      properties: {Vill_LGD: f.properties.vil_lgd, Villl_name: f.properties.village_name}};
+  });
+  if (!features.length) return null;
+  return {type:'FeatureCollection', features: features};
 }
 
 async function loadVillageBoundaries(distKey, hazardKind){
