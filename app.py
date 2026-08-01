@@ -54,22 +54,17 @@ def get_html_content():
 
     # Apply URL patches (now hits fetch URLs inside inlined JS)
     for old, new in _URL_PATCHES:
-        if old in html:
-            html = html.replace(old, new)
-        else:
-            # Dynamic village URL: 'data/villages_'+distKey+'.geojson'
-            pass  # handled by replace below
+        html = html.replace(old, new)
 
     # Also patch dynamic URL patterns built via string concatenation, which
     # the literal-string _URL_PATCHES loop above can't catch (e.g.
-    # 'data/boundaries/' + entry.geometry_file in national_selector.js).
-    # This runs after the literal patches, so it only touches whatever
-    # 'data/boundaries/' occurrences remain -- the ones already rewritten
-    # above no longer contain that substring.
-    html = html.replace(
-        "'data/villages_'",
-        f"'{GITHUB_RAW}/villages_'"
-    )
+    # 'data/boundaries/' + entry.geometry_file in national_selector.js, or
+    # 'data/boundaries/' + 'soi_villages/madhya_pradesh/' + slug + '.geojson'
+    # in index.html/national_selector.js's per-MP-district village loaders).
+    # Matches only the exact closed string literal 'data/boundaries/' --
+    # any fetch URL built from this prefix must keep it as its own
+    # concatenated literal rather than folding it into one longer literal,
+    # or it won't be rewritten here and will 404 on this deployment.
     html = html.replace(
         "'data/boundaries/'",
         f"'{GITHUB_RAW}/boundaries/'"

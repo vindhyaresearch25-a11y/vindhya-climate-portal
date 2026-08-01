@@ -84,20 +84,15 @@
     var distSel = el('districtSelect');
     distSel.innerHTML = '<option value="">-- Select District --</option>';
     highlightStateOnMap(stateName);
+    resetToNoData(stateName, null, null);
 
-    if (stateName === 'Madhya Pradesh' && typeof populateDistricts === 'function') {
-      // Madhya Pradesh keeps its own original district list (the 5
-      // MP_DISTRICTS keys with live climate data) -- never overwrite it
-      // with the national district list, even if the user navigates away
-      // to another state and back. onDistrictChange/onVillageChange are
-      // already wrapped in boot() to route MP_DISTRICTS keys back to the
-      // original MP-specific handlers.
-      populateDistricts();
-      resetToNoData(stateName, null, null);
-      updateBreadcrumb();
-      return;
-    }
-
+    // Madhya Pradesh is not a special case here: its district list, names,
+    // and village boundaries all come from the same Census-sourced district
+    // list + Survey of India village source every other state uses below.
+    // MP_DISTRICTS (the 5 districts with live IMD climate data) plays no
+    // part in this function -- it's consulted in exactly one place, the
+    // onDistrictChange/onVillageChange dispatch in boot(), purely to decide
+    // whether real climate data should additionally be shown.
     var entry = namesIndex && namesIndex.states[stateName];
     if (entry && entry.status === 'pending') {
       var opt = document.createElement('option');
@@ -122,6 +117,7 @@
       return;
     }
     districts.forEach(function (d) {
+      if (!d.district) return; // a handful of source records have a blank district name -- never render a blank option
       var o = document.createElement('option');
       o.value = d.district;
       o.textContent = d.district;
@@ -144,16 +140,22 @@
     villSel.innerHTML = '<option value="">-- Select District First --</option>';
     if (!districtName) { villField.style.display = 'none'; clearVillageLayerAndMarker(); updateBreadcrumbNational(currentStateName, null, null); return; }
 
-    // Real MP districts with live climate data keep the existing, unmodified
-    // flow (populateDistricts/onDistrictChange/MP_DISTRICTS) -- this
-    // function only handles districts outside that known-good set.
-    var mpKey = mpDistrictKeyFor(currentStateName, districtName);
-    if (mpKey) { return; } // handled by the original onDistrictChange via MP_DISTRICTS
-
+    // Boundary + an honest "not available" baseline for every district,
+    // Madhya Pradesh included -- district-level real IMD climate data (only
+    // for the 5 districts MP_DISTRICTS lists) is layered on top of this by
+    // window.onDistrictChange's dispatcher (see boot() below), which calls
+    // this function unconditionally first and then additionally calls the
+    // original index.html onDistrictChange for those 5. MP_DISTRICTS plays
+    // no part in boundary geometry, district naming, or this function.
     resetToNoData(currentStateName, districtName, null);
     highlightDistrictOnMap(currentStateName, districtName);
     villField.style.display = 'block';
-    var allVillages = currentPerStateNames && currentPerStateNames.districts && currentPerStateNames.districts[districtName];
+    // currentPerStateNames.districts is keyed by the Survey of India district
+    // name, which for Madhya Pradesh differs from the Census-sourced dropdown
+    // name for two districts (Hoshangabad/Narmadapuram, Khandwa/East Nimar) --
+    // see MP_DISTRICT_NAME_ALIASES below.
+    var lookupName = (typeof MP_DISTRICT_NAME_ALIASES !== 'undefined' && MP_DISTRICT_NAME_ALIASES[districtName]) || districtName;
+    var allVillages = currentPerStateNames && currentPerStateNames.districts && currentPerStateNames.districts[lookupName];
     // Some source records have no name at all (~10% in parts of this
     // dataset, a known upstream data-quality gap -- see
     // dashboard/data/boundaries/README.md). They're left out of the picker
@@ -185,7 +187,8 @@
   // data before using it anywhere (breadcrumb, map popup); fall back to
   // the raw value only if a name genuinely isn't available.
   function resolveVillageName(districtName, villageValue) {
-    var villages = currentPerStateNames && currentPerStateNames.districts && currentPerStateNames.districts[districtName];
+    var lookupName = (typeof MP_DISTRICT_NAME_ALIASES !== 'undefined' && MP_DISTRICT_NAME_ALIASES[districtName]) || districtName;
+    var villages = currentPerStateNames && currentPerStateNames.districts && currentPerStateNames.districts[lookupName];
     if (!villages) return villageValue;
     var match = villages.filter(function (v) {
       return (v.vil_lgd != null && String(v.vil_lgd) === String(villageValue)) || v.name === villageValue;
@@ -371,6 +374,46 @@
   window.loadNationalVillageGeometry = loadNationalVillageGeometry;
 
   // ---------------------------------------------------------------------
+  // Madhya Pradesh: every district has its own Survey of India village
+  // file (dashboard/data/boundaries/soi_villages/madhya_pradesh/<slug>.geojson,
+  // ~0.2-2 MB -- see scripts/split_mp_soi_by_district.py), so picking any
+  // MP district only fetches that one district, never the 45 MB
+  // whole-state file loadNationalVillageGeometry above still uses for
+  // every other state (which hasn't been split per-district yet).
+  // ---------------------------------------------------------------------
+  var MP_DISTRICT_NAME_ALIASES = {
+    // Same two real-name mismatches as dashboard/index.html's copy of this
+    // map -- Hoshangabad/Narmadapuram (renamed 2021), Khandwa/East Nimar
+    // (Survey of India uses the older official name).
+    'Hoshangabad': 'Narmadapuram',
+    'Khandwa': 'East Nimar'
+  };
+  function mpDistrictSlug(districtName) {
+    var canonical = MP_DISTRICT_NAME_ALIASES[districtName] || districtName;
+    return String(canonical).trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+  }
+  var mpDistrictGeomCache = {};
+  var mpDistrictGeomInflight = {};
+  function loadMPDistrictVillages(districtName) {
+    var slug = mpDistrictSlug(districtName);
+    if (mpDistrictGeomCache[slug]) return Promise.resolve(mpDistrictGeomCache[slug]);
+    if (mpDistrictGeomInflight[slug]) return mpDistrictGeomInflight[slug];
+    // Split at 'data/boundaries/' (its own closed string literal) rather
+    // than one long literal, so app.py's Streamlit-deployment URL patcher
+    // -- which only matches that exact literal -- still rewrites this
+    // fetch to the GitHub raw CDN. Don't merge into one literal.
+    var p = fetchWithTimeout('data/boundaries/' + 'soi_villages/madhya_pradesh/' + slug + '.geojson', FETCH_TIMEOUT_MS)
+      .then(function (data) { mpDistrictGeomCache[slug] = data; return data; })
+      .catch(function (e) {
+        console.warn('[national_selector] MP district village load failed for', districtName, e);
+        return null;
+      })
+      .finally(function () { delete mpDistrictGeomInflight[slug]; });
+    mpDistrictGeomInflight[slug] = p;
+    return p;
+  }
+
+  // ---------------------------------------------------------------------
   // Map behaviour for state/district/village selection outside Madhya
   // Pradesh. This deliberately reuses the SAME mechanism the original MP
   // flow already uses (dashboard/index.html: flyToDistrict, onVillageChange,
@@ -430,11 +473,13 @@
     });
   }
 
-  // District select: same mechanism as MP's loadVillageBoundaries() +
-  // applyVillageStyle() + flyToDistrict() combined -- flies to the
-  // district's centroid at zoom 9, then draws every village of that
-  // district into window._villageLayer with the identical default style
-  // and popup format applyVillageStyle uses for MP villages.
+  // District select: flies to the district's centroid at zoom 9, then draws
+  // every village of that district into window._villageLayer. Used for
+  // every state's districts uniformly, MP included (see the MP-specific
+  // per-district Survey of India branch below) -- the styling matches what
+  // index.html's applyVillageStyle uses for the same window._villageLayer
+  // when the real-data chain (onDistrictChange -> loadVillageBoundaries)
+  // draws it instead, e.g. from the "Village Boundaries" map toolbar button.
   function highlightDistrictOnMap(stateName, districtName) {
     clearNationalHighlight(); // the state outline is no longer needed once a district is picked
     var map = window.leafletMap;
@@ -448,6 +493,22 @@
         var b = L.geoJSON(distFeature).getBounds();
         if (b.isValid()) map.flyTo(b.getCenter(), 9, { duration: 1.5 });
       }
+    }
+
+    if (stateName === 'Madhya Pradesh') {
+      loadMPDistrictVillages(districtName).then(function (geo) {
+        clearVillageLayerAndMarker();
+        if (!geo || !geo.features.length) return;
+        window._villageLayer = L.geoJSON(geo, {
+          style: function () { return VILLAGE_DEFAULT_STYLE; },
+          onEachFeature: function (feat, layer) {
+            var nm = feat.properties.village_name || 'Unnamed';
+            layer.bindPopup('<div><b style="color:var(--cyan)">' + nm + '</b><br>' +
+              '<span style="font-size:0.62rem;color:#5a6a7a">' + districtName + ' village</span></div>');
+          }
+        }).addTo(map);
+      });
+      return;
     }
 
     var entry = namesIndex && namesIndex.states[stateName];
@@ -480,6 +541,24 @@
   // highlightDistrictOnMap above) is left in place, exactly like MP leaves
   // window._villageLayer showing while a village marker is added on top.
   function highlightVillageOnMap(stateName, districtName, vilLgd) {
+    if (stateName === 'Madhya Pradesh') {
+      return loadMPDistrictVillages(districtName).then(function (geo) {
+        var map = window.leafletMap;
+        if (!geo || !map) return false;
+        var feature = geo.features.filter(function (f) {
+          return f.properties && String(f.properties.vil_lgd) === String(vilLgd);
+        })[0];
+        if (!feature) return false;
+        var center = L.geoJSON(feature).getBounds().getCenter();
+        map.flyTo(center, 14, { duration: 1.2 });
+        if (window.villageMarker) map.removeLayer(window.villageMarker);
+        window.villageMarker = L.marker(center).addTo(map)
+          .bindPopup('<b style="color:#1a8a9e">' + (feature.properties.village_name || 'Unnamed') + '</b><br/>' +
+            '<span style="font-size:0.65rem;color:#5a6a7a">' + districtName + ' District</span>')
+          .openPopup();
+        return true;
+      });
+    }
     var entry = namesIndex && namesIndex.states[stateName];
     if (!entry || entry.status !== 'available') return Promise.resolve(false);
     return loadNationalVillageGeometry(stateName).then(function (geo) {
@@ -522,26 +601,54 @@
 
       unlockSelector();
       populateStateSelect();
+      // Populate the district dropdown for the default state (Madhya
+      // Pradesh) now that real data is loaded -- onStateChange only runs
+      // automatically from here on via the dropdown's own onchange, so the
+      // page's already-selected default needs one explicit call, or it
+      // would be left showing nothing (index.html no longer pre-populates
+      // it with just the 5 real-data districts on page load).
+      onStateChange(currentStateName);
 
-      // Wrap the existing onDistrictChange so MP districts keep their
-      // original behaviour, and every other district in Madhya Pradesh (or
-      // any other state) falls through to the honest "not available" path.
+      // window.onDistrictChange/onVillageChange were already function
+      // declarations in index.html by the time this script runs (needed so
+      // mp_climate_loader.js's and dicra_ndvi_loader.js's own wrapping,
+      // which checks "typeof onDistrictChange === 'function'" at whatever
+      // point their own async init reaches it, reliably finds something to
+      // wrap regardless of load-order timing). Capture whatever chain
+      // exists here -- index.html's real-district climate/advisory/block
+      // logic, already further wrapped by mp_climate_loader.js's chart
+      // rebuild and dicra_ndvi_loader.js's NDVI chart, if those ran first.
+      //
+      // Every district in every state, MP included, is now handled
+      // identically for boundary + a baseline "not available" state via
+      // onNationalDistrictChange/onNationalVillageChange, called
+      // unconditionally first. mpDistrictKeyFor is consulted in exactly
+      // these two dispatchers -- the only place in the whole app that
+      // decides whether a district ADDITIONALLY has real IMD climate data
+      // -- to optionally layer the original chain on top afterwards. It
+      // plays no role in boundary geometry, district naming, or dropdown
+      // population, all of which come from the same Survey of India /
+      // Census sources every other state uses.
       var originalOnDistrictChange = window.onDistrictChange;
       window.onDistrictChange = function (distKey) {
-        // Always clear any state/district/village outline this module drew
-        // (e.g. from a previous non-MP selection) before either path runs,
-        // so it never lingers under the MP flow's own village layer.
         clearNationalHighlight();
-        if (currentStateName === 'Madhya Pradesh' && typeof MP_DISTRICTS !== 'undefined' && MP_DISTRICTS[distKey]) {
-          originalOnDistrictChange(distKey);
-        } else {
-          onNationalDistrictChange(distKey);
-        }
+        // The Tehsil/Block field only applies to the 5 real-data districts
+        // (originalOnDistrictChange shows it again below when this is one
+        // of them) -- reset it here unconditionally first, so switching
+        // from a real district to any other one doesn't leave the previous
+        // district's block list visibly lingering on screen.
+        var blockField = el('blockField');
+        var blockSel = el('blockSelect');
+        if (blockField) blockField.style.display = 'none';
+        if (blockSel) { blockSel.disabled = true; blockSel.innerHTML = '<option value="">-- Select District First --</option>'; }
+        onNationalDistrictChange(distKey);
+        var mpKey = mpDistrictKeyFor(currentStateName, distKey);
+        if (mpKey) { originalOnDistrictChange(mpKey); }
       };
       var originalOnVillageChange = window.onVillageChange;
       window.onVillageChange = function (village) {
-        if (currentStateName === 'Madhya Pradesh' && typeof MP_DISTRICTS !== 'undefined' &&
-            MP_DISTRICTS[el('districtSelect').value] && REAL_DATA_DISTRICTS[el('districtSelect').value]) {
+        var mpKey = mpDistrictKeyFor(currentStateName, el('districtSelect').value);
+        if (mpKey) {
           originalOnVillageChange(village);
         } else {
           onNationalVillageChange(village);
