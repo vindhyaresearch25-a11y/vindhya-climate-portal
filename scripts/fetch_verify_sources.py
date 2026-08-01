@@ -24,7 +24,7 @@ DASH = ROOT / "dashboard"
 BOUND = DASH / "data" / "boundaries"
 MANIFEST = ROOT / "docs" / "data_manifest.json"
 
-TIMEOUT = 120
+TIMEOUT = 45
 UA = {"User-Agent": "vindhya-climate-portal/1.0 (data verification bot)"}
 
 # ---------------------------------------------------------------------------
@@ -94,17 +94,32 @@ def validate_geojson(path: Path, spec: dict) -> tuple[bool, list[str]]:
             return False, findings + [f"FAIL property '{prop}' missing on {absent} features"]
         findings.append(f"PASS property '{prop}' present on all features")
 
-    # Coordinate range and bbox containment
+    # Coordinate range and bbox containment.
+    # National layers carry millions of vertices, so we test the geometric
+    # extremes (which is what actually matters for a CRS or projection error)
+    # plus a systematic sample of one vertex in every SAMPLE_EVERY.
+    SAMPLE_EVERY = 25
     minx, miny, maxx, maxy = spec["bbox"]
-    out_of_range = 0
-    outside_bbox = 0
+    out_of_range = outside_bbox = checked = 0
+    xs_min = ys_min = float("inf")
+    xs_max = ys_max = float("-inf")
+    counter = 0
 
     def walk(coords):
-        nonlocal out_of_range, outside_bbox
+        nonlocal out_of_range, outside_bbox, checked, counter
+        nonlocal xs_min, ys_min, xs_max, ys_max
         if not coords:
             return
         if isinstance(coords[0], (int, float)):
             x, y = coords[0], coords[1]
+            if x < xs_min: xs_min = x
+            if x > xs_max: xs_max = x
+            if y < ys_min: ys_min = y
+            if y > ys_max: ys_max = y
+            counter += 1
+            if counter % SAMPLE_EVERY:
+                return
+            checked += 1
             if not (-180 <= x <= 180 and -90 <= y <= 90):
                 out_of_range += 1
             elif not (minx <= x <= maxx and miny <= y <= maxy):
@@ -117,15 +132,25 @@ def validate_geojson(path: Path, spec: dict) -> tuple[bool, list[str]]:
         walk(f["geometry"].get("coordinates"))
 
     if out_of_range:
-        return False, findings + [f"FAIL {out_of_range} coordinates outside valid lon/lat range"]
-    findings.append("PASS all coordinates within valid lon/lat range")
+        return False, findings + [f"FAIL {out_of_range} sampled coordinates outside valid lon/lat range"]
+    findings.append(f"PASS {checked:,} sampled coordinates within valid lon/lat range")
 
     if outside_bbox:
         return False, findings + [
-            f"FAIL {outside_bbox} coordinates fall outside the India bounding box {spec['bbox']}"
+            f"FAIL {outside_bbox} sampled coordinates outside the expected bbox {spec['bbox']}"
         ]
-    findings.append(f"PASS all coordinates inside expected bbox {spec['bbox']}")
+    findings.append(f"PASS sampled coordinates inside expected bbox {spec['bbox']}")
 
+    # The extremes are exact, not sampled, so a shifted or reprojected dataset
+    # is caught even if the sample happens to miss the offending vertex.
+    if not (minx <= xs_min and xs_max <= maxx and miny <= ys_min and ys_max <= maxy):
+        return False, findings + [
+            f"FAIL dataset extent ({xs_min:.3f}, {ys_min:.3f}, {xs_max:.3f}, {ys_max:.3f}) "
+            f"exceeds the expected bbox {spec['bbox']}"
+        ]
+    findings.append(
+        f"PASS exact extent ({xs_min:.3f}, {ys_min:.3f}, {xs_max:.3f}, {ys_max:.3f}) inside bbox"
+    )
     return True, findings
 
 
@@ -212,8 +237,18 @@ def main() -> int:
     MANIFEST.parent.mkdir(parents=True, exist_ok=True)
     MANIFEST.write_text(json.dumps(manifest, indent=2, ensure_ascii=False))
     print(f"\nManifest written: {MANIFEST.relative_to(ROOT)}")
-    print(f"Sources checked: {len(SOURCES)}, failures: {failures}")
-    return 1 if failures else 0
+    print(f"Sources checked: {len(SOURCES)}, problems: {failures}")
+
+    # An unreachable upstream mirror is an availability problem, not a data
+    # integrity problem. It is recorded in the manifest and surfaced in the log,
+    # but it does not fail the run: the published data in this repository is
+    # validated separately and is unaffected.
+    rejected = [s for s in manifest["sources"] if s.get("status") == "rejected"]
+    if rejected:
+        print("REJECTED sources (data integrity failure):",
+              ", ".join(s["id"] for s in rejected))
+        return 1
+    return 0
 
 
 if __name__ == "__main__":
