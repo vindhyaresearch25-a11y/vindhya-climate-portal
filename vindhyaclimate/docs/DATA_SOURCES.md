@@ -15,6 +15,23 @@ CRS, processing, and quality status. Layers not listed must not be displayed.
 | `data/boundaries/india_districts.geojson` | Census of India 2011 (760 districts) | vector, simplified 0.005° | EPSG:4326 | simplification only | Verified | 2026-08-01 |
 | Cadastral parcels | **disabled** — pending MP Bhulekh / Bhu-Naksha Revenue Dept. records | — | — | — | Not available | — |
 
+## Geometry simplification for web delivery (2026-08)
+
+Boundary vectors were simplified with the Douglas-Peucker algorithm
+(topology preserving) and coordinates rounded to 5 decimal places (~1 m) to
+make the portal usable on rural mobile connections.
+
+| Layer | Tolerance | Approx. ground error | Features before / after |
+|---|---|---|---|
+| MP districts, tehsils, blocks | 0.001 deg | ~110 m | 5/5, 42/42, 42/42 |
+| Village polygons (5 districts) | 0.0005 deg | ~55 m | 5,625 / 5,625 |
+| India states, districts | precision only | ~1 m | 36/36, 760/760 |
+
+No feature was dropped. The simplification affects boundary line detail only
+and is below the 5.5 km resolution of the underlying IMD climate grid, so it
+does not affect any computed index. Full-precision source vectors should be
+retained offline for any cadastral or legal use.
+
 ## Removed in the 2026-08 cleanup
 
 - 50 synthetic districts and ~5,000 generated villages (`08_expand_climate_data.py`)
