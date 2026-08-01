@@ -18,6 +18,7 @@ _URL_PATCHES = [
     ("'data/mp_climate_data.json'",        f"'{GITHUB_RAW}/mp_climate_data.json'"),
     ("'data/dicra_ndvi.json'",             f"'{GITHUB_RAW}/dicra_ndvi.json'"),
     ("'data/forecast_2040.json'",          f"'{GITHUB_RAW}/forecast_2040.json'"),
+    ("'data/knowledge_base/index.json'",   f"'{GITHUB_RAW}/knowledge_base/index.json'"),
     # Boundary GeoJSON files (in dashboard/ root, not dashboard/data/)
     ("'mp_districts.geojson'",             f"'{GITHUB_BASE}/mp_districts.geojson'"),
     ("'data/boundaries/india_states.geojson'",    f"'{GITHUB_RAW}/boundaries/india_states.geojson'"),
@@ -26,7 +27,7 @@ _URL_PATCHES = [
     ("'mp_blocks.geojson'",                f"'{GITHUB_BASE}/mp_blocks.geojson'"),
 ]
 
-_JS_FILES = ['mp_climate_loader.js', 'dicra_ndvi_loader.js', 'cadastral_loader.js', 'india_boundaries_loader.js']
+_JS_FILES = ['mp_climate_loader.js', 'dicra_ndvi_loader.js', 'cadastral_loader.js', 'india_boundaries_loader.js', 'knowledge_base_loader.js']
 
 
 def get_html_content():

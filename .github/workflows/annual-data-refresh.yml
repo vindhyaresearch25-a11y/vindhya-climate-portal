@@ -1,0 +1,69 @@
+name: Annual knowledge-base refresh
+
+# Runs entirely on GitHub's servers. Triggers at the start of each Indian
+# financial year (1 April) plus a manual "Run workflow" button. Unlike
+# verify-data.yml (which commits its manifest straight to main), this
+# workflow opens a pull request -- new knowledge-base entries get a human
+# review before merging, since they come from an external API rather than
+# from this repo's own reproducible pipeline.
+on:
+  schedule:
+    - cron: "0 3 1 4 *"   # 1 April, 03:00 UTC (~08:30 IST)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Refresh knowledge base (DOAJ open-access search)
+        run: python scripts/fetch_knowledge_base.py
+
+      - name: Guard against synthetic data reintroduction
+        run: |
+          if grep -rn "np\.random\|random\.uniform\|random\.choice\|random\.randint" \
+               scripts/ --include="*.py"; then
+            echo "Random generation found in pipeline scripts. Rejected."
+            exit 1
+          fi
+
+      - name: Check for changes
+        id: diff
+        run: |
+          if git diff --quiet -- dashboard/data/knowledge_base/index.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open pull request with new entries
+        if: steps.diff.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: knowledge-base-refresh-${{ github.run_id }}
+          commit-message: "chore(knowledge-base): annual refresh from DOAJ"
+          title: "Annual knowledge-base refresh"
+          body: |
+            Automated annual refresh (triggered by the 1 April schedule or a manual run).
+
+            This adds newly published open-access entries found via the DOAJ search
+            API to `dashboard/data/knowledge_base/index.json`. Every new entry is
+            metadata-only (title/author/year/link/license/summary from DOAJ's own
+            response) -- no full text is fetched or stored by this workflow.
+
+            Before merging: spot-check that the added entries are relevant and that
+            any full-text ingestion added by hand afterward has a confirmed
+            open-access license, per `dashboard/data/knowledge_base/README.md`.
+          labels: |
+            automated
+            data-refresh
