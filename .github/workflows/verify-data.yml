@@ -84,12 +84,20 @@ jobs:
 
       - name: Run unit tests
         run: |
-          pip install --quiet numpy pandas scipy pytest
+          # Install the full project dependency set (requirements.txt), not a
+          # hand-picked subset -- tests/test_indices.py imports
+          # scripts/02_compute_indices.py, which needs tqdm at module load
+          # time. A minimal "numpy pandas scipy pytest" list previously
+          # missed that and failed every run with ModuleNotFoundError.
+          pip install --quiet -r requirements.txt
           python -m pytest tests/ -q
 
       # Network-dependent. An unreachable upstream mirror must not fail the run:
       # the published data in this repository is validated above and is
       # unaffected. Integrity failures are still reported in the manifest.
+      # scripts/fetch_verify_sources.py retries each download up to 3 times
+      # internally before giving up on a source; continue-on-error here is
+      # the outer safety net for a source that's down for the whole run.
       - name: Cross-check upstream authoritative sources
         continue-on-error: true
         timeout-minutes: 8

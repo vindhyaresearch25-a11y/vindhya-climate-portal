@@ -15,6 +15,8 @@ import hashlib
 import json
 import os
 import sys
+import time
+import urllib.error
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
@@ -55,11 +57,30 @@ def sha256(path: Path) -> str:
     return h.hexdigest()
 
 
+DOWNLOAD_ATTEMPTS = 3
+RETRY_BACKOFF_SECONDS = 3
+
+
 def download(url: str, dest: Path) -> None:
+    """Fetch url to dest, retrying transient network failures up to
+    DOWNLOAD_ATTEMPTS times with a fixed backoff. Re-raises the last error if
+    every attempt fails -- the caller (main) already treats each source as
+    independently non-fatal, so a real, persistent failure should still be
+    visible in the manifest rather than silently swallowed here."""
     dest.parent.mkdir(parents=True, exist_ok=True)
     req = urllib.request.Request(url, headers=UA)
-    with urllib.request.urlopen(req, timeout=TIMEOUT) as r, open(dest, "wb") as fh:
-        fh.write(r.read())
+    last_exc = None
+    for attempt in range(1, DOWNLOAD_ATTEMPTS + 1):
+        try:
+            with urllib.request.urlopen(req, timeout=TIMEOUT) as r, open(dest, "wb") as fh:
+                fh.write(r.read())
+            return
+        except (urllib.error.URLError, TimeoutError, ConnectionError) as exc:
+            last_exc = exc
+            if attempt < DOWNLOAD_ATTEMPTS:
+                print(f"  retry {attempt}/{DOWNLOAD_ATTEMPTS - 1} for {url} after error: {exc}")
+                time.sleep(RETRY_BACKOFF_SECONDS)
+    raise last_exc
 
 
 # ---------------------------------------------------------------------------
