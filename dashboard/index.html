@@ -1824,32 +1824,46 @@ function onVillageChange(village){
       var vi = vdata.indices;
       var setTxt = function(id,v){ var el=document.getElementById(id); if(el) el.textContent=v; };
       var setBar = function(id,pct){ var el=document.getElementById(id); if(el) el.style.width=pct+'%'; };
-      // Drought
-      var dv = vi.drought_probability_pct;
-      setTxt('m-drought', (dv != null ? Number(dv).toFixed(1) : '—')+'%');
+      // Drought (real IMD-derived village index; no default when absent)
+      var dv = vi.drought_probability_pct != null ? vi.drought_probability_pct : null;
+      setTxt('m-drought', dv != null ? Number(dv).toFixed(1)+'%' : 'Not available');
       setBar('bar-drought', Math.min(100, Math.max(0, dv || 0)));
-      // NDVI
-      var nv = vi.spi_12 != null ? (vi.spi_12*0.1+0.5) : null;
-      setTxt('m-ndvi', nv != null ? nv.toFixed(2) : '—');
-      setBar('bar-ndvi', nv != null ? Math.round(nv*100) : 50);
+      // NDVI: real UNDP DiCRA district zonal series (village-level NDVI is not
+      // published), never derived from SPI/rainfall.
+      var nv = null, nvIsReal = false;
+      if (window._dicraNdvi && window._dicraNdvi.districts && window._dicraNdvi.districts[distKey]) {
+        var ndviSeries2 = window._dicraNdvi.districts[distKey].ndvi_mean;
+        if (ndviSeries2 && ndviSeries2.length) { nv = ndviSeries2[ndviSeries2.length - 1]; nvIsReal = true; }
+      }
+      setTxt('m-ndvi', nvIsReal ? nv.toFixed(2) : 'Not available');
+      setBar('bar-ndvi', nvIsReal ? Math.round(nv*100) : 0);
       // Heat
       var hv = vi.max_summer_tmax;
-      setTxt('m-heat', hv >= 43 ? 'EXTREME' : hv >= 40 ? 'HIGH' : hv >= 37 ? 'MODERATE' : 'LOW');
-      setBar('bar-heat', Math.min(100, Math.max(0, Math.round((hv||0)/46*100))));
-      setTxt('heat-detail', (hv||'—').toFixed(1)+'\u00b0C '+vname);
+      if (hv != null) {
+        setTxt('m-heat', hv >= 43 ? 'EXTREME' : hv >= 40 ? 'HIGH' : hv >= 37 ? 'MODERATE' : 'LOW');
+        setBar('bar-heat', Math.min(100, Math.max(0, Math.round(hv/46*100))));
+        setTxt('heat-detail', Number(hv).toFixed(1)+'°C '+vname);
+      } else {
+        setTxt('m-heat', 'Not available');
+        setBar('bar-heat', 0);
+        setTxt('heat-detail', vname);
+      }
       // Rain
-      var rv = vi.annual_rain_mm || vi.annual_rain_mm_mean;
-      setTxt('m-rain', (rv != null ? Number(rv).toFixed(0) : '—')+' mm');
+      var rv = vi.annual_rain_mm != null ? vi.annual_rain_mm : vi.annual_rain_mm_mean;
+      setTxt('m-rain', (rv != null ? Number(rv).toFixed(0)+' mm' : 'Not available'));
       var rtEl = document.getElementById('m-rain-trend');
       if (rtEl) rtEl.textContent = vname + (window._hazardYear ? ' (Yr '+window._hazardYear+')' : '');
-      // Soil moisture (same NDVI-based formula as district)
-      setTxt('m-soil', nv != null ? Math.round(nv*80)+'%' : '—%');
-      // Crop stress = blend of drought and inverse NDVI
-      var cs = Math.min(100, Math.max(0, Math.round((dv||0)*0.7 + (1-Math.min(1,nv||0.5))*30)));
-      setTxt('m-crop', cs+'%'); setBar('bar-crop', cs);
-      // Groundwater = drought-derived decline
-      var gw = -(2 + (dv||30)/40).toFixed(1);
-      setTxt('m-gw', gw+'m'); setBar('bar-gw', Math.min(100, Math.max(0, (dv||30)*1.5)));
+      // Soil moisture requires SMAP/Bhuvan data, not integrated.
+      setTxt('m-soil', 'Not available');
+      // Crop stress: heuristic derived transparently from real drought probability only.
+      if (dv != null) {
+        var cs = Math.min(100, Math.max(0, Math.round(dv)));
+        setTxt('m-crop', cs+'% (indicative)'); setBar('bar-crop', cs);
+      } else {
+        setTxt('m-crop', 'Not available'); setBar('bar-crop', 0);
+      }
+      // Groundwater level/trend requires CGWB/India-WRIS data, not integrated.
+      setTxt('m-gw', 'Not available'); setBar('bar-gw', 0);
       // AI accuracy stays static at 94.2%
     }
   }
@@ -1880,34 +1894,56 @@ function applyDistrictMetrics(d){
     var dk = document.getElementById('districtSelect').value;
     if (dk) { real = _mpClimateData.districts[dk]; indices = real && real.indices; }
   }
-  // Try _mpClimateData indices first, then MP_DISTRICTS hardcoded values
-  var droughtVal = (indices && indices.drought_probability_pct != null) ? indices.drought_probability_pct : (d.drought != null ? d.drought : null);
-  setTxt('m-drought', (droughtVal != null ? Number(droughtVal).toFixed(1) : '—')+'%');
+  // IMD-derived indices only. MP_DISTRICTS' static drought/heat/ndvi fields are
+  // placeholder seed values, not measurements -- never used as a silent
+  // fallback here. If _mpClimateData hasn't loaded yet, cards show "Not available"
+  // rather than a guessed number.
+  var droughtVal = (indices && indices.drought_probability_pct != null) ? indices.drought_probability_pct : null;
+  setTxt('m-drought', (droughtVal != null ? Number(droughtVal).toFixed(1)+'%' : 'Not available'));
   setBar('bar-drought', Math.min(100, Math.max(0, droughtVal || 0)));
-  var ndviVal = (indices && indices.spi_12 != null) ? Math.max(0.1, Math.min(0.9, (indices.spi_12 * 0.1 + 0.45))) : (d.ndvi != null ? d.ndvi : 0.42);
-  setTxt('m-ndvi', ndviVal.toFixed(2));
-  setBar('bar-ndvi', Math.round(ndviVal*100));
-  var heatVal = (indices && indices.max_summer_tmax != null) ? indices.max_summer_tmax : (d.heat != null ? d.heat : null);
+
+  // NDVI: real UNDP DiCRA district zonal series only (never derived from SPI).
+  var ndviVal = null, ndviIsReal = false;
+  if (typeof window._dicraNdvi !== 'undefined' && window._dicraNdvi && window._dicraNdvi.districts) {
+    var dkForNdvi = document.getElementById('districtSelect').value;
+    var ndviSeries = dkForNdvi && window._dicraNdvi.districts[dkForNdvi] && window._dicraNdvi.districts[dkForNdvi].ndvi_mean;
+    if (ndviSeries && ndviSeries.length) { ndviVal = ndviSeries[ndviSeries.length - 1]; ndviIsReal = true; }
+  }
+  setTxt('m-ndvi', ndviIsReal ? ndviVal.toFixed(2) : 'Not available');
+  setBar('bar-ndvi', ndviIsReal ? Math.round(ndviVal*100) : 0);
+
+  var heatVal = (indices && indices.max_summer_tmax != null) ? indices.max_summer_tmax : null;
   if (heatVal != null) {
     var hv = Number(heatVal);
     var heatLabel = hv>=43?'EXTREME': hv>=40?'HIGH': hv>=37?'MODERATE':'LOW';
     setTxt('m-heat', heatLabel);
     setBar('bar-heat', Math.min(100, Math.max(0, Math.round((hv/46)*100))));
-    setTxt('heat-detail', hv.toFixed(1)+'\u00b0C '+(d.name||''));
+    setTxt('heat-detail', hv.toFixed(1)+'°C '+(d.name||''));
+  } else {
+    setTxt('m-heat', 'Not available');
+    setBar('bar-heat', 0);
+    setTxt('heat-detail', d.name||'');
   }
-  var rainVal = (indices && indices.annual_rain_mm_mean != null) ? indices.annual_rain_mm_mean : (d._imd ? d._imd.annual_rain_mm_mean : null);
-  if (rainVal != null) setTxt('m-rain', Number(rainVal).toFixed(0)+' mm');
+  var rainVal = (indices && indices.annual_rain_mm_mean != null) ? indices.annual_rain_mm_mean : null;
+  setTxt('m-rain', rainVal != null ? Number(rainVal).toFixed(0)+' mm' : 'Not available');
   // Update rainfall deficit trend with district name
   var rtEl = document.getElementById('m-rain-trend');
   if (rtEl) rtEl.textContent = d.name + (window._hazardYear ? ' (Yr '+window._hazardYear+')' : '');
-  if (ndviVal > 0) setTxt('m-soil', Math.round(ndviVal*80)+'%');
-  // Crop stress = blend of drought and inverse NDVI
-  var dv = droughtVal || 0;
-  var cs = Math.min(100, Math.max(0, Math.round(dv*0.7 + (1-Math.min(1,ndviVal))*30)));
-  setTxt('m-crop', cs+'%'); setBar('bar-crop', cs);
-  // Groundwater = drought-derived decline
-  var gw = -(2 + dv/40).toFixed(1);
-  setTxt('m-gw', gw+'m'); setBar('bar-gw', Math.min(100, Math.max(0, dv*1.5)));
+
+  // Soil moisture requires SMAP/Bhuvan data, not integrated -- not derived from NDVI.
+  setTxt('m-soil', 'Not available');
+
+  // Crop stress: heuristic derived transparently from real drought probability
+  // only (no NDVI blend, since NDVI is not always available). Labelled indicative.
+  if (droughtVal != null) {
+    var cs = Math.min(100, Math.max(0, Math.round(droughtVal)));
+    setTxt('m-crop', cs+'% (indicative)'); setBar('bar-crop', cs);
+  } else {
+    setTxt('m-crop', 'Not available'); setBar('bar-crop', 0);
+  }
+
+  // Groundwater level/trend requires CGWB/India-WRIS data, not integrated.
+  setTxt('m-gw', 'Not available'); setBar('bar-gw', 0);
   // AI accuracy stays at 94.2%
   // If a specific year is selected, override mean with year-specific data
   if (window._hazardYear && !isNaN(window._hazardYear)) {

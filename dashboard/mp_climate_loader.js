@@ -328,12 +328,21 @@
         }
       }
     }
+    // If a village was selected but has no indices of its own, fall back to the
+    // district mean but say so explicitly in the header rather than labelling
+    // district-level numbers as village-level.
+    var usedVillageIndices = !!(villageName && idx !== d.indices);
     var hKind = hazardKind();
     var hKeys = hKind ? (HAZARD_MAP[hKind] || []) : [];
     var selYear = (typeof _hazardYear !== 'undefined' && _hazardYear) || '';
+    var titleHtml = usedVillageIndices
+      ? 'VILLAGE INDICES 2000–2024 <span style="color:var(--green)">'+villageName+'</span>'
+      : (villageName
+          ? 'DISTRICT INDICES 2000–2024 (' + d.name + ') <span style="color:var(--orange)">— no IMD-derived record for "'+villageName+'"; showing district mean</span>'
+          : 'HISTORICAL INDICES 2000–2024 ('+ d.name +', '+ (idx.village_count||0) +' villages)');
     host.innerHTML = ''
       + '<div class="section-header"><i class="fa fa-chart-line" style="color:var(--cyan);font-size:0.7rem"></i>'
-      + '<div class="section-title">'+(villageName?'VILLAGE':'HISTORICAL')+' INDICES 2000–2024'+(villageName?' <span style="color:var(--green)">'+villageName+'</span>':' ('+ d.name +', '+ (idx.village_count||0) +' villages)')+(selYear?' <span style="color:var(--orange)">['+selYear+']</span>':'')+'</div></div>'
+      + '<div class="section-title">'+titleHtml+(selYear?' <span style="color:var(--orange)">['+selYear+']</span>':'')+'</div></div>'
       + '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;padding:0.75rem;">'
       + '  <div class="metric-card'+match_h(hKeys,'heatwave')+'"><div class="metric-label">HEATWAVE DAYS/YR</div><div class="metric-value cyan">'+fmt(idx.heatwave_days_mean,1)+'</div></div>'
       + '  <div class="metric-card'+match_h(hKeys,'heatwave')+'"><div class="metric-label">SEVERE HW DAYS</div><div class="metric-value" style="color:var(--red)">'+fmt(idx.severe_heatwave_days_mean,1)+'</div></div>'
@@ -401,26 +410,29 @@
         }
       }
     }
-    var ndvi, rain, heat;
-    // Priority: 1) Village indices, 2) Year-specific annual data, 3) District mean
-    if (vi && vi.spi_12 != null) {
-      ndvi = vi.spi_12 * 0.1 + 0.5;
-      rain = vi.annual_rain_mm || vi.annual_rain_mm_mean;
-      heat = vi.max_summer_tmax;
-    }
-    // Year-specific override from district annual data
+    // Rain/heat: village-level IMD indices if available, else the district mean.
+    // A specific selected year can override rain (d.annual.annual_rain_mm is a
+    // real per-year series); there is no per-year max_summer_tmax series in the
+    // published data, so heat always uses the best real value available (village
+    // or district mean) rather than an invented conversion from heatwave-day count.
+    var rain = (vi && vi.annual_rain_mm != null) ? vi.annual_rain_mm
+      : (idx && idx.annual_rain_mm_mean != null) ? idx.annual_rain_mm_mean : null;
+    var heat = (vi && vi.max_summer_tmax != null) ? vi.max_summer_tmax
+      : (idx && idx.max_summer_tmax != null) ? idx.max_summer_tmax : null;
     var yr = window._hazardYear;
     if (yr && d.annual && d.annual.years) {
       var yi = d.annual.years.indexOf(parseInt(yr));
-      if (yi >= 0 && d.annual.spi_12[yi] != null) {
-        ndvi = d.annual.spi_12[yi] * 0.1 + 0.5;
-        rain = d.annual.annual_rain_mm[yi];
-        heat = d.annual.heatwave_days[yi] > 4 ? 43 : d.annual.heatwave_days[yi] > 1 ? 40 : 37;
-      }
+      if (yi >= 0 && d.annual.annual_rain_mm[yi] != null) rain = d.annual.annual_rain_mm[yi];
     }
-    if (ndvi == null) ndvi = idx && idx.spi_12 != null ? (idx.spi_12 * 0.1 + 0.5) : 0.45;
-    if (rain == null) rain = idx && idx.annual_rain_mm_mean || 1000;
-    if (heat == null) heat = idx && idx.max_summer_tmax || 38;
+    var hasClimateData = rain != null && heat != null;
+    // NDVI: real UNDP DiCRA district zonal series (dicra_ndvi_loader.js), latest
+    // available point. District-level only -- never derived from SPI/rainfall,
+    // and never claimed as village-specific.
+    var ndvi = null, ndviIsReal = false;
+    if (window._dicraNdvi && window._dicraNdvi.districts && window._dicraNdvi.districts[districtKey]) {
+      var ndviSeries = window._dicraNdvi.districts[districtKey].ndvi_mean;
+      if (ndviSeries && ndviSeries.length) { ndvi = ndviSeries[ndviSeries.length - 1]; ndviIsReal = true; }
+    }
 
     // Season & soil
     var season = getCurrentSeason();
@@ -437,130 +449,137 @@
     }
     if (el('agri-soil-type')) el('agri-soil-type').textContent = soil.name;
 
-    // Score per season
-    function scoreCrop(cropName, seasonKey, soilObj, ndviVal, rainVal, heatVal) {
-      // Base score from climate
-      var ndviScore = Math.min(100, Math.max(0, (ndviVal - 0.2) / 0.4 * 100));
+    var setTxt = function(id,v,c){ var e=document.getElementById(id); if(e){e.textContent=v;if(c)e.style.color=c;} };
+
+    // Climate-suitability score per candidate crop. Inputs are real IMD rain/heat
+    // (required) and real DiCRA NDVI (optional, only if ndviIsReal). This is a
+    // heuristic ranking, not a yield forecast -- labelled as such in the UI.
+    function scoreCrop(cropName, rainVal, heatVal, ndviVal) {
       var rainScore = Math.min(100, Math.max(0, (rainVal - 400) / 1600 * 100));
       var heatScore = Math.min(100, Math.max(0, 100 - (heatVal - 28) / 18 * 100));
-      var base = Math.round(ndviScore * 0.3 + rainScore * 0.35 + heatScore * 0.35);
-      // Water requirement adjustment
+      var base;
+      if (ndviVal != null) {
+        var ndviScore = Math.min(100, Math.max(0, (ndviVal - 0.2) / 0.4 * 100));
+        base = Math.round(ndviScore * 0.3 + rainScore * 0.35 + heatScore * 0.35);
+      } else {
+        base = Math.round(rainScore * 0.5 + heatScore * 0.5);
+      }
       var waterNeed = {Rice:90,Sugarcane:95,Cotton:70,Soybean:55,Maize:65,Wheat:60,Gram:35,Mustard:40,Bajra:30,Pigeonpea:35,Pea:40,Lentil:35,Linseed:45,Moong:35,BlackGram:35,Groundnut:55,Sesame:30,Ragi:40,KodoMillet:30,Urd:35,Cowpea:30,Safflower:40,Chickpea:35,Barley:30};
       var need = waterNeed[cropName.replace(/\s/g,'')] || 50;
       if (rainVal < need * 8) base -= 15;
       if (rainVal > need * 25) base -= 10;
-      // Heat tolerance
       var heatTolerant = {Bajra:1,KodoMillet:1,Cotton:1,Sesame:1,Groundnut:1,Watermelon:1,Muskmelon:1};
       if (heatTolerant[cropName] && heatVal > 40) base += 5;
       if (!heatTolerant[cropName] && heatVal > 38) base -= 8;
       return Math.min(95, Math.max(10, base));
     }
 
-    // Get recommended crops for season
     var recCrops = soil['crops_' + season] || soil.crops_kharif;
-    var scores = recCrops.map(function(c){ return {name:c, score:scoreCrop(c, season, soil, ndvi, rain, heat)}; });
-    scores.sort(function(a,b){ return b.score - a.score; });
-
-    var topCrop = scores[0] || {name:'—', score:0};
-    var altCrop = scores[1] || {name:'—', score:0};
-    // Summer (Zayed) special handling: most farmers keep land fallow
-    if (season === 'zayed' && recCrops.indexOf('Fallow') >= 0) {
-      topCrop = {name:'Fallow (Most farms)', score:85};
-      altCrop = scores[0] || {name:'Vegetables (Some farms)', score:50};
-    }
-    var suitability = topCrop.score >= 75 ? 'HIGH' : topCrop.score >= 50 ? 'MEDIUM' : 'LOW';
-    var suitColor = topCrop.score >= 75 ? 'var(--green)' : topCrop.score >= 50 ? 'var(--yellow)' : 'var(--red)';
-
-    var setTxt = function(id,v,c){ var e=document.getElementById(id); if(e){e.textContent=v;if(c)e.style.color=c;} };
-    setTxt('agri-rec-crop', topCrop.name + ' ('+topCrop.score+'%)');
-    setTxt('agri-alt-crop', altCrop.name + ' ('+altCrop.score+'%)');
-    setTxt('agri-suitability', suitability, suitColor);
-
-    // Crop health score
-    var cropScore = topCrop.score;
-    var cropHealthEl = el('agri-crop-health');
-    if (cropHealthEl) {
-      var chColor = cropScore > 70 ? 'var(--green)' : cropScore > 45 ? 'var(--yellow)' : 'var(--red)';
-      cropHealthEl.innerHTML = cropScore+'%<span style="font-size:0.65rem;font-weight:600;margin-left:0.3rem;color:'+chColor+'">'+(cropScore>70?'GOOD':cropScore>45?'FAIR':'POOR')+'</span>';
-      cropHealthEl.style.color = chColor;
+    var topCrop = null, altCrop = null, scores = [];
+    if (hasClimateData) {
+      scores = recCrops.map(function(c){ return {name:c, score:scoreCrop(c, rain, heat, ndviIsReal ? ndvi : null)}; });
+      scores.sort(function(a,b){ return b.score - a.score; });
+      topCrop = scores[0] || null;
+      altCrop = scores[1] || null;
+      if (season === 'zayed' && recCrops.indexOf('Fallow') >= 0) {
+        topCrop = {name:'Fallow (most farms)', score:null};
+        altCrop = scores[0] || null;
+      }
     }
 
-    setTxt('agri-ndvi', ndvi.toFixed(2));
-    setTxt('agri-rain', rain.toFixed(0)+' mm');
+    if (hasClimateData && topCrop) {
+      var suitability = topCrop.score == null ? 'SEASONAL' : topCrop.score >= 75 ? 'HIGH' : topCrop.score >= 50 ? 'MEDIUM' : 'LOW';
+      var suitColor = topCrop.score == null ? 'var(--cyan)' : topCrop.score >= 75 ? 'var(--green)' : topCrop.score >= 50 ? 'var(--yellow)' : 'var(--red)';
+      setTxt('agri-rec-crop', topCrop.name + (topCrop.score != null ? ' (suitability score ' + topCrop.score + '/100)' : ''));
+      setTxt('agri-alt-crop', altCrop ? altCrop.name + (altCrop.score != null ? ' (' + altCrop.score + '/100)' : '') : 'Not available');
+      setTxt('agri-suitability', suitability, suitColor);
+      var cropScore = topCrop.score;
+      var cropHealthEl = el('agri-crop-health');
+      if (cropHealthEl) {
+        if (cropScore == null) {
+          cropHealthEl.textContent = 'Not scored (seasonal recommendation)';
+          cropHealthEl.style.color = 'var(--text-dim)';
+        } else {
+          var chColor = cropScore > 70 ? 'var(--green)' : cropScore > 45 ? 'var(--yellow)' : 'var(--red)';
+          cropHealthEl.innerHTML = cropScore+'/100<span style="font-size:0.65rem;font-weight:600;margin-left:0.3rem;color:'+chColor+'">'+(cropScore>70?'GOOD FIT':cropScore>45?'FAIR FIT':'POOR FIT')+'</span>';
+          cropHealthEl.style.color = chColor;
+        }
+      }
+    } else {
+      setTxt('agri-rec-crop', 'Not available — no IMD rainfall/temperature record for this selection');
+      setTxt('agri-alt-crop', 'Not available');
+      setTxt('agri-suitability', 'NOT AVAILABLE', 'var(--text-dim)');
+      var chEl = el('agri-crop-health');
+      if (chEl) { chEl.textContent = 'Not available'; chEl.style.color = 'var(--text-dim)'; }
+    }
 
-    // Irrigation advisory
+    setTxt('agri-ndvi', ndviIsReal ? ndvi.toFixed(2) : 'Not available');
+    setTxt('agri-rain', rain != null ? rain.toFixed(0)+' mm' : 'Not available');
+
+    // Irrigation advisory: general agronomic guidance for the season, only
+    // branching on real rainfall when it is available.
     var irrEl = el('agri-irrigation');
     if (irrEl) {
       if (season === 'kharif') {
-        if (rain > 1000) irrEl.textContent = 'Monsoon adequate. Drainage management important.';
-        else irrEl.textContent = 'Supplemental irrigation needed. ' + (soil.irrigation || 'Use drip/sprinkler.');
+        irrEl.textContent = (rain != null && rain > 1000)
+          ? 'Monsoon rainfall adequate at district mean; prioritise drainage management.'
+          : 'Supplemental irrigation may be needed. ' + (soil.irrigation || 'Drip/sprinkler recommended.');
       } else if (season === 'rabi') {
         irrEl.textContent = soil.irrigation || 'Schedule irrigation at critical growth stages (tillering, flowering, grain filling).';
       } else {
-        irrEl.textContent = 'Frequent light irrigation required. Mulch to reduce evaporation.';
+        irrEl.textContent = 'Frequent light irrigation recommended for summer crops. Mulching reduces evaporation.';
       }
     }
 
-    // Nutrient management
+    // Nutrient management: static reference guidance by agro-climatic soil zone.
     var nutEl = el('agri-nutrient');
-    if (nutEl) {
-      nutEl.textContent = soil.fert || 'Apply NPK as per soil test. Add FYM @ 5-10 t/ha.';
-    }
+    if (nutEl) nutEl.textContent = soil.fert || 'Apply NPK as per soil test. Add FYM at 5-10 t/ha.';
 
-    // Fertilizer recommendation
     var fertEl = el('agri-fertilizer');
     if (fertEl) {
-      if (cropScore > 70) {
-        fertEl.textContent = 'Soil condition good. Basal dose + top dressing at crown root stage.';
-      } else if (cropScore > 45) {
-        fertEl.textContent = 'Apply micronutrients (Zn, Fe, Mn) foliar spray 0.5% at 15-day intervals.';
-      } else {
-        fertEl.textContent = 'Soil test recommended. Apply lime if pH < 5.5. Use organic manure.';
-      }
+      fertEl.textContent = 'General guidance — a soil test is recommended before applying any fertilizer. '
+        + (soil.fert || 'Apply NPK as per soil test result.');
     }
 
-    // Farmer Advisory
     var advisoryEl = el('agri-advisory');
     if (advisoryEl) {
-      var adTxt = '';
       var locName = villageName || d.name;
-      adTxt = '🌾 **' + locName + '** — ';
-      adTxt += 'Current season: **' + season.toUpperCase() + '**. ';
-      adTxt += 'Recommended: **' + topCrop.name + '** (score: ' + topCrop.score + '%). ';
-      adTxt += 'Soil: ' + soil.name + '. ';
-      if (season === 'kharif') {
-        adTxt += '🌧 ' + (rain > 1000 ? 'Good monsoon expected. Prepare nurseries for ' + topCrop.name + '.' : 'Monitor rainfall. Have contingency plan for dry spells.');
-      } else if (season === 'rabi') {
-        adTxt += '❄ Suitable for **' + topCrop.name +'** and **'+ altCrop.name +'**. Ensure timely sowing after monsoon withdrawal.';
+      var parts = [];
+      parts.push('<strong>' + locName + '</strong> — season: <strong>' + season.toUpperCase() + '</strong>, soil zone: ' + soil.name + '.');
+      if (hasClimateData && topCrop) {
+        parts.push('Climate-suitability ranking (from IMD rainfall/temperature' + (ndviIsReal ? ' and DiCRA NDVI' : '') + '): <strong>' + topCrop.name + '</strong>' + (altCrop ? ' ahead of ' + altCrop.name : '') + '. This is a heuristic ranking, not a yield forecast.');
       } else {
-        adTxt += '☀ Summer cropping. Short-duration **'+ topCrop.name +'** recommended. Ensure irrigation availability.';
+        parts.push('No IMD-derived rainfall/temperature record is available for this selection, so no crop ranking is shown.');
       }
-      if (heat > 40) adTxt += ' ⚠ Heat stress expected — provide shade nets, irrigate at dawn/dusk.';
-      if (rain < 600) adTxt += ' 💧 Deficit rainfall — adopt drip irrigation, farm ponds for rainwater harvesting.';
-      adTxt += ' 🧪 ' + (soil.fert || 'Use balanced fertilization as per soil test.');
-      advisoryEl.innerHTML = adTxt.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      if (heat != null && heat > 40) parts.push('Heat stress is likely at this temperature level; consider shade nets and irrigating at dawn/dusk.');
+      if (rain != null && rain < 600) parts.push('Rainfall is on the low side; drip irrigation and farm ponds for rainwater harvesting are worth considering.');
+      parts.push('Fertilizer/irrigation guidance above is general reference information for this soil zone, not a site-specific soil test result.');
+      advisoryEl.innerHTML = parts.join(' ');
     }
 
-    // Groundwater indicators (simulated from GEE-style climate data)
-    var gwStress = (vi && vi.drought_probability_pct != null)
-      ? Math.min(100, Math.max(5, vi.drought_probability_pct * 1.1 + (heat > 39 ? 10 : 0) - (rain > 1200 ? 15 : 0)))
-      : (idx && idx.drought_probability_pct != null)
-      ? Math.min(100, Math.max(5, idx.drought_probability_pct * 1.1 + (heat > 39 ? 10 : 0) - (rain > 1200 ? 15 : 0)))
-      : (d.drought != null ? Math.min(100, d.drought * 1.05) : 50);
-    var gwStressLabel = gwStress > 65 ? 'OVER-EXPLOITED' : gwStress > 45 ? 'SEMI-CRITICAL' : gwStress > 30 ? 'SAFE' : 'ABUNDANT';
-    var gwStressColor = gwStress > 65 ? 'var(--red)' : gwStress > 45 ? 'var(--orange)' : gwStress > 30 ? 'var(--green)' : 'var(--cyan)';
-    setTxt('agri-gw-stress', gwStress.toFixed(0)+'% '+gwStressLabel, gwStressColor);
-    // GW level (meters below ground)
-    var gwLevel = (20 + (100 - gwStress) * 0.3 + ((d.name||'').charCodeAt(0)%5-2)*0.4).toFixed(1);
-    setTxt('agri-gw-level', gwLevel+' m bgl');
-    // Irrigation need
-    var irrNeed = season === 'kharif' ? (rain < 800 ? 'HIGH' : 'LOW') : season === 'rabi' ? 'MODERATE' : 'HIGH';
-    var irrNeedColor = irrNeed === 'HIGH' ? 'var(--red)' : irrNeed === 'MODERATE' ? 'var(--orange)' : 'var(--green)';
-    setTxt('agri-gw-irr-need', irrNeed, irrNeedColor);
-    // Recharge rate
-    var recharge = rain > 1200 ? 'GOOD' : rain > 800 ? 'MODERATE' : 'POOR';
-    var rechargeColor = recharge === 'GOOD' ? 'var(--green)' : recharge === 'MODERATE' ? 'var(--yellow)' : 'var(--red)';
-    setTxt('agri-gw-recharge', recharge, rechargeColor);
+    // Groundwater: no CGWB/India-WRIS data is integrated into this dashboard, so
+    // an absolute water-table depth is never shown. The stress/recharge fields
+    // below are a heuristic derived from real IMD drought probability and
+    // rainfall -- labelled INDICATIVE, not a groundwater measurement.
+    var haveDroughtSignal = (vi && vi.drought_probability_pct != null) || (idx && idx.drought_probability_pct != null);
+    if (haveDroughtSignal && rain != null) {
+      var droughtPct = (vi && vi.drought_probability_pct != null) ? vi.drought_probability_pct : idx.drought_probability_pct;
+      var gwStress = Math.min(100, Math.max(5, droughtPct * 1.1 + (heat != null && heat > 39 ? 10 : 0) - (rain > 1200 ? 15 : 0)));
+      var gwStressLabel = gwStress > 65 ? 'HIGH (indicative)' : gwStress > 45 ? 'MODERATE (indicative)' : gwStress > 30 ? 'LOW-MODERATE (indicative)' : 'LOW (indicative)';
+      var gwStressColor = gwStress > 65 ? 'var(--red)' : gwStress > 45 ? 'var(--orange)' : gwStress > 30 ? 'var(--green)' : 'var(--cyan)';
+      setTxt('agri-gw-stress', gwStress.toFixed(0)+'% '+gwStressLabel, gwStressColor);
+      var irrNeed = season === 'kharif' ? (rain < 800 ? 'HIGH' : 'LOW') : season === 'rabi' ? 'MODERATE' : 'HIGH';
+      var irrNeedColor = irrNeed === 'HIGH' ? 'var(--red)' : irrNeed === 'MODERATE' ? 'var(--orange)' : 'var(--green)';
+      setTxt('agri-gw-irr-need', irrNeed, irrNeedColor);
+      var recharge = rain > 1200 ? 'GOOD (indicative)' : rain > 800 ? 'MODERATE (indicative)' : 'POOR (indicative)';
+      var rechargeColor = rain > 1200 ? 'var(--green)' : rain > 800 ? 'var(--yellow)' : 'var(--red)';
+      setTxt('agri-gw-recharge', recharge, rechargeColor);
+    } else {
+      setTxt('agri-gw-stress', 'Not available', 'var(--text-dim)');
+      setTxt('agri-gw-irr-need', 'Not available', 'var(--text-dim)');
+      setTxt('agri-gw-recharge', 'Not available', 'var(--text-dim)');
+    }
+    setTxt('agri-gw-level', 'Not available — CGWB/India-WRIS groundwater data is not yet integrated', 'var(--text-dim)');
   }
 
   // ── Ecology Panel ─────────────────────────────────────────────
@@ -569,55 +588,34 @@
     if (!d) return;
     var dnEl = document.getElementById('ecoDistName');
     if (dnEl) dnEl.textContent = '— '+ d.name + (villageName ? ' › '+villageName : '') + (window._hazardYear ? ' | Year '+window._hazardYear : '');
-    var idx = d.indices;
-    var vi = null;
-    if (villageName) {
-      var vmap = d.villages || {};
-      for (var id in vmap) {
-        if ((vmap[id].name||'').toUpperCase() === (villageName||'').toUpperCase()) {
-          vi = vmap[id].indices; break;
-        }
-      }
+    // Forest cover, biodiversity risk, carbon stock, protected-area and
+    // wildlife-corridor figures require Forest Survey of India / Bhuvan land-use
+    // data, which is not integrated into this dashboard. Those fields are always
+    // shown as "Not available" rather than derived from rainfall/NDVI proxies.
+    // Only NDVI is real (UNDP DiCRA district zonal series, from the loader below).
+    var ndvi = null, ndviIsReal = false;
+    if (window._dicraNdvi && window._dicraNdvi.districts && window._dicraNdvi.districts[districtKey]) {
+      var ndviSeries = window._dicraNdvi.districts[districtKey].ndvi_mean;
+      if (ndviSeries && ndviSeries.length) { ndvi = ndviSeries[ndviSeries.length - 1]; ndviIsReal = true; }
     }
-    var ndvi, rain;
-    if (vi && vi.spi_12 != null) {
-      ndvi = vi.spi_12 * 0.1 + 0.5;
-      rain = vi.annual_rain_mm || vi.annual_rain_mm_mean;
-    }
-    var yr = window._hazardYear;
-    if (yr && d.annual && d.annual.years) {
-      var yi = d.annual.years.indexOf(parseInt(yr));
-      if (yi >= 0 && d.annual.spi_12[yi] != null) {
-        ndvi = d.annual.spi_12[yi] * 0.1 + 0.45;
-        rain = d.annual.annual_rain_mm[yi];
-      }
-    }
-    if (ndvi == null) ndvi = idx && idx.spi_12 != null ? (idx.spi_12 * 0.1 + 0.45) : 0.40;
-    if (rain == null) rain = idx && idx.annual_rain_mm_mean || 1000;
-    // Derive ecological metrics from available data
-    var forestCover = Math.min(45, Math.max(5, Math.round(rain / 40 + ndvi * 20)));
-    var bioScore = Math.min(100, Math.max(20, Math.round(forestCover * 1.5 + ndvi * 30)));
-    var carbon = (forestCover * 0.8 + ndvi * 15).toFixed(1);
-    var deforestRisk = ndvi < 0.35 ? 'HIGH' : ndvi < 0.5 ? 'MEDIUM' : 'LOW';
-    var waterBody = Math.max(1, Math.round(rain / 250));
     var ecoSet = function(id,v,c){ var el=document.getElementById(id); if(el){el.textContent=v;if(c)el.style.color=c;} };
-    ecoSet('eco-forest', forestCover+'%', forestCover>25?'var(--green)':forestCover>15?'var(--yellow)':'var(--orange)');
-    ecoSet('eco-ndvi', ndvi.toFixed(2));
-    ecoSet('eco-bio', bioScore+'%', bioScore>60?'var(--green)':bioScore>40?'var(--yellow)':'var(--red)');
-    ecoSet('eco-carbon', carbon+' Mg/ha');
-    ecoSet('eco-protected', Math.round(forestCover * 0.35)+'%');
-    ecoSet('eco-wildlife', Math.round(forestCover * 0.25)+'%');
-    ecoSet('eco-deforest', deforestRisk, deforestRisk==='HIGH'?'var(--red)':deforestRisk==='MEDIUM'?'var(--yellow)':'var(--green)');
-    ecoSet('eco-water', waterBody+'%');
+    var NA = 'Not available';
+    var naColor = 'var(--text-dim)';
+    ecoSet('eco-forest', NA, naColor);
+    ecoSet('eco-ndvi', ndviIsReal ? ndvi.toFixed(2) : NA, ndviIsReal ? null : naColor);
+    ecoSet('eco-bio', NA, naColor);
+    ecoSet('eco-carbon', NA, naColor);
+    ecoSet('eco-protected', NA, naColor);
+    ecoSet('eco-wildlife', NA, naColor);
+    ecoSet('eco-deforest', NA, naColor);
+    ecoSet('eco-water', NA, naColor);
     var bioDetailEl = document.getElementById('eco-bio-detail');
     if (bioDetailEl) {
-      var risk = bioScore > 60 ? 'Low Risk' : bioScore > 40 ? 'Moderate Risk' : 'High Risk';
-      var riskColor = bioScore > 60 ? 'var(--green)' : bioScore > 40 ? 'var(--yellow)' : 'var(--red)';
-      bioDetailEl.innerHTML = '<strong>Biodiversity Risk Index:</strong> <span style="color:'+riskColor+'">'+risk+' ('+bioScore+'%)</span><br>'
-        + '<strong>Forest Cover:</strong> '+forestCover+'% of district area<br>'
-        + '<strong>Water Bodies:</strong> ~'+waterBody+'% of area<br>'
-        + '<strong>Deforestation Pressure:</strong> '+deforestRisk+'<br>'
-        + (villageName ? '<em style="color:var(--cyan)">Using village-level indices for '+villageName+'</em>' : '<em style="color:var(--text-dim)">Select a village for village-level ecological breakdown</em>');
+      bioDetailEl.innerHTML = '<strong>Forest cover, biodiversity risk, carbon stock and protected-area figures are not available.</strong><br>'
+        + 'This dashboard does not yet integrate Forest Survey of India or Bhuvan land-use/land-cover data — see docs/DATA_SOURCES.md.<br>'
+        + (ndviIsReal
+            ? '<strong>NDVI</strong> (district zonal, UNDP DiCRA): ' + ndvi.toFixed(2) + '. NDVI alone does not determine forest cover, biodiversity, or carbon stock, so those fields are not estimated from it.'
+            : 'NDVI data is still loading or unavailable for this district.');
     }
   }
 
