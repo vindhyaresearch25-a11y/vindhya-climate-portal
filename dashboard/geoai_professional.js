@@ -161,6 +161,8 @@
   function render(res) {
     var box = document.getElementById('aoi-result');
     if (!box) return;
+    lastAOIResult = res;
+    setExportButtonsEnabled(res.villages.length > 0);
     var head = '<div style="display:flex;gap:20px;flex-wrap:wrap;padding-bottom:10px;' +
       'border-bottom:1px solid var(--border);margin-bottom:10px">' +
       stat(t('AREA', 'क्षेत्रफल'), fmt(res.area_ha, 2), 'ha', fmt(res.area_km2, 3) + ' km2') +
@@ -278,6 +280,8 @@
     setStatus('');
     var box = document.getElementById('aoi-result');
     if (box) box.innerHTML = emptyHtml();
+    lastAOIResult = null;
+    setExportButtonsEnabled(false);
   }
 
   function addTab(id, paneId, icon, labelEn, labelHi, onOpen) {
@@ -322,13 +326,140 @@
       '<button id="aoi-btn-clear" style="padding:6px 14px;border:1px solid var(--border);' +
       'background:var(--bg-card);color:var(--text);border-radius:5px;cursor:pointer;font-size:12px">' +
       t('Clear', 'साफ़ करें') + '</button>' +
-      '<span id="aoi-status" style="font-size:11px;opacity:.7"></span></div>' +
+      '<span style="flex:1"></span>' +
+      '<button id="aoi-btn-csv" disabled style="padding:6px 14px;border:1px solid var(--border);' +
+      'background:var(--bg-card);color:var(--text);border-radius:5px;cursor:not-allowed;font-size:12px;opacity:.5">' +
+      '<i class="fa fa-file-csv"></i> ' + t('Download CSV', 'CSV डाउनलोड') + '</button>' +
+      '<button id="aoi-btn-pdf" disabled style="padding:6px 14px;border:1px solid var(--border);' +
+      'background:var(--bg-card);color:var(--text);border-radius:5px;cursor:not-allowed;font-size:12px;opacity:.5">' +
+      '<i class="fa fa-file-pdf"></i> ' + t('Download PDF', 'PDF डाउनलोड') + '</button>' +
+      '<span id="aoi-status" style="font-size:11px;opacity:.7;flex-basis:100%"></span></div>' +
       '<div id="aoi-result">' + emptyHtml() + '</div>';
     host.appendChild(p);
     document.getElementById('aoi-btn-draw').onclick = startDraw;
     document.getElementById('aoi-btn-finish').onclick = finishDraw;
     document.getElementById('aoi-btn-clear').onclick = resetAOI;
+    document.getElementById('aoi-btn-csv').onclick = exportAOICSV;
+    document.getElementById('aoi-btn-pdf').onclick = exportAOIPDF;
     addTab('aoi-tab', 'pane-aoi', 'fa-draw-polygon', 'AOI Polygon', 'AOI बहुभुज', null);
+  }
+
+  var lastAOIResult = null;
+
+  function setExportButtonsEnabled(enabled) {
+    ['aoi-btn-csv', 'aoi-btn-pdf'].forEach(function (id) {
+      var b = document.getElementById(id);
+      if (!b) return;
+      b.disabled = !enabled;
+      b.style.opacity = enabled ? '1' : '.5';
+      b.style.cursor = enabled ? 'pointer' : 'not-allowed';
+    });
+  }
+
+  function downloadBlob(content, filename, mime) {
+    var blob = new Blob([content], { type: mime });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  }
+
+  var AOI_EXPORT_COLUMNS = [
+    ['district', 'District'], ['name', 'Village'], ['lat', 'Latitude'], ['lng', 'Longitude'],
+    ['annual_rain_mm', 'Annual rainfall (mm)'], ['max_summer_tmax', 'Max summer Tmax (C)'],
+    ['heatwave_days', 'Heatwave days'], ['drought_probability_pct', 'Drought probability (%)'],
+    ['r95p_mm', 'R95p (mm)'], ['rx1day_mm', 'Rx1day (mm)']
+  ];
+
+  function aoiExportRows() {
+    if (!lastAOIResult || !lastAOIResult.villages) return [];
+    return lastAOIResult.villages.map(function (v) {
+      var row = { district: v.district, name: v.name, lat: v.lat, lng: v.lng };
+      AOI_EXPORT_COLUMNS.slice(4).forEach(function (c) { row[c[0]] = v.ix ? v.ix[c[0]] : null; });
+      return row;
+    });
+  }
+
+  function csvEscape(val) {
+    if (val == null) return '';
+    var s = String(val);
+    return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+  }
+
+  function exportAOICSV() {
+    var rows = aoiExportRows();
+    if (!rows.length || !lastAOIResult) return;
+    var lines = [
+      '# AOI Village Report',
+      '# Area: ' + fmt(lastAOIResult.area_ha, 2) + ' ha (' + fmt(lastAOIResult.area_km2, 3) + ' km2)',
+      '# Perimeter: ' + fmt(lastAOIResult.perimeter_km, 3) + ' km',
+      '# Villages: ' + rows.length,
+      '# Generated: ' + new Date().toISOString(),
+      '# Source: IMD 0.05 deg gridded daily data, 2000-2024, sampled at village centroids'
+    ];
+    lines.push(AOI_EXPORT_COLUMNS.map(function (c) { return csvEscape(c[1]); }).join(','));
+    rows.forEach(function (r) {
+      lines.push(AOI_EXPORT_COLUMNS.map(function (c) {
+        var v = r[c[0]];
+        return csvEscape(typeof v === 'number' ? +v.toFixed(2) : v);
+      }).join(','));
+    });
+    downloadBlob(lines.join('\r\n'), 'aoi_village_report.csv', 'text/csv;charset=utf-8');
+  }
+
+  function loadJsPDF() {
+    if (window.jspdf && window.jspdf.jsPDF) return Promise.resolve(window.jspdf.jsPDF);
+    return new Promise(function (resolve, reject) {
+      var s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+      s.onload = function () {
+        if (window.jspdf && window.jspdf.jsPDF) resolve(window.jspdf.jsPDF);
+        else reject(new Error('jsPDF loaded but window.jspdf.jsPDF missing'));
+      };
+      s.onerror = function () { reject(new Error('failed to load jsPDF from CDN')); };
+      document.head.appendChild(s);
+    });
+  }
+
+  function exportAOIPDF() {
+    var rows = aoiExportRows();
+    if (!rows.length || !lastAOIResult) return;
+    var btn = document.getElementById('aoi-btn-pdf');
+    var origText = btn ? btn.innerHTML : '';
+    if (btn) { btn.innerHTML = t('Preparing...', 'तैयार हो रहा है...'); btn.disabled = true; }
+    loadJsPDF().then(function (jsPDF) {
+      var doc = new jsPDF({ orientation: 'landscape', unit: 'pt' });
+      doc.setFontSize(16);
+      doc.text('AOI Village Report', 40, 40);
+      doc.setFontSize(10);
+      doc.text(rows.length + ' villages | Area: ' + fmt(lastAOIResult.area_ha, 2) + ' ha (' +
+        fmt(lastAOIResult.area_km2, 3) + ' km2) | Perimeter: ' + fmt(lastAOIResult.perimeter_km, 3) + ' km', 40, 58);
+      doc.text('Source: IMD 0.05 deg gridded daily data, 2000-2024, sampled at village centroids. Generated ' +
+        new Date().toISOString().slice(0, 10) + '.', 40, 72);
+
+      var startY = 95, rowH = 16, colX = [40, 140, 260, 320, 380, 460, 540, 610, 670, 730];
+      doc.setFontSize(8);
+      doc.setFont(undefined, 'bold');
+      AOI_EXPORT_COLUMNS.forEach(function (c, i) { doc.text(c[1], colX[i], startY); });
+      doc.setFont(undefined, 'normal');
+      var y = startY + rowH;
+      rows.forEach(function (r) {
+        if (y > 560) { doc.addPage(); y = 40; }
+        AOI_EXPORT_COLUMNS.forEach(function (c, i) {
+          var v = r[c[0]];
+          var txt = v == null ? '--' : (typeof v === 'number' ? v.toFixed(2) : String(v));
+          doc.text(String(txt).slice(0, 22), colX[i], y);
+        });
+        y += rowH;
+      });
+      doc.save('aoi_village_report.pdf');
+    }).catch(function (e) {
+      console.warn('[geoai] PDF export failed:', e);
+      setStatus(t('PDF export failed -- check your connection and try again.', 'PDF डाउनलोड विफल -- कनेक्शन जांचें और फिर से कोशिश करें।'));
+    }).finally(function () {
+      if (btn) { btn.innerHTML = origText; btn.disabled = false; }
+    });
   }
 
   function addFurniture() {
