@@ -388,7 +388,7 @@
   //     layer stays visible underneath, it is not replaced by an outline.
   // ---------------------------------------------------------------------
   var VILLAGE_DEFAULT_STYLE = { color: '#2d8f5c', weight: 0.8, opacity: 0.7, fillColor: '#2d8f5c', fillOpacity: 0.06 };
-  var STATE_OUTLINE_STYLE = { color: '#ffd166', weight: 2.2, fill: false, opacity: 0.95 }; // same as india_boundaries_loader.js's state style -- MP has no state-select precedent of its own, so this reuses the one other state-outline convention already in the app
+  var STATE_OUTLINE_STYLE = { color: '#ffd166', weight: 2.2, fill: false, opacity: 0.95 }; // MP has no state-select precedent of its own, so this reuses the state-outline convention already established elsewhere in the app
 
   function clearNationalHighlight() {
     // No longer used by district/village (they now reuse window._villageLayer

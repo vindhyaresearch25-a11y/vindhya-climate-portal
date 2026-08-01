@@ -1,7 +1,7 @@
 /*
  * geoai_professional.js — VINDHYA Climate Portal
  *   1. AOI  : draw any polygon -> true area/perimeter + climate indices
- *   2. MAP  : scale bar, north arrow, legend                  (Req. 20)
+ *   2. MAP  : scale bar, north arrow                          (Req. 20)
  *   3. META : provenance panel                     (Req. 19, 21, 26, 27)
  *   4. LIVE : NASA POWER real-time daily weather              (Req. 3)
  *
@@ -484,31 +484,6 @@
       return d;
     };
     north.addTo(map);
-
-    function line(color, label) {
-      return '<div style="display:flex;align-items:center;gap:6px">' +
-        '<span style="width:16px;height:3px;background:' + color + ';display:inline-block;' +
-        'border-radius:2px"></span><span>' + label + '</span></div>';
-    }
-    var legend = L.control({ position: 'bottomright' });
-    legend.onAdd = function () {
-      var d = L.DomUtil.create('div');
-      d.id = 'map-legend';
-      d.style.cssText = 'background:rgba(255,255,255,.93);border:1px solid rgba(0,0,0,.15);' +
-        'border-radius:5px;padding:8px 10px;font-size:11px;line-height:1.7;color:#1a1a1a;' +
-        'box-shadow:0 1px 4px rgba(0,0,0,.2);max-width:210px';
-      d.innerHTML = '<div style="font-weight:700;font-size:10px;letter-spacing:.4px;' +
-        'margin-bottom:4px">' + t('LEGEND', 'संकेत-सूची') + '</div>' +
-        line('#ffd166', t('State / UT boundary', 'राज्य सीमा')) +
-        line('#4cc9f0', t('District boundary', 'ज़िला सीमा')) +
-        line('#2d8f5c', t('Village boundary', 'ग्राम सीमा')) +
-        line('#d4793a', t('Drawn AOI polygon', 'बनाया गया AOI')) +
-        '<div style="margin-top:5px;padding-top:4px;border-top:1px solid rgba(0,0,0,.12);' +
-        'font-size:9.5px;opacity:.7">EPSG:4326 - WGS-84</div>';
-      L.DomEvent.disableClickPropagation(d);
-      return d;
-    };
-    legend.addTo(map);
 
     map.on('click', onMapClick);
     map.on('dblclick', function () { if (drawing) finishDraw(); });
