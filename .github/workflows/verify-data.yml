@@ -1,0 +1,103 @@
+name: Verify authoritative data sources
+
+# Runs entirely on GitHub servers. Nothing is downloaded to any local machine.
+on:
+  schedule:
+    - cron: "0 3 * * 1"        # every Monday 03:00 UTC
+  workflow_dispatch:            # manual "Run workflow" button
+  push:
+    paths:
+      - "scripts/fetch_verify_sources.py"
+      - ".github/workflows/verify-data.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Fetch and validate registered sources
+        run: python scripts/fetch_verify_sources.py
+
+      - name: Validate published data files
+        run: |
+          python - <<'PY'
+          import json, sys, glob
+          from pathlib import Path
+
+          fails = []
+
+          # 1. No synthetic districts may reappear
+          d = json.load(open('dashboard/data/mp_climate_data.json'))
+          allowed = {'bhopal', 'indore', 'jabalpur', 'rewa', 'sidhi'}
+          extra = set(d['districts']) - allowed
+          if extra:
+              fails.append(f"unexpected districts in climate data: {sorted(extra)}")
+          if 'metadata' not in d:
+              fails.append("mp_climate_data.json is missing its metadata block")
+
+          # 2. Every dashboard JSON must declare provenance
+          for f in glob.glob('dashboard/data/*.json'):
+              j = json.load(open(f))
+              if isinstance(j, dict) and 'metadata' not in j:
+                  fails.append(f"{f} has no metadata block")
+
+          # 3. Physical plausibility of published village indices
+          bad = 0
+          for dk, dist in d['districts'].items():
+              for vid, v in (dist.get('villages') or {}).items():
+                  ix = v.get('indices') or {}
+                  r = ix.get('annual_rain_mm')
+                  tx = ix.get('max_summer_tmax')
+                  hw = ix.get('heatwave_days')
+                  if r is not None and not (0 <= r <= 6000): bad += 1
+                  if tx is not None and not (20 <= tx <= 55): bad += 1
+                  if hw is not None and not (0 <= hw <= 180): bad += 1
+          if bad:
+              fails.append(f"{bad} village index values outside physically plausible ranges")
+
+          # 4. GeoJSON structural check
+          for f in glob.glob('dashboard/**/*.geojson', recursive=True):
+              g = json.load(open(f))
+              if g.get('type') != 'FeatureCollection' or not g.get('features'):
+                  fails.append(f"{f} is not a populated FeatureCollection")
+
+          if fails:
+              print("VALIDATION FAILED")
+              for x in fails: print("  -", x)
+              sys.exit(1)
+          print("All published data files passed validation.")
+          PY
+
+      - name: Guard against synthetic data reintroduction
+        run: |
+          if grep -rn "np\.random\|random\.uniform\|random\.choice\|random\.randint" \
+               scripts/ --include="*.py"; then
+            echo "Random generation found in pipeline scripts. Rejected."
+            exit 1
+          fi
+          echo "No random generation in pipeline scripts."
+
+      - name: Run unit tests
+        run: |
+          pip install --quiet numpy pandas scipy pytest
+          python -m pytest tests/ -q
+
+      - name: Commit manifest if it changed
+        run: |
+          git config user.name  "vindhya-data-bot"
+          git config user.email "actions@github.com"
+          git add docs/data_manifest.json
+          if git diff --staged --quiet; then
+            echo "Manifest unchanged."
+          else
+            git commit -m "chore(data): refresh source verification manifest [skip ci]"
+            git push
+          fi
