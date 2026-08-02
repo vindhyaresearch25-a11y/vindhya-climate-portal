@@ -297,9 +297,9 @@
 
   function decorateHistoricalPanel(districtKey, villageName){
     var d = state.data && state.data.districts[districtKey];
-    if (!d) return;
     var host = document.getElementById('historical-indices-panel');
     if (!host) return;
+    if (!d) { host.innerHTML = ''; return; }
     var idx = d.indices;
     // If a village is selected, try to use its indices instead of district average
     if (villageName) {
@@ -644,6 +644,30 @@
   // a name), before that async resolution finishes.
   window._mpClimateRefreshVillage = function(districtKey, villageName){
     if (districtKey && state.data && state.data.districts[districtKey]) refreshAll(districtKey, villageName);
+  };
+
+  // Called from national_selector.js whenever the selection moves to a
+  // state/district with no real IMD data, so every panel this loader owns
+  // drops back to empty rather than keeping the previous real district's
+  // (or village's) numbers on screen -- most of the render* functions above
+  // return early on `!d` without touching their host element, which is
+  // correct for "don't re-render" but wrong for "the old selection is gone
+  // now", so this does the clearing they don't.
+  window._mpClimateClear = function(){
+    state.currentDistrict = null;
+    state.currentVillage = null;
+    ['chartRain', 'chartTemp', 'chartDrought', 'chartTrends'].forEach(function(id){
+      try { killChart(id); } catch(e) {}
+    });
+    ['historical-indices-panel', 'village-detail-panel', 'future-2040-panel'].forEach(function(id){
+      var el = document.getElementById(id); if (el) el.innerHTML = '';
+    });
+    var agriName = document.getElementById('agriDistName'); if (agriName) agriName.textContent = '';
+    var ecoName = document.getElementById('ecoDistName'); if (ecoName) ecoName.textContent = '';
+    if (window.villageMarker && window.leafletMap) {
+      try { window.leafletMap.removeLayer(window.villageMarker); } catch(e) {}
+      window.villageMarker = null;
+    }
   };
 
   function hookDistrictChange(){

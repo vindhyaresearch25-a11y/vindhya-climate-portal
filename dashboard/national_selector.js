@@ -251,12 +251,25 @@
     ['bar-drought', 'bar-heat', 'bar-rain', 'bar-ndvi', 'bar-crop', 'bar-gw'].forEach(function (id) {
       var e = el(id); if (e) e.style.width = '0%';
     });
+    // Sub-labels under the Heatwave Severity / Rainfall Departure cards
+    // (e.g. "42.5°C Acharpura") aren't covered by the m-* ids above and
+    // are only ever set by index.html's applyDistrictMetrics, which isn't
+    // called for a non-real district -- reset them explicitly here or a
+    // previously-selected real district/village's label survives the
+    // switch to a state/district with no data.
+    var heatDetail = el('heat-detail'); if (heatDetail) heatDetail.textContent = 'Select a district';
+    var rainTrend = el('m-rain-trend'); if (rainTrend) rainTrend.textContent = 'Select a district';
     var advTitle = el('adv-title-0');
     if (advTitle) advTitle.textContent = 'Data not yet available for ' + label;
     var advBody = el('adv-body-0');
     if (advBody) advBody.textContent = 'Climate data for ' + label + ' is not yet available. IMD-derived indices are currently computed for Bhopal, Indore, Jabalpur, Rewa and Sidhi (Madhya Pradesh) only.';
     var navBadgeHeat = el('nav-badge-heat');
     if (navBadgeHeat) navBadgeHeat.style.display = 'none';
+    // Clear every panel mp_climate_loader.js owns (historical/village/
+    // future-2040 indices, charts, agri/eco district-name headers, the
+    // village marker) so no data from a previously-selected real MP
+    // district or village survives this switch.
+    if (typeof window._mpClimateClear === 'function') window._mpClimateClear();
   }
 
   // The ONE place MP_DISTRICTS is consulted: resolves a district's real
