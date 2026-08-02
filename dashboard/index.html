@@ -465,8 +465,8 @@ canvas.chart-canvas{max-height:100%;}
       <div class="line2">CLIMATE RISK &bull; SATELLITE NDVI &bull; AGRICULTURAL ADVISORY</div>
     </div>
     <div class="hero-stats">
-      <div class="hero-stat"><div class="hero-stat-val" data-target="5">5</div><div class="hero-stat-lbl">Districts, Live IMD Data</div></div>
-      <div class="hero-stat"><div class="hero-stat-val" data-target="5625">5,625</div><div class="hero-stat-lbl">Villages Covered</div></div>
+      <div class="hero-stat"><div class="hero-stat-val" id="hero-stat-districts" data-target="5">5</div><div class="hero-stat-lbl">Districts, Live IMD Data</div></div>
+      <div class="hero-stat"><div class="hero-stat-val" id="hero-stat-villages" data-target="5625">5,625</div><div class="hero-stat-lbl">Villages Covered (SoI, all states)</div></div>
       <div class="hero-stat"><div class="hero-stat-val" data-target="25">25</div><div class="hero-stat-lbl">Years of Record (2000-2024)</div></div>
       <div class="hero-stat"><div class="hero-stat-val" data-target="3">3</div><div class="hero-stat-lbl">Verified Sources</div></div>
     </div>
@@ -1198,7 +1198,25 @@ function animateCounters(){
     },25);
   });
 }
-animateCounters();
+// Hero stats must be counted from actual data files, never hardcoded
+// (STANDING ORDERS #7) -- fetch the real national village total and real
+// live-IMD-district count before animating, falling back to the static
+// data-target already in the HTML only if a fetch genuinely fails.
+Promise.all([
+  fetch('data/boundaries/' + 'soi/_manifest.json').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
+  fetch('data/mp_climate_data.json').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })
+]).then(function(results){
+  var manifest = results[0], climate = results[1];
+  if (manifest && manifest.totals && manifest.totals.total_villages) {
+    var vEl = document.getElementById('hero-stat-villages');
+    if (vEl) vEl.setAttribute('data-target', String(manifest.totals.total_villages));
+  }
+  if (climate && climate.districts) {
+    var dEl = document.getElementById('hero-stat-districts');
+    if (dEl) dEl.setAttribute('data-target', String(Object.keys(climate.districts).length));
+  }
+}).catch(function(){ /* keep the static fallback already in data-target */ })
+  .then(animateCounters);
 
 // ============================================================
 // LOGIN GATE

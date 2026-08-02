@@ -494,8 +494,18 @@ def stage_manifest():
             entry["villages"] = {"district_count": len(districts), "total_villages": total_villages, "districts": districts}
         if len(entry) > 1:
             manifest["states"][canonical_name] = entry
+    # National totals, pre-computed here rather than summed client-side on
+    # every page load -- the dashboard landing page's "Villages Covered"
+    # stat reads this instead of a hardcoded number (STANDING ORDERS #7:
+    # landing-page statistics must be counted from actual data files).
+    manifest["totals"] = {
+        "states_with_villages": len(manifest["states"]),
+        "total_blocks": sum(e["blocks"]["count"] for e in manifest["states"].values() if "blocks" in e),
+        "total_villages": sum(e["villages"]["total_villages"] for e in manifest["states"].values() if "villages" in e),
+    }
     (OUT_DIR / "_manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2))
-    print(f"wrote {OUT_DIR / '_manifest.json'}: {len(manifest['states'])} states with data")
+    print(f"wrote {OUT_DIR / '_manifest.json'}: {len(manifest['states'])} states with data, "
+          f"{manifest['totals']['total_villages']} total villages")
 
 
 def main():
