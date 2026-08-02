@@ -597,7 +597,7 @@ canvas.chart-canvas{max-height:100%;}
           <div class="loc-field">
             <label>State</label>
             <select id="stateSelect">
-              <option value="mp" selected="">Madhya Pradesh</option>
+              <option value="" selected="">-- Select State --</option>
             </select>
           </div>
 
@@ -623,7 +623,7 @@ canvas.chart-canvas{max-height:100%;}
           </div>
 
           <div class="loc-breadcrumb" id="locBreadcrumb">
-            <b>India</b> › <b>Madhya Pradesh</b>
+            <b>India</b>
           </div>
           <div id="boundaryLoadStatus" style="display:none;font-size:0.68rem;line-height:1.5;padding:0.4rem 0.5rem;margin-top:0.3rem;background:rgba(26,138,158,0.08);border:1px solid rgba(26,138,158,0.25);border-radius:5px;color:var(--text);"></div>
         </div>
@@ -1621,47 +1621,22 @@ function updateAdvisories(distKey){
 }
 
 
-// Applies real IMD climate data, AI Farmer Advisory, and the Block->Village
-// hierarchy for one of the 5 districts MP_DISTRICTS lists. This is the ONLY
-// function in the app that consults MP_DISTRICTS -- called from
-// national_selector.js's window.onDistrictChange dispatcher, and only for
-// districts it has already confirmed have real data via mpDistrictKeyFor.
-// Boundary geometry, map flyTo, and the district dropdown/naming are all
-// handled generically before this runs (onNationalDistrictChange, same code
-// path every other district in every state uses) -- this function only
-// layers real data on top, never draws the boundary itself.
+// Applies real IMD climate data and AI Farmer Advisory for one of the 5
+// districts MP_DISTRICTS lists. This is the ONLY function in the app that
+// consults MP_DISTRICTS -- called from national_selector.js's
+// window.onDistrictChange dispatcher, and only for districts it has
+// already confirmed have real data via mpRealDataKey(). Boundary geometry,
+// map flyTo/fitBounds, and District/Block/Village dropdown population are
+// all handled generically before this runs (national_selector.js's
+// selectDistrict, the same Survey of India-driven code path every other
+// district in every state uses) -- this function only layers real climate
+// data on top, it never touches the Block dropdown or draws any boundary.
 function onDistrictChange(distKey){
-  const blockSel=document.getElementById('blockSelect');
-  const villageSel=document.getElementById('villageSelect');
-  const blockField=document.getElementById('blockField');
-  const villageField=document.getElementById('villageField');
-
-  // Reset downstream
-  blockSel.innerHTML='<option value="">-- Select Block --</option>';
-  villageSel.innerHTML='<option value="">-- Select Block First --</option>';
-  villageSel.disabled=true;
-  blockField.style.display='none';
-  villageField.style.display='none';
-
   if(!distKey || !MP_DISTRICTS[distKey]){
-    blockSel.disabled=true;
-    blockSel.innerHTML='<option value="">-- Select District First --</option>';
     updateBreadcrumb();
     return;
   }
-
-  const dist=MP_DISTRICTS[distKey];
-  // Show block field
-  blockField.style.display='block';
-  blockSel.disabled=false;
-  Object.keys(dist.blocks).forEach(b=>{
-    const o=document.createElement('option');
-    o.value=b;
-    o.textContent=b.replace(/_/g,' ');
-    blockSel.appendChild(o);
-  });
-
-  applyDistrictMetrics(dist, distKey);
+  applyDistrictMetrics(MP_DISTRICTS[distKey], distKey);
   updateBreadcrumb();
   updateAdvisories(distKey);
 }
@@ -1670,10 +1645,14 @@ var _villageGeoData = null;
 
 // Every Madhya Pradesh district (not just the 5 with live IMD climate
 // data) has its own Survey of India village file at
-// dashboard/data/boundaries/soi_villages/madhya_pradesh/<slug>.geojson
-// (~0.2-2 MB each -- see scripts/split_mp_soi_by_district.py), so
+// dashboard/data/boundaries/soi/villages/madhya_pradesh/<slug>.geojson
+// (~0.2-2 MB each -- see scripts/build_national_soi_boundaries.py), so
 // selecting a district only ever fetches that one district's file, never
-// the 45 MB whole-state file.
+// the whole-state file. Used by the "Village Boundaries" map toolbar
+// button (toggleVillageBoundaries) as a standalone fetch outside the main
+// national_selector.js selection flow, which has its own independent
+// per-district village fetch/cache for the State/District/Block/Village
+// dropdowns.
 var MP_DISTRICT_NAME_ALIASES = {
   // Two districts appear under different real names in different sources
   // this dashboard uses -- not a data error, both names are genuine:
@@ -1701,7 +1680,7 @@ async function loadVillageBoundaries(distKey, hazardKind){
   // prefix inside a longer one) so app.py's Streamlit-deployment URL
   // patcher -- which only matches that exact literal -- still rewrites
   // this fetch to the GitHub raw CDN. Don't merge into one literal.
-  const url = 'data/boundaries/'+'soi_villages/madhya_pradesh/'+slug+'.geojson';
+  const url = 'data/boundaries/'+'soi/villages/madhya_pradesh/'+slug+'.geojson';
   try{
     const r=await fetch(url);
     if(r.ok){
@@ -1883,32 +1862,6 @@ function updateLegend(hazardKind){
   body.innerHTML = legendItems.map(function(item){
     return '<div class="legend-row"><div class="legend-dot" style="background:'+item.color+'"></div>'+item.label+'</div>';
   }).join('');
-}
-
-function onBlockChange(block){
-  const villageSel=document.getElementById('villageSelect');
-  const villageField=document.getElementById('villageField');
-  villageSel.innerHTML='<option value="">-- Select Village --</option>';
-
-  const distKey=currentMPDistrictKey();
-  if(!block || !distKey){
-    villageSel.disabled=true;
-    villageField.style.display='none';
-    villageSel.innerHTML='<option value="">-- Select Block First --</option>';
-    updateBreadcrumb();
-    return;
-  }
-
-  const villages=MP_DISTRICTS[distKey].blocks[block]||[];
-  villageField.style.display='block';
-  villageSel.disabled=false;
-  villages.forEach(v=>{
-    const o=document.createElement('option');
-    o.value=v;
-    o.textContent=v;
-    villageSel.appendChild(o);
-  });
-  updateBreadcrumb();
 }
 
 function onVillageChange(village){

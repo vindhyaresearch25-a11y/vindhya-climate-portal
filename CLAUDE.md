@@ -2,6 +2,83 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## STANDING ORDERS (2026-08-01) — read these first, every session
+
+These are the owner's active instructions. Follow them without being re-told.
+
+1. **This is a NATIONAL platform, not MP-centric.** All 36 states/UTs are
+   equal everywhere: selector, map, defaults, landing page. MP is mentioned
+   only because (a) the `MP_DISTRICTS` special code path is the root defect
+   being removed, and (b) IMD climate indices are so far computed for 5 MP
+   districts. Never hardcode MP or Bhopal as a default anywhere.
+
+2. **One hierarchy everywhere:** Country → State → District → Block/Tehsil
+   → Village. A selection at any level (dropdown OR map click) must update
+   everything at once — boundary+zoom, metric cards, charts, panel,
+   breadcrumb, profile, mandi, crops, weather. Stale data from a previous
+   selection must never remain on screen. Dropdown and map stay in sync
+   both directions.
+
+3. **Boundaries: Survey of India only.**
+   - Village level: https://nwdp.nwic.gov.in/dataset/village-boundary
+     (`vb_soi_<state>_geojson.zip`, per state, free, no login; fields
+     state/stcode, district/dtcode, block/bkcode, subdistric/sdcode,
+     village/vlcode)
+   - State/District/Taluk: onlinemaps.surveyofindia.gov.in products
+     OVSF/1M/7 and OVSF/1M/6 (free)
+   - Do NOT dissolve 6.5 lakh village polygons to make upper levels; use
+     the separate SoI products.
+   - The 8 states previously "missing" (Arunachal, Himachal, Manipur,
+     Mizoram, Nagaland, Sikkim, J&K, Ladakh) were missing from the
+     COMMUNITY source, not necessarily from SoI/NWDP — check NWDP first;
+     only mark "pending official source" with proof if truly absent.
+   - Legacy community files belong in `boundaries/legacy/`, never deleted,
+     never rendered.
+
+4. **Kill the MP special path.** `national_selector.js` must not populate
+   dropdowns from `MP_DISTRICTS` (old lines ~89-94) and must not branch
+   "MP handled by original flow" (old lines ~187-190). `MP_DISTRICTS`
+   survives only as a lookup of which districts have IMD climate data.
+
+5. **Boundary rendering:** casing technique (black underlay weight+3
+   opacity 0.6, bright line on top): State #FF9500 w4, District #00E5FF
+   w3, Block #FF3DFF w2.5, Village #C6FF00 w2. fill:false. Zoom-lazy:
+   <8 state, 8-10 district, 10-12 block, >12 village. District-wise
+   village files (~1 MB each), never one giant file. Every fetch has a
+   30 s timeout and graceful fallback — the page must never hang.
+
+6. **Data and boundary are separate.** Boundary and SoI village profile
+   (72 columns: population, households, net area sown, irrigation, water
+   sources, nearest town) show for the WHOLE country. IMD climate metrics
+   show only for districts actually computed; elsewhere say
+   "Climate data not yet available for <name>" — never substitute a
+   neighbouring or parent unit's numbers.
+
+7. **No fabrication, ever** (see the rule block below — it overrides
+   everything). Also: no hardcoded example districts (the old
+   heatPoints/rainPoints, "Mandla 80mm expected", fixed "AI accuracy
+   94.2%", invented MP_DISTRICTS risk numbers are all removed defects —
+   do not reintroduce that pattern). Landing-page statistics must be
+   counted from the actual data files, never typed in.
+
+8. **Verification discipline:** after every significant change, push, wait
+   for Pages, open the LIVE site and verify with screenshots before
+   claiming "done". Local-only changes are not done. State-by-state
+   pushes; if the repo approaches GitHub Pages' 1 GB limit, STOP and
+   present options — do not decide alone.
+
+9. **IMD national run (Charan 3):** before any computation, verify the
+   raw IMD NetCDF (2000-2024) actually exists on this machine
+   (`scripts/config.py` env paths). If absent, STOP and report what is
+   needed. Architecture: state-by-state streaming, resume-able,
+   district-wise JSON output (`data/climate/<state>/<district>.json`).
+   Benchmark on full MP (55 districts) first, report time/size, get
+   approval before scaling to all ~780 districts.
+
+10. **Model economy:** architecture work on Fable; when only mechanical
+    fetching/conversion remains, tell the owner "ab /model opus kar lo"
+    and wait for confirmation.
+
 ## What this is
 
 VINDHYA Climate Portal — village/district-level heatwave, drought, and

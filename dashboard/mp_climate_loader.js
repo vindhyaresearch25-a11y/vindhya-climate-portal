@@ -636,21 +636,41 @@
     var dk = state.currentDistrict;
     if (dk && state.data && state.data.districts[dk]) refreshAll(dk, state.currentVillage);
   };
+  // Called directly from national_selector.js's selectVillage once it has
+  // asynchronously resolved the real village name from the Survey of India
+  // feature -- window.onVillageChange's own wrapper below can't do this
+  // reliably itself, since it runs synchronously right after being called
+  // with whatever raw value the Village dropdown held (a vil_lgd code, not
+  // a name), before that async resolution finishes.
+  window._mpClimateRefreshVillage = function(districtKey, villageName){
+    if (districtKey && state.data && state.data.districts[districtKey]) refreshAll(districtKey, villageName);
+  };
 
   function hookDistrictChange(){
     if (typeof onDistrictChange !== 'function') return;
     if (window._mpClimateHooked) return;
+    // state.data.districts is keyed by MP_DISTRICTS' lowercase key
+    // ("bhopal"), but whatever calls window.onDistrictChange/onVillageChange
+    // may pass the District dropdown's raw value, which is now the
+    // district's plain display name ("Bhopal") for every state including
+    // MP, same as every other district nationally -- not necessarily
+    // already-lowercase. Normalize before the lookup rather than assume.
+    function resolveKey(v) { return v ? String(v).trim().toLowerCase() : null; }
     var origDist = onDistrictChange;
     window.onDistrictChange = function(key){
       origDist.call(this, key);
-      if (key && state.data && state.data.districts[key]) refreshAll(key, null);
+      var rk = resolveKey(key);
+      if (rk && state.data && state.data.districts[rk]) refreshAll(rk, null);
     };
     if (typeof onVillageChange === 'function') {
       var origVil = onVillageChange;
+      // No auto-refreshAll here -- name is whatever the Village dropdown's
+      // raw value is at call time (a vil_lgd code, not a village name), and
+      // this runs before national_selector.js's async name resolution
+      // finishes. window._mpClimateRefreshVillage above is the correct,
+      // explicit entry point for that, called once the real name is known.
       window.onVillageChange = function(name){
         origVil.call(this, name);
-        var dk = document.getElementById('districtSelect').value;
-        if (dk && state.data && state.data.districts[dk]) refreshAll(dk, name);
       };
     }
     window._mpClimateHooked = true;
@@ -686,10 +706,12 @@
         if (applyDistrictPatch(payload) || ++tries > 40) {
           clearInterval(iv);
           injectPanels(); hookDistrictChange();
-          // pick a default district
-          var first = Object.keys(payload.districts)[0];
-          refreshAll(first, null);
-          setLoadingStatus('Data loaded: ' + Object.keys(payload.districts).length + ' districts, ' + first, false);
+          // No default district -- charts/historical panel/etc stay in
+          // their honest "select a district" placeholder state until the
+          // user actually picks one (window.onDistrictChange, hooked
+          // above, calls refreshAll then). Never pre-load Bhopal or any
+          // other district just because data finished loading.
+          setLoadingStatus('Data loaded: ' + Object.keys(payload.districts).length + ' districts', false);
           setTimeout(function(){
             var el = document.getElementById('data-status');
             if (el) el.style.display = 'none';

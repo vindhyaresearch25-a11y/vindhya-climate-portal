@@ -9,12 +9,11 @@ CRS, processing, and quality status. Layers not listed must not be displayed.
 | `data/dicra_ndvi.json` | UNDP DiCRA district NDVI zonal statistics (MODIS-derived) | district zonal | EPSG:4326 | script 07 aggregation | Verified | 2026-07-31 |
 | `data/forecast_2040.json` | OLS linear trend on observed 2000–2024 annual indices, 95% residual band | district | — | script 07 (deterministic, no injected noise) | Indicative | 2026-07-31 |
 | CMIP6 2040 (via scripts 05–06) | NEX-GDDP-CMIP6, 8-model ensemble, SSP2-4.5, Google Earth Engine | 0.25° | EPSG:4326 | 2036–2045 window minus 2000–2014 baseline (delta) | Verified when run | on demand |
-| `mp_districts/tehsils/blocks.geojson` | MP administrative boundaries | vector | EPSG:4326 | none | Verified | as shipped |
-| `data/villages_*.geojson` (5 districts) | MP village boundary shapefile (LGD-coded) | vector | EPSG:4326 | reprojected, deduplicated on Vill_LGD | Verified | as shipped |
-| `data/boundaries/india_states.geojson` | Census of India 2011 (36 states/UTs, dissolved from districts) | vector, simplified 0.01° | EPSG:4326 | dissolve + Douglas-Peucker | Verified | 2026-08-01 |
-| `data/boundaries/india_districts.geojson` | Census of India 2011 (760 districts) | vector, simplified 0.005° | EPSG:4326 | simplification only | Verified | 2026-08-01 |
-| `data/boundaries/villages/<state>.geojson` (36 states/UTs, 654,285 villages) | Survey of India, hosted via National Water Data Portal (NWIC, Ministry of Jal Shakti) — see `data/boundaries/README.md` "Source and a naming caveat" for the GSI/SoI attribution check | vector, simplified 0.0005° | EPSG:4326 (reprojected from source EPSG:7755) | scripts `fetch_soi_villages.py` + `build_soi_village_layer.py`: Douglas-Peucker simplification, 73→11 attribute columns, per-feature simplify fallback for invalid source geometry | Verified-official | 2026-08-01 |
-| `data/boundaries/subdistricts.geojson`, `blocks.geojson` | India Geodata project (LGD-sourced, community-maintained) | vector, simplified 0.001° | EPSG:4326 | Douglas-Peucker | Community-sourced, not government-published | 2026-08-01 |
+| `mp_districts/tehsils/blocks.geojson`, `data/villages_*.geojson` | MP-only boundary files, pre-national-selector | vector | EPSG:4326 | none | **Superseded, unreferenced** — replaced nationally by `data/boundaries/soi/*` below; files remain on disk (not deleted) but no dashboard code fetches them as of 2026-08-02 | 2026-08-02 |
+| `data/boundaries/soi/states.geojson` (36 states/UTs) | Survey of India `state-boundary` product, hosted via National Water Data Portal (NWDP/NWIC, Ministry of Jal Shakti), free, no login | vector, simplified 0.0005° | EPSG:4326 (reprojected from source EPSG:7755) | script `build_national_soi_boundaries.py` --stage state: topology-preserving simplify (see below) | Verified-official | 2026-08-02 |
+| `data/boundaries/soi/districts.geojson` (733 districts) | Survey of India `district-boundary` product, NWDP | vector, simplified 0.0005° | EPSG:4326 (reprojected from source EPSG:7755) | script `build_national_soi_boundaries.py` --stage district | Verified-official | 2026-08-02 |
+| `data/boundaries/soi/blocks/<state_slug>.geojson` (36 states/UTs, 6,312 sub-districts) | Survey of India `sub-district-boundary` product, NWDP (SoI's own block/bkcode grouping has no separate boundary product — sdcode/subdistrict is the closest available match, treated as "Block/Tehsil" in this dashboard) | vector, simplified 0.0005° | EPSG:4326 (reprojected from source EPSG:7755) | script `build_national_soi_boundaries.py` --stage blocks | Verified-official | 2026-08-02 |
+| `data/boundaries/soi/villages/<state_slug>/<district_slug>.geojson` (36 states/UTs, 654,285 villages) | Survey of India `village-boundary` product, NWDP — see `data/boundaries/README.md` "Source and a naming caveat" for the GSI/SoI attribution check | vector, simplified 0.0005° | EPSG:4326 (reprojected from source EPSG:7755) | script `build_national_soi_boundaries.py` --stage villages: topology-preserving simplify, 73→13 attribute columns | Verified-official, zero-overlap-verified | 2026-08-02 |
 | `data/mandi_prices.json` | AGMARKNET, published on data.gov.in by the Ministry of Agriculture and Farmers Welfare (resource `9ef84268-d588-465a-a308-a864a43d0070`) | APMC market, aggregated to district | not applicable (tabular) | `scripts/fetch_mandi_prices.py` on a daily GitHub Actions schedule; rows without a usable min/max/modal price, or with min above max, are dropped; nothing interpolated or carried forward | Verified | daily |
 | `data/crop_stats.json` | data.gov.in, Ministry of Agriculture and Farmers Welfare, "District-wise, season-wise crop production statistics from 1997" (resource `35be999b-0208-4354-b557-f6ca9a5355de`) | district, season | not applicable (tabular) | `scripts/fetch_crop_stats.py`, monthly GitHub Actions schedule (source is static, last updated by its publisher 2021-07-13); yield is derived (production/area) by this repo, never estimated when area is 0/missing | Verified, years 1997-2013 only -- **not current-season data** | monthly check |
 | Cadastral parcels | **disabled** — pending MP Bhulekh / Bhu-Naksha Revenue Dept. records | — | — | — | Not available | — |
@@ -31,20 +30,50 @@ The rule applied to all three: cite and link the official portal, integrate
 only where the publisher provides a machine-readable endpoint under terms that
 permit it, and never scrape a dashboard to manufacture coverage.
 
-## Geometry simplification for web delivery (2026-08)
+## Geometry simplification for web delivery (2026-08, revised 2026-08-02)
 
-Boundary vectors were simplified with the Douglas-Peucker algorithm
-(topology preserving) and coordinates rounded to 5 decimal places (~1 m) to
-make the portal usable on rural mobile connections.
+`build_national_soi_boundaries.py` simplifies every SoI boundary layer
+(state, district, block, village) to tolerance 0.0005° (~55 m) and rounds
+coordinates to 5 decimal places (~1 m) to make the portal usable on rural
+mobile connections. No feature is ever dropped.
 
-| Layer | Tolerance | Approx. ground error | Features before / after |
+An initial version of this pipeline (2026-08-01) simplified each polygon
+independently (per-feature Douglas-Peucker via shapely). That is topologically
+unsound for a shared-border layer: two adjacent villages each simplify their
+own copy of the same border differently, so the copies can drift apart and
+overlap. A full-country audit on 2026-08-02 found this had introduced
+overlapping village pairs in effectively every district processed so far
+(worst case: 33% of a village's area, ~1,700 overlapping pairs in one Assam
+district alone) — never present in the raw SoI source, confirmed by checking
+several flagged pairs against it directly.
+
+Fixed by switching to topology-preserving simplification (the `topojson`
+Python library): every layer's shared-arc topology is built once, each arc is
+simplified exactly once, and both neighbours keep the identical result. Two
+further edge cases needed explicit handling and were verified fixed by hand
+before being generalized: (1) a handful of small, topologically-isolated
+polygons (e.g. a riverine "diyara" plot, a census town carved out of its
+parent rural village) could still oversimplify into a nearby-but-unrelated
+neighbour's footprint even with `shared_coords=True`; the fix restores the
+original (unsimplified) geometry for both features in any residual
+overlapping pair, verified against the raw source to be genuinely disjoint.
+(2) A very small number of the tiniest raw polygons could round away to an
+empty geometry at 5-decimal precision; the fix restores the original geometry
+for that feature rather than dropping the village silently.
+
+The entire national village layer (654,285 villages, 36 states/UTs) was
+rebuilt with the fix and re-verified feature-pair-by-feature-pair
+(area-overlap fraction > 2% of the smaller polygon = flagged): **zero
+overlaps found**, at state, district, block, and village level, nationwide.
+
+| Layer | Tolerance | Approx. ground error | Feature count |
 |---|---|---|---|
-| MP districts, tehsils, blocks | 0.001 deg | ~110 m | 5/5, 42/42, 42/42 |
-| Village polygons (5 districts) | 0.0005 deg | ~55 m | 5,625 / 5,625 |
-| India states, districts | precision only | ~1 m | 36/36, 760/760 |
+| States | 0.0005 deg | ~55 m | 36 |
+| Districts | 0.0005 deg | ~55 m | 733 |
+| Blocks (sub-districts) | 0.0005 deg | ~55 m | 6,312 |
+| Villages | 0.0005 deg | ~55 m | 654,285 |
 
-No feature was dropped. The simplification affects boundary line detail only
-and is below the 5.5 km resolution of the underlying IMD climate grid, so it
+This is below the 5.5 km resolution of the underlying IMD climate grid, so it
 does not affect any computed index. Full-precision source vectors should be
 retained offline for any cadastral or legal use.
 

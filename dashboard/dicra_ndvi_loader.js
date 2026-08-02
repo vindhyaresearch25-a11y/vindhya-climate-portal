@@ -120,18 +120,20 @@
       window._forecast2040 = state.forecast;
       console.log('[dicra_ndvi] loaded NDVI:', Object.keys(state.ndvi.districts).length, 'districts, forecast:', Object.keys(state.forecast.districts).length, 'districts');
 
-      // Hook into district change to render NDVI chart
-      var tries = 0;
+      // Render the NDVI chart once the user actually picks a real district
+      // with live climate data -- never falls back to "the first district"
+      // after a timeout, which would render NDVI for an arbitrary district
+      // nobody selected (a "no default anywhere" violation just like
+      // mp_climate_loader.js's old auto-refreshAll(first) did).
       var iv = setInterval(function(){
         var dk = document.getElementById('districtSelect');
-        if (dk && dk.value && window._mpClimateRefresh) {
+        // state.ndvi.districts is keyed lowercase ("bhopal"); dk.value is
+        // the dropdown's plain display name ("Bhopal") now, same as every
+        // other district nationally -- normalize before the lookup.
+        var rk = dk && dk.value ? dk.value.trim().toLowerCase() : null;
+        if (rk && window._mpClimateRefresh) {
           clearInterval(iv);
-          try { renderNdviChart(dk.value); } catch(e) { console.warn('[dicra_ndvi] init render:', e); }
-        } else if (++tries > 40) {
-          clearInterval(iv);
-          // Default to first district
-          var first = Object.keys(state.ndvi.districts)[0];
-          if (first) try { renderNdviChart(first); } catch(e) { console.warn('[dicra_ndvi] fallback render:', e); }
+          try { renderNdviChart(rk); } catch(e) { console.warn('[dicra_ndvi] init render:', e); }
         }
       }, 250);
 

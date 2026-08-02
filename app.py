@@ -23,9 +23,6 @@ _URL_PATCHES = [
     ("'data/crop_stats.json'",             f"'{GITHUB_RAW}/crop_stats.json'"),
     # Boundary GeoJSON files (in dashboard/ root, not dashboard/data/)
     ("'mp_districts.geojson'",             f"'{GITHUB_BASE}/mp_districts.geojson'"),
-    ("'data/boundaries/india_states.geojson'",    f"'{GITHUB_RAW}/boundaries/india_states.geojson'"),
-    ("'data/boundaries/india_districts.geojson'", f"'{GITHUB_RAW}/boundaries/india_districts.geojson'"),
-    ("'data/boundaries/names_index.json'", f"'{GITHUB_RAW}/boundaries/names_index.json'"),
     ("'mp_tehsils.geojson'",               f"'{GITHUB_BASE}/mp_tehsils.geojson'"),
     ("'mp_blocks.geojson'",                f"'{GITHUB_BASE}/mp_blocks.geojson'"),
 ]
@@ -58,9 +55,12 @@ def get_html_content():
 
     # Also patch dynamic URL patterns built via string concatenation, which
     # the literal-string _URL_PATCHES loop above can't catch (e.g.
-    # 'data/boundaries/' + entry.geometry_file in national_selector.js, or
-    # 'data/boundaries/' + 'soi_villages/madhya_pradesh/' + slug + '.geojson'
-    # in index.html/national_selector.js's per-MP-district village loaders).
+    # 'data/boundaries/' + 'soi/states.geojson' /
+    # 'data/boundaries/' + 'soi/blocks/' + stateSlug + '.geojson' /
+    # 'data/boundaries/' + 'soi/villages/' + stateSlug + '/' + districtSlug + '.geojson'
+    # in national_selector.js, or
+    # 'data/boundaries/' + 'soi/villages/madhya_pradesh/' + slug + '.geojson'
+    # in index.html's loadVillageBoundaries()).
     # Matches only the exact closed string literal 'data/boundaries/' --
     # any fetch URL built from this prefix must keep it as its own
     # concatenated literal rather than folding it into one longer literal,
