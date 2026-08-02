@@ -32,6 +32,8 @@
   var blocksInflight = {};
   var villagesCache = {};    // "state_slug/district_slug" -> parsed villages file
   var villagesInflight = {};
+  var villageProfileCache = {};    // "state_slug/district_slug" -> parsed village_profiles file
+  var villageProfileInflight = {};
 
   var current = { state: null, district: null, block: null, village: null };
   var mapLayers = { state: null, district: null, block: null, village: null };
@@ -128,6 +130,123 @@
     return p;
   }
 
+  function loadVillageProfilesForDistrict(stateSlug, districtSlug) {
+    var key = stateSlug + '/' + districtSlug;
+    if (villageProfileCache[key]) return Promise.resolve(villageProfileCache[key]);
+    if (villageProfileInflight[key]) return villageProfileInflight[key];
+    var p = fetchWithTimeout('data/' + 'village_profiles/' + stateSlug + '/' + districtSlug + '.json')
+      .then(function (d) { villageProfileCache[key] = d; return d; })
+      .catch(function () { villageProfileCache[key] = null; return null; })
+      .finally(function () { delete villageProfileInflight[key]; });
+    villageProfileInflight[key] = p;
+    return p;
+  }
+
+  var WATER_SOURCE_LABELS = {
+    water_tapwater_treated: 'Treated tap water', water_tapwater_untreated: 'Untreated tap water',
+    water_covered_well: 'Covered well', water_uncovered_well: 'Uncovered well',
+    water_handpump: 'Handpump', water_tubewell_borehole: 'Tubewell/borehole',
+    water_spring: 'Spring', water_river_canal: 'River/canal', water_tank_pond_lake: 'Tank/pond/lake',
+    water_other_source: 'Other source'
+  };
+
+  function fmtNum(v) { return (v === null || v === undefined) ? '—' : Number(v).toLocaleString('en-IN'); }
+
+  // STANDING ORDERS #6: village profile (population, households, net area
+  // sown, irrigation, water sources, nearest town) shown for the WHOLE
+  // country, separate from climate data (which stays IMD-district-only).
+  // A field absent from this village's row (per build_village_profiles.py,
+  // meaning the source itself left it blank) is never shown as 0 or
+  // guessed -- it's just left out of its section.
+  function renderVillageProfile(stateSlug, districtSlug, vilLgd, displayName) {
+    var host = el('pane-village');
+    if (!host) return;
+    loadVillageProfilesForDistrict(stateSlug, districtSlug).then(function (payload) {
+      if (!payload || !payload.metadata || !payload.metadata.field_order) {
+        host.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-dim);font-size:12px;">' +
+          'Village profile data not available for this district.</div>';
+        return;
+      }
+      var row = payload.villages[String(vilLgd)];
+      if (!row) {
+        host.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-dim);font-size:12px;">' +
+          'No Survey of India profile record for "' + displayName + '" (village boundary and name are still real -- ' +
+          'this specific village\'s row was dropped upstream, e.g. an unreadable LGD code).</div>';
+        return;
+      }
+      var order = payload.metadata.field_order;
+      var v = {};
+      for (var i = 0; i < order.length; i++) v[order[i]] = row[i] !== undefined ? row[i] : null;
+
+      var waterRows = Object.keys(WATER_SOURCE_LABELS)
+        .filter(function (k) { return v[k] === 1; })
+        .map(function (k) { return '<span style="display:inline-block;background:rgba(26,138,158,0.1);color:var(--cyan);' +
+          'border-radius:10px;padding:0.15rem 0.55rem;font-size:0.62rem;font-weight:600;margin:0.15rem 0.25rem 0.15rem 0;">' +
+          WATER_SOURCE_LABELS[k] + '</span>'; }).join('');
+
+      var irrigationSources = [
+        ['Canals', v.irrigated_canals_ha], ['Wells/tubewells', v.irrigated_wells_tubewells_ha],
+        ['Tanks/lakes', v.irrigated_tanks_lakes_ha], ['Waterfall', v.irrigated_waterfall_ha],
+        ['Other', v.irrigated_other_ha]
+      ].filter(function (p) { return p[1] !== null && p[1] > 0; });
+
+      function metric(label, value, color) {
+        return '<div class="metric-card" style="flex:1;min-width:110px;"><div class="metric-label">' + label +
+          '</div><div class="metric-value" style="font-size:0.85rem;color:' + (color || 'var(--text)') + '">' + value + '</div></div>';
+      }
+
+      var html = '<div class="section-header"><i class="fa fa-house" style="color:var(--cyan);font-size:0.7rem"></i>' +
+        '<div class="section-title">VILLAGE PROFILE &mdash; ' + displayName + '</div></div>' +
+        '<div style="overflow-y:auto;flex:1;padding:0.5rem;">' +
+        '<div style="display:flex;gap:0.5rem;margin-bottom:0.6rem;flex-wrap:wrap;">' +
+        metric('POPULATION', fmtNum(v.population), 'var(--green)') +
+        metric('HOUSEHOLDS', fmtNum(v.households), 'var(--cyan)') +
+        metric('AVG. HOUSEHOLD SIZE', v.avg_household_size !== null ? v.avg_household_size : '—', 'var(--teal)') +
+        metric('MALE / FEMALE', fmtNum(v.population_male) + ' / ' + fmtNum(v.population_female), 'var(--yellow)') +
+        '</div>';
+
+      if (waterRows) {
+        html += '<div class="section-header" style="padding:0.25rem 0;margin-bottom:0.3rem;"><i class="fa fa-droplet" ' +
+          'style="color:var(--blue);font-size:0.7rem"></i><div class="section-title" style="font-size:0.7rem">DRINKING WATER SOURCES</div></div>' +
+          '<div style="margin-bottom:0.6rem;">' + waterRows + '</div>';
+      }
+
+      if (v.land_net_area_sown_ha !== null) {
+        html += '<div class="section-header" style="padding:0.25rem 0;margin-bottom:0.3rem;"><i class="fa fa-wheat-awn" ' +
+          'style="color:var(--green);font-size:0.7rem"></i><div class="section-title" style="font-size:0.7rem">LAND USE (hectares)</div></div>' +
+          '<div style="display:flex;gap:0.5rem;margin-bottom:0.6rem;flex-wrap:wrap;">' +
+          metric('NET AREA SOWN', fmtNum(v.land_net_area_sown_ha), 'var(--green)') +
+          metric('FOREST', fmtNum(v.land_forest_ha)) +
+          metric('BARREN/UNCULTIVABLE', fmtNum(v.land_barren_uncultivable_ha)) +
+          metric('PASTURES', fmtNum(v.land_pastures_ha)) +
+          '</div>';
+      }
+
+      if (v.irrigated_area_total_ha !== null) {
+        html += '<div class="section-header" style="padding:0.25rem 0;margin-bottom:0.3rem;"><i class="fa fa-faucet-drip" ' +
+          'style="color:var(--cyan);font-size:0.7rem"></i><div class="section-title" style="font-size:0.7rem">IRRIGATION</div></div>' +
+          '<div style="display:flex;gap:0.5rem;margin-bottom:0.6rem;flex-wrap:wrap;">' +
+          metric('IRRIGATED AREA', fmtNum(v.irrigated_area_total_ha) + ' ha', 'var(--cyan)') +
+          metric('UNIRRIGATED', fmtNum(v.land_unirrigated_ha) + ' ha');
+        irrigationSources.forEach(function (p) { html += metric(p[0].toUpperCase(), fmtNum(p[1]) + ' ha'); });
+        html += '</div>';
+      }
+
+      if (v.nearest_town) {
+        html += '<div class="section-header" style="padding:0.25rem 0;margin-bottom:0.3rem;"><i class="fa fa-signs-post" ' +
+          'style="color:var(--orange);font-size:0.7rem"></i><div class="section-title" style="font-size:0.7rem">NEAREST TOWN</div></div>' +
+          '<div style="font-size:0.75rem;color:var(--text);margin-bottom:0.4rem;">' + v.nearest_town +
+          (v.nearest_town_distance_km !== null ? ' (' + v.nearest_town_distance_km + ' km)' : '') + '</div>';
+      }
+
+      html += '<div style="font-size:0.58rem;color:var(--text-dim);margin-top:0.5rem;padding-top:0.4rem;border-top:1px solid var(--border);">' +
+        'Source: Survey of India village-boundary attribute table, via National Water Data Portal. A field not shown here ' +
+        'was left blank in the source, never estimated.</div>' +
+        '</div>';
+      host.innerHTML = html;
+    });
+  }
+
   // ---------------------------------------------------------------------
   // Casing-technique rendering: a black underlay (weight+3, opacity 0.6)
   // beneath a bright, thin line on top, fill:false so the satellite
@@ -180,10 +299,21 @@
     var order = ['state', 'district', 'block', 'village'];
     var idx = order.indexOf(level);
     for (var i = idx + 1; i < order.length; i++) removeLayer(order[i]);
-    if (marker && window.leafletMap && idx < order.indexOf('village')) {
-      window.leafletMap.removeLayer(marker);
-      marker = null;
+    if (idx < order.indexOf('village')) {
+      if (marker && window.leafletMap) { window.leafletMap.removeLayer(marker); marker = null; }
+      resetVillageProfilePane();
     }
+  }
+
+  function resetVillageProfilePane() {
+    var host = el('pane-village');
+    if (!host) return;
+    host.innerHTML = '<div class="section-header"><i class="fa fa-house" style="color:var(--cyan);font-size:0.7rem"></i>' +
+      '<div class="section-title">VILLAGE INTELLIGENCE</div></div>' +
+      '<div style="padding:20px;text-align:center;color:var(--text-dim);font-size:12px;line-height:1.8;">' +
+      '<i class="fa fa-house" style="font-size:26px;display:block;margin-bottom:8px;opacity:0.6"></i>' +
+      '<b>Use the Location Selector</b><br>Select State &rarr; District &rarr; Block &rarr; Village on the map to see this ' +
+      'village\'s Survey of India profile (population, households, water sources, land use, irrigation, nearest town).</div>';
   }
 
   function fitToFeature(feature) {
@@ -453,6 +583,10 @@
         // can't do this reliably itself.
         if (typeof window._mpClimateRefreshVillage === 'function') window._mpClimateRefreshVillage(mpKey, name);
       }
+      // Village profile (population, water sources, land use, irrigation,
+      // nearest town) -- unlike the IMD climate panel above, this is real
+      // for every state, not just the 5 MP_DISTRICTS with computed indices.
+      renderVillageProfile(stateSlug, slugify(current.district), vilLgd, name);
       updateBreadcrumb();
     });
   }

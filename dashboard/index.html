@@ -168,6 +168,8 @@ body{background:#f5f7fa;color:var(--text);font-family:-apple-system,BlinkMacSyst
 .legend-title{font-size:0.7rem;letter-spacing:2px;font-weight:700;color:var(--cyan);margin-bottom:0.5rem;}
 .legend-row{display:flex;align-items:center;gap:0.5rem;font-size:0.7rem;font-weight:500;color:var(--text-dim);margin-bottom:0.25rem;}
 .legend-dot{width:10px;height:10px;border-radius:50%;}
+.map-disclaimer{position:absolute;bottom:4.75rem;right:0.5rem;z-index:400;max-width:260px;background:rgba(255,255,255,0.85);border:1px solid var(--border);border-radius:5px;padding:0.35rem 0.55rem;backdrop-filter:blur(6px);font-size:0.6rem;line-height:1.35;color:var(--text-dim);pointer-events:none;}
+.map-disclaimer b{color:var(--text-dim);font-weight:600;}
 
 /* Location selector cascade */
 .map-info-bar{position:absolute;top:1rem;left:1rem;z-index:500;background:rgba(255,255,255,0.96);border:1px solid var(--border);border-radius:6px;padding:0.6rem 0.7rem;backdrop-filter:blur(10px);max-width:230px;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
@@ -468,7 +470,13 @@ canvas.chart-canvas{max-height:100%;}
       <div class="hero-stat"><div class="hero-stat-val" id="hero-stat-districts" data-target="5">5</div><div class="hero-stat-lbl">Districts, Live IMD Data</div></div>
       <div class="hero-stat"><div class="hero-stat-val" id="hero-stat-villages" data-target="5625">5,625</div><div class="hero-stat-lbl">Villages Covered (SoI, all states)</div></div>
       <div class="hero-stat"><div class="hero-stat-val" data-target="25">25</div><div class="hero-stat-lbl">Years of Record (2000-2024)</div></div>
-      <div class="hero-stat"><div class="hero-stat-val" data-target="3">3</div><div class="hero-stat-lbl">Verified Sources</div></div>
+      <!-- 6 distinct upstream organizations, matching docs/DATA_SOURCES.md's
+           actual entries: IMD, UNDP DiCRA, NEX-GDDP-CMIP6, Survey of India,
+           AGMARKNET, data.gov.in crop statistics. Update this count only
+           when an integration is added/removed there, not to match any
+           per-record data total (that's the villages/districts counters
+           above, which fetch their number instead of stating one). -->
+      <div class="hero-stat"><div class="hero-stat-val" data-target="6">6</div><div class="hero-stat-lbl">Verified Sources</div></div>
     </div>
     <div class="hero-roles">
       <div class="role-card" onclick="selectRole('admin')">
@@ -573,6 +581,10 @@ canvas.chart-canvas{max-height:100%;}
             <div class="legend-row"><div class="legend-dot" style="background:#2d8f5c"></div>Low Risk</div>
             <div class="legend-row"><div class="legend-dot" style="background:#1a8a9e"></div>Rivers</div>
           </div>
+        </div>
+        <div class="map-disclaimer" title="Boundaries: Survey of India, via National Water Data Portal. Simplified for web display -- not for legal, cadastral or survey use. / सीमाएँ: भारतीय सर्वेक्षण विभाग (नेशनल वाटर डेटा पोर्टल के माध्यम से)। वेब प्रदर्शन हेतु सरलीकृत -- कानूनी, भू-अभिलेख अथवा सर्वेक्षण उपयोग हेतु नहीं।">
+          <b>Indicative, not for legal/cadastral use.</b> Boundaries: Survey of India.<br>
+          <b>सांकेतिक, कानूनी/भू-अभिलेख उपयोग हेतु नहीं।</b> सीमाएँ: भारतीय सर्वेक्षण विभाग।
         </div>
         <!-- Timeline Slider -->
 		<div class="map-timeline" id="mapTimeline">
