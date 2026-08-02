@@ -257,6 +257,29 @@
   // visible; child levels below the one just picked are cleared, so no
   // stale selection from a previous drill-down ever lingers.
   // ---------------------------------------------------------------------
+  // BUG (reported live): the village marker used a separate, hand-typed
+  // per-village lat/lon table (MP_DISTRICTS[key]._villages in index.html),
+  // independent of the actual boundary polygon drawn on the map -- easy
+  // for the two to disagree, and did nothing at all for the other 35
+  // states since that table only ever existed for the 5 MP_DISTRICTS.
+  // Fix: the marker is now built from the SAME GeoJSON feature drawn by
+  // drawCasedFeature, every time, at all four levels -- no separate
+  // table. turf.pointOnFeature (not a centroid) guarantees the point
+  // lands inside the polygon even for concave/multi-part shapes where a
+  // simple centroid can fall outside it entirely.
+  function placeMarker(feature) {
+    var map = window.leafletMap;
+    if (!map || !feature || typeof turf === 'undefined') return;
+    if (marker) { map.removeLayer(marker); marker = null; }
+    try {
+      var pt = turf.pointOnFeature(feature);
+      var coords = pt.geometry.coordinates; // [lng, lat]
+      marker = L.marker([coords[1], coords[0]]).addTo(map);
+    } catch (e) {
+      console.warn('[national_selector] placeMarker: turf.pointOnFeature failed, no marker shown', e);
+    }
+  }
+
   function drawCasedFeature(level, feature, onClick) {
     var map = window.leafletMap;
     if (!map || !feature) return null;
@@ -431,6 +454,7 @@
       var feature = geo.features.filter(function (f) { return f.properties && f.properties.state_name === stateName; })[0];
       removeLayer('state');
       mapLayers.state = drawCasedFeature('state', feature, function () { selectState(stateName, true); });
+      placeMarker(feature);
       fitToFeature(feature);
     });
 
@@ -470,6 +494,7 @@
       })[0];
       removeLayer('district');
       mapLayers.district = drawCasedFeature('district', feature, function () { selectDistrict(districtName, true); });
+      placeMarker(feature);
       fadeParents('district');
       fitToFeature(feature);
     });
@@ -523,6 +548,7 @@
       })[0];
       removeLayer('block');
       mapLayers.block = drawCasedFeature('block', feature, function () { selectBlock(blockName, true); });
+      placeMarker(feature);
       fadeParents('block');
       fitToFeature(feature);
     });
@@ -561,6 +587,11 @@
       var name = feature.properties.village_name || 'Unnamed';
       removeLayer('village');
       mapLayers.village = drawCasedFeature('village', feature, function () { selectVillage(vilLgd, true); });
+      placeMarker(feature);
+      // Same popup content (incl. src_agency) on the marker as on the
+      // polygon -- clicking a 30px pin is reliable, clicking a 2px
+      // boundary stroke often isn't.
+      if (marker) marker.bindPopup(popupHtml(name, feature.properties));
       mapLayers.village.eachLayer(function (sub) {
         sub.bindPopup ? sub.bindPopup(popupHtml(name, feature.properties)) :
           (sub.eachLayer && sub.eachLayer(function (l) { if (l.bindPopup) l.bindPopup(popupHtml(name, feature.properties)); }));

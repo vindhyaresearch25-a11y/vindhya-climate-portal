@@ -1898,22 +1898,18 @@ function onVillageChange(village){
   const distKey=currentMPDistrictKey();
   if(village && distKey && window.leafletMap){
     const d=MP_DISTRICTS[distKey];
-    // Look up village lat/lon from the loader data
-    let vlat=d.lat, vlon=d.lng, vname=village;
+    // Map viewport (fitToFeature) and the pin marker (placeMarker, via
+    // turf.pointOnFeature on the real drawn polygon) are both handled by
+    // national_selector.js's selectVillage, from the same GeoJSON feature
+    // used to draw the boundary -- never duplicated here. This function
+    // only fills in the real IMD-derived metric panel.
+    let vname=village;
     const vmap=d._villages || {};
     for (const id in vmap) {
       if ((vmap[id].name||'').toUpperCase() === (village||'').toUpperCase()) {
-        if (vmap[id].lat != null && vmap[id].lon != null) {
-          vlat=vmap[id].lat; vlon=vmap[id].lon;
-        }
         vname=vmap[id].name; break;
       }
     }
-    window.leafletMap.flyTo([vlat,vlon],14,{duration:1.2});
-    if(window.villageMarker){ window.leafletMap.removeLayer(window.villageMarker); }
-    window.villageMarker=L.marker([vlat,vlon]).addTo(window.leafletMap)
-      .bindPopup('<b style="color:#1a8a9e">'+vname+'</b><br/><span style="font-size:0.65rem;color:#5a6a7a">'+d.name+' District</span>')
-      .openPopup();
     // Update right-panel metrics with village data
     var vdataMap = d._villages || {};
     var vdata = null;

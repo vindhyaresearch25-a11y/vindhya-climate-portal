@@ -664,10 +664,10 @@
     });
     var agriName = document.getElementById('agriDistName'); if (agriName) agriName.textContent = '';
     var ecoName = document.getElementById('ecoDistName'); if (ecoName) ecoName.textContent = '';
-    if (window.villageMarker && window.leafletMap) {
-      try { window.leafletMap.removeLayer(window.villageMarker); } catch(e) {}
-      window.villageMarker = null;
-    }
+    // The map marker itself is national_selector.js's own `marker` var now
+    // (built from the actual drawn polygon via turf.pointOnFeature at all
+    // four levels) -- its clearBelow() already handles removing it, so
+    // there's no window.villageMarker for this function to clean up.
   };
 
   function hookDistrictChange(){
