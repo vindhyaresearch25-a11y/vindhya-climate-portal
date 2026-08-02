@@ -41,9 +41,16 @@
     return Math.round(v).toLocaleString('en-IN');
   }
 
+  // Same bug as mandi_loader.js (found in the same audit pass): the
+  // District dropdown holds the real display name, but
+  // fetch_crop_stats.py writes JSON keyed by slug -- multi-word district
+  // names silently showed "no data" without this.
+  function slugify(name) {
+    return String(name).trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+  }
   function currentDistrict() {
     var ds = document.getElementById('districtSelect');
-    return ds && ds.value ? ds.value : null;
+    return ds && ds.value ? slugify(ds.value) : null;
   }
 
   function render() {

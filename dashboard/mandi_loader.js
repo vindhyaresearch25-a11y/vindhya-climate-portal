@@ -47,9 +47,21 @@
     return rest.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + ',' + last3;
   }
 
+  // Bug found in audit: the District dropdown holds the real Survey of
+  // India display name (e.g. "24 Paraganas North"), but
+  // fetch_mandi_prices.py writes JSON keyed by slug ("24_paraganas_north"
+  // -- lowercase, non-alphanumeric runs collapsed to one underscore,
+  // matching scripts/national_districts.py's slugify() exactly). Looking
+  // the raw dropdown value up directly only worked by coincidence for
+  // single-word names where lowercasing happens to equal the slug; every
+  // multi-word district silently showed "no data" even when
+  // mandi_prices.json had a real row for it.
+  function slugify(name) {
+    return String(name).trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+  }
   function currentDistrict() {
     var ds = document.getElementById('districtSelect');
-    return ds && ds.value ? ds.value : null;
+    return ds && ds.value ? slugify(ds.value) : null;
   }
 
   function render() {
@@ -195,6 +207,11 @@
   function boot() {
     if (!document.querySelector('.btm-pane')) { setTimeout(boot, 700); return; }
     try { addPane(); } catch (e) { console.warn('[mandi]', e); }
+    // Fetch eagerly (not just on tab click) so window.VindhyaMandi has real
+    // data ready the moment the chatbot needs it -- otherwise a farmer who
+    // never opens the Mandi Prices tab would get a false "no data recorded"
+    // answer purely because the fetch hadn't happened yet.
+    load();
   }
 
   if (document.readyState === 'loading') {
@@ -203,5 +220,17 @@
     setTimeout(boot, 900);
   }
 
-  window.VindhyaMandi = { reload: function () { _data = null; load(); } };
+  window.VindhyaMandi = {
+    reload: function () { _data = null; load(); },
+    // Real records for a district (district-select value, any case/spacing
+    // -- slugified the same way the data was written), or [] if none
+    // loaded/fetched yet. Used by the chatbot's mandi-price answers so it
+    // reads the same real AGMARKNET rows the Mandi Prices panel shows,
+    // never a separate guessed number.
+    getRowsForDistrict: function (districtValue) {
+      if (!_data || !_data.districts) return [];
+      var d = _data.districts[slugify(districtValue)];
+      return (d && d.records) || [];
+    }
+  };
 })();

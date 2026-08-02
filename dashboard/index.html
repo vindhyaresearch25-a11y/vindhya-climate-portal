@@ -103,10 +103,23 @@ body{background:#f5f7fa;color:var(--text);font-family:-apple-system,BlinkMacSyst
 .hero-title{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:clamp(1.8rem,4vw,3.2rem);font-weight:800;line-height:1.15;letter-spacing:-0.5px;margin-bottom:0.8rem;}
 .hero-title .line1{color:#1a2332;background:none;-webkit-text-fill-color:#1a2332;}
 .hero-title .line2{color:var(--cyan);background:none;-webkit-text-fill-color:var(--cyan);font-size:0.55em;font-weight:600;letter-spacing:2px;}
-.hero-stats{display:flex;gap:2.5rem;justify-content:center;margin-bottom:2.5rem;flex-wrap:wrap;}
+.hero-stat-groups{display:flex;gap:1.5rem;justify-content:center;margin-bottom:1.5rem;flex-wrap:wrap;align-items:stretch;}
+.stat-group{border:1px solid var(--border);border-radius:8px;padding:0.85rem 1.2rem 1rem;background:rgba(255,255,255,0.4);min-width:220px;}
+.stat-group-boundary{border-top:3px solid var(--cyan);}
+.stat-group-observed{border-top:3px solid var(--orange);}
+.stat-group-projected{border-top:3px solid var(--text-dim);}
+.stat-group-label{font-size:0.68rem;font-weight:700;letter-spacing:1.5px;color:var(--text);margin-bottom:0.15rem;}
+.stat-group-sub{display:block;font-size:0.63rem;font-weight:500;letter-spacing:0.2px;color:var(--text-dim);margin-bottom:0.6rem;text-transform:none;}
+.hero-stats{display:flex;gap:1.75rem;justify-content:center;flex-wrap:wrap;}
 .hero-stat{text-align:center;}
-.hero-stat-val{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:1.8rem;font-weight:700;color:var(--cyan);}
-.hero-stat-lbl{font-size:0.75rem;font-weight:600;color:var(--text-dim);letter-spacing:2px;}
+.hero-stat-val{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:1.5rem;font-weight:700;color:var(--cyan);font-variant-numeric:tabular-nums;}
+.stat-group-observed .hero-stat-val{color:var(--orange);}
+.hero-stat-lbl{font-size:0.68rem;font-weight:600;color:var(--text-dim);letter-spacing:1px;}
+.stat-group-status{font-size:0.72rem;line-height:1.6;color:var(--text-dim);max-width:340px;}
+.stat-group-status b{color:var(--text);}
+.stat-group-status .pending-badge{display:inline-block;padding:1px 7px;border-radius:9px;background:var(--text-dim);color:#fff;font-size:9.5px;font-weight:700;letter-spacing:.3px;margin-bottom:0.4rem;}
+.hero-sources-line{text-align:center;font-size:0.68rem;color:var(--text-dim);margin-bottom:2rem;letter-spacing:0.3px;}
+.hero-sources-line b{color:var(--text);}
 .hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
 .btn-primary{background:linear-gradient(135deg,var(--cyan),var(--teal));color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:2px;padding:0.75rem 1.8rem;border:none;border-radius:4px;cursor:pointer;text-transform:none;transition:all 0.3s;box-shadow:var(--glow-cyan);}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(26,138,158,0.5);}
@@ -147,10 +160,7 @@ body{background:#f5f7fa;color:var(--text);font-family:-apple-system,BlinkMacSyst
 /* Top bar */
 #topbar{height:56px;background:#ffffff;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:1rem;padding:0 1rem;flex-shrink:0;}
 .topbar-toggle{background:none;border:none;color:#8a9aac;cursor:pointer;font-size:1.1rem;padding:0.25rem;}
-.topbar-title{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:0.85rem;font-weight:700;color:var(--cyan);letter-spacing:2px;flex:1;}
-.topbar-ticker{flex:2;overflow:hidden;font-size:0.8rem;color:var(--orange);font-family:'IBM Plex Mono',monospace;font-weight:500;}
-.ticker-inner{white-space:nowrap;animation:ticker 35s linear infinite;}
-@keyframes ticker{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
+.topbar-title{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:0.85rem;font-weight:700;color:var(--cyan);letter-spacing:2px;flex:2;}
 .topbar-pill{display:flex;align-items:center;gap:0.4rem;background:rgba(111,199,149,0.15);border:1px solid rgba(111,199,149,0.4);border-radius:12px;padding:0.25rem 0.75rem;font-size:0.75rem;font-weight:600;color:var(--green);}
 .live-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:blink 1s infinite;}
 .topbar-time{font-family:'IBM Plex Mono',monospace;font-size:0.8rem;font-weight:500;color:var(--text-dim);}
@@ -326,8 +336,9 @@ canvas.chart-canvas{max-height:100%;}
   .btm-tabs{width:120px;}
   .hero-stats{gap:1rem;}
 }
-/* ===== AI CHATBOT ===== */
+/* ===== KISAN SAHAYAK CHAT ===== */
 #chatFab{position:fixed;bottom:22px;right:22px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--teal));color:#fff;border:none;cursor:pointer;font-size:1.3rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(45,143,92,0.35);z-index:2000;transition:all 0.25s;}
+#chatFab svg{width:22px;height:22px;}
 #chatFab:hover{transform:scale(1.08);box-shadow:0 6px 22px rgba(45,143,92,0.45);}
 #chatFabPopup{position:fixed;bottom:34px;right:90px;background:#ffffff;color:var(--text);border:1px solid var(--border);padding:0.5rem 0.8rem;border-radius:12px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:0.78rem;font-weight:500;box-shadow:0 4px 16px rgba(0,0,0,0.08);z-index:2000;white-space:nowrap;display:none;animation:fadeInUp 0.3s ease;cursor:pointer;user-select:none;transition:transform 0.2s,box-shadow 0.2s;}
 #chatFabPopup:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,0,0,0.12);}
@@ -358,6 +369,25 @@ canvas.chart-canvas{max-height:100%;}
   #chatWindow{width:calc(100vw - 24px);right:12px;bottom:80px;height:calc(100vh - 100px);}
   #chatFab{bottom:16px;right:16px;}
 }
+/* First-open welcome popup: desktop card near the FAB, mobile bottom-sheet */
+#kisanWelcome{position:fixed;bottom:88px;right:22px;width:320px;max-width:calc(100vw - 30px);background:#ffffff;border:1px solid var(--border);border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,0.14);z-index:2001;display:none;overflow:hidden;animation:fadeInUp 0.3s ease;}
+#kisanWelcome.open{display:block;}
+.kw-head{background:linear-gradient(135deg,var(--green),var(--teal));color:#fff;padding:0.9rem 1rem 0.8rem;}
+.kw-head-icon{width:30px;height:30px;margin-bottom:0.4rem;}
+.kw-head-icon svg{width:20px;height:20px;}
+.kw-title-hi{font-size:0.95rem;font-weight:700;font-family:"Noto Sans Devanagari",-apple-system,sans-serif;}
+.kw-title-en{font-size:0.72rem;font-weight:500;opacity:0.92;margin-top:0.1rem;}
+.kw-body{padding:0.8rem 1rem;}
+.kw-explain{font-size:0.75rem;line-height:1.6;color:var(--text-dim);margin-bottom:0.7rem;}
+.kw-chips{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:0.7rem;}
+.kw-chip{text-align:left;background:#f5f7fa;border:1px solid var(--border);border-radius:8px;padding:0.45rem 0.65rem;font-size:0.74rem;font-weight:500;color:var(--text);cursor:pointer;transition:background 0.15s;}
+.kw-chip:hover{background:#eaf3ee;border-color:var(--green-dim);}
+.kw-disclaimer{font-size:0.62rem;line-height:1.5;color:var(--text-dim);border-top:1px solid var(--border);padding-top:0.55rem;margin-bottom:0.6rem;}
+.kw-dismiss{width:100%;background:transparent;border:1px solid var(--border);border-radius:8px;padding:0.4rem;font-size:0.72rem;font-weight:600;color:var(--text-dim);cursor:pointer;}
+.kw-dismiss:hover{background:#f5f7fa;}
+@media(max-width:768px){
+  #kisanWelcome{left:0;right:0;bottom:0;width:100%;max-width:100%;border-radius:16px 16px 0 0;border-left:none;border-right:none;border-bottom:none;}
+}
 </style>
 </head>
 <body>
@@ -372,7 +402,7 @@ canvas.chart-canvas{max-height:100%;}
   </div>
   <div class="gate-tagline" id="gateTagline">
     <div class="gate-tagline-line active" data-idx="0">अन्नदाता के लिए विज्ञान, हर मौसम में साथ / Science in service of those who feed us</div>
-    <div class="gate-tagline-line" data-idx="1">55,000+ गाँवों के लिए जलवायु सूचना / Climate intelligence for 55,000+ villages</div>
+    <div class="gate-tagline-line" data-idx="1" id="gateTaglineVillages">गाँवों के लिए जलवायु सूचना / Climate intelligence for villages nationwide</div>
     <div class="gate-tagline-line" data-idx="2">खेत से लेकर नीति तक, एक ही मंच पर / From the field to policy, on one platform</div>
     <div class="gate-tagline-line" data-idx="3">हर बूँद, हर डिग्री गिनती है / Every drop, every degree counts</div>
   </div>
@@ -466,18 +496,38 @@ canvas.chart-canvas{max-height:100%;}
       <div class="line1">Intelligence Platform</div>
       <div class="line2">CLIMATE RISK &bull; SATELLITE NDVI &bull; AGRICULTURAL ADVISORY</div>
     </div>
-    <div class="hero-stats">
-      <div class="hero-stat"><div class="hero-stat-val" id="hero-stat-districts" data-target="5">5</div><div class="hero-stat-lbl">Districts, Live IMD Data</div></div>
-      <div class="hero-stat"><div class="hero-stat-val" id="hero-stat-villages" data-target="5625">5,625</div><div class="hero-stat-lbl">Villages Covered (SoI, all states)</div></div>
-      <div class="hero-stat"><div class="hero-stat-val" data-target="25">25</div><div class="hero-stat-lbl">Years of Record (2000-2024)</div></div>
-      <!-- 6 distinct upstream organizations, matching docs/DATA_SOURCES.md's
-           actual entries: IMD, UNDP DiCRA, NEX-GDDP-CMIP6, Survey of India,
-           AGMARKNET, data.gov.in crop statistics. Update this count only
-           when an integration is added/removed there, not to match any
-           per-record data total (that's the villages/districts counters
-           above, which fetch their number instead of stating one). -->
-      <div class="hero-stat"><div class="hero-stat-val" data-target="6">6</div><div class="hero-stat-lbl">Verified Sources</div></div>
+    <!-- Three genuinely different categories, never merged: boundary
+         coverage is ready nationwide; observed climate indices exist for a
+         growing subset of districts; projected climate is a model output,
+         not observed data, and must never be shown as a bare number. Every
+         value here is fetched from a real file -- see the script block
+         below -- never typed in. -->
+    <div class="hero-stat-groups">
+      <div class="stat-group stat-group-boundary">
+        <div class="stat-group-label">BOUNDARY COVERAGE<span class="stat-group-sub">Administrative boundaries &mdash; Survey of India, ready nationwide</span></div>
+        <div class="hero-stats">
+          <div class="hero-stat"><div class="hero-stat-val" id="hero-stat-states" data-target="36">36</div><div class="hero-stat-lbl">States/UTs</div></div>
+          <div class="hero-stat"><div class="hero-stat-val" id="hero-stat-districts" data-target="733">733</div><div class="hero-stat-lbl">Districts</div></div>
+          <div class="hero-stat"><div class="hero-stat-val" id="hero-stat-blocks" data-target="6312">6,312</div><div class="hero-stat-lbl">Blocks/Tehsils</div></div>
+          <div class="hero-stat"><div class="hero-stat-val" id="hero-stat-villages" data-target="654285">654,285</div><div class="hero-stat-lbl">Villages</div></div>
+        </div>
+      </div>
+      <div class="stat-group stat-group-observed">
+        <div class="stat-group-label">OBSERVED CLIMATE<span class="stat-group-sub">IMD gridded data + ERA5-Land/CHIRPS (GEE) &mdash; national run in progress</span></div>
+        <div class="hero-stats">
+          <div class="hero-stat"><div class="hero-stat-val" id="hero-stat-climate-districts" data-target="5">5</div><div class="hero-stat-lbl">of 733 Districts with climate indices</div></div>
+          <div class="hero-stat"><div class="hero-stat-val" id="hero-stat-years" data-target="25">25</div><div class="hero-stat-lbl" id="hero-stat-years-lbl">Years of Record (2000&ndash;2024)</div></div>
+        </div>
+      </div>
+      <div class="stat-group stat-group-projected">
+        <div class="stat-group-label">PROJECTED CLIMATE<span class="stat-group-sub">CMIP6 model output &mdash; NOT observed data</span></div>
+        <div class="stat-group-status" id="projectedStatus">
+          <span class="pending-badge">PENDING</span><br>
+          <b>NEX-GDDP-CMIP6</b>, 8-model ensemble, SSP2-4.5 configured (2036&ndash;2045 vs 2000&ndash;2014 baseline). Only an OLS trend extrapolation of observed data exists today (labelled "indicative", not CMIP6) &mdash; the SSP2-4.5 and SSP5-8.5 GEE export has not yet been run nationally.
+        </div>
+      </div>
     </div>
+    <div class="hero-sources-line">Counted from real files, not typed in &middot; <b id="hero-stat-sources-line">6</b> verified upstream sources &mdash; see Data Sources</div>
     <div class="hero-roles">
       <div class="role-card" onclick="selectRole('admin')">
         <div class="role-icon"><i class="fa fa-building"></i></div>
@@ -498,7 +548,7 @@ canvas.chart-canvas{max-height:100%;}
     <div class="hero-btns">
       <button class="btn-primary" onclick="showLoginGate()"><i class="fa fa-rocket"></i> &nbsp;Launch Dashboard</button>
       <button class="btn-outline" onclick="showLoginGate()"><i class="fa fa-map"></i> &nbsp;View Risk Atlas</button>
-      <button class="btn-outline" onclick="showLoginGate()"><i class="fa fa-brain"></i> &nbsp;AI Advisory</button>
+      <button class="btn-outline" onclick="showLoginGate()"><i class="fa fa-comments"></i> &nbsp;Kisan Sahayak</button>
       <button class="btn-outline" onclick="showLoginGate()"><i class="fa fa-satellite"></i> &nbsp;Satellite Map</button>
     </div>
   </div>
@@ -532,9 +582,9 @@ canvas.chart-canvas{max-height:100%;}
       <div class="nav-section-title">ECOLOGY</div>
       <div class="nav-item" onclick="setNav(this,&#39;forest&#39;)"><span class="nav-icon"><i class="fa fa-tree"></i></span><span class="nav-label">Forest Monitor</span></div>
       <div class="nav-item" onclick="setNav(this,&#39;bio&#39;)"><span class="nav-icon"><i class="fa fa-paw"></i></span><span class="nav-label">Biodiversity Risk</span></div>
-      <div class="nav-section-title">INTELLIGENCE</div>
-      <div class="nav-item" onclick="setNav(this,&#39;ai&#39;)"><span class="nav-icon"><i class="fa fa-brain"></i></span><span class="nav-label">AI Forecasting</span></div>
-      <div class="nav-item" onclick="setNav(this,&#39;village&#39;)"><span class="nav-icon"><i class="fa fa-house"></i></span><span class="nav-label">Village Intelligence</span></div>
+      <div class="nav-section-title">ANALYTICS</div>
+      <div class="nav-item" onclick="setNav(this,&#39;ai&#39;)"><span class="nav-icon"><i class="fa fa-chart-line"></i></span><span class="nav-label">Trend Forecast</span></div>
+      <div class="nav-item" onclick="setNav(this,&#39;village&#39;)"><span class="nav-icon"><i class="fa fa-house"></i></span><span class="nav-label">Village Profile</span></div>
       <div class="nav-item" onclick="setNav(this,&#39;panch&#39;)"><span class="nav-icon"><i class="fa fa-building"></i></span><span class="nav-label">Panchayat Dashboard</span></div>
       <div class="nav-item" onclick="setNav(this,&#39;sat&#39;)"><span class="nav-icon"><i class="fa fa-satellite"></i></span><span class="nav-label">Satellite Viewer</span></div>
       <div class="nav-item" onclick="setNav(this,&#39;cadastral&#39;)"><span class="nav-icon"><i class="fa fa-draw-polygon"></i></span><span class="nav-label">Cadastral Map</span><span class="nav-badge">NEW</span></div>
@@ -548,12 +598,7 @@ canvas.chart-canvas{max-height:100%;}
     <div id="topbar">
       <button class="topbar-toggle" onclick="toggleSidebar()"><i class="fa fa-bars"></i></button>
       <div class="topbar-title">VINDHYA CLIMATE INTELLIGENCE</div>
-      <div class="topbar-ticker">
-        <div class="ticker-inner" id="tickerContent">
-          <span style="color:var(--cyan)">ⓘ Loading live data...</span>
-        </div>
-      </div>
-      <div class="topbar-pill"><div class="live-dot"></div>DATA: DICRA, IMD, ERA5</div>
+      <div class="topbar-pill"><div class="live-dot"></div>DATA: IMD, DiCRA, Survey of India</div>
       <div class="topbar-time" id="clock">10:49:06 IST</div>
     </div>
 
@@ -591,7 +636,7 @@ canvas.chart-canvas{max-height:100%;}
           <button class="tl-btn" id="tlPlayBtn" onclick="toggleTimeline()" title="Play"><i class="fa fa-play"></i></button>
           <span class="tl-label" id="tlYearLabel">2024</span>
           <input type="range" class="tl-slider" id="tlSlider" min="2000" max="2024" value="2024" step="1" oninput="setTimelineYear(parseInt(this.value))">
-          <button class="tl-btn" id="tlModeBtn" onclick="toggleForecastMode()" title="AI Forecast"><i class="fa fa-robot"></i></button>
+          <button class="tl-btn" id="tlModeBtn" onclick="toggleForecastMode()" title="Trend Forecast"><i class="fa fa-clock-rotate-left"></i></button>
           <span class="tl-range">2000 — <span id="tlMaxYear">2024</span> <span id="tlMode" style="color:var(--green);font-weight:700">H</span></span>
         </div>
 
@@ -837,25 +882,20 @@ canvas.chart-canvas{max-height:100%;}
         </div>
         <!-- GEE -->
         <div class="btm-pane" id="pane-gee">
-          <div class="section-header"><i class="fa fa-earth-asia" style="color:var(--teal);font-size:0.7rem"></i><div class="section-title">GOOGLE EARTH ENGINE DATA PIPELINE</div></div>
-          <div class="gee-flow">
-            <div class="gee-step"><span class="gee-step-icon"><i class="fa fa-satellite"></i></span><div class="gee-step-name">Sentinel-2</div></div>
-            <div class="gee-arrow"><i class="fa fa-arrow-right"></i></div>
-            <div class="gee-step"><span class="gee-step-icon"><i class="fa fa-cloud"></i></span><div class="gee-step-name">GEE Cloud</div></div>
-            <div class="gee-arrow"><i class="fa fa-arrow-right"></i></div>
-            <div class="gee-step"><span class="gee-step-icon"><i class="fa fa-code"></i></span><div class="gee-step-name">Python AI</div></div>
-            <div class="gee-arrow"><i class="fa fa-arrow-right"></i></div>
-            <div class="gee-step"><span class="gee-step-icon"><i class="fa fa-fire"></i></span><div class="gee-step-name">Risk Engine</div></div>
-            <div class="gee-arrow"><i class="fa fa-arrow-right"></i></div>
-            <div class="gee-step"><span class="gee-step-icon"><i class="fa fa-map"></i></span><div class="gee-step-name">GIS Dashboard</div></div>
-            <div class="gee-arrow"><i class="fa fa-arrow-right"></i></div>
-            <div class="gee-step"><span class="gee-step-icon"><i class="fa fa-comment-dots"></i></span><div class="gee-step-name">Farmer Advisory</div></div>
-          </div>
-          <div style="padding:0.5rem 0.75rem;display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;">
-            <div class="sat-card"><div class="sat-name">MODIS</div><div class="sat-val" style="color:var(--green)">LST</div><div class="sat-unit">Land Surface Temp</div></div>
-            <div class="sat-card"><div class="sat-name">CHIRPS</div><div class="sat-val" style="color:var(--cyan)">RF</div><div class="sat-unit">Rainfall Anomaly</div></div>
-            <div class="sat-card"><div class="sat-name">SMAP</div><div class="sat-val" style="color:var(--teal)">SM</div><div class="sat-unit">Soil Moisture</div></div>
-            <div class="sat-card"><div class="sat-name">ERA5</div><div class="sat-val" style="color:var(--orange)">CL</div><div class="sat-unit">Climate Reanalysis</div></div>
+          <div class="section-header"><i class="fa fa-earth-asia" style="color:var(--teal);font-size:0.7rem"></i><div class="section-title">GOOGLE EARTH ENGINE: WHAT'S ACTUALLY INTEGRATED</div></div>
+          <!-- Audit fix (2026-08-02): this panel previously showed a fixed
+               "Sentinel-2 -> GEE Cloud -> Python AI -> Risk Engine ->
+               GIS Dashboard -> Farmer Advisory" flow diagram and MODIS/
+               CHIRPS/SMAP/ERA5 cards implying all four were live, directly
+               contradicting the honest disclaimer in the Satellite
+               Analytics panel right after it (Sentinel-2/SMAP/VIIRS are
+               NOT integrated). Replaced with the real, current status of
+               each source actually named in docs/DATA_SOURCES.md. -->
+          <div style="padding:0.5rem 0.75rem;display:grid;grid-template-columns:repeat(2,1fr);gap:0.5rem;">
+            <div class="sat-card"><div class="sat-name">MODIS</div><div class="sat-val" style="color:var(--green);font-size:0.65rem">LIVE</div><div class="sat-unit">NDVI, via UNDP DiCRA -- Madhya Pradesh's 52 districts only</div></div>
+            <div class="sat-card"><div class="sat-name">CHIRPS + ERA5-Land</div><div class="sat-val" style="color:var(--orange);font-size:0.65rem">IN PROGRESS</div><div class="sat-unit">National climate indices beyond the 5 IMD districts -- see scripts/08_gee_national_climate.py</div></div>
+            <div class="sat-card"><div class="sat-name">Sentinel-2</div><div class="sat-val" style="color:var(--text-dim);font-size:0.65rem">NOT INTEGRATED</div><div class="sat-unit">No layer in this dashboard uses it</div></div>
+            <div class="sat-card"><div class="sat-name">SMAP</div><div class="sat-val" style="color:var(--text-dim);font-size:0.65rem">NOT INTEGRATED</div><div class="sat-unit">Soil moisture stays "Not available" everywhere</div></div>
           </div>
         </div>
         <!-- AI Models -->
@@ -1069,11 +1109,12 @@ canvas.chart-canvas{max-height:100%;}
                 </div>
                 <div id="cad-crop-legend" style="background:rgba(33,150,243,0.06);border:1px solid rgba(33,150,243,0.2);border-radius:6px;padding:0.4rem;margin-bottom:0.4rem;">
                 </div>
-                <!-- AI Advisory -->
+                <!-- Parcel advisory (disabled -- cadastral_loader.js is a stub pending
+                     official MP Bhulekh/Revenue Dept. records) -->
                 <div style="background:rgba(255,204,0,0.06);border:1px solid rgba(255,204,0,0.3);border-radius:6px;padding:0.4rem;">
-                  <div style="font-size:0.55rem;letter-spacing:2px;font-weight:700;color:var(--yellow);margin-bottom:0.3rem;"><i class="fa fa-robot"></i> AI ADVISORY — KHASRA <span id="cad-advisory-khasra" style="color:var(--orange)">—</span></div>
+                  <div style="font-size:0.55rem;letter-spacing:2px;font-weight:700;color:var(--yellow);margin-bottom:0.3rem;"><i class="fa fa-seedling"></i> PARCEL ADVISORY — KHASRA <span id="cad-advisory-khasra" style="color:var(--orange)">—</span></div>
                   <div id="cad-advisory" style="font-size:0.65rem;font-weight:600;line-height:1.5;color:var(--text);">
-                    Select a khasra to generate parcel-specific AI advisory.
+                    Select a khasra to generate parcel-specific advisory.
                   </div>
                   <button onclick="askChatAboutCadastral()" style="margin-top:0.4rem;width:100%;background:var(--cyan);border:none;padding:0.3rem;border-radius:4px;color:#fff;cursor:pointer;font-size:0.6rem;font-weight:700;"><i class="fa fa-comment"></i> ASK AI FOR CROP ADVISORY & CLIMATE ALERT</button>
                 </div>
@@ -1084,18 +1125,33 @@ canvas.chart-canvas{max-height:100%;}
   </div><!-- main -->
 </div><!-- app -->
 
-<!-- ============================================================ AI CHATBOT ============================================================ -->
-<div id="chatFabPopup" onclick="openChat()" title="Open the Climate AI Assistant" role="button" tabindex="0">This is an AI chatbot for you</div>
-<button id="chatFab" onclick="toggleChat()" title="Ask the Climate AI Assistant" style="display:none;">
-  <i class="fa fa-robot"></i>
+<!-- ============================================================ KISAN SAHAYAK ============================================================ -->
+<div id="chatFabPopup" onclick="openChat()" title="किसान सहायक खोलें / Open Kisan Sahayak" role="button" tabindex="0">किसान सहायक से पूछें / Ask Kisan Sahayak</div>
+<button id="chatFab" onclick="toggleChat()" title="किसान सहायक से पूछें / Ask Kisan Sahayak" style="display:none;">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
   <span class="fab-dot"></span>
 </button>
 
+<!-- First-open welcome (localStorage-gated, see initKisanWelcome()) -->
+<div id="kisanWelcome" role="dialog" aria-label="Kisan Sahayak">
+  <div class="kw-head">
+    <div class="kw-head-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c0-4.5-2.3-7-7-7 0 4.5 2.3 7 7 7Z"/><path d="M14 19c0-5.5 2.8-9 7-9 0 5.5-2.8 9-7 9Z"/><path d="M10 13V5a2 2 0 0 0-2-2"/></svg></div>
+    <div class="kw-title-hi">नमस्ते, मैं किसान सहायक हूँ</div>
+    <div class="kw-title-en">Namaste, I am Kisan Sahayak</div>
+  </div>
+  <div class="kw-body">
+    <div class="kw-explain">आपके स्थान और मौसम के असली आँकड़ों से जवाब देता हूँ। / I answer using real data for your selected location and season.</div>
+    <div class="kw-chips" id="kwChips"></div>
+    <div class="kw-disclaimer">स्रोत: IMD, Survey of India, AGMARKNET। जहाँ आँकड़ा उपलब्ध नहीं, वहाँ साफ़ बताया जाएगा। / Sourced from IMD, Survey of India, AGMARKNET. Where no data exists, that will be clearly stated.</div>
+    <button class="kw-dismiss" onclick="dismissKisanWelcome()">ठीक है / Got it</button>
+  </div>
+</div>
+
 <div id="chatWindow">
   <div class="chat-head">
-    <div class="chat-head-avatar"><i class="fa fa-seedling"></i></div>
+    <div class="chat-head-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><path d="M7 20h10"/><path d="M10 20c0-4.5-2.3-7-7-7 0 4.5 2.3 7 7 7Z"/><path d="M14 19c0-5.5 2.8-9 7-9 0 5.5-2.8 9-7 9Z"/><path d="M10 13V5a2 2 0 0 0-2-2"/></svg></div>
     <div class="chat-head-info">
-      <div class="chat-head-title">Krishi AI Assistant</div>
+      <div class="chat-head-title">किसान सहायक &middot; Kisan Sahayak</div>
       <div class="chat-head-sub"><span class="dot"></span> <span id="chatStatus">Online • Climate &amp; Farming</span></div>
     </div>
     <button class="chat-lang-toggle" id="chatLangBtn" onclick="toggleChatLang()" title="Switch language">HI</button>
@@ -1194,38 +1250,79 @@ function animParticles(){
 animParticles();
 
 // ============================================================
-// COUNTER ANIMATION (HERO)
+// HERO STAT DISPLAY
 // ============================================================
+// Owner instruction (2026-08-03): no count-up animation -- it showed a
+// wrong number for the first ~5 seconds (visible in any early screenshot).
+// Real numbers, set once the real fetch resolves, shown immediately.
 function animateCounters(){
   document.querySelectorAll('[data-target]').forEach(el=>{
     const raw=el.getAttribute('data-target');
-    let target=parseInt(raw);
+    const target=parseInt(raw);
     const suffix=raw.replace(/^[0-9]*/,'');
-    let current=0;
-    const step=target/80;
-    const timer=setInterval(()=>{
-      current+=step;
-      if(current>=target){current=target;clearInterval(timer);}
-      el.textContent=Math.floor(current).toLocaleString()+suffix;
-    },25);
+    el.textContent=(isNaN(target)?raw:target.toLocaleString('en-IN'))+suffix;
   });
 }
 // Hero stats must be counted from actual data files, never hardcoded
-// (STANDING ORDERS #7) -- fetch the real national village total and real
-// live-IMD-district count before animating, falling back to the static
+// (STANDING ORDERS #7). Three separate categories are fetched separately
+// and never merged: boundary coverage (soi/_manifest.json, ready
+// nationwide), observed climate (climate_manifest.json -- the numerator
+// grows on its own as scripts/08_gee_national_climate.py writes more
+// district files, this code never hardcodes a target), and verified
+// source count (sources_manifest.json). Falls back to the static
 // data-target already in the HTML only if a fetch genuinely fails.
 Promise.all([
   fetch('data/boundaries/' + 'soi/_manifest.json').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
-  fetch('data/mp_climate_data.json').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })
+  fetch('data/sources_manifest.json').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
+  fetch('data/climate_manifest.json').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })
 ]).then(function(results){
-  var manifest = results[0], climate = results[1];
-  if (manifest && manifest.totals && manifest.totals.total_villages) {
-    var vEl = document.getElementById('hero-stat-villages');
-    if (vEl) vEl.setAttribute('data-target', String(manifest.totals.total_villages));
+  var manifest = results[0], sources = results[1], climate = results[2];
+  if (manifest && manifest.totals) {
+    if (manifest.totals.total_villages) {
+      var vEl = document.getElementById('hero-stat-villages');
+      if (vEl) vEl.setAttribute('data-target', String(manifest.totals.total_villages));
+      var tagEl = document.getElementById('gateTaglineVillages');
+      if (tagEl) {
+        var vCount = manifest.totals.total_villages.toLocaleString('en-IN');
+        tagEl.textContent = vCount + '+ गाँवों के लिए जलवायु सूचना / Climate intelligence for ' + vCount + '+ villages';
+      }
+    }
+    if (manifest.totals.total_blocks) {
+      var bEl = document.getElementById('hero-stat-blocks');
+      if (bEl) bEl.setAttribute('data-target', String(manifest.totals.total_blocks));
+    }
+    if (manifest.totals.states_with_villages) {
+      var stEl = document.getElementById('hero-stat-states');
+      if (stEl) stEl.setAttribute('data-target', String(manifest.totals.states_with_villages));
+    }
   }
-  if (climate && climate.districts) {
+  if (manifest && manifest.districts_file && manifest.districts_file.feature_count) {
     var dEl = document.getElementById('hero-stat-districts');
-    if (dEl) dEl.setAttribute('data-target', String(Object.keys(climate.districts).length));
+    if (dEl) dEl.setAttribute('data-target', String(manifest.districts_file.feature_count));
+  }
+  if (sources && Array.isArray(sources.sources)) {
+    var srcCount = String(sources.sources.length);
+    var lineEl = document.getElementById('hero-stat-sources-line');
+    if (lineEl) lineEl.textContent = srcCount;
+  }
+  if (climate && climate.totals && typeof climate.totals.districts_with_climate_data === 'number') {
+    var cEl = document.getElementById('hero-stat-climate-districts');
+    if (cEl) cEl.setAttribute('data-target', String(climate.totals.districts_with_climate_data));
+  }
+  // Years of Record: parsed from the real "YYYY-YYYY" range in
+  // climate_manifest.json rather than hardcoded, so it can never drift
+  // from what the climate files actually cover.
+  if (climate && climate.imd && climate.imd.years) {
+    var yr = String(climate.imd.years).split('-');
+    if (yr.length === 2) {
+      var y0 = parseInt(yr[0], 10), y1 = parseInt(yr[1], 10);
+      if (!isNaN(y0) && !isNaN(y1) && y1 >= y0) {
+        var yEl = document.getElementById('hero-stat-years');
+        if (yEl) yEl.setAttribute('data-target', String(y1 - y0 + 1));
+        var yLbl = document.getElementById('hero-stat-years-lbl');
+        if (yLbl) yLbl.textContent = 'Years of Record (' + y0 + '–' + y1 + ')';
+      }
+    }
   }
 }).catch(function(){ /* keep the static fallback already in data-target */ })
   .then(animateCounters);
@@ -1319,10 +1416,8 @@ function launchApp(){
   app.style.display='flex';
   document.body.style.overflow='hidden';
   document.getElementById('chatFab').style.display='flex';
-  const fabPopup=document.getElementById('chatFabPopup');
-  setTimeout(()=>{ fabPopup.classList.add('show'); },1200);
-  setTimeout(()=>{ fabPopup.classList.remove('show'); },9000);
   initChat();
+  initKisanWelcome();
   // District dropdown population happens in national_selector.js's boot()
   // (onStateChange('Madhya Pradesh'), called once its own data has loaded)
   // -- not here, so the default state gets the same real district list
@@ -1421,62 +1516,6 @@ function startSlideshow(){
   heroSlideTimer=setInterval(nextSlide,5000);
 }
 startSlideshow();
-
-function updateTicker(){
-  var ticker = document.getElementById('tickerContent');
-  if (!ticker) return;
-  var items = [];
-  var state = window._mpClimateState;
-  var data = window._mpClimateData;
-  if (state && data && state.currentDistrict) {
-    var dk = state.currentDistrict;
-    var d = MP_DISTRICTS[dk];
-    var di = data.districts[dk] && data.districts[dk].indices;
-    if (di) {
-      if (di.heatwave_days_mean > 15 || (di.mean_summer_tmax > 42)) {
-        items.push('<span style="color:var(--red)">⚠ HEAT STRESS: '+dk+' | Max '+di.mean_summer_tmax+'°C</span>');
-      }
-      if (di.drought_probability_pct > 50) {
-        items.push('<span style="color:var(--orange)">⚠ DROUGHT WATCH: '+dk+' | Risk '+di.drought_probability_pct+'%</span>');
-      }
-      if (di.spi12_year_end_mean < -1) {
-        items.push('<span style="color:var(--cyan)">ⓘ NDVI DEFICIT: '+dk+' | SPI-12 '+di.spi12_year_end_mean.toFixed(1)+'</span>');
-      }
-    }
-    if (data.districts[dk] && data.districts[dk].annual) {
-      var ann = data.districts[dk].annual;
-      if (ann.annual_rain_mm && ann.annual_rain_mm.length > 0) {
-        var lastRain = ann.annual_rain_mm[ann.annual_rain_mm.length - 1];
-        items.push('<span style="color:var(--green)">✓ RAINFALL: '+dk+' | '+lastRain+'mm annual</span>');
-      }
-    }
-    // Village-level ticker alerts
-    if (state.currentVillage) {
-      var vMap = data.districts[dk] && data.districts[dk].villages || {};
-      for (var vk in vMap) {
-        if ((vMap[vk].name||'').toUpperCase() === state.currentVillage.toUpperCase()) {
-          var vi = vMap[vk].indices || {};
-          if (vi.drought_probability_pct > 60) items.push('<span style="color:var(--red)">⚠ VILLAGE DROUGHT: '+state.currentVillage+' | Risk '+vi.drought_probability_pct+'%</span>');
-          if (vi.max_summer_tmax > 42) items.push('<span style="color:var(--red)">⚠ VILLAGE HEAT: '+state.currentVillage+' | '+vi.max_summer_tmax+'°C</span>');
-          break;
-        }
-      }
-    }
-  }
-  if (items.length === 0) items.push('<span style="color:var(--cyan)">ⓘ Select a district to view live alerts</span>');
-  ticker.innerHTML = items.join(' &nbsp;&nbsp;•&nbsp;&nbsp; ');
-}
-
-// Poll for data load and update ticker
-setTimeout(function() {
-  var iv = setInterval(function() {
-    if (window._mpClimateData && window._mpClimateState) {
-      updateTicker();
-      clearInterval(iv);
-    }
-  }, 300);
-}, 500);
-
 
 function toggleSidebar(){
   document.getElementById('sidebar').classList.toggle('collapsed');
@@ -1962,7 +2001,6 @@ function onVillageChange(village){
       }
       // Groundwater level/trend requires CGWB/India-WRIS data, not integrated.
       setTxt('m-gw', 'Not available'); setBar('bar-gw', 0);
-      // AI accuracy stays static at 94.2%
     }
   }
   // If a year is selected, override village metrics with year-specific district data
@@ -2078,7 +2116,6 @@ function applyDistrictMetrics(d, distKey){
 
   // Groundwater level/trend requires CGWB/India-WRIS data, not integrated.
   setTxt('m-gw', 'Not available'); setBar('bar-gw', 0);
-  // AI accuracy stays at 94.2%
   // If a specific year is selected, override mean with year-specific data
   if (window._hazardYear && !isNaN(window._hazardYear)) {
     setTimelineYear(parseInt(window._hazardYear));
@@ -2188,13 +2225,13 @@ function toggleForecastMode(){
   if (!btn || !slider) return;
   if (_tlForecastMode) {
     slider.max = '2040';
-    btn.innerHTML = '<i class="fa fa-brain"></i>';
-    btn.title = 'AI Forecast ON';
-    if (modeLbl) modeLbl.textContent = 'AI';
+    btn.innerHTML = '<i class="fa fa-chart-line"></i>';
+    btn.title = 'Indicative trend forecast ON (OLS extrapolation, not CMIP6)';
+    if (modeLbl) modeLbl.textContent = 'Trend';
     slider.value = Math.min(parseInt(slider.value), 2040);
   } else {
     slider.max = '2024';
-    btn.innerHTML = '<i class="fa fa-robot"></i>';
+    btn.innerHTML = '<i class="fa fa-clock-rotate-left"></i>';
     btn.title = 'Show historical only';
     if (modeLbl) modeLbl.textContent = 'H';
     slider.value = Math.min(parseInt(slider.value), 2024);
@@ -2384,13 +2421,47 @@ let chatLangHi=false;
 let chatBusy=false;
 
 const chatGreetings={
-  en:"Namaste! I am your AI Agriculture Expert for India. Ask me about crops, weather, mandi prices, schemes, or pests. 🌱",
-  hi:"नमस्ते! मैं आपका AI कृषि विशेषज्ञ हूँ। फसल, मौसम, मंडी भाव, योजनाओं या कीट के बारे में पूछें। 🌱"
+  en:"Namaste, I am Kisan Sahayak. I answer using real IMD, Survey of India and AGMARKNET data for your selected location -- where data doesn't exist yet, I will say so.",
+  hi:"नमस्ते, मैं किसान सहायक हूं। मैं आपके चुने गए स्थान के लिए असली IMD, सर्वे ऑफ़ इंडिया और AGMARKNET आंकड़ों से जवाब देता हूं -- जहां आंकड़ा उपलब्ध नहीं, वहां साफ बताऊंगा।"
 };
-const chatChips={
-  en:["Best crop for my district?","Which crop gives highest profit?","Nearest mandi & today's prices?","Government schemes for farmers?","Pest & disease control advice?","Which crop this season?"],
-  hi:["मेरे जिले के लिए सबसे अच्छी फसल?","सबसे अधिक लाभ देने वाली फसल?","निकटतम मंडी और आज के भाव?","किसानों के लिए सरकारी योजनाएँ?","कीट और रोग नियंत्रण?","इस मौसम में कौन-सी फसल उगाएँ?"]
-};
+
+// Suggestion chips are generated from the currently selected location
+// (state/district/block/village dropdowns, deepest wins) and the current
+// agricultural season, never a fixed hardcoded list -- shared by both the
+// in-chat suggestion row and the welcome popup's chips.
+function getCurrentSeason(){
+  var m = new Date().getMonth(); // 0 = Jan
+  if (m>=5 && m<=9) return {en:'Kharif', hi:'खरीफ'};
+  if (m>=2 && m<=4) return {en:'Zaid', hi:'जायद'};
+  return {en:'Rabi', hi:'रबी'};
+}
+function getCurrentLocationLabel(){
+  var vn = document.getElementById('villageSelect') ? document.getElementById('villageSelect').value : '';
+  var bn = document.getElementById('blockSelect') ? document.getElementById('blockSelect').value : '';
+  var dn = document.getElementById('districtSelect') ? document.getElementById('districtSelect').value : '';
+  var sn = document.getElementById('stateSelect') ? document.getElementById('stateSelect').value : '';
+  return vn || bn || dn || sn || null;
+}
+function getDynamicSuggestions(){
+  var loc = getCurrentLocationLabel();
+  var season = getCurrentSeason();
+  var locEn = loc || 'my district';
+  var locHi = loc || 'मेरे जिले';
+  return {
+    en:[
+      'How much rainfall has ' + locEn + ' had this year?',
+      'Best crop for ' + locEn + ' this ' + season.en + ' season?',
+      "Today's mandi price in " + locEn + '?',
+      'Drought risk for ' + locEn + '?'
+    ],
+    hi:[
+      locHi + ' में इस साल कितनी बारिश हुई?',
+      locHi + ' के लिए इस ' + season.hi + ' सीजन में सबसे अच्छी फसल?',
+      locHi + ' में आज का मंडी भाव?',
+      locHi + ' के लिए सूखे का खतरा?'
+    ]
+  };
+}
 
 function initChat(){
   if(chatHistory.length>0) return; // already initialized
@@ -2402,7 +2473,8 @@ function renderChips(){
   const wrap=document.getElementById('chatSuggestions');
   if(!wrap) return;
   wrap.innerHTML='';
-  (chatLangHi?chatChips.hi:chatChips.en).forEach(c=>{
+  const s=getDynamicSuggestions();
+  (chatLangHi?s.hi:s.en).forEach(c=>{
     const b=document.createElement('button');
     b.className='chat-chip';
     b.textContent=c;
@@ -2411,12 +2483,13 @@ function renderChips(){
   });
 }
 
+const CHAT_FAB_ICON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>';
 function toggleChat(){
   chatOpen=!chatOpen;
   document.getElementById('chatWindow').classList.toggle('open',chatOpen);
   const fab=document.getElementById('chatFab');
   document.getElementById('chatFabPopup').classList.remove('show');
-  fab.innerHTML=chatOpen?'<i class="fa fa-xmark"></i>':'<i class="fa fa-robot"></i><span class="fab-dot"></span>';
+  fab.innerHTML=chatOpen?'<i class="fa fa-xmark"></i>':CHAT_FAB_ICON+'<span class="fab-dot"></span>';
   if(chatOpen){ setTimeout(()=>document.getElementById('chatInput').focus(),150); }
 }
 
@@ -2427,6 +2500,44 @@ function openChat(){
   else { document.getElementById('chatFabPopup').classList.remove('show'); }
 }
 
+// First-open welcome popup (shown once via localStorage, then collapses to
+// the small teaser bubble on every later visit).
+function renderWelcomeChips(){
+  var wrap=document.getElementById('kwChips');
+  if(!wrap) return;
+  wrap.innerHTML='';
+  var s=getDynamicSuggestions();
+  (chatLangHi?s.hi:s.en).forEach(function(c){
+    var b=document.createElement('button');
+    b.className='kw-chip';
+    b.textContent=c;
+    b.onclick=function(){
+      dismissKisanWelcome();
+      if(!chatOpen) toggleChat();
+      document.getElementById('chatInput').value=c;
+      sendChat();
+    };
+    wrap.appendChild(b);
+  });
+}
+function dismissKisanWelcome(){
+  var el=document.getElementById('kisanWelcome');
+  if(el) el.classList.remove('open');
+  try{ localStorage.setItem('kisanSahayakWelcomeShown','1'); }catch(e){}
+}
+function initKisanWelcome(){
+  var shown=false;
+  try{ shown = localStorage.getItem('kisanSahayakWelcomeShown')==='1'; }catch(e){}
+  var fabPopup=document.getElementById('chatFabPopup');
+  if (shown){
+    setTimeout(()=>{ fabPopup.classList.add('show'); },1200);
+    setTimeout(()=>{ fabPopup.classList.remove('show'); },9000);
+    return;
+  }
+  renderWelcomeChips();
+  setTimeout(()=>{ document.getElementById('kisanWelcome').classList.add('open'); },1200);
+}
+
 function toggleChatLang(){
   chatLangHi=!chatLangHi;
   document.getElementById('chatLangBtn').textContent=chatLangHi?'EN':'HI';
@@ -2434,6 +2545,7 @@ function toggleChatLang(){
     ? "\u092e\u094c\u0938\u092e, \u092b\u0938\u0932, \u0938\u0942\u0916\u0947 \u0915\u0947 \u092c\u093e\u0930\u0947 \u092e\u0947\u0902 \u092a\u0942\u091b\u0947\u0902..."
     : "Ask about weather, crops, drought...";
   renderChips();
+  if(document.getElementById('kisanWelcome').classList.contains('open')) renderWelcomeChips();
 }
 
 function addChatMsg(role, text){
@@ -2578,7 +2690,14 @@ async function sendChat(){
 
 function getLocalResponse(question){
   var q = question.toLowerCase().trim();
-  var dk = document.getElementById('districtSelect')?.value;
+  // Bug found in audit: reading districtSelect.value directly and using
+  // it as an MP_DISTRICTS key fails silently for every real district --
+  // the dropdown holds the display name ("Bhopal"), MP_DISTRICTS keys
+  // are lowercase ("bhopal") -- so d was always null and every answer
+  // said "your district" instead of the real name, even with a real
+  // district selected. currentMPDistrictKey() is this file's own
+  // established normalizer for exactly this lookup.
+  var dk = currentMPDistrictKey();
   var d = dk && MP_DISTRICTS[dk] ? MP_DISTRICTS[dk] : null;
   var dName = d ? d.name : 'your district';
   var vn = document.getElementById('villageSelect')?.value;
@@ -2604,44 +2723,77 @@ function getLocalResponse(question){
   var nl = '\n';
 
   // 1. Best crop for my district?
+  // Yield/profit figures removed 2026-08-02 audit: these were fixed
+  // template ranges ("15-25 quintals/acre", "Rs 30,000-50,000/acre")
+  // shown for every district regardless of its real data, not derived
+  // from any source -- exactly the fabrication STANDING ORDERS #7
+  // prohibits. Real crop area/production/yield, where the source has it
+  // for this district, lives in dashboard/data/crop_stats.json (see the
+  // Crop Health panel); this reply points there instead of guessing.
   if (q.indexOf('best crop') >= 0 || q.indexOf('सबसे अच्छी फसल') >= 0 || q.indexOf('सबसे उपयुक्त फसल') >= 0) {
     var kharifCrops = ['Rice', 'Soybean', 'Maize', 'Cotton'];
     var rabiCrops = ['Wheat', 'Chickpea', 'Mustard', 'Gram'];
     var cropList = season.indexOf('Kharif') >= 0 ? kharifCrops.join(', ') : rabiCrops.join(', ');
-    if (isHi) return 'आपके जिले ' + dName + ' की जलवायु, मिट्टी, वर्षा और बाजार मांग के अनुसार अनुशंसित फसलें:' + nl + nl + '🌾 **अनुशंसित फसलें:** ' + cropList + nl + '📈 **अनुमानित उपज:** 15-25 क्विंटल/एकड़' + nl + '💰 **अनुमानित लाभ:** ₹30,000-50,000 प्रति एकड़' + nl + '🌧️ **मौसम सलाह:** वर्षा ' + Math.round(rain) + 'mm, तापमान ' + Math.round(heat) + '°C' + nl + '🧪 **उर्वरक:** N:P:K = 60:40:40 किग्रा/हेक्टेयर' + nl + '🏛️ **सरकारी योजनाएँ:** PM-KISAN, PMFBY, Soil Health Card, KCC';
-    return 'Based on ' + dName + '\'s climate, soil, rainfall, and market demand:' + nl + nl + '🌾 **Recommended crops:** ' + cropList + nl + '📈 **Expected yield:** 15-25 quintals/acre' + nl + '💰 **Estimated profit:** ₹30,000-50,000 per acre' + nl + '🌧️ **Weather advisory:** Rain ' + Math.round(rain) + 'mm, Temp ' + Math.round(heat) + '°C' + nl + '🧪 **Fertilizer:** N:P:K = 60:40:40 kg/ha' + nl + '🏛️ **Schemes:** PM-KISAN, PMFBY, Soil Health Card, KCC';
+    if (isHi) return dName + ' में इस मौसम (' + season + ') में आमतौर पर उगाई जाने वाली फसलें: ' + cropList + '।' + nl + '🌧️ **मौसम:** औसत वर्षा ' + Math.round(rain) + 'mm, तापमान ' + Math.round(heat) + '°C (IMD-आधारित)।' + nl + nl + 'सटीक उपज और लाभ के आँकड़े इस जिले के लिए सत्यापित स्रोत से उपलब्ध नहीं हैं — Crop Health पैनल में data.gov.in से असली आँकड़े देखें, या स्थानीय कृषि विभाग/KVK से सलाह लें।';
+    return 'Crops commonly grown in ' + dName + ' this season (' + season + '): ' + cropList + '.' + nl + '🌧️ **Weather:** avg rain ' + Math.round(rain) + 'mm, temp ' + Math.round(heat) + '°C (IMD-derived).' + nl + nl + 'Verified yield and profit figures for this specific district are not available from a sourced dataset here — check the Crop Health panel for real data.gov.in statistics, or consult your local Agriculture Department/KVK.';
   }
 
-  // 2. Which crop gives highest profit?
+  // 2. Which crop gives highest profit? -- same fabrication removed; see note above.
   if (q.indexOf('highest profit') >= 0 || q.indexOf('सबसे अधिक लाभ') >= 0 || q.indexOf('अधिक लाभ') >= 0) {
-    if (isHi) return 'आपके जिले ' + dName + ' में सबसे अधिक लाभदायक फसलें:' + nl + nl + '💰 **सबसे लाभदायक फसलें:**' + nl + '1. Soybean — ₹50,000-70,000/एकड़ (Kharif)' + nl + '2. Cotton — ₹60,000-80,000/एकड़ (Kharif)' + nl + '3. Wheat — ₹35,000-50,000/एकड़ (Rabi)' + nl + '4. Chickpea — ₹40,000-55,000/एकड़ (Rabi)' + nl + nl + '🌾 **शीर्ष अनुशंसा:** ' + (season.indexOf('Kharif') >= 0 ? 'Soybean' : 'Wheat') + nl + '📈 **अनुमानित उपज:** 18-22 क्विंटल/एकड़' + nl + '🧪 **उर्वरक:** N:P:K = 60:40:40 किग्रा/हेक्टेयर' + nl + '💧 **सिंचाई:** वर्षा ' + (rain > 800 ? 'पर्याप्त' : 'कम — ड्रिप सिंचाई आवश्यक');
-    return 'Most profitable crops in ' + dName + ':' + nl + nl + '💰 **Top profit crops:**' + nl + '1. Soybean — ₹50,000-70,000/acre (Kharif)' + nl + '2. Cotton — ₹60,000-80,000/acre (Kharif)' + nl + '3. Wheat — ₹35,000-50,000/acre (Rabi)' + nl + '4. Chickpea — ₹40,000-55,000/acre (Rabi)' + nl + nl + '🌾 **Top recommendation:** ' + (season.indexOf('Kharif') >= 0 ? 'Soybean' : 'Wheat') + nl + '📈 **Expected yield:** 18-22 quintals/acre' + nl + '🧪 **Fertilizer:** N:P:K = 60:40:40 kg/ha' + nl + '💧 **Irrigation:** Rain ' + (rain > 800 ? 'adequate' : 'deficit — drip irrigation needed');
+    if (isHi) return dName + ' के लिए फसल-वार लाभ के सत्यापित आँकड़े यहाँ उपलब्ध नहीं हैं -- अनुमानित संख्या देना अनुचित होगा।' + nl + nl + 'असली मंडी भाव के लिए Mandi Prices पैनल देखें (AGMARKNET, data.gov.in से सीधा), और फसल क्षेत्र/उत्पादन के लिए Crop Health पैनल (data.gov.in)।';
+    return 'Verified per-crop profit figures for ' + dName + ' aren\'t available here -- estimating a number would not be honest.' + nl + nl + 'For real market prices, check the Mandi Prices panel (sourced directly from AGMARKNET via data.gov.in); for crop area/production, check the Crop Health panel (data.gov.in).';
   }
 
-  // 3. Nearest mandi and today's prices?
+  // 3. Nearest mandi and today's prices? -- now reads the actual fetched
+  // mandi_prices.json (all 733 districts) instead of a hardcoded
+  // "estimated" price list that never changed regardless of date, crop,
+  // or district.
   if (q.indexOf('mandi') >= 0 || q.indexOf('nearest mandi') >= 0 || q.indexOf('निकटतम मंडी') >= 0 || q.indexOf('मंडी') >= 0) {
-    var mandi = dName ? dName + ' Mandi' : 'your nearest mandi';
-    if (isHi) return '**निकटतम मंडी:** ' + mandi + nl + '**आज के मंडी भाव (अनुमानित):**' + nl + '• Soybean: ₹4,200-4,800/क्विंटल' + nl + '• Wheat: ₹2,200-2,500/क्विंटल' + nl + '• Paddy: ₹2,000-2,300/क्विंटल' + nl + '• Maize: ₹2,100-2,400/क्विंटल' + nl + '• Gram: ₹5,000-5,500/क्विंटल' + nl + nl + '⚠️ ये अनुमानित भाव हैं। सटीक दरों के लिए eNAM ऐप देखें या मंडी में संपर्क करें।';
-    return '**Nearest mandi:** ' + mandi + nl + '**Today\'s market prices (estimated):**' + nl + '• Soybean: ₹4,200-4,800/quintal' + nl + '• Wheat: ₹2,200-2,500/quintal' + nl + '• Paddy: ₹2,000-2,300/quintal' + nl + '• Maize: ₹2,100-2,400/quintal' + nl + '• Gram: ₹5,000-5,500/quintal' + nl + nl + '⚠️ These are estimated rates. Check eNAM app or contact your local mandi for exact prices.';
+    var mandiRows = [];
+    try {
+      if (window.VindhyaMandi && typeof window.VindhyaMandi.getRowsForDistrict === 'function' && dk) {
+        mandiRows = window.VindhyaMandi.getRowsForDistrict(dk) || [];
+      }
+    } catch (e) { /* fall through to the "not available" branch below */ }
+    if (mandiRows.length) {
+      var lines = mandiRows.slice(0, 6).map(function (r) {
+        return '• ' + r.commodity + ': ₹' + r.min_price + '-' + r.max_price + '/' + (isHi ? 'क्विंटल' : 'quintal') + ' (' + r.market + ', ' + r.arrival_date + ')';
+      }).join(nl);
+      if (isHi) return '**' + dName + ' — आज के वास्तविक मंडी भाव (AGMARKNET):**' + nl + lines;
+      return '**' + dName + ' — real mandi prices today (AGMARKNET):**' + nl + lines;
+    }
+    if (isHi) return dName + ' के लिए आज AGMARKNET में कोई भाव दर्ज नहीं हुआ (छुट्टी या सीज़न से बाहर हो सकता है) — अनुमानित भाव नहीं दिखाया जा रहा। Mandi Prices पैनल में सीधे देखें।';
+    return 'No AGMARKNET arrivals recorded for ' + dName + ' today (could be a holiday or off-season) -- not showing an estimated price. Check the Mandi Prices panel directly.';
   }
 
   // 4. Government schemes for farmers?
+  // Scheme names and general structure are real, public, national schemes
+  // (PM-KISAN, PMFBY, KCC etc.) -- not district-specific data, so not the
+  // same class of fabrication as the profit/yield numbers above. Kept,
+  // but with an explicit verify-before-relying-on-it disclaimer, since
+  // scheme terms (premium %, interest rate) change and this dashboard
+  // does not pull them from a live scheme database.
   if (q.indexOf('government schemes') >= 0 || q.indexOf('schemes') >= 0 || q.indexOf('सरकारी योजना') >= 0 || q.indexOf('योजना') >= 0) {
-    if (isHi) return '**' + dName + ' के किसानों के लिए उपलब्ध सरकारी योजनाएँ:**' + nl + nl + '1. **PM-KISAN** — ₹6,000/वर्ष (3 किश्तों में)' + nl + '2. **PMFBY** — फसल बीमा योजना (प्रीमियम: 2% Kharif, 1.5% Rabi)' + nl + '3. **Soil Health Card** — मिट्टी की जाँच और उर्वरक सलाह' + nl + '4. **KCC** — किसान क्रेडिट कार्ड (ब्याज: 4% प्रति वर्ष)' + nl + '5. **PM-KMY** — 60 वर्ष तक पेंशन योजना' + nl + nl + '📞 **अधिक जानकारी:** स्थानीय कृषि विभाग या कॉमन सर्विस सेंटर (CSC) से संपर्क करें।';
-    return '**Government schemes available for farmers in ' + dName + ':**' + nl + nl + '1. **PM-KISAN** — ₹6,000/year income support (3 installments)' + nl + '2. **PMFBY** — Crop insurance (premium: 2% Kharif, 1.5% Rabi)' + nl + '3. **Soil Health Card** — Soil testing & fertilizer advice' + nl + '4. **KCC** — Kisan Credit Card (4% interest/year)' + nl + '5. **PM-KMY** — Pension scheme up to 60 years' + nl + nl + '📞 **Contact:** Local Agriculture Department or Common Service Centre (CSC).';
+    if (isHi) return '**राष्ट्रीय स्तर की प्रमुख किसान योजनाएँ (सामान्य जानकारी, ' + dName + '-विशिष्ट नहीं):**' + nl + nl + '1. **PM-KISAN** — प्रत्यक्ष आय सहायता (किश्तों में)' + nl + '2. **PMFBY** — फसल बीमा योजना' + nl + '3. **Soil Health Card** — मिट्टी की जाँच और उर्वरक सलाह' + nl + '4. **KCC** — किसान क्रेडिट कार्ड' + nl + '5. **PM-KMY** — किसान पेंशन योजना' + nl + nl + '⚠️ सटीक राशि, ब्याज दर और पात्रता समय के साथ बदलती है — इस पोर्टल में लाइव योजना डेटा नहीं है। आधिकारिक पुष्टि के लिए स्थानीय कृषि विभाग, CSC, या pmkisan.gov.in / pmfby.gov.in देखें।';
+    return '**Major national farmer schemes (general information, not ' + dName + '-specific):**' + nl + nl + '1. **PM-KISAN** — direct income support (paid in installments)' + nl + '2. **PMFBY** — crop insurance scheme' + nl + '3. **Soil Health Card** — soil testing & fertilizer advice' + nl + '4. **KCC** — Kisan Credit Card' + nl + '5. **PM-KMY** — farmer pension scheme' + nl + nl + '⚠️ Exact amounts, interest rates and eligibility change over time -- this portal does not pull live scheme data. Verify with your local Agriculture Department, CSC, or pmkisan.gov.in / pmfby.gov.in.';
   }
 
   // 5. Pest and disease control advice?
+  // General extension-service reference info, not location-specific data
+  // -- but presenting a single blanket dosage as if optimized for the
+  // farmer's exact crop/pest/soil is misleading. Added an explicit
+  // "confirm before applying" disclaimer rather than removing agronomic
+  // reference content that's broadly accurate.
   if (q.indexOf('pest') >= 0 || q.indexOf('disease') >= 0 || q.indexOf('कीट') >= 0 || q.indexOf('रोग') >= 0) {
-    if (isHi) return '**' + dName + ' में प्रमुख कीट एवं रोग जोखिम:**' + nl + nl + '⚠️ **प्रमुख कीट:**' + nl + '• तना छेदक (Stem Borer) — कार्बोफ्यूरान 3% @ 8 किग्रा/एकड़' + nl + '• फली छेदक (Pod Borer) — क्लोरेंट्रानिलिप्रोल @ 0.4 मिली/लीटर' + nl + '• टिड्डी/सफेद मक्खी — नीम तेल 2% + साबुन का छिड़काव' + nl + nl + '⚠️ **प्रमुख रोग:**' + nl + '• जड़ गलन (Root Rot) — उचित जल निकासी, ट्राइकोडर्मा उपचार' + nl + '• पर्ण दाग (Leaf Blight) — मैन्कोज़ेब 75% @ 2.5 ग्राम/लीटर' + nl + nl + '🌱 **रोकथाम के उपाय:**' + nl + '• फसल चक्र अपनाएँ' + nl + '• प्रतिरोधी किस्मों का उपयोग करें' + nl + '• नियमित निगरानी रखें' + nl + '• एकीकृत कीट प्रबंधन (IPM) अपनाएँ';
-    return '**Major pest and disease risks in ' + dName + ':**' + nl + nl + '⚠️ **Key pests:**' + nl + '• Stem Borer — Carbofuran 3% @ 8 kg/acre' + nl + '• Pod Borer — Chlorantraniliprole @ 0.4 ml/litre' + nl + '• Whitefly — Neem oil 2% + soap spray' + nl + nl + '⚠️ **Key diseases:**' + nl + '• Root Rot — Proper drainage, Trichoderma treatment' + nl + '• Leaf Blight — Mancozeb 75% @ 2.5 g/litre' + nl + nl + '🌱 **Preventive measures:**' + nl + '• Follow crop rotation' + nl + '• Use resistant varieties' + nl + '• Regular field monitoring' + nl + '• Adopt Integrated Pest Management (IPM)';
+    if (isHi) return '**सामान्य कीट/रोग जानकारी (यह ' + dName + ' के लिए विशिष्ट निदान नहीं है):**' + nl + nl + '⚠️ **सामान्य कीट:** तना छेदक, फली छेदक, सफेद मक्खी' + nl + '⚠️ **सामान्य रोग:** जड़ गलन, पर्ण दाग' + nl + nl + '🌱 **सामान्य रोकथाम:** फसल चक्र, प्रतिरोधी किस्में, नियमित निगरानी, एकीकृत कीट प्रबंधन (IPM)।' + nl + nl + '⚠️ **महत्वपूर्ण:** कोई भी कीटनाशक/दवा लगाने से पहले अपने खेत में असली लक्षण की पहचान स्थानीय कृषि विज्ञान केंद्र (KVK) या कृषि विस्तार अधिकारी से करवाएँ — यहाँ दी गई सूची सामान्य संदर्भ है, आपकी फसल का निदान नहीं।';
+    return '**General pest/disease reference (not a diagnosis for ' + dName + '):**' + nl + nl + '⚠️ **Common pests:** stem borer, pod borer, whitefly' + nl + '⚠️ **Common diseases:** root rot, leaf blight' + nl + nl + '🌱 **General prevention:** crop rotation, resistant varieties, regular field monitoring, Integrated Pest Management (IPM).' + nl + nl + '⚠️ **Important:** before applying any pesticide, get your actual symptoms identified by your local Krishi Vigyan Kendra (KVK) or agriculture extension officer -- this list is general reference, not a diagnosis of your field.';
   }
 
-  // 6. Which crop this season?
+  // 6. Which crop this season? -- same fabrication removed as #1/#2.
   if (q.indexOf('this season') >= 0 || q.indexOf('इस मौसम') >= 0 || q.indexOf('मौसम में फसल') >= 0) {
     var seasonCrop = season.indexOf('Kharif') >= 0 ? 'Soybean' : (season.indexOf('Rabi') >= 0 ? 'Wheat' : 'Moong (Summer)');
-    if (isHi) return '**' + season + ' — ' + dName + ' के लिए अनुशंसित फसल:**' + nl + nl + '🌾 **अनुशंसित फसल:** ' + seasonCrop + nl + '📈 **अनुमानित उपज:** 15-20 क्विंटल/एकड़' + nl + '💰 **अनुमानित लाभ:** ₹35,000-50,000/एकड़' + nl + '🧪 **उर्वरक:** N:P:K = 60:40:40 किग्रा/हेक्टेयर + जिंक 25 किग्रा/हे' + nl + '💧 **सिंचाई:** ' + (rain > 800 ? 'पर्याप्त वर्षा — नियमित सिंचाई' : 'सिंचाई आवश्यक — ड्रिप/स्प्रिंकलर') + nl + '🌧️ **मौसम:** तापमान ' + Math.round(heat) + '°C, वर्षा ' + Math.round(rain) + 'mm' + nl + '🏛️ **योजनाएँ:** PMFBY बीमा अवश्य कराएँ';
-    return '**' + season + ' — Recommended crop for ' + dName + ':**' + nl + nl + '🌾 **Recommended crop:** ' + seasonCrop + nl + '📈 **Expected yield:** 15-20 quintals/acre' + nl + '💰 **Estimated profit:** ₹35,000-50,000/acre' + nl + '🧪 **Fertilizer:** N:P:K = 60:40:40 kg/ha + Zinc 25 kg/ha' + nl + '💧 **Irrigation:** ' + (rain > 800 ? 'Adequate rainfall — normal schedule' : 'Irrigation needed — drip/sprinkler') + nl + '🌧️ **Weather:** Temp ' + Math.round(heat) + '°C, Rain ' + Math.round(rain) + 'mm' + nl + '🏛️ **Schemes:** Get PMFBY insurance for this crop';
+    if (isHi) return '**' + season + ' — ' + dName + ' में आमतौर पर उगाई जाने वाली फसल:** ' + seasonCrop + nl + '🌧️ **मौसम:** तापमान ' + Math.round(heat) + '°C, वर्षा ' + Math.round(rain) + 'mm (IMD-आधारित)' + nl + '💧 **सिंचाई सलाह:** ' + (rain > 800 ? 'वर्षा पर्याप्त दिख रही है' : 'वर्षा कम है — सिंचाई की योजना बनाएँ') + nl + nl + 'उपज और लाभ के सत्यापित आँकड़े यहाँ उपलब्ध नहीं — Crop Health पैनल देखें।';
+    return '**' + season + ' — commonly grown crop in ' + dName + ':** ' + seasonCrop + nl + '🌧️ **Weather:** temp ' + Math.round(heat) + '°C, rain ' + Math.round(rain) + 'mm (IMD-derived)' + nl + '💧 **Irrigation note:** ' + (rain > 800 ? 'rainfall looks adequate' : 'rainfall is low -- plan for irrigation') + nl + nl + 'Verified yield/profit figures aren\'t available here -- check the Crop Health panel.';
   }
 
   return null; // not a chip question, use API
