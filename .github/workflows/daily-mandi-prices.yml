@@ -4,10 +4,17 @@ name: Daily mandi prices
 # data.gov.in and commits the result, so GitHub Pages can serve it as a
 # static file with no backend and no API key in the browser.
 #
+# National as of 2026-08-02: all 733 districts (36 states/UTs), one request
+# each -- expect ~15-30 minutes depending on upstream latency and retries,
+# comfortably under the job timeout below. A district with no AGMARKNET
+# match for its Survey-of-India name is a real, expected per-district
+# failure (recorded in its own "note"), not a build failure.
+#
 # Setup: register at https://data.gov.in, then add the key as a repository
 # secret named DATA_GOV_API_KEY (Settings -> Secrets and variables ->
 # Actions -> New repository secret). Without it the script falls back to the
-# shared public sample key, which is heavily rate limited.
+# shared public sample key, which is heavily rate limited and much slower
+# at this scale.
 
 on:
   schedule:
@@ -25,6 +32,7 @@ concurrency:
 jobs:
   fetch:
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
 
@@ -52,9 +60,13 @@ jobs:
 
           if "metadata" not in d:
               fails.append("missing metadata block")
-          expected = {"bhopal", "indore", "jabalpur", "rewa", "sidhi"}
-          if set(d.get("districts", {})) != expected:
-              fails.append(f"district set is {sorted(d.get('districts', {}))}")
+          # National scale: exact set varies as district-name matching
+          # against AGMARKNET improves, but the count should stay close to
+          # the Survey of India district layer's 733 -- a big drop signals
+          # the fetch script itself broke, not just an upstream mismatch.
+          n = len(d.get("districts", {}))
+          if n < 700:
+              fails.append(f"only {n} districts present, expected ~733")
 
           for slug, dist in d.get("districts", {}).items():
               for r in dist.get("records", []):
@@ -73,7 +85,7 @@ jobs:
               sys.exit(1)
 
           total = sum(x["count"] for x in d["districts"].values())
-          print(f"Validated {total} price rows across 5 districts.")
+          print(f"Validated {total} price rows across {n} districts.")
           if total == 0:
               print("No arrivals reported today. This is a normal market "
                     "condition, not an error; no price is carried forward.")

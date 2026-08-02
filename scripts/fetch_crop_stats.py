@@ -1,6 +1,7 @@
 """
-fetch_crop_stats.py — district-wise, season-wise crop area/production for
-the portal's 5 districts.
+fetch_crop_stats.py — district-wise, season-wise crop area/production,
+nationally (all 36 states/UTs, 733 districts -- see national_districts.py,
+built from the real Survey of India district layer).
 
 Source: "District-wise, season-wise crop production statistics from 1997"
 on data.gov.in (Ministry of Agriculture and Farmers Welfare). Resource
@@ -21,9 +22,23 @@ Yield (production / area) is a derived value computed here, not published
 directly by the source -- flagged as derived in the metadata and skipped
 (null) wherever area is zero or missing, rather than divided by zero or
 approximated.
+
+National scale + pagination: at 5 districts this already took "several
+hundred sequential requests" (a few minutes). All 733 districts in one run
+would take hours, well past what's sensible for a single CI job -- so this
+now runs in --states batches (a handful of states per invocation) and
+MERGES into the existing crop_stats.json rather than overwriting it, so
+national coverage accumulates across several scheduled runs instead of
+requiring one multi-hour job. See crop-stats-refresh.yml for the batching
+schedule.
+
+Usage:
+  python fetch_crop_stats.py --states "Madhya Pradesh,Uttar Pradesh"
+  python fetch_crop_stats.py                       # all 36 states in one run
 """
 from __future__ import annotations
 
+import argparse
 import json
 import os
 import sys
@@ -33,6 +48,9 @@ import urllib.parse
 import urllib.request
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
+from national_districts import load_district_slugs
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "dashboard" / "data" / "crop_stats.json"
@@ -45,15 +63,11 @@ BASE = f"https://api.data.gov.in/resource/{RESOURCE}"
 # reliable runs and store it as the DATA_GOV_API_KEY repository secret.
 SAMPLE_KEY = "579b464db66ec23bdd000001cdd3946e44ce4aad7209ff7b23ac571b"
 
-STATE = "Madhya Pradesh"
-# This resource's district names are upper-case, unlike the mandi resource.
-DISTRICTS = {
-    "bhopal": "BHOPAL",
-    "indore": "INDORE",
-    "jabalpur": "JABALPUR",
-    "rewa": "REWA",
-    "sidhi": "SIDHI",
-}
+# {slug: (state_name, district_name)} for all 733 districts. This
+# resource's district names are upper-case (unlike the mandi resource),
+# so the query uses .upper() on the Survey of India name at call time
+# rather than a separately maintained uppercase list.
+DISTRICT_SLUGS = load_district_slugs()
 
 TIMEOUT = 60
 RETRIES = 3
@@ -77,7 +91,7 @@ def api_key() -> tuple[str, bool]:
     return SAMPLE_KEY, True
 
 
-def fetch_all(key: str, district: str) -> list[dict]:
+def fetch_all(key: str, state: str, district: str) -> list[dict]:
     """Page through every record for one district. The resource has no
     documented hard cap on offset, so this stops when a page returns fewer
     rows than PAGE_LIMIT or an empty list."""
@@ -89,8 +103,8 @@ def fetch_all(key: str, district: str) -> list[dict]:
             "format": "json",
             "limit": str(PAGE_LIMIT),
             "offset": str(offset),
-            "filters[state_name]": STATE,
-            "filters[district_name]": district,
+            "filters[state_name]": state.upper(),
+            "filters[district_name]": district.upper(),
         }
         url = BASE + "?" + urllib.parse.urlencode(params)
         last = None
@@ -151,49 +165,66 @@ def clean(rec: dict) -> dict | None:
     }
 
 
-def main() -> int:
+def main(states: list[str] | None = None) -> int:
     key, is_sample = api_key()
     now = datetime.now(IST)
-    out = {
-        "metadata": {
-            "title": "District-wise, season-wise crop area, production and derived yield",
-            "source": "data.gov.in, Ministry of Agriculture and Farmers Welfare "
-                      "(\"District-wise, season-wise crop production statistics from 1997\")",
-            "resource_id": RESOURCE,
-            "source_url": "https://www.data.gov.in/resource/district-wise-season-wise-crop-production-statistics-1997",
-            "unit": "area in hectares, production in tonnes, yield in tonnes/hectare (derived)",
-            "spatial_unit": "district",
-            "crs": "not applicable (tabular)",
-            "processing": "filtered to Madhya Pradesh and the five covered districts; "
-                          "yield is computed here as production/area and is null (not "
-                          "estimated) wherever area is zero or missing; rows with a "
-                          "missing/negative area or production, or no season/crop label, "
-                          "are dropped",
-            "data_quality": "verified",
-            "key_used": "public sample key (rate limited)" if is_sample
-                        else "registered data.gov.in key",
-            # This dataset's own updated_date (checked against the resource
-            # metadata endpoint) is 2021-07-13. It has not been refreshed
-            # upstream since, so recent crop years are not present here --
-            # unlike mandi prices, this is not a daily-moving source.
-            "upstream_last_updated": "2021-07-13",
-            "coverage_note": "The source was last updated 2021-07-13 and has not been "
-                             "refreshed since; for these 5 districts its year coverage "
-                             "runs from 1997 to 2013, not the current year. Do not "
-                             "present this as current-season data.",
-            "fetch_date": now.isoformat(timespec="seconds"),
-        },
-        "districts": {},
-    }
+
+    targets = {slug: sd for slug, sd in DISTRICT_SLUGS.items()
+               if not states or sd[0].upper() in {s.upper() for s in states}}
+    if not targets:
+        print(f"no districts matched --states {states}", file=sys.stderr)
+        return 1
+
+    # Merge into whatever's already there -- national coverage builds up
+    # across several batched runs (see module docstring), so a run covering
+    # a handful of states must not erase every other state's already-fetched
+    # data.
+    if OUT.exists():
+        out = json.loads(OUT.read_text())
+        out.setdefault("districts", {})
+    else:
+        out = {"metadata": {}, "districts": {}}
+
+    out["metadata"].update({
+        "title": "District-wise, season-wise crop area, production and derived yield",
+        "source": "data.gov.in, Ministry of Agriculture and Farmers Welfare "
+                  "(\"District-wise, season-wise crop production statistics from 1997\")",
+        "resource_id": RESOURCE,
+        "source_url": "https://www.data.gov.in/resource/district-wise-season-wise-crop-production-statistics-1997",
+        "unit": "area in hectares, production in tonnes, yield in tonnes/hectare (derived)",
+        "spatial_unit": "district",
+        "crs": "not applicable (tabular)",
+        "processing": "national -- all 36 states/UTs, 733 districts from the Survey of "
+                      "India district layer (national_districts.py), fetched in batches "
+                      "across multiple scheduled runs and merged (a run covering some "
+                      "states never erases another state's already-fetched data); "
+                      "yield is computed here as production/area and is null (not "
+                      "estimated) wherever area is zero or missing; rows with a "
+                      "missing/negative area or production, or no season/crop label, "
+                      "are dropped",
+        "data_quality": "verified",
+        "key_used": "public sample key (rate limited)" if is_sample
+                    else "registered data.gov.in key",
+        # This dataset's own updated_date (checked against the resource
+        # metadata endpoint) is 2021-07-13. It has not been refreshed
+        # upstream since, so recent crop years are not present here --
+        # unlike mandi prices, this is not a daily-moving source.
+        "upstream_last_updated": "2021-07-13",
+        "coverage_note": "The source was last updated 2021-07-13 and has not been "
+                         "refreshed since; year coverage generally runs from 1997 to "
+                         "2013 (varies by district), not the current year. Do not "
+                         "present this as current-season data.",
+        "fetch_date": now.isoformat(timespec="seconds"),
+    })
 
     failures = 0
-    for slug, name in DISTRICTS.items():
+    for i, (slug, (state, name)) in enumerate(sorted(targets.items())):
         try:
-            raw = fetch_all(key, name)
+            raw = fetch_all(key, state, name)
         except Exception as exc:
             print(f"[{slug}] FETCH FAILED: {exc}", file=sys.stderr)
             out["districts"][slug] = {
-                "name": name.title(), "records": [], "count": 0,
+                "name": name.title(), "state": state, "records": [], "count": 0,
                 "note": f"Upstream fetch failed: {exc}",
             }
             failures += 1
@@ -204,6 +235,7 @@ def main() -> int:
         years = sorted({r["year"] for r in rows})
         out["districts"][slug] = {
             "name": name.title(),
+            "state": state,
             "records": rows,
             "count": len(rows),
             "dropped": len(raw) - len(rows),
@@ -211,16 +243,23 @@ def main() -> int:
             "note": None if rows else
                     "No crop statistics returned for this district from the source.",
         }
-        print(f"[{slug}] {len(rows)} rows kept, {len(raw) - len(rows)} dropped, "
+        print(f"[{i + 1}/{len(targets)}] [{slug}] {len(rows)} rows kept, "
+              f"{len(raw) - len(rows)} dropped, "
               f"years: {years[0] if years else '--'}-{years[-1] if years else '--'}")
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(out, ensure_ascii=False, indent=1))
     total = sum(d["count"] for d in out["districts"].values())
-    print(f"\nWrote {OUT.name}: {total} rows across {len(DISTRICTS)} districts, "
+    print(f"\nWrote {OUT.name}: {total} total rows across {len(out['districts'])} "
+          f"districts nationally ({len(targets)} fetched this run), "
           f"{failures} fetch failures")
-    return 1 if failures == len(DISTRICTS) else 0
+    return 1 if failures == len(targets) else 0
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--states", help="comma-separated state names, e.g. "
+                                      "'Madhya Pradesh,Uttar Pradesh' (default: all 36)")
+    args = ap.parse_args()
+    states = [s.strip() for s in args.states.split(",")] if args.states else None
+    raise SystemExit(main(states))

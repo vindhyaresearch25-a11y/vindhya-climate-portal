@@ -87,3 +87,42 @@ CMIP6_MODELS = [
     "INM-CM5-0", "MPI-ESM1-2-HR", "MRI-ESM2-0", "NorESM2-MM",
 ]
 CMIP6_SCENARIO = "ssp245"
+
+# ---------- GEE NATIONAL CLIMATE (Phase 3) ----------
+# No raw IMD NetCDF exists on this machine (verified 2026-08-02, see
+# scripts/08_gee_national_climate.py's header) -- the owner authorized
+# using Google Earth Engine's ERA5-Land (temperature) and CHIRPS
+# (precipitation) as the data source for districts beyond the original 5
+# MP districts (which stay on their existing IMD-derived numbers,
+# untouched). This is a genuinely different, real, freely-published
+# dataset -- not a substitute invented to fill a gap -- and every output
+# file's metadata says so explicitly; it is never presented as IMD data.
+# GEE_SERVICE_ACCOUNT_JSON: path to the service account key file itself
+# (its client_email is read directly from the file -- a key file already
+# states its own email, so there is no separate email var to keep in sync).
+GEE_SERVICE_ACCOUNT_KEY_PATH = os.path.expanduser(
+    os.environ.get("GEE_SERVICE_ACCOUNT_JSON", "")
+)
+
+ERA5LAND_COLLECTION = "ECMWF/ERA5_LAND/DAILY_AGGR"
+ERA5LAND_TMAX_BAND   = "temperature_2m_max"
+ERA5LAND_TMIN_BAND   = "temperature_2m_min"
+CHIRPS_COLLECTION   = "UCSB-CHG/CHIRPS/DAILY"
+CHIRPS_PRECIP_BAND  = "precipitation"
+GEE_SCALE_METERS    = 9000  # ERA5-Land native resolution (~9 km)
+
+NATIONAL_CLIMATE_OUT_DIR = PROJECT_ROOT / "dashboard" / "data" / "climate"
+SOI_DISTRICTS_GEOJSON    = PROJECT_ROOT / "dashboard" / "data" / "boundaries" / "soi" / "districts.geojson"
+
+GEE_SOURCE_META = {
+    "source": "ERA5-Land (ECMWF, via Google Earth Engine) for Tmax/Tmin, "
+              "CHIRPS (UCSB Climate Hazards Center, via Google Earth Engine) for precipitation",
+    "resolution": "ERA5-Land ~9 km (0.1 deg), CHIRPS ~5.5 km (0.05 deg)",
+    "note": "Distinct from the IMD 0.05 deg gridded product used for Bhopal, "
+            "Indore, Jabalpur, Rewa and Sidhi -- those 5 districts are untouched "
+            "by this pipeline and keep their existing IMD-derived numbers. Used "
+            "here because no raw IMD NetCDF file is available on this machine "
+            "(verified before this pipeline was written); same heatwave/SPI/"
+            "ETCCDI methodology as the IMD pipeline, applied to a different "
+            "real, freely-published reanalysis/satellite source.",
+}

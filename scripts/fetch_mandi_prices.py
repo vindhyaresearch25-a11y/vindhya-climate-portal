@@ -1,5 +1,7 @@
 """
-fetch_mandi_prices.py — daily mandi prices for the portal's districts.
+fetch_mandi_prices.py — daily mandi prices, nationally (all 36 states/UTs,
+733 districts — see national_districts.py, built from the real Survey of
+India district layer, not a separately typed-in list).
 
 Source: AGMARKNET, published as "Current Daily Price of Various Commodities
 from Various Markets (Mandi)" on data.gov.in (Ministry of Agriculture and
@@ -12,7 +14,11 @@ Runs on GitHub Actions, never in the browser. Two reasons:
      delivery mechanism that works without a backend.
 
 Nothing is generated. A district with no arrivals today is written with an
-empty record list and an explicit note, not with carried-forward prices.
+empty record list and an explicit note, not with carried-forward prices. A
+district whose AGMARKNET spelling doesn't match the Survey of India name
+used to query it (a real, expected mismatch for some districts) surfaces as
+an honest per-district fetch failure in its own "note" field, never a
+silently dropped or guessed result.
 """
 from __future__ import annotations
 
@@ -24,6 +30,9 @@ import urllib.parse
 import urllib.request
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
+from national_districts import load_district_slugs
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "dashboard" / "data" / "mandi_prices.json"
@@ -37,17 +46,12 @@ BASE = f"https://api.data.gov.in/resource/{RESOURCE}"
 # repository secret.
 SAMPLE_KEY = "579b464db66ec23bdd000001cdd3946e44ce4aad7209ff7b23ac571b"
 
-STATE = "Madhya Pradesh"
-DISTRICTS = {
-    "bhopal": "Bhopal",
-    "indore": "Indore",
-    "jabalpur": "Jabalpur",
-    "rewa": "Rewa",
-    "sidhi": "Sidhi",
-}
+# {slug: (state_name, district_name)} for all 733 districts.
+DISTRICT_SLUGS = load_district_slugs()
 
 TIMEOUT = 45
 RETRIES = 3
+REQUEST_PACING_SEC = 0.25  # be a polite national-scale caller, not just a 5-district one
 IST = timezone(timedelta(hours=5, minutes=30))
 
 
@@ -61,12 +65,12 @@ def api_key() -> tuple[str, bool]:
     return SAMPLE_KEY, True
 
 
-def fetch(key: str, district: str) -> list[dict]:
+def fetch(key: str, state: str, district: str) -> list[dict]:
     params = {
         "api-key": key,
         "format": "json",
         "limit": "200",
-        "filters[state.keyword]": STATE,
+        "filters[state.keyword]": state,
         "filters[district]": district,
     }
     url = BASE + "?" + urllib.parse.urlencode(params)
@@ -126,10 +130,14 @@ def main() -> int:
             "unit": "INR per quintal",
             "spatial_unit": "APMC market, aggregated to district",
             "crs": "not applicable (tabular)",
-            "processing": "filtered to Madhya Pradesh and the five covered "
-                          "districts; rows without a usable min/max/modal "
-                          "price, or with min greater than max, are dropped; "
-                          "no value is interpolated or carried forward",
+            "processing": "national -- all 36 states/UTs, 733 districts from the "
+                          "Survey of India district layer (national_districts.py); "
+                          "rows without a usable min/max/modal price, or with min "
+                          "greater than max, are dropped; no value is interpolated "
+                          "or carried forward; a district whose AGMARKNET name "
+                          "doesn't match its Survey of India name is a real, "
+                          "expected fetch failure, recorded per-district, not "
+                          "silently skipped",
             "data_quality": "verified",
             "key_used": "public sample key (rate limited)" if is_sample
                         else "registered data.gov.in key",
@@ -139,16 +147,17 @@ def main() -> int:
     }
 
     failures = 0
-    for slug, name in DISTRICTS.items():
+    for i, (slug, (state, name)) in enumerate(sorted(DISTRICT_SLUGS.items())):
         try:
-            raw = fetch(key, name)
+            raw = fetch(key, state, name)
         except Exception as exc:
             print(f"[{slug}] FETCH FAILED: {exc}", file=sys.stderr)
             out["districts"][slug] = {
-                "name": name, "records": [], "count": 0,
+                "name": name, "state": state, "records": [], "count": 0,
                 "note": f"Upstream fetch failed: {exc}",
             }
             failures += 1
+            time.sleep(REQUEST_PACING_SEC)
             continue
 
         rows = [c for c in (clean(r) for r in raw) if c]
@@ -156,6 +165,7 @@ def main() -> int:
         dates = sorted({r["arrival_date"] for r in rows if r["arrival_date"]})
         out["districts"][slug] = {
             "name": name,
+            "state": state,
             "records": rows,
             "count": len(rows),
             "dropped": len(raw) - len(rows),
@@ -163,18 +173,21 @@ def main() -> int:
             "note": None if rows else
                     "No arrivals reported for this district in the current "
                     "AGMARKNET release. This is normal on holidays and "
-                    "off-season days; no price is carried forward.",
+                    "off-season days, or the district name not matching "
+                    "AGMARKNET's spelling; no price is carried forward.",
         }
-        print(f"[{slug}] {len(rows)} rows kept, {len(raw) - len(rows)} dropped, "
-              f"dates: {', '.join(dates) or 'none'}")
+        if (i + 1) % 50 == 0:
+            print(f"  ... {i + 1}/{len(DISTRICT_SLUGS)} districts done")
+        time.sleep(REQUEST_PACING_SEC)
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(out, ensure_ascii=False, indent=1))
     total = sum(d["count"] for d in out["districts"].values())
     print(f"\nWrote {OUT.name}: {total} price rows across "
-          f"{len(DISTRICTS)} districts, {failures} fetch failures")
-    # A quiet market day is not a build failure. Only a total outage is.
-    return 1 if failures == len(DISTRICTS) else 0
+          f"{len(DISTRICT_SLUGS)} districts, {failures} fetch failures")
+    # A quiet market day (or a district AGMARKNET has no data for at all)
+    # is not a build failure. Only a total outage is.
+    return 1 if failures == len(DISTRICT_SLUGS) else 0
 
 
 if __name__ == "__main__":

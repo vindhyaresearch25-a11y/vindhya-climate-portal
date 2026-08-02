@@ -5,11 +5,26 @@ name: Crop statistics refresh
 # historical dataset last updated by its publisher on 2021-07-13 -- it does
 # not move daily. This workflow checks monthly (in case the publisher ever
 # refreshes it) plus a manual trigger, rather than running every day.
+#
+# National as of 2026-08-02, 733 districts across 36 states/UTs -- this
+# resource paginates (5 districts alone took "several hundred sequential
+# requests"), so fetching all 733 in a single run risks a multi-hour job.
+# Instead each scheduled run fetches ONE batch of 6 states, chosen by
+# calendar month so all 6 batches (36 states) cycle through over 6 months;
+# fetch_crop_stats.py MERGES into the existing file rather than
+# overwriting it, so a batch run never erases another batch's already-
+# fetched states. Use workflow_dispatch's `states` input to fetch specific
+# states on demand instead of waiting for their scheduled month.
 
 on:
   schedule:
     - cron: "0 4 1 * *"   # 04:00 UTC on the 1st of each month
   workflow_dispatch:
+    inputs:
+      states:
+        description: "Comma-separated state names to fetch (default: this month's scheduled batch)"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -17,6 +32,7 @@ permissions:
 jobs:
   fetch:
     runs-on: ubuntu-latest
+    timeout-minutes: 180
     steps:
       - uses: actions/checkout@v4
 
@@ -24,14 +40,30 @@ jobs:
         with:
           python-version: "3.11"
 
-      # The sample key caps each page at 10 records; 5 districts x ~400-500
-      # rows each means several hundred sequential requests. Comfortably
-      # under GitHub Actions' job time limit, but not fast -- expect a few
-      # minutes.
-      - name: Fetch district-wise crop statistics
+      - name: Pick this run's state batch
+        id: batch
+        run: |
+          if [ -n "${{ github.event.inputs.states }}" ]; then
+            echo "states=${{ github.event.inputs.states }}" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          MONTH=$(date +%-m)
+          INDEX=$(( (MONTH - 1) % 6 ))
+          BATCHES=(
+            "Andaman & Nicobar Island,Andhra Pradesh,Arunanchal Pradesh,Assam,Bihar,Chandigarh"
+            "Chhattisgarh,Dadra & Nagar Havelli and Daman & Diu,Delhi,Goa,Gujarat,Haryana"
+            "Himachal Pradesh,Jammu & Kashmir,Jharkhand,Karnataka,Kerala,Ladakh"
+            "Lakshadweep,Madhya Pradesh,Maharashtra,Manipur,Meghalaya,Mizoram"
+            "Nagaland,Odisha,Puducherry,Punjab,Rajasthan,Sikkim"
+            "Tamil Nadu,Telangana,Tripura,Uttar Pradesh,Uttarakhand,West Bengal"
+          )
+          echo "states=${BATCHES[$INDEX]}" >> "$GITHUB_OUTPUT"
+          echo "Month $MONTH -> batch $INDEX: ${BATCHES[$INDEX]}"
+
+      - name: Fetch district-wise crop statistics for this batch
         env:
           DATA_GOV_API_KEY: ${{ secrets.DATA_GOV_API_KEY }}
-        run: python scripts/fetch_crop_stats.py
+        run: python scripts/fetch_crop_stats.py --states "${{ steps.batch.outputs.states }}"
 
       - name: Validate the written file
         run: |
@@ -48,9 +80,6 @@ jobs:
 
           if "metadata" not in d:
               fails.append("missing metadata block")
-          expected = {"bhopal", "indore", "jabalpur", "rewa", "sidhi"}
-          if set(d.get("districts", {})) != expected:
-              fails.append(f"district set is {sorted(d.get('districts', {}))}")
 
           for slug, dist in d.get("districts", {}).items():
               for r in dist.get("records", []):
@@ -66,7 +95,8 @@ jobs:
               sys.exit(1)
 
           total = sum(x["count"] for x in d["districts"].values())
-          print(f"Validated {total} crop-statistic rows across 5 districts.")
+          print(f"Validated {total} crop-statistic rows across "
+                f"{len(d.get('districts', {}))} districts nationally.")
           PY
 
       - name: Commit if data changed
