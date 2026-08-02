@@ -762,7 +762,7 @@ canvas.chart-canvas{max-height:100%;}
         <div id="advisory-container">
           <div class="advisory-card high" id="adv-card-0">
             <div class="advisory-header">
-              <span class="advisory-icon">⚠️</span>
+              <span class="advisory-icon"><i class="fa fa-triangle-exclamation"></i></span>
               <span class="advisory-title" id="adv-title-0" style="color:var(--text-dim)">Select a district for AI advisory</span>
             </div>
             <div class="advisory-body" id="adv-body-0">Advisories are generated from real IMD-derived indices once a district (and optionally a village) is selected above.</div>
@@ -772,35 +772,35 @@ canvas.chart-canvas{max-height:100%;}
               <button class="adv-btn hi"><i class="fa fa-language"></i> हिंदी</button>
             </div>
           </div>
-          <div class="advisory-card medium" id="adv-card-1">
+          <div class="advisory-card low" id="adv-card-1" style="display:none">
             <div class="advisory-header">
-              <span class="advisory-icon">🍊</span>
-              <span class="advisory-title" id="adv-title-1">Delay Soybean Sowing — 5 Days</span>
+              <span class="advisory-icon"><i class="fa fa-triangle-exclamation"></i></span>
+              <span class="advisory-title" id="adv-title-1"</span>
             </div>
-            <div class="advisory-body" id="adv-body-1">Soil moisture below threshold (31%). AI model recommends delaying sowing by 5 days pending rainfall forecast. Use MAUS-71 or JS-335 variety for drought resilience.</div>
+            <div class="advisory-body" id="adv-body-1"></div>
             <div class="advisory-actions">
               <button class="adv-btn wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
               <button class="adv-btn sms"><i class="fa fa-sms"></i> SMS</button>
               <button class="adv-btn hi"><i class="fa fa-language"></i> हिंदी</button>
             </div>
           </div>
-          <div class="advisory-card medium" id="adv-card-2">
+          <div class="advisory-card low" id="adv-card-2" style="display:none">
             <div class="advisory-header">
-              <span class="advisory-icon">💦</span>
-              <span class="advisory-title" id="adv-title-2">Irrigation Advisory — Khargone, Khandwa</span>
+              <span class="advisory-icon"><i class="fa fa-triangle-exclamation"></i></span>
+              <span class="advisory-title" id="adv-title-2"</span>
             </div>
-            <div class="advisory-body" id="adv-body-2">Cotton crop showing water stress (EVI: 0.31). Drip irrigation recommended within 48 hours. Target 30mm water application depth. Check soil at 15cm depth before irrigating.</div>
+            <div class="advisory-body" id="adv-body-2"></div>
             <div class="advisory-actions">
               <button class="adv-btn wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
               <button class="adv-btn sms"><i class="fa fa-sms"></i> SMS</button>
             </div>
           </div>
-          <div class="advisory-card low" id="adv-card-3">
+          <div class="advisory-card low" id="adv-card-3" style="display:none">
             <div class="advisory-header">
-              <span class="advisory-icon">🌿</span>
-              <span class="advisory-title" id="adv-title-3">Good Rainfall Forecast — Mandla, Balaghat</span>
+              <span class="advisory-icon"><i class="fa fa-triangle-exclamation"></i></span>
+              <span class="advisory-title" id="adv-title-3"</span>
             </div>
-            <div class="advisory-body" id="adv-body-3">60-80mm rainfall expected in 72 hours. Prepare seed beds for paddy. Ensure drainage in low-lying fields. Groundnut sowing window opens in 5 days.</div>
+            <div class="advisory-body" id="adv-body-3"></div>
             <div class="advisory-actions">
               <button class="adv-btn wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
               <button class="adv-btn sms"><i class="fa fa-sms"></i> SMS</button>
@@ -809,14 +809,14 @@ canvas.chart-canvas{max-height:100%;}
           <!-- Village cadastral cards -->
           <div class="advisory-card low" id="adv-card-4">
             <div class="advisory-header">
-              <span class="advisory-icon">🌾</span>
+              <span class="advisory-icon"><i class="fa fa-wheat-awn"></i></span>
               <span class="advisory-title" id="adv-title-4">Village Cadastral Summary</span>
             </div>
             <div class="advisory-body" id="adv-body-4">Select a village to view cadastral aggregates.</div>
           </div>
           <div class="advisory-card low" id="adv-card-5">
             <div class="advisory-header">
-              <span class="advisory-icon">🧪</span>
+              <span class="advisory-icon"><i class="fa fa-flask"></i></span>
               <span class="advisory-title" id="adv-title-5">Fertilizer & Crop Recommendation</span>
             </div>
             <div class="advisory-body" id="adv-body-5">Select a village to view fertilizer demand and recommended crops.</div>
@@ -1612,29 +1612,29 @@ function updateAdvisories(distKey){
   var adv = [];
   // 1. Heatwave alert
   if (heat >= 40) {
-    adv.push({icon:'⚠️', title:'HEATWAVE ALERT — '+nm, body:isHindi?'तापमान '+heat+'°C तक पहुंचने का अनुमान। पशुओं को छाया और पानी दें। 11am-4pm खेत में काम न करें।':'Max temperature '+heat+'°C forecast. Provide shade and water to livestock. Avoid field operations 11am-4pm. Apply mulching.', severity:'high'});
+    adv.push({title:'HEATWAVE ALERT — '+nm, body:isHindi?'तापमान '+heat+'°C तक पहुंचने का अनुमान। पशुओं को छाया और पानी दें। 11am-4pm खेत में काम न करें।':'Max temperature '+heat+'°C forecast. Provide shade and water to livestock. Avoid field operations 11am-4pm. Apply mulching.', severity:'high'});
   } else {
-    adv.push({icon:'🌡️', title:'MODERATE TEMP — '+nm, body:isHindi?'तापमान '+heat+'°C — फसलों के लिए सामान्य स्थिति। नियमित सिंचाई जारी रखें।':'Temperature '+heat+'°C — normal conditions for crops. Continue regular irrigation.', severity:'low'});
+    adv.push({title:'MODERATE TEMP — '+nm, body:isHindi?'तापमान '+heat+'°C — फसलों के लिए सामान्य स्थिति। नियमित सिंचाई जारी रखें।':'Temperature '+heat+'°C — normal conditions for crops. Continue regular irrigation.', severity:'low'});
   }
   // 2. Sowing advisory
   if (ndvi < 0.35) {
-    adv.push({icon:'🍊', title:'DELAY SOWING — '+nm, body:isHindi?'मिट्टी में नमी कम है। बुवाई 5-7 दिन टालें। सूखा सहनशील किस्मों का उपयोग करें।':'Soil moisture low ('+Math.round(ndvi*80)+'%). Delay sowing by 5-7 days pending rainfall. Use drought-tolerant varieties.', severity:'medium'});
+    adv.push({title:'DELAY SOWING — '+nm, body:isHindi?'मिट्टी में नमी कम है। बुवाई 5-7 दिन टालें। सूखा सहनशील किस्मों का उपयोग करें।':'Soil moisture low ('+Math.round(ndvi*80)+'%). Delay sowing by 5-7 days pending rainfall. Use drought-tolerant varieties.', severity:'medium'});
   } else if (ndvi > 0.5) {
-    adv.push({icon:'🌱', title:'GOOD SOWING WINDOW — '+nm, body:isHindi?'मिट्टी की नमी अनुकूल है। बुवाई शुरू करें। अनुशंसित किस्मों का उपयोग करें।':'Soil moisture favourable ('+Math.round(ndvi*80)+'%). Start sowing. Use recommended varieties for the season.', severity:'low'});
+    adv.push({title:'GOOD SOWING WINDOW — '+nm, body:isHindi?'मिट्टी की नमी अनुकूल है। बुवाई शुरू करें। अनुशंसित किस्मों का उपयोग करें।':'Soil moisture favourable ('+Math.round(ndvi*80)+'%). Start sowing. Use recommended varieties for the season.', severity:'low'});
   } else {
-    adv.push({icon:'🍊', title:'MONITOR SOIL — '+nm, body:isHindi?'मिट्टी की नमी सीमा रेखा पर। बुवाई से पहले बारिश का पूर्वानुमान जांचें।':'Soil moisture borderline ('+Math.round(ndvi*80)+'%). Check rainfall forecast before sowing.', severity:'medium'});
+    adv.push({title:'MONITOR SOIL — '+nm, body:isHindi?'मिट्टी की नमी सीमा रेखा पर। बुवाई से पहले बारिश का पूर्वानुमान जांचें।':'Soil moisture borderline ('+Math.round(ndvi*80)+'%). Check rainfall forecast before sowing.', severity:'medium'});
   }
   // 3. Irrigation advisory
   if (rain < 800) {
-    adv.push({icon:'💦', title:'IRRIGATION NEEDED — '+nm, body:isHindi?'कम वर्षा ('+Math.round(rain)+'mm)। ड्रिप सिंचाई का उपयोग करें। हर 3 दिन में सिंचाई करें।':'Low rainfall ('+Math.round(rain)+'mm). Drip irrigation recommended. Irrigate every 3 days. Soil moisture conservation critical.', severity:'medium'});
+    adv.push({title:'IRRIGATION NEEDED — '+nm, body:isHindi?'कम वर्षा ('+Math.round(rain)+'mm)। ड्रिप सिंचाई का उपयोग करें। हर 3 दिन में सिंचाई करें।':'Low rainfall ('+Math.round(rain)+'mm). Drip irrigation recommended. Irrigate every 3 days. Soil moisture conservation critical.', severity:'medium'});
   } else {
-    adv.push({icon:'💧', title:'ADEQUATE RAINFALL — '+nm, body:isHindi?'पर्याप्त वर्षा ('+Math.round(rain)+'mm)। निचले खेतों में जल निकासी सुनिश्चित करें।':'Adequate rainfall ('+Math.round(rain)+'mm). Ensure drainage in low-lying fields. Normal irrigation schedule.', severity:'low'});
+    adv.push({title:'ADEQUATE RAINFALL — '+nm, body:isHindi?'पर्याप्त वर्षा ('+Math.round(rain)+'mm)। निचले खेतों में जल निकासी सुनिश्चित करें।':'Adequate rainfall ('+Math.round(rain)+'mm). Ensure drainage in low-lying fields. Normal irrigation schedule.', severity:'low'});
   }
   // 4. Crop health advisory
   if (drought > 50) {
-    adv.push({icon:'🌿', title:'DROUGHT WATCH — '+nm, body:isHindi?'सूखा जोखिम '+drought+'%। जल संरक्षण के उपाय करें। वर्षा जल संचयन करें।':'Drought risk '+drought+'%. Implement water conservation measures. Rainwater harvesting recommended.', severity:'high'});
+    adv.push({title:'DROUGHT WATCH — '+nm, body:isHindi?'सूखा जोखिम '+drought+'%। जल संरक्षण के उपाय करें। वर्षा जल संचयन करें।':'Drought risk '+drought+'%. Implement water conservation measures. Rainwater harvesting recommended.', severity:'high'});
   } else {
-    adv.push({icon:'🌿', title:'CROP HEALTH — '+nm, body:isHindi?'फसल की स्थिति अच्छी। NDVI '+ndvi.toFixed(2)+'। नियमित निगरानी जारी रखें।':'Crop condition good. NDVI '+ndvi.toFixed(2)+'. Continue regular monitoring.', severity:'low'});
+    adv.push({title:'CROP HEALTH — '+nm, body:isHindi?'फसल की स्थिति अच्छी। NDVI '+ndvi.toFixed(2)+'। नियमित निगरानी जारी रखें।':'Crop condition good. NDVI '+ndvi.toFixed(2)+'. Continue regular monitoring.', severity:'low'});
   }
   // 5. Village cadastral — cultivated area
   var vn = document.getElementById('villageSelect') ? document.getElementById('villageSelect').value : '';
@@ -1653,9 +1653,9 @@ function updateAdvisories(distKey){
     var pctCult = totalHa > 0 ? Math.round(agriHa/totalHa*100) : 0;
     var vilName = vn;
     if (isHindi) {
-      adv.push({icon:'🌾', title:'गाँव कैडस्ट्रल सारांश — '+vilName, body:'कुल क्षेत्र: '+totalHa.toFixed(1)+'ha | कृषि: '+agriHa.toFixed(1)+'ha ('+pctCult+'%) | परती: '+fallowHa.toFixed(1)+'ha\nशीर्ष फसलें: '+topCropStr, severity:'low'});
+      adv.push({title:'गाँव कैडस्ट्रल सारांश — '+vilName, body:'कुल क्षेत्र: '+totalHa.toFixed(1)+'ha | कृषि: '+agriHa.toFixed(1)+'ha ('+pctCult+'%) | परती: '+fallowHa.toFixed(1)+'ha\nशीर्ष फसलें: '+topCropStr, severity:'low'});
     } else {
-      adv.push({icon:'🌾', title:'VILLAGE CADASTRAL — '+vilName, body:'Total Area: '+totalHa.toFixed(1)+'ha | Cultivated: '+agriHa.toFixed(1)+'ha ('+pctCult+'%) | Fallow: '+fallowHa.toFixed(1)+'ha\nTop Crops: '+topCropStr, severity:'low'});
+      adv.push({title:'VILLAGE CADASTRAL — '+vilName, body:'Total Area: '+totalHa.toFixed(1)+'ha | Cultivated: '+agriHa.toFixed(1)+'ha ('+pctCult+'%) | Fallow: '+fallowHa.toFixed(1)+'ha\nTop Crops: '+topCropStr, severity:'low'});
     }
     // 6. Fertilizer demand & crop recommendation
     var NPK = {Rice:{n:120,p:60,k:40},Wheat:{n:120,p:60,k:40},Soybean:{n:20,p:60,k:40},Maize:{n:120,p:60,k:40},Gram:{n:20,p:50,k:30},Mustard:{n:80,p:40,k:40},Cotton:{n:100,p:50,k:50},Pigeonpea:{n:20,p:50,k:30},Groundnut:{n:20,p:60,k:40},Bajra:{n:80,p:40,k:40}};
@@ -1669,26 +1669,37 @@ function updateAdvisories(distKey){
     });
     var topRec = topCrops[0] || '—';
     if (isHindi) {
-      adv.push({icon:'🧪', title:'उर्वरक मांग — '+vilName, body:'N:'+Math.round(totN)+'kg | P:'+Math.round(totP)+'kg | K:'+Math.round(totK)+'kg\nअनुशंसित फसल: '+topRec+' | मिट्टी के अनुकूल किस्मों का चयन करें।', severity:'low'});
+      adv.push({title:'उर्वरक मांग — '+vilName, body:'N:'+Math.round(totN)+'kg | P:'+Math.round(totP)+'kg | K:'+Math.round(totK)+'kg\nअनुशंसित फसल: '+topRec+' | मिट्टी के अनुकूल किस्मों का चयन करें।', severity:'low'});
     } else {
-      adv.push({icon:'🧪', title:'FERTILIZER DEMAND — '+vilName, body:'N: '+Math.round(totN)+' kg | P: '+Math.round(totP)+' kg | K: '+Math.round(totK)+' kg\nRecommended Crop: '+topRec+' | Choose soil-suited variety.', severity:'low'});
+      adv.push({title:'FERTILIZER DEMAND — '+vilName, body:'N: '+Math.round(totN)+' kg | P: '+Math.round(totP)+' kg | K: '+Math.round(totK)+' kg\nRecommended Crop: '+topRec+' | Choose soil-suited variety.', severity:'low'});
     }
   } else {
     // No village selected — show placeholder
-    adv.push({icon:'🌾', title:'VILLAGE CADASTRAL', body:isHindi?'कैडस्ट्रल डेटा देखने के लिए गाँव चुनें।':'Select a village to view cadastral aggregates.', severity:'low'});
-    adv.push({icon:'🧪', title:'FERTILIZER DEMAND', body:isHindi?'उर्वरक अनुशंसा के लिए गाँव चुनें।':'Select a village for fertilizer and crop recommendations.', severity:'low'});
+    adv.push({title:'VILLAGE CADASTRAL', body:isHindi?'कैडस्ट्रल डेटा देखने के लिए गाँव चुनें।':'Select a village to view cadastral aggregates.', severity:'low'});
+    adv.push({title:'FERTILIZER DEMAND', body:isHindi?'उर्वरक अनुशंसा के लिए गाँव चुनें।':'Select a village for fertilizer and crop recommendations.', severity:'low'});
   }
-  // Update DOM — now supports cards 0-5
+  // Update DOM — now supports cards 0-5. Cards 1-3 default to display:none
+  // in the HTML (they used to hold hardcoded fake example advisories --
+  // "Khargone, Khandwa", "60-80mm rainfall" -- shown to every visitor
+  // before any real data loaded); only reveal a card once it's actually
+  // populated with a real, district-derived advisory, and hide any card
+  // this round doesn't cover so a stale one from a previous district can
+  // never show through.
   adv.forEach(function(a,i){
     if (i > 5) return;
     var card = document.getElementById('adv-card-'+i);
     if (!card) return;
     card.className = 'advisory-card ' + a.severity;
+    card.style.display = '';
     var titleEl = document.getElementById('adv-title-'+i);
     if (titleEl) { titleEl.textContent = a.title; titleEl.style.color = a.severity==='high'?'var(--red)':''; }
     var bodyEl = document.getElementById('adv-body-'+i);
     if (bodyEl) bodyEl.textContent = a.body;
   });
+  for (var hi = adv.length; hi <= 5; hi++) {
+    var hcard = document.getElementById('adv-card-' + hi);
+    if (hcard && hi >= 1 && hi <= 3) hcard.style.display = 'none';
+  }
 }
 
 
@@ -2766,8 +2777,8 @@ function getLocalResponse(question){
     var kharifCrops = ['Rice', 'Soybean', 'Maize', 'Cotton'];
     var rabiCrops = ['Wheat', 'Chickpea', 'Mustard', 'Gram'];
     var cropList = season.indexOf('Kharif') >= 0 ? kharifCrops.join(', ') : rabiCrops.join(', ');
-    if (isHi) return dName + ' में इस मौसम (' + season + ') में आमतौर पर उगाई जाने वाली फसलें: ' + cropList + '।' + nl + '🌧️ **मौसम:** औसत वर्षा ' + Math.round(rain) + 'mm, तापमान ' + Math.round(heat) + '°C (IMD-आधारित)।' + nl + nl + 'सटीक उपज और लाभ के आँकड़े इस जिले के लिए सत्यापित स्रोत से उपलब्ध नहीं हैं — Crop Health पैनल में data.gov.in से असली आँकड़े देखें, या स्थानीय कृषि विभाग/KVK से सलाह लें।';
-    return 'Crops commonly grown in ' + dName + ' this season (' + season + '): ' + cropList + '.' + nl + '🌧️ **Weather:** avg rain ' + Math.round(rain) + 'mm, temp ' + Math.round(heat) + '°C (IMD-derived).' + nl + nl + 'Verified yield and profit figures for this specific district are not available from a sourced dataset here — check the Crop Health panel for real data.gov.in statistics, or consult your local Agriculture Department/KVK.';
+    if (isHi) return dName + ' में इस मौसम (' + season + ') में आमतौर पर उगाई जाने वाली फसलें: ' + cropList + '।' + nl + '**मौसम:** औसत वर्षा ' + Math.round(rain) + 'mm, तापमान ' + Math.round(heat) + '°C (IMD-आधारित)।' + nl + nl + 'सटीक उपज और लाभ के आँकड़े इस जिले के लिए सत्यापित स्रोत से उपलब्ध नहीं हैं — Crop Health पैनल में data.gov.in से असली आँकड़े देखें, या स्थानीय कृषि विभाग/KVK से सलाह लें।';
+    return 'Crops commonly grown in ' + dName + ' this season (' + season + '): ' + cropList + '.' + nl + '**Weather:** avg rain ' + Math.round(rain) + 'mm, temp ' + Math.round(heat) + '°C (IMD-derived).' + nl + nl + 'Verified yield and profit figures for this specific district are not available from a sourced dataset here — check the Crop Health panel for real data.gov.in statistics, or consult your local Agriculture Department/KVK.';
   }
 
   // 2. Which crop gives highest profit? -- same fabrication removed; see note above.
@@ -2806,8 +2817,8 @@ function getLocalResponse(question){
   // scheme terms (premium %, interest rate) change and this dashboard
   // does not pull them from a live scheme database.
   if (q.indexOf('government schemes') >= 0 || q.indexOf('schemes') >= 0 || q.indexOf('सरकारी योजना') >= 0 || q.indexOf('योजना') >= 0) {
-    if (isHi) return '**राष्ट्रीय स्तर की प्रमुख किसान योजनाएँ (सामान्य जानकारी, ' + dName + '-विशिष्ट नहीं):**' + nl + nl + '1. **PM-KISAN** — प्रत्यक्ष आय सहायता (किश्तों में)' + nl + '2. **PMFBY** — फसल बीमा योजना' + nl + '3. **Soil Health Card** — मिट्टी की जाँच और उर्वरक सलाह' + nl + '4. **KCC** — किसान क्रेडिट कार्ड' + nl + '5. **PM-KMY** — किसान पेंशन योजना' + nl + nl + '⚠️ सटीक राशि, ब्याज दर और पात्रता समय के साथ बदलती है — इस पोर्टल में लाइव योजना डेटा नहीं है। आधिकारिक पुष्टि के लिए स्थानीय कृषि विभाग, CSC, या pmkisan.gov.in / pmfby.gov.in देखें।';
-    return '**Major national farmer schemes (general information, not ' + dName + '-specific):**' + nl + nl + '1. **PM-KISAN** — direct income support (paid in installments)' + nl + '2. **PMFBY** — crop insurance scheme' + nl + '3. **Soil Health Card** — soil testing & fertilizer advice' + nl + '4. **KCC** — Kisan Credit Card' + nl + '5. **PM-KMY** — farmer pension scheme' + nl + nl + '⚠️ Exact amounts, interest rates and eligibility change over time -- this portal does not pull live scheme data. Verify with your local Agriculture Department, CSC, or pmkisan.gov.in / pmfby.gov.in.';
+    if (isHi) return '**राष्ट्रीय स्तर की प्रमुख किसान योजनाएँ (सामान्य जानकारी, ' + dName + '-विशिष्ट नहीं):**' + nl + nl + '1. **PM-KISAN** — प्रत्यक्ष आय सहायता (किश्तों में)' + nl + '2. **PMFBY** — फसल बीमा योजना' + nl + '3. **Soil Health Card** — मिट्टी की जाँच और उर्वरक सलाह' + nl + '4. **KCC** — किसान क्रेडिट कार्ड' + nl + '5. **PM-KMY** — किसान पेंशन योजना' + nl + nl + 'सटीक राशि, ब्याज दर और पात्रता समय के साथ बदलती है — इस पोर्टल में लाइव योजना डेटा नहीं है। आधिकारिक पुष्टि के लिए स्थानीय कृषि विभाग, CSC, या pmkisan.gov.in / pmfby.gov.in देखें।';
+    return '**Major national farmer schemes (general information, not ' + dName + '-specific):**' + nl + nl + '1. **PM-KISAN** — direct income support (paid in installments)' + nl + '2. **PMFBY** — crop insurance scheme' + nl + '3. **Soil Health Card** — soil testing & fertilizer advice' + nl + '4. **KCC** — Kisan Credit Card' + nl + '5. **PM-KMY** — farmer pension scheme' + nl + nl + 'Exact amounts, interest rates and eligibility change over time -- this portal does not pull live scheme data. Verify with your local Agriculture Department, CSC, or pmkisan.gov.in / pmfby.gov.in.';
   }
 
   // 5. Pest and disease control advice?
@@ -2817,15 +2828,15 @@ function getLocalResponse(question){
   // "confirm before applying" disclaimer rather than removing agronomic
   // reference content that's broadly accurate.
   if (q.indexOf('pest') >= 0 || q.indexOf('disease') >= 0 || q.indexOf('कीट') >= 0 || q.indexOf('रोग') >= 0) {
-    if (isHi) return '**सामान्य कीट/रोग जानकारी (यह ' + dName + ' के लिए विशिष्ट निदान नहीं है):**' + nl + nl + '⚠️ **सामान्य कीट:** तना छेदक, फली छेदक, सफेद मक्खी' + nl + '⚠️ **सामान्य रोग:** जड़ गलन, पर्ण दाग' + nl + nl + '🌱 **सामान्य रोकथाम:** फसल चक्र, प्रतिरोधी किस्में, नियमित निगरानी, एकीकृत कीट प्रबंधन (IPM)।' + nl + nl + '⚠️ **महत्वपूर्ण:** कोई भी कीटनाशक/दवा लगाने से पहले अपने खेत में असली लक्षण की पहचान स्थानीय कृषि विज्ञान केंद्र (KVK) या कृषि विस्तार अधिकारी से करवाएँ — यहाँ दी गई सूची सामान्य संदर्भ है, आपकी फसल का निदान नहीं।';
-    return '**General pest/disease reference (not a diagnosis for ' + dName + '):**' + nl + nl + '⚠️ **Common pests:** stem borer, pod borer, whitefly' + nl + '⚠️ **Common diseases:** root rot, leaf blight' + nl + nl + '🌱 **General prevention:** crop rotation, resistant varieties, regular field monitoring, Integrated Pest Management (IPM).' + nl + nl + '⚠️ **Important:** before applying any pesticide, get your actual symptoms identified by your local Krishi Vigyan Kendra (KVK) or agriculture extension officer -- this list is general reference, not a diagnosis of your field.';
+    if (isHi) return '**सामान्य कीट/रोग जानकारी (यह ' + dName + ' के लिए विशिष्ट निदान नहीं है):**' + nl + nl + '**सामान्य कीट:** तना छेदक, फली छेदक, सफेद मक्खी' + nl + '**सामान्य रोग:** जड़ गलन, पर्ण दाग' + nl + nl + '**सामान्य रोकथाम:** फसल चक्र, प्रतिरोधी किस्में, नियमित निगरानी, एकीकृत कीट प्रबंधन (IPM)।' + nl + nl + '**महत्वपूर्ण:** कोई भी कीटनाशक/दवा लगाने से पहले अपने खेत में असली लक्षण की पहचान स्थानीय कृषि विज्ञान केंद्र (KVK) या कृषि विस्तार अधिकारी से करवाएँ — यहाँ दी गई सूची सामान्य संदर्भ है, आपकी फसल का निदान नहीं।';
+    return '**General pest/disease reference (not a diagnosis for ' + dName + '):**' + nl + nl + '**Common pests:** stem borer, pod borer, whitefly' + nl + '**Common diseases:** root rot, leaf blight' + nl + nl + '**General prevention:** crop rotation, resistant varieties, regular field monitoring, Integrated Pest Management (IPM).' + nl + nl + '**Important:** before applying any pesticide, get your actual symptoms identified by your local Krishi Vigyan Kendra (KVK) or agriculture extension officer -- this list is general reference, not a diagnosis of your field.';
   }
 
   // 6. Which crop this season? -- same fabrication removed as #1/#2.
   if (q.indexOf('this season') >= 0 || q.indexOf('इस मौसम') >= 0 || q.indexOf('मौसम में फसल') >= 0) {
     var seasonCrop = season.indexOf('Kharif') >= 0 ? 'Soybean' : (season.indexOf('Rabi') >= 0 ? 'Wheat' : 'Moong (Summer)');
-    if (isHi) return '**' + season + ' — ' + dName + ' में आमतौर पर उगाई जाने वाली फसल:** ' + seasonCrop + nl + '🌧️ **मौसम:** तापमान ' + Math.round(heat) + '°C, वर्षा ' + Math.round(rain) + 'mm (IMD-आधारित)' + nl + '💧 **सिंचाई सलाह:** ' + (rain > 800 ? 'वर्षा पर्याप्त दिख रही है' : 'वर्षा कम है — सिंचाई की योजना बनाएँ') + nl + nl + 'उपज और लाभ के सत्यापित आँकड़े यहाँ उपलब्ध नहीं — Crop Health पैनल देखें।';
-    return '**' + season + ' — commonly grown crop in ' + dName + ':** ' + seasonCrop + nl + '🌧️ **Weather:** temp ' + Math.round(heat) + '°C, rain ' + Math.round(rain) + 'mm (IMD-derived)' + nl + '💧 **Irrigation note:** ' + (rain > 800 ? 'rainfall looks adequate' : 'rainfall is low -- plan for irrigation') + nl + nl + 'Verified yield/profit figures aren\'t available here -- check the Crop Health panel.';
+    if (isHi) return '**' + season + ' — ' + dName + ' में आमतौर पर उगाई जाने वाली फसल:** ' + seasonCrop + nl + '**मौसम:** तापमान ' + Math.round(heat) + '°C, वर्षा ' + Math.round(rain) + 'mm (IMD-आधारित)' + nl + '**सिंचाई सलाह:** ' + (rain > 800 ? 'वर्षा पर्याप्त दिख रही है' : 'वर्षा कम है — सिंचाई की योजना बनाएँ') + nl + nl + 'उपज और लाभ के सत्यापित आँकड़े यहाँ उपलब्ध नहीं — Crop Health पैनल देखें।';
+    return '**' + season + ' — commonly grown crop in ' + dName + ':** ' + seasonCrop + nl + '**Weather:** temp ' + Math.round(heat) + '°C, rain ' + Math.round(rain) + 'mm (IMD-derived)' + nl + '**Irrigation note:** ' + (rain > 800 ? 'rainfall looks adequate' : 'rainfall is low -- plan for irrigation') + nl + nl + 'Verified yield/profit figures aren\'t available here -- check the Crop Health panel.';
   }
 
   return null; // not a chip question, use API

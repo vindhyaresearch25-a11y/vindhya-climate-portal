@@ -152,7 +152,7 @@
             callbacks: {
               afterTitle: function(items){
                 var y = items[0].label;
-                return parseInt(y) > 2024 ? '⚠ AI Forecast' : '';
+                return parseInt(y) > 2024 ? 'Indicative trend (OLS, not observed)' : '';
               }
             }
           }
