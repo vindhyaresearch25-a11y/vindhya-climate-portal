@@ -434,6 +434,24 @@
     return (typeof MP_DISTRICTS !== 'undefined' && MP_DISTRICTS[key] && REAL_DATA_DISTRICTS[key]) ? key : null;
   }
 
+  // BUG (reported live): stepping back up from a village to just its
+  // block -- or deselecting a village outright -- left heat-detail/
+  // m-rain-trend showing the village's name and numbers, because only
+  // onVillageChange (index.html) ever WROTE those two labels; nothing
+  // ever wrote them back to the district-level values selectVillage's
+  // clearBelow('village') already restores everywhere else (the
+  // dropdown, the marker, the village-profile pane). Every step of the
+  // cascade must show real, current-level data, never a stale deeper
+  // selection's numbers -- so wherever village-level state is cleared
+  // without a new village replacing it, re-run the same district-level
+  // metrics call onDistrictChange itself uses.
+  function restoreDistrictMetricsIfReal() {
+    var mpKey = mpRealDataKey(current.district);
+    if (mpKey && typeof window.applyDistrictMetrics === 'function' && typeof MP_DISTRICTS !== 'undefined') {
+      window.applyDistrictMetrics(MP_DISTRICTS[mpKey], mpKey);
+    }
+  }
+
   // ---------------------------------------------------------------------
   // Selection handlers -- each one is reachable both from a dropdown's
   // onchange AND from clicking the corresponding polygon on the map, so
@@ -482,7 +500,7 @@
     current.block = null; current.village = null;
     clearBelow('district');
     resetDownstreamFrom('district');
-    if (!districtName) { removeLayer('district'); updateBreadcrumb(); return; }
+    if (!districtName) { removeLayer('district'); resetClimateToNotAvailable(current.state); updateBreadcrumb(); return; }
 
     var sel = el('districtSelect');
     if (sel && sel.value !== districtName) sel.value = districtName;
@@ -535,6 +553,7 @@
     current.village = null;
     clearBelow('block');
     resetDownstreamFrom('block');
+    restoreDistrictMetricsIfReal();
     if (!blockName) { removeLayer('block'); updateBreadcrumb(); return; }
 
     var sel = el('blockSelect');
@@ -573,7 +592,7 @@
     if (!current.block) return;
     current.village = vilLgd || null;
     clearBelow('village');
-    if (!vilLgd) { removeLayer('village'); updateBreadcrumb(); return; }
+    if (!vilLgd) { removeLayer('village'); restoreDistrictMetricsIfReal(); updateBreadcrumb(); return; }
 
     var sel = el('villageSelect');
     if (sel && sel.value !== String(vilLgd)) sel.value = String(vilLgd);
