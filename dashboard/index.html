@@ -83,7 +83,7 @@ body{background:var(--bg-deep);color:var(--text);font-family:-apple-system,Blink
 @media(max-width:480px){.login-card{padding:1.5rem 1.25rem;}.login-title{font-size:1.35rem;}.gate-tagline-line{font-size:0.76rem;}.gate-quote{margin-top:1.25rem;}.gate-quote-hi{font-size:0.8rem;}.gate-quote-en{font-size:0.68rem;}}
 
 /* =========== HERO =========== */
-#hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;z-index:1000;background:#1a2332;}
+#hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow-y:auto;overflow-x:hidden;z-index:1000;background:#1a2332;padding-bottom:56px;}
 
 /* =========== HERO SLIDESHOW =========== */
 /* Owner fix (2026-08-03): the photo must show at full clarity, not
@@ -95,7 +95,11 @@ body{background:var(--bg-deep);color:var(--text);font-family:-apple-system,Blink
 .hero-slide.active{opacity:1;animation:heroKenBurns 8s ease-out forwards;}
 @keyframes heroKenBurns{0%{transform:scale(1.08)}100%{transform:scale(1)}}
 .hero-slide-credit{position:absolute;bottom:0.6rem;right:0.9rem;z-index:11;font-size:0.65rem;color:rgba(255,255,255,0.85);text-shadow:0 1px 3px rgba(0,0,0,0.6);}
-.hero-slide-dots{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);z-index:11;display:flex;gap:0.6rem;}
+.hero-slide-dots{position:absolute;bottom:2.6rem;left:50%;transform:translateX(-50%);z-index:11;display:flex;gap:0.6rem;}
+.gov-footer{position:absolute;bottom:0;left:0;right:0;z-index:12;background:rgba(26,35,50,0.92);color:rgba(255,255,255,0.82);padding:0.4rem 1rem;text-align:center;font-size:0.65rem;line-height:1.6;}
+.gov-footer .gf-sep{opacity:0.5;margin:0 0.35rem;}
+.gov-footer .gf-line2{opacity:0.75;}
+@media(max-width:640px){.gov-footer{font-size:0.6rem;padding:0.35rem 0.6rem;}}
 .hero-slide-dot{width:28px;height:5px;border-radius:3px;border:none;background:rgba(255,255,255,0.4);cursor:pointer;padding:0;transition:all 0.3s;}
 .hero-slide-dot:hover{background:rgba(255,255,255,0.7);}
 .hero-slide-dot.active{background:linear-gradient(90deg,var(--green),var(--cyan));width:40px;}
@@ -551,6 +555,10 @@ canvas.chart-canvas{max-height:100%;}
       <button class="btn-outline" onclick="showLoginGate()"><i class="fa fa-satellite"></i> &nbsp;Satellite Map</button>
     </div>
   </div>
+  <div class="gov-footer" id="govFooter">
+    Boundaries: Survey of India <span class="gf-sep">|</span> Climate: India Meteorological Department <span class="gf-sep">|</span> Projections: NEX-GDDP-CMIP6 <span class="gf-sep">|</span> Market: AGMARKNET, data.gov.in
+    <div class="gf-line2">Last updated: <span id="govFooterDate">—</span> <span class="gf-sep">|</span> Indicative, not for legal or cadastral use</div>
+  </div>
 </section>
 
 <!-- ============================================================ APP ============================================================ -->
@@ -691,7 +699,6 @@ canvas.chart-canvas{max-height:100%;}
         <div class="section-header">
           <i class="fa fa-chart-bar" style="color:var(--cyan);font-size:0.7rem"></i>
           <div class="section-title">CLIMATE METRICS</div>
-          <span style="margin-left:auto;font-size:0.6rem;color:var(--text-dim)" id="metricTime">10:49:06</span>
         </div>
         <div class="metric-row">
           <div class="metric-card alert">
@@ -1274,6 +1281,15 @@ Promise.all([
       }
     }
   }
+  // Government-identity footer date: the most recently generated of the
+  // real manifests we already fetched, never hand-typed.
+  var footerDates = [];
+  if (climate && climate.metadata && climate.metadata.generated) footerDates.push(String(climate.metadata.generated));
+  if (manifest && manifest.generated) footerDates.push(String(manifest.generated));
+  if (footerDates.length) {
+    var gfEl = document.getElementById('govFooterDate');
+    if (gfEl) gfEl.textContent = footerDates.sort().reverse()[0];
+  }
 }).catch(function(){ /* keep the static fallback already in data-target */ })
   .then(animateCounters);
 
@@ -1436,11 +1452,6 @@ function updateClock(){
 }
 setInterval(updateClock,1000);
 updateClock();
-
-setInterval(()=>{
-  const el=document.getElementById('metricTime');
-  if(el) el.textContent=new Date().toLocaleTimeString('en-IN',{hour12:false});
-},1000);
 
 // ============================================================
 // HERO SLIDESHOW
