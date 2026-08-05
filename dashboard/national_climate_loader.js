@@ -1,0 +1,190 @@
+/*
+ * national_climate_loader.js -- populates the right-panel metric cards
+ * and the Historical Indices panel for the ~728 non-MP districts that
+ * scripts/08_gee_national_climate.py has computed so far
+ * (dashboard/data/climate/<state_slug>/<district_slug>.json).
+ *
+ * mp_climate_loader.js already owns the 5 real IMD districts (Bhopal,
+ * Indore, Jabalpur, Rewa, Sidhi) and their monthly/annual charts; this
+ * file explicitly skips any district MP_DISTRICTS already recognises,
+ * and does NOT attempt to fill the chart panels below the map -- the
+ * GEE output only has 2000-2024 AGGREGATE indices, not per-month or
+ * per-year time series, so those charts correctly stay in their
+ * existing empty state for these districts rather than showing
+ * something invented. Source is ERA5-Land (ECMWF) + CHIRPS (UCSB) via
+ * Google Earth Engine -- a genuinely different real dataset from the 5
+ * MP districts' IMD data, always labelled as such here, never merged
+ * or presented as if it were IMD-derived.
+ */
+(function () {
+  'use strict';
+
+  var manifestPromise = null;
+  var lookup = null; // districtSlug -> {stateSlug, districtSlug}
+  var cache = {};    // "stateSlug/districtSlug" -> fetched file
+
+  function slugify(s) {
+    return String(s).trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+  }
+
+  function loadManifest() {
+    if (manifestPromise) return manifestPromise;
+    manifestPromise = fetch('data/climate_manifest.json')
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (m) {
+        lookup = {};
+        if (m && m.gee_era5_chirps && Array.isArray(m.gee_era5_chirps.districts)) {
+          m.gee_era5_chirps.districts.forEach(function (entry) {
+            var parts = entry.split('/');
+            if (parts.length === 2) {
+              // District slugs are unique across the whole country in the
+              // manifest as computed so far (checked -- zero collisions);
+              // if a future state's district ever collides with another
+              // state's, this lookup would need state-aware disambiguation.
+              lookup[parts[1]] = { stateSlug: parts[0], districtSlug: parts[1] };
+            }
+          });
+        }
+        return lookup;
+      })
+      .catch(function () { lookup = {}; return lookup; });
+    return manifestPromise;
+  }
+
+  function fmt(v, d) {
+    return (v == null || isNaN(v)) ? '—' : Number(v).toFixed(d);
+  }
+  function setTxt(id, v) { var e = document.getElementById(id); if (e) e.textContent = v; }
+  function setBar(id, pct) { var e = document.getElementById(id); if (e) e.style.width = pct + '%'; }
+
+  function isMpRealDistrict(districtName) {
+    var key = slugify(districtName);
+    return typeof MP_DISTRICTS !== 'undefined' && !!MP_DISTRICTS[key] &&
+      ['bhopal', 'indore', 'jabalpur', 'rewa', 'sidhi'].indexOf(key) >= 0;
+  }
+
+  function applyGeeMetrics(file, districtName) {
+    var idx = file.indices || {};
+    var meta = file.metadata || {};
+
+    var droughtVal = idx.drought_probability_pct != null ? idx.drought_probability_pct : null;
+    setTxt('m-drought', droughtVal != null ? Number(droughtVal).toFixed(1) + '%' : 'Not available');
+    setBar('bar-drought', Math.min(100, Math.max(0, droughtVal || 0)));
+
+    // NDVI requires DiCRA/MODIS district series, only built for MP so far.
+    setTxt('m-ndvi', 'Not available');
+    setBar('bar-ndvi', 0);
+
+    var hwDays = idx.heatwave_days != null ? idx.heatwave_days : null;
+    var hwSevereDays = idx.severe_heatwave_days != null ? idx.severe_heatwave_days : null;
+    var navBadgeHeat = document.getElementById('nav-badge-heat');
+    if (hwDays != null) {
+      var heatLabel = (hwSevereDays != null && hwSevereDays >= 2) ? 'EXTREME'
+        : hwDays >= 8 ? 'HIGH' : hwDays >= 2 ? 'MODERATE' : 'LOW';
+      setTxt('m-heat', heatLabel);
+      setBar('bar-heat', Math.min(100, Math.max(0, Math.round((hwDays / 20) * 100))));
+      setTxt('heat-detail', hwDays.toFixed(1) + ' heatwave d/yr, 2000–2024 mean ' + (districtName || ''));
+      if (navBadgeHeat) navBadgeHeat.style.display = (heatLabel === 'HIGH' || heatLabel === 'EXTREME') ? '' : 'none';
+    } else {
+      setTxt('m-heat', 'Not available');
+      setBar('bar-heat', 0);
+      setTxt('heat-detail', districtName || '');
+      if (navBadgeHeat) navBadgeHeat.style.display = 'none';
+    }
+
+    // GEE output has only a 2000-2024 mean, not a per-year series, so a
+    // departure-from-mean (which the 5 IMD districts show) can't be
+    // computed honestly here -- show the real mean itself instead, with
+    // a caption that says exactly that rather than implying a departure.
+    var rainMean = idx.annual_rain_mm != null ? idx.annual_rain_mm : null;
+    var rtEl = document.getElementById('m-rain-trend');
+    if (rainMean != null) {
+      setTxt('m-rain', Math.round(rainMean) + ' mm');
+      if (rtEl) rtEl.textContent = (districtName || '') + ' 2000–2024 mean (ERA5-Land/CHIRPS)';
+    } else {
+      setTxt('m-rain', 'Not available');
+      if (rtEl) rtEl.textContent = districtName || '';
+    }
+
+    setTxt('m-soil', 'Not available'); setBar('bar-soil', 0);
+    setTxt('m-gw', 'Not available'); setBar('bar-gw', 0);
+
+    if (droughtVal != null) {
+      var cs = Math.min(100, Math.max(0, Math.round(droughtVal)));
+      setTxt('m-crop', cs + '% (indicative)'); setBar('bar-crop', cs);
+      setTxt('m-crop-trend', 'Derived from drought probability');
+    } else {
+      setTxt('m-crop', 'Not available'); setBar('bar-crop', 0);
+      setTxt('m-crop-trend', 'Select a district');
+    }
+
+    var advTitle = document.getElementById('adv-title-0');
+    var advBody = document.getElementById('adv-body-0');
+    if (advTitle) advTitle.textContent = 'Climate indices — ' + (districtName || '');
+    if (advBody) advBody.textContent = 'Source: ERA5-Land (ECMWF) + CHIRPS (UCSB), via Google Earth Engine, ' +
+      (meta.years || '2000–2024') + '. Distinct from the IMD gridded data used for the 5 Madhya Pradesh ' +
+      'districts (Bhopal, Indore, Jabalpur, Rewa, Sidhi) — never merged with or presented as IMD data.';
+
+    renderHistoricalPanel(idx, meta, districtName);
+  }
+
+  function renderHistoricalPanel(idx, meta, districtName) {
+    var host = document.getElementById('historical-indices-panel');
+    if (!host) return;
+    host.innerHTML = ''
+      + '<div class="section-header"><i class="fa fa-chart-line" style="color:var(--cyan);font-size:0.7rem"></i>'
+      + '<div class="section-title">HISTORICAL INDICES 2000–2024 (' + (districtName || '') + ') '
+      + '<span style="color:var(--text-dim);font-weight:500;font-size:0.6rem;letter-spacing:0.3px">ERA5-Land/CHIRPS via GEE, not IMD</span></div></div>'
+      + '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;padding:0.75rem;">'
+      + '  <div class="metric-card"><div class="metric-label">HEATWAVE DAYS/YR</div><div class="metric-value cyan">' + fmt(idx.heatwave_days, 1) + '</div></div>'
+      + '  <div class="metric-card"><div class="metric-label">SEVERE HW DAYS</div><div class="metric-value" style="color:var(--red)">' + fmt(idx.severe_heatwave_days, 1) + '</div></div>'
+      + '  <div class="metric-card"><div class="metric-label">MEAN SUMMER TMAX</div><div class="metric-value" style="color:var(--orange)">' + fmt(idx.mean_summer_tmax, 1) + '°C</div></div>'
+      + '  <div class="metric-card"><div class="metric-label">MAX SUMMER TMAX</div><div class="metric-value" style="color:var(--red)">' + fmt(idx.max_summer_tmax, 1) + '°C</div></div>'
+      + '  <div class="metric-card"><div class="metric-label">DROUGHT MONTHS/YR</div><div class="metric-value" style="color:var(--orange)">' + fmt(idx.drought_months, 1) + '</div></div>'
+      + '  <div class="metric-card"><div class="metric-label">DROUGHT PROB %</div><div class="metric-value" style="color:var(--orange)">' + fmt(idx.drought_probability_pct, 1) + '%</div></div>'
+      + '  <div class="metric-card"><div class="metric-label">SPI-12</div><div class="metric-value" style="color:var(--blue)">' + fmt(idx.spi_12, 2) + '</div></div>'
+      + '  <div class="metric-card"><div class="metric-label">ANNUAL RAIN</div><div class="metric-value" style="color:var(--blue)">' + fmt(idx.annual_rain_mm, 0) + ' mm</div></div>'
+      + '  <div class="metric-card"><div class="metric-label">R95p / YR</div><div class="metric-value" style="color:var(--blue)">' + fmt(idx.r95p_mm, 1) + ' mm</div></div>'
+      + '  <div class="metric-card"><div class="metric-label">Rx1day</div><div class="metric-value" style="color:var(--blue)">' + fmt(idx.rx1day_mm, 1) + ' mm</div></div>'
+      + '  <div class="metric-card"><div class="metric-label">Rx5day</div><div class="metric-value" style="color:var(--blue)">' + fmt(idx.rx5day_mm, 1) + ' mm</div></div>'
+      + '  <div class="metric-card"><div class="metric-label">CDD</div><div class="metric-value" style="color:var(--orange)">' + fmt(idx.cdd, 1) + ' d</div></div>'
+      + '</div>'
+      + '<div style="font-size:0.65rem;font-weight:600;color:var(--text-dim);padding:0 0.75rem 0.5rem">'
+      + 'Source: ERA5-Land + CHIRPS via Google Earth Engine, ' + (meta.years || '2000–2024')
+      + ' — not IMD. See Data Sources.</div>';
+  }
+
+  function handleDistrictChange(districtName) {
+    if (!districtName || isMpRealDistrict(districtName)) return; // mp_climate_loader.js owns these
+    loadManifest().then(function () {
+      var dslug = slugify(districtName);
+      var entry = lookup[dslug];
+      if (!entry) return; // GEE hasn't computed this district yet -- leave "Not available" as-is
+      var key = entry.stateSlug + '/' + entry.districtSlug;
+      if (cache[key]) { applyGeeMetrics(cache[key], districtName); return; }
+      fetch('data/climate/' + entry.stateSlug + '/' + entry.districtSlug + '.json')
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (file) {
+          if (!file) return;
+          cache[key] = file;
+          applyGeeMetrics(file, districtName);
+        })
+        .catch(function () { /* leave as "Not available" */ });
+    });
+  }
+
+  function boot() {
+    loadManifest();
+    var originalOnDistrictChange = window.onDistrictChange;
+    window.onDistrictChange = function (distKey) {
+      if (typeof originalOnDistrictChange === 'function') originalOnDistrictChange(distKey);
+      handleDistrictChange(distKey);
+    };
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { setTimeout(boot, 1000); });
+  } else {
+    setTimeout(boot, 1000);
+  }
+})();
