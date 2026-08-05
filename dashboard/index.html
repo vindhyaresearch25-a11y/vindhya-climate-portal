@@ -115,37 +115,37 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 .hero-slide-dot.active{background:linear-gradient(90deg,var(--green),var(--cyan));width:40px;}
 @media(max-width:768px){.hero-slide-dot{width:20px;}.hero-slide-dot.active{width:30px;}}
 @media(prefers-reduced-motion:reduce){.hero-slide.active{animation:none;}}
-.hero-content{position:relative;z-index:10;text-align:center;padding:2.5rem 2rem;margin:1.5rem;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,0.93) 0%,rgba(245,247,250,0.96) 100%);box-shadow:0 8px 40px rgba(0,0,0,0.18);max-width:1180px;}
+.hero-content{position:relative;z-index:10;text-align:center;padding:2.5rem 2rem;max-width:1180px;}
+/* Scrim behind the text only, not a boxed panel over the photo -- the
+   owner's exact gradient, fading to clear by the bottom of the photo. */
+.hero-scrim{position:absolute;inset:0;z-index:5;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.88) 0%,rgba(255,255,255,.55) 45%,rgba(255,255,255,.15) 100%);}
+/* Belt-and-braces for WCAG AA: a soft light halo behind bare text so
+   contrast holds regardless of what the photo looks like at that exact
+   pixel, without needing an opaque box. */
+.hero-text-safe{text-shadow:0 1px 2px rgba(255,255,255,0.9),0 2px 14px rgba(255,255,255,0.7);}
 .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;border:1px solid var(--cyan);border-radius:20px;padding:0.3rem 1rem;font-size:0.7rem;color:var(--cyan);font-weight:600;letter-spacing:2px;text-transform:none;margin-bottom:1.5rem;background:rgba(26,138,158,0.06);}
 .hero-badge-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:blink 1.5s ease-in-out infinite;}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
 .hero-title{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:clamp(1.8rem,4vw,3.2rem);font-weight:800;line-height:1.15;letter-spacing:-0.5px;margin-bottom:0.8rem;}
 .hero-title .line1{color:#1a2332;background:none;-webkit-text-fill-color:#1a2332;}
-.hero-title .line2{color:var(--cyan);background:none;-webkit-text-fill-color:var(--cyan);font-size:0.55em;font-weight:600;letter-spacing:2px;}
-.hero-stat-groups{display:flex;gap:1.5rem;justify-content:center;margin-bottom:1.5rem;flex-wrap:wrap;align-items:stretch;}
-.stat-group{border:1px solid var(--border);border-radius:8px;padding:0.85rem 1.2rem 1rem;background:rgba(255,255,255,0.4);min-width:220px;}
-.stat-group-boundary{border-top:3px solid var(--cyan);}
-.stat-group-observed{border-top:3px solid var(--orange);}
-.stat-group-projected{border-top:3px solid var(--text-dim);}
-.stat-group-label{font-size:11px;font-weight:600;letter-spacing:1.5px;color:var(--text-dim);margin-bottom:0.15rem;}
-.stat-group-sub{display:block;font-size:0.63rem;font-weight:500;letter-spacing:0.2px;color:var(--text-dim);margin-bottom:0.6rem;text-transform:none;}
-.hero-stats{display:flex;gap:1.75rem;justify-content:center;flex-wrap:wrap;}
-.hero-stat{text-align:center;}
-.hero-stat-val{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:1.5rem;font-weight:700;color:var(--cyan);font-variant-numeric:tabular-nums;}
-.stat-group-observed .hero-stat-val{color:var(--orange);}
-.hero-stat-lbl{font-size:0.68rem;font-weight:600;color:var(--text-dim);letter-spacing:1px;}
-.stat-group-status{font-size:0.72rem;line-height:1.6;color:var(--text-dim);max-width:340px;}
-.stat-group-status b{color:var(--text);}
-.stat-group-status .pending-badge{display:inline-block;padding:1px 7px;border-radius:9px;background:var(--text-dim);color:#fff;font-size:9.5px;font-weight:700;letter-spacing:.3px;margin-bottom:0.4rem;}
+.hero-title .line2{color:var(--cyan);background:none;-webkit-text-fill-color:var(--cyan);font-size:0.55em;font-weight:600;letter-spacing:0.4px;}
+/* No boxes -- a single stat line straight on the photo (owner spec
+   2026-08-06: the 3 boxed panels read as heavy and one was bare text).
+   Numbers keep the same IDs/data-target the fetch+animate script
+   already targets. */
+.hero-boundary-row{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:1.15rem;font-weight:700;color:var(--text);margin-bottom:0.3rem;font-variant-numeric:tabular-nums;}
+.hero-boundary-row .hb-sep{color:var(--text-dim);font-weight:400;margin:0 0.5rem;}
+.hero-boundary-label{font-size:0.68rem;font-weight:600;color:var(--text-dim);letter-spacing:0.5px;margin-bottom:1rem;}
+.hero-climate-line{font-size:11px;color:#5A6A7A;line-height:1.6;margin:0 auto 1.6rem;font-variant-numeric:tabular-nums;}
 .hero-sources-line{text-align:center;font-size:0.68rem;color:var(--text-dim);margin-bottom:2rem;letter-spacing:0.3px;}
 .hero-sources-line b{color:var(--text);}
 .hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
-.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--teal));color:#fff;font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:2px;padding:0.75rem 1.8rem;border:none;border-radius:4px;cursor:pointer;text-transform:none;transition:all 0.3s;box-shadow:var(--glow-cyan);}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--teal));color:#fff;font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.4px;padding:0.75rem 1.8rem;border:none;border-radius:4px;cursor:pointer;text-transform:none;transition:all 0.3s;box-shadow:var(--glow-cyan);}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(26,138,158,0.5);}
-.btn-outline{background:transparent;color:var(--cyan);font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:0.75rem;font-weight:600;letter-spacing:2px;padding:0.75rem 1.8rem;border:1px solid var(--cyan);border-radius:4px;cursor:pointer;text-transform:none;transition:all 0.3s;}
+.btn-outline{background:rgba(255,255,255,0.92);color:#136575;font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:0.75rem;font-weight:600;letter-spacing:0.4px;padding:0.75rem 1.8rem;border:1px solid var(--cyan);border-radius:4px;cursor:pointer;text-transform:none;transition:all 0.3s;}
 .btn-outline:hover{background:rgba(26,138,158,0.1);transform:translateY(-2px);}
 .hero-roles{display:flex;gap:1.5rem;justify-content:center;margin-bottom:2rem;flex-wrap:wrap;}
-.role-card{width:200px;padding:1.2rem;border:1px solid var(--border);border-radius:8px;background:var(--bg-card);cursor:pointer;transition:all 0.3s;text-align:center;}
+.role-card{width:200px;padding:1.2rem;border:1px solid #D8DEE7;border-radius:8px;background:#ffffff;cursor:pointer;transition:all 0.3s;text-align:center;}
 .role-card:hover{transform:translateY(-3px);box-shadow:0 4px 20px rgba(26,138,158,0.12);border-color:var(--cyan);}
 .role-card .role-icon{font-size:2rem;color:var(--cyan);margin-bottom:0.5rem;}
 .role-card .role-title{font-size:0.9rem;font-weight:700;color:var(--text);margin-bottom:0.25rem;}
@@ -355,7 +355,8 @@ canvas.chart-canvas{max-height:100%;}
   #right-panel{display:none;}
   #bottom-panel{height:200px;}
   .btm-tabs{width:120px;}
-  .hero-stats{gap:1rem;}
+  .hero-boundary-row{font-size:0.95rem;}
+  .hero-boundary-row .hb-sep{margin:0 0.3rem;}
 }
 /* ===== KISAN SAHAYAK CHAT ===== */
 #chatFab{position:fixed;bottom:22px;right:22px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--teal));color:#fff;border:none;cursor:pointer;font-size:1.3rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(45,143,92,0.35);z-index:2000;transition:all 0.25s;}
@@ -495,6 +496,7 @@ canvas.chart-canvas{max-height:100%;}
       <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1620901433789-1d2f85a93653?auto=format&fit=crop&w=1600&q=75')"></div>
       <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1560493676-04071c5f467b?auto=format&fit=crop&w=1600&q=75')"></div>
   </div>
+  <div class="hero-scrim"></div>
   <div class="hero-slide-credit" id="heroSlideCredit">Photo: Unsplash (free licence)</div>
   <div class="hero-slide-dots">
       <button class="hero-slide-dot active" data-idx="0" onclick="goSlide(0)"></button>
@@ -502,47 +504,27 @@ canvas.chart-canvas{max-height:100%;}
   </div>
 
   <div class="hero-content">
-    <div class="hero-badge">
+    <div class="hero-badge hero-text-safe">
       <div class="hero-badge-dot"></div>
       OPERATIONAL &nbsp;|&nbsp; IMD &middot; DiCRA &middot; CMIP6
     </div>
-    <div class="hero-title">
+    <div class="hero-title hero-text-safe">
       <div class="line1">VINDHYA Climate</div>
       <div class="line1">Intelligence Platform</div>
       <div class="line2">CLIMATE RISK &bull; SATELLITE NDVI &bull; AGRICULTURAL ADVISORY</div>
     </div>
-    <!-- Three genuinely different categories, never merged: boundary
-         coverage is ready nationwide; observed climate indices exist for a
-         growing subset of districts; projected climate is a model output,
-         not observed data, and must never be shown as a bare number. Every
-         value here is fetched from a real file -- see the script block
-         below -- never typed in. -->
-    <div class="hero-stat-groups">
-      <div class="stat-group stat-group-boundary">
-        <div class="stat-group-label">BOUNDARY COVERAGE<span class="stat-group-sub">Administrative boundaries &mdash; Survey of India, ready nationwide</span></div>
-        <div class="hero-stats">
-          <div class="hero-stat"><div class="hero-stat-val" id="hero-stat-states" data-target="36">36</div><div class="hero-stat-lbl">States/UTs</div></div>
-          <div class="hero-stat"><div class="hero-stat-val" id="hero-stat-districts" data-target="733">733</div><div class="hero-stat-lbl">Districts</div></div>
-          <div class="hero-stat"><div class="hero-stat-val" id="hero-stat-blocks" data-target="6312">6,312</div><div class="hero-stat-lbl">Blocks/Tehsils</div></div>
-          <div class="hero-stat"><div class="hero-stat-val" id="hero-stat-villages" data-target="654285">654,285</div><div class="hero-stat-lbl">Villages</div></div>
-        </div>
-      </div>
-      <div class="stat-group stat-group-observed">
-        <div class="stat-group-label">OBSERVED CLIMATE<span class="stat-group-sub">IMD gridded data + ERA5-Land/CHIRPS (GEE) &mdash; national run in progress</span></div>
-        <div class="hero-stats">
-          <div class="hero-stat"><div class="hero-stat-val" id="hero-stat-climate-districts" data-target="5">5</div><div class="hero-stat-lbl">of 733 Districts with climate indices</div></div>
-          <div class="hero-stat"><div class="hero-stat-val" id="hero-stat-years" data-target="25">25</div><div class="hero-stat-lbl" id="hero-stat-years-lbl">Years of Record (2000&ndash;2024)</div></div>
-        </div>
-      </div>
-      <div class="stat-group stat-group-projected">
-        <div class="stat-group-label">PROJECTED CLIMATE<span class="stat-group-sub">CMIP6 model output &mdash; NOT observed data</span></div>
-        <div class="stat-group-status" id="projectedStatus">
-          <span class="pending-badge">PENDING</span><br>
-          <b>NEX-GDDP-CMIP6</b>, 8-model ensemble, SSP2-4.5 configured (2036&ndash;2045 vs 2000&ndash;2014 baseline). Only an OLS trend extrapolation of observed data exists today (labelled "indicative", not CMIP6) &mdash; the SSP2-4.5 and SSP5-8.5 GEE export has not yet been run nationally.
-        </div>
-      </div>
+    <!-- Single unboxed stat row (owner spec 2026-08-06 -- the 3 boxed
+         panels this replaced read as heavy/one was bare paragraph text).
+         Every value still fetched from a real file below, same IDs the
+         fetch+animate script already targets. The two dropped boxes'
+         information (observed-climate count, projected-climate status)
+         moves to .hero-climate-line just below, not deleted. -->
+    <div class="hero-boundary-row hero-text-safe">
+      <span id="hero-stat-states" data-target="36">36</span> States/UTs<span class="hb-sep">&middot;</span><span id="hero-stat-districts" data-target="733">733</span> Districts<span class="hb-sep">&middot;</span><span id="hero-stat-blocks" data-target="6312">6,312</span> Blocks/Tehsils<span class="hb-sep">&middot;</span><span id="hero-stat-villages" data-target="654285">6,54,285</span> Villages
     </div>
-    <div class="hero-sources-line">Counted from real files, not typed in &middot; <b id="hero-stat-sources-line">6</b> verified upstream sources &mdash; see Data Sources</div>
+    <div class="hero-boundary-label hero-text-safe">Administrative boundaries &mdash; Survey of India</div>
+    <div class="hero-climate-line hero-text-safe">Climate indices: <span id="hero-stat-climate-districts" data-target="5">5</span> of 733 districts &middot; CMIP6 projections pending &middot; See Data Sources</div>
+    <div class="hero-sources-line hero-text-safe">Counted from real files, not typed in &middot; <b id="hero-stat-sources-line">6</b> verified upstream sources &mdash; see Data Sources</div>
     <div class="hero-roles">
       <div class="role-card" onclick="selectRole('admin')">
         <div class="role-icon"><i class="fa fa-building"></i></div>
