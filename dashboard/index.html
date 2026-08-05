@@ -275,7 +275,9 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 .adv-btn.hi{color:var(--orange);border-color:var(--orange);}
 
 /* Charts */
-.chart-wrap{padding:0.5rem 0.75rem;flex:1;min-height:0;}
+.chart-wrap{padding:0.5rem 0.75rem;flex:1;min-height:0;position:relative;}
+.chart-empty{position:absolute;inset:0.5rem 0.75rem;display:flex;align-items:center;justify-content:center;text-align:center;font-size:0.72rem;color:var(--text-dim);padding:0 1rem;background:var(--bg-card);}
+.chart-empty i{margin-right:0.4rem;}
 canvas.chart-canvas{max-height:100%;}
 
 /* Bottom tabs */
@@ -867,22 +869,22 @@ canvas.chart-canvas{max-height:100%;}
         <!-- Rainfall -->
         <div class="btm-pane active" id="pane-rainfall">
           <div class="section-header"><i class="fa fa-cloud-rain" style="color:var(--cyan);font-size:0.7rem"></i><div class="section-title">RAINFALL FORECAST — CENTRAL INDIA (2024–25)</div></div>
-          <div class="chart-wrap" style="height:200px;"><canvas id="chartRain"></canvas></div>
+          <div class="chart-wrap" style="height:200px;"><canvas id="chartRain"></canvas><div class="chart-empty" id="empty-chartRain"><i class="fa fa-cloud-rain"></i>Select a district (Bhopal, Indore, Jabalpur, Rewa or Sidhi have live IMD data) to see the rainfall forecast.</div></div>
         </div>
         <!-- Temp -->
         <div class="btm-pane" id="pane-temp">
           <div class="section-header"><i class="fa fa-thermometer-half" style="color:var(--orange);font-size:0.7rem"></i><div class="section-title">TEMPERATURE TREND — MP REGION</div></div>
-          <div class="chart-wrap" style="height:200px;"><canvas id="chartTemp"></canvas></div>
+          <div class="chart-wrap" style="height:200px;"><canvas id="chartTemp"></canvas><div class="chart-empty" id="empty-chartTemp"><i class="fa fa-thermometer-half"></i>Select a district to see the temperature trend.</div></div>
         </div>
         <!-- Drought -->
         <div class="btm-pane" id="pane-drought">
           <div class="section-header"><i class="fa fa-droplet-slash" style="color:var(--red);font-size:0.7rem"></i><div class="section-title">DROUGHT PROBABILITY — DISTRICT COMPARISON</div></div>
-          <div class="chart-wrap" style="height:200px;"><canvas id="chartDrought"></canvas></div>
+          <div class="chart-wrap" style="height:200px;"><canvas id="chartDrought"></canvas><div class="chart-empty" id="empty-chartDrought"><i class="fa fa-droplet-slash"></i>Select a district to see drought probability.</div></div>
         </div>
         <!-- Annual Trends -->
         <div class="btm-pane" id="pane-trends">
           <div class="section-header"><i class="fa fa-chart-line" style="color:var(--cyan);font-size:0.7rem"></i><div class="section-title">ANNUAL TRENDS <span id="trendYearRange" style="color:var(--orange)">2000–2024</span></div></div>
-          <div class="chart-wrap" style="height:200px;"><canvas id="chartTrends"></canvas></div>
+          <div class="chart-wrap" style="height:200px;"><canvas id="chartTrends"></canvas><div class="chart-empty" id="empty-chartTrends"><i class="fa fa-chart-line"></i>Select a district to see annual trends (2000–2024).</div></div>
         </div>
         <!-- NDVI -->
         <div class="btm-pane" id="pane-ndvi">

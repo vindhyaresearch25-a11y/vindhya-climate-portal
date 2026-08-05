@@ -46,12 +46,23 @@
     if (existing) { try { existing.destroy(); } catch(e) {} }
   }
 
+  // The chart canvases used to render as a large blank area (looked
+  // broken/unfinished) until a district was selected -- these divs give
+  // that empty state an honest message instead of nothing.
+  function setChartEmpty(canvasId, show){
+    var el = document.getElementById('empty-' + canvasId);
+    if (el) el.style.display = show ? 'flex' : 'none';
+  }
+
   function rebuildCharts(districtKey){
     if (typeof Chart === 'undefined' || !state.data) return;
     var ch = state.data.charts;
     var rain = ch.rainfall_monthly_mm[districtKey];
     var temp = ch.temperature_monthly_C[districtKey];
     if (!rain || !temp) return;
+    setChartEmpty('chartRain', false);
+    setChartEmpty('chartTemp', false);
+    setChartEmpty('chartDrought', false);
 
     var grid = {color:'rgba(138,211,170,0.15)'};
     var commonOpts = (typeof chartOpts === 'function') ? chartOpts(grid)
@@ -92,6 +103,7 @@
     if (typeof Chart === 'undefined' || !state.data) return;
     var trends = state.data.charts && state.data.charts.annual_trends && state.data.charts.annual_trends[districtKey];
     if (!trends) return;
+    setChartEmpty('chartTrends', false);
     var year = (typeof _hazardYear !== 'undefined' && _hazardYear) || 2024;
     // Historical data (2000-2024)
     var histLabels = trends.years;
@@ -658,6 +670,7 @@
     state.currentVillage = null;
     ['chartRain', 'chartTemp', 'chartDrought', 'chartTrends'].forEach(function(id){
       try { killChart(id); } catch(e) {}
+      setChartEmpty(id, true);
     });
     ['historical-indices-panel', 'village-detail-panel', 'future-2040-panel'].forEach(function(id){
       var el = document.getElementById(id); if (el) el.innerHTML = '';
