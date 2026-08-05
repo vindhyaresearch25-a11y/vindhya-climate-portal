@@ -491,7 +491,7 @@
 
   function buildMetadataPanel() {
     if (document.getElementById('meta-modal')) return;
-    var btn = el('div', 'position:fixed;right:14px;bottom:14px;z-index:1200;background:var(--cyan);' +
+    var btn = el('div', 'position:fixed;right:92px;bottom:26px;z-index:1200;background:var(--cyan);' +
       'color:#fff;border-radius:20px;padding:8px 15px;font-size:12px;font-weight:600;' +
       'cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.28)',
       '<i class="fa fa-circle-info"></i> ' + t('Data sources', 'डेटा स्रोत'));
