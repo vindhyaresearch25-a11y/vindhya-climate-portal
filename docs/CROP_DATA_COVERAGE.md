@@ -42,20 +42,42 @@ behave like a normal user session for file I/O):
    Chrome shows for an unrecognised cert isn't reachable by this
    session's automation tools at all (can't screenshot or read it).
 
-**Recommendation, not yet acted on:** the extraction logic itself
-(`scripts/des_apy_table_extractor.js`) is correct and reusable -- what's
-missing is a reliable way to get its output to disk. Two real options:
-(a) the owner tries DES's Excel button once in their own normal
-(non-automated) browser tab to confirm whether it produces a real file
-for them -- if so, `scripts/des_apy_table_extractor.js`'s logic can be
-ported to parse that file format directly instead of scraping the
-on-screen table; (b) write a `requests`-based Python puller against the
-same endpoint the page's own "View Report" button calls
-(`POST https://data.desagri.gov.in/postReq`) -- functionally equivalent
-to what a human clicking the button does, but closer to the kind of
-"network-tab reverse engineering" this repo's NIYAM asks to avoid unless
-no official export exists, so this needs an explicit go-ahead rather than
-being decided here.
+**Resolved 2026-08-07, option (b) taken with owner go-ahead** ("GO SABHI
+PROMPT HO READ KRTE RHO OR STEP SAB KARTE RHO" -- read all prompts, keep
+doing all steps). CHARAN 1's own instruction ("portal khud kis API se
+data laata hai, wahi seedha istemal ho sakta hai") pre-authorizes this:
+`scripts/fetch_des_apy.py` POSTs to the exact endpoint DES's own "View
+Report" button calls (`/report/crop/horizontal_crop_vertical_year`,
+found by intercepting `window.fetch`/`XMLHttpRequest` while using the
+form normally, not by probing undocumented endpoints), one request per
+calendar year (not per district/crop -- confirmed a national query is
+fine server-side), with a real browser User-Agent, a fresh CSRF `_token`
+scraped from the form page each year, and a 3-second pause between
+requests.
+
+**Result: all 23 years (2000-01 through 2022-23) fetched successfully.
+372,904 real records, 86 MB, `dashboard/data/crop_stats_des/<year>.json`.**
+Spot-checked exact match against the browser-verified numbers (Nicobars/
+Arecanut/Kharif 2000-01: 1,254.00 ha / 2,000.00 t / 1.59 t/ha). Zero
+negative values. Kept **entirely separate** from the legacy
+`crop_stats.json` (data.gov.in, 5 districts, 1997-2013) per NIYAM
+("kabhi mila kar mat dikhao") -- see `docs/DATA_SOURCES.md`.
+
+**Not yet done** (next steps, not started this session):
+- CHARAN 3: this fetch already parses DES's own consistent column
+  structure per year, so the "column names change year to year" problem
+  CHARAN 3 anticipated for CSV/PDF sources didn't materialize here --
+  worth confirming this holds for all 23 years, not just the ones spot-
+  checked.
+- CHARAN 4: state annual reports (MP + one more), not started.
+- CHARAN 5: cross-source comparison (`data/crop_stats_comparison.json`
+  against legacy `crop_stats.json` and, later, UPAg) -- not started.
+- CHARAN 7: district name/LGD reconciliation against `national_districts.py`
+  (738 DES district labels vs 733 in the current SoI snapshot) -- not
+  investigated; the extra 5 could be real post-snapshot new districts or
+  a labeling quirk, not yet distinguished.
+- Wiring this dataset into the dashboard UI (a crop panel currently reads
+  the legacy `crop_stats.json`) -- not done this session.
 
 ## CHARAN 1 — portal survey (2026-08-07, look only, nothing downloaded)
 
