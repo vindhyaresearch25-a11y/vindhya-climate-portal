@@ -255,6 +255,7 @@
           'style="color:var(--green);font-size:0.7rem"></i><div class="section-title" style="font-size:0.7rem">LAND USE (hectares)</div></div>' +
           '<div style="display:flex;gap:0.5rem;margin-bottom:0.6rem;flex-wrap:wrap;">' +
           metric('NET AREA SOWN', fmtNum(v.land_net_area_sown_ha), 'var(--green)') +
+          metric('CURRENT FALLOW', fmtNum(v.land_fallow_current_ha)) +
           metric('FOREST', fmtNum(v.land_forest_ha)) +
           metric('BARREN/UNCULTIVABLE', fmtNum(v.land_barren_uncultivable_ha)) +
           metric('PASTURES', fmtNum(v.land_pastures_ha)) +

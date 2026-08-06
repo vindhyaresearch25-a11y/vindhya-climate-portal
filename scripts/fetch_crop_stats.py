@@ -222,12 +222,26 @@ def main(states: list[str] | None = None) -> int:
         try:
             raw = fetch_all(key, state, name)
         except Exception as exc:
-            print(f"[{slug}] FETCH FAILED: {exc}", file=sys.stderr)
-            out["districts"][slug] = {
-                "name": name.title(), "state": state, "records": [], "count": 0,
-                "note": f"Upstream fetch failed: {exc}",
-            }
             failures += 1
+            # BUG FIXED (2026-08-07): this used to unconditionally overwrite
+            # out["districts"][slug] with an empty failure stub, even when a
+            # previous successful run had already populated real rows for
+            # this district -- a transient failure on a later merge run
+            # (rate limit, network blip) would silently erase good data.
+            # Now a failure only writes a stub for a district that has no
+            # existing rows; an already-populated district keeps its data
+            # and just gets a note appended.
+            existing = out["districts"].get(slug)
+            if existing and existing.get("count", 0) > 0:
+                print(f"[{slug}] FETCH FAILED: {exc} -- keeping {existing['count']} "
+                      f"existing rows from a previous run", file=sys.stderr)
+                existing["note"] = f"Last refresh failed ({exc}); rows kept from prior run."
+            else:
+                print(f"[{slug}] FETCH FAILED: {exc}", file=sys.stderr)
+                out["districts"][slug] = {
+                    "name": name.title(), "state": state, "records": [], "count": 0,
+                    "note": f"Upstream fetch failed: {exc}",
+                }
             continue
 
         rows = [c for c in (clean(r) for r in raw) if c]

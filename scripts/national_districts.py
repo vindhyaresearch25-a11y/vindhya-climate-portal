@@ -2,14 +2,20 @@
 national_districts.py -- the one real, shared (state, district) list for
 every script that needs to iterate India's districts (mandi prices, crop
 stats, and anything added later). Built from the Survey of India district
-layer this repo already ships (dashboard/data/boundaries/soi/districts.geojson,
-733 districts, produced by build_national_soi_boundaries.py) rather than a
-separately typed-in list, so it can never drift from the boundary the rest
-of the dashboard uses.
+layer this repo ships as a properties-only extract
+(dashboard/data/boundaries/soi/districts_index.json, 733 districts) rather
+than a separately typed-in list, so it can never drift from the boundary
+the rest of the dashboard uses.
+
+2026-08-06's Hugging Face migration moved the full districts.geojson
+(~20MB, with geometry) out of the working tree -- see
+dashboard/data/boundaries/README.md. This module never needed the
+geometry, only state_name/district_name, so it reads the small
+properties-only index instead (see scripts/build_districts_index.py,
+which regenerates it from the HF-hosted geojson when boundaries change).
 
 Does not use geopandas -- these are plain-Python data-fetch scripts run on
-GitHub Actions' minimal image, and the geometry itself isn't needed here,
-only state_name/district_name, which a plain json.load gets just as well.
+GitHub Actions' minimal image.
 """
 from __future__ import annotations
 
@@ -18,7 +24,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-DISTRICTS_GEOJSON = ROOT / "dashboard" / "data" / "boundaries" / "soi" / "districts.geojson"
+DISTRICTS_INDEX = ROOT / "dashboard" / "data" / "boundaries" / "soi" / "districts_index.json"
 
 
 def slugify(name: str) -> str:
@@ -31,12 +37,11 @@ def load_state_districts() -> dict[str, list[str]]:
     (AGMARKNET, crop-stats) is filtered on, so a mismatch surfaces as an
     honest per-district fetch failure rather than being silently papered
     over by a second, differently-spelled list."""
-    data = json.loads(DISTRICTS_GEOJSON.read_text())
+    data = json.loads(DISTRICTS_INDEX.read_text())
     out: dict[str, list[str]] = {}
-    for feat in data["features"]:
-        props = feat["properties"]
-        state = props["state_name"].strip()
-        district = props["district_name"].strip()
+    for rec in data["districts"]:
+        state = rec["state_name"].strip()
+        district = rec["district_name"].strip()
         out.setdefault(state, [])
         if district not in out[state]:
             out[state].append(district)
