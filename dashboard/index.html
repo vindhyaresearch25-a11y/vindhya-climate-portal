@@ -44,6 +44,80 @@
 --glow-cyan:none;
 --glow-green:none;
 --glow-orange:none;
+
+/* A3 (2026-08-06): radius/spacing/border tokens -- extracted from the
+   exact literal values already in use across the portal (verified by
+   grepping every inline style="" and CSS rule before this change), so
+   this pass is a pure rename with zero visual diff. One edit to any of
+   these now changes every place that used the old literal. Naming is
+   the literal px value, not a semantic tier, on purpose: several
+   distinct sizes (2/3/4/5/6/8/10/12/14/16/20px) are genuinely in use
+   side by side for different component densities, and collapsing them
+   into fewer semantic steps -- unlike the font-size scale in A4, which
+   the owner explicitly asked to collapse to 6 -- was not asked for here
+   and would itself be a visual change requiring the same screenshot
+   verification A4 needs. */
+--radius-2:2px;
+--radius-3:3px;
+--radius-4:4px;
+--radius-5:5px;
+--radius-6:6px;
+--radius-8:8px;
+--radius-10:10px;
+--radius-12:12px;
+--radius-14:14px;
+--radius-16:16px;
+--radius-20:20px;
+--radius-circle:50%;
+--border-default:1px solid var(--border);
+
+/* Spacing tokens (2026-08-06, same zero-diff rename as the radius block
+   above) -- covers gap, single-value padding/margin and margin-top/
+   margin-bottom across the portal. Multi-value shorthand (e.g.
+   "padding:0.5rem 0.75rem") is untouched here; it isn't a single
+   repeated primitive the way these are. */
+--space-02:0.2rem;
+--space-025:0.25rem;
+--space-03:0.3rem;
+--space-04:0.4rem;
+--space-05:0.5rem;
+--space-06:0.6rem;
+--space-07:0.7rem;
+--space-075:0.75rem;
+--space-08:0.8rem;
+--space-1:1rem;
+--space-12:1.2rem;
+--space-125:1.25rem;
+--space-15:1.5rem;
+--space-175:1.75rem;
+--space-2:2rem;
+--space-20px:20px;
+
+/* A4 (2026-08-06): the 6-step font scale the owner specified. Desktop
+   values apply by default; the (max-width:768px) override below swaps
+   in the mobile set. Existing declarations (inline and in CSS rules)
+   are being migrated onto these in batches, verified with screenshots
+   at 1512/820/390/320px after each batch -- see NIGHT_LOG-equivalent
+   commit messages for progress, since this touches ~260 sites and a
+   blind global replace risks the "layout stays exactly the same" rule.
+   Tabular figures for numbers is already global (body{font-variant-
+   numeric:tabular-nums} above), not part of this scale. */
+--fs-1:11px;
+--fs-2:13px;
+--fs-3:15px;
+--fs-4:20px;
+--fs-5:28px;
+--fs-6:36px;
+}
+@media(max-width:768px){
+  :root{
+    --fs-1:12px;
+    --fs-2:14px;
+    --fs-3:16px;
+    --fs-4:20px;
+    --fs-5:24px;
+    --fs-6:28px;
+  }
 }
 /* Self-hosted, not a CDN link (owner spec 2.3) -- so the portal looks
    identical for a farmer on Windows/low-bandwidth as it does here,
@@ -59,45 +133,45 @@
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{height:100%;overflow:hidden;}
-body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:15px;font-weight:400;display:flex;flex-direction:column;font-variant-numeric:tabular-nums;}
+body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-3);font-weight:400;display:flex;flex-direction:column;font-variant-numeric:tabular-nums;}
 ::-webkit-scrollbar{width:4px;height:4px;}
 ::-webkit-scrollbar-track{background:var(--bg-panel);}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:var(--radius-2);}
 /* Cadastral tooltip */
-.cad-tooltip{background:rgba(0,0,0,0.85);border:none;color:#fff;font-size:0.65rem;font-weight:600;padding:3px 8px;border-radius:4px;white-space:nowrap;}
+.cad-tooltip{background:rgba(0,0,0,0.85);border:none;color:#fff;font-size:var(--fs-1);font-weight:600;padding:3px 8px;border-radius:var(--radius-4);white-space:nowrap;}
 
 /* =========== LOGIN GATE =========== */
-#loginGate{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;z-index:1100;background:#1a2332;padding:1.5rem;}
+#loginGate{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;z-index:1100;background:#1a2332;padding:var(--space-15);}
 .gate-slideshow{position:absolute;inset:0;z-index:0;overflow:hidden;filter:blur(1.5px) saturate(1.1);transform:scale(1.03);}
 .gate-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 2.2s ease-in-out;transform:scale(1.08);}
 .gate-slide.active{opacity:0.88;animation:heroKenBurns 14s ease-out forwards;}
 #loginGate::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,16,26,0.35) 0%,rgba(10,16,26,0.55) 100%);z-index:1;}
-.gate-tagline{position:relative;z-index:10;max-width:480px;text-align:center;margin-bottom:1.25rem;min-height:1.4rem;padding:0 1rem;}
-.gate-tagline-line{display:none;font-size:0.85rem;font-weight:600;letter-spacing:0.5px;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,0.5);opacity:0;transition:opacity 0.8s ease-in-out;}
+.gate-tagline{position:relative;z-index:10;max-width:480px;text-align:center;margin-bottom:var(--space-125);min-height:1.4rem;padding:0 1rem;}
+.gate-tagline-line{display:none;font-size:var(--fs-3);font-weight:600;letter-spacing:0.5px;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,0.5);opacity:0;transition:opacity 0.8s ease-in-out;}
 .gate-tagline-line.active{display:block;opacity:1;}
-.login-card{position:relative;z-index:10;width:100%;max-width:380px;background:rgba(10,16,26,0.42);backdrop-filter:blur(14px) saturate(1.1);-webkit-backdrop-filter:blur(14px) saturate(1.1);border:1px solid rgba(255,255,255,0.16);border-radius:12px;padding:2rem 1.75rem;box-shadow:0 20px 60px rgba(0,0,0,0.35);text-align:center;}
-.login-title{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:1.6rem;font-weight:800;color:#ffffff;margin:0.75rem 0 0.35rem;}
-.login-sub{font-size:0.78rem;color:rgba(255,255,255,0.72);margin-bottom:1.5rem;line-height:1.5;}
-.login-field{text-align:left;margin-bottom:1rem;}
-.login-field label{display:block;font-size:0.7rem;font-weight:700;letter-spacing:1px;color:rgba(255,255,255,0.78);margin-bottom:0.35rem;}
+.login-card{position:relative;z-index:10;width:100%;max-width:380px;background:rgba(10,16,26,0.42);backdrop-filter:blur(14px) saturate(1.1);-webkit-backdrop-filter:blur(14px) saturate(1.1);border:1px solid rgba(255,255,255,0.16);border-radius:var(--radius-12);padding:2rem 1.75rem;box-shadow:0 20px 60px rgba(0,0,0,0.35);text-align:center;}
+.login-title{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-5);font-weight:800;color:#ffffff;margin:0.75rem 0 0.35rem;}
+.login-sub{font-size:var(--fs-2);color:rgba(255,255,255,0.72);margin-bottom:var(--space-15);line-height:1.5;}
+.login-field{text-align:left;margin-bottom:var(--space-1);}
+.login-field label{display:block;font-size:var(--fs-1);font-weight:700;letter-spacing:1px;color:rgba(255,255,255,0.78);margin-bottom:0.35rem;}
 .login-req{color:#ff8a80;}
-.login-field input{width:100%;box-sizing:border-box;padding:0.6rem 0.75rem;border:1px solid rgba(255,255,255,0.22);border-radius:6px;font-size:0.85rem;color:#fff;background:rgba(255,255,255,0.08);transition:border-color 0.2s,background 0.2s;}
+.login-field input{width:100%;box-sizing:border-box;padding:0.6rem 0.75rem;border:1px solid rgba(255,255,255,0.22);border-radius:var(--radius-6);font-size:var(--fs-3);color:#fff;background:rgba(255,255,255,0.08);transition:border-color 0.2s,background 0.2s;}
 .login-field input::placeholder{color:rgba(255,255,255,0.4);}
 .login-field input:focus{outline:none;border-color:var(--cyan);background:rgba(255,255,255,0.14);}
 #gateEnterBtn:not(:disabled){opacity:1 !important;cursor:pointer !important;}
-.gate-role-label{font-size:0.68rem;font-weight:700;letter-spacing:1px;color:rgba(255,255,255,0.55);text-align:center;margin-top:1.1rem;margin-bottom:0.6rem;text-transform:uppercase;}
-.gate-roles{display:flex;gap:0.5rem;}
-.gate-role-card{flex:1;padding:0.6rem 0.4rem;border:1px solid rgba(255,255,255,0.18);border-radius:8px;background:rgba(255,255,255,0.06);text-align:center;cursor:pointer;transition:all 0.2s;color:rgba(255,255,255,0.85);}
-.gate-role-card i{font-size:1rem;color:var(--cyan);margin-bottom:0.3rem;display:block;}
-.gate-role-card .gate-role-title{font-size:0.68rem;font-weight:600;}
+.gate-role-label{font-size:var(--fs-1);font-weight:700;letter-spacing:1px;color:rgba(255,255,255,0.55);text-align:center;margin-top:1.1rem;margin-bottom:var(--space-06);text-transform:uppercase;}
+.gate-roles{display:flex;gap:var(--space-05);}
+.gate-role-card{flex:1;padding:0.6rem 0.4rem;border:1px solid rgba(255,255,255,0.18);border-radius:var(--radius-8);background:rgba(255,255,255,0.06);text-align:center;cursor:pointer;transition:all 0.2s;color:rgba(255,255,255,0.85);}
+.gate-role-card i{font-size:var(--fs-3);color:var(--cyan);margin-bottom:var(--space-03);display:block;}
+.gate-role-card .gate-role-title{font-size:var(--fs-1);font-weight:600;}
 .gate-role-card:hover{background:rgba(255,255,255,0.12);border-color:var(--cyan);}
 .gate-role-card.selected{background:rgba(26,138,158,0.28);border-color:var(--cyan);box-shadow:0 0 0 1px var(--cyan);}
-.gate-quote{position:relative;z-index:10;max-width:440px;margin-top:1.75rem;min-height:3.2rem;text-align:center;padding:0 1rem;}
+.gate-quote{position:relative;z-index:10;max-width:440px;margin-top:var(--space-175);min-height:3.2rem;text-align:center;padding:0 1rem;}
 .gate-quote-line{display:none;opacity:0;transition:opacity 0.8s ease-in-out;}
 .gate-quote-line.active{display:block;opacity:1;}
-.gate-quote-hi{font-size:0.88rem;font-weight:600;color:#ffffff;line-height:1.5;text-shadow:0 1px 6px rgba(0,0,0,0.5);}
-.gate-quote-en{font-size:0.74rem;font-weight:500;color:rgba(255,255,255,0.78);font-style:italic;margin-top:0.25rem;line-height:1.5;text-shadow:0 1px 6px rgba(0,0,0,0.5);}
-@media(max-width:480px){.login-card{padding:1.5rem 1.25rem;}.login-title{font-size:1.35rem;}.gate-tagline-line{font-size:0.76rem;}.gate-quote{margin-top:1.25rem;}.gate-quote-hi{font-size:0.8rem;}.gate-quote-en{font-size:0.68rem;}}
+.gate-quote-hi{font-size:var(--fs-3);font-weight:600;color:#ffffff;line-height:1.5;text-shadow:0 1px 6px rgba(0,0,0,0.5);}
+.gate-quote-en{font-size:var(--fs-1);font-weight:500;color:rgba(255,255,255,0.78);font-style:italic;margin-top:var(--space-025);line-height:1.5;text-shadow:0 1px 6px rgba(0,0,0,0.5);}
+@media(max-width:480px){.login-card{padding:1.5rem 1.25rem;}.login-title{font-size:var(--fs-4);}.gate-tagline-line{font-size:var(--fs-2);}.gate-quote{margin-top:var(--space-125);}.gate-quote-hi{font-size:var(--fs-2);}.gate-quote-en{font-size:var(--fs-1);}}
 
 /* =========== HERO =========== */
 #hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow-y:auto;overflow-x:hidden;z-index:1000;background:#1a2332;padding-bottom:56px;}
@@ -111,13 +185,13 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 .hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.4s ease-in-out;transform:scale(1.08);animation:none;}
 .hero-slide.active{opacity:1;animation:heroKenBurns 8s ease-out forwards;}
 @keyframes heroKenBurns{0%{transform:scale(1.08)}100%{transform:scale(1)}}
-.hero-slide-credit{position:absolute;bottom:0.6rem;right:0.9rem;z-index:11;font-size:0.65rem;color:rgba(255,255,255,0.85);text-shadow:0 1px 3px rgba(0,0,0,0.6);}
-.hero-slide-dots{position:absolute;bottom:2.6rem;left:50%;transform:translateX(-50%);z-index:11;display:flex;gap:0.6rem;}
-.gov-footer{position:absolute;bottom:0;left:0;right:0;z-index:12;background:rgba(26,35,50,0.92);color:rgba(255,255,255,0.82);padding:0.4rem 1rem;text-align:center;font-size:0.65rem;line-height:1.6;}
+.hero-slide-credit{position:absolute;bottom:0.6rem;right:0.9rem;z-index:11;font-size:var(--fs-1);color:rgba(255,255,255,0.85);text-shadow:0 1px 3px rgba(0,0,0,0.6);}
+.hero-slide-dots{position:absolute;bottom:2.6rem;left:50%;transform:translateX(-50%);z-index:11;display:flex;gap:var(--space-06);}
+.gov-footer{position:absolute;bottom:0;left:0;right:0;z-index:12;background:rgba(26,35,50,0.92);color:rgba(255,255,255,0.82);padding:0.4rem 1rem;text-align:center;font-size:var(--fs-1);line-height:1.6;}
 .gov-footer .gf-sep{opacity:0.5;margin:0 0.35rem;}
 .gov-footer .gf-line2{opacity:0.75;}
-@media(max-width:640px){.gov-footer{font-size:0.6rem;padding:0.35rem 0.6rem;}}
-.hero-slide-dot{width:28px;height:5px;border-radius:3px;border:none;background:rgba(255,255,255,0.4);cursor:pointer;padding:0;transition:all 0.3s;}
+@media(max-width:640px){.gov-footer{font-size:var(--fs-1);padding:0.35rem 0.6rem;}}
+.hero-slide-dot{width:28px;height:5px;border-radius:var(--radius-3);border:none;background:rgba(255,255,255,0.4);cursor:pointer;padding:0;transition:all 0.3s;}
 .hero-slide-dot:hover{background:rgba(255,255,255,0.7);}
 .hero-slide-dot.active{background:linear-gradient(90deg,var(--green),var(--cyan));width:40px;}
 @media(max-width:768px){.hero-slide-dot{width:20px;}.hero-slide-dot.active{width:30px;}}
@@ -130,33 +204,33 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
    contrast holds regardless of what the photo looks like at that exact
    pixel, without needing an opaque box. */
 .hero-text-safe{text-shadow:0 1px 2px rgba(255,255,255,0.9),0 2px 14px rgba(255,255,255,0.7);}
-.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;border:1px solid var(--cyan);border-radius:20px;padding:0.3rem 1rem;font-size:0.7rem;color:var(--cyan);font-weight:600;letter-spacing:2px;text-transform:none;margin-bottom:1.5rem;background:rgba(26,138,158,0.06);}
-.hero-badge-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:blink 1.5s ease-in-out infinite;}
+.hero-badge{display:inline-flex;align-items:center;gap:var(--space-05);border:1px solid var(--cyan);border-radius:var(--radius-20);padding:0.3rem 1rem;font-size:var(--fs-1);color:var(--cyan);font-weight:600;letter-spacing:2px;text-transform:none;margin-bottom:var(--space-15);background:rgba(26,138,158,0.06);}
+.hero-badge-dot{width:6px;height:6px;background:var(--green);border-radius:var(--radius-circle);animation:blink 1.5s ease-in-out infinite;}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
-.hero-title{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:clamp(1.8rem,4vw,3.2rem);font-weight:800;line-height:1.15;letter-spacing:-0.5px;margin-bottom:0.8rem;}
+.hero-title{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:clamp(1.8rem,4vw,3.2rem);font-weight:800;line-height:1.15;letter-spacing:-0.5px;margin-bottom:var(--space-08);}
 .hero-title .line1{color:#1a2332;background:none;-webkit-text-fill-color:#1a2332;}
 .hero-title .line2{color:var(--cyan);background:none;-webkit-text-fill-color:var(--cyan);font-size:0.55em;font-weight:600;letter-spacing:0.4px;}
 /* No boxes -- a single stat line straight on the photo (owner spec
    2026-08-06: the 3 boxed panels read as heavy and one was bare text).
    Numbers keep the same IDs/data-target the fetch+animate script
    already targets. */
-.hero-boundary-row{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:1.15rem;font-weight:700;color:var(--text);margin-bottom:0.3rem;font-variant-numeric:tabular-nums;}
+.hero-boundary-row{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-4);font-weight:700;color:var(--text);margin-bottom:var(--space-03);font-variant-numeric:tabular-nums;}
 .hero-boundary-row .hb-sep{color:var(--text-dim);font-weight:400;margin:0 0.5rem;}
-.hero-boundary-label{font-size:0.68rem;font-weight:600;color:var(--text-dim);letter-spacing:0.5px;margin-bottom:1rem;}
-.hero-climate-line{font-size:11px;color:#5A6A7A;line-height:1.6;margin:0 auto 1.6rem;font-variant-numeric:tabular-nums;}
-.hero-sources-line{text-align:center;font-size:0.68rem;color:var(--text-dim);margin-bottom:2rem;letter-spacing:0.3px;}
+.hero-boundary-label{font-size:var(--fs-1);font-weight:600;color:var(--text-dim);letter-spacing:0.5px;margin-bottom:var(--space-1);}
+.hero-climate-line{font-size:var(--fs-1);color:#5A6A7A;line-height:1.6;margin:0 auto 1.6rem;font-variant-numeric:tabular-nums;}
+.hero-sources-line{text-align:center;font-size:var(--fs-1);color:var(--text-dim);margin-bottom:var(--space-2);letter-spacing:0.3px;}
 .hero-sources-line b{color:var(--text);}
-.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
-.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--teal));color:#fff;font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.4px;padding:0.75rem 1.8rem;border:none;border-radius:4px;cursor:pointer;text-transform:none;transition:all 0.3s;box-shadow:var(--glow-cyan);}
+.hero-btns{display:flex;gap:var(--space-1);justify-content:center;flex-wrap:wrap;}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--teal));color:#fff;font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-2);font-weight:700;letter-spacing:0.4px;padding:0.75rem 1.8rem;border:none;border-radius:var(--radius-4);cursor:pointer;text-transform:none;transition:all 0.3s;box-shadow:var(--glow-cyan);}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(26,138,158,0.5);}
-.btn-outline{background:rgba(255,255,255,0.92);color:#136575;font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:0.75rem;font-weight:600;letter-spacing:0.4px;padding:0.75rem 1.8rem;border:1px solid var(--cyan);border-radius:4px;cursor:pointer;text-transform:none;transition:all 0.3s;}
+.btn-outline{background:rgba(255,255,255,0.92);color:#136575;font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-2);font-weight:600;letter-spacing:0.4px;padding:0.75rem 1.8rem;border:1px solid var(--cyan);border-radius:var(--radius-4);cursor:pointer;text-transform:none;transition:all 0.3s;}
 .btn-outline:hover{background:rgba(26,138,158,0.1);transform:translateY(-2px);}
-.hero-roles{display:flex;gap:1.5rem;justify-content:center;margin-bottom:2rem;flex-wrap:wrap;}
-.role-card{width:200px;padding:1.2rem;border:1px solid #D8DEE7;border-radius:8px;background:#ffffff;cursor:pointer;transition:all 0.3s;text-align:center;}
+.hero-roles{display:flex;gap:var(--space-15);justify-content:center;margin-bottom:var(--space-2);flex-wrap:wrap;}
+.role-card{width:200px;padding:var(--space-12);border:1px solid #D8DEE7;border-radius:var(--radius-8);background:#ffffff;cursor:pointer;transition:all 0.3s;text-align:center;}
 .role-card:hover{transform:translateY(-3px);box-shadow:0 4px 20px rgba(26,138,158,0.12);border-color:var(--cyan);}
-.role-card .role-icon{font-size:2rem;color:var(--cyan);margin-bottom:0.5rem;}
-.role-card .role-title{font-size:0.9rem;font-weight:700;color:var(--text);margin-bottom:0.25rem;}
-.role-card .role-desc{font-size:0.7rem;font-weight:500;color:var(--text-dim);}
+.role-card .role-icon{font-size:var(--fs-5);color:var(--cyan);margin-bottom:var(--space-05);}
+.role-card .role-title{font-size:var(--fs-3);font-weight:600;color:var(--text);margin-bottom:var(--space-025);}
+.role-card .role-desc{font-size:var(--fs-1);font-weight:500;color:var(--text-dim);}
 .role-card.selected{border-color:var(--cyan);background:rgba(26,138,158,0.04);box-shadow:0 0 0 2px rgba(26,138,158,0.2);}
 
 /* =========== MAIN APP =========== */
@@ -165,32 +239,32 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 /* Sidebar */
 #sidebar{width:220px;background:var(--bg-card);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;transition:width 0.3s;flex-shrink:0;}
 #sidebar.collapsed{width:56px;}
-.sidebar-logo{display:flex;align-items:center;gap:0.75rem;padding:1rem;border-bottom:1px solid var(--border);min-height:56px;}
-.sidebar-logo-icon{width:32px;height:32px;border-radius:6px;background:linear-gradient(135deg,var(--cyan),var(--teal));display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.9rem;color:#fff;font-weight:900;}
-.sidebar-logo-text{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:0.7rem;font-weight:700;color:#1a2332;letter-spacing:1px;white-space:nowrap;overflow:hidden;}
+.sidebar-logo{display:flex;align-items:center;gap:var(--space-075);padding:var(--space-1);border-bottom:1px solid var(--border);min-height:56px;}
+.sidebar-logo-icon{width:32px;height:32px;border-radius:var(--radius-6);background:linear-gradient(135deg,var(--cyan),var(--teal));display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:var(--fs-3);color:#fff;font-weight:900;}
+.sidebar-logo-text{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-1);font-weight:700;color:#1a2332;letter-spacing:1px;white-space:nowrap;overflow:hidden;}
 .sidebar-nav{flex:1;overflow-y:auto;padding:0.5rem 0;}
-.nav-section-title{font-size:0.7rem;letter-spacing:3px;font-weight:700;color:var(--text-dim);padding:0.75rem 1rem 0.25rem;white-space:nowrap;overflow:hidden;}
-.nav-item{display:flex;align-items:center;gap:0.75rem;padding:0.6rem 1rem;cursor:pointer;transition:all 0.2s;border-left:2px solid transparent;position:relative;}
+.nav-section-title{font-size:var(--fs-1);letter-spacing:0;font-weight:600;color:var(--text-dim);padding:0.75rem 1rem 0.25rem;white-space:nowrap;overflow:hidden;}
+.nav-item{display:flex;align-items:center;gap:var(--space-075);padding:0.6rem 1rem;cursor:pointer;transition:all 0.2s;border-left:2px solid transparent;position:relative;}
 .nav-item:hover{background:rgba(26,138,158,0.06);border-left-color:var(--cyan);}
 .nav-item.active{background:rgba(26,138,158,0.1);border-left-color:var(--cyan);}
-.nav-item .nav-icon{width:20px;text-align:center;font-size:1rem;color:#8a9aac;flex-shrink:0;}
+.nav-item .nav-icon{width:20px;text-align:center;font-size:var(--fs-3);color:#8a9aac;flex-shrink:0;}
 .nav-item.active .nav-icon{color:var(--cyan);}
-.nav-item .nav-label{font-size:0.85rem;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;}
+.nav-item .nav-label{font-size:var(--fs-3);font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;}
 .nav-item.active .nav-label{color:#1a2332;font-weight:600;}
-.nav-badge{margin-left:auto;background:var(--red);color:#fff;font-size:0.65rem;font-weight:700;padding:2px 7px;border-radius:10px;white-space:nowrap;}
+.nav-badge{margin-left:auto;background:var(--red);color:#fff;font-size:var(--fs-1);font-weight:700;padding:2px 7px;border-radius:var(--radius-10);white-space:nowrap;}
 #sidebar.collapsed .nav-label,#sidebar.collapsed .nav-section-title,#sidebar.collapsed .sidebar-logo-text,#sidebar.collapsed .nav-badge{display:none;}
 
 /* Main area */
 #main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
 
 /* Top bar */
-#topbar{height:56px;background:var(--bg-card);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:1rem;padding:0 1rem;flex-shrink:0;}
-.topbar-toggle{background:none;border:none;color:#8a9aac;cursor:pointer;font-size:1.1rem;padding:0.25rem;}
-.topbar-title{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:0.85rem;font-weight:700;color:var(--cyan);letter-spacing:2px;flex:2;}
-.topbar-pill{display:flex;align-items:center;gap:0.4rem;background:rgba(111,199,149,0.15);border:1px solid rgba(111,199,149,0.4);border-radius:12px;padding:0.25rem 0.75rem;font-size:0.75rem;font-weight:600;color:var(--green);}
-.live-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:blink 1s infinite;}
-.topbar-time{font-family:'Inter',monospace;font-variant-numeric:tabular-nums;font-size:0.8rem;font-weight:500;color:var(--text-dim);}
-.topbar-lang{display:flex;align-items:center;gap:0.3rem;background:transparent;border:1px solid var(--border);border-radius:12px;padding:0.25rem 0.7rem;font-size:0.72rem;font-weight:600;color:var(--cyan);cursor:pointer;font-family:'Inter',sans-serif;}
+#topbar{height:56px;background:var(--bg-card);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:var(--space-1);padding:0 1rem;flex-shrink:0;}
+.topbar-toggle{background:none;border:none;color:#8a9aac;cursor:pointer;font-size:var(--fs-4);padding:var(--space-025);}
+.topbar-title{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-3);font-weight:600;color:var(--cyan);letter-spacing:0;flex:2;}
+.topbar-pill{display:flex;align-items:center;gap:var(--space-04);background:rgba(111,199,149,0.15);border:1px solid rgba(111,199,149,0.4);border-radius:var(--radius-12);padding:0.25rem 0.75rem;font-size:var(--fs-2);font-weight:600;color:var(--green);}
+.live-dot{width:6px;height:6px;background:var(--green);border-radius:var(--radius-circle);animation:blink 1s infinite;}
+.topbar-time{font-family:'Inter',monospace;font-variant-numeric:tabular-nums;font-size:var(--fs-2);font-weight:500;color:var(--text-dim);}
+.topbar-lang{display:flex;align-items:center;gap:var(--space-03);background:transparent;border:var(--border-default);border-radius:var(--radius-12);padding:0.25rem 0.7rem;font-size:var(--fs-1);font-weight:600;color:var(--cyan);cursor:pointer;font-family:'Inter',sans-serif;}
 .topbar-lang:hover{background:rgba(26,138,158,0.06);}
 
 /* Content */
@@ -199,39 +273,39 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 /* Map area */
 #map-panel{flex:1;position:relative;overflow:hidden;}
 #map{width:100%;height:100%;}
-.map-overlay{position:absolute;top:1rem;right:1rem;z-index:500;display:flex;flex-direction:column;gap:0.5rem;}
-.map-ctrl-btn{background:var(--bg-card);border:1px solid var(--border);color:#8a9aac;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:4px;cursor:pointer;font-size:0.8rem;transition:all 0.2s;}
+.map-overlay{position:absolute;top:1rem;right:1rem;z-index:500;display:flex;flex-direction:column;gap:var(--space-05);}
+.map-ctrl-btn{background:var(--bg-card);border:var(--border-default);color:#8a9aac;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-4);cursor:pointer;font-size:var(--fs-2);transition:all 0.2s;}
 .map-ctrl-btn:hover,.map-ctrl-btn.active{background:rgba(26,138,158,0.06);border-color:var(--cyan);color:var(--cyan);}
-.map-legend{position:absolute;bottom:2.9rem;left:1rem;z-index:500;background:rgba(255,255,255,0.95);border:1px solid var(--border);border-radius:6px;padding:0.75rem;backdrop-filter:blur(8px);box-shadow:0 2px 8px rgba(0,0,0,0.06);}
-.legend-title{font-size:0.7rem;letter-spacing:2px;font-weight:700;color:var(--cyan);margin-bottom:0.5rem;}
-.legend-row{display:flex;align-items:center;gap:0.5rem;font-size:0.7rem;font-weight:500;color:var(--text-dim);margin-bottom:0.25rem;}
-.legend-dot{width:10px;height:10px;border-radius:50%;}
-.map-disclaimer{position:absolute;bottom:4.75rem;right:0.5rem;z-index:400;max-width:260px;background:rgba(255,255,255,0.85);border:1px solid var(--border);border-radius:5px;padding:0.35rem 0.55rem;backdrop-filter:blur(6px);font-size:0.6rem;line-height:1.35;color:var(--text-dim);pointer-events:none;}
+.map-legend{position:absolute;bottom:2.9rem;left:1rem;z-index:500;background:rgba(255,255,255,0.95);border:var(--border-default);border-radius:var(--radius-6);padding:var(--space-075);backdrop-filter:blur(8px);box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.legend-title{font-size:var(--fs-1);letter-spacing:0;font-weight:600;color:var(--cyan);margin-bottom:var(--space-05);}
+.legend-row{display:flex;align-items:center;gap:var(--space-05);font-size:var(--fs-1);font-weight:500;color:var(--text-dim);margin-bottom:var(--space-025);}
+.legend-dot{width:10px;height:10px;border-radius:var(--radius-circle);}
+.map-disclaimer{position:absolute;bottom:4.75rem;right:0.5rem;z-index:400;max-width:260px;background:rgba(255,255,255,0.85);border:var(--border-default);border-radius:var(--radius-5);padding:0.35rem 0.55rem;backdrop-filter:blur(6px);font-size:var(--fs-1);line-height:1.35;color:var(--text-dim);pointer-events:none;}
 .map-disclaimer b{color:var(--text-dim);font-weight:600;}
 
 /* Location selector cascade */
-.map-info-bar{position:absolute;top:4.4rem;left:1rem;z-index:500;background:rgba(255,255,255,0.96);border:1px solid var(--border);border-radius:6px;padding:0.6rem 0.7rem;backdrop-filter:blur(10px);max-width:230px;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
-.loc-bar-title{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:0.65rem;letter-spacing:2px;font-weight:700;color:var(--cyan);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem;}
-.loc-field{margin-bottom:0.4rem;}
-.loc-field label{display:block;font-size:0.6rem;letter-spacing:1px;font-weight:600;color:var(--text-dim);margin-bottom:0.15rem;}
-.loc-field select{width:100%;background:var(--bg-card);border:1px solid var(--border);color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:0.75rem;font-weight:500;padding:0.3rem 0.4rem;border-radius:4px;cursor:pointer;outline:none;transition:all 0.2s;}
+.map-info-bar{position:absolute;top:4.4rem;left:1rem;z-index:500;background:rgba(255,255,255,0.96);border:var(--border-default);border-radius:var(--radius-6);padding:0.6rem 0.7rem;backdrop-filter:blur(10px);max-width:230px;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
+.loc-bar-title{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-1);letter-spacing:0;font-weight:600;color:var(--cyan);margin-bottom:var(--space-05);display:flex;align-items:center;gap:var(--space-04);}
+.loc-field{margin-bottom:var(--space-04);}
+.loc-field label{display:block;font-size:var(--fs-1);letter-spacing:1px;font-weight:600;color:var(--text-dim);margin-bottom:0.15rem;}
+.loc-field select{width:100%;background:var(--bg-card);border:var(--border-default);color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-2);font-weight:500;padding:0.3rem 0.4rem;border-radius:var(--radius-4);cursor:pointer;outline:none;transition:all 0.2s;}
 .loc-field select:hover{border-color:var(--cyan);}
 .loc-field select:focus{border-color:var(--cyan);}
 .loc-field select:disabled{color:var(--text-dim);cursor:not-allowed;opacity:0.7;}
 .loc-field select option{background:var(--bg-card);color:var(--text);}
 .loc-field.locked select{color:var(--green);border-color:rgba(45,143,92,0.3);background:rgba(45,143,92,0.04);}
-.loc-lock-icon{font-size:0.5rem;color:var(--green);margin-left:0.2rem;}
-.loc-breadcrumb{font-size:0.6rem;font-weight:500;color:var(--text-dim);margin-top:0.3rem;padding-top:0.4rem;border-top:1px solid var(--border);line-height:1.5;word-break:break-word;}
+.loc-lock-icon{font-size:var(--fs-1);color:var(--green);margin-left:0.2rem;}
+.loc-breadcrumb{font-size:var(--fs-1);font-weight:500;color:var(--text-dim);margin-top:var(--space-03);padding-top:0.4rem;border-top:1px solid var(--border);line-height:1.5;word-break:break-word;}
 .loc-breadcrumb b{color:var(--cyan);}
 
 /* Timeline */
-.map-timeline{position:absolute;bottom:0.5rem;left:50%;transform:translateX(-50%);z-index:500;background:rgba(255,255,255,0.95);border:1px solid var(--border);border-radius:6px;padding:0.35rem 0.75rem;display:flex;align-items:center;gap:0.4rem;backdrop-filter:blur(8px);font-size:0.7rem;font-weight:500;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
-.map-timeline .tl-btn{background:none;border:1px solid var(--border);border-radius:4px;padding:0.2rem 0.35rem;cursor:pointer;color:var(--cyan);font-size:0.65rem;font-weight:700;line-height:1;}
+.map-timeline{position:absolute;bottom:0.5rem;left:50%;transform:translateX(-50%);z-index:500;background:rgba(255,255,255,0.95);border:var(--border-default);border-radius:var(--radius-6);padding:0.35rem 0.75rem;display:flex;align-items:center;gap:var(--space-04);backdrop-filter:blur(8px);font-size:var(--fs-1);font-weight:500;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.map-timeline .tl-btn{background:none;border:var(--border-default);border-radius:var(--radius-4);padding:0.2rem 0.35rem;cursor:pointer;color:var(--cyan);font-size:var(--fs-1);font-weight:700;line-height:1;}
 .map-timeline .tl-btn:hover{background:rgba(26,138,158,0.06);}
-.map-timeline .tl-label{font-weight:700;color:var(--text);min-width:2rem;text-align:center;font-size:0.75rem;}
-.map-timeline .tl-slider{-webkit-appearance:none;appearance:none;height:3px;background:var(--border);border-radius:2px;outline:none;width:90px;cursor:pointer;}
-.map-timeline .tl-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:12px;height:12px;border-radius:50%;background:var(--cyan);border:2px solid #fff;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.15);}
-.map-timeline .tl-range{color:var(--text-dim);font-size:0.6rem;font-weight:500;white-space:nowrap;}
+.map-timeline .tl-label{font-weight:700;color:var(--text);min-width:2rem;text-align:center;font-size:var(--fs-2);}
+.map-timeline .tl-slider{-webkit-appearance:none;appearance:none;height:3px;background:var(--border);border-radius:var(--radius-2);outline:none;width:90px;cursor:pointer;}
+.map-timeline .tl-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:12px;height:12px;border-radius:var(--radius-circle);background:var(--cyan);border:2px solid #fff;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.15);}
+.map-timeline .tl-range{color:var(--text-dim);font-size:var(--fs-1);font-weight:500;white-space:nowrap;}
 .map-timeline .tl-btn-ai{border-color:rgba(201,168,67,0.4);color:var(--orange);}
 .map-timeline .tl-btn-ai:hover{background:rgba(201,168,67,0.1);}
 
@@ -242,42 +316,42 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 #bottom-panel{height:210px;background:var(--bg-card);border-top:1px solid var(--border);display:flex;flex-shrink:0;overflow:hidden;}
 
 /* Cards */
-.glass-card{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;transition:all 0.3s;box-shadow:0 1px 4px rgba(0,0,0,0.04);}
+.glass-card{background:var(--bg-card);border:var(--border-default);border-radius:var(--radius-8);transition:all 0.3s;box-shadow:0 1px 4px rgba(0,0,0,0.04);}
 .glass-card:hover{border-color:var(--cyan);box-shadow:0 2px 12px rgba(26,138,158,0.08);}
-.section-header{display:flex;align-items:center;gap:0.5rem;padding:0.6rem 0.75rem;border-bottom:1px solid var(--border);background:rgba(26,138,158,0.03);}
-.section-title{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:2px;color:var(--cyan);}
+.section-header{display:flex;align-items:center;gap:var(--space-05);padding:0.6rem 0.75rem;border-bottom:1px solid var(--border);background:rgba(26,138,158,0.03);}
+.section-title{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-1);font-weight:600;letter-spacing:0;color:var(--cyan);}
 
 /* Metric cards */
-.metric-row{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;padding:0.75rem;}
-.metric-card{background:rgba(245,247,250,0.5);border:1px solid var(--border);border-radius:6px;padding:0.6rem;transition:all 0.3s;cursor:default;}
+.metric-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-05);padding:var(--space-075);}
+.metric-card{background:rgba(245,247,250,0.5);border:var(--border-default);border-radius:var(--radius-6);padding:var(--space-06);transition:all 0.3s;cursor:default;}
 .metric-card:hover{border-color:var(--cyan);transform:translateY(-1px);box-shadow:0 2px 8px rgba(26,138,158,0.08);}
 .metric-card.alert{border-color:rgba(192,57,43,0.3);background:rgba(192,57,43,0.04);}
 .metric-card.warn{border-color:rgba(212,121,58,0.3);background:rgba(212,121,58,0.04);}
 .metric-card.good{border-color:rgba(45,143,92,0.25);background:rgba(45,143,92,0.03);}
-.metric-label{font-size:0.65rem;font-weight:600;color:var(--text-dim);letter-spacing:1px;margin-bottom:0.25rem;}
-.metric-value{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:1.2rem;font-weight:700;font-variant-numeric:tabular-nums;}
+.metric-label{font-size:var(--fs-1);font-weight:600;color:var(--text-dim);letter-spacing:1px;margin-bottom:var(--space-025);}
+.metric-value{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-4);font-weight:700;font-variant-numeric:tabular-nums;}
 .metric-value.cyan{color:var(--cyan);}
 .metric-value.green{color:var(--green);}
 .metric-value.orange{color:var(--orange);}
 .metric-value.red{color:var(--red);}
-.metric-bar{height:3px;background:#e8ecf1;border-radius:2px;margin-top:0.4rem;overflow:hidden;}
-.metric-bar-fill{height:100%;border-radius:2px;transition:width 1s ease;}
-.metric-trend{font-size:0.65rem;font-weight:500;color:var(--text-dim);margin-top:0.2rem;}
+.metric-bar{height:3px;background:#e8ecf1;border-radius:var(--radius-2);margin-top:var(--space-04);overflow:hidden;}
+.metric-bar-fill{height:100%;border-radius:var(--radius-2);transition:width 1s ease;}
+.metric-trend{font-size:var(--fs-1);font-weight:500;color:var(--text-dim);margin-top:var(--space-02);}
 .metric-card.hazard-highlight{border-color:var(--cyan)!important;box-shadow:inset 0 0 8px rgba(26,138,158,0.04);background:rgba(26,138,158,0.04)!important;transform:translateY(-1px);}
 .hazard-tag{border-color:var(--cyan)!important;box-shadow:0 0 0 2px rgba(26,138,158,0.3);}
 
 /* Advisory cards */
-.advisory-card{margin:0.5rem;border:1px solid var(--border);border-radius:6px;padding:0.6rem;background:#fafbfc;}
+.advisory-card{margin:var(--space-05);border:var(--border-default);border-radius:var(--radius-6);padding:var(--space-06);background:#fafbfc;}
 .advisory-card.high{border-color:rgba(192,57,43,0.3);background:rgba(192,57,43,0.03);}
 .advisory-card.medium{border-color:rgba(212,121,58,0.25);background:rgba(212,121,58,0.03);}
 .advisory-card.low{border-color:rgba(45,143,92,0.2);background:rgba(45,143,92,0.02);}
-.advisory-header{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.3rem;}
-.advisory-icon{font-size:0.85rem;}
-.advisory-title{font-size:0.75rem;font-weight:700;color:var(--text);}
-.advisory-body{font-size:0.65rem;color:var(--text-dim);line-height:1.5;}
-.advisory-actions{display:flex;gap:0.5rem;margin-top:0.5rem;}
-.adv-btn{font-size:0.6rem;padding:0.2rem 0.6rem;border-radius:3px;border:1px solid;cursor:pointer;background:transparent;transition:all 0.2s;}
-#advisory-container{display:grid;grid-template-columns:1fr 1fr;gap:0.2rem;}
+.advisory-header{display:flex;align-items:center;gap:var(--space-05);margin-bottom:var(--space-03);}
+.advisory-icon{font-size:var(--fs-3);}
+.advisory-title{font-size:var(--fs-2);font-weight:600;color:var(--text);}
+.advisory-body{font-size:var(--fs-1);color:var(--text-dim);line-height:1.5;}
+.advisory-actions{display:flex;gap:var(--space-05);margin-top:var(--space-05);}
+.adv-btn{font-size:var(--fs-1);padding:0.2rem 0.6rem;border-radius:var(--radius-3);border:1px solid;cursor:pointer;background:transparent;transition:all 0.2s;}
+#advisory-container{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-02);}
 @media(max-width:1200px){#advisory-container{grid-template-columns:1fr;}}
 .adv-btn.wa{color:#2d8f5c;border-color:#2d8f5c;}
 .adv-btn.sms{color:var(--cyan);border-color:var(--cyan);}
@@ -285,13 +359,13 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 
 /* Charts */
 .chart-wrap{padding:0.5rem 0.75rem;flex:1;min-height:0;position:relative;}
-.chart-empty{position:absolute;inset:0.5rem 0.75rem;display:flex;align-items:center;justify-content:center;text-align:center;font-size:0.72rem;color:var(--text-dim);padding:0 1rem;background:var(--bg-card);}
+.chart-empty{position:absolute;inset:0.5rem 0.75rem;display:flex;align-items:center;justify-content:center;text-align:center;font-size:var(--fs-1);color:var(--text-dim);padding:0 1rem;background:var(--bg-card);}
 .chart-empty i{margin-right:0.4rem;}
 canvas.chart-canvas{max-height:100%;}
 
 /* Bottom tabs */
 .btm-tabs{display:flex;border-right:1px solid var(--border);flex-direction:column;width:180px;flex-shrink:0;overflow-y:auto;}
-.btm-tab{padding:0.5rem 0.75rem;font-size:0.75rem;font-weight:600;color:var(--text-dim);cursor:pointer;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.4rem;transition:all 0.2s;}
+.btm-tab{padding:0.5rem 0.75rem;font-size:var(--fs-2);font-weight:600;color:var(--text-dim);cursor:pointer;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:var(--space-04);transition:all 0.2s;}
 .btm-tab.active,.btm-tab:hover{background:rgba(26,138,158,0.1);color:var(--cyan);}
 .btm-tab i{width:14px;text-align:center;}
 .btm-content{flex:1;display:flex;overflow:hidden;}
@@ -299,32 +373,32 @@ canvas.chart-canvas{max-height:100%;}
 .btm-pane.active{display:flex;}
 
 /* AI Engine */
-.ai-model-row{display:flex;gap:0.5rem;padding:0.5rem 0.75rem;flex-wrap:wrap;}
-.ai-model-card{flex:1;min-width:80px;background:rgba(26,138,158,0.04);border:1px solid var(--border);border-radius:6px;padding:0.5rem;text-align:center;}
-.ai-model-name{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:0.6rem;font-weight:700;color:var(--cyan);letter-spacing:1px;}
-.ai-model-val{font-size:0.9rem;font-weight:700;color:var(--green);margin:0.2rem 0;}
-.ai-model-lbl{font-size:0.6rem;font-weight:600;color:var(--text-dim);}
+.ai-model-row{display:flex;gap:var(--space-05);padding:0.5rem 0.75rem;flex-wrap:wrap;}
+.ai-model-card{flex:1;min-width:80px;background:rgba(26,138,158,0.04);border:var(--border-default);border-radius:var(--radius-6);padding:var(--space-05);text-align:center;}
+.ai-model-name{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-1);font-weight:700;color:var(--cyan);letter-spacing:1px;}
+.ai-model-val{font-size:var(--fs-3);font-weight:700;color:var(--green);margin:0.2rem 0;}
+.ai-model-lbl{font-size:var(--fs-1);font-weight:600;color:var(--text-dim);}
 
 /* GEE Workflow */
-.gee-flow{display:flex;align-items:center;gap:0.25rem;padding:0.5rem 0.75rem;overflow-x:auto;}
-.gee-step{background:rgba(26,138,158,0.05);border:1px solid rgba(26,138,158,0.2);border-radius:6px;padding:0.4rem 0.6rem;text-align:center;white-space:nowrap;flex-shrink:0;}
-.gee-step-icon{font-size:0.9rem;color:var(--cyan);display:block;margin-bottom:0.2rem;}
-.gee-step-name{font-size:0.7rem;color:var(--text);font-weight:600;}
-.gee-arrow{color:var(--cyan-dim);font-size:0.7rem;flex-shrink:0;}
+.gee-flow{display:flex;align-items:center;gap:var(--space-025);padding:0.5rem 0.75rem;overflow-x:auto;}
+.gee-step{background:rgba(26,138,158,0.05);border:1px solid rgba(26,138,158,0.2);border-radius:var(--radius-6);padding:0.4rem 0.6rem;text-align:center;white-space:nowrap;flex-shrink:0;}
+.gee-step-icon{font-size:var(--fs-3);color:var(--cyan);display:block;margin-bottom:var(--space-02);}
+.gee-step-name{font-size:var(--fs-1);color:var(--text);font-weight:600;}
+.gee-arrow{color:var(--cyan-dim);font-size:var(--fs-1);flex-shrink:0;}
 
 /* API section */
-.api-endpoint{display:flex;align-items:center;gap:0.5rem;padding:0.3rem 0.6rem;margin:0 0.75rem 0.3rem;background:rgba(26,138,158,0.03);border:1px solid var(--border);border-radius:4px;font-family:'Inter',monospace;font-variant-numeric:tabular-nums;font-size:0.7rem;font-weight:600;}
-.api-method{color:#fff;background:var(--blue);border-radius:3px;padding:0.1rem 0.35rem;font-size:0.6rem;font-weight:700;}
+.api-endpoint{display:flex;align-items:center;gap:var(--space-05);padding:0.3rem 0.6rem;margin:0 0.75rem 0.3rem;background:rgba(26,138,158,0.03);border:var(--border-default);border-radius:var(--radius-4);font-family:'Inter',monospace;font-variant-numeric:tabular-nums;font-size:var(--fs-1);font-weight:600;}
+.api-method{color:#fff;background:var(--blue);border-radius:var(--radius-3);padding:0.1rem 0.35rem;font-size:var(--fs-1);font-weight:700;}
 .api-path{color:var(--green);}
-.api-desc{color:var(--text-dim);font-size:0.65rem;font-weight:600;margin-left:auto;}
+.api-desc{color:var(--text-dim);font-size:var(--fs-1);font-weight:600;margin-left:auto;}
 
 /* Satellite panel */
-.sat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.4rem;padding:0.5rem 0.75rem;}
-.sat-card{background:rgba(26,138,158,0.03);border:1px solid var(--border);border-radius:5px;padding:0.5rem;text-align:center;}
-.sat-icon{font-size:0.9rem;margin-bottom:0.2rem;}
-.sat-name{font-size:0.65rem;font-weight:700;color:var(--cyan);letter-spacing:1px;}
-.sat-val{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:0.9rem;font-weight:700;color:var(--text);}
-.sat-unit{font-size:0.6rem;font-weight:600;color:var(--text-dim);}
+.sat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-04);padding:0.5rem 0.75rem;}
+.sat-card{background:rgba(26,138,158,0.03);border:var(--border-default);border-radius:var(--radius-5);padding:var(--space-05);text-align:center;}
+.sat-icon{font-size:var(--fs-3);margin-bottom:var(--space-02);}
+.sat-name{font-size:var(--fs-1);font-weight:700;color:var(--cyan);letter-spacing:1px;}
+.sat-val{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-3);font-weight:700;color:var(--text);}
+.sat-unit{font-size:var(--fs-1);font-weight:600;color:var(--text-dim);}
 
 /* Animations */
 @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
@@ -335,92 +409,92 @@ canvas.chart-canvas{max-height:100%;}
 @keyframes neuralFlow{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
 
 /* Panchayat */
-.panch-row{display:flex;align-items:center;gap:0.5rem;padding:0.3rem 0.75rem;border-bottom:1px solid var(--border);}
-.panch-rank{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:0.7rem;font-weight:700;color:var(--cyan);width:20px;}
-.panch-name{font-size:0.72rem;font-weight:600;color:var(--text);flex:1;}
-.panch-score{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:0.72rem;font-weight:700;color:var(--orange);}
-.panch-bar{width:60px;height:4px;background:var(--border);border-radius:2px;overflow:hidden;}
-.panch-bar-fill{height:100%;border-radius:2px;}
+.panch-row{display:flex;align-items:center;gap:var(--space-05);padding:0.3rem 0.75rem;border-bottom:1px solid var(--border);}
+.panch-rank{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-1);font-weight:700;color:var(--cyan);width:20px;}
+.panch-name{font-size:var(--fs-1);font-weight:600;color:var(--text);flex:1;}
+.panch-score{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-1);font-weight:700;color:var(--orange);}
+.panch-bar{width:60px;height:4px;background:var(--border);border-radius:var(--radius-2);overflow:hidden;}
+.panch-bar-fill{height:100%;border-radius:var(--radius-2);}
 
 /* PMFBY */
-.pmfby-stat{display:flex;flex-direction:column;align-items:center;padding:0.5rem;}
-.pmfby-val{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:1.3rem;font-weight:700;color:var(--orange);}
-.pmfby-lbl{font-size:0.65rem;font-weight:600;color:var(--text-dim);letter-spacing:1px;text-align:center;}
+.pmfby-stat{display:flex;flex-direction:column;align-items:center;padding:var(--space-05);}
+.pmfby-val{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-4);font-weight:700;color:var(--orange);}
+.pmfby-lbl{font-size:var(--fs-1);font-weight:600;color:var(--text-dim);letter-spacing:1px;text-align:center;}
 
 /* Tooltip override */
-.leaflet-popup-content-wrapper{background:var(--bg-card);border:1px solid var(--border);color:var(--text);border-radius:6px;font-size:0.75rem;font-weight:600;}
+.leaflet-popup-content-wrapper{background:var(--bg-card);border:var(--border-default);color:var(--text);border-radius:var(--radius-6);font-size:var(--fs-2);font-weight:600;}
 
 /* Hindi toggle */
-.lang-toggle{display:flex;align-items:center;gap:0.25rem;background:rgba(240,168,120,0.1);border:1px solid rgba(240,168,120,0.3);border-radius:3px;padding:0.15rem 0.4rem;font-size:0.65rem;font-weight:600;color:var(--orange);cursor:pointer;}
+.lang-toggle{display:flex;align-items:center;gap:var(--space-025);background:rgba(240,168,120,0.1);border:1px solid rgba(240,168,120,0.3);border-radius:var(--radius-3);padding:0.15rem 0.4rem;font-size:var(--fs-1);font-weight:600;color:var(--orange);cursor:pointer;}
 
 /* Forest */
-.forest-row{display:flex;align-items:center;gap:0.5rem;padding:0.35rem 0.75rem;border-bottom:1px solid var(--border);}
-.forest-indicator{width:8px;height:8px;border-radius:50%;}
-.forest-name{font-size:0.72rem;font-weight:600;flex:1;}
-.forest-val{font-size:0.72rem;font-weight:700;font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;}
+.forest-row{display:flex;align-items:center;gap:var(--space-05);padding:0.35rem 0.75rem;border-bottom:1px solid var(--border);}
+.forest-indicator{width:8px;height:8px;border-radius:var(--radius-circle);}
+.forest-name{font-size:var(--fs-1);font-weight:600;flex:1;}
+.forest-val{font-size:var(--fs-1);font-weight:700;font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;}
 
 /* Responsive */
 @media(max-width:768px){
   #right-panel{display:none;}
   #bottom-panel{height:200px;}
   .btm-tabs{width:120px;}
-  .hero-boundary-row{font-size:0.95rem;}
+  .hero-boundary-row{font-size:var(--fs-3);}
   .hero-boundary-row .hb-sep{margin:0 0.3rem;}
 }
 /* ===== KISAN SAHAYAK CHAT ===== */
-#chatFab{position:fixed;bottom:22px;right:22px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--teal));color:#fff;border:none;cursor:pointer;font-size:1.3rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(45,143,92,0.35);z-index:2000;transition:all 0.25s;}
+#chatFab{position:fixed;bottom:22px;right:22px;width:56px;height:56px;border-radius:var(--radius-circle);background:linear-gradient(135deg,var(--green),var(--teal));color:#fff;border:none;cursor:pointer;font-size:var(--fs-4);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(45,143,92,0.35);z-index:2000;transition:all 0.25s;}
 #chatFab svg{width:22px;height:22px;}
 #chatFab:hover{transform:scale(1.08);box-shadow:0 6px 22px rgba(45,143,92,0.45);}
-#chatFabPopup{position:fixed;bottom:34px;right:90px;background:var(--bg-card);color:var(--text);border:1px solid var(--border);padding:0.5rem 0.8rem;border-radius:12px;font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:0.78rem;font-weight:500;box-shadow:0 4px 16px rgba(0,0,0,0.08);z-index:2000;white-space:nowrap;display:none;animation:fadeInUp 0.3s ease;cursor:pointer;user-select:none;transition:transform 0.2s,box-shadow 0.2s;}
+#chatFabPopup{position:fixed;bottom:34px;right:90px;background:var(--bg-card);color:var(--text);border:var(--border-default);padding:0.5rem 0.8rem;border-radius:var(--radius-12);font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-2);font-weight:500;box-shadow:0 4px 16px rgba(0,0,0,0.08);z-index:2000;white-space:nowrap;display:none;animation:fadeInUp 0.3s ease;cursor:pointer;user-select:none;transition:transform 0.2s,box-shadow 0.2s;}
 #chatFabPopup:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,0,0,0.12);}
 #chatFabPopup.show{display:block;}
 #chatFabPopup::after{content:'';position:absolute;top:50%;right:-7px;transform:translateY(-50%);border-left:7px solid #ffffff;border-top:6px solid transparent;border-bottom:6px solid transparent;}
-#chatFab .fab-dot{position:absolute;top:6px;right:8px;width:9px;height:9px;background:var(--orange);border-radius:50%;border:2px solid #fff;}
-#chatWindow{position:fixed;bottom:88px;right:22px;width:360px;max-width:calc(100vw - 30px);height:520px;max-height:calc(100vh - 120px);background:var(--bg-card);border:1px solid var(--border);border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,0.1);z-index:2000;display:none;flex-direction:column;overflow:hidden;}
+#chatFab .fab-dot{position:absolute;top:6px;right:8px;width:9px;height:9px;background:var(--orange);border-radius:var(--radius-circle);border:2px solid #fff;}
+#chatWindow{position:fixed;bottom:88px;right:22px;width:360px;max-width:calc(100vw - 30px);height:520px;max-height:calc(100vh - 120px);background:var(--bg-card);border:var(--border-default);border-radius:var(--radius-14);box-shadow:0 8px 30px rgba(0,0,0,0.1);z-index:2000;display:none;flex-direction:column;overflow:hidden;}
 #chatWindow.open{display:flex;animation:fadeInUp 0.25s ease;}
-.chat-head{background:linear-gradient(135deg,var(--green),var(--teal));color:#fff;padding:0.7rem 0.9rem;display:flex;align-items:center;gap:0.6rem;}
-.chat-head-avatar{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:1rem;}
+.chat-head{background:linear-gradient(135deg,var(--green),var(--teal));color:#fff;padding:0.7rem 0.9rem;display:flex;align-items:center;gap:var(--space-06);}
+.chat-head-avatar{width:34px;height:34px;border-radius:var(--radius-circle);background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:var(--fs-3);}
 .chat-head-info{flex:1;line-height:1.2;}
-.chat-head-title{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.5px;}
-.chat-head-sub{font-size:0.58rem;opacity:0.9;display:flex;align-items:center;gap:0.3rem;}
-.chat-head-sub .dot{width:6px;height:6px;background:#dff3e6;border-radius:50%;display:inline-block;}
-.chat-head-btn{background:rgba(255,255,255,0.15);border:none;color:#fff;width:26px;height:26px;border-radius:6px;cursor:pointer;font-size:0.7rem;transition:all 0.2s;}
+.chat-head-title{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-2);font-weight:600;letter-spacing:0;}
+.chat-head-sub{font-size:var(--fs-1);opacity:0.9;display:flex;align-items:center;gap:var(--space-03);}
+.chat-head-sub .dot{width:6px;height:6px;background:#dff3e6;border-radius:var(--radius-circle);display:inline-block;}
+.chat-head-btn{background:rgba(255,255,255,0.15);border:none;color:#fff;width:26px;height:26px;border-radius:var(--radius-6);cursor:pointer;font-size:var(--fs-1);transition:all 0.2s;}
 .chat-head-btn:hover{background:rgba(255,255,255,0.3);}
-.chat-body{flex:1;overflow-y:auto;padding:0.8rem;display:flex;flex-direction:column;gap:0.6rem;background:var(--bg-deep);}
-.chat-suggestions{display:flex;flex-wrap:wrap;gap:0.4rem;padding:0 0.8rem 0.6rem;background:var(--bg-deep);}
-.chat-chip{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:0.35rem 0.7rem;font-size:0.7rem;font-weight:500;color:var(--text);cursor:pointer;transition:background 0.15s;}
+.chat-body{flex:1;overflow-y:auto;padding:var(--space-08);display:flex;flex-direction:column;gap:var(--space-06);background:var(--bg-deep);}
+.chat-suggestions{display:flex;flex-wrap:wrap;gap:var(--space-04);padding:0 0.8rem 0.6rem;background:var(--bg-deep);}
+.chat-chip{background:var(--bg-card);border:var(--border-default);border-radius:var(--radius-14);padding:0.35rem 0.7rem;font-size:var(--fs-1);font-weight:500;color:var(--text);cursor:pointer;transition:background 0.15s;}
 .chat-chip:hover{background:rgba(45,143,92,0.12);border-color:var(--green-dim);}
-.chat-msg{max-width:84%;padding:0.55rem 0.75rem;border-radius:12px;font-size:0.82rem;font-weight:500;line-height:1.5;word-wrap:break-word;white-space:pre-wrap;}
-.chat-msg.bot{align-self:flex-start;background:var(--bg-card);border:1px solid var(--border);color:var(--text);border-bottom-left-radius:4px;}
+.chat-msg{max-width:84%;padding:0.55rem 0.75rem;border-radius:var(--radius-12);font-size:var(--fs-2);font-weight:500;line-height:1.5;word-wrap:break-word;white-space:pre-wrap;}
+.chat-msg.bot{align-self:flex-start;background:var(--bg-card);border:var(--border-default);color:var(--text);border-bottom-left-radius:4px;}
 .chat-msg.user{align-self:flex-end;background:linear-gradient(135deg,var(--green),var(--green-dim));color:#fff;border-bottom-right-radius:4px;}
-.chat-input-row input{flex:1;background:var(--bg-deep);border:1px solid var(--border);border-radius:20px;padding:0.5rem 0.85rem;color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:0.82rem;font-weight:500;outline:none;}
+.chat-input-row input{flex:1;background:var(--bg-deep);border:var(--border-default);border-radius:var(--radius-20);padding:0.5rem 0.85rem;color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-2);font-weight:500;outline:none;}
 .chat-input-row input:focus{border-color:var(--green);}
-.chat-send{background:linear-gradient(135deg,var(--green),var(--teal));border:none;color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:0.85rem;flex-shrink:0;transition:all 0.2s;}
+.chat-send{background:linear-gradient(135deg,var(--green),var(--teal));border:none;color:#fff;width:38px;height:38px;border-radius:var(--radius-circle);cursor:pointer;font-size:var(--fs-3);flex-shrink:0;transition:all 0.2s;}
 .chat-send:hover{transform:scale(1.08);}
 .chat-send:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
-.chat-lang-toggle{font-size:0.58rem;padding:0.15rem 0.45rem;border-radius:10px;border:1px solid rgba(255,255,255,0.4);background:rgba(255,255,255,0.12);color:#fff;cursor:pointer;}
+.chat-lang-toggle{font-size:var(--fs-1);padding:0.15rem 0.45rem;border-radius:var(--radius-10);border:1px solid rgba(255,255,255,0.4);background:rgba(255,255,255,0.12);color:#fff;cursor:pointer;}
 @media(max-width:768px){
   #chatWindow{width:calc(100vw - 24px);right:12px;bottom:80px;height:calc(100vh - 100px);}
   #chatFab{bottom:16px;right:16px;}
 }
 /* First-open welcome popup: desktop card near the FAB, mobile bottom-sheet */
-#kisanWelcome{position:fixed;bottom:88px;right:22px;width:320px;max-width:calc(100vw - 30px);background:var(--bg-card);border:1px solid var(--border);border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,0.14);z-index:2001;display:none;overflow:hidden;animation:fadeInUp 0.3s ease;}
+#kisanWelcome{position:fixed;bottom:88px;right:22px;width:320px;max-width:calc(100vw - 30px);background:var(--bg-card);border:var(--border-default);border-radius:var(--radius-14);box-shadow:0 8px 30px rgba(0,0,0,0.14);z-index:2001;display:none;overflow:hidden;animation:fadeInUp 0.3s ease;}
 #kisanWelcome.open{display:block;}
 .kw-head{background:linear-gradient(135deg,var(--green),var(--teal));color:#fff;padding:0.9rem 1rem 0.8rem;}
-.kw-head-icon{width:30px;height:30px;margin-bottom:0.4rem;}
+.kw-head-icon{width:30px;height:30px;margin-bottom:var(--space-04);}
 .kw-head-icon svg{width:20px;height:20px;}
-.kw-title-hi{font-size:0.95rem;font-weight:700;font-family:"Noto Sans Devanagari",-apple-system,sans-serif;}
-.kw-title-en{font-size:0.72rem;font-weight:500;opacity:0.92;margin-top:0.1rem;}
+.kw-title-hi{font-size:var(--fs-3);font-weight:600;font-family:"Noto Sans Devanagari",-apple-system,sans-serif;}
+.kw-title-en{font-size:var(--fs-1);font-weight:500;opacity:0.92;margin-top:0.1rem;}
 .kw-body{padding:0.8rem 1rem;}
-.kw-explain{font-size:0.75rem;line-height:1.6;color:var(--text-dim);margin-bottom:0.7rem;}
-.kw-chips{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:0.7rem;}
-.kw-chip{text-align:left;background:var(--bg-deep);border:1px solid var(--border);border-radius:8px;padding:0.45rem 0.65rem;font-size:0.74rem;font-weight:500;color:var(--text);cursor:pointer;transition:background 0.15s;}
+.kw-explain{font-size:var(--fs-2);line-height:1.6;color:var(--text-dim);margin-bottom:var(--space-07);}
+.kw-chips{display:flex;flex-direction:column;gap:var(--space-04);margin-bottom:var(--space-07);}
+.kw-chip{text-align:left;background:var(--bg-deep);border:var(--border-default);border-radius:var(--radius-8);padding:0.45rem 0.65rem;font-size:var(--fs-1);font-weight:500;color:var(--text);cursor:pointer;transition:background 0.15s;}
 .kw-chip:hover{background:rgba(45,143,92,0.12);border-color:var(--green-dim);}
-.kw-disclaimer{font-size:0.62rem;line-height:1.5;color:var(--text-dim);border-top:1px solid var(--border);padding-top:0.55rem;margin-bottom:0.6rem;}
-.kw-dismiss{width:100%;background:transparent;border:1px solid var(--border);border-radius:8px;padding:0.4rem;font-size:0.72rem;font-weight:600;color:var(--text-dim);cursor:pointer;}
+.kw-disclaimer{font-size:var(--fs-1);line-height:1.5;color:var(--text-dim);border-top:1px solid var(--border);padding-top:0.55rem;margin-bottom:var(--space-06);}
+.kw-dismiss{width:100%;background:transparent;border:var(--border-default);border-radius:var(--radius-8);padding:var(--space-04);font-size:var(--fs-1);font-weight:600;color:var(--text-dim);cursor:pointer;}
 .kw-dismiss:hover{background:var(--bg-deep);}
 @media(max-width:768px){
-  #kisanWelcome{left:0;right:0;bottom:0;width:100%;max-width:100%;border-radius:16px 16px 0 0;border-left:none;border-right:none;border-bottom:none;}
+  #kisanWelcome{left:0;right:0;bottom:0;width:100%;max-width:100%;border-radius:var(--radius-16) 16px 0 0;border-left:none;border-right:none;border-bottom:none;}
 }
 </style>
 </head>
@@ -456,7 +530,7 @@ canvas.chart-canvas{max-height:100%;}
       <label for="gateEmail">Email</label>
       <input type="email" id="gateEmail" placeholder="e.g. name@example.com" autocomplete="email" onkeydown="if(event.key==='Enter')submitLoginGate()">
     </div>
-    <button class="btn-primary" id="gateEnterBtn" onclick="submitLoginGate()" disabled style="width:100%;margin-top:0.5rem;opacity:0.5;cursor:not-allowed;"><i class="fa fa-arrow-right-to-bracket"></i> &nbsp;Enter Portal</button>
+    <button class="btn-primary" id="gateEnterBtn" onclick="submitLoginGate()" disabled style="width:100%;margin-top:var(--space-05);opacity:0.5;cursor:not-allowed;"><i class="fa fa-arrow-right-to-bracket"></i> &nbsp;Enter Portal</button>
     <div class="gate-role-label">I am here as <span style="opacity:0.6">(optional)</span></div>
     <div class="gate-roles">
       <div class="gate-role-card" onclick="selectGateRole('admin')" data-role="admin">
@@ -473,7 +547,7 @@ canvas.chart-canvas{max-height:100%;}
       </div>
     </div>
     <div style="text-align:center;margin-top:0.9rem;">
-      <a href="javascript:void(0)" onclick="skipLoginGate()" style="font-size:0.72rem;color:rgba(255,255,255,0.65);text-decoration:underline;cursor:pointer;">
+      <a href="javascript:void(0)" onclick="skipLoginGate()" style="font-size:var(--fs-1);color:rgba(255,255,255,0.65);text-decoration:underline;cursor:pointer;">
         Skip / अतिथि के रूप में देखें
       </a>
     </div>
@@ -626,7 +700,7 @@ canvas.chart-canvas{max-height:100%;}
            <div class="map-ctrl-btn" title="Fullscreen" onclick="toggleFullMap()"><i class="fa fa-expand"></i></div>
         </div>
         <div class="map-legend" id="mapLegend">
-          <div class="legend-title"><i class="fa fa-circle-info" style="font-size:0.65rem"></i> <span id="legendTitle">RISK LEGEND</span></div>
+          <div class="legend-title"><i class="fa fa-circle-info" style="font-size:var(--fs-1)"></i> <span id="legendTitle">RISK LEGEND</span></div>
           <div id="legendBody">
             <div class="legend-row"><div class="legend-dot" style="background:#c0392b"></div>Extreme Risk</div>
             <div class="legend-row"><div class="legend-dot" style="background:#d4793a"></div>High Risk</div>
@@ -690,7 +764,7 @@ canvas.chart-canvas{max-height:100%;}
           <div class="loc-breadcrumb" id="locBreadcrumb">
             <b>India</b>
           </div>
-          <div id="boundaryLoadStatus" style="display:none;font-size:0.68rem;line-height:1.5;padding:0.4rem 0.5rem;margin-top:0.3rem;background:rgba(26,138,158,0.08);border:1px solid rgba(26,138,158,0.25);border-radius:5px;color:var(--text);"></div>
+          <div id="boundaryLoadStatus" style="display:none;font-size:var(--fs-1);line-height:1.5;padding:0.4rem 0.5rem;margin-top:var(--space-03);background:rgba(26,138,158,0.08);border:1px solid rgba(26,138,158,0.25);border-radius:var(--radius-5);color:var(--text);"></div>
         </div>
       </div>
 
@@ -698,7 +772,7 @@ canvas.chart-canvas{max-height:100%;}
       <div id="right-panel">
         <!-- Climate Metrics -->
         <div class="section-header">
-          <i class="fa fa-chart-bar" style="color:var(--cyan);font-size:0.7rem"></i>
+          <i class="fa fa-chart-bar" style="color:var(--cyan);font-size:var(--fs-1)"></i>
           <div class="section-title">CLIMATE METRICS</div>
         </div>
         <div class="metric-row">
@@ -715,11 +789,11 @@ canvas.chart-canvas{max-height:100%;}
             <div class="metric-trend"><i class="fa fa-thermometer-full" style="color:var(--orange)"></i> <span id="heat-detail">Select a district</span></div>
           </div>
           <div class="metric-card" style="grid-column:span 2;border-color:rgba(26,138,158,0.25);background:rgba(26,138,158,0.04);">
-            <div style="display:flex;gap:0.5rem;align-items:center;">
-              <span style="font-size:0.65rem;font-weight:600;color:var(--text-dim);letter-spacing:1px;">YEAR <span id="m-year-label" style="font-weight:700;color:var(--orange)">2024</span></span>
-              <span style="font-size:0.65rem;font-weight:600;color:var(--text-dim)">HW:</span><span id="m-year-hw" style="font-size:0.8rem;font-weight:700;color:var(--orange)">—</span>
-              <span style="font-size:0.65rem;font-weight:600;color:var(--text-dim)">Rain:</span><span id="m-year-rain" style="font-size:0.8rem;font-weight:700;color:var(--cyan)">—</span>
-              <span style="font-size:0.65rem;font-weight:600;color:var(--text-dim)">SPI:</span><span id="m-year-spi" style="font-size:0.8rem;font-weight:700;color:var(--green)">—</span>
+            <div style="display:flex;gap:var(--space-05);align-items:center;">
+              <span style="font-size:var(--fs-1);font-weight:600;color:var(--text-dim);letter-spacing:1px;">YEAR <span id="m-year-label" style="font-weight:700;color:var(--orange)">2024</span></span>
+              <span style="font-size:var(--fs-1);font-weight:600;color:var(--text-dim)">HW:</span><span id="m-year-hw" style="font-size:var(--fs-2);font-weight:700;color:var(--orange)">—</span>
+              <span style="font-size:var(--fs-1);font-weight:600;color:var(--text-dim)">Rain:</span><span id="m-year-rain" style="font-size:var(--fs-2);font-weight:700;color:var(--cyan)">—</span>
+              <span style="font-size:var(--fs-1);font-weight:600;color:var(--text-dim)">SPI:</span><span id="m-year-spi" style="font-size:var(--fs-2);font-weight:700;color:var(--green)">—</span>
             </div>
           </div>
           <div class="metric-card alert">
@@ -761,8 +835,8 @@ canvas.chart-canvas{max-height:100%;}
         </div>
 
         <!-- Farmer Advisories -->
-        <div class="section-header" style="margin-top:0.5rem">
-          <i class="fa fa-comment-dots" style="color:var(--green);font-size:0.7rem"></i>
+        <div class="section-header" style="margin-top:var(--space-05)">
+          <i class="fa fa-comment-dots" style="color:var(--green);font-size:var(--fs-1)"></i>
           <div class="section-title">FARMER ADVISORY</div>
           <div class="lang-toggle" onclick="toggleLang(this)"><i class="fa fa-language"></i> HI</div>
         </div>
@@ -857,39 +931,39 @@ canvas.chart-canvas{max-height:100%;}
       <div class="btm-content">
         <!-- Rainfall -->
         <div class="btm-pane active" id="pane-rainfall">
-          <div class="section-header"><i class="fa fa-cloud-rain" style="color:var(--cyan);font-size:0.7rem"></i><div class="section-title">RAINFALL FORECAST — CENTRAL INDIA (2024–25)</div></div>
+          <div class="section-header"><i class="fa fa-cloud-rain" style="color:var(--cyan);font-size:var(--fs-1)"></i><div class="section-title">RAINFALL FORECAST — CENTRAL INDIA (2024–25)</div></div>
           <div class="chart-wrap" style="height:200px;"><canvas id="chartRain"></canvas><div class="chart-empty" id="empty-chartRain"><i class="fa fa-cloud-rain"></i>Select a district (Bhopal, Indore, Jabalpur, Rewa or Sidhi have live IMD data) to see the rainfall forecast.</div></div>
         </div>
         <!-- Temp -->
         <div class="btm-pane" id="pane-temp">
-          <div class="section-header"><i class="fa fa-thermometer-half" style="color:var(--orange);font-size:0.7rem"></i><div class="section-title">TEMPERATURE TREND — MP REGION</div></div>
+          <div class="section-header"><i class="fa fa-thermometer-half" style="color:var(--orange);font-size:var(--fs-1)"></i><div class="section-title">TEMPERATURE TREND — MP REGION</div></div>
           <div class="chart-wrap" style="height:200px;"><canvas id="chartTemp"></canvas><div class="chart-empty" id="empty-chartTemp"><i class="fa fa-thermometer-half"></i>Select a district to see the temperature trend.</div></div>
         </div>
         <!-- Drought -->
         <div class="btm-pane" id="pane-drought">
-          <div class="section-header"><i class="fa fa-droplet-slash" style="color:var(--red);font-size:0.7rem"></i><div class="section-title">DROUGHT PROBABILITY — DISTRICT COMPARISON</div></div>
+          <div class="section-header"><i class="fa fa-droplet-slash" style="color:var(--red);font-size:var(--fs-1)"></i><div class="section-title">DROUGHT PROBABILITY — DISTRICT COMPARISON</div></div>
           <div class="chart-wrap" style="height:200px;"><canvas id="chartDrought"></canvas><div class="chart-empty" id="empty-chartDrought"><i class="fa fa-droplet-slash"></i>Select a district to see drought probability.</div></div>
         </div>
         <!-- Annual Trends -->
         <div class="btm-pane" id="pane-trends">
-          <div class="section-header"><i class="fa fa-chart-line" style="color:var(--cyan);font-size:0.7rem"></i><div class="section-title">ANNUAL TRENDS <span id="trendYearRange" style="color:var(--orange)">2000–2024</span></div></div>
+          <div class="section-header"><i class="fa fa-chart-line" style="color:var(--cyan);font-size:var(--fs-1)"></i><div class="section-title">ANNUAL TRENDS <span id="trendYearRange" style="color:var(--orange)">2000–2024</span></div></div>
           <div class="chart-wrap" style="height:200px;"><canvas id="chartTrends"></canvas><div class="chart-empty" id="empty-chartTrends"><i class="fa fa-chart-line"></i>Select a district to see annual trends (2000–2024).</div></div>
         </div>
         <!-- NDVI -->
         <div class="btm-pane" id="pane-ndvi">
-          <div class="section-header"><i class="fa fa-leaf" style="color:var(--green);font-size:0.7rem"></i><div class="section-title">NDVI TIME SERIES (DICRA 2013-2026)</div></div>
+          <div class="section-header"><i class="fa fa-leaf" style="color:var(--green);font-size:var(--fs-1)"></i><div class="section-title">NDVI TIME SERIES (DICRA 2013-2026)</div></div>
           <div class="chart-wrap" style="height:200px;"><canvas id="chartNdvi"></canvas></div>
         </div>
         <!-- 7-Day Forecast -->
         <div class="btm-pane" id="pane-forecast">
-          <div class="section-header"><i class="fa fa-clock" style="color:var(--orange);font-size:0.7rem"></i><div class="section-title">7-DAY WEATHER FORECAST <span id="forecastDistName" style="color:var(--orange)"></span></div></div>
+          <div class="section-header"><i class="fa fa-clock" style="color:var(--orange);font-size:var(--fs-1)"></i><div class="section-title">7-DAY WEATHER FORECAST <span id="forecastDistName" style="color:var(--orange)"></span></div></div>
           <div style="display:flex;flex:1;overflow:hidden;">
-            <div id="forecastPanel" style="flex:1;display:grid;grid-template-columns:repeat(7,1fr);gap:0.3rem;padding:0.5rem;"></div>
+            <div id="forecastPanel" style="flex:1;display:grid;grid-template-columns:repeat(7,1fr);gap:var(--space-03);padding:var(--space-05);"></div>
           </div>
         </div>
         <!-- GEE -->
         <div class="btm-pane" id="pane-gee">
-          <div class="section-header"><i class="fa fa-earth-asia" style="color:var(--teal);font-size:0.7rem"></i><div class="section-title">GOOGLE EARTH ENGINE: WHAT'S ACTUALLY INTEGRATED</div></div>
+          <div class="section-header"><i class="fa fa-earth-asia" style="color:var(--teal);font-size:var(--fs-1)"></i><div class="section-title">GOOGLE EARTH ENGINE: WHAT'S ACTUALLY INTEGRATED</div></div>
           <!-- Audit fix (2026-08-02): this panel previously showed a fixed
                "Sentinel-2 -> GEE Cloud -> Python AI -> Risk Engine ->
                GIS Dashboard -> Farmer Advisory" flow diagram and MODIS/
@@ -898,17 +972,17 @@ canvas.chart-canvas{max-height:100%;}
                Analytics panel right after it (Sentinel-2/SMAP/VIIRS are
                NOT integrated). Replaced with the real, current status of
                each source actually named in docs/DATA_SOURCES.md. -->
-          <div style="padding:0.5rem 0.75rem;display:grid;grid-template-columns:repeat(2,1fr);gap:0.5rem;">
-            <div class="sat-card"><div class="sat-name">MODIS</div><div class="sat-val" style="color:var(--green);font-size:0.65rem">LIVE</div><div class="sat-unit">NDVI, via UNDP DiCRA -- Madhya Pradesh's 52 districts only</div></div>
-            <div class="sat-card"><div class="sat-name">CHIRPS + ERA5-Land</div><div class="sat-val" style="color:var(--orange);font-size:0.65rem">IN PROGRESS</div><div class="sat-unit">National climate indices beyond the 5 IMD districts -- see scripts/08_gee_national_climate.py</div></div>
-            <div class="sat-card"><div class="sat-name">Sentinel-2</div><div class="sat-val" style="color:var(--text-dim);font-size:0.65rem">NOT INTEGRATED</div><div class="sat-unit">No layer in this dashboard uses it</div></div>
-            <div class="sat-card"><div class="sat-name">SMAP</div><div class="sat-val" style="color:var(--text-dim);font-size:0.65rem">NOT INTEGRATED</div><div class="sat-unit">Soil moisture stays "Not available" everywhere</div></div>
+          <div style="padding:0.5rem 0.75rem;display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-05);">
+            <div class="sat-card"><div class="sat-name">MODIS</div><div class="sat-val" style="color:var(--green);font-size:var(--fs-1)">LIVE</div><div class="sat-unit">NDVI, via UNDP DiCRA -- Madhya Pradesh's 52 districts only</div></div>
+            <div class="sat-card"><div class="sat-name">CHIRPS + ERA5-Land</div><div class="sat-val" style="color:var(--orange);font-size:var(--fs-1)">IN PROGRESS</div><div class="sat-unit">National climate indices beyond the 5 IMD districts -- see scripts/08_gee_national_climate.py</div></div>
+            <div class="sat-card"><div class="sat-name">Sentinel-2</div><div class="sat-val" style="color:var(--text-dim);font-size:var(--fs-1)">NOT INTEGRATED</div><div class="sat-unit">No layer in this dashboard uses it</div></div>
+            <div class="sat-card"><div class="sat-name">SMAP</div><div class="sat-val" style="color:var(--text-dim);font-size:var(--fs-1)">NOT INTEGRATED</div><div class="sat-unit">Soil moisture stays "Not available" everywhere</div></div>
           </div>
         </div>
         <!-- AI Models -->
         <div class="btm-pane" id="pane-ai">
-          <div class="section-header"><i class="fa fa-chart-line" style="color:var(--neon-blue);font-size:0.7rem"></i><div class="section-title">2040 PROJECTION METHOD</div></div>
-          <div style="padding:0.75rem 1rem;font-size:0.78rem;line-height:1.7;color:var(--text)">
+          <div class="section-header"><i class="fa fa-chart-line" style="color:var(--neon-blue);font-size:var(--fs-1)"></i><div class="section-title">2040 PROJECTION METHOD</div></div>
+          <div style="padding:0.75rem 1rem;font-size:var(--fs-2);line-height:1.7;color:var(--text)">
             This dashboard does not run a machine-learning forecasting model. The 2040 projection
             shown elsewhere in the app is a deterministic <strong>ordinary least-squares (OLS) trend</strong>
             fit to the observed 2000-2024 annual indices, with a 95% band derived from historical
@@ -920,9 +994,9 @@ canvas.chart-canvas{max-height:100%;}
         </div>
         <!-- Satellites -->
         <div class="btm-pane" id="pane-sat">
-          <div class="section-header"><i class="fa fa-satellite" style="color:var(--cyan);font-size:0.7rem"></i><div class="section-title">SATELLITE ANALYTICS PANEL</div></div>
-          <div style="padding:20px;text-align:center;color:var(--text-dim);font-size:12px;line-height:1.8;">
-            <i class="fa fa-satellite" style="font-size:26px;display:block;margin-bottom:8px;opacity:0.6"></i>
+          <div class="section-header"><i class="fa fa-satellite" style="color:var(--cyan);font-size:var(--fs-1)"></i><div class="section-title">SATELLITE ANALYTICS PANEL</div></div>
+          <div style="padding:var(--space-20px);text-align:center;color:var(--text-dim);font-size:var(--fs-2);line-height:1.8;">
+            <i class="fa fa-satellite" style="font-size:var(--fs-5);display:block;margin-bottom:8px;opacity:0.6"></i>
             <b>Not available yet</b><br>
             Sentinel-2/MODIS/SMAP/VIIRS/ERA5 layers are not integrated into this dashboard. This panel previously
             showed fixed placeholder values (NDVI, EVI, LST, soil moisture, etc.) that were never sourced from any
@@ -932,9 +1006,9 @@ canvas.chart-canvas{max-height:100%;}
         </div>
         <!-- API -->
         <div class="btm-pane" id="pane-api">
-          <div class="section-header"><i class="fa fa-code" style="color:var(--neon-blue);font-size:0.7rem"></i><div class="section-title">API ACCESS</div></div>
-          <div style="padding:20px;text-align:center;color:var(--text-dim);font-size:12px;line-height:1.8;">
-            <i class="fa fa-code" style="font-size:26px;display:block;margin-bottom:8px;opacity:0.6"></i>
+          <div class="section-header"><i class="fa fa-code" style="color:var(--neon-blue);font-size:var(--fs-1)"></i><div class="section-title">API ACCESS</div></div>
+          <div style="padding:var(--space-20px);text-align:center;color:var(--text-dim);font-size:var(--fs-2);line-height:1.8;">
+            <i class="fa fa-code" style="font-size:var(--fs-5);display:block;margin-bottom:8px;opacity:0.6"></i>
             <b>No public API yet</b><br>
             This portal has no backend and serves static files from GitHub Pages. The endpoints previously listed
             here (<code>/api/v1/...</code>) do not exist and were never implemented -- removed, see
@@ -944,9 +1018,9 @@ canvas.chart-canvas{max-height:100%;}
         </div>
         <!-- Panchayat -->
         <div class="btm-pane" id="pane-panch">
-          <div class="section-header"><i class="fa fa-building" style="color:var(--cyan);font-size:0.7rem"></i><div class="section-title">PANCHAYAT VULNERABILITY RANKING</div></div>
-          <div style="padding:20px;text-align:center;color:var(--text-dim);font-size:12px;line-height:1.8;">
-            <i class="fa fa-building" style="font-size:26px;display:block;margin-bottom:8px;opacity:0.6"></i>
+          <div class="section-header"><i class="fa fa-building" style="color:var(--cyan);font-size:var(--fs-1)"></i><div class="section-title">PANCHAYAT VULNERABILITY RANKING</div></div>
+          <div style="padding:var(--space-20px);text-align:center;color:var(--text-dim);font-size:var(--fs-2);line-height:1.8;">
+            <i class="fa fa-building" style="font-size:var(--fs-5);display:block;margin-bottom:8px;opacity:0.6"></i>
             <b>Not available yet</b><br>
             No panchayat-level vulnerability assessment has been computed. This panel previously listed named Gram
             Panchayats (Alirajpur, Badwah, Bijori and others) with invented vulnerability scores that were never
@@ -957,9 +1031,9 @@ canvas.chart-canvas{max-height:100%;}
         </div>
         <!-- Forest -->
         <div class="btm-pane" id="pane-forest">
-          <div class="section-header"><i class="fa fa-tree" style="color:var(--green);font-size:0.7rem"></i><div class="section-title">FOREST &amp; TRIBAL ANALYTICS</div></div>
-          <div style="padding:20px;text-align:center;color:var(--text-dim);font-size:12px;line-height:1.8;">
-            <i class="fa fa-tree" style="font-size:26px;display:block;margin-bottom:8px;opacity:0.6"></i>
+          <div class="section-header"><i class="fa fa-tree" style="color:var(--green);font-size:var(--fs-1)"></i><div class="section-title">FOREST &amp; TRIBAL ANALYTICS</div></div>
+          <div style="padding:var(--space-20px);text-align:center;color:var(--text-dim);font-size:var(--fs-2);line-height:1.8;">
+            <i class="fa fa-tree" style="font-size:var(--fs-5);display:block;margin-bottom:8px;opacity:0.6"></i>
             <b>Not available yet</b><br>
             Forest Survey of India / Bhuvan land-use data is not integrated. This panel previously named specific
             districts (Umaria, Shahdol, Mandla and others) with invented risk levels and carbon-stock figures --
@@ -969,9 +1043,9 @@ canvas.chart-canvas{max-height:100%;}
         </div>
         <!-- PMFBY -->
         <div class="btm-pane" id="pane-pmfby">
-          <div class="section-header"><i class="fa fa-shield-halved" style="color:var(--orange);font-size:0.7rem"></i><div class="section-title">PMFBY INSURANCE ANALYTICS</div></div>
-          <div style="padding:20px;text-align:center;color:var(--text-dim);font-size:12px;line-height:1.8;">
-            <i class="fa fa-shield-halved" style="font-size:26px;display:block;margin-bottom:8px;opacity:0.6"></i>
+          <div class="section-header"><i class="fa fa-shield-halved" style="color:var(--orange);font-size:var(--fs-1)"></i><div class="section-title">PMFBY INSURANCE ANALYTICS</div></div>
+          <div style="padding:var(--space-20px);text-align:center;color:var(--text-dim);font-size:var(--fs-2);line-height:1.8;">
+            <i class="fa fa-shield-halved" style="font-size:var(--fs-5);display:block;margin-bottom:8px;opacity:0.6"></i>
             <b>Not available yet</b><br>
             No PMFBY enrollment or claims data is integrated. This panel previously showed invented enrollment,
             claim-exposure and "AI risk score" figures -- removed, see <code>docs/AUDIT_2026-08-01.md</code>.
@@ -981,9 +1055,9 @@ canvas.chart-canvas{max-height:100%;}
         </div>
         <!-- Village Intelligence -->
         <div class="btm-pane" id="pane-village">
-          <div class="section-header"><i class="fa fa-house" style="color:var(--cyan);font-size:0.7rem"></i><div class="section-title">VILLAGE INTELLIGENCE</div></div>
-          <div style="padding:20px;text-align:center;color:var(--text-dim);font-size:12px;line-height:1.8;">
-            <i class="fa fa-house" style="font-size:26px;display:block;margin-bottom:8px;opacity:0.6"></i>
+          <div class="section-header"><i class="fa fa-house" style="color:var(--cyan);font-size:var(--fs-1)"></i><div class="section-title">VILLAGE INTELLIGENCE</div></div>
+          <div style="padding:var(--space-20px);text-align:center;color:var(--text-dim);font-size:var(--fs-2);line-height:1.8;">
+            <i class="fa fa-house" style="font-size:var(--fs-5);display:block;margin-bottom:8px;opacity:0.6"></i>
             <b>Use the Location Selector</b><br>
             Village-level IMD indices for the 5 covered districts (Bhopal, Indore, Jabalpur, Rewa, Sidhi) are shown
             in the <b>Historical Indices</b> panel once you pick District &rarr; Block &rarr; Village from the
@@ -994,136 +1068,136 @@ canvas.chart-canvas{max-height:100%;}
         </div>
         <!-- Agriculture -->
         <div class="btm-pane" id="pane-agriculture">
-          <div class="section-header"><i class="fa fa-wheat-awn" style="color:var(--green);font-size:0.7rem"></i><div class="section-title">AGRICULTURE &amp; CROP HEALTH <span id="agriDistName" style="color:var(--orange)"></span></div></div>
-          <div style="overflow-y:auto;flex:1;padding:0.5rem;">
-            <div class="agri-metrics" style="display:flex;gap:0.5rem;margin-bottom:0.5rem;flex-wrap:wrap;">
+          <div class="section-header"><i class="fa fa-wheat-awn" style="color:var(--green);font-size:var(--fs-1)"></i><div class="section-title">AGRICULTURE &amp; CROP HEALTH <span id="agriDistName" style="color:var(--orange)"></span></div></div>
+          <div style="overflow-y:auto;flex:1;padding:var(--space-05);">
+            <div class="agri-metrics" style="display:flex;gap:var(--space-05);margin-bottom:var(--space-05);flex-wrap:wrap;">
               <div class="metric-card" style="flex:1;min-width:100px;"><div class="metric-label">CROP HEALTH</div><div class="metric-value" id="agri-crop-health" style="color:var(--green)">—</div></div>
               <div class="metric-card" style="flex:1;min-width:100px;"><div class="metric-label">NDVI MEAN</div><div class="metric-value" id="agri-ndvi" style="color:var(--teal)">—</div></div>
               <div class="metric-card" style="flex:1;min-width:100px;"><div class="metric-label">RAINFALL</div><div class="metric-value" id="agri-rain" style="color:var(--cyan)">—</div></div>
               <div class="metric-card" style="flex:1;min-width:100px;"><div class="metric-label">SOIL TYPE</div><div class="metric-value" id="agri-soil-type" style="color:var(--yellow)">—</div></div>
             </div>
-            <div class="section-header" style="padding:0.25rem 0;margin-bottom:0.3rem;"><i class="fa fa-calendar" style="color:var(--green);font-size:0.7rem"></i><div class="section-title" style="font-size:0.7rem">CROP SEASON — <span id="agri-season-name">KHARIF</span></div></div>
-            <div style="display:flex;gap:0.5rem;margin-bottom:0.5rem;flex-wrap:wrap;">
-              <div class="metric-card" style="flex:1;min-width:100px;"><div class="metric-label">RECOMMENDED</div><div class="metric-value" id="agri-rec-crop" style="font-size:0.7rem;font-weight:700;color:var(--green)">—</div></div>
-              <div class="metric-card" style="flex:1;min-width:100px;"><div class="metric-label">ALTERNATIVE</div><div class="metric-value" id="agri-alt-crop" style="font-size:0.7rem;font-weight:700;color:var(--teal)">—</div></div>
-              <div class="metric-card" style="flex:1;min-width:80px;"><div class="metric-label">SUITABILITY</div><div class="metric-value" id="agri-suitability" style="font-size:0.6rem;color:var(--orange)">—</div></div>
+            <div class="section-header" style="padding:0.25rem 0;margin-bottom:var(--space-03);"><i class="fa fa-calendar" style="color:var(--green);font-size:var(--fs-1)"></i><div class="section-title" style="font-size:var(--fs-1)">CROP SEASON — <span id="agri-season-name">KHARIF</span></div></div>
+            <div style="display:flex;gap:var(--space-05);margin-bottom:var(--space-05);flex-wrap:wrap;">
+              <div class="metric-card" style="flex:1;min-width:100px;"><div class="metric-label">RECOMMENDED</div><div class="metric-value" id="agri-rec-crop" style="font-size:var(--fs-1);font-weight:700;color:var(--green)">—</div></div>
+              <div class="metric-card" style="flex:1;min-width:100px;"><div class="metric-label">ALTERNATIVE</div><div class="metric-value" id="agri-alt-crop" style="font-size:var(--fs-1);font-weight:700;color:var(--teal)">—</div></div>
+              <div class="metric-card" style="flex:1;min-width:80px;"><div class="metric-label">SUITABILITY</div><div class="metric-value" id="agri-suitability" style="font-size:var(--fs-1);color:var(--orange)">—</div></div>
             </div>
-            <div class="section-header" style="padding:0.25rem 0;margin-bottom:0.3rem;"><i class="fa fa-comment-dots" style="color:var(--cyan);font-size:0.7rem"></i><div class="section-title" style="font-size:0.7rem">FARMER ADVISORY</div></div>
-            <div id="agri-advisory" style="background:rgba(26,138,158,0.08);border-left:3px solid var(--cyan);padding:0.4rem 0.5rem;border-radius:4px;margin-bottom:0.5rem;font-size:0.65rem;line-height:1.4;color:var(--text);"></div>
-            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
-              <div class="metric-card" style="flex:1;min-width:120px;"><div class="metric-label">IRRIGATION</div><div id="agri-irrigation" class="metric-value" style="font-size:0.7rem;font-weight:700;color:var(--cyan)">—</div></div>
-              <div class="metric-card" style="flex:1;min-width:120px;"><div class="metric-label">NUTRIENT MGMT</div><div id="agri-nutrient" class="metric-value" style="font-size:0.7rem;font-weight:700;color:var(--yellow)">—</div></div>
-              <div class="metric-card" style="flex:1;min-width:120px;"><div class="metric-label">FERTILIZER</div><div id="agri-fertilizer" class="metric-value" style="font-size:0.7rem;font-weight:700;color:var(--orange)">—</div></div>
+            <div class="section-header" style="padding:0.25rem 0;margin-bottom:var(--space-03);"><i class="fa fa-comment-dots" style="color:var(--cyan);font-size:var(--fs-1)"></i><div class="section-title" style="font-size:var(--fs-1)">FARMER ADVISORY</div></div>
+            <div id="agri-advisory" style="background:rgba(26,138,158,0.08);border-left:3px solid var(--cyan);padding:0.4rem 0.5rem;border-radius:var(--radius-4);margin-bottom:var(--space-05);font-size:var(--fs-1);line-height:1.4;color:var(--text);"></div>
+            <div style="display:flex;gap:var(--space-05);flex-wrap:wrap;">
+              <div class="metric-card" style="flex:1;min-width:120px;"><div class="metric-label">IRRIGATION</div><div id="agri-irrigation" class="metric-value" style="font-size:var(--fs-1);font-weight:700;color:var(--cyan)">—</div></div>
+              <div class="metric-card" style="flex:1;min-width:120px;"><div class="metric-label">NUTRIENT MGMT</div><div id="agri-nutrient" class="metric-value" style="font-size:var(--fs-1);font-weight:700;color:var(--yellow)">—</div></div>
+              <div class="metric-card" style="flex:1;min-width:120px;"><div class="metric-label">FERTILIZER</div><div id="agri-fertilizer" class="metric-value" style="font-size:var(--fs-1);font-weight:700;color:var(--orange)">—</div></div>
             </div>
-            <div class="section-header" style="padding:0.25rem 0;margin:0.3rem 0;"><i class="fa fa-water" style="color:var(--blue);font-size:0.7rem"></i><div class="section-title" style="font-size:0.7rem">GROUNDWATER &amp; IRRIGATION (GEE-Based)</div></div>
-            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
-              <div class="metric-card" style="flex:1;min-width:80px;"><div class="metric-label">GW STRESS</div><div class="metric-value" id="agri-gw-stress" style="font-size:0.6rem;color:var(--red)">—</div></div>
-              <div class="metric-card" style="flex:1;min-width:80px;"><div class="metric-label">GW LEVEL</div><div class="metric-value" id="agri-gw-level" style="font-size:0.6rem;color:var(--teal)">—</div></div>
-              <div class="metric-card" style="flex:1;min-width:80px;"><div class="metric-label">IRRIGATION NEED</div><div class="metric-value" id="agri-gw-irr-need" style="font-size:0.7rem;font-weight:700;color:var(--cyan)">—</div></div>
-              <div class="metric-card" style="flex:1;min-width:80px;"><div class="metric-label">RECHARGE</div><div class="metric-value" id="agri-gw-recharge" style="font-size:0.7rem;font-weight:700;color:var(--green)">—</div></div>
+            <div class="section-header" style="padding:0.25rem 0;margin:0.3rem 0;"><i class="fa fa-water" style="color:var(--blue);font-size:var(--fs-1)"></i><div class="section-title" style="font-size:var(--fs-1)">GROUNDWATER &amp; IRRIGATION (GEE-Based)</div></div>
+            <div style="display:flex;gap:var(--space-05);flex-wrap:wrap;">
+              <div class="metric-card" style="flex:1;min-width:80px;"><div class="metric-label">GW STRESS</div><div class="metric-value" id="agri-gw-stress" style="font-size:var(--fs-1);color:var(--red)">—</div></div>
+              <div class="metric-card" style="flex:1;min-width:80px;"><div class="metric-label">GW LEVEL</div><div class="metric-value" id="agri-gw-level" style="font-size:var(--fs-1);color:var(--teal)">—</div></div>
+              <div class="metric-card" style="flex:1;min-width:80px;"><div class="metric-label">IRRIGATION NEED</div><div class="metric-value" id="agri-gw-irr-need" style="font-size:var(--fs-1);font-weight:700;color:var(--cyan)">—</div></div>
+              <div class="metric-card" style="flex:1;min-width:80px;"><div class="metric-label">RECHARGE</div><div class="metric-value" id="agri-gw-recharge" style="font-size:var(--fs-1);font-weight:700;color:var(--green)">—</div></div>
             </div>
-            <div style="margin-top:0.5rem;display:flex;gap:0.5rem;">
-              <button onclick="setBtmTab('pmfby')" style="flex:1;background:var(--orange);border:none;padding:0.3rem;border-radius:4px;color:#fff;cursor:pointer;font-size:0.6rem;font-weight:600;">VIEW PMFBY INSURANCE</button>
+            <div style="margin-top:var(--space-05);display:flex;gap:var(--space-05);">
+              <button onclick="setBtmTab('pmfby')" style="flex:1;background:var(--orange);border:none;padding:var(--space-03);border-radius:var(--radius-4);color:#fff;cursor:pointer;font-size:var(--fs-1);font-weight:600;">VIEW PMFBY INSURANCE</button>
             </div>
           </div>
         </div>
         <!-- Ecology -->
         <div class="btm-pane" id="pane-ecology">
-          <div class="section-header"><i class="fa fa-tree" style="color:var(--green);font-size:0.7rem"></i><div class="section-title">ECOLOGY &amp; BIODIVERSITY <span id="ecoDistName" style="color:var(--orange)"></span></div></div>
-          <div style="overflow-y:auto;flex:1;padding:0.5rem;">
-            <div style="display:flex;gap:0.5rem;margin-bottom:0.5rem;flex-wrap:wrap;">
+          <div class="section-header"><i class="fa fa-tree" style="color:var(--green);font-size:var(--fs-1)"></i><div class="section-title">ECOLOGY &amp; BIODIVERSITY <span id="ecoDistName" style="color:var(--orange)"></span></div></div>
+          <div style="overflow-y:auto;flex:1;padding:var(--space-05);">
+            <div style="display:flex;gap:var(--space-05);margin-bottom:var(--space-05);flex-wrap:wrap;">
               <div class="metric-card" style="flex:1;min-width:100px;"><div class="metric-label">FOREST COVER</div><div class="metric-value" id="eco-forest" style="color:var(--green)">—</div></div>
               <div class="metric-card" style="flex:1;min-width:100px;"><div class="metric-label">NDVI TREND</div><div class="metric-value" id="eco-ndvi" style="color:var(--teal)">—</div></div>
               <div class="metric-card" style="flex:1;min-width:100px;"><div class="metric-label">BIODIVERSITY</div><div class="metric-value" id="eco-bio" style="color:var(--yellow)">—</div></div>
               <div class="metric-card" style="flex:1;min-width:100px;"><div class="metric-label">CARBON</div><div class="metric-value" id="eco-carbon" style="color:var(--cyan)">—</div></div>
             </div>
-            <div class="section-header" style="padding:0.25rem 0;margin-bottom:0.3rem;"><i class="fa fa-map" style="color:var(--green);font-size:0.7rem"></i><div class="section-title" style="font-size:0.7rem">AREA-WISE ECOLOGICAL METRICS</div></div>
-            <div id="eco-area-metrics" style="display:grid;grid-template-columns:1fr 1fr;gap:0.3rem;font-size:0.6rem;">
+            <div class="section-header" style="padding:0.25rem 0;margin-bottom:var(--space-03);"><i class="fa fa-map" style="color:var(--green);font-size:var(--fs-1)"></i><div class="section-title" style="font-size:var(--fs-1)">AREA-WISE ECOLOGICAL METRICS</div></div>
+            <div id="eco-area-metrics" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-03);font-size:var(--fs-1);">
               <div class="forest-row"><div class="forest-indicator" style="background:var(--green)"></div><div class="forest-name">Protected Area</div><div class="forest-val" id="eco-protected" style="color:var(--green)">—</div></div>
               <div class="forest-row"><div class="forest-indicator" style="background:var(--teal)"></div><div class="forest-name">Wildlife Corridor</div><div class="forest-val" id="eco-wildlife" style="color:var(--teal)">—</div></div>
               <div class="forest-row"><div class="forest-indicator" style="background:var(--orange)"></div><div class="forest-name">Deforestation Risk</div><div class="forest-val" id="eco-deforest" style="color:var(--orange)">—</div></div>
               <div class="forest-row"><div class="forest-indicator" style="background:var(--yellow)"></div><div class="forest-name">Water Body %</div><div class="forest-val" id="eco-water" style="color:var(--yellow)">—</div></div>
             </div>
-            <div class="section-header" style="padding:0.25rem 0;margin:0.3rem 0;"><i class="fa fa-paw" style="color:var(--yellow);font-size:0.7rem"></i><div class="section-title" style="font-size:0.7rem">BIODIVERSITY RISK ASSESSMENT</div></div>
-            <div id="eco-bio-detail" style="font-size:0.6rem;line-height:1.5;color:var(--text);padding:0.3rem;background:rgba(255,183,77,0.08);border-radius:4px;"></div>
+            <div class="section-header" style="padding:0.25rem 0;margin:0.3rem 0;"><i class="fa fa-paw" style="color:var(--yellow);font-size:var(--fs-1)"></i><div class="section-title" style="font-size:var(--fs-1)">BIODIVERSITY RISK ASSESSMENT</div></div>
+            <div id="eco-bio-detail" style="font-size:var(--fs-1);line-height:1.5;color:var(--text);padding:var(--space-03);background:rgba(255,183,77,0.08);border-radius:var(--radius-4);"></div>
           </div>
         </div>
         <!-- Cadastral -->
             <div class="btm-pane" id="pane-cadastral">
-              <div style="background:rgba(233,30,99,0.1);border:1px solid rgba(233,30,99,0.35);border-radius:6px;padding:0.5rem 0.7rem;margin:0.5rem 0.5rem 0;font-size:0.68rem;line-height:1.6;color:var(--text);">
+              <div style="background:rgba(233,30,99,0.1);border:1px solid rgba(233,30,99,0.35);border-radius:var(--radius-6);padding:0.5rem 0.7rem;margin:0.5rem 0.5rem 0;font-size:var(--fs-1);line-height:1.6;color:var(--text);">
                 <b style="color:#e91e63;letter-spacing:1px;">DEMONSTRATION / प्रदर्शन</b> — this is a structural preview of the
                 planned cadastral module. Real khasra boundaries will come from MP Bhulekh / Bhu-Naksha. No value shown here
                 is an actual land record.<br>
                 <span style="opacity:0.85">यह planned cadastral module का ढांचा है। असली खसरा सीमाएँ MP भूलेख / भू-नक्शा से आएँगी।
                 यहाँ दिखाया गया कोई भी आंकड़ा वास्तविक भूमि अभिलेख नहीं है।</span>
               </div>
-              <div class="section-header"><i class="fa fa-draw-polygon" style="color:var(--orange);font-size:0.7rem"></i><div class="section-title">सीमांक CADASTRAL — <span id="cad-village-name">Sample village</span> <span style="color:var(--teal)">|</span> KHASRA <span id="cad-selected-khasra" style="color:var(--orange)">—</span></div></div>
-              <div style="overflow-y:auto;flex:1;padding:0.5rem;">
-                <div style="display:flex;gap:0.5rem;margin-bottom:0.5rem;flex-wrap:wrap;">
+              <div class="section-header"><i class="fa fa-draw-polygon" style="color:var(--orange);font-size:var(--fs-1)"></i><div class="section-title">सीमांक CADASTRAL — <span id="cad-village-name">Sample village</span> <span style="color:var(--teal)">|</span> KHASRA <span id="cad-selected-khasra" style="color:var(--orange)">—</span></div></div>
+              <div style="overflow-y:auto;flex:1;padding:var(--space-05);">
+                <div style="display:flex;gap:var(--space-05);margin-bottom:var(--space-05);flex-wrap:wrap;">
                   <div style="flex:1;min-width:100px;">
-                    <label style="font-size:0.65rem;font-weight:600;color:var(--text-dim);display:block;margin-bottom:0.2rem;">SEARCH KHASRA / PARCEL</label>
-                    <select id="cadKhasraSelect" onchange="onKhasraChange(this.value)" style="width:100%;padding:0.3rem;border-radius:4px;border:1px solid var(--border);background:var(--bg-card);color:var(--text);font-size:0.65rem;">
+                    <label style="font-size:var(--fs-1);font-weight:600;color:var(--text-dim);display:block;margin-bottom:var(--space-02);">SEARCH KHASRA / PARCEL</label>
+                    <select id="cadKhasraSelect" onchange="onKhasraChange(this.value)" style="width:100%;padding:var(--space-03);border-radius:var(--radius-4);border:var(--border-default);background:var(--bg-card);color:var(--text);font-size:var(--fs-1);">
                       <option value="">-- Sample parcel (demo) --</option>
                     </select>
                   </div>
                   <div style="flex:1;min-width:100px;">
-                    <label style="font-size:0.65rem;font-weight:600;color:var(--text-dim);display:block;margin-bottom:0.2rem;">FILTER BY CROP</label>
-                    <select id="cadCropFilter" onchange="window.filterByCrop(this.value||null)" style="width:100%;padding:0.3rem;border-radius:4px;border:1px solid var(--border);background:var(--bg-card);color:var(--text);font-size:0.65rem;">
+                    <label style="font-size:var(--fs-1);font-weight:600;color:var(--text-dim);display:block;margin-bottom:var(--space-02);">FILTER BY CROP</label>
+                    <select id="cadCropFilter" onchange="window.filterByCrop(this.value||null)" style="width:100%;padding:var(--space-03);border-radius:var(--radius-4);border:var(--border-default);background:var(--bg-card);color:var(--text);font-size:var(--fs-1);">
                       <option value="">-- All Crops --</option>
                     </select>
                   </div>
                   <div style="flex-shrink:0;text-align:right;">
-                    <button onclick="flyToKhasra()" style="background:var(--cyan);border:none;padding:0.3rem 0.6rem;border-radius:4px;color:#fff;cursor:pointer;font-size:0.6rem;font-weight:600;"><i class="fa fa-location-crosshairs"></i> FLY TO</button>
-                    <button onclick="toggleCadLayer()" style="background:var(--teal);border:none;padding:0.3rem 0.6rem;border-radius:4px;color:#fff;cursor:pointer;font-size:0.6rem;font-weight:600;margin-left:0.3rem;"><i class="fa fa-layer-group"></i> TOGGLE</button>
-                    <button onclick="showAllParcels()" style="background:var(--orange);border:none;padding:0.3rem 0.6rem;border-radius:4px;color:#fff;cursor:pointer;font-size:0.6rem;font-weight:600;margin-left:0.3rem;"><i class="fa fa-eye"></i> ALL</button>
+                    <button onclick="flyToKhasra()" style="background:var(--cyan);border:none;padding:0.3rem 0.6rem;border-radius:var(--radius-4);color:#fff;cursor:pointer;font-size:var(--fs-1);font-weight:600;"><i class="fa fa-location-crosshairs"></i> FLY TO</button>
+                    <button onclick="toggleCadLayer()" style="background:var(--teal);border:none;padding:0.3rem 0.6rem;border-radius:var(--radius-4);color:#fff;cursor:pointer;font-size:var(--fs-1);font-weight:600;margin-left:0.3rem;"><i class="fa fa-layer-group"></i> TOGGLE</button>
+                    <button onclick="showAllParcels()" style="background:var(--orange);border:none;padding:0.3rem 0.6rem;border-radius:var(--radius-4);color:#fff;cursor:pointer;font-size:var(--fs-1);font-weight:600;margin-left:0.3rem;"><i class="fa fa-eye"></i> ALL</button>
                   </div>
                 </div>
                 <!-- Land Record (B-1) -->
-                <div style="background:rgba(33,150,243,0.08);border:1px solid rgba(33,150,243,0.3);border-radius:6px;padding:0.4rem;margin-bottom:0.4rem;">
-                  <div style="font-size:0.55rem;letter-spacing:2px;font-weight:700;color:var(--blue);margin-bottom:0.3rem;"><i class="fa fa-folder"></i> LAND RECORD (B-1)</div>
-                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.3rem;">
-                    <div><span style="font-size:0.5rem;color:var(--text-dim);display:block;">KHASRA NO</span><span id="cad-khasra" style="font-size:0.7rem;color:#fff;font-weight:700;">—</span></div>
-                    <div><span style="font-size:0.5rem;color:var(--text-dim);display:block;">AREA (Ha)</span><span id="cad-area" style="font-size:0.7rem;color:var(--cyan);font-weight:700;">—</span></div>
+                <div style="background:rgba(33,150,243,0.08);border:1px solid rgba(33,150,243,0.3);border-radius:var(--radius-6);padding:var(--space-04);margin-bottom:var(--space-04);">
+                  <div style="font-size:var(--fs-1);letter-spacing:2px;font-weight:700;color:var(--blue);margin-bottom:var(--space-03);"><i class="fa fa-folder"></i> LAND RECORD (B-1)</div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-03);">
+                    <div><span style="font-size:var(--fs-1);color:var(--text-dim);display:block;">KHASRA NO</span><span id="cad-khasra" style="font-size:var(--fs-1);color:#fff;font-weight:700;">—</span></div>
+                    <div><span style="font-size:var(--fs-1);color:var(--text-dim);display:block;">AREA (Ha)</span><span id="cad-area" style="font-size:var(--fs-1);color:var(--cyan);font-weight:700;">—</span></div>
                   </div>
                 </div>
                 <!-- Farmer Identity -->
-                <div style="background:rgba(33,150,243,0.08);border:1px solid rgba(33,150,243,0.3);border-radius:6px;padding:0.4rem;margin-bottom:0.4rem;">
-                  <div style="font-size:0.55rem;letter-spacing:2px;font-weight:700;color:var(--blue);margin-bottom:0.3rem;"><i class="fa fa-user"></i> FARMER IDENTITY</div>
-                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.3rem;">
-                    <div><span style="font-size:0.5rem;color:var(--text-dim);display:block;">OWNER NAME <span style="opacity:0.75">[MP Bhulekh field]</span></span><span id="cad-owner" style="font-size:0.7rem;color:#fff;font-weight:700;">—</span></div>
-                    <div><span style="font-size:0.5rem;color:var(--text-dim);display:block;">FATHER/HUSBAND <span style="opacity:0.75">[MP Bhulekh field]</span></span><span id="cad-father" style="font-size:0.7rem;color:#fff;font-weight:700;">—</span></div>
+                <div style="background:rgba(33,150,243,0.08);border:1px solid rgba(33,150,243,0.3);border-radius:var(--radius-6);padding:var(--space-04);margin-bottom:var(--space-04);">
+                  <div style="font-size:var(--fs-1);letter-spacing:2px;font-weight:700;color:var(--blue);margin-bottom:var(--space-03);"><i class="fa fa-user"></i> FARMER IDENTITY</div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-03);">
+                    <div><span style="font-size:var(--fs-1);color:var(--text-dim);display:block;">OWNER NAME <span style="opacity:0.75">[MP Bhulekh field]</span></span><span id="cad-owner" style="font-size:var(--fs-1);color:#fff;font-weight:700;">—</span></div>
+                    <div><span style="font-size:var(--fs-1);color:var(--text-dim);display:block;">FATHER/HUSBAND <span style="opacity:0.75">[MP Bhulekh field]</span></span><span id="cad-father" style="font-size:var(--fs-1);color:#fff;font-weight:700;">—</span></div>
                   </div>
                 </div>
                 <!-- Parcel Details -->
-                <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:0.4rem;">
-                  <div class="metric-card" style="flex:1;min-width:65px;"><div class="metric-label">LAND USE</div><div class="metric-value" id="cad-landuse" style="font-size:0.6rem;color:var(--green)">—</div></div>
-                  <div class="metric-card" style="flex:1;min-width:65px;"><div class="metric-label">SOIL</div><div class="metric-value" id="cad-soil" style="font-size:0.6rem;color:var(--yellow)">—</div></div>
-                  <div class="metric-card" style="flex:1;min-width:65px;"><div class="metric-label">CROP</div><div class="metric-value" id="cad-crop" style="font-size:0.6rem;color:var(--green)">—</div></div>
-                  <div class="metric-card" style="flex:1;min-width:65px;"><div class="metric-label">IRRIGATION</div><div class="metric-value" id="cad-irrigation" style="font-size:0.6rem;color:var(--cyan)">—</div></div>
+                <div style="display:flex;gap:var(--space-04);flex-wrap:wrap;margin-bottom:var(--space-04);">
+                  <div class="metric-card" style="flex:1;min-width:65px;"><div class="metric-label">LAND USE</div><div class="metric-value" id="cad-landuse" style="font-size:var(--fs-1);color:var(--green)">—</div></div>
+                  <div class="metric-card" style="flex:1;min-width:65px;"><div class="metric-label">SOIL</div><div class="metric-value" id="cad-soil" style="font-size:var(--fs-1);color:var(--yellow)">—</div></div>
+                  <div class="metric-card" style="flex:1;min-width:65px;"><div class="metric-label">CROP</div><div class="metric-value" id="cad-crop" style="font-size:var(--fs-1);color:var(--green)">—</div></div>
+                  <div class="metric-card" style="flex:1;min-width:65px;"><div class="metric-label">IRRIGATION</div><div class="metric-value" id="cad-irrigation" style="font-size:var(--fs-1);color:var(--cyan)">—</div></div>
                 </div>
                 <!-- Satellite Analytics -->
-                <div style="background:rgba(33,150,243,0.06);border:1px solid rgba(33,150,243,0.2);border-radius:6px;padding:0.4rem;margin-bottom:0.4rem;">
-                  <div style="font-size:0.55rem;letter-spacing:2px;font-weight:700;color:var(--blue);margin-bottom:0.3rem;"><i class="fa fa-satellite"></i> SATELLITE ANALYTICS</div>
-                  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.3rem;">
-                    <div class="metric-card"><div class="metric-label">NDVI</div><div class="metric-value" id="cad-ndvi" style="font-size:0.7rem;font-weight:700">—</div></div>
-                    <div class="metric-card"><div class="metric-label">CROP HEALTH</div><div class="metric-value" id="cad-crop-health" style="font-size:0.7rem;font-weight:700">—</div></div>
-                    <div class="metric-card"><div class="metric-label">SOIL MOISTURE</div><div class="metric-value" id="cad-soil-moisture" style="font-size:0.7rem;font-weight:700">—</div></div>
-                    <div class="metric-card"><div class="metric-label">CLIMATE RISK</div><div class="metric-value" id="cad-risk" style="font-size:0.7rem;font-weight:700">—</div></div>
+                <div style="background:rgba(33,150,243,0.06);border:1px solid rgba(33,150,243,0.2);border-radius:var(--radius-6);padding:var(--space-04);margin-bottom:var(--space-04);">
+                  <div style="font-size:var(--fs-1);letter-spacing:2px;font-weight:700;color:var(--blue);margin-bottom:var(--space-03);"><i class="fa fa-satellite"></i> SATELLITE ANALYTICS</div>
+                  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-03);">
+                    <div class="metric-card"><div class="metric-label">NDVI</div><div class="metric-value" id="cad-ndvi" style="font-size:var(--fs-1);font-weight:700">—</div></div>
+                    <div class="metric-card"><div class="metric-label">CROP HEALTH</div><div class="metric-value" id="cad-crop-health" style="font-size:var(--fs-1);font-weight:700">—</div></div>
+                    <div class="metric-card"><div class="metric-label">SOIL MOISTURE</div><div class="metric-value" id="cad-soil-moisture" style="font-size:var(--fs-1);font-weight:700">—</div></div>
+                    <div class="metric-card"><div class="metric-label">CLIMATE RISK</div><div class="metric-value" id="cad-risk" style="font-size:var(--fs-1);font-weight:700">—</div></div>
                   </div>
                 </div>
-                <div id="cad-overlay-data" style="font-size:0.65rem;font-weight:600;line-height:1.4;color:var(--text);padding:0.3rem;margin-bottom:0.4rem;background:rgba(33,150,243,0.06);border-radius:4px;border-left:3px solid var(--blue);">
+                <div id="cad-overlay-data" style="font-size:var(--fs-1);font-weight:600;line-height:1.4;color:var(--text);padding:var(--space-03);margin-bottom:var(--space-04);background:rgba(33,150,243,0.06);border-radius:var(--radius-4);border-left:3px solid var(--blue);">
                   <b>KHASRA <span id="cad-okhasra">—</span></b> &mdash; सीमांक Medh Boundary &bull; Select a khasra to load parcel analytics.
                 </div>
-                <div id="cad-crop-legend" style="background:rgba(33,150,243,0.06);border:1px solid rgba(33,150,243,0.2);border-radius:6px;padding:0.4rem;margin-bottom:0.4rem;">
+                <div id="cad-crop-legend" style="background:rgba(33,150,243,0.06);border:1px solid rgba(33,150,243,0.2);border-radius:var(--radius-6);padding:var(--space-04);margin-bottom:var(--space-04);">
                 </div>
                 <!-- Parcel advisory (disabled -- cadastral_loader.js is a stub pending
                      official MP Bhulekh/Revenue Dept. records) -->
-                <div style="background:rgba(255,204,0,0.06);border:1px solid rgba(255,204,0,0.3);border-radius:6px;padding:0.4rem;">
-                  <div style="font-size:0.55rem;letter-spacing:2px;font-weight:700;color:var(--yellow);margin-bottom:0.3rem;"><i class="fa fa-seedling"></i> PARCEL ADVISORY — KHASRA <span id="cad-advisory-khasra" style="color:var(--orange)">—</span></div>
-                  <div id="cad-advisory" style="font-size:0.65rem;font-weight:600;line-height:1.5;color:var(--text);">
+                <div style="background:rgba(255,204,0,0.06);border:1px solid rgba(255,204,0,0.3);border-radius:var(--radius-6);padding:var(--space-04);">
+                  <div style="font-size:var(--fs-1);letter-spacing:2px;font-weight:700;color:var(--yellow);margin-bottom:var(--space-03);"><i class="fa fa-seedling"></i> PARCEL ADVISORY — KHASRA <span id="cad-advisory-khasra" style="color:var(--orange)">—</span></div>
+                  <div id="cad-advisory" style="font-size:var(--fs-1);font-weight:600;line-height:1.5;color:var(--text);">
                     Select a khasra to generate parcel-specific advisory.
                   </div>
-                  <button onclick="askChatAboutCadastral()" style="margin-top:0.4rem;width:100%;background:var(--cyan);border:none;padding:0.3rem;border-radius:4px;color:#fff;cursor:pointer;font-size:0.6rem;font-weight:700;"><i class="fa fa-comment"></i> ASK KISAN SAHAYAK FOR CROP ADVISORY & CLIMATE ALERT</button>
+                  <button onclick="askChatAboutCadastral()" style="margin-top:var(--space-04);width:100%;background:var(--cyan);border:none;padding:var(--space-03);border-radius:var(--radius-4);color:#fff;cursor:pointer;font-size:var(--fs-1);font-weight:700;"><i class="fa fa-comment"></i> ASK KISAN SAHAYAK FOR CROP ADVISORY & CLIMATE ALERT</button>
                 </div>
               </div>
             </div>
@@ -1914,12 +1988,12 @@ function applyVillageStyle(distKey, hazardKind){
       var lgd = feat.properties.Vill_LGD || '';
       var popup = '<div style="font-family:\'Inter\',-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif">'+
         '<b style="color:var(--cyan)">'+nm+'</b><br>'+
-        '<span style="font-size:0.62rem;color:#5a6a7a">'+distKey+' village</span>';
+        '<span style="font-size:var(--fs-1);color:#5a6a7a">'+distKey+' village</span>';
       if (isHazard) {
         var val = getVillageHazardVal(distKey, lgd, metric);
         if (val != null) {
           var metricLabel = {tmax:'Max Tmax',rain:'Ann Rain',drought:'Drought %',heatwave:'HW Days',r95p:'R95p',rx1day:'Rx1day'}[metric] || metric;
-          popup += '<br><span style="font-size:0.65rem;color:var(--text)">'+
+          popup += '<br><span style="font-size:var(--fs-1);color:var(--text)">'+
             metricLabel+': <b>'+val.toFixed(1)+'</b></span>';
         }
       }
