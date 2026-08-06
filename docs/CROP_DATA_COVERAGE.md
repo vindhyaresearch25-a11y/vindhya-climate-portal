@@ -70,14 +70,48 @@ negative values. Kept **entirely separate** from the legacy
   worth confirming this holds for all 23 years, not just the ones spot-
   checked.
 - CHARAN 4: state annual reports (MP + one more), not started.
-- CHARAN 5: cross-source comparison (`data/crop_stats_comparison.json`
-  against legacy `crop_stats.json` and, later, UPAg) -- not started.
-- CHARAN 7: district name/LGD reconciliation against `national_districts.py`
-  (738 DES district labels vs 733 in the current SoI snapshot) -- not
-  investigated; the extra 5 could be real post-snapshot new districts or
-  a labeling quirk, not yet distinguished.
 - Wiring this dataset into the dashboard UI (a crop panel currently reads
   the legacy `crop_stats.json`) -- not done this session.
+
+## CHARAN 7 — done, see `docs/DISTRICT_NAME_MAP.md`
+
+Reconciled all 23 years of DES district labels against the SoI boundary
+snapshot: 30 confirmed 1:1 official renames documented with rename year,
+3 state-name punctuation/UT-merger differences (with an explicit warning
+against collapsing pre-2020 Dadra & Nagar Haveli / Daman & Diu rows into
+the merged UT), 5 states/UTs with likely old-district-split-into-new
+situations left as "needs verification" rather than guessed, and 2
+structural differences (Delhi reported by DES as a single state-level
+total; Kolkata/Mumbai absent from DES entirely, plausible for
+near-zero-agriculture metro districts).
+
+## CHARAN 5 — done (partial: only sources actually fetched so far)
+
+`scripts/build_crop_comparison.py` -> `data/crop_stats_comparison.json`
+(20,846 rows, 6.5MB). Compares DES (MUKHYA) against the legacy
+`crop_stats.json` (data.gov.in, 5 Madhya Pradesh districts, 1997-2013)
+for their real overlap (2000-2013, 5 districts): 2,002 (district, crop,
+season, year) combinations exist in both.
+
+**Finding, not expected going in: 0.0% difference (mean AND max) across
+all 2,002 overlapping rows** -- spot-checked by eye (e.g. Bhopal
+Arhar/Tur Kharif 2000: both sources report exactly 924.00 ha / 658.00 t).
+This means DES and the legacy data.gov.in resource are not independent
+cross-checks for this overlap -- data.gov.in's resource is itself
+published by "Ministry of Agriculture and Farmers Welfare", the same
+ministry DES sits under, so the legacy file is very likely a republish
+of DES's own historical numbers rather than a separately-compiled
+source. Reporting this plainly rather than presenting the 0% agreement
+as if it were independent triangulation (CROP_DATA_PROMPT.md NIYAM:
+"Farak LIKHO, chhupao mat" -- applies to *lack* of an independent
+difference just as much as to a real one).
+
+UPAg and state-department annual reports (the other two sources
+CROP_DATA_PROMPT.md names for CHARAN 5) are not fetched yet -- this
+comparison will need rerunning once they exist, since they're published
+by different bodies and a real disagreement is plausible there (advance
+vs final estimates, different revision cycles) in a way it evidently
+isn't between DES and its own data.gov.in mirror.
 
 ## CHARAN 1 — portal survey (2026-08-07, look only, nothing downloaded)
 
