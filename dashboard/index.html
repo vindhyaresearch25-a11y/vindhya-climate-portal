@@ -40,10 +40,21 @@
 --neon-blue:#4a8fd4;
 --text:#1a2332;
 --text-dim:#5a6a7a;
---border:#dce1e8;
+--border:#d8dee7;
 --glow-cyan:none;
 --glow-green:none;
 --glow-orange:none;
+
+/* Risk/hazard colours (Phase 2.4, 2026-08-07) -- deliberately a SEPARATE
+   palette from the general UI theme colours above (--red/--orange/
+   --yellow/--green are chrome/accent colours reused all over the UI;
+   these four are reserved for risk classification specifically: legend,
+   hazard map styling, metric-card risk badges). "Khatra ke rang sirf
+   DATA ke liye" -- never repurposed as a general accent. */
+--risk-extreme:#B02418;
+--risk-high:#D9822B;
+--risk-moderate:#E0B84C;
+--risk-low:#3E9C5A;
 
 /* A3 (2026-08-06): radius/spacing/border tokens -- extracted from the
    exact literal values already in use across the portal (verified by
@@ -831,10 +842,10 @@ canvas.chart-canvas{max-height:100%;}
         <div class="map-legend" id="mapLegend">
           <div class="legend-title" onclick="toggleLegend()"><i class="fa fa-circle-info" style="font-size:var(--fs-1)"></i> <span id="legendTitle">RISK LEGEND</span><i class="fa fa-chevron-up legend-caret" id="legendCaret"></i></div>
           <div id="legendBody">
-            <div class="legend-row"><div class="legend-dot" style="background:#c0392b"></div>Extreme Risk</div>
-            <div class="legend-row"><div class="legend-dot" style="background:#d4793a"></div>High Risk</div>
-            <div class="legend-row"><div class="legend-dot" style="background:#c9a843"></div>Moderate Risk</div>
-            <div class="legend-row"><div class="legend-dot" style="background:#2d8f5c"></div>Low Risk</div>
+            <div class="legend-row"><div class="legend-dot" style="background:var(--risk-extreme)"></div>Extreme Risk</div>
+            <div class="legend-row"><div class="legend-dot" style="background:var(--risk-high)"></div>High Risk</div>
+            <div class="legend-row"><div class="legend-dot" style="background:var(--risk-moderate)"></div>Moderate Risk</div>
+            <div class="legend-row"><div class="legend-dot" style="background:var(--risk-low)"></div>Low Risk</div>
             <div class="legend-row"><div class="legend-dot" style="background:#1a8a9e"></div>Rivers</div>
           </div>
         </div>
@@ -2327,10 +2338,10 @@ function updateLegend(hazardKind){
     // Restore default legend
     if (title) title.textContent = 'RISK LEGEND';
     body.innerHTML = ''
-      + '<div class="legend-row"><div class="legend-dot" style="background:#c0392b"></div>Extreme Risk</div>'
-      + '<div class="legend-row"><div class="legend-dot" style="background:#d4793a"></div>High Risk</div>'
-      + '<div class="legend-row"><div class="legend-dot" style="background:#c9a843"></div>Moderate Risk</div>'
-      + '<div class="legend-row"><div class="legend-dot" style="background:#2d8f5c"></div>Low Risk</div>'
+      + '<div class="legend-row"><div class="legend-dot" style="background:var(--risk-extreme)"></div>Extreme Risk</div>'
+      + '<div class="legend-row"><div class="legend-dot" style="background:var(--risk-high)"></div>High Risk</div>'
+      + '<div class="legend-row"><div class="legend-dot" style="background:var(--risk-moderate)"></div>Moderate Risk</div>'
+      + '<div class="legend-row"><div class="legend-dot" style="background:var(--risk-low)"></div>Low Risk</div>'
       + '<div class="legend-row"><div class="legend-dot" style="background:#1a8a9e"></div>Rivers</div>';
     return;
   }
