@@ -42,6 +42,61 @@ Historical analysis window: 2000–2024 (25 years). Future projection: 10-year w
 
 For each district, the daily IMD raster is spatially averaged over a **±0.1° bounding box** around the centroid. That covers approximately a 5×5 pixel block (≈ 11 km × 11 km). This avoids the noise of single-pixel sampling while keeping the value representative of the district's geographic core.
 
+### 3.1 Spatial resolution and the modifiable areal unit problem
+
+This section exists because the honest answer to "what is a village's climate
+value" is not "the village's own measurement" -- no product publishes one --
+and that needs to be stated precisely, not glossed over.
+
+**The resolution gap is real and structural, not a shortcoming of this
+pipeline specifically.** ERA5-Land is ~9-11 km, CHIRPS is ~5.5 km, IMD's own
+gridded product is ~5.5 km (0.05°). A typical Indian village is on the order
+of ~2 km². By basic 2D sampling theory a grid cell resolves phenomena at
+roughly 2x its nominal spacing in each dimension, i.e. a "10 km" product
+genuinely resolves ~20 km x 20 km (400 km²) features, not 10 km ones. India's
+own national dynamical-downscaling effort settled on 10 km specifically
+because that is the achievable scale given the country's district sizes and
+available computing -- not because finer wasn't wanted (Barik et al., 2024,
+*Geoscience Data Journal*, doi:10.1002/gdj3.266). **No publicly available
+gridded climate product -- global or Indian -- has genuine village-level
+(sub-km) resolution.** This is the field's real ceiling, not this pipeline's.
+
+**What this pipeline actually does, and does not do:** every village-level
+value in this dashboard is **the value of the grid cell whose footprint
+contains that village's centroid** (or, for a village whose polygon spans
+multiple cells, the area-weighted mean across the cells it overlaps -- see
+the per-file `pixel_count`/`villages_sharing_pixel` metadata once populated,
+tracked in `scripts/08_gee_national_climate.py` and the village-level
+follow-on). **This is not sub-kilometre downscaling, and is never presented
+as one.** Because one grid cell is roughly 25-120x a single village's area,
+dozens of neighbouring villages routinely share the identical pixel value --
+that is expected, not a bug, and is exactly why every aggregate in this
+pipeline reports how many real units (villages, pixels) it was built from
+alongside the mean, never the mean alone (see `docs/DATA_SOURCES.md` and
+FINAL_PROMPT.md Phase 8.2).
+
+**This is a named, general problem, not something specific to climate
+rasters:** fitting areal/grid data onto a different set of administrative or
+enumeration units is the **Modifiable Areal Unit Problem (MAUP)** --
+statistics computed this way are sensitive to the arbitrary choice of unit
+boundaries, and a reviewer will use exactly this term. Citing it by name here
+is so a future contributor recognises the pattern immediately rather than
+rediscovering it.
+
+**The bias is not uniform, so a single accuracy number is misleading.**
+Validation of CHIRPS against IMD gauges over South Peninsular India,
+2001-2020, found r = 0.888, RMSE = 180 mm overall (ScienceDirect,
+doi in record S2950-1172-2600021X) -- but with a clear **positive bias on
+the windward slopes of the Western Ghats** and **near-zero bias in the
+interior semi-arid tracts**. Reporting one national correlation number
+without this spatial structure would overstate confidence in the
+orographically-exposed districts specifically. ERA5-Land needs bias
+correction in India too -- Himalayan-basin studies report RMSE reductions of
+up to ~86% after a regression/GAM correction against station data. Neither
+correction is applied in this pipeline yet (§7 item 5); §8.6 (validation
+files, `data/validation/<state>/<district>.json`) is where CHIRPS/ERA5 get
+checked against IMD per district rather than assumed accurate everywhere.
+
 ## 4. Index definitions
 
 ### 4.1 Heatwave (IMD plains definition)
@@ -142,7 +197,7 @@ This is intentionally simple and replaceable. A production system would calibrat
 
 ## 7. Limitations
 
-1. **Spatial granularity.** The IMD 0.05° grid is ≈ 5.5 km; most villages in MP are smaller than one pixel. "Village-level" outputs in this dashboard are technically pixel-level outputs labelled at the nearest village/district. This should be stated explicitly in any operational deployment.
+1. **Spatial granularity (MAUP).** The IMD 0.05° grid is ≈ 5.5 km; most villages in MP are smaller than one pixel. "Village-level" outputs in this dashboard are technically pixel-level outputs labelled at the nearest village/district. See §3.1 for the full treatment (why no product resolves true village scale, the modifiable areal unit problem by name, and the non-uniform CHIRPS/ERA5 bias found in the literature) -- stated explicitly here and in every affected output file's metadata, not just this one line.
 2. **Record length.** 25 years is shorter than the WMO climate normal (30 years). The gamma fits behind SPI are noisier at the tails, and percentile thresholds for extreme precipitation have wider uncertainty bands than they would with 30+ years.
 3. **Single CMIP6 scenario.** Only SSP2-4.5 is used. Operational climate-services should report at minimum SSP1-2.6, SSP2-4.5, and SSP5-8.5 with uncertainty.
 4. **Ensemble size.** 8 models is the minimum defensible ensemble. CMIP6 has 40+; production work would use the full ensemble with weighting.
@@ -158,6 +213,18 @@ This is intentionally simple and replaceable. A production system would calibrat
 - Karl, T.R., Nicholls, N., Ghazi, A. (1999). CLIVAR/GCOS/WMO workshop on indices and indicators. Climatic Change 42:3-7.
 - Zhang, X. et al. (2011). Indices for monitoring changes in extremes based on daily temperature and precipitation data. WIREs Climate Change 2:851-870.
 - IMD (2020). Forecasting of Heat Wave & Cold Wave Conditions. India Meteorological Department.
+- Barik, A. et al. (2024). A high-resolution dynamically downscaled climate
+  dataset for India. *Geoscience Data Journal*. doi:10.1002/gdj3.266 --
+  basis for §3.1's "10 km is the achievable scale, not a choice" claim and
+  the sampling-theory argument (a 10 km product resolves ~20 km features).
+- CHIRPS vs IMD validation, South Peninsular India 2001-2020 (r=0.888,
+  RMSE=180mm, non-uniform bias -- positive on Western Ghats windward
+  slopes, near-zero in interior semi-arid tracts). ScienceDirect, record
+  S2950-1172-2600021X.
+- ERA5-Land bias correction, Himalayan basin studies (RMSE reduction up to
+  ~86% after regression/GAM correction against station data) -- cited in
+  §3.1 as the reason ERA5-Land is not used uncorrected in any downstream
+  claim of absolute accuracy, only as an internally-consistent time series.
 - Thrasher, B. et al. (2022). NASA Global Daily Downscaled Projections, CMIP6. Scientific Data 9:262.
 
 
