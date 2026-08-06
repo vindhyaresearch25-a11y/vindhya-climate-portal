@@ -47,15 +47,45 @@
   // reached by just forwarding the dropdown's raw value anymore.
   var originalOnVillageChangeFn = null;
 
-  var STYLE = {
+  // Two palettes (FINAL_PROMPT.md Phase 5.2): dark basemaps (Satellite,
+  // Dark Matter, Terrain) use a black underlay + neon lines; light
+  // basemaps (OSM Street, Carto Positron) invert to a white underlay +
+  // deep lines so the casing stays legible against a pale background.
+  // setBoundaryTheme() below swaps both live, restyling any already-drawn
+  // layers in place rather than requiring a redraw.
+  var STYLE_DARK = {
     state:    { color: '#FF9500', weight: 4,   casingWeight: 7 },
     district: { color: '#00E5FF', weight: 3,   casingWeight: 6 },
     block:    { color: '#FF3DFF', weight: 2.5, casingWeight: 5 },
     village:  { color: '#C6FF00', weight: 2,   casingWeight: 4 }
   };
+  var STYLE_LIGHT = {
+    state:    { color: '#B45309', weight: 4,   casingWeight: 7 },
+    district: { color: '#0E7490', weight: 3,   casingWeight: 6 },
+    block:    { color: '#A21CAF', weight: 2.5, casingWeight: 5 },
+    village:  { color: '#4D7C0F', weight: 2,   casingWeight: 4 }
+  };
+  var STYLE = STYLE_DARK;
   var CASING_COLOR = '#000000';
   var CASING_OPACITY = 0.6;
   var FAINT_OPACITY = 0.4;
+  var boundaryTheme = 'dark';
+
+  function setBoundaryTheme(theme) {
+    theme = (theme === 'light') ? 'light' : 'dark';
+    if (theme === boundaryTheme) return;
+    boundaryTheme = theme;
+    STYLE = (theme === 'light') ? STYLE_LIGHT : STYLE_DARK;
+    CASING_COLOR = (theme === 'light') ? '#FFFFFF' : '#000000';
+    ['state', 'district', 'block', 'village'].forEach(function (level) {
+      var group = mapLayers[level];
+      if (!group || !group._casingLayer || !group._brightLayer) return;
+      var s = STYLE[level];
+      group._casingLayer.setStyle({ color: CASING_COLOR, weight: s.casingWeight });
+      group._brightLayer.setStyle({ color: s.color, weight: s.weight });
+    });
+  }
+  window.setBoundaryTheme = setBoundaryTheme;
 
   function el(id) { return document.getElementById(id); }
   function slugify(name) {
@@ -303,6 +333,8 @@
       casing.on('click', onClick);
     }
     group.addTo(map);
+    group._casingLayer = casing;
+    group._brightLayer = bright;
     return group;
   }
 

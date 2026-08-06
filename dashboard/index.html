@@ -291,6 +291,11 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 .map-overlay{position:absolute;top:1rem;right:1rem;z-index:500;display:flex;flex-direction:column;gap:var(--space-05);}
 .map-ctrl-btn{background:var(--bg-card);border:var(--border-default);color:#8a9aac;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-4);cursor:pointer;font-size:var(--fs-2);transition:all 0.2s;}
 .map-ctrl-btn:hover,.map-ctrl-btn.active{background:rgba(26,138,158,0.06);border-color:var(--cyan);color:var(--cyan);}
+.basemap-panel{position:absolute;top:1rem;right:3.2rem;z-index:500;display:none;flex-direction:column;gap:2px;background:var(--bg-card);border:var(--border-default);border-radius:var(--radius-6);padding:4px;box-shadow:0 2px 8px rgba(0,0,0,0.12);}
+.basemap-panel.open{display:flex;}
+.basemap-opt{display:flex;align-items:center;gap:var(--space-05);padding:var(--space-05) var(--space-1);border-radius:var(--radius-4);font-size:var(--fs-1);color:var(--text-dim);cursor:pointer;white-space:nowrap;}
+.basemap-opt:hover{background:rgba(26,138,158,0.06);color:var(--cyan);}
+.basemap-opt.active{background:var(--cyan);color:#fff;}
 .map-legend{position:absolute;bottom:2.9rem;left:1rem;z-index:500;background:rgba(255,255,255,0.95);border:var(--border-default);border-radius:var(--radius-6);padding:var(--space-075);backdrop-filter:blur(8px);box-shadow:0 2px 8px rgba(0,0,0,0.06);}
 /* Leaflet-generated (geoai_professional.js addFurniture()); display:flex
    is declared here rather than in that div's inline style so the Phase B
@@ -527,6 +532,10 @@ canvas.chart-canvas{max-height:100%;}
      state on entry is set by applyMobileLayout() adding .mobile-collapsed,
      not hardcoded here, so toggleLegend() can freely open/close it. */
   .map-north-arrow,.leaflet-control-scale{display:none;}
+  /* Phase 5.3: exportMapPNG() forces these back on during capture even on
+     a mobile-width viewport, so the exported PNG always has both. */
+  body.exporting-map .map-north-arrow{display:flex!important;}
+  body.exporting-map .leaflet-control-scale{display:block!important;}
   .map-legend{max-width:64vw;}
   .legend-caret{display:inline;}
 
@@ -868,7 +877,16 @@ canvas.chart-canvas{max-height:100%;}
            <div class="map-ctrl-btn" title="Rainfall" onclick="toggleLayer(&#39;rain&#39;)" id="rain-btn"><i class="fa fa-cloud-rain"></i></div>
            <div class="map-ctrl-btn" title="Village Boundaries" onclick="toggleVillageBoundaries()" id="village-bnd-btn"><i class="fa fa-draw-polygon"></i></div>
            <div class="map-ctrl-btn" title="Cadastral Map" onclick="toggleCadLayer()" id="cad-map-btn"><i class="fa fa-border-all"></i></div>
+           <div class="map-ctrl-btn" title="Basemap" onclick="toggleBasemapPanel()" id="basemap-btn"><i class="fa fa-layer-group"></i></div>
+           <div class="map-ctrl-btn" title="Export map as PNG" onclick="exportMapPNG()" id="export-png-btn"><i class="fa fa-camera"></i></div>
            <div class="map-ctrl-btn" title="Fullscreen" onclick="toggleFullMap()"><i class="fa fa-expand"></i></div>
+        </div>
+        <div class="basemap-panel" id="basemapPanel">
+          <div class="basemap-opt active" data-basemap="Satellite (Esri)" onclick="applyBasemap('Satellite (Esri)')"><i class="fa fa-satellite"></i> Satellite</div>
+          <div class="basemap-opt" data-basemap="Street (OSM)" onclick="applyBasemap('Street (OSM)')"><i class="fa fa-road"></i> Street</div>
+          <div class="basemap-opt" data-basemap="Terrain (OpenTopoMap)" onclick="applyBasemap('Terrain (OpenTopoMap)')"><i class="fa fa-mountain"></i> Terrain</div>
+          <div class="basemap-opt" data-basemap="Light (Carto Positron)" onclick="applyBasemap('Light (Carto Positron)')"><i class="fa fa-sun"></i> Light</div>
+          <div class="basemap-opt" data-basemap="Dark (Carto Dark Matter)" onclick="applyBasemap('Dark (Carto Dark Matter)')"><i class="fa fa-moon"></i> Dark</div>
         </div>
         <div class="map-legend" id="mapLegend">
           <div class="legend-title" onclick="toggleLegend()"><i class="fa fa-circle-info u-fs1"></i> <span id="legendTitle">RISK LEGEND</span><i class="fa fa-chevron-up legend-caret" id="legendCaret"></i></div>
@@ -1437,6 +1455,11 @@ canvas.chart-canvas{max-height:100%;}
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+<!-- Phase 5.3: PNG export of the map panel (basemap+boundaries+legend as
+     seen on screen); html2canvas with useCORS -- Esri/OSM/Carto/OpenTopoMap
+     tile servers all serve tiles with Access-Control-Allow-Origin:*, so
+     this works without a tainted-canvas fallback for any of the 5 basemaps. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
 // 30s timeout on every fetch (STANDING ORDERS #5) -- a slow/hung request
 // must degrade to the caller's existing catch()/fallback instead of
@@ -2652,6 +2675,18 @@ function setBtmTab(paneId){
   });
 }
 
+function toggleBasemapPanel(){
+  const p=document.getElementById('basemapPanel');
+  if(p) p.classList.toggle('open');
+}
+document.addEventListener('click', function(e){
+  const p=document.getElementById('basemapPanel');
+  const btn=document.getElementById('basemap-btn');
+  if(!p || !p.classList.contains('open')) return;
+  if(p.contains(e.target) || (btn && btn.contains(e.target))) return;
+  p.classList.remove('open');
+});
+
 // ============================================================
 // MAP LAYER TOGGLES
 // ============================================================
@@ -2851,21 +2886,99 @@ function toggleFullMap(){
   setTimeout(()=>window.leafletMap&&window.leafletMap.invalidateSize(),100);
 }
 
+// Phase 5.3: export the visible map panel (basemap+boundaries+legend+scale
+// bar+north arrow, whatever is on screen) as a >=2000px-wide PNG, with a
+// caption band (location, source, date, portal name) composited below it
+// so those four items are always present even where CSS hides the
+// on-map furniture (mobile breakpoint).
+function exportMapPNG(){
+  const panel=document.getElementById('map-panel');
+  if(!panel || typeof html2canvas==='undefined'){ alert('Export unavailable: html2canvas did not load.'); return; }
+  const btn=document.getElementById('export-png-btn');
+  if(btn) btn.classList.add('active');
+  document.body.classList.add('exporting-map');
+  const scale=Math.max(2, Math.ceil(2000/panel.clientWidth));
+  setTimeout(function(){
+    html2canvas(panel,{useCORS:true,allowTaint:false,scale:scale,backgroundColor:'#ffffff'}).then(function(mapCanvas){
+      const bandH=Math.round(64*scale);
+      const out=document.createElement('canvas');
+      out.width=mapCanvas.width; out.height=mapCanvas.height+bandH;
+      const ctx=out.getContext('2d');
+      ctx.fillStyle='#ffffff'; ctx.fillRect(0,0,out.width,out.height);
+      ctx.drawImage(mapCanvas,0,0);
+      const locEl=document.getElementById('locBreadcrumb');
+      const locText=(locEl && locEl.textContent.trim()) || 'India';
+      const basemapName=window.currentBasemap || DEFAULT_BASEMAP;
+      const dateStr=new Date().toISOString().slice(0,10);
+      ctx.fillStyle='#1a2733';
+      ctx.font='bold '+Math.round(15*scale)+'px Inter,sans-serif';
+      ctx.fillText(locText, 12*scale, mapCanvas.height+24*scale);
+      ctx.fillStyle='#5a6a7a';
+      ctx.font=Math.round(11*scale)+'px Inter,sans-serif';
+      ctx.fillText('Source: '+basemapName+' basemap + Survey of India boundaries + IMD/ERA5-Land/CHIRPS climate data', 12*scale, mapCanvas.height+42*scale);
+      ctx.fillText('Generated '+dateStr+' — VINDHYA Climate Intelligence Portal', 12*scale, mapCanvas.height+58*scale);
+      out.toBlob(function(blob){
+        if(!blob){ alert('Export failed while encoding PNG.'); return; }
+        const url=URL.createObjectURL(blob);
+        const a=document.createElement('a');
+        a.href=url; a.download='vindhya-map-'+(locText||'india').replace(/[^a-z0-9]+/gi,'_').toLowerCase()+'-'+dateStr+'.png';
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(()=>URL.revokeObjectURL(url),4000);
+        if(navigator.clipboard && window.ClipboardItem){
+          navigator.clipboard.write([new ClipboardItem({'image/png':blob})]).catch(function(){/* clipboard perms optional, download already happened */});
+        }
+      },'image/png');
+    }).catch(function(err){
+      console.error('[exportMapPNG]', err);
+      alert('Map export failed (see console) — likely a cross-origin tile that did not allow canvas capture.');
+    }).finally(function(){
+      document.body.classList.remove('exporting-map');
+      if(btn) btn.classList.remove('active');
+    });
+  },50);
+}
+
 // ============================================================
 // LEAFLET MAP
 // ============================================================
+// Phase 5.1: exactly 5 basemaps, each with real attribution. 'dark' tags
+// (satellite/dark/terrain) drive the neon casing palette; 'light' tags
+// (street/positron) invert it -- see national_selector.js setBoundaryTheme().
+var BASEMAPS = {
+  'Satellite (Esri)': { theme:'dark', layer:null, make:function(){ return L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:19,crossOrigin:'anonymous',attribution:'Tiles &copy; Esri — Source: Esri, Maxar, Earthstar Geographics'}); } },
+  'Street (OSM)':      { theme:'light', layer:null, make:function(){ return L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,subdomains:'abc',crossOrigin:'anonymous',attribution:'&copy; OpenStreetMap contributors'}); } },
+  'Terrain (OpenTopoMap)': { theme:'dark', layer:null, make:function(){ return L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',{maxZoom:17,subdomains:'abc',crossOrigin:'anonymous',attribution:'&copy; OpenStreetMap contributors, SRTM — style: &copy; OpenTopoMap (CC-BY-SA)'}); } },
+  'Light (Carto Positron)': { theme:'light', layer:null, make:function(){ return L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:19,subdomains:'abcd',crossOrigin:'anonymous',attribution:'&copy; OpenStreetMap contributors &copy; CARTO'}); } },
+  'Dark (Carto Dark Matter)': { theme:'dark', layer:null, make:function(){ return L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19,subdomains:'abcd',crossOrigin:'anonymous',attribution:'&copy; OpenStreetMap contributors &copy; CARTO'}); } }
+};
+var DEFAULT_BASEMAP='Satellite (Esri)';
+
+function applyBasemap(name){
+  const map=window.leafletMap;
+  if(!map || !BASEMAPS[name]) return;
+  Object.keys(BASEMAPS).forEach(function(k){
+    const b=BASEMAPS[k];
+    if(k===name){
+      if(!b.layer) b.layer=b.make();
+      if(!map.hasLayer(b.layer)) b.layer.addTo(map);
+    } else if(b.layer && map.hasLayer(b.layer)){
+      map.removeLayer(b.layer);
+    }
+  });
+  window.currentBasemap=name;
+  if(typeof window.setBoundaryTheme==='function') window.setBoundaryTheme(BASEMAPS[name].theme);
+  document.querySelectorAll('.basemap-opt').forEach(function(el){
+    el.classList.toggle('active', el.getAttribute('data-basemap')===name);
+  });
+}
+window.applyBasemap=applyBasemap;
+
 function initMap(){
   if(window.leafletMap) return;
   const map=L.map('map',{center:[23.5,78.6],zoom:6,zoomControl:false});
   window.leafletMap=map;
 
-  // GEE Satellite base map with labels overlay
-  L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
-    maxZoom:20,subdomains:['mt0','mt1','mt2','mt3'],attribution:'&copy; Google Earth'
-  }).addTo(map);
-  L.tileLayer('https://{s}.google.com/vt/lyrs=h&x={x}&y={y}&z={z}',{
-    maxZoom:20,subdomains:['mt0','mt1','mt2','mt3'],opacity:0.7
-  }).addTo(map);
+  applyBasemap(DEFAULT_BASEMAP);
 
   L.control.zoom({position:'bottomright'}).addTo(map);
 
