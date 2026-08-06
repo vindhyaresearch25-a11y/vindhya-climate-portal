@@ -216,8 +216,8 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 .hero-title .line2{color:var(--cyan);background:none;-webkit-text-fill-color:var(--cyan);font-size:0.55em;font-weight:600;letter-spacing:0.4px;}
 /* No boxes -- a single stat line straight on the photo (owner spec
    2026-08-06: the 3 boxed panels read as heavy and one was bare text).
-   Numbers keep the same IDs/data-target the fetch+animate script
-   already targets. */
+   Numbers keep the same IDs the hero-stat fetch (setStatEl(), further
+   down) already targets -- no data-target attribute, see Phase 2.1. */
 .hero-boundary-row{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-4);font-weight:700;color:var(--text);margin-bottom:var(--space-03);font-variant-numeric:tabular-nums;}
 .hero-boundary-row .hb-sep{color:var(--text-dim);font-weight:400;margin:0 0.5rem;}
 .hero-boundary-label{font-size:var(--fs-1);font-weight:600;color:var(--text-dim);letter-spacing:0.5px;margin-bottom:var(--space-1);}
@@ -728,7 +728,7 @@ canvas.chart-canvas{max-height:100%;}
          information (observed-climate count, projected-climate status)
          moves to .hero-climate-line just below, not deleted. -->
     <div class="hero-boundary-row hero-text-safe">
-      <span id="hero-stat-states" data-target="36">36</span> States/UTs<span class="hb-sep">&middot;</span><span id="hero-stat-districts" data-target="733">733</span> Districts<span class="hb-sep">&middot;</span><span id="hero-stat-blocks" data-target="6312">6,312</span> Blocks/Tehsils<span class="hb-sep">&middot;</span><span id="hero-stat-villages" data-target="654285">6,54,285</span> Villages
+      <span id="hero-stat-states">36</span> States/UTs<span class="hb-sep">&middot;</span><span id="hero-stat-districts">733</span> Districts<span class="hb-sep">&middot;</span><span id="hero-stat-blocks">6,312</span> Blocks/Tehsils<span class="hb-sep">&middot;</span><span id="hero-stat-villages">6,54,285</span> Villages
     </div>
     <div class="hero-roles">
       <div class="role-card" onclick="selectRole('admin')">
@@ -1484,16 +1484,15 @@ function currentMPDistrictKey(){
 // ============================================================
 // HERO STAT DISPLAY
 // ============================================================
-// Owner instruction (2026-08-03): no count-up animation -- it showed a
-// wrong number for the first ~5 seconds (visible in any early screenshot).
-// Real numbers, set once the real fetch resolves, shown immediately.
-function animateCounters(){
-  document.querySelectorAll('[data-target]').forEach(el=>{
-    const raw=el.getAttribute('data-target');
-    const target=parseInt(raw);
-    const suffix=raw.replace(/^[0-9]*/,'');
-    el.textContent=(isNaN(target)?raw:target.toLocaleString('en-IN'))+suffix;
-  });
+// Owner instruction (2026-08-03, tightened 2026-08-06): no count-up
+// animation, and no data-target attribute indirection either -- the real
+// number is set directly on first paint (the static text already in the
+// HTML spans below) and, once the real fetch resolves, textContent is
+// overwritten directly. No intermediate attribute, no separate "now go
+// read the attributes and animate" pass.
+function setStatEl(id, n){
+  var el = document.getElementById(id);
+  if (el && typeof n === 'number' && !isNaN(n)) el.textContent = n.toLocaleString('en-IN');
 }
 // Hero stats must be counted from actual data files, never hardcoded
 // (STANDING ORDERS #7). Three separate categories are fetched separately
@@ -1501,8 +1500,8 @@ function animateCounters(){
 // nationwide), observed climate (climate_manifest.json -- the numerator
 // grows on its own as scripts/08_gee_national_climate.py writes more
 // district files, this code never hardcodes a target), and verified
-// source count (sources_manifest.json). Falls back to the static
-// data-target already in the HTML only if a fetch genuinely fails.
+// source count (sources_manifest.json). Falls back to the static number
+// already in the HTML only if a fetch genuinely fails.
 window.__dataConfigPromise.then(function(){ return Promise.all([
   fetchWithTimeout(resolveDataUrl('data/boundaries/' + 'soi/_manifest.json')).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
   fetchWithTimeout('data/sources_manifest.json').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
@@ -1511,26 +1510,18 @@ window.__dataConfigPromise.then(function(){ return Promise.all([
   var manifest = results[0], sources = results[1], climate = results[2];
   if (manifest && manifest.totals) {
     if (manifest.totals.total_villages) {
-      var vEl = document.getElementById('hero-stat-villages');
-      if (vEl) vEl.setAttribute('data-target', String(manifest.totals.total_villages));
+      setStatEl('hero-stat-villages', manifest.totals.total_villages);
       var tagEl = document.getElementById('gateTaglineVillages');
       if (tagEl) {
         var vCount = manifest.totals.total_villages.toLocaleString('en-IN');
         tagEl.textContent = vCount + '+ गाँवों के लिए जलवायु सूचना / Climate intelligence for ' + vCount + '+ villages';
       }
     }
-    if (manifest.totals.total_blocks) {
-      var bEl = document.getElementById('hero-stat-blocks');
-      if (bEl) bEl.setAttribute('data-target', String(manifest.totals.total_blocks));
-    }
-    if (manifest.totals.states_with_villages) {
-      var stEl = document.getElementById('hero-stat-states');
-      if (stEl) stEl.setAttribute('data-target', String(manifest.totals.states_with_villages));
-    }
+    if (manifest.totals.total_blocks) setStatEl('hero-stat-blocks', manifest.totals.total_blocks);
+    if (manifest.totals.states_with_villages) setStatEl('hero-stat-states', manifest.totals.states_with_villages);
   }
   if (manifest && manifest.districts_file && manifest.districts_file.feature_count) {
-    var dEl = document.getElementById('hero-stat-districts');
-    if (dEl) dEl.setAttribute('data-target', String(manifest.districts_file.feature_count));
+    setStatEl('hero-stat-districts', manifest.districts_file.feature_count);
   }
   if (sources && Array.isArray(sources.sources)) {
     var srcCount = String(sources.sources.length);
@@ -1538,8 +1529,7 @@ window.__dataConfigPromise.then(function(){ return Promise.all([
     if (lineEl) lineEl.textContent = srcCount;
   }
   if (climate && climate.totals && typeof climate.totals.districts_with_climate_data === 'number') {
-    var cEl = document.getElementById('hero-stat-climate-districts');
-    if (cEl) cEl.setAttribute('data-target', String(climate.totals.districts_with_climate_data));
+    setStatEl('hero-stat-climate-districts', climate.totals.districts_with_climate_data);
     var mAiEl = document.getElementById('m-ai');
     if (mAiEl) mAiEl.textContent = climate.totals.districts_with_climate_data + ' districts';
   }
@@ -1551,8 +1541,7 @@ window.__dataConfigPromise.then(function(){ return Promise.all([
     if (yr.length === 2) {
       var y0 = parseInt(yr[0], 10), y1 = parseInt(yr[1], 10);
       if (!isNaN(y0) && !isNaN(y1) && y1 >= y0) {
-        var yEl = document.getElementById('hero-stat-years');
-        if (yEl) yEl.setAttribute('data-target', String(y1 - y0 + 1));
+        setStatEl('hero-stat-years', y1 - y0 + 1);
         var yLbl = document.getElementById('hero-stat-years-lbl');
         if (yLbl) yLbl.textContent = 'Years of Record (' + y0 + '–' + y1 + ')';
       }
@@ -1567,8 +1556,7 @@ window.__dataConfigPromise.then(function(){ return Promise.all([
     var gfEl = document.getElementById('govFooterDate');
     if (gfEl) gfEl.textContent = footerDates.sort().reverse()[0];
   }
-}).catch(function(){ /* keep the static fallback already in data-target */ })
-  .then(animateCounters);
+}).catch(function(){ /* keep the static number already in the HTML */ });
 
 // ============================================================
 // LOGIN GATE
@@ -2865,7 +2853,8 @@ function chartOpts(grid){
 }
 
 // ============================================================
-// AI CHATBOT (Gemini-powered)
+// KISAN SAHAYAK (Cloudflare Worker -> Workers AI, Llama 3.2 3B,
+// six-model fallback list server-side)
 // ============================================================
 let chatHistory=[];        // {role, content} for the API
 let chatOpen=false;

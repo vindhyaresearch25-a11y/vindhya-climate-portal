@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Pre-commit secret scan (FINAL_PROMPT.md Phase 3.1) -- blocks a commit if
+# any staged addition (not deletion) looks like a live credential. This is
+# a pattern match, not a validator: it will occasionally false-positive on
+# something that merely looks like a key (a hash, a long hex id) -- if that
+# happens, verify by eye it's genuinely not a secret before re-committing,
+# don't just loosen the pattern.
+#
+# A copy of this file also lives at tools/pre-commit (not a git hook itself
+# -- .git/hooks/ is never tracked by git) so a fresh clone can restore it:
+#   cp tools/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+
+set -euo pipefail
+
+PATTERN='ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|AIza[A-Za-z0-9_-]{30,}|hf_[A-Za-z0-9]{20,}|sk-ant-[A-Za-z0-9_-]{20,}|sk-[A-Za-z0-9]{20,}|-----BEGIN [A-Z ]*PRIVATE KEY-----|"api_key"[[:space:]]*:|"apiKey"[[:space:]]*:|"token"[[:space:]]*:|"secret"[[:space:]]*:|"password"[[:space:]]*:'
+
+# Only scan lines being ADDED (git diff --cached, "+" lines), not context
+# or removed lines -- a commit that deletes a key from history's tip
+# shouldn't be blocked by the very key it's removing.
+hits=$(git diff --cached -U0 --diff-filter=ACM | grep -E '^\+' | grep -vE '^\+\+\+' | grep -inE "$PATTERN" || true)
+
+if [ -n "$hits" ]; then
+  echo "pre-commit: possible secret in staged changes -- commit blocked." >&2
+  echo "$hits" >&2
+  echo "" >&2
+  echo "If this is a real key: remove it from the file, use an env var" >&2
+  echo "instead (see .env.example), and rotate the key if it was ever" >&2
+  echo "committed before. If this is a false positive (a hash, not a" >&2
+  echo "secret), verify by eye, then commit with --no-verify." >&2
+  exit 1
+fi
