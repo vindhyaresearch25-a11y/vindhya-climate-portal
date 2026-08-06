@@ -1,0 +1,27 @@
+# Deploy config for the ground-truth crop upload Worker
+# (cloudflare/kisan_upload_worker.js). Not applied automatically -- run
+# these yourself (per this repo's standing rule: credentials/deploys that
+# need YOUR Cloudflare login happen in your own terminal, not in chat):
+#
+#   cd cloudflare
+#   wrangler d1 create vindhya-ground-truth
+#   # copy the printed database_id into the [[d1_databases]] block below
+#   wrangler d1 execute vindhya-ground-truth --remote --file=kisan_upload_schema.sql
+#   wrangler secret put RATE_LIMIT_SALT --config wrangler_kisan_upload.toml
+#     # any random string -- e.g. `openssl rand -hex 32` -- only needs to
+#     # exist, its value is never read back or checked anywhere
+#   wrangler deploy --config wrangler_kisan_upload.toml
+#
+# Then: put the deployed Worker's URL into dashboard/kisan_upload.html's
+# SUBMIT_URL constant, and put CLOUDFLARE_ACCOUNT_ID / D1's database_id /
+# a scoped CLOUDFLARE_API_TOKEN (D1:Read permission only) into this repo's
+# GitHub Actions secrets so scripts/export_ground_truth.py can run daily.
+
+name = "vindhya-kisan-upload"
+main = "kisan_upload_worker.js"
+compatibility_date = "2026-08-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "vindhya-ground-truth"
+database_id = "REPLACE_WITH_REAL_DATABASE_ID"

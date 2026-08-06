@@ -1,0 +1,55 @@
+name: Ground-truth crop upload export
+
+# CROP_DATA_PROMPT.md Bhaag B6. Pulls new farmer submissions out of D1
+# daily, resolves village/block/district, rounds coordinates for public
+# release, and commits the result (data/ground_truth/<state>/<district>.json
+# goes to Hugging Face like the rest of this repo's large data -- see
+# scripts/hf_upload_boundaries.py for the same upload pattern).
+#
+# Does nothing until the Worker is actually deployed and
+# CLOUDFLARE_ACCOUNT_ID / CLOUDFLARE_API_TOKEN / D1_DATABASE_ID exist as
+# repo secrets (see cloudflare/wrangler_kisan_upload.toml) -- the export
+# script exits 1 with a clear message rather than failing silently if
+# they're missing, so this workflow will show as failed (not green) until
+# the owner has deployed the Worker and set those secrets themselves.
+
+on:
+  schedule:
+    - cron: "30 3 * * *"   # 03:30 UTC daily
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install geopandas shapely
+
+      - name: Export new submissions from D1
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          D1_DATABASE_ID: ${{ secrets.D1_DATABASE_ID }}
+        run: python scripts/export_ground_truth.py
+
+      - name: Commit if data changed
+        run: |
+          git config user.name  "vindhya-data-bot"
+          git config user.email "actions@github.com"
+          git add dashboard/data/ground_truth/
+          if git diff --staged --quiet; then
+            echo "No new ground-truth submissions since the last run."
+          else
+            git commit -m "chore(data): ground-truth crop submissions export [skip ci]"
+            git push
+          fi

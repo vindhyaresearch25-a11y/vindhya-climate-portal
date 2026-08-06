@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kisan Fasal Sahayog | VINDHYA Climate Intelligence</title>
+<style>
+:root{
+  --bg-deep:#f5f7fa; --bg-card:#ffffff; --cyan:#1a8a9e; --green:#2d8f5c;
+  --text:#1a2332; --text-dim:#5a6a7a; --border:#d8dee7; --red:#c0392b;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.5;}
+.wrap{max-width:520px;margin:0 auto;padding:20px 16px 40px;}
+header{text-align:center;margin-bottom:20px;}
+header h1{font-size:20px;margin:8px 0 2px;}
+header p{color:var(--text-dim);font-size:13px;margin:0;}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px;}
+.consent-box{background:#eef7f6;border:1px solid #bfe0dc;border-radius:10px;padding:14px;font-size:13px;margin-bottom:16px;}
+.consent-box p{margin:0 0 8px;}
+.consent-box .en{color:var(--text-dim);font-size:12px;}
+label{display:block;font-weight:600;font-size:13px;margin:14px 0 6px;}
+label .en{font-weight:400;color:var(--text-dim);font-size:11px;}
+select,input{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;background:#fff;color:var(--text);}
+.geo-row{display:flex;gap:8px;align-items:center;}
+.geo-row button{flex-shrink:0;background:var(--cyan);color:#fff;border:none;border-radius:8px;padding:10px 14px;font-size:13px;cursor:pointer;}
+.geo-status{font-size:12px;color:var(--text-dim);margin-top:6px;}
+.geo-status.ok{color:var(--green);}
+.geo-status.err{color:var(--red);}
+.consent-check{display:flex;align-items:flex-start;gap:8px;margin:16px 0;font-size:12px;color:var(--text-dim);}
+.consent-check input{width:auto;margin-top:2px;}
+.submit-btn{width:100%;background:var(--green);color:#fff;border:none;border-radius:10px;padding:14px;font-size:15px;font-weight:600;cursor:pointer;}
+.submit-btn:disabled{background:#9db5a8;cursor:not-allowed;}
+.msg{margin-top:14px;padding:12px;border-radius:8px;font-size:13px;display:none;}
+.msg.show{display:block;}
+.msg.ok{background:#e8f5ee;color:var(--green);border:1px solid #bfe3cd;}
+.msg.err{background:#fdecea;color:var(--red);border:1px solid #f3c6c1;}
+.footer-note{font-size:11px;color:var(--text-dim);text-align:center;margin-top:20px;}
+.thanks-count{font-size:12px;color:var(--text-dim);text-align:center;margin-top:4px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🌾 किसान फ़सल सहयोग</h1>
+    <p>Farmer Crop Ground-Truth Upload — VINDHYA Climate Intelligence Portal</p>
+  </header>
+
+  <div class="consent-box">
+    <p>आपका स्थान और फ़सल की जानकारी उपग्रह मॉडल को बेहतर बनाने के लिए इस्तेमाल होगी। आपका नाम या फ़ोन नहीं माँगा जा रहा। यह जानकारी सार्वजनिक शोध डेटासेट में जाएगी, पर आपकी पहचान के बिना।</p>
+    <p class="en">Your location and crop information will be used to improve a satellite model. We are not asking for your name or phone number. This information will go into a public research dataset, without your identity.</p>
+  </div>
+
+  <form id="uploadForm" class="card">
+    <label>फ़सल का नाम <span class="en">(Crop)</span> *</label>
+    <select id="crop" required>
+      <option value="">-- चुनें / Select --</option>
+    </select>
+
+    <label>मौसम <span class="en">(Season)</span> *</label>
+    <select id="season" required>
+      <option value="">-- चुनें / Select --</option>
+      <option value="kharif">खरीफ (Kharif)</option>
+      <option value="rabi">रबी (Rabi)</option>
+      <option value="zayad">ज़ायद / गर्मी (Zayad / Summer)</option>
+    </select>
+
+    <label>आपका स्थान <span class="en">(Your location)</span> *</label>
+    <div class="geo-row">
+      <input type="text" id="locText" placeholder="स्थान लेने के लिए बटन दबाएँ" readonly>
+      <button type="button" id="geoBtn">📍 स्थान लें</button>
+    </div>
+    <div class="geo-status" id="geoStatus"></div>
+
+    <label>खेत का लगभग क्षेत्रफल, हेक्टेयर में <span class="en">(Approx. area, hectares — optional)</span></label>
+    <input type="number" id="areaHa" min="0" max="10000" step="0.1" placeholder="वैकल्पिक / Optional">
+
+    <label class="consent-check">
+      <input type="checkbox" id="consentCheck" required>
+      <span>मैं सहमत हूँ कि मेरी दी गई जानकारी (बिना नाम/फ़ोन के) सार्वजनिक शोध डेटासेट में उपयोग हो। आप कभी भी अपनी प्रविष्टि हटाने के लिए संपर्क कर सकते हैं: <a href="mailto:contact@vindhyaresearch.example">contact@vindhyaresearch.example</a>
+          <br>I agree that my submitted information (without name/phone) may be used in a public research dataset. You may request removal of your entry at any time via the contact above.</span>
+    </label>
+
+    <button type="submit" class="submit-btn" id="submitBtn" disabled>जमा करें / Submit</button>
+    <div class="msg" id="msg"></div>
+  </form>
+
+  <p class="footer-note">
+    स्रोत: यह जानकारी IMD, Survey of India सीमाओं और उपग्रह डेटा के साथ मिलाकर वैज्ञानिक शोध में इस्तेमाल होगी। कोई भुगतान नहीं। कोई विज्ञापन नहीं।<br>
+    Source: this information will be combined with IMD, Survey of India boundaries and satellite data for scientific research. No payment. No advertising.
+  </p>
+</div>
+
+<script>
+// Deploy note: replace with the real Worker URL after `wrangler deploy`
+// (see cloudflare/wrangler_kisan_upload.toml). Left as a placeholder so
+// this page fails loudly (visible error message) rather than silently
+// pretending to work, until the Worker is actually deployed.
+const SUBMIT_URL = 'https://vindhya-kisan-upload.YOUR_SUBDOMAIN.workers.dev/submit';
+
+let geo = null;
+
+fetch('data/crop_list.json').then(r => r.json()).then(d => {
+  const sel = document.getElementById('crop');
+  (d.crops || []).forEach(c => {
+    const o = document.createElement('option');
+    o.value = c; o.textContent = c;
+    sel.appendChild(o);
+  });
+  const other = document.createElement('option');
+  other.value = 'अन्य / Other'; other.textContent = 'अन्य / Other';
+  sel.appendChild(other);
+}).catch(() => {
+  document.getElementById('geoStatus').textContent = 'फ़सल सूची लोड नहीं हो सकी / Could not load crop list.';
+});
+
+function updateSubmitEnabled() {
+  const ok = geo && document.getElementById('crop').value && document.getElementById('season').value
+    && document.getElementById('consentCheck').checked;
+  document.getElementById('submitBtn').disabled = !ok;
+}
+['crop', 'season', 'consentCheck'].forEach(id => {
+  document.getElementById(id).addEventListener('change', updateSubmitEnabled);
+});
+
+document.getElementById('geoBtn').addEventListener('click', () => {
+  const status = document.getElementById('geoStatus');
+  if (!navigator.geolocation) {
+    status.textContent = 'यह ब्राउज़र स्थान समर्थित नहीं करता / Geolocation not supported.';
+    status.className = 'geo-status err';
+    return;
+  }
+  status.textContent = 'स्थान ढूँढा जा रहा है... / Locating...';
+  status.className = 'geo-status';
+  navigator.geolocation.getCurrentPosition((pos) => {
+    geo = { lat: pos.coords.latitude, lon: pos.coords.longitude };
+    document.getElementById('locText').value = geo.lat.toFixed(5) + ', ' + geo.lon.toFixed(5);
+    status.textContent = 'स्थान मिल गया / Location captured.';
+    status.className = 'geo-status ok';
+    updateSubmitEnabled();
+  }, (err) => {
+    status.textContent = 'स्थान नहीं मिल सका, अनुमति दें / Could not get location, please allow permission.';
+    status.className = 'geo-status err';
+  }, { enableHighAccuracy: true, timeout: 15000 });
+});
+
+document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const msg = document.getElementById('msg');
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  msg.className = 'msg';
+  const areaVal = document.getElementById('areaHa').value;
+  const payload = {
+    crop: document.getElementById('crop').value,
+    season: document.getElementById('season').value,
+    lat: geo ? geo.lat : null,
+    lon: geo ? geo.lon : null,
+    area_ha: areaVal ? Number(areaVal) : null,
+    consent: document.getElementById('consentCheck').checked,
+  };
+  try {
+    const r = await fetch(SUBMIT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await r.json();
+    if (r.ok && data.ok) {
+      msg.textContent = 'धन्यवाद! आपकी प्रविष्टि सुरक्षित हो गई। यह जानकारी उपग्रह मॉडल को बेहतर बनाने में मदद करेगी। / Thank you! Your entry was saved. This will help improve the satellite model.';
+      msg.className = 'msg show ok';
+      document.getElementById('uploadForm').reset();
+      geo = null;
+      document.getElementById('locText').value = '';
+      document.getElementById('geoStatus').textContent = '';
+    } else {
+      msg.textContent = 'त्रुटि / Error: ' + (data.error || r.status);
+      msg.className = 'msg show err';
+    }
+  } catch (err) {
+    msg.textContent = 'नेटवर्क त्रुटि, फिर कोशिश करें / Network error, please try again.';
+    msg.className = 'msg show err';
+  }
+  updateSubmitEnabled();
+});
+</script>
+</body>
+</html>

@@ -30,10 +30,25 @@ CSV/Excel/PDF-export patterns, which is exactly what CHARAN 2 should
 target (download button, not network-tab reverse-engineering) per the
 NIYAM against scraping.
 
-**Not yet done** (browser tool disconnected mid-session, follow-up
-needed): DES's actual From/To year bounds, DES's full crop list, DES's
-Terms & Conditions page, and UPAg's REPORTS menu for a district-level APY
-report if one exists there.
+**DES year range and crop list — confirmed** (follow-up pass, browser
+tool reconnected): From Year accepts 2000 ("2000 - 2001"); typing 2025
+into To Year auto-clamped to **"2022 - 2023"** -- district-level DES data
+currently tops out there, not the current year (the All-India APY report
+above showing 2025-26 rows is a faster-published national/state
+aggregate; district-level detail lags behind it by roughly 3 years).
+Crops has an "All Crops" bulk option same as the season field. Ran a real
+screen-view query (Andhra Pradesh, All Districts, All Crops, Whole Year,
+2000-01 to 2022-23) to confirm both bounds work together, not just
+individually -- it rendered real per-district, per-year rows: newer
+districts (e.g. "Alluri Sitharama Raju", created 2022) correctly show
+data starting only 2022-23, while pre-existing districts (e.g.
+"Anakapalli") show the full 2000-01 through 2022-23 run -- good sign that
+DES's own per-district start dates are handled correctly upstream rather
+than silently backfilled.
+
+**Still not checked:** DES's Terms & Conditions page, and UPAg's REPORTS
+menu for a district-level APY report if one exists there (not needed now
+that DES looks like the stronger district-level primary source anyway).
 
 ## Blocked: the currently-wired pull (`fetch_crop_stats.py`)
 
