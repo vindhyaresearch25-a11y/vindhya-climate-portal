@@ -1,8 +1,61 @@
 # Crop data coverage — national APY, 2000 to present
 
-Tracks CROP_DATA_PROMPT.md Bhaag A. CHARAN 1 (portal survey) is done;
-CHARAN 2's year-by-year table starts once a working `DATA_GOV_API_KEY`
-unblocks the actual pull (see "Blocked" note at the bottom).
+Tracks CROP_DATA_PROMPT.md Bhaag A. CHARAN 1 (portal survey) is done.
+CHARAN 2 (DES year-by-year pull) is **partially blocked** -- see its own
+section below; the `fetch_crop_stats.py` data.gov.in pull is separately
+blocked on `DATA_GOV_API_KEY` (see "Blocked" note further down).
+
+## CHARAN 2 — DES year-by-year pull, status 2026-08-07
+
+**What's proven to work:** a single, real, national query against
+data.desagri.gov.in (All States, All Districts, All Crops, 5 seasons --
+Rabi/Kharif/Autumn/Winter/Summer -- one year, e.g. 2000-01) renders
+successfully: 546 district rows x 267 data columns, no server error, no
+timeout -- confirms a year-at-a-time national pull doesn't overload their
+server. `scripts/des_apy_table_extractor.js` parses that rendered table
+into clean per-(district, crop, season) JSON records correctly -- verified
+against on-screen values by eye (e.g. Nicobars/Arecanut/Kharif: area
+1,254.00 ha, production 2,000.00 t, yield 1.59 t/ha, matches exactly).
+2000-01 alone produced 10,343 real records.
+
+**What's blocked:** getting that data off the automated browser session
+and onto disk. Three things tried, in order, all failed for the same
+underlying reason (this environment's automated Chrome session doesn't
+behave like a normal user session for file I/O):
+
+1. **DES's own "Excel" report-format option** doesn't trigger an actual
+   `.xlsx` download -- it just re-renders the same table on-screen in a
+   wider layout. Checked `~/Downloads/` (nothing new) and network requests
+   (no file fetch).
+2. **A Blob-triggered download** (`<a download>` + `.click()`) from
+   `scripts/des_apy_table_extractor.js`'s output didn't produce a file
+   either, including via a real `computer` mouse click on an on-page
+   button (not just a scripted `.click()`) -- no file appeared anywhere
+   on disk.
+3. **POSTing the extracted JSON to a local HTTP save-server** (a small
+   Python server on `127.0.0.1`) hung indefinitely over plain HTTP --
+   confirmed as mixed-content blocking (an `https://data.desagri.gov.in`
+   page silently blocking a fetch to `http://127.0.0.1` rather than
+   rejecting it, which is why it looked like a frozen tab rather than an
+   error). Switching the local server to HTTPS with a self-signed
+   certificate hit a second wall: the certificate-trust interstitial page
+   Chrome shows for an unrecognised cert isn't reachable by this
+   session's automation tools at all (can't screenshot or read it).
+
+**Recommendation, not yet acted on:** the extraction logic itself
+(`scripts/des_apy_table_extractor.js`) is correct and reusable -- what's
+missing is a reliable way to get its output to disk. Two real options:
+(a) the owner tries DES's Excel button once in their own normal
+(non-automated) browser tab to confirm whether it produces a real file
+for them -- if so, `scripts/des_apy_table_extractor.js`'s logic can be
+ported to parse that file format directly instead of scraping the
+on-screen table; (b) write a `requests`-based Python puller against the
+same endpoint the page's own "View Report" button calls
+(`POST https://data.desagri.gov.in/postReq`) -- functionally equivalent
+to what a human clicking the button does, but closer to the kind of
+"network-tab reverse engineering" this repo's NIYAM asks to avoid unless
+no official export exists, so this needs an explicit go-ahead rather than
+being decided here.
 
 ## CHARAN 1 — portal survey (2026-08-07, look only, nothing downloaded)
 
