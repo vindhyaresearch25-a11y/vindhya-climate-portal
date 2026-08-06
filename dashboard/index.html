@@ -6,9 +6,17 @@
 <title>VINDHYA Climate Intelligence | Village &amp; District Climate Risk Platform</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+<!-- A5 fix (2026-08-06): Leaflet/Chart.js/Turf <script> tags used to sit
+     here in <head>, before any <body> markup -- on a slow/stalled CDN
+     connection (unpkg.com, cdn.jsdelivr.net) the browser shows a BLANK
+     white page for as long as that request takes (the reported "30
+     seconds, nothing rendered"), because a classic blocking <script src>
+     in <head> halts HTML parsing at that exact point. Moved to just
+     before the inline <script> at the bottom of <body> that actually
+     needs L/Chart/turf, in the same order -- the full page skeleton
+     (header, sidebar, cards, footer) now parses and paints immediately
+     off the stylesheets above; map/charts appear a moment later once
+     these three finish loading, instead of the whole page being blank. -->
 <style>
 /* Light theme (owner decision 2026-08-03, after reviewing 4 reference
    geoportals live: Global Nature Watch, NASA Worldview, Bhuvan,
@@ -762,7 +770,7 @@ canvas.chart-canvas{max-height:100%;}
           <div class="advisory-card high" id="adv-card-0">
             <div class="advisory-header">
               <span class="advisory-icon"><i class="fa fa-triangle-exclamation"></i></span>
-              <span class="advisory-title" id="adv-title-0" style="color:var(--text-dim)">Select a district for AI advisory</span>
+              <span class="advisory-title" id="adv-title-0" style="color:var(--text-dim)">Select a district for farmer advisory</span>
             </div>
             <div class="advisory-body" id="adv-body-0">Advisories are generated from real IMD-derived indices once a district (and optionally a village) is selected above.</div>
             <div class="advisory-actions">
@@ -834,7 +842,7 @@ canvas.chart-canvas{max-height:100%;}
         <div class="btm-tab" onclick="switchTab(this,&#39;ndvi&#39;)"><i class="fa fa-leaf"></i>NDVI Trend</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;forecast&#39;)"><i class="fa fa-clock"></i>7-Day Forecast</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;gee&#39;)"><i class="fa fa-earth-asia"></i>GEE Workflow</div>
-        <div class="btm-tab" onclick="switchTab(this,&#39;ai&#39;)"><i class="fa fa-brain"></i>AI Models</div>
+        <div class="btm-tab" onclick="switchTab(this,&#39;ai&#39;)"><i class="fa fa-brain"></i>Projection Method</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;sat&#39;)"><i class="fa fa-satellite"></i>Satellites</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;api&#39;)"><i class="fa fa-code"></i>API Hub</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;panch&#39;)"><i class="fa fa-building"></i>Panchayat</div>
@@ -1115,7 +1123,7 @@ canvas.chart-canvas{max-height:100%;}
                   <div id="cad-advisory" style="font-size:0.65rem;font-weight:600;line-height:1.5;color:var(--text);">
                     Select a khasra to generate parcel-specific advisory.
                   </div>
-                  <button onclick="askChatAboutCadastral()" style="margin-top:0.4rem;width:100%;background:var(--cyan);border:none;padding:0.3rem;border-radius:4px;color:#fff;cursor:pointer;font-size:0.6rem;font-weight:700;"><i class="fa fa-comment"></i> ASK AI FOR CROP ADVISORY & CLIMATE ALERT</button>
+                  <button onclick="askChatAboutCadastral()" style="margin-top:0.4rem;width:100%;background:var(--cyan);border:none;padding:0.3rem;border-radius:4px;color:#fff;cursor:pointer;font-size:0.6rem;font-weight:700;"><i class="fa fa-comment"></i> ASK KISAN SAHAYAK FOR CROP ADVISORY & CLIMATE ALERT</button>
                 </div>
               </div>
             </div>
@@ -1164,7 +1172,23 @@ canvas.chart-canvas{max-height:100%;}
   </div>
 </div>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
 <script>
+// 30s timeout on every fetch (STANDING ORDERS #5) -- a slow/hung request
+// must degrade to the caller's existing catch()/fallback instead of
+// hanging the page. Shared by every fetch() in this inline script; the
+// external dashboard/*_loader.js files each carry their own copy since
+// they are separate <script> files, not modules.
+function fetchWithTimeout(url, opts){
+  var controller = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+  var timer = controller ? setTimeout(function(){ controller.abort(); }, 30000) : null;
+  var o = opts || {};
+  if (controller) o.signal = controller.signal;
+  return fetch(url, o).finally(function(){ if (timer) clearTimeout(timer); });
+}
+
 // ============================================================
 // MADHYA PRADESH ADMINISTRATIVE HIERARCHY
 // India > MP > District (all 55) > Block/Tehsil > Village
@@ -1220,9 +1244,9 @@ function animateCounters(){
 // source count (sources_manifest.json). Falls back to the static
 // data-target already in the HTML only if a fetch genuinely fails.
 Promise.all([
-  fetch('data/boundaries/' + 'soi/_manifest.json').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
-  fetch('data/sources_manifest.json').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
-  fetch('data/climate_manifest.json').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })
+  fetchWithTimeout('data/boundaries/' + 'soi/_manifest.json').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
+  fetchWithTimeout('data/sources_manifest.json').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
+  fetchWithTimeout('data/climate_manifest.json').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })
 ]).then(function(results){
   var manifest = results[0], sources = results[1], climate = results[2];
   if (manifest && manifest.totals) {
@@ -1751,7 +1775,7 @@ async function loadVillageBoundaries(distKey, hazardKind){
   // this fetch to the GitHub raw CDN. Don't merge into one literal.
   const url = 'data/boundaries/'+'soi/villages/madhya_pradesh/'+slug+'.geojson';
   try{
-    const r=await fetch(url);
+    const r=await fetchWithTimeout(url);
     if(r.ok){
       const raw = await r.json();
       _villageGeoData = {
@@ -2912,12 +2936,12 @@ async function runChatCompletion(){
           : 'Too many questions just now. Please try again in a minute.';
       } else if (response.status === 403) {
         errMsg = chatLangHi
-          ? '\u092f\u0939 \u092a\u0943\u0937\u094d\u0920 AI \u0938\u0947\u0935\u093e \u0938\u0947 \u091c\u0941\u0921\u093c\u0928\u0947 \u0915\u0940 \u0905\u0928\u0941\u092e\u0924\u093f \u0928\u0939\u0940\u0902 \u0930\u0916\u0924\u093e\u0964'
-          : 'This page is not authorised to reach the AI service.';
+          ? '\u092f\u0939 \u092a\u0943\u0937\u094d\u0920 \u0915\u093f\u0938\u093e\u0928 \u0938\u0939\u093e\u092f\u0915 \u0938\u0947\u0935\u093e \u0938\u0947 \u091c\u0941\u0921\u093c\u0928\u0947 \u0915\u0940 \u0905\u0928\u0941\u092e\u0924\u093f \u0928\u0939\u0940\u0902 \u0930\u0916\u0924\u093e\u0964'
+          : 'This page is not authorised to reach the Kisan Sahayak service.';
       } else {
         errMsg = chatLangHi
-          ? 'AI \u0938\u0947\u0935\u093e \u0905\u092d\u0940 \u0909\u092a\u0932\u092c\u094d\u0927 \u0928\u0939\u0940\u0902 \u0939\u0948 (HTTP ' + response.status + ')\u0964'
-          : 'The AI service is unavailable right now (HTTP ' + response.status + ').';
+          ? '\u0915\u093f\u0938\u093e\u0928 \u0938\u0939\u093e\u092f\u0915 \u0938\u0947\u0935\u093e \u0905\u092d\u0940 \u0909\u092a\u0932\u092c\u094d\u0927 \u0928\u0939\u0940\u0902 \u0939\u0948 (HTTP ' + response.status + ')\u0964'
+          : 'The Kisan Sahayak service is unavailable right now (HTTP ' + response.status + ').';
       }
       console.error('Chat proxy error:', response.status);
       addChatMsg('bot', errMsg + (chatLangHi
@@ -2949,8 +2973,8 @@ async function runChatCompletion(){
         : 'The answer took too long to arrive. Please try again.';
     } else {
       msg = chatLangHi
-        ? 'AI \u0938\u0947\u0935\u093e \u0938\u0947 \u0938\u0902\u092a\u0930\u094d\u0915 \u0928\u0939\u0940\u0902 \u0939\u094b \u092a\u093e\u092f\u093e\u0964'
-        : "Couldn't reach the AI service.";
+        ? '\u0915\u093f\u0938\u093e\u0928 \u0938\u0939\u093e\u092f\u0915 \u0938\u0947\u0935\u093e \u0938\u0947 \u0938\u0902\u092a\u0930\u094d\u0915 \u0928\u0939\u0940\u0902 \u0939\u094b \u092a\u093e\u092f\u093e\u0964'
+        : "Couldn't reach the Kisan Sahayak service.";
     }
     addChatMsg('bot', msg + (chatLangHi
       ? ' \u092e\u0948\u0902 \u092e\u094c\u0938\u092e, \u092b\u0938\u0932, \u092e\u0902\u0921\u0940 \u092d\u093e\u0935 \u0914\u0930 \u0938\u0942\u0916\u0947 \u0915\u0947 \u091c\u094b\u0916\u093f\u092e \u0915\u0947 \u0905\u0938\u0932\u0940 \u0906\u0901\u0915\u0921\u093c\u0947 \u0905\u092c \u092d\u0940 \u0926\u0947 \u0938\u0915\u0924\u093e \u0939\u0942\u0902 -- \u090a\u092a\u0930 \u0926\u093f\u090f \u0938\u0941\u091d\u093e\u0935 \u0906\u091c\u093c\u092e\u093e\u090f\u0902\u0964'

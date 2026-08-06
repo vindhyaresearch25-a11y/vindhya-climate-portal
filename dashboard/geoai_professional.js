@@ -12,6 +12,16 @@
   'use strict';
   var R_EARTH = 6378137, RAD = Math.PI / 180;
 
+  // 30s timeout on every fetch (STANDING ORDERS #5) -- a slow/hung request
+  // degrades to the existing .catch() fallback instead of hanging the page.
+  function fetchWithTimeout(url, opts) {
+    var controller = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+    var timer = controller ? setTimeout(function () { controller.abort(); }, 30000) : null;
+    var o = opts || {};
+    if (controller) o.signal = controller.signal;
+    return fetch(url, o).finally(function () { if (timer) clearTimeout(timer); });
+  }
+
   function isHindi() {
     try {
       if (typeof window.LANG !== 'undefined') return window.LANG === 'hi';
@@ -588,7 +598,7 @@
       '&longitude=' + lon.toFixed(4) + '&latitude=' + lat.toFixed(4) +
       '&start=' + ymd(start) + '&end=' + ymd(end) + '&format=JSON';
 
-    fetch(url).then(function (r) {
+    fetchWithTimeout(url).then(function (r) {
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.json();
     }).then(function (j) {

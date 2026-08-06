@@ -4,6 +4,16 @@
   var FORECAST_URL = 'data/forecast_2040.json';
   var state = { ndvi: null, forecast: null, currentDistrict: null };
 
+  // 30s timeout on every fetch (STANDING ORDERS #5) -- a slow/hung request
+  // degrades to the existing .catch() fallback instead of hanging the page.
+  function fetchWithTimeout(url, opts){
+    var controller = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+    var timer = controller ? setTimeout(function(){ controller.abort(); }, 30000) : null;
+    var o = opts || {};
+    if (controller) o.signal = controller.signal;
+    return fetch(url, o).finally(function(){ if (timer) clearTimeout(timer); });
+  }
+
   function fmt(n, d){
     if (n === null || n === undefined || isNaN(n)) return '—';
     return Number(n).toFixed(d == null ? 1 : d);
@@ -111,8 +121,8 @@
 
   function init(){
     Promise.all([
-      fetch(NDVI_URL).then(function(r){ if (!r.ok) throw new Error('NDVI HTTP '+r.status); return r.json(); }),
-      fetch(FORECAST_URL).then(function(r){ if (!r.ok) throw new Error('Forecast HTTP '+r.status); return r.json(); })
+      fetchWithTimeout(NDVI_URL).then(function(r){ if (!r.ok) throw new Error('NDVI HTTP '+r.status); return r.json(); }),
+      fetchWithTimeout(FORECAST_URL).then(function(r){ if (!r.ok) throw new Error('Forecast HTTP '+r.status); return r.json(); })
     ]).then(function(results){
       state.ndvi = results[0];
       state.forecast = results[1];

@@ -15,6 +15,16 @@
   var KB_URL = 'data/knowledge_base/index.json';
   var state = { entries: [], loaded: false };
 
+  // 30s timeout on every fetch (STANDING ORDERS #5) -- a slow/hung request
+  // degrades to the existing .catch() fallback instead of hanging the page.
+  function fetchWithTimeout(url, opts) {
+    var controller = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+    var timer = controller ? setTimeout(function () { controller.abort(); }, 30000) : null;
+    var o = opts || {};
+    if (controller) o.signal = controller.signal;
+    return fetch(url, o).finally(function () { if (timer) clearTimeout(timer); });
+  }
+
   function tokenize(s) {
     return (s || '').toLowerCase().match(/[a-z0-9]+/g) || [];
   }
@@ -56,7 +66,7 @@
   }
 
   function init() {
-    fetch(KB_URL)
+    fetchWithTimeout(KB_URL)
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (data) {
         if (data && Array.isArray(data.entries)) {

@@ -23,13 +23,23 @@
   var lookup = null; // districtSlug -> {stateSlug, districtSlug}
   var cache = {};    // "stateSlug/districtSlug" -> fetched file
 
+  // 30s timeout on every fetch (STANDING ORDERS #5) -- a slow/hung request
+  // degrades to the existing .catch() fallback instead of hanging the page.
+  function fetchWithTimeout(url, opts) {
+    var controller = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+    var timer = controller ? setTimeout(function () { controller.abort(); }, 30000) : null;
+    var o = opts || {};
+    if (controller) o.signal = controller.signal;
+    return fetch(url, o).finally(function () { if (timer) clearTimeout(timer); });
+  }
+
   function slugify(s) {
     return String(s).trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
   }
 
   function loadManifest() {
     if (manifestPromise) return manifestPromise;
-    manifestPromise = fetch('data/climate_manifest.json')
+    manifestPromise = fetchWithTimeout('data/climate_manifest.json')
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (m) {
         lookup = {};
@@ -162,7 +172,7 @@
       if (!entry) return; // GEE hasn't computed this district yet -- leave "Not available" as-is
       var key = entry.stateSlug + '/' + entry.districtSlug;
       if (cache[key]) { applyGeeMetrics(cache[key], districtName); return; }
-      fetch('data/climate/' + entry.stateSlug + '/' + entry.districtSlug + '.json')
+      fetchWithTimeout('data/climate/' + entry.stateSlug + '/' + entry.districtSlug + '.json')
         .then(function (r) { return r.ok ? r.json() : null; })
         .then(function (file) {
           if (!file) return;
