@@ -655,6 +655,14 @@ canvas.chart-canvas{max-height:100%;}
 .u-teal{color:var(--teal);}
 .u-cyan{color:var(--cyan);}
 .u-h200{height:200px;}
+.u-panel-title-blue{font-size:var(--fs-1);letter-spacing:2px;font-weight:700;color:var(--blue);margin-bottom:var(--space-03);}
+.u-flex-gap05-mb05-wrap{display:flex;gap:var(--space-05);margin-bottom:var(--space-05);flex-wrap:wrap;}
+.u-fs1-600-dim{font-size:var(--fs-1);font-weight:600;color:var(--text-dim);}
+.u-fs1-dim-block{font-size:var(--fs-1);color:var(--text-dim);display:block;}
+.u-fs1-white-bold{font-size:var(--fs-1);color:#fff;font-weight:700;}
+.u-pad-row{padding:0.25rem 0;margin-bottom:var(--space-03);}
+.u-scroll-pane{overflow-y:auto;flex:1;padding:var(--space-05);}
+.u-fs1-bold{font-size:var(--fs-1);font-weight:700;}
 </style>
 </head>
 <body>
@@ -956,9 +964,9 @@ canvas.chart-canvas{max-height:100%;}
           <div class="metric-card" style="grid-column:span 2;border-color:rgba(26,138,158,0.25);background:rgba(26,138,158,0.04);">
             <div style="display:flex;gap:var(--space-05);align-items:center;">
               <span style="font-size:var(--fs-1);font-weight:600;color:var(--text-dim);letter-spacing:1px;">YEAR <span id="m-year-label" style="font-weight:700;color:var(--orange)">2024</span></span>
-              <span style="font-size:var(--fs-1);font-weight:600;color:var(--text-dim)">HW:</span><span id="m-year-hw" style="font-size:var(--fs-2);font-weight:700;color:var(--orange)">—</span>
-              <span style="font-size:var(--fs-1);font-weight:600;color:var(--text-dim)">Rain:</span><span id="m-year-rain" style="font-size:var(--fs-2);font-weight:700;color:var(--cyan)">—</span>
-              <span style="font-size:var(--fs-1);font-weight:600;color:var(--text-dim)">SPI:</span><span id="m-year-spi" style="font-size:var(--fs-2);font-weight:700;color:var(--green)">—</span>
+              <span class="u-fs1-600-dim">HW:</span><span id="m-year-hw" style="font-size:var(--fs-2);font-weight:700;color:var(--orange)">—</span>
+              <span class="u-fs1-600-dim">Rain:</span><span id="m-year-rain" style="font-size:var(--fs-2);font-weight:700;color:var(--cyan)">—</span>
+              <span class="u-fs1-600-dim">SPI:</span><span id="m-year-spi" style="font-size:var(--fs-2);font-weight:700;color:var(--green)">—</span>
             </div>
           </div>
           <div class="metric-card alert">
@@ -1240,20 +1248,20 @@ canvas.chart-canvas{max-height:100%;}
         <!-- Agriculture -->
         <div class="btm-pane" id="pane-agriculture">
           <div class="section-header"><i class="fa fa-wheat-awn u-green-sm"></i><div class="section-title">AGRICULTURE &amp; CROP HEALTH <span id="agriDistName" class="u-orange"></span></div></div>
-          <div style="overflow-y:auto;flex:1;padding:var(--space-05);">
-            <div class="agri-metrics" style="display:flex;gap:var(--space-05);margin-bottom:var(--space-05);flex-wrap:wrap;">
+          <div class="u-scroll-pane">
+            <div class="agri-metrics u-flex-gap05-mb05-wrap">
               <div class="metric-card u-fmw100"><div class="metric-label">CROP HEALTH</div><div class="metric-value u-green" id="agri-crop-health">—</div></div>
               <div class="metric-card u-fmw100"><div class="metric-label">NDVI MEAN</div><div class="metric-value u-teal" id="agri-ndvi">—</div></div>
               <div class="metric-card u-fmw100"><div class="metric-label">RAINFALL</div><div class="metric-value u-cyan" id="agri-rain">—</div></div>
               <div class="metric-card u-fmw100"><div class="metric-label">SOIL TYPE</div><div class="metric-value u-yellow" id="agri-soil-type">—</div></div>
             </div>
-            <div class="section-header" style="padding:0.25rem 0;margin-bottom:var(--space-03);"><i class="fa fa-calendar u-green-sm"></i><div class="section-title u-fs1">CROP SEASON — <span id="agri-season-name">KHARIF</span></div></div>
-            <div style="display:flex;gap:var(--space-05);margin-bottom:var(--space-05);flex-wrap:wrap;">
+            <div class="section-header u-pad-row"><i class="fa fa-calendar u-green-sm"></i><div class="section-title u-fs1">CROP SEASON — <span id="agri-season-name">KHARIF</span></div></div>
+            <div class="u-flex-gap05-mb05-wrap">
               <div class="metric-card u-fmw100"><div class="metric-label">RECOMMENDED</div><div class="metric-value" id="agri-rec-crop" style="font-size:var(--fs-1);font-weight:700;color:var(--green)">—</div></div>
               <div class="metric-card u-fmw100"><div class="metric-label">ALTERNATIVE</div><div class="metric-value" id="agri-alt-crop" style="font-size:var(--fs-1);font-weight:700;color:var(--teal)">—</div></div>
               <div class="metric-card u-fmw80"><div class="metric-label">SUITABILITY</div><div class="metric-value" id="agri-suitability" style="font-size:var(--fs-1);color:var(--orange)">—</div></div>
             </div>
-            <div class="section-header" style="padding:0.25rem 0;margin-bottom:var(--space-03);"><i class="fa fa-comment-dots u-cyan-sm"></i><div class="section-title u-fs1">FARMER ADVISORY</div></div>
+            <div class="section-header u-pad-row"><i class="fa fa-comment-dots u-cyan-sm"></i><div class="section-title u-fs1">FARMER ADVISORY</div></div>
             <div id="agri-advisory" style="background:rgba(26,138,158,0.08);border-left:3px solid var(--cyan);padding:0.4rem 0.5rem;border-radius:var(--radius-4);margin-bottom:var(--space-05);font-size:var(--fs-1);line-height:1.4;color:var(--text);"></div>
             <div style="display:flex;gap:var(--space-05);flex-wrap:wrap;">
               <div class="metric-card u-fmw120"><div class="metric-label">IRRIGATION</div><div id="agri-irrigation" class="metric-value" style="font-size:var(--fs-1);font-weight:700;color:var(--cyan)">—</div></div>
@@ -1275,14 +1283,14 @@ canvas.chart-canvas{max-height:100%;}
         <!-- Ecology -->
         <div class="btm-pane" id="pane-ecology">
           <div class="section-header"><i class="fa fa-tree u-green-sm"></i><div class="section-title">ECOLOGY &amp; BIODIVERSITY <span id="ecoDistName" class="u-orange"></span></div></div>
-          <div style="overflow-y:auto;flex:1;padding:var(--space-05);">
-            <div style="display:flex;gap:var(--space-05);margin-bottom:var(--space-05);flex-wrap:wrap;">
+          <div class="u-scroll-pane">
+            <div class="u-flex-gap05-mb05-wrap">
               <div class="metric-card u-fmw100"><div class="metric-label">FOREST COVER</div><div class="metric-value u-green" id="eco-forest">—</div></div>
               <div class="metric-card u-fmw100"><div class="metric-label">NDVI TREND</div><div class="metric-value u-teal" id="eco-ndvi">—</div></div>
               <div class="metric-card u-fmw100"><div class="metric-label">BIODIVERSITY</div><div class="metric-value u-yellow" id="eco-bio">—</div></div>
               <div class="metric-card u-fmw100"><div class="metric-label">CARBON</div><div class="metric-value u-cyan" id="eco-carbon">—</div></div>
             </div>
-            <div class="section-header" style="padding:0.25rem 0;margin-bottom:var(--space-03);"><i class="fa fa-map u-green-sm"></i><div class="section-title u-fs1">AREA-WISE ECOLOGICAL METRICS</div></div>
+            <div class="section-header u-pad-row"><i class="fa fa-map u-green-sm"></i><div class="section-title u-fs1">AREA-WISE ECOLOGICAL METRICS</div></div>
             <div id="eco-area-metrics" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-03);font-size:var(--fs-1);">
               <div class="forest-row"><div class="forest-indicator" style="background:var(--green)"></div><div class="forest-name">Protected Area</div><div class="forest-val u-green" id="eco-protected">—</div></div>
               <div class="forest-row"><div class="forest-indicator" style="background:var(--teal)"></div><div class="forest-name">Wildlife Corridor</div><div class="forest-val u-teal" id="eco-wildlife">—</div></div>
@@ -1303,8 +1311,8 @@ canvas.chart-canvas{max-height:100%;}
                 यहाँ दिखाया गया कोई भी आंकड़ा वास्तविक भूमि अभिलेख नहीं है।</span>
               </div>
               <div class="section-header"><i class="fa fa-draw-polygon u-orange-sm"></i><div class="section-title">सीमांक CADASTRAL — <span id="cad-village-name">Sample village</span> <span class="u-teal">|</span> KHASRA <span id="cad-selected-khasra" class="u-orange">—</span></div></div>
-              <div style="overflow-y:auto;flex:1;padding:var(--space-05);">
-                <div style="display:flex;gap:var(--space-05);margin-bottom:var(--space-05);flex-wrap:wrap;">
+              <div class="u-scroll-pane">
+                <div class="u-flex-gap05-mb05-wrap">
                   <div class="u-fmw100">
                     <label style="font-size:var(--fs-1);font-weight:600;color:var(--text-dim);display:block;margin-bottom:var(--space-02);">SEARCH KHASRA / PARCEL</label>
                     <select id="cadKhasraSelect" onchange="onKhasraChange(this.value)" style="width:100%;padding:var(--space-03);border-radius:var(--radius-4);border:var(--border-default);background:var(--bg-card);color:var(--text);font-size:var(--fs-1);">
@@ -1325,18 +1333,18 @@ canvas.chart-canvas{max-height:100%;}
                 </div>
                 <!-- Land Record (B-1) -->
                 <div style="background:rgba(33,150,243,0.08);border:1px solid rgba(33,150,243,0.3);border-radius:var(--radius-6);padding:var(--space-04);margin-bottom:var(--space-04);">
-                  <div style="font-size:var(--fs-1);letter-spacing:2px;font-weight:700;color:var(--blue);margin-bottom:var(--space-03);"><i class="fa fa-folder"></i> LAND RECORD (B-1)</div>
+                  <div class="u-panel-title-blue"><i class="fa fa-folder"></i> LAND RECORD (B-1)</div>
                   <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-03);">
-                    <div><span style="font-size:var(--fs-1);color:var(--text-dim);display:block;">KHASRA NO</span><span id="cad-khasra" style="font-size:var(--fs-1);color:#fff;font-weight:700;">—</span></div>
-                    <div><span style="font-size:var(--fs-1);color:var(--text-dim);display:block;">AREA (Ha)</span><span id="cad-area" style="font-size:var(--fs-1);color:var(--cyan);font-weight:700;">—</span></div>
+                    <div><span class="u-fs1-dim-block">KHASRA NO</span><span id="cad-khasra" class="u-fs1-white-bold">—</span></div>
+                    <div><span class="u-fs1-dim-block">AREA (Ha)</span><span id="cad-area" style="font-size:var(--fs-1);color:var(--cyan);font-weight:700;">—</span></div>
                   </div>
                 </div>
                 <!-- Farmer Identity -->
                 <div style="background:rgba(33,150,243,0.08);border:1px solid rgba(33,150,243,0.3);border-radius:var(--radius-6);padding:var(--space-04);margin-bottom:var(--space-04);">
-                  <div style="font-size:var(--fs-1);letter-spacing:2px;font-weight:700;color:var(--blue);margin-bottom:var(--space-03);"><i class="fa fa-user"></i> FARMER IDENTITY</div>
+                  <div class="u-panel-title-blue"><i class="fa fa-user"></i> FARMER IDENTITY</div>
                   <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-03);">
-                    <div><span style="font-size:var(--fs-1);color:var(--text-dim);display:block;">OWNER NAME <span style="opacity:0.75">[MP Bhulekh field]</span></span><span id="cad-owner" style="font-size:var(--fs-1);color:#fff;font-weight:700;">—</span></div>
-                    <div><span style="font-size:var(--fs-1);color:var(--text-dim);display:block;">FATHER/HUSBAND <span style="opacity:0.75">[MP Bhulekh field]</span></span><span id="cad-father" style="font-size:var(--fs-1);color:#fff;font-weight:700;">—</span></div>
+                    <div><span class="u-fs1-dim-block">OWNER NAME <span style="opacity:0.75">[MP Bhulekh field]</span></span><span id="cad-owner" class="u-fs1-white-bold">—</span></div>
+                    <div><span class="u-fs1-dim-block">FATHER/HUSBAND <span style="opacity:0.75">[MP Bhulekh field]</span></span><span id="cad-father" class="u-fs1-white-bold">—</span></div>
                   </div>
                 </div>
                 <!-- Parcel Details -->
@@ -1348,12 +1356,12 @@ canvas.chart-canvas{max-height:100%;}
                 </div>
                 <!-- Satellite Analytics -->
                 <div style="background:rgba(33,150,243,0.06);border:1px solid rgba(33,150,243,0.2);border-radius:var(--radius-6);padding:var(--space-04);margin-bottom:var(--space-04);">
-                  <div style="font-size:var(--fs-1);letter-spacing:2px;font-weight:700;color:var(--blue);margin-bottom:var(--space-03);"><i class="fa fa-satellite"></i> SATELLITE ANALYTICS</div>
+                  <div class="u-panel-title-blue"><i class="fa fa-satellite"></i> SATELLITE ANALYTICS</div>
                   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-03);">
-                    <div class="metric-card"><div class="metric-label">NDVI</div><div class="metric-value" id="cad-ndvi" style="font-size:var(--fs-1);font-weight:700">—</div></div>
-                    <div class="metric-card"><div class="metric-label">CROP HEALTH</div><div class="metric-value" id="cad-crop-health" style="font-size:var(--fs-1);font-weight:700">—</div></div>
-                    <div class="metric-card"><div class="metric-label">SOIL MOISTURE</div><div class="metric-value" id="cad-soil-moisture" style="font-size:var(--fs-1);font-weight:700">—</div></div>
-                    <div class="metric-card"><div class="metric-label">CLIMATE RISK</div><div class="metric-value" id="cad-risk" style="font-size:var(--fs-1);font-weight:700">—</div></div>
+                    <div class="metric-card"><div class="metric-label">NDVI</div><div class="metric-value u-fs1-bold" id="cad-ndvi">—</div></div>
+                    <div class="metric-card"><div class="metric-label">CROP HEALTH</div><div class="metric-value u-fs1-bold" id="cad-crop-health">—</div></div>
+                    <div class="metric-card"><div class="metric-label">SOIL MOISTURE</div><div class="metric-value u-fs1-bold" id="cad-soil-moisture">—</div></div>
+                    <div class="metric-card"><div class="metric-label">CLIMATE RISK</div><div class="metric-value u-fs1-bold" id="cad-risk">—</div></div>
                   </div>
                 </div>
                 <div id="cad-overlay-data" style="font-size:var(--fs-1);font-weight:600;line-height:1.4;color:var(--text);padding:var(--space-03);margin-bottom:var(--space-04);background:rgba(33,150,243,0.06);border-radius:var(--radius-4);border-left:3px solid var(--blue);">
