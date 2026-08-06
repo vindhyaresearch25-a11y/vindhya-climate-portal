@@ -111,7 +111,11 @@
 }
 @media(max-width:768px){
   :root{
-    --fs-1:12px;
+    /* Phase B rule (2026-08-06) overrides A4's original 12px mobile floor:
+       no text anywhere on the mobile screen -- the one a farmer actually
+       uses -- may render below 14px. --fs-1 and --fs-2 collapse to the
+       same 14px value rather than leaving a sub-14px step. */
+    --fs-1:14px;
     --fs-2:14px;
     --fs-3:16px;
     --fs-4:20px;
@@ -277,6 +281,11 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 .map-ctrl-btn{background:var(--bg-card);border:var(--border-default);color:#8a9aac;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-4);cursor:pointer;font-size:var(--fs-2);transition:all 0.2s;}
 .map-ctrl-btn:hover,.map-ctrl-btn.active{background:rgba(26,138,158,0.06);border-color:var(--cyan);color:var(--cyan);}
 .map-legend{position:absolute;bottom:2.9rem;left:1rem;z-index:500;background:rgba(255,255,255,0.95);border:var(--border-default);border-radius:var(--radius-6);padding:var(--space-075);backdrop-filter:blur(8px);box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+/* Leaflet-generated (geoai_professional.js addFurniture()); display:flex
+   is declared here rather than in that div's inline style so the Phase B
+   mobile media query's display:none can actually win -- an inline style
+   would beat any stylesheet rule regardless of specificity or order. */
+.map-north-arrow{display:flex;}
 .legend-title{font-size:var(--fs-1);letter-spacing:0;font-weight:600;color:var(--cyan);margin-bottom:var(--space-05);}
 .legend-row{display:flex;align-items:center;gap:var(--space-05);font-size:var(--fs-1);font-weight:500;color:var(--text-dim);margin-bottom:var(--space-025);}
 .legend-dot{width:10px;height:10px;border-radius:var(--radius-circle);}
@@ -433,13 +442,120 @@ canvas.chart-canvas{max-height:100%;}
 .forest-name{font-size:var(--fs-1);font-weight:600;flex:1;}
 .forest-val{font-size:var(--fs-1);font-weight:700;font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;}
 
-/* Responsive */
+/* ============================================================
+   PHASE B (2026-08-06) -- laptop/tablet/mobile responsive layout.
+   Base (always-on) rules for the two new elements first; the media
+   queries below only add layout/visibility on top of these.
+   ============================================================ */
+#sidebarBackdrop{display:none;position:fixed;inset:0;background:rgba(10,16,26,0.5);z-index:2050;opacity:0;pointer-events:none;transition:opacity 0.25s;}
+#sidebarBackdrop.show{opacity:1;pointer-events:auto;}
+.mobile-loc-bar{display:none;}
+.legend-title{display:flex;align-items:center;gap:var(--space-04);}
+.legend-caret{display:none;margin-left:auto;font-size:var(--fs-1);transition:transform 0.2s;}
+.map-legend.mobile-collapsed .legend-caret{transform:rotate(180deg);}
+.map-legend.mobile-collapsed #legendBody{display:none;}
+
+/* ---- TABLET: 768px-1024px -- icon-only sidebar, metrics below the map,
+   2-column cards (the card grid is already 2-col by default, see
+   .metric-row above -- nothing to change there). ---- */
+@media(min-width:768.02px) and (max-width:1024px){
+  #sidebar{width:56px;}
+  #sidebar .nav-label,#sidebar .nav-section-title,#sidebar .sidebar-logo-text,#sidebar .nav-badge{display:none;}
+  .topbar-toggle{display:none;} /* tablet sidebar width is fixed, nothing to toggle */
+  #content{flex-direction:column;overflow-y:auto;overflow-x:hidden;}
+  #map-panel{flex:0 0 50vh;min-height:340px;}
+  #right-panel{width:100%;border-left:none;border-top:1px solid var(--border);max-height:none;}
+}
+
+/* ---- MOBILE: <=768px -- this is the screen a farmer actually uses
+   (STANDING ORDERS / FINAL_PROMPT Phase B). Every rule below traces to
+   one bullet in that spec; see the inline notes. ---- */
 @media(max-width:768px){
-  #right-panel{display:none;}
-  #bottom-panel{height:200px;}
-  .btm-tabs{width:120px;}
+  /* Desktop pins html/body/#app/#main/#content each to exactly one
+     viewport-height flex box (overflow:hidden at every level) because
+     every panel manages its own internal scroll there. Mobile stacks
+     those same panels in one column, so the WHOLE page must be allowed
+     to grow taller than one screen and scroll as a unit instead -- every
+     level in that chain needs its height-cap and clipping lifted, not
+     just #app. (#app's `display:flex` and body's `overflow:hidden` are
+     also set inline by launchApp() in JS; inline styles beat any CSS
+     rule regardless of specificity, so those two are fixed in JS, in
+     the same matchMedia handler that moves the Location Selector.) */
+  html,body{height:auto;min-height:100%;overflow-y:auto;overflow-x:hidden;}
+  #app{overflow-y:visible;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:56px;}
+  #main{overflow:visible;}
+
+  /* Sidebar hides, opens as a hamburger drawer (not the tablet icon-rail) */
+  #sidebar{position:fixed;top:0;left:0;bottom:0;width:240px;max-width:82vw;z-index:2100;
+    transform:translateX(-100%);transition:transform 0.25s ease;box-shadow:2px 0 24px rgba(0,0,0,0.25);}
+  #sidebar.mobile-open{transform:translateX(0);}
+  /* A stale .collapsed from a desktop session must not shrink the open
+     drawer -- full labels always show once it's actually open on mobile. */
+  #sidebar.collapsed{width:240px;max-width:82vw;}
+  #sidebar.collapsed .nav-label,#sidebar.collapsed .nav-section-title,
+  #sidebar.collapsed .sidebar-logo-text,#sidebar.collapsed .nav-badge{display:revert;}
+  #sidebarBackdrop{display:block;}
+  .nav-item{min-height:44px;}
+
+  /* Location Selector: sabse upar, poori chaudai -- national_selector.js's
+     applyMobileLayout() moves .map-info-bar to be #content's first child
+     on this breakpoint; these rules make that full-width and static
+     instead of the floating card it is on desktop/tablet. */
+  #content{flex-direction:column;overflow:visible;}
+  #content > .map-info-bar{position:static;width:100%;max-width:none;margin:0;
+    border-radius:0;box-shadow:none;backdrop-filter:none;
+    background:var(--bg-card);border-bottom:1px solid var(--border);}
+  .loc-field select{min-height:44px;font-size:16px;} /* >=16px avoids iOS auto-zoom-on-focus */
+
+  /* Map: neeche, screen ki ~45% oonchai */
+  #map-panel{flex:0 0 45vh;min-height:260px;}
+  .map-ctrl-btn{width:44px;height:44px;}
+
+  /* North arrow + scale bar hatao; legend collapsible -- default collapsed
+     state on entry is set by applyMobileLayout() adding .mobile-collapsed,
+     not hardcoded here, so toggleLegend() can freely open/close it. */
+  .map-north-arrow,.leaflet-control-scale{display:none;}
+  .map-legend{max-width:64vw;}
+  .legend-caret{display:inline;}
+
+  /* Metrics: ek column */
+  #right-panel{width:100%;border-left:none;border-top:1px solid var(--border);max-height:none;}
+  .metric-row{grid-template-columns:1fr;}
+
+  /* Charts: bottom-panel's 180px side rail becomes a horizontally
+     swipeable pill strip on top, one pane at a time below it -- "ek ke
+     baad ek" without giving up the working tab-switch logic. */
+  #bottom-panel{flex-direction:column;height:auto;max-height:60vh;}
+  .btm-tabs{flex-direction:row;width:100%;overflow-x:auto;overflow-y:hidden;
+    border-right:none;border-bottom:1px solid var(--border);-webkit-overflow-scrolling:touch;}
+  .btm-tab{flex-shrink:0;white-space:nowrap;min-height:44px;}
+  .btm-content{overflow-y:auto;}
+
+  /* Chatbot: chhota kone ka button, sticky bar ke upar rahe taaki overlap na
+     ho -- the actual override lives further down, right after #chatFab's
+     and #chatFabPopup's unconditional base rules (CSS source order: a
+     plain #id rule beats an earlier @media-scoped #id rule of the same
+     specificity, so putting it here would have silently lost). */
+
+  /* Sticky bottom bar: chuni jagah ka naam + Change */
+  .mobile-loc-bar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:1900;
+    background:var(--bg-card);border-top:1px solid var(--border);
+    padding:0.5rem var(--space-075);align-items:center;justify-content:space-between;
+    gap:var(--space-05);box-shadow:0 -2px 10px rgba(0,0,0,0.08);}
+  .mobile-loc-bar span{font-size:var(--fs-2);font-weight:600;color:var(--text);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;}
+  .mobile-loc-bar button{min-height:44px;padding:0 1rem;background:var(--cyan);color:#fff;
+    border:none;border-radius:var(--radius-6);font-size:var(--fs-2);font-weight:700;
+    cursor:pointer;flex-shrink:0;}
+
   .hero-boundary-row{font-size:var(--fs-3);}
   .hero-boundary-row .hb-sep{margin:0 0.3rem;}
+}
+
+/* Text never smaller than 14px on any touch-primary screen, per Phase B --
+   catches anything still using an absolute px/rem size instead of --fs-*. */
+@media(max-width:768px){
+  body{font-size:max(14px, var(--fs-2));}
 }
 /* ===== KISAN SAHAYAK CHAT ===== */
 #chatFab{position:fixed;bottom:22px;right:22px;width:56px;height:56px;border-radius:var(--radius-circle);background:linear-gradient(135deg,var(--green),var(--teal));color:#fff;border:none;cursor:pointer;font-size:var(--fs-4);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(45,143,92,0.35);z-index:2000;transition:all 0.25s;}
@@ -450,6 +566,11 @@ canvas.chart-canvas{max-height:100%;}
 #chatFabPopup.show{display:block;}
 #chatFabPopup::after{content:'';position:absolute;top:50%;right:-7px;transform:translateY(-50%);border-left:7px solid #ffffff;border-top:6px solid transparent;border-bottom:6px solid transparent;}
 #chatFab .fab-dot{position:absolute;top:6px;right:8px;width:9px;height:9px;background:var(--orange);border-radius:var(--radius-circle);border:2px solid #fff;}
+@media(max-width:768px){
+  /* Phase B's sticky location bar (~60px) sits at the very bottom on
+     mobile; both the launcher and its popup label must clear it. */
+  #chatFabPopup{bottom:64px;}
+}
 #chatWindow{position:fixed;bottom:88px;right:22px;width:360px;max-width:calc(100vw - 30px);height:520px;max-height:calc(100vh - 120px);background:var(--bg-card);border:var(--border-default);border-radius:var(--radius-14);box-shadow:0 8px 30px rgba(0,0,0,0.1);z-index:2000;display:none;flex-direction:column;overflow:hidden;}
 #chatWindow.open{display:flex;animation:fadeInUp 0.25s ease;}
 .chat-head{background:linear-gradient(135deg,var(--green),var(--teal));color:#fff;padding:0.7rem 0.9rem;display:flex;align-items:center;gap:var(--space-06);}
@@ -474,8 +595,12 @@ canvas.chart-canvas{max-height:100%;}
 .chat-send:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
 .chat-lang-toggle{font-size:var(--fs-1);padding:0.15rem 0.45rem;border-radius:var(--radius-10);border:1px solid rgba(255,255,255,0.4);background:rgba(255,255,255,0.12);color:#fff;cursor:pointer;}
 @media(max-width:768px){
-  #chatWindow{width:calc(100vw - 24px);right:12px;bottom:80px;height:calc(100vh - 100px);}
-  #chatFab{bottom:16px;right:16px;}
+  /* bottom:80px/64px (not this rule's original 100px/16px) -- Phase B
+     added a sticky "selected place + Change" bar pinned to the mobile
+     viewport's bottom edge (~60px tall); both the chat panel and its
+     launcher button need to clear it or they'd sit underneath it. */
+  #chatWindow{width:calc(100vw - 24px);right:12px;bottom:80px;height:calc(100vh - 144px);}
+  #chatFab{bottom:64px;right:16px;}
 }
 /* First-open welcome popup: desktop card near the FAB, mobile bottom-sheet */
 #kisanWelcome{position:fixed;bottom:88px;right:22px;width:320px;max-width:calc(100vw - 30px);background:var(--bg-card);border:var(--border-default);border-radius:var(--radius-14);box-shadow:0 8px 30px rgba(0,0,0,0.14);z-index:2001;display:none;overflow:hidden;animation:fadeInUp 0.3s ease;}
@@ -673,6 +798,10 @@ canvas.chart-canvas{max-height:100%;}
     </div>
   </nav>
 
+  <!-- Phase B: dims the page and closes the drawer on tap, mobile-only
+       (only #sidebar.mobile-open ever gets a nonzero opacity/pointer-events). -->
+  <div id="sidebarBackdrop" onclick="toggleSidebar()"></div>
+
   <!-- MAIN -->
   <div id="main">
     <!-- TOPBAR -->
@@ -700,7 +829,7 @@ canvas.chart-canvas{max-height:100%;}
            <div class="map-ctrl-btn" title="Fullscreen" onclick="toggleFullMap()"><i class="fa fa-expand"></i></div>
         </div>
         <div class="map-legend" id="mapLegend">
-          <div class="legend-title"><i class="fa fa-circle-info" style="font-size:var(--fs-1)"></i> <span id="legendTitle">RISK LEGEND</span></div>
+          <div class="legend-title" onclick="toggleLegend()"><i class="fa fa-circle-info" style="font-size:var(--fs-1)"></i> <span id="legendTitle">RISK LEGEND</span><i class="fa fa-chevron-up legend-caret" id="legendCaret"></i></div>
           <div id="legendBody">
             <div class="legend-row"><div class="legend-dot" style="background:#c0392b"></div>Extreme Risk</div>
             <div class="legend-row"><div class="legend-dot" style="background:#d4793a"></div>High Risk</div>
@@ -1204,6 +1333,15 @@ canvas.chart-canvas{max-height:100%;}
       </div><!-- btm-content -->
     </div><!-- bottom-panel -->
   </div><!-- main -->
+
+  <!-- Phase B: mobile-only sticky bar (FINAL_PROMPT Phase B -- "Neeche sticky
+       bar: chuni jagah ka naam + Change"). Mirrors #locBreadcrumb's text via
+       JS (updateMobileLocBar()) rather than owning its own state, so it can
+       never drift from what the Location Selector actually shows. -->
+  <div id="mobileLocBar" class="mobile-loc-bar">
+    <span id="mobileLocBarText"><i class="fa fa-location-dot"></i> India</span>
+    <button onclick="mobileChangeLocation()">Change</button>
+  </div>
 </div><!-- app -->
 
 <!-- ============================================================ KISAN SAHAYAK ============================================================ -->
@@ -1471,7 +1609,13 @@ function launchApp(){
   document.getElementById('hero').style.display='none';
   const app=document.getElementById('app');
   app.style.display='flex';
-  document.body.style.overflow='hidden';
+  // Desktop/tablet: body itself never scrolls, every panel scrolls
+  // internally. Mobile stacks those panels in one column taller than a
+  // screen, so the page has to be allowed to scroll as a whole instead
+  // (see the matching CSS in the <768px media query) -- an inline style
+  // here always wins over any stylesheet rule, so this can't just be
+  // left at 'hidden' and overridden in CSS.
+  document.body.style.overflow = window.innerWidth <= 768 ? 'auto' : 'hidden';
   document.getElementById('chatFab').style.display='flex';
   initChat();
   initKisanWelcome();
@@ -1579,9 +1723,140 @@ function startSlideshow(){
 startSlideshow();
 
 function toggleSidebar(){
-  document.getElementById('sidebar').classList.toggle('collapsed');
+  var sb = document.getElementById('sidebar');
+  // Phase B: on mobile the hamburger opens/closes the off-canvas drawer
+  // (+ dims the page behind it); on desktop/laptop it keeps the original
+  // icon-rail collapse. Tablet has no toggle at all -- the icon rail is
+  // fixed there (see the 768-1024px media query), so this branch never
+  // fires in practice on tablet widths, but is harmless if it did.
+  if (window.innerWidth <= 768) {
+    sb.classList.toggle('mobile-open');
+    var bd = document.getElementById('sidebarBackdrop');
+    if (bd) bd.classList.toggle('show');
+  } else {
+    sb.classList.toggle('collapsed');
+  }
   setTimeout(()=>{ if(window.leafletMap) window.leafletMap.invalidateSize(); },320);
 }
+
+// Phase B: close the drawer whenever a nav item is actually chosen, so it
+// doesn't stay open covering the screen after the user has made a choice.
+document.addEventListener('click', function(e){
+  if (window.innerWidth > 768) return;
+  var sb = document.getElementById('sidebar');
+  if (sb && sb.classList.contains('mobile-open') && e.target.closest('.nav-item')) {
+    toggleSidebar();
+  }
+}, true);
+
+// Phase B: tablet's icon-only rail (56px, no labels) still needs the name
+// somewhere -- native title tooltips on hover, built once from the labels
+// already in the DOM rather than duplicating them as data attributes.
+document.querySelectorAll('.nav-item').forEach(function(item){
+  var label = item.querySelector('.nav-label');
+  if (label && !item.title) item.title = label.textContent.trim();
+});
+
+// ---- Legend collapsible (mobile only) ----
+function toggleLegend(){
+  if (window.innerWidth > 768) return; // desktop/tablet legend is never collapsed
+  var el = document.getElementById('mapLegend');
+  if (el) el.classList.toggle('mobile-collapsed');
+}
+
+// ---- Sticky mobile location bar: mirrors #locBreadcrumb, never owns its
+// own copy of the selection so it can't drift from the real state. ----
+function updateMobileLocBar(){
+  var src = document.getElementById('locBreadcrumb');
+  var dst = document.getElementById('mobileLocBarText');
+  if (!src || !dst) return;
+  dst.innerHTML = '<i class="fa fa-location-dot"></i> ' + src.innerHTML;
+}
+function mobileChangeLocation(){
+  if (document.getElementById('sidebar').classList.contains('mobile-open')) toggleSidebar();
+  var mapInfoBar = document.querySelector('.map-info-bar');
+  if (mapInfoBar) mapInfoBar.scrollIntoView({behavior:'smooth', block:'start'});
+  var stateSel = document.getElementById('stateSelect');
+  if (stateSel) setTimeout(function(){ stateSel.focus(); }, 300);
+}
+// The breadcrumb changes every time a district/block/village is picked
+// (onDistrictChange etc. all update #locBreadcrumb's innerHTML); watch it
+// directly rather than hooking every one of those call sites separately.
+(function(){
+  var bc = document.getElementById('locBreadcrumb');
+  if (bc && typeof MutationObserver !== 'undefined') {
+    new MutationObserver(updateMobileLocBar).observe(bc, {childList:true, subtree:true, characterData:true});
+  }
+  updateMobileLocBar();
+})();
+
+// ---- Mobile layout: move the Location Selector out of the map overlay
+// and into normal document flow, full-width, above the map. Only the DOM
+// position changes; every id/onchange handler on the selects inside it
+// keeps working untouched since the element itself (not its markup) moves. ----
+(function(){
+  var mq = window.matchMedia('(max-width:768px)');
+  var content = document.getElementById('content');
+  var mapPanel = document.getElementById('map-panel');
+  var locBar = document.querySelector('.map-info-bar');
+  var legend = document.getElementById('mapLegend');
+  var placeholder = document.createComment('map-info-bar-original-position');
+  if (locBar) locBar.parentNode.insertBefore(placeholder, locBar);
+
+  function apply(isMobile){
+    if (!content || !mapPanel || !locBar) return;
+    // Keep the inline overflow launchApp() set in sync if the breakpoint
+    // is crossed after launch (window resize, phone rotation) -- inline
+    // styles beat CSS regardless of order, so this can't be left to the
+    // stylesheet alone.
+    if (document.getElementById('app').style.display !== '') {
+      document.body.style.overflow = isMobile ? 'auto' : 'hidden';
+    }
+    if (isMobile) {
+      content.insertBefore(locBar, mapPanel);
+      if (legend) legend.classList.add('mobile-collapsed');
+    } else {
+      mapPanel.insertBefore(locBar, placeholder);
+      if (legend) legend.classList.remove('mobile-collapsed');
+      // Leaving mobile: the drawer/backdrop must not stay stuck open.
+      var sb = document.getElementById('sidebar');
+      if (sb) sb.classList.remove('mobile-open');
+      var bd = document.getElementById('sidebarBackdrop');
+      if (bd) bd.classList.remove('show');
+    }
+    setTimeout(function(){ if (window.leafletMap) window.leafletMap.invalidateSize(); }, 50);
+  }
+  apply(mq.matches);
+  mq.addEventListener ? mq.addEventListener('change', function(e){ apply(e.matches); })
+                       : mq.addListener(function(e){ apply(e.matches); }); // older Safari
+})();
+
+// ---- Map touch gestures: single finger scrolls the PAGE past the map
+// (never traps the user inside it), two fingers pan/zoom the map itself --
+// FINAL_PROMPT Phase B: "do ungli se hi ghume (galti se scroll nahi)".
+// Desktop mouse drag is untouched; this only gates touch input. ----
+(function(){
+  function wireGesture(){
+    var map = window.leafletMap;
+    var el = map && map.getContainer ? map.getContainer() : null;
+    if (!map || !el || el._twoFingerGestureWired) return;
+    el._twoFingerGestureWired = true;
+    map.dragging.disable();
+    el.style.touchAction = 'pan-y'; // one finger: let the page scroll vertically
+    el.addEventListener('touchstart', function(e){
+      if (e.touches.length >= 2) { map.dragging.enable(); el.style.touchAction = 'none'; }
+    }, {passive:true});
+    el.addEventListener('touchend', function(e){
+      if (e.touches.length < 2) { map.dragging.disable(); el.style.touchAction = 'pan-y'; }
+    }, {passive:true});
+  }
+  if ('ontouchstart' in window) {
+    var iv = setInterval(function(){
+      if (window.leafletMap) { wireGesture(); clearInterval(iv); }
+    }, 300);
+    setTimeout(function(){ clearInterval(iv); }, 20000); // give up gracefully, never hang
+  }
+})();
 
 // ============================================================
 // NAV

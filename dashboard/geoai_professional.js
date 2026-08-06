@@ -482,9 +482,16 @@
 
     var north = L.control({ position: 'topleft' });
     north.onAdd = function () {
-      var d = L.DomUtil.create('div');
+      // display:flex lives in the .map-north-arrow CSS rule (index.html),
+      // not here -- an inline style would always beat the Phase B
+      // <768px media query rule that sets display:none on mobile (a
+      // fixed north-up satellite basemap doesn't need a compass on a
+      // small screen, and it was competing with the Location Selector
+      // for space), since inline styles win over stylesheet rules
+      // regardless of specificity or source order.
+      var d = L.DomUtil.create('div', 'map-north-arrow');
       d.style.cssText = 'background:rgba(255,255,255,.92);border:1px solid rgba(0,0,0,.15);' +
-        'border-radius:5px;width:40px;height:48px;display:flex;align-items:center;' +
+        'border-radius:5px;width:40px;height:48px;align-items:center;' +
         'justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,.2)';
       d.title = 'True north';
       d.innerHTML = '<svg width="26" height="38" viewBox="0 0 26 38">' +
