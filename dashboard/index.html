@@ -2849,37 +2849,52 @@ async function runChatCompletion(){
   document.getElementById('chatStatus').textContent=chatLangHi?'\u0938\u094b\u091a \u0930\u0939\u093e \u0939\u0948...':'Thinking...';
   showTyping();
 
-  const GEMINI_KEY = ''; // injected at deploy time via Streamlit secrets
-  const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + GEMINI_KEY;
+  // No API key here, deliberately. This is a static site on GitHub Pages:
+  // anything in this file is readable by every visitor, so a key placed
+  // here would be public within minutes (it has happened to this project
+  // before). The key lives only in a Cloudflare Worker secret; the browser
+  // talks to the Worker, never to Google directly. CHAT_PROXY_URL is the
+  // single place the endpoint is written -- if it ever moves, one line
+  // changes, not fifty.
+  const CHAT_PROXY_URL = (window.VINDHYA_CONFIG && window.VINDHYA_CONFIG.CHAT_PROXY_URL)
+    || 'https://vindhya-gemini-proxy.vindhyaresearch25.workers.dev';
 
   try{
-    // Convert chatHistory to Gemini format
-    var geminiContents = [];
-    for (var i = 0; i < chatHistory.length; i++) {
-      var msg = chatHistory[i];
-      var role = msg.role === 'assistant' ? 'model' : 'user';
-      geminiContents.push({
-        role: role,
-        parts: [{text: msg.content}]
-      });
-    }
-
+    // The Worker's contract is one flat {"prompt": string} -> {"text": string}.
+    // So the system instruction, the real figures, and the conversation are
+    // folded into a single string here rather than sent as separate fields.
     var systemPrompt = buildChatSystemPrompt();
 
-    var response = await fetch(GEMINI_URL, {
+    var recent = chatHistory.slice(-12);
+    var transcript = '';
+    for (var i = 0; i < recent.length; i++) {
+      var who = recent[i].role === 'assistant' ? 'Sahayak' : 'Kisan';
+      transcript += who + ': ' + recent[i].content + '\n';
+    }
+
+    var fullPrompt = systemPrompt
+      + '\n\n--- Conversation so far ---\n' + transcript
+      + '\nSahayak:';
+
+    // The Worker rejects anything over 4000 characters. Trim the oldest
+    // turns rather than let the request fail outright.
+    if (fullPrompt.length > 3900) {
+      fullPrompt = systemPrompt + '\n\n--- Latest question ---\n'
+        + (recent.length ? recent[recent.length - 1].content : '')
+        + '\n\nSahayak:';
+      if (fullPrompt.length > 3900) fullPrompt = fullPrompt.slice(0, 3900);
+    }
+
+    var ctl = new AbortController();
+    var timer = setTimeout(function(){ ctl.abort(); }, 30000);
+
+    var response = await fetch(CHAT_PROXY_URL, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        contents: geminiContents.slice(-20),
-        systemInstruction: {parts: [{text: systemPrompt}]},
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 1000,
-          topK: 40,
-          topP: 0.95
-        }
-      })
+      body: JSON.stringify({prompt: fullPrompt}),
+      signal: ctl.signal
     });
+    clearTimeout(timer);
 
     var raw = await response.text();
     var data = null;
@@ -2888,21 +2903,30 @@ async function runChatCompletion(){
     hideTyping();
 
     if (!response.ok) {
-      var errMsg = (data && data.error && data.error.message) ? data.error.message : ('HTTP ' + response.status);
-      console.error('Gemini API error:', response.status, errMsg);
-      addChatMsg('bot', chatLangHi
-        ? '\u0915\u094d\u0937\u092e\u093e \u0915\u0930\u0947\u0902, AI \u0938\u0947\u0935\u093e \u092e\u0947\u0902 \u0938\u092e\u0938\u094d\u092f\u093e: ' + errMsg
-        : 'Sorry, AI service error: ' + errMsg);
+      // Each status means something different to the person reading it, so
+      // say which one it is rather than one generic failure.
+      var errMsg;
+      if (response.status === 429) {
+        errMsg = chatLangHi
+          ? '\u092c\u0939\u0941\u0924 \u091c\u093c\u094d\u092f\u093e\u0926\u093e \u0938\u0935\u093e\u0932 \u092a\u0942\u091b\u0947 \u0917\u090f\u0964 \u090f\u0915 \u092e\u093f\u0928\u091f \u092c\u093e\u0926 \u092b\u093f\u0930 \u0915\u094b\u0936\u093f\u0936 \u0915\u0940\u091c\u093f\u090f\u0964'
+          : 'Too many questions just now. Please try again in a minute.';
+      } else if (response.status === 403) {
+        errMsg = chatLangHi
+          ? '\u092f\u0939 \u092a\u0943\u0937\u094d\u0920 AI \u0938\u0947\u0935\u093e \u0938\u0947 \u091c\u0941\u0921\u093c\u0928\u0947 \u0915\u0940 \u0905\u0928\u0941\u092e\u0924\u093f \u0928\u0939\u0940\u0902 \u0930\u0916\u0924\u093e\u0964'
+          : 'This page is not authorised to reach the AI service.';
+      } else {
+        errMsg = chatLangHi
+          ? 'AI \u0938\u0947\u0935\u093e \u0905\u092d\u0940 \u0909\u092a\u0932\u092c\u094d\u0927 \u0928\u0939\u0940\u0902 \u0939\u0948 (HTTP ' + response.status + ')\u0964'
+          : 'The AI service is unavailable right now (HTTP ' + response.status + ').';
+      }
+      console.error('Chat proxy error:', response.status);
+      addChatMsg('bot', errMsg + (chatLangHi
+        ? ' \u092e\u0948\u0902 \u092b\u093f\u0930 \u092d\u0940 \u092e\u094c\u0938\u092e, \u092b\u0938\u0932, \u092e\u0902\u0921\u0940 \u092d\u093e\u0935 \u0915\u0947 \u0905\u0938\u0932\u0940 \u0906\u0901\u0915\u0921\u093c\u0947 \u0926\u0947 \u0938\u0915\u0924\u093e \u0939\u0942\u0902\u0964'
+        : ' I can still answer with real data on weather, crops and mandi prices.'));
       return;
     }
 
-    var reply = '';
-    if (data && data.candidates && data.candidates.length > 0) {
-      var candidate = data.candidates[0];
-      if (candidate.content && candidate.content.parts) {
-        reply = candidate.content.parts.map(function(p){ return p.text || ''; }).filter(Boolean).join('\n').trim();
-      }
-    }
+    var reply = (data && typeof data.text === 'string') ? data.text.trim() : '';
     if (!reply) {
       reply = chatLangHi
         ? '\u0915\u094d\u0937\u092e\u093e \u0915\u0930\u0947\u0902, \u092e\u0941\u091d\u0947 \u0909\u0924\u094d\u0924\u0930 \u092c\u0928\u093e\u0928\u0947 \u092e\u0947\u0902 \u0938\u092e\u0938\u094d\u092f\u093e \u0939\u0941\u0908\u0964 \u0915\u0943\u092a\u092f\u093e \u092a\u0941\u0928\u0903 \u092a\u094d\u0930\u092f\u093e\u0938 \u0915\u0930\u0947\u0902\u0964'
@@ -2914,15 +2938,23 @@ async function runChatCompletion(){
   } catch(e) {
     hideTyping();
     console.error('Chatbot error:', e);
-    // Honest message: on GitHub Pages this is a static site with no
-    // backend, so there is no AI service key configured here (it would
-    // be exposed to every visitor if there were one) -- this is not an
-    // internet problem, and the old message ("check your internet
-    // connection") was misleading. Point back to what genuinely works:
-    // getLocalResponse()'s real, source-cited answers.
-    addChatMsg('bot', chatLangHi
-      ? '\u0905\u092d\u0940 \u0935\u093f\u0938\u094d\u0924\u0943\u0924 AI \u091c\u0935\u093e\u092c \u0909\u092a\u0932\u092c\u094d\u0927 \u0928\u0939\u0940\u0902 \u0939\u0948 (\u0915\u094b\u0908 AI \u0938\u0947\u0935\u093e key \u0915\u0949\u0928\u094d\u092b\u093c\u093f\u0917\u0930 \u0928\u0939\u0940\u0902 \u0939\u0948)\u0964 \u092e\u0948\u0902 \u092e\u094c\u0938\u092e, \u092b\u0938\u0932, \u092e\u0902\u0921\u0940 \u092d\u093e\u0935, \u0938\u0942\u0916\u0947 \u0915\u0947 \u091c\u094b\u0916\u093f\u092e \u091c\u0948\u0938\u0947 \u0938\u0935\u093e\u0932\u094b\u0902 \u0915\u0947 \u0905\u0938\u0932\u0940 \u0906\u0901\u0915\u0921\u093c\u0947 \u0926\u0947 \u0938\u0915\u0924\u093e \u0939\u0942\u0902 -- \u090a\u092a\u0930 \u0926\u093f\u090f \u0938\u0941\u091d\u093e\u0935 \u0906\u091c\u093c\u092e\u093e\u090f\u0902\u0964'
-      : "Detailed AI answers aren't available right now (no AI service key is configured here). I can still answer with real data on weather, crops, mandi prices and drought risk -- try one of the suggestions above.");
+    // Distinguish a timeout from an unreachable service: they need
+    // different things from the reader. Either way, point back to
+    // getLocalResponse()'s real, source-cited answers, which do not
+    // depend on the proxy at all.
+    var msg;
+    if (e && e.name === 'AbortError') {
+      msg = chatLangHi
+        ? '\u091c\u0935\u093e\u092c \u0906\u0928\u0947 \u092e\u0947\u0902 \u092c\u0939\u0941\u0924 \u0938\u092e\u092f \u0932\u0917 \u0917\u092f\u093e\u0964 \u092b\u093f\u0930 \u0915\u094b\u0936\u093f\u0936 \u0915\u0940\u091c\u093f\u090f\u0964'
+        : 'The answer took too long to arrive. Please try again.';
+    } else {
+      msg = chatLangHi
+        ? 'AI \u0938\u0947\u0935\u093e \u0938\u0947 \u0938\u0902\u092a\u0930\u094d\u0915 \u0928\u0939\u0940\u0902 \u0939\u094b \u092a\u093e\u092f\u093e\u0964'
+        : "Couldn't reach the AI service.";
+    }
+    addChatMsg('bot', msg + (chatLangHi
+      ? ' \u092e\u0948\u0902 \u092e\u094c\u0938\u092e, \u092b\u0938\u0932, \u092e\u0902\u0921\u0940 \u092d\u093e\u0935 \u0914\u0930 \u0938\u0942\u0916\u0947 \u0915\u0947 \u091c\u094b\u0916\u093f\u092e \u0915\u0947 \u0905\u0938\u0932\u0940 \u0906\u0901\u0915\u0921\u093c\u0947 \u0905\u092c \u092d\u0940 \u0926\u0947 \u0938\u0915\u0924\u093e \u0939\u0942\u0902 -- \u090a\u092a\u0930 \u0926\u093f\u090f \u0938\u0941\u091d\u093e\u0935 \u0906\u091c\u093c\u092e\u093e\u090f\u0902\u0964'
+      : ' I can still answer with real data on weather, crops, mandi prices and drought risk -- try one of the suggestions above.'));
   } finally {
     chatBusy=false;
     document.getElementById('chatSend').disabled=false;
