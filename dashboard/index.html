@@ -87,22 +87,22 @@
    margin-bottom across the portal. Multi-value shorthand (e.g.
    "padding:0.5rem 0.75rem") is untouched here; it isn't a single
    repeated primitive the way these are. */
---space-02:0.2rem;
---space-025:0.25rem;
---space-03:0.3rem;
---space-04:0.4rem;
---space-05:0.5rem;
---space-06:0.6rem;
---space-07:0.7rem;
---space-075:0.75rem;
---space-08:0.8rem;
---space-1:1rem;
---space-12:1.2rem;
---space-125:1.25rem;
---space-15:1.5rem;
---space-175:1.75rem;
---space-2:2rem;
---space-20px:20px;
+--space-02:4px;
+--space-025:4px;
+--space-03:4px;
+--space-04:8px;
+--space-05:8px;
+--space-06:8px;
+--space-07:12px;
+--space-075:12px;
+--space-08:12px;
+--space-1:16px;
+--space-12:16px;
+--space-125:24px;
+--space-15:24px;
+--space-175:32px;
+--space-2:32px;
+--space-20px:24px;
 
 /* A4 (2026-08-06): the 6-step font scale the owner specified. Desktop
    values apply by default; the (max-width:768px) override below swaps
@@ -357,6 +357,7 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 .metric-bar{height:3px;background:#e8ecf1;border-radius:var(--radius-2);margin-top:var(--space-04);overflow:hidden;}
 .metric-bar-fill{height:100%;border-radius:var(--radius-2);transition:width 1s ease;}
 .metric-trend{font-size:var(--fs-1);font-weight:500;color:var(--text-dim);margin-top:var(--space-02);}
+.metric-source{font-size:var(--fs-1);font-weight:400;color:var(--text-dim);opacity:0.7;margin-top:var(--space-02);border-top:1px solid var(--border);padding-top:var(--space-02);}
 .metric-card.hazard-highlight{border-color:var(--cyan)!important;box-shadow:inset 0 0 8px rgba(26,138,158,0.04);background:rgba(26,138,158,0.04)!important;transform:translateY(-1px);}
 .hazard-tag{border-color:var(--cyan)!important;box-shadow:0 0 0 2px rgba(26,138,158,0.3);}
 
@@ -921,12 +922,14 @@ canvas.chart-canvas{max-height:100%;}
             <div class="metric-value red" id="m-drought">—</div>
             <div class="metric-bar"><div class="metric-bar-fill" id="bar-drought" style="width:0%;background:var(--red)"></div></div>
             <div class="metric-trend"><i class="fa fa-arrow-up" style="color:var(--text-dim)"></i> Select a district</div>
+            <div class="metric-source">Source: IMD / ERA5-Land+CHIRPS (GEE), 2000–2024</div>
           </div>
           <div class="metric-card warn">
             <div class="metric-label">Heatwave Severity</div>
             <div class="metric-value orange" id="m-heat">—</div>
             <div class="metric-bar"><div class="metric-bar-fill" id="bar-heat" style="width:0%;background:var(--orange)"></div></div>
             <div class="metric-trend"><i class="fa fa-thermometer-full" style="color:var(--orange)"></i> <span id="heat-detail">Select a district</span></div>
+            <div class="metric-source">Source: IMD / ERA5-Land (GEE), 2000–2024</div>
           </div>
           <div class="metric-card" style="grid-column:span 2;border-color:rgba(26,138,158,0.25);background:rgba(26,138,158,0.04);">
             <div style="display:flex;gap:var(--space-05);align-items:center;">
@@ -941,36 +944,42 @@ canvas.chart-canvas{max-height:100%;}
             <div class="metric-value red" id="m-rain">—</div>
             <div class="metric-bar"><div class="metric-bar-fill" style="width:0%;background:var(--orange)"></div></div>
             <div class="metric-trend"><i class="fa fa-cloud-rain" style="color:var(--cyan)"></i> <span id="m-rain-trend">Select a district</span></div>
+            <div class="metric-source">Source: IMD / CHIRPS (GEE), 2000–2024 mean</div>
           </div>
           <div class="metric-card">
             <div class="metric-label">Soil Moisture</div>
             <div class="metric-value cyan" id="m-soil">—</div>
             <div class="metric-bar"><div class="metric-bar-fill" style="width:0%;background:var(--cyan)"></div></div>
             <div class="metric-trend"><i class="fa fa-arrow-down" style="color:var(--text-dim)"></i> Not available</div>
+            <div class="metric-source">Source: SMAP — not yet integrated</div>
           </div>
           <div class="metric-card">
             <div class="metric-label">NDVI Score</div>
             <div class="metric-value cyan" id="m-ndvi">—</div>
             <div class="metric-bar"><div class="metric-bar-fill" id="bar-ndvi" style="width:0%;background:var(--green)"></div></div>
             <div class="metric-trend"><i class="fa fa-arrow-down" style="color:var(--orange)"></i> Vegetation stress</div>
+            <div class="metric-source">Source: UNDP DiCRA (MODIS), MP districts only</div>
           </div>
           <div class="metric-card warn">
             <div class="metric-label">Crop Stress</div>
             <div class="metric-value orange" id="m-crop">—</div>
             <div class="metric-bar"><div class="metric-bar-fill" id="bar-crop" style="width:0%;background:var(--orange)"></div></div>
             <div class="metric-trend" id="m-crop-trend"><i class="fa fa-wheat-awn" style="color:var(--text-dim)"></i> Select a district</div>
+            <div class="metric-source">Derived from drought probability, indicative</div>
           </div>
           <div class="metric-card alert">
             <div class="metric-label">Groundwater</div>
             <div class="metric-value red" id="m-gw">—</div>
             <div class="metric-bar"><div class="metric-bar-fill" id="bar-gw" style="width:0%;background:var(--red)"></div></div>
             <div class="metric-trend"><i class="fa fa-arrow-down" style="color:var(--text-dim)"></i> Not available</div>
+            <div class="metric-source">Source: CGWB / India-WRIS — not yet integrated</div>
           </div>
           <div class="metric-card good">
             <div class="metric-label">Data Coverage</div>
             <div class="metric-value green" id="m-ai">— districts</div>
             <div class="metric-bar"><div class="metric-bar-fill" id="bar-ai" style="width:100%;background:var(--green)"></div></div>
             <div class="metric-trend"><i class="fa fa-check" style="color:var(--green)"></i> IMD + ERA5-Land/CHIRPS (GEE)</div>
+            <div class="metric-source">Of 733 districts nationally</div>
           </div>
         </div>
 
@@ -2857,10 +2866,14 @@ function initCharts(){
   // an honest "not available" explanation instead; see docs/AUDIT_2026-08-01.md.
 }
 
+// Phase 2.7: Chart.js default look removed -- horizontal grid only (no
+// vertical), matching a typical data-viz convention where a value's
+// height/position on the y-axis is what the horizontal lines help read;
+// vertical gridlines mostly add visual noise for a time-series x-axis.
 function chartOpts(grid){
   return {responsive:true,maintainAspectRatio:false,
     plugins:{legend:{labels:{boxWidth:10,font:{size:11,weight:'bold'}}}},
-    scales:{x:{grid:grid,ticks:{font:{size:10,weight:'bold'}}},y:{grid:grid,ticks:{font:{size:10,weight:'bold'}}}}};
+    scales:{x:{grid:{display:false},ticks:{font:{size:10,weight:'bold'}}},y:{grid:grid,ticks:{font:{size:10,weight:'bold'}}}}};
 }
 
 // ============================================================

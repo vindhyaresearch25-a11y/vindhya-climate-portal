@@ -92,8 +92,8 @@
     if (tc) new Chart(tc, {type:'line', data:{
       labels: temp.labels,
       datasets: [
-        {label:'Tmax °C', data: temp.tmax, borderColor:'#f0a878', backgroundColor:'rgba(240,168,120,0.1)', fill:true, tension:0.4, borderWidth:2, pointRadius:2},
-        {label:'Tmin °C', data: temp.tmin, borderColor:'#5cc3cd', backgroundColor:'transparent', tension:0.4, borderWidth:2, pointRadius:2}
+        {label:'Tmax °C', data: temp.tmax, borderColor:'#f0a878', backgroundColor:'rgba(240,168,120,0.1)', fill:true, tension:0.4, borderWidth:2, pointRadius:0, pointHoverRadius:4},
+        {label:'Tmin °C', data: temp.tmin, borderColor:'#5cc3cd', backgroundColor:'transparent', tension:0.4, borderWidth:2, pointRadius:0, pointHoverRadius:4}
       ]}, options: commonOpts});
 
     killChart('chartDrought');
@@ -163,7 +163,7 @@
           {
             label:'Rainfall (mm)', data:rain, backgroundColor:rainColors, borderColor:'#5cc3cd', borderWidth:1, yAxisID:'y1'
           },
-          {label:'SPI-12', data:spi, type:'line', borderColor:'#6fc795', backgroundColor:'transparent', tension:0.3, borderWidth:2, pointRadius:2, yAxisID:'y'}
+          {label:'SPI-12', data:spi, type:'line', borderColor:'#6fc795', backgroundColor:'transparent', tension:0.3, borderWidth:2, pointRadius:0, pointHoverRadius:4, yAxisID:'y'}
         ]
       },
       options: {
@@ -180,6 +180,7 @@
           }
         },
         scales: {
+          x: {grid:{display:false}},
           y: {position:'left', grid:{color:'rgba(138,211,170,0.1)'}, ticks:{font:{size:8}}},
           y1: {position:'right', grid:{display:false}, ticks:{font:{size:8}}}
         }

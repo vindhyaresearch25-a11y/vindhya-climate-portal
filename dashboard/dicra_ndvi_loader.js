@@ -61,8 +61,8 @@
           data: means,
           backgroundColor: 'rgba(111,199,149,0.15)',
           borderColor: '#6fc795',
-          borderWidth: 1.5,
-          pointRadius: 1,
+          borderWidth: 2,
+          pointRadius: 0,
           pointHoverRadius: 4,
           tension: 0.3,
           fill: true
@@ -100,7 +100,7 @@
               font: {size:6},
               maxTicksLimit: 15
             },
-            grid: {color:'rgba(138,211,170,0.08)'}
+            grid: {display:false}
           },
           y: {
             min: 0, max: 0.9,
