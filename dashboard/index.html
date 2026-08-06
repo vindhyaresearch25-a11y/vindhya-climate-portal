@@ -633,6 +633,28 @@ canvas.chart-canvas{max-height:100%;}
 @media(max-width:768px){
   #kisanWelcome{left:0;right:0;bottom:0;width:100%;max-width:100%;border-radius:var(--radius-16) 16px 0 0;border-left:none;border-right:none;border-bottom:none;}
 }
+
+/* Phase 2.2 (2026-08-07): utility classes replacing the most-repeated
+   inline style="" attributes (96 sites this pass) -- "ek jagah badlo,
+   poore portal me badle". Named for what they set, not where they're
+   used, since each is reused across genuinely unrelated panels. */
+.u-empty-msg{padding:var(--space-20px);text-align:center;color:var(--text-dim);font-size:var(--fs-2);line-height:1.8;}
+.u-icon-lg-muted{font-size:var(--fs-5);display:block;margin-bottom:8px;opacity:0.6;}
+.u-orange-sm{color:var(--orange);font-size:var(--fs-1);}
+.u-green-sm{color:var(--green);font-size:var(--fs-1);}
+.u-cyan-sm{color:var(--cyan);font-size:var(--fs-1);}
+.u-fmw100{flex:1;min-width:100px;}
+.u-fmw120{flex:1;min-width:120px;}
+.u-fmw80{flex:1;min-width:80px;}
+.u-fmw65{flex:1;min-width:65px;}
+.u-fs1{font-size:var(--fs-1);}
+.u-dim{color:var(--text-dim);}
+.u-orange{color:var(--orange);}
+.u-yellow{color:var(--yellow);}
+.u-green{color:var(--green);}
+.u-teal{color:var(--teal);}
+.u-cyan{color:var(--cyan);}
+.u-h200{height:200px;}
 </style>
 </head>
 <body>
@@ -841,7 +863,7 @@ canvas.chart-canvas{max-height:100%;}
            <div class="map-ctrl-btn" title="Fullscreen" onclick="toggleFullMap()"><i class="fa fa-expand"></i></div>
         </div>
         <div class="map-legend" id="mapLegend">
-          <div class="legend-title" onclick="toggleLegend()"><i class="fa fa-circle-info" style="font-size:var(--fs-1)"></i> <span id="legendTitle">RISK LEGEND</span><i class="fa fa-chevron-up legend-caret" id="legendCaret"></i></div>
+          <div class="legend-title" onclick="toggleLegend()"><i class="fa fa-circle-info u-fs1"></i> <span id="legendTitle">RISK LEGEND</span><i class="fa fa-chevron-up legend-caret" id="legendCaret"></i></div>
           <div id="legendBody">
             <div class="legend-row"><div class="legend-dot" style="background:var(--risk-extreme)"></div>Extreme Risk</div>
             <div class="legend-row"><div class="legend-dot" style="background:var(--risk-high)"></div>High Risk</div>
@@ -913,7 +935,7 @@ canvas.chart-canvas{max-height:100%;}
       <div id="right-panel">
         <!-- Climate Metrics -->
         <div class="section-header">
-          <i class="fa fa-chart-bar" style="color:var(--cyan);font-size:var(--fs-1)"></i>
+          <i class="fa fa-chart-bar u-cyan-sm"></i>
           <div class="section-title">CLIMATE METRICS</div>
         </div>
         <div class="metric-row">
@@ -921,14 +943,14 @@ canvas.chart-canvas{max-height:100%;}
             <div class="metric-label">Drought Risk</div>
             <div class="metric-value red" id="m-drought">—</div>
             <div class="metric-bar"><div class="metric-bar-fill" id="bar-drought" style="width:0%;background:var(--red)"></div></div>
-            <div class="metric-trend"><i class="fa fa-arrow-up" style="color:var(--text-dim)"></i> Select a district</div>
+            <div class="metric-trend"><i class="fa fa-arrow-up u-dim"></i> Select a district</div>
             <div class="metric-source">Source: IMD / ERA5-Land+CHIRPS (GEE), 2000–2024</div>
           </div>
           <div class="metric-card warn">
             <div class="metric-label">Heatwave Severity</div>
             <div class="metric-value orange" id="m-heat">—</div>
             <div class="metric-bar"><div class="metric-bar-fill" id="bar-heat" style="width:0%;background:var(--orange)"></div></div>
-            <div class="metric-trend"><i class="fa fa-thermometer-full" style="color:var(--orange)"></i> <span id="heat-detail">Select a district</span></div>
+            <div class="metric-trend"><i class="fa fa-thermometer-full u-orange"></i> <span id="heat-detail">Select a district</span></div>
             <div class="metric-source">Source: IMD / ERA5-Land (GEE), 2000–2024</div>
           </div>
           <div class="metric-card" style="grid-column:span 2;border-color:rgba(26,138,158,0.25);background:rgba(26,138,158,0.04);">
@@ -943,49 +965,49 @@ canvas.chart-canvas{max-height:100%;}
             <div class="metric-label">Rainfall Departure</div>
             <div class="metric-value red" id="m-rain">—</div>
             <div class="metric-bar"><div class="metric-bar-fill" style="width:0%;background:var(--orange)"></div></div>
-            <div class="metric-trend"><i class="fa fa-cloud-rain" style="color:var(--cyan)"></i> <span id="m-rain-trend">Select a district</span></div>
+            <div class="metric-trend"><i class="fa fa-cloud-rain u-cyan"></i> <span id="m-rain-trend">Select a district</span></div>
             <div class="metric-source">Source: IMD / CHIRPS (GEE), 2000–2024 mean</div>
           </div>
           <div class="metric-card">
             <div class="metric-label">Soil Moisture</div>
             <div class="metric-value cyan" id="m-soil">—</div>
             <div class="metric-bar"><div class="metric-bar-fill" style="width:0%;background:var(--cyan)"></div></div>
-            <div class="metric-trend"><i class="fa fa-arrow-down" style="color:var(--text-dim)"></i> Not available</div>
+            <div class="metric-trend"><i class="fa fa-arrow-down u-dim"></i> Not available</div>
             <div class="metric-source">Source: SMAP — not yet integrated</div>
           </div>
           <div class="metric-card">
             <div class="metric-label">NDVI Score</div>
             <div class="metric-value cyan" id="m-ndvi">—</div>
             <div class="metric-bar"><div class="metric-bar-fill" id="bar-ndvi" style="width:0%;background:var(--green)"></div></div>
-            <div class="metric-trend"><i class="fa fa-arrow-down" style="color:var(--orange)"></i> Vegetation stress</div>
+            <div class="metric-trend"><i class="fa fa-arrow-down u-orange"></i> Vegetation stress</div>
             <div class="metric-source">Source: UNDP DiCRA (MODIS), MP districts only</div>
           </div>
           <div class="metric-card warn">
             <div class="metric-label">Crop Stress</div>
             <div class="metric-value orange" id="m-crop">—</div>
             <div class="metric-bar"><div class="metric-bar-fill" id="bar-crop" style="width:0%;background:var(--orange)"></div></div>
-            <div class="metric-trend" id="m-crop-trend"><i class="fa fa-wheat-awn" style="color:var(--text-dim)"></i> Select a district</div>
+            <div class="metric-trend" id="m-crop-trend"><i class="fa fa-wheat-awn u-dim"></i> Select a district</div>
             <div class="metric-source">Derived from drought probability, indicative</div>
           </div>
           <div class="metric-card alert">
             <div class="metric-label">Groundwater</div>
             <div class="metric-value red" id="m-gw">—</div>
             <div class="metric-bar"><div class="metric-bar-fill" id="bar-gw" style="width:0%;background:var(--red)"></div></div>
-            <div class="metric-trend"><i class="fa fa-arrow-down" style="color:var(--text-dim)"></i> Not available</div>
+            <div class="metric-trend"><i class="fa fa-arrow-down u-dim"></i> Not available</div>
             <div class="metric-source">Source: CGWB / India-WRIS — not yet integrated</div>
           </div>
           <div class="metric-card good">
             <div class="metric-label">Data Coverage</div>
             <div class="metric-value green" id="m-ai">— districts</div>
             <div class="metric-bar"><div class="metric-bar-fill" id="bar-ai" style="width:100%;background:var(--green)"></div></div>
-            <div class="metric-trend"><i class="fa fa-check" style="color:var(--green)"></i> IMD + ERA5-Land/CHIRPS (GEE)</div>
+            <div class="metric-trend"><i class="fa fa-check u-green"></i> IMD + ERA5-Land/CHIRPS (GEE)</div>
             <div class="metric-source">Of 733 districts nationally</div>
           </div>
         </div>
 
         <!-- Farmer Advisories -->
         <div class="section-header" style="margin-top:var(--space-05)">
-          <i class="fa fa-comment-dots" style="color:var(--green);font-size:var(--fs-1)"></i>
+          <i class="fa fa-comment-dots u-green-sm"></i>
           <div class="section-title">FARMER ADVISORY</div>
           <div class="lang-toggle" onclick="toggleLang(this)"><i class="fa fa-language"></i> HI</div>
         </div>
@@ -993,7 +1015,7 @@ canvas.chart-canvas{max-height:100%;}
           <div class="advisory-card high" id="adv-card-0">
             <div class="advisory-header">
               <span class="advisory-icon"><i class="fa fa-triangle-exclamation"></i></span>
-              <span class="advisory-title" id="adv-title-0" style="color:var(--text-dim)">Select a district for farmer advisory</span>
+              <span class="advisory-title u-dim" id="adv-title-0">Select a district for farmer advisory</span>
             </div>
             <div class="advisory-body" id="adv-body-0">Advisories are generated from real IMD-derived indices once a district (and optionally a village) is selected above.</div>
             <div class="advisory-actions">
@@ -1080,32 +1102,32 @@ canvas.chart-canvas{max-height:100%;}
       <div class="btm-content">
         <!-- Rainfall -->
         <div class="btm-pane active" id="pane-rainfall">
-          <div class="section-header"><i class="fa fa-cloud-rain" style="color:var(--cyan);font-size:var(--fs-1)"></i><div class="section-title">RAINFALL FORECAST — CENTRAL INDIA (2024–25)</div></div>
-          <div class="chart-wrap" style="height:200px;"><canvas id="chartRain"></canvas><div class="chart-empty" id="empty-chartRain"><i class="fa fa-cloud-rain"></i>Select a district (Bhopal, Indore, Jabalpur, Rewa or Sidhi have live IMD data) to see the rainfall forecast.</div></div>
+          <div class="section-header"><i class="fa fa-cloud-rain u-cyan-sm"></i><div class="section-title">RAINFALL FORECAST — CENTRAL INDIA (2024–25)</div></div>
+          <div class="chart-wrap u-h200"><canvas id="chartRain"></canvas><div class="chart-empty" id="empty-chartRain"><i class="fa fa-cloud-rain"></i>Select a district (Bhopal, Indore, Jabalpur, Rewa or Sidhi have live IMD data) to see the rainfall forecast.</div></div>
         </div>
         <!-- Temp -->
         <div class="btm-pane" id="pane-temp">
-          <div class="section-header"><i class="fa fa-thermometer-half" style="color:var(--orange);font-size:var(--fs-1)"></i><div class="section-title">TEMPERATURE TREND — MP REGION</div></div>
-          <div class="chart-wrap" style="height:200px;"><canvas id="chartTemp"></canvas><div class="chart-empty" id="empty-chartTemp"><i class="fa fa-thermometer-half"></i>Select a district to see the temperature trend.</div></div>
+          <div class="section-header"><i class="fa fa-thermometer-half u-orange-sm"></i><div class="section-title">TEMPERATURE TREND — MP REGION</div></div>
+          <div class="chart-wrap u-h200"><canvas id="chartTemp"></canvas><div class="chart-empty" id="empty-chartTemp"><i class="fa fa-thermometer-half"></i>Select a district to see the temperature trend.</div></div>
         </div>
         <!-- Drought -->
         <div class="btm-pane" id="pane-drought">
           <div class="section-header"><i class="fa fa-droplet-slash" style="color:var(--red);font-size:var(--fs-1)"></i><div class="section-title">DROUGHT PROBABILITY — DISTRICT COMPARISON</div></div>
-          <div class="chart-wrap" style="height:200px;"><canvas id="chartDrought"></canvas><div class="chart-empty" id="empty-chartDrought"><i class="fa fa-droplet-slash"></i>Select a district to see drought probability.</div></div>
+          <div class="chart-wrap u-h200"><canvas id="chartDrought"></canvas><div class="chart-empty" id="empty-chartDrought"><i class="fa fa-droplet-slash"></i>Select a district to see drought probability.</div></div>
         </div>
         <!-- Annual Trends -->
         <div class="btm-pane" id="pane-trends">
-          <div class="section-header"><i class="fa fa-chart-line" style="color:var(--cyan);font-size:var(--fs-1)"></i><div class="section-title">ANNUAL TRENDS <span id="trendYearRange" style="color:var(--orange)">2000–2024</span></div></div>
-          <div class="chart-wrap" style="height:200px;"><canvas id="chartTrends"></canvas><div class="chart-empty" id="empty-chartTrends"><i class="fa fa-chart-line"></i>Select a district to see annual trends (2000–2024).</div></div>
+          <div class="section-header"><i class="fa fa-chart-line u-cyan-sm"></i><div class="section-title">ANNUAL TRENDS <span id="trendYearRange" class="u-orange">2000–2024</span></div></div>
+          <div class="chart-wrap u-h200"><canvas id="chartTrends"></canvas><div class="chart-empty" id="empty-chartTrends"><i class="fa fa-chart-line"></i>Select a district to see annual trends (2000–2024).</div></div>
         </div>
         <!-- NDVI -->
         <div class="btm-pane" id="pane-ndvi">
-          <div class="section-header"><i class="fa fa-leaf" style="color:var(--green);font-size:var(--fs-1)"></i><div class="section-title">NDVI TIME SERIES (DICRA 2013-2026)</div></div>
-          <div class="chart-wrap" style="height:200px;"><canvas id="chartNdvi"></canvas></div>
+          <div class="section-header"><i class="fa fa-leaf u-green-sm"></i><div class="section-title">NDVI TIME SERIES (DICRA 2013-2026)</div></div>
+          <div class="chart-wrap u-h200"><canvas id="chartNdvi"></canvas></div>
         </div>
         <!-- 7-Day Forecast -->
         <div class="btm-pane" id="pane-forecast">
-          <div class="section-header"><i class="fa fa-clock" style="color:var(--orange);font-size:var(--fs-1)"></i><div class="section-title">7-DAY WEATHER FORECAST <span id="forecastDistName" style="color:var(--orange)"></span></div></div>
+          <div class="section-header"><i class="fa fa-clock u-orange-sm"></i><div class="section-title">7-DAY WEATHER FORECAST <span id="forecastDistName" class="u-orange"></span></div></div>
           <div style="display:flex;flex:1;overflow:hidden;">
             <div id="forecastPanel" style="flex:1;display:grid;grid-template-columns:repeat(7,1fr);gap:var(--space-03);padding:var(--space-05);"></div>
           </div>
@@ -1122,8 +1144,8 @@ canvas.chart-canvas{max-height:100%;}
                NOT integrated). Replaced with the real, current status of
                each source actually named in docs/DATA_SOURCES.md. -->
           <div style="padding:0.5rem 0.75rem;display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-05);">
-            <div class="sat-card"><div class="sat-name">MODIS</div><div class="sat-val" style="color:var(--green);font-size:var(--fs-1)">LIVE</div><div class="sat-unit">NDVI, via UNDP DiCRA -- Madhya Pradesh's 52 districts only</div></div>
-            <div class="sat-card"><div class="sat-name">CHIRPS + ERA5-Land</div><div class="sat-val" style="color:var(--orange);font-size:var(--fs-1)">IN PROGRESS</div><div class="sat-unit">National climate indices beyond the 5 IMD districts -- see scripts/08_gee_national_climate.py</div></div>
+            <div class="sat-card"><div class="sat-name">MODIS</div><div class="sat-val u-green-sm">LIVE</div><div class="sat-unit">NDVI, via UNDP DiCRA -- Madhya Pradesh's 52 districts only</div></div>
+            <div class="sat-card"><div class="sat-name">CHIRPS + ERA5-Land</div><div class="sat-val u-orange-sm">IN PROGRESS</div><div class="sat-unit">National climate indices beyond the 5 IMD districts -- see scripts/08_gee_national_climate.py</div></div>
             <div class="sat-card"><div class="sat-name">Sentinel-2</div><div class="sat-val" style="color:var(--text-dim);font-size:var(--fs-1)">NOT INTEGRATED</div><div class="sat-unit">No layer in this dashboard uses it</div></div>
             <div class="sat-card"><div class="sat-name">SMAP</div><div class="sat-val" style="color:var(--text-dim);font-size:var(--fs-1)">NOT INTEGRATED</div><div class="sat-unit">Soil moisture stays "Not available" everywhere</div></div>
           </div>
@@ -1143,9 +1165,9 @@ canvas.chart-canvas{max-height:100%;}
         </div>
         <!-- Satellites -->
         <div class="btm-pane" id="pane-sat">
-          <div class="section-header"><i class="fa fa-satellite" style="color:var(--cyan);font-size:var(--fs-1)"></i><div class="section-title">SATELLITE ANALYTICS PANEL</div></div>
-          <div style="padding:var(--space-20px);text-align:center;color:var(--text-dim);font-size:var(--fs-2);line-height:1.8;">
-            <i class="fa fa-satellite" style="font-size:var(--fs-5);display:block;margin-bottom:8px;opacity:0.6"></i>
+          <div class="section-header"><i class="fa fa-satellite u-cyan-sm"></i><div class="section-title">SATELLITE ANALYTICS PANEL</div></div>
+          <div class="u-empty-msg">
+            <i class="fa fa-satellite u-icon-lg-muted"></i>
             <b>Not available yet</b><br>
             Sentinel-2/MODIS/SMAP/VIIRS/ERA5 layers are not integrated into this dashboard. This panel previously
             showed fixed placeholder values (NDVI, EVI, LST, soil moisture, etc.) that were never sourced from any
@@ -1156,8 +1178,8 @@ canvas.chart-canvas{max-height:100%;}
         <!-- API -->
         <div class="btm-pane" id="pane-api">
           <div class="section-header"><i class="fa fa-code" style="color:var(--neon-blue);font-size:var(--fs-1)"></i><div class="section-title">API ACCESS</div></div>
-          <div style="padding:var(--space-20px);text-align:center;color:var(--text-dim);font-size:var(--fs-2);line-height:1.8;">
-            <i class="fa fa-code" style="font-size:var(--fs-5);display:block;margin-bottom:8px;opacity:0.6"></i>
+          <div class="u-empty-msg">
+            <i class="fa fa-code u-icon-lg-muted"></i>
             <b>No public API yet</b><br>
             This portal has no backend and serves static files from GitHub Pages. The endpoints previously listed
             here (<code>/api/v1/...</code>) do not exist and were never implemented -- removed, see
@@ -1167,9 +1189,9 @@ canvas.chart-canvas{max-height:100%;}
         </div>
         <!-- Panchayat -->
         <div class="btm-pane" id="pane-panch">
-          <div class="section-header"><i class="fa fa-building" style="color:var(--cyan);font-size:var(--fs-1)"></i><div class="section-title">PANCHAYAT VULNERABILITY RANKING</div></div>
-          <div style="padding:var(--space-20px);text-align:center;color:var(--text-dim);font-size:var(--fs-2);line-height:1.8;">
-            <i class="fa fa-building" style="font-size:var(--fs-5);display:block;margin-bottom:8px;opacity:0.6"></i>
+          <div class="section-header"><i class="fa fa-building u-cyan-sm"></i><div class="section-title">PANCHAYAT VULNERABILITY RANKING</div></div>
+          <div class="u-empty-msg">
+            <i class="fa fa-building u-icon-lg-muted"></i>
             <b>Not available yet</b><br>
             No panchayat-level vulnerability assessment has been computed. This panel previously listed named Gram
             Panchayats (Alirajpur, Badwah, Bijori and others) with invented vulnerability scores that were never
@@ -1180,9 +1202,9 @@ canvas.chart-canvas{max-height:100%;}
         </div>
         <!-- Forest -->
         <div class="btm-pane" id="pane-forest">
-          <div class="section-header"><i class="fa fa-tree" style="color:var(--green);font-size:var(--fs-1)"></i><div class="section-title">FOREST &amp; TRIBAL ANALYTICS</div></div>
-          <div style="padding:var(--space-20px);text-align:center;color:var(--text-dim);font-size:var(--fs-2);line-height:1.8;">
-            <i class="fa fa-tree" style="font-size:var(--fs-5);display:block;margin-bottom:8px;opacity:0.6"></i>
+          <div class="section-header"><i class="fa fa-tree u-green-sm"></i><div class="section-title">FOREST &amp; TRIBAL ANALYTICS</div></div>
+          <div class="u-empty-msg">
+            <i class="fa fa-tree u-icon-lg-muted"></i>
             <b>Not available yet</b><br>
             Forest Survey of India / Bhuvan land-use data is not integrated. This panel previously named specific
             districts (Umaria, Shahdol, Mandla and others) with invented risk levels and carbon-stock figures --
@@ -1192,9 +1214,9 @@ canvas.chart-canvas{max-height:100%;}
         </div>
         <!-- PMFBY -->
         <div class="btm-pane" id="pane-pmfby">
-          <div class="section-header"><i class="fa fa-shield-halved" style="color:var(--orange);font-size:var(--fs-1)"></i><div class="section-title">PMFBY INSURANCE ANALYTICS</div></div>
-          <div style="padding:var(--space-20px);text-align:center;color:var(--text-dim);font-size:var(--fs-2);line-height:1.8;">
-            <i class="fa fa-shield-halved" style="font-size:var(--fs-5);display:block;margin-bottom:8px;opacity:0.6"></i>
+          <div class="section-header"><i class="fa fa-shield-halved u-orange-sm"></i><div class="section-title">PMFBY INSURANCE ANALYTICS</div></div>
+          <div class="u-empty-msg">
+            <i class="fa fa-shield-halved u-icon-lg-muted"></i>
             <b>Not available yet</b><br>
             No PMFBY enrollment or claims data is integrated. This panel previously showed invented enrollment,
             claim-exposure and "AI risk score" figures -- removed, see <code>docs/AUDIT_2026-08-01.md</code>.
@@ -1204,9 +1226,9 @@ canvas.chart-canvas{max-height:100%;}
         </div>
         <!-- Village Intelligence -->
         <div class="btm-pane" id="pane-village">
-          <div class="section-header"><i class="fa fa-house" style="color:var(--cyan);font-size:var(--fs-1)"></i><div class="section-title">VILLAGE INTELLIGENCE</div></div>
-          <div style="padding:var(--space-20px);text-align:center;color:var(--text-dim);font-size:var(--fs-2);line-height:1.8;">
-            <i class="fa fa-house" style="font-size:var(--fs-5);display:block;margin-bottom:8px;opacity:0.6"></i>
+          <div class="section-header"><i class="fa fa-house u-cyan-sm"></i><div class="section-title">VILLAGE INTELLIGENCE</div></div>
+          <div class="u-empty-msg">
+            <i class="fa fa-house u-icon-lg-muted"></i>
             <b>Use the Location Selector</b><br>
             Village-level IMD indices for the 5 covered districts (Bhopal, Indore, Jabalpur, Rewa, Sidhi) are shown
             in the <b>Historical Indices</b> panel once you pick District &rarr; Block &rarr; Village from the
@@ -1217,33 +1239,33 @@ canvas.chart-canvas{max-height:100%;}
         </div>
         <!-- Agriculture -->
         <div class="btm-pane" id="pane-agriculture">
-          <div class="section-header"><i class="fa fa-wheat-awn" style="color:var(--green);font-size:var(--fs-1)"></i><div class="section-title">AGRICULTURE &amp; CROP HEALTH <span id="agriDistName" style="color:var(--orange)"></span></div></div>
+          <div class="section-header"><i class="fa fa-wheat-awn u-green-sm"></i><div class="section-title">AGRICULTURE &amp; CROP HEALTH <span id="agriDistName" class="u-orange"></span></div></div>
           <div style="overflow-y:auto;flex:1;padding:var(--space-05);">
             <div class="agri-metrics" style="display:flex;gap:var(--space-05);margin-bottom:var(--space-05);flex-wrap:wrap;">
-              <div class="metric-card" style="flex:1;min-width:100px;"><div class="metric-label">CROP HEALTH</div><div class="metric-value" id="agri-crop-health" style="color:var(--green)">—</div></div>
-              <div class="metric-card" style="flex:1;min-width:100px;"><div class="metric-label">NDVI MEAN</div><div class="metric-value" id="agri-ndvi" style="color:var(--teal)">—</div></div>
-              <div class="metric-card" style="flex:1;min-width:100px;"><div class="metric-label">RAINFALL</div><div class="metric-value" id="agri-rain" style="color:var(--cyan)">—</div></div>
-              <div class="metric-card" style="flex:1;min-width:100px;"><div class="metric-label">SOIL TYPE</div><div class="metric-value" id="agri-soil-type" style="color:var(--yellow)">—</div></div>
+              <div class="metric-card u-fmw100"><div class="metric-label">CROP HEALTH</div><div class="metric-value u-green" id="agri-crop-health">—</div></div>
+              <div class="metric-card u-fmw100"><div class="metric-label">NDVI MEAN</div><div class="metric-value u-teal" id="agri-ndvi">—</div></div>
+              <div class="metric-card u-fmw100"><div class="metric-label">RAINFALL</div><div class="metric-value u-cyan" id="agri-rain">—</div></div>
+              <div class="metric-card u-fmw100"><div class="metric-label">SOIL TYPE</div><div class="metric-value u-yellow" id="agri-soil-type">—</div></div>
             </div>
-            <div class="section-header" style="padding:0.25rem 0;margin-bottom:var(--space-03);"><i class="fa fa-calendar" style="color:var(--green);font-size:var(--fs-1)"></i><div class="section-title" style="font-size:var(--fs-1)">CROP SEASON — <span id="agri-season-name">KHARIF</span></div></div>
+            <div class="section-header" style="padding:0.25rem 0;margin-bottom:var(--space-03);"><i class="fa fa-calendar u-green-sm"></i><div class="section-title u-fs1">CROP SEASON — <span id="agri-season-name">KHARIF</span></div></div>
             <div style="display:flex;gap:var(--space-05);margin-bottom:var(--space-05);flex-wrap:wrap;">
-              <div class="metric-card" style="flex:1;min-width:100px;"><div class="metric-label">RECOMMENDED</div><div class="metric-value" id="agri-rec-crop" style="font-size:var(--fs-1);font-weight:700;color:var(--green)">—</div></div>
-              <div class="metric-card" style="flex:1;min-width:100px;"><div class="metric-label">ALTERNATIVE</div><div class="metric-value" id="agri-alt-crop" style="font-size:var(--fs-1);font-weight:700;color:var(--teal)">—</div></div>
-              <div class="metric-card" style="flex:1;min-width:80px;"><div class="metric-label">SUITABILITY</div><div class="metric-value" id="agri-suitability" style="font-size:var(--fs-1);color:var(--orange)">—</div></div>
+              <div class="metric-card u-fmw100"><div class="metric-label">RECOMMENDED</div><div class="metric-value" id="agri-rec-crop" style="font-size:var(--fs-1);font-weight:700;color:var(--green)">—</div></div>
+              <div class="metric-card u-fmw100"><div class="metric-label">ALTERNATIVE</div><div class="metric-value" id="agri-alt-crop" style="font-size:var(--fs-1);font-weight:700;color:var(--teal)">—</div></div>
+              <div class="metric-card u-fmw80"><div class="metric-label">SUITABILITY</div><div class="metric-value" id="agri-suitability" style="font-size:var(--fs-1);color:var(--orange)">—</div></div>
             </div>
-            <div class="section-header" style="padding:0.25rem 0;margin-bottom:var(--space-03);"><i class="fa fa-comment-dots" style="color:var(--cyan);font-size:var(--fs-1)"></i><div class="section-title" style="font-size:var(--fs-1)">FARMER ADVISORY</div></div>
+            <div class="section-header" style="padding:0.25rem 0;margin-bottom:var(--space-03);"><i class="fa fa-comment-dots u-cyan-sm"></i><div class="section-title u-fs1">FARMER ADVISORY</div></div>
             <div id="agri-advisory" style="background:rgba(26,138,158,0.08);border-left:3px solid var(--cyan);padding:0.4rem 0.5rem;border-radius:var(--radius-4);margin-bottom:var(--space-05);font-size:var(--fs-1);line-height:1.4;color:var(--text);"></div>
             <div style="display:flex;gap:var(--space-05);flex-wrap:wrap;">
-              <div class="metric-card" style="flex:1;min-width:120px;"><div class="metric-label">IRRIGATION</div><div id="agri-irrigation" class="metric-value" style="font-size:var(--fs-1);font-weight:700;color:var(--cyan)">—</div></div>
-              <div class="metric-card" style="flex:1;min-width:120px;"><div class="metric-label">NUTRIENT MGMT</div><div id="agri-nutrient" class="metric-value" style="font-size:var(--fs-1);font-weight:700;color:var(--yellow)">—</div></div>
-              <div class="metric-card" style="flex:1;min-width:120px;"><div class="metric-label">FERTILIZER</div><div id="agri-fertilizer" class="metric-value" style="font-size:var(--fs-1);font-weight:700;color:var(--orange)">—</div></div>
+              <div class="metric-card u-fmw120"><div class="metric-label">IRRIGATION</div><div id="agri-irrigation" class="metric-value" style="font-size:var(--fs-1);font-weight:700;color:var(--cyan)">—</div></div>
+              <div class="metric-card u-fmw120"><div class="metric-label">NUTRIENT MGMT</div><div id="agri-nutrient" class="metric-value" style="font-size:var(--fs-1);font-weight:700;color:var(--yellow)">—</div></div>
+              <div class="metric-card u-fmw120"><div class="metric-label">FERTILIZER</div><div id="agri-fertilizer" class="metric-value" style="font-size:var(--fs-1);font-weight:700;color:var(--orange)">—</div></div>
             </div>
-            <div class="section-header" style="padding:0.25rem 0;margin:0.3rem 0;"><i class="fa fa-water" style="color:var(--blue);font-size:var(--fs-1)"></i><div class="section-title" style="font-size:var(--fs-1)">GROUNDWATER &amp; IRRIGATION (GEE-Based)</div></div>
+            <div class="section-header" style="padding:0.25rem 0;margin:0.3rem 0;"><i class="fa fa-water" style="color:var(--blue);font-size:var(--fs-1)"></i><div class="section-title u-fs1">GROUNDWATER &amp; IRRIGATION (GEE-Based)</div></div>
             <div style="display:flex;gap:var(--space-05);flex-wrap:wrap;">
-              <div class="metric-card" style="flex:1;min-width:80px;"><div class="metric-label">GW STRESS</div><div class="metric-value" id="agri-gw-stress" style="font-size:var(--fs-1);color:var(--red)">—</div></div>
-              <div class="metric-card" style="flex:1;min-width:80px;"><div class="metric-label">GW LEVEL</div><div class="metric-value" id="agri-gw-level" style="font-size:var(--fs-1);color:var(--teal)">—</div></div>
-              <div class="metric-card" style="flex:1;min-width:80px;"><div class="metric-label">IRRIGATION NEED</div><div class="metric-value" id="agri-gw-irr-need" style="font-size:var(--fs-1);font-weight:700;color:var(--cyan)">—</div></div>
-              <div class="metric-card" style="flex:1;min-width:80px;"><div class="metric-label">RECHARGE</div><div class="metric-value" id="agri-gw-recharge" style="font-size:var(--fs-1);font-weight:700;color:var(--green)">—</div></div>
+              <div class="metric-card u-fmw80"><div class="metric-label">GW STRESS</div><div class="metric-value" id="agri-gw-stress" style="font-size:var(--fs-1);color:var(--red)">—</div></div>
+              <div class="metric-card u-fmw80"><div class="metric-label">GW LEVEL</div><div class="metric-value" id="agri-gw-level" style="font-size:var(--fs-1);color:var(--teal)">—</div></div>
+              <div class="metric-card u-fmw80"><div class="metric-label">IRRIGATION NEED</div><div class="metric-value" id="agri-gw-irr-need" style="font-size:var(--fs-1);font-weight:700;color:var(--cyan)">—</div></div>
+              <div class="metric-card u-fmw80"><div class="metric-label">RECHARGE</div><div class="metric-value" id="agri-gw-recharge" style="font-size:var(--fs-1);font-weight:700;color:var(--green)">—</div></div>
             </div>
             <div style="margin-top:var(--space-05);display:flex;gap:var(--space-05);">
               <button onclick="setBtmTab('pmfby')" style="flex:1;background:var(--orange);border:none;padding:var(--space-03);border-radius:var(--radius-4);color:#fff;cursor:pointer;font-size:var(--fs-1);font-weight:600;">VIEW PMFBY INSURANCE</button>
@@ -1252,22 +1274,22 @@ canvas.chart-canvas{max-height:100%;}
         </div>
         <!-- Ecology -->
         <div class="btm-pane" id="pane-ecology">
-          <div class="section-header"><i class="fa fa-tree" style="color:var(--green);font-size:var(--fs-1)"></i><div class="section-title">ECOLOGY &amp; BIODIVERSITY <span id="ecoDistName" style="color:var(--orange)"></span></div></div>
+          <div class="section-header"><i class="fa fa-tree u-green-sm"></i><div class="section-title">ECOLOGY &amp; BIODIVERSITY <span id="ecoDistName" class="u-orange"></span></div></div>
           <div style="overflow-y:auto;flex:1;padding:var(--space-05);">
             <div style="display:flex;gap:var(--space-05);margin-bottom:var(--space-05);flex-wrap:wrap;">
-              <div class="metric-card" style="flex:1;min-width:100px;"><div class="metric-label">FOREST COVER</div><div class="metric-value" id="eco-forest" style="color:var(--green)">—</div></div>
-              <div class="metric-card" style="flex:1;min-width:100px;"><div class="metric-label">NDVI TREND</div><div class="metric-value" id="eco-ndvi" style="color:var(--teal)">—</div></div>
-              <div class="metric-card" style="flex:1;min-width:100px;"><div class="metric-label">BIODIVERSITY</div><div class="metric-value" id="eco-bio" style="color:var(--yellow)">—</div></div>
-              <div class="metric-card" style="flex:1;min-width:100px;"><div class="metric-label">CARBON</div><div class="metric-value" id="eco-carbon" style="color:var(--cyan)">—</div></div>
+              <div class="metric-card u-fmw100"><div class="metric-label">FOREST COVER</div><div class="metric-value u-green" id="eco-forest">—</div></div>
+              <div class="metric-card u-fmw100"><div class="metric-label">NDVI TREND</div><div class="metric-value u-teal" id="eco-ndvi">—</div></div>
+              <div class="metric-card u-fmw100"><div class="metric-label">BIODIVERSITY</div><div class="metric-value u-yellow" id="eco-bio">—</div></div>
+              <div class="metric-card u-fmw100"><div class="metric-label">CARBON</div><div class="metric-value u-cyan" id="eco-carbon">—</div></div>
             </div>
-            <div class="section-header" style="padding:0.25rem 0;margin-bottom:var(--space-03);"><i class="fa fa-map" style="color:var(--green);font-size:var(--fs-1)"></i><div class="section-title" style="font-size:var(--fs-1)">AREA-WISE ECOLOGICAL METRICS</div></div>
+            <div class="section-header" style="padding:0.25rem 0;margin-bottom:var(--space-03);"><i class="fa fa-map u-green-sm"></i><div class="section-title u-fs1">AREA-WISE ECOLOGICAL METRICS</div></div>
             <div id="eco-area-metrics" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-03);font-size:var(--fs-1);">
-              <div class="forest-row"><div class="forest-indicator" style="background:var(--green)"></div><div class="forest-name">Protected Area</div><div class="forest-val" id="eco-protected" style="color:var(--green)">—</div></div>
-              <div class="forest-row"><div class="forest-indicator" style="background:var(--teal)"></div><div class="forest-name">Wildlife Corridor</div><div class="forest-val" id="eco-wildlife" style="color:var(--teal)">—</div></div>
-              <div class="forest-row"><div class="forest-indicator" style="background:var(--orange)"></div><div class="forest-name">Deforestation Risk</div><div class="forest-val" id="eco-deforest" style="color:var(--orange)">—</div></div>
-              <div class="forest-row"><div class="forest-indicator" style="background:var(--yellow)"></div><div class="forest-name">Water Body %</div><div class="forest-val" id="eco-water" style="color:var(--yellow)">—</div></div>
+              <div class="forest-row"><div class="forest-indicator" style="background:var(--green)"></div><div class="forest-name">Protected Area</div><div class="forest-val u-green" id="eco-protected">—</div></div>
+              <div class="forest-row"><div class="forest-indicator" style="background:var(--teal)"></div><div class="forest-name">Wildlife Corridor</div><div class="forest-val u-teal" id="eco-wildlife">—</div></div>
+              <div class="forest-row"><div class="forest-indicator" style="background:var(--orange)"></div><div class="forest-name">Deforestation Risk</div><div class="forest-val u-orange" id="eco-deforest">—</div></div>
+              <div class="forest-row"><div class="forest-indicator" style="background:var(--yellow)"></div><div class="forest-name">Water Body %</div><div class="forest-val u-yellow" id="eco-water">—</div></div>
             </div>
-            <div class="section-header" style="padding:0.25rem 0;margin:0.3rem 0;"><i class="fa fa-paw" style="color:var(--yellow);font-size:var(--fs-1)"></i><div class="section-title" style="font-size:var(--fs-1)">BIODIVERSITY RISK ASSESSMENT</div></div>
+            <div class="section-header" style="padding:0.25rem 0;margin:0.3rem 0;"><i class="fa fa-paw" style="color:var(--yellow);font-size:var(--fs-1)"></i><div class="section-title u-fs1">BIODIVERSITY RISK ASSESSMENT</div></div>
             <div id="eco-bio-detail" style="font-size:var(--fs-1);line-height:1.5;color:var(--text);padding:var(--space-03);background:rgba(255,183,77,0.08);border-radius:var(--radius-4);"></div>
           </div>
         </div>
@@ -1280,16 +1302,16 @@ canvas.chart-canvas{max-height:100%;}
                 <span style="opacity:0.85">यह planned cadastral module का ढांचा है। असली खसरा सीमाएँ MP भूलेख / भू-नक्शा से आएँगी।
                 यहाँ दिखाया गया कोई भी आंकड़ा वास्तविक भूमि अभिलेख नहीं है।</span>
               </div>
-              <div class="section-header"><i class="fa fa-draw-polygon" style="color:var(--orange);font-size:var(--fs-1)"></i><div class="section-title">सीमांक CADASTRAL — <span id="cad-village-name">Sample village</span> <span style="color:var(--teal)">|</span> KHASRA <span id="cad-selected-khasra" style="color:var(--orange)">—</span></div></div>
+              <div class="section-header"><i class="fa fa-draw-polygon u-orange-sm"></i><div class="section-title">सीमांक CADASTRAL — <span id="cad-village-name">Sample village</span> <span class="u-teal">|</span> KHASRA <span id="cad-selected-khasra" class="u-orange">—</span></div></div>
               <div style="overflow-y:auto;flex:1;padding:var(--space-05);">
                 <div style="display:flex;gap:var(--space-05);margin-bottom:var(--space-05);flex-wrap:wrap;">
-                  <div style="flex:1;min-width:100px;">
+                  <div class="u-fmw100">
                     <label style="font-size:var(--fs-1);font-weight:600;color:var(--text-dim);display:block;margin-bottom:var(--space-02);">SEARCH KHASRA / PARCEL</label>
                     <select id="cadKhasraSelect" onchange="onKhasraChange(this.value)" style="width:100%;padding:var(--space-03);border-radius:var(--radius-4);border:var(--border-default);background:var(--bg-card);color:var(--text);font-size:var(--fs-1);">
                       <option value="">-- Sample parcel (demo) --</option>
                     </select>
                   </div>
-                  <div style="flex:1;min-width:100px;">
+                  <div class="u-fmw100">
                     <label style="font-size:var(--fs-1);font-weight:600;color:var(--text-dim);display:block;margin-bottom:var(--space-02);">FILTER BY CROP</label>
                     <select id="cadCropFilter" onchange="window.filterByCrop(this.value||null)" style="width:100%;padding:var(--space-03);border-radius:var(--radius-4);border:var(--border-default);background:var(--bg-card);color:var(--text);font-size:var(--fs-1);">
                       <option value="">-- All Crops --</option>
@@ -1319,10 +1341,10 @@ canvas.chart-canvas{max-height:100%;}
                 </div>
                 <!-- Parcel Details -->
                 <div style="display:flex;gap:var(--space-04);flex-wrap:wrap;margin-bottom:var(--space-04);">
-                  <div class="metric-card" style="flex:1;min-width:65px;"><div class="metric-label">LAND USE</div><div class="metric-value" id="cad-landuse" style="font-size:var(--fs-1);color:var(--green)">—</div></div>
-                  <div class="metric-card" style="flex:1;min-width:65px;"><div class="metric-label">SOIL</div><div class="metric-value" id="cad-soil" style="font-size:var(--fs-1);color:var(--yellow)">—</div></div>
-                  <div class="metric-card" style="flex:1;min-width:65px;"><div class="metric-label">CROP</div><div class="metric-value" id="cad-crop" style="font-size:var(--fs-1);color:var(--green)">—</div></div>
-                  <div class="metric-card" style="flex:1;min-width:65px;"><div class="metric-label">IRRIGATION</div><div class="metric-value" id="cad-irrigation" style="font-size:var(--fs-1);color:var(--cyan)">—</div></div>
+                  <div class="metric-card u-fmw65"><div class="metric-label">LAND USE</div><div class="metric-value" id="cad-landuse" style="font-size:var(--fs-1);color:var(--green)">—</div></div>
+                  <div class="metric-card u-fmw65"><div class="metric-label">SOIL</div><div class="metric-value" id="cad-soil" style="font-size:var(--fs-1);color:var(--yellow)">—</div></div>
+                  <div class="metric-card u-fmw65"><div class="metric-label">CROP</div><div class="metric-value" id="cad-crop" style="font-size:var(--fs-1);color:var(--green)">—</div></div>
+                  <div class="metric-card u-fmw65"><div class="metric-label">IRRIGATION</div><div class="metric-value" id="cad-irrigation" style="font-size:var(--fs-1);color:var(--cyan)">—</div></div>
                 </div>
                 <!-- Satellite Analytics -->
                 <div style="background:rgba(33,150,243,0.06);border:1px solid rgba(33,150,243,0.2);border-radius:var(--radius-6);padding:var(--space-04);margin-bottom:var(--space-04);">
@@ -1342,7 +1364,7 @@ canvas.chart-canvas{max-height:100%;}
                 <!-- Parcel advisory (disabled -- cadastral_loader.js is a stub pending
                      official MP Bhulekh/Revenue Dept. records) -->
                 <div style="background:rgba(255,204,0,0.06);border:1px solid rgba(255,204,0,0.3);border-radius:var(--radius-6);padding:var(--space-04);">
-                  <div style="font-size:var(--fs-1);letter-spacing:2px;font-weight:700;color:var(--yellow);margin-bottom:var(--space-03);"><i class="fa fa-seedling"></i> PARCEL ADVISORY — KHASRA <span id="cad-advisory-khasra" style="color:var(--orange)">—</span></div>
+                  <div style="font-size:var(--fs-1);letter-spacing:2px;font-weight:700;color:var(--yellow);margin-bottom:var(--space-03);"><i class="fa fa-seedling"></i> PARCEL ADVISORY — KHASRA <span id="cad-advisory-khasra" class="u-orange">—</span></div>
                   <div id="cad-advisory" style="font-size:var(--fs-1);font-weight:600;line-height:1.5;color:var(--text);">
                     Select a khasra to generate parcel-specific advisory.
                   </div>
@@ -2319,7 +2341,7 @@ function applyVillageStyle(distKey, hazardKind){
       var nm = feat.properties.Villl_name || 'Unknown';
       var lgd = feat.properties.Vill_LGD || '';
       var popup = '<div style="font-family:\'Inter\',-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif">'+
-        '<b style="color:var(--cyan)">'+nm+'</b><br>'+
+        '<b class="u-cyan">'+nm+'</b><br>'+
         '<span style="font-size:var(--fs-1);color:#5a6a7a">'+distKey+' village</span>';
       if (isHazard) {
         var val = getVillageHazardVal(distKey, lgd, metric);
