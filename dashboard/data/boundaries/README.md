@@ -3,6 +3,34 @@
 Provenance for every boundary layer in this folder. Layers not listed here
 must not be displayed, per `CONTRIBUTING.md`.
 
+## 2026-08-06: the actual files moved to Hugging Face Datasets
+
+This repo's tracked working tree was already ~760 MB (GitHub Pages has a
+1 GB soft limit) before this folder's `soi/` and `legacy/` subfolders (650
+MB combined) were added. They're now served from
+`https://huggingface.co/datasets/vindhyaresearch/vindhya-climate`
+(dataset repo, public, 10 GB free) instead — same relative path structure
+(`boundaries/soi/...`, `boundaries/legacy/...`), just a different host.
+
+**Everything below this point still describes those files accurately** --
+naming, licensing, processing, known quirks -- only *where the bytes live*
+changed, not what's in them. `config/data_config.json`'s `DATA_BASE_URL` is
+the single place that host is configured;
+`dashboard/index.html`'s `resolveDataUrl()` is what every loader calls
+instead of hardcoding a path a second time.
+
+Verified before deletion: file-for-file and byte-for-byte count match
+between the local working tree and the HF-hosted copy (1510/1510 files,
+784,203,871/784,203,871 bytes) via `scripts/hf_upload_boundaries.py`, and a
+live render check (Amritsar district boundary, correctly drawn from the
+HF-hosted GeoJSON, zero console errors) before the local files were removed
+from the working tree. **Full git history still has every one of these
+files** in every commit before this one -- `git checkout <commit> --
+dashboard/data/boundaries dashboard/data/village_profiles` recovers them
+if the HF copy is ever unavailable. History was never rewritten to remove
+them (no filter-branch/filter-repo/BFG) -- this is a working-tree-only
+removal, by owner instruction.
+
 | Layer | Source | License | Fetch date | Coverage |
 |---|---|---|---|---|
 | `india_states.geojson` | Census of India 2011 (dissolved from districts) | Open data, attribution required | 2026-08-01 | 36/36 states and UTs |

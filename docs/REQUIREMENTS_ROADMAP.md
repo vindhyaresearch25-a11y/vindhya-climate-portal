@@ -70,6 +70,19 @@ not on application code. Required registrations, in rough order of value:
 7. **FSI / India Biodiversity Portal / ISRO** — forest and biodiversity (Req. 24)
 9. **PMKSY and state irrigation databases** (Req. 15)
 
+**2026-08-06 addendum — crop classification & yield estimation.** Full
+methodology in `docs/CROP_YIELD_METHODOLOGY.md`, written against the
+owner's 22-section platform spec that day. Same blocker as item 1 above
+(no GEE service account) plus no parcel-level crop-type ground truth (CCE/
+Digital Crop Survey/UPAg — none held). One real, runnable slice shipped
+regardless: `scripts/crop_yield/01_fetch_icrisat_district_yield.py` pulls
+the real, public ICRISAT district-level yield+climate panel (20 states,
+560 districts, 1990-2015, CC BY 4.0) into `data/crop_yield/`, used as a
+district-level regression target and sanity bound — not a substitute for
+real parcel-level ground truth, see METHODOLOGY.md §4 for the literature-
+grounded fallback (transfer learning / domain adaptation) while that
+remains blocked.
+
 Requirement 7 specifically asks for parcels drawn on real field bunds
 (मेड़). That is achievable two ways: official Bhu-Naksha cadastral vectors
 (preferred, legally authoritative), or field-boundary delineation from

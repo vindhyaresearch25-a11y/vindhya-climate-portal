@@ -1402,6 +1402,54 @@ function fetchWithTimeout(url, opts){
 }
 
 // ============================================================
+// DATA_BASE_URL (2026-08-06): boundaries/ (650 MB) and
+// village_profiles/ (102 MB) moved off this repo to Hugging Face
+// Datasets -- GitHub Pages has a 1 GB soft limit and this repo was
+// already ~760 MB tracked before the move (see docs/DATA_SOURCES.md
+// "Hugging Face migration"). config/data_config.json is the ONE place
+// that URL is written; every loader calls resolveDataUrl() instead of
+// hardcoding it a second time.
+//
+// If a path is already absolute (http...), it's returned unchanged --
+// this is what makes this composable with app.py's Streamlit patcher,
+// which rewrites the same 'data/boundaries/' literal to a
+// raw.githubusercontent.com URL *before* this code ever runs there;
+// resolveDataUrl must not double-prefix an already-absolute URL.
+//
+// national_selector.js is appended to the DOM only after this config
+// fetch settles (success or failure), never as a static <script src>,
+// so it can never run before window.DATA_BASE_URL is decided -- no
+// race between "did the config load yet" and "did boot() already fire".
+window.DATA_BASE_URL = null; // null until resolved; resolveDataUrl treats null as "use local"
+function resolveDataUrl(path){
+  if (/^https?:\/\//i.test(path)) return path; // already absolute -- Streamlit path, or already resolved
+  if (!window.DATA_BASE_URL) return path; // config not loaded / not set -- local fallback, never hangs
+  // HF repo root has boundaries/... and village_profiles/... directly (no "data/" prefix,
+  // since only those two datasets moved) -- strip it if present, pass anything else through untouched.
+  var rel = path.replace(/^data\//, '');
+  return window.DATA_BASE_URL.replace(/\/$/, '') + '/' + rel;
+}
+// Any code elsewhere in this file that calls resolveDataUrl() must first
+// chain off this promise (`.then()`), not fire immediately -- otherwise it
+// races the config fetch and could resolve to the local path even after
+// local boundaries/village_profiles files are removed (FINAL_PROMPT step 4).
+// national_selector.js is handled separately below (whole-script deferral,
+// since it's a different <script> file); the hero-stats fetch further down
+// in this same script is the other real caller and chains off this exact
+// promise.
+window.__dataConfigPromise = fetchWithTimeout('config/data_config.json')
+  .then(function(r){ return r.ok ? r.json() : null; })
+  .then(function(cfg){
+    if (cfg && cfg.DATA_BASE_URL) window.DATA_BASE_URL = cfg.DATA_BASE_URL;
+  })
+  .catch(function(){ /* window.DATA_BASE_URL stays null -- local fallback, page still works */ });
+window.__dataConfigPromise.finally(function(){
+    var s = document.createElement('script');
+    s.src = 'national_selector.js';
+    document.body.appendChild(s);
+  });
+
+// ============================================================
 // MADHYA PRADESH ADMINISTRATIVE HIERARCHY
 // India > MP > District (all 55) > Block/Tehsil > Village
 // ============================================================
@@ -1455,11 +1503,11 @@ function animateCounters(){
 // district files, this code never hardcodes a target), and verified
 // source count (sources_manifest.json). Falls back to the static
 // data-target already in the HTML only if a fetch genuinely fails.
-Promise.all([
-  fetchWithTimeout('data/boundaries/' + 'soi/_manifest.json').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
+window.__dataConfigPromise.then(function(){ return Promise.all([
+  fetchWithTimeout(resolveDataUrl('data/boundaries/' + 'soi/_manifest.json')).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
   fetchWithTimeout('data/sources_manifest.json').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
   fetchWithTimeout('data/climate_manifest.json').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })
-]).then(function(results){
+]); }).then(function(results){
   var manifest = results[0], sources = results[1], climate = results[2];
   if (manifest && manifest.totals) {
     if (manifest.totals.total_villages) {
@@ -2122,7 +2170,8 @@ async function loadVillageBoundaries(distKey, hazardKind){
   // prefix inside a longer one) so app.py's Streamlit-deployment URL
   // patcher -- which only matches that exact literal -- still rewrites
   // this fetch to the GitHub raw CDN. Don't merge into one literal.
-  const url = 'data/boundaries/'+'soi/villages/madhya_pradesh/'+slug+'.geojson';
+  await window.__dataConfigPromise; // ensure DATA_BASE_URL is decided before resolveDataUrl()
+  const url = resolveDataUrl('data/boundaries/'+'soi/villages/madhya_pradesh/'+slug+'.geojson');
   try{
     const r=await fetchWithTimeout(url);
     if(r.ok){
@@ -3344,5 +3393,8 @@ async function runChatCompletion(){
 <script src="crop_stats_loader.js"></script>
 <script src="knowledge_base_loader.js"></script>
 <script src="national_climate_loader.js"></script>
-<script src="national_selector.js"></script>
+<!-- national_selector.js is appended dynamically, not as a static tag here --
+     see the fetchWithTimeout('config/data_config.json')...finally() block
+     above, which guarantees it only loads after window.DATA_BASE_URL is
+     decided (set or left null), so it can never race the config fetch. -->
 </body></html>

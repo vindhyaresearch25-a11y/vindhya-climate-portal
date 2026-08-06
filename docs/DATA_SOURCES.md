@@ -3,6 +3,30 @@
 Every layer served by the dashboard is listed here with source, resolution,
 CRS, processing, and quality status. Layers not listed must not be displayed.
 
+## Hugging Face migration (2026-08-06)
+
+`data/boundaries/soi/*` (650 MB) and `data/village_profiles/*` (102 MB) --
+every row below whose "Layer / file" starts with either path -- were moved
+off this repo's working tree to
+[`vindhyaresearch/vindhya-climate`](https://huggingface.co/datasets/vindhyaresearch/vindhya-climate)
+(public HF dataset repo, 10 GB free, CORS confirmed scoped to this site's
+GitHub Pages origin, HTTP range requests supported). This repo's tracked
+content was already ~760 MB against GitHub Pages' 1 GB soft limit before
+these two folders were added; removing them (they were the two largest
+contributors by far) brings the working tree back to a few MB.
+
+**Nothing about the data itself changed** -- same files, same content,
+same processing, same licence, verified file-for-file and byte-for-byte
+identical (1510/1510 files, 784,203,871/784,203,871 bytes) before the local
+copies were removed from the working tree. Only the host changed: every
+loader reads `config/data_config.json`'s `DATA_BASE_URL` via
+`resolveDataUrl()` (`dashboard/index.html`) instead of a hardcoded local
+path. Full git history still has every file in every commit before the
+removal -- `git checkout <commit> -- dashboard/data/boundaries
+dashboard/data/village_profiles` recovers them; history was never rewritten
+(no filter-branch/filter-repo/BFG) to remove them, so this is recoverable
+by design, not a real loss.
+
 | Layer / file | Source | Resolution | CRS | Processing | Quality | Updated |
 |---|---|---|---|---|---|---|
 | `data/mp_climate_data.json` (5 districts) | IMD 0.05° gridded daily Tmax/Tmin/Precip NetCDF, 2000–2024 | ~5.5 km | EPSG:4326 | scripts 01–04: nearest-pixel village sampling, IMD heatwave criteria, SPI, ETCCDI (base 2000–2014) | Verified | 2026-07-31 |
@@ -18,6 +42,7 @@ CRS, processing, and quality status. Layers not listed must not be displayed.
 | `data/mandi_prices.json` (all 36 states/UTs, 733 districts) | AGMARKNET, published on data.gov.in by the Ministry of Agriculture and Farmers Welfare (resource `9ef84268-d588-465a-a308-a864a43d0070`) | APMC market, aggregated to district | not applicable (tabular) | `scripts/fetch_mandi_prices.py` on a daily GitHub Actions schedule, all 733 districts (from `national_districts.py`, the same Survey of India district layer used for boundaries — not a separately typed-in list) in one run; rows without a usable min/max/modal price, or with min above max, are dropped; nothing interpolated or carried forward; a district whose AGMARKNET spelling doesn't match its Survey of India name is a recorded per-district fetch failure, not a silent gap | Verified | daily |
 | `data/crop_stats.json` (all 36 states/UTs, 733 districts) | data.gov.in, Ministry of Agriculture and Farmers Welfare, "District-wise, season-wise crop production statistics from 1997" (resource `35be999b-0208-4354-b557-f6ca9a5355de`) | district, season | not applicable (tabular) | `scripts/fetch_crop_stats.py`, monthly GitHub Actions schedule; this resource paginates and would take hours to fetch nationally in one run, so each scheduled run fetches one batch of 6 states (chosen by calendar month, all 36 cycle through over 6 months) and MERGES into the existing file rather than overwriting it; yield is derived (production/area) by this repo, never estimated when area is 0/missing | Verified, years generally 1997-2013 (varies by district) -- **not current-season data** | monthly, batched |
 | `data/sources_manifest.json` | This register itself -- a machine-readable mirror of this table's distinct source rows, kept in sync by hand | not applicable | not applicable | hand-maintained; the landing page's "Verified Sources" stat counts this file's array length instead of a typed-in number | Self-referential | 2026-08-02 |
+| `data/crop_yield/icrisat_district_panel.json` (20 states, 560 districts, 1990-2015) | ICRISAT District-Level Data: "Heterogeneous Climate Effect on Crop Yield and Associated Risks to Water Security in India" (Mohapatra, S. / ICRISAT), Mendeley Data, DOI `10.17632/ywp3y5j9vv.1`, CC BY 4.0 | district, annual | not applicable (tabular) | `scripts/crop_yield/01_fetch_icrisat_district_yield.py`: downloads the source's single `.xls` via Mendeley's public files API, verifies its SHA-256 against the API's own hash before parsing, keeps crop area/production/yield (rice, pearl millet, chickpea, groundnut, sugarcane) + irrigated/cropped area + fertiliser + labour + 4 seasonal (not 48 raw monthly) climate aggregates -- documented trim, raw `.xls` cached alongside (gitignored) for re-parsing | Verified-official, district-level -- **not parcel-level ground truth**, used per `docs/CROP_YIELD_METHODOLOGY.md` §4 as a regression target/sanity bound only | 2026-08-06 |
 | Cadastral parcels | **disabled** — pending MP Bhulekh / Bhu-Naksha Revenue Dept. records | — | — | — | Not available | — |
 
 ## Market and trade sources: status

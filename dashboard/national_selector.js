@@ -100,19 +100,28 @@
   // Streamlit-deployment URL patcher -- which only matches that exact
   // literal -- still rewrites these to the GitHub raw CDN. See
   // scripts/build_soi_village_layer.py's identical convention/comment.
+  //
+  // resolveDataUrl() (defined in index.html, loaded before this file --
+  // see the dynamic <script> append there) additionally rewrites the
+  // 'data/boundaries/...' and 'data/village_profiles/...' paths to the
+  // Hugging Face-hosted copy on GitHub Pages, per config/data_config.json.
+  // On Streamlit, app.py has already replaced the literal with an
+  // absolute githubusercontent URL by the time this runs, and
+  // resolveDataUrl() passes any already-absolute URL through unchanged --
+  // the two rewrites compose without double-prefixing either way.
   function loadStatesGeo() {
     if (statesGeo) return Promise.resolve(statesGeo);
-    return fetchWithTimeout('data/boundaries/' + 'soi/states.geojson').then(function (d) { statesGeo = d; return d; });
+    return fetchWithTimeout(resolveDataUrl('data/boundaries/' + 'soi/states.geojson')).then(function (d) { statesGeo = d; return d; });
   }
   function loadDistrictsGeo() {
     if (districtsGeo) return Promise.resolve(districtsGeo);
-    return fetchWithTimeout('data/boundaries/' + 'soi/districts.geojson').then(function (d) { districtsGeo = d; return d; });
+    return fetchWithTimeout(resolveDataUrl('data/boundaries/' + 'soi/districts.geojson')).then(function (d) { districtsGeo = d; return d; });
   }
   function loadBlocksForState(stateSlug) {
     if (blocksCache[stateSlug]) return Promise.resolve(blocksCache[stateSlug]);
     if (blocksInflight[stateSlug]) return blocksInflight[stateSlug];
     showStatus('<i class="fa fa-spinner fa-spin"></i> Blocks/Tehsils loading&hellip;');
-    var p = fetchWithTimeout('data/boundaries/' + 'soi/blocks/' + stateSlug + '.geojson')
+    var p = fetchWithTimeout(resolveDataUrl('data/boundaries/' + 'soi/blocks/' + stateSlug + '.geojson'))
       .then(function (d) { blocksCache[stateSlug] = d; hideStatus(); return d; })
       .finally(function () { delete blocksInflight[stateSlug]; });
     blocksInflight[stateSlug] = p;
@@ -123,7 +132,7 @@
     if (villagesCache[key]) return Promise.resolve(villagesCache[key]);
     if (villagesInflight[key]) return villagesInflight[key];
     showStatus('<i class="fa fa-spinner fa-spin"></i> Villages loading&hellip;');
-    var p = fetchWithTimeout('data/boundaries/' + 'soi/villages/' + stateSlug + '/' + districtSlug + '.geojson')
+    var p = fetchWithTimeout(resolveDataUrl('data/boundaries/' + 'soi/villages/' + stateSlug + '/' + districtSlug + '.geojson'))
       .then(function (d) { villagesCache[key] = d; hideStatus(); return d; })
       .finally(function () { delete villagesInflight[key]; });
     villagesInflight[key] = p;
@@ -134,7 +143,7 @@
     var key = stateSlug + '/' + districtSlug;
     if (villageProfileCache[key]) return Promise.resolve(villageProfileCache[key]);
     if (villageProfileInflight[key]) return villageProfileInflight[key];
-    var p = fetchWithTimeout('data/' + 'village_profiles/' + stateSlug + '/' + districtSlug + '.json')
+    var p = fetchWithTimeout(resolveDataUrl('data/' + 'village_profiles/' + stateSlug + '/' + districtSlug + '.json'))
       .then(function (d) { villageProfileCache[key] = d; return d; })
       .catch(function () { villageProfileCache[key] = null; return null; })
       .finally(function () { delete villageProfileInflight[key]; });
