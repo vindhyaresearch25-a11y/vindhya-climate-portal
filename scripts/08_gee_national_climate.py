@@ -40,6 +40,7 @@ import importlib
 import json
 import sys
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 import ee
@@ -72,7 +73,6 @@ HEARTBEAT_PATH = Path(__file__).resolve().parent.parent / "logs" / "gee_national
 
 def write_heartbeat(event: str, state_name: str | None = None, district_name: str | None = None,
                      total_written: int | None = None, detail: str | None = None) -> None:
-    from datetime import datetime, timezone
     HEARTBEAT_PATH.parent.mkdir(parents=True, exist_ok=True)
     HEARTBEAT_PATH.write_text(json.dumps({
         "timestamp_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -308,6 +308,17 @@ def stage_run(states: list[str] | None, resume: bool):
                     "district_lgd": int(row["district_lgd"]) if pd.notna(row.get("district_lgd")) else None,
                     "years": f"{YEAR_START}-{YEAR_END}",
                     "quality": "verified-official (real dataset, cross-source from IMD)",
+                    "data_quality": "verified-official (real dataset, cross-source from IMD)",
+                    # The real count this file's indices are computed from --
+                    # daily.py's own years_covered (rows with at least one
+                    # non-null day that year), not just the nominal
+                    # YEAR_START-YEAR_END span, which could overstate coverage
+                    # if GEE returned partial/empty years for this district.
+                    "unit_count": f"{len(daily)} daily pixel-day observations "
+                                  f"across {result['years_covered']} years "
+                                  f"(1 value/day = district-polygon reduceRegion mean, "
+                                  f"not an aggregate of separately-computed sub-units)",
+                    "last_updated": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
                 },
                 "indices": result["indices"],
             }

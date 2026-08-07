@@ -7,7 +7,12 @@
     "district": "South",
     "district_lgd": 83,
     "years": "2000-2024",
-    "quality": "verified-official (real dataset, cross-source from IMD)"
+    "quality": "verified-official (real dataset, cross-source from IMD)",
+    "method": "Heatwave: IMD plains criteria (Tmax departure from normal >=4.5C mild / >=6.5C severe, March-June season, scripts/config.py HW_DEPARTURE_MILD/SEVERE). SPI: McKee et al. 1993, 3/6/12-month timescales with the zero-inflated gamma correction for zero-rainfall periods, moderate-drought threshold SPI<=-1.0. ETCCDI: standard extreme-precipitation indices (R95p/R99p/Rx1day/Rx5day/CDD/CWD) at 95th/99th percentile thresholds. Identical formulas to scripts/02_compute_indices.py (imported directly by 08_gee_national_climate.py, never reimplemented) -- only the input grid (ERA5-Land/CHIRPS here, IMD 0.05 deg for the 5 original MP districts) differs. See docs/METHODOLOGY.md for the exact formulas.",
+    "baseline": "2000-2014 (ETCCDI percentile base period and historical baseline window, scripts/config.py EXT_PRECIP_BASE_PERIOD / HISTORICAL_BASELINE_WINDOW)",
+    "data_quality": "verified-official (real dataset, cross-source from IMD)",
+    "unit_count": "~9125 daily pixel-day observations (nominal, 25 years x 365 days -- the exact recorded count from when this file was first computed was not persisted before this backfill; files written from 2026-08-07 onward carry the real observed count instead of this nominal one)",
+    "last_updated": "2026-08-07"
   },
   "indices": {
     "heatwave_days": 3.76,

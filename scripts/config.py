@@ -154,7 +154,28 @@ def ensure_local_boundary_file(relative_path: str) -> Path:
 GEE_SOURCE_META = {
     "source": "ERA5-Land (ECMWF, via Google Earth Engine) for Tmax/Tmin, "
               "CHIRPS (UCSB Climate Hazards Center, via Google Earth Engine) for precipitation",
-    "resolution": "ERA5-Land ~9 km (0.1 deg), CHIRPS ~5.5 km (0.05 deg)",
+    # ERA5-Land's own documented native grid spacing is 9km (0.1 deg) --
+    # Muñoz-Sabater et al. 2021, the dataset's own reference paper. Not
+    # "11 km": that number would be 0.1 deg of pure latitude with no
+    # correction, not ERA5-Land's actual published resolution.
+    "resolution": "ERA5-Land ~9 km (0.1 deg) native grid, CHIRPS ~5.5 km (0.05 deg) -- "
+                  "both far coarser than a village (~2 sq km): a district's indices "
+                  "here are ONE value per pixel-day within the district polygon "
+                  "(GEE reduceRegion mean), not a village-resolved product. See "
+                  "docs/METHODOLOGY.md Sec 3.1 (modifiable areal unit problem).",
+    "method": "Heatwave: IMD plains criteria (Tmax departure from normal >=4.5C mild / "
+              ">=6.5C severe, March-June season, scripts/config.py HW_DEPARTURE_MILD/"
+              "SEVERE). SPI: McKee et al. 1993, 3/6/12-month timescales with the "
+              "zero-inflated gamma correction for zero-rainfall periods, moderate-drought "
+              "threshold SPI<=-1.0. ETCCDI: standard extreme-precipitation indices "
+              "(R95p/R99p/Rx1day/Rx5day/CDD/CWD) at 95th/99th percentile thresholds. "
+              "Identical formulas to scripts/02_compute_indices.py (imported directly "
+              "by 08_gee_national_climate.py, never reimplemented) -- only the input "
+              "grid (ERA5-Land/CHIRPS here, IMD 0.05 deg for the 5 original MP "
+              "districts) differs. See docs/METHODOLOGY.md for the exact formulas.",
+    "baseline": "2000-2014 (ETCCDI percentile base period and historical baseline "
+               "window, scripts/config.py EXT_PRECIP_BASE_PERIOD / "
+               "HISTORICAL_BASELINE_WINDOW)",
     "note": "Distinct from the IMD 0.05 deg gridded product used for Bhopal, "
             "Indore, Jabalpur, Rewa and Sidhi -- those 5 districts are untouched "
             "by this pipeline and keep their existing IMD-derived numbers. Used "
