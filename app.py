@@ -31,7 +31,8 @@ _URL_PATCHES = [
 # list, so neither module loaded at all on the Streamlit deployment (only on
 # GitHub Pages, which serves the scripts directly). See docs/AUDIT_2026-08-01.md J.
 _JS_FILES = ['mp_climate_loader.js', 'dicra_ndvi_loader.js', 'cadastral_loader.js',
-             'geoai_professional.js', 'mandi_loader.js', 'crop_stats_loader.js', 'knowledge_base_loader.js',
+             'geoai_professional.js', 'mandi_loader.js', 'crop_stats_loader.js', 'live_weather_loader.js',
+             'knowledge_base_loader.js',
              'national_selector.js']
 
 

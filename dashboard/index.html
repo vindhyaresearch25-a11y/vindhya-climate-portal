@@ -850,6 +850,7 @@ canvas.chart-canvas{max-height:100%;}
       <div class="nav-item" onclick="setNav(this,&#39;climate&#39;)"><span class="nav-icon"><i class="fa fa-map"></i></span><span class="nav-label">Climate Risk Atlas</span></div>
       <div class="nav-item" onclick="setNav(this,&#39;ndvi&#39;)"><span class="nav-icon"><i class="fa fa-leaf"></i></span><span class="nav-label">NDVI Analytics</span></div>
       <div class="nav-item" onclick="setNav(this,&#39;rain&#39;)"><span class="nav-icon"><i class="fa fa-cloud-rain"></i></span><span class="nav-label">Rainfall Monitor</span></div>
+      <div class="nav-item" onclick="setNav(this,&#39;liveweather&#39;)"><span class="nav-icon"><i class="fa fa-cloud-sun"></i></span><span class="nav-label">Live Weather</span></div>
       <div class="nav-item" onclick="setNav(this,&#39;soil&#39;)"><span class="nav-icon"><i class="fa fa-layer-group"></i></span><span class="nav-label">Soil Moisture</span></div>
       <div class="nav-section-title">CLIMATE HAZARD</div>
       <div class="nav-item" onclick="setNav(this,&#39;heatwaves&#39;);focusHazard(&#39;heat&#39;)"><span class="nav-icon"><i class="fa fa-sun"></i></span><span class="nav-label">Heat Waves</span><span id="nav-badge-heat" class="nav-badge u-hidden">ALERT</span></div>
@@ -2009,6 +2010,9 @@ function setNav(el,section){
     setBtmTab('ndvi');
   } else if (section === 'rain') {
     setBtmTab('rainfall');
+  } else if (section === 'liveweather') {
+    setBtmTab('liveweather');
+    if (typeof window.VindhyaLiveWeather !== 'undefined') window.VindhyaLiveWeather.reload();
   } else if (section === 'soil') {
     // Soil Moisture has no real data source integrated (SMAP/Bhuvan) --
     // previously silently opened the unrelated NDVI chart. The 'sat' pane
@@ -2694,6 +2698,12 @@ function clearHazardFilter(){
 
 // Programmatically activate a bottom-panel tab by pane id
 function setBtmTab(paneId){
+  // Tabs added dynamically by a loader (crop_stats_loader.js,
+  // live_weather_loader.js -- id="<paneId>-tab", .onclick set as a JS
+  // property) have no onclick= HTML attribute for the string-match below
+  // to find, so they're checked by id first.
+  const byId = document.getElementById(paneId + '-tab');
+  if (byId) { switchTab(byId, paneId); return; }
   const tabs=document.querySelectorAll('.btm-tab');
   tabs.forEach(t=>{
     const oc=t.getAttribute('onclick')||'';
@@ -3573,6 +3583,7 @@ async function runChatCompletion(){
 <script src="geoai_professional.js"></script>
 <script src="mandi_loader.js"></script>
 <script src="crop_stats_loader.js"></script>
+<script src="live_weather_loader.js"></script>
 <script src="knowledge_base_loader.js"></script>
 <script src="national_climate_loader.js"></script>
 <!-- national_selector.js is appended dynamically, not as a static tag here --

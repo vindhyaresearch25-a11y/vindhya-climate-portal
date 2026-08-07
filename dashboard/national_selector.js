@@ -315,8 +315,15 @@
       var pt = turf.pointOnFeature(feature);
       var coords = pt.geometry.coordinates; // [lng, lat]
       marker = L.marker([coords[1], coords[0]]).addTo(map);
+      // Exposed for other loaders that need a real point inside the
+      // current selection (e.g. live_weather_loader.js's NASA POWER
+      // point query) without each reimplementing turf.pointOnFeature --
+      // same guarantee placeMarker itself relies on: lands inside the
+      // polygon even for concave/multi-part shapes, unlike a naive centroid.
+      window.currentLocationPoint = { lat: coords[1], lon: coords[0] };
     } catch (e) {
       console.warn('[national_selector] placeMarker: turf.pointOnFeature failed, no marker shown', e);
+      window.currentLocationPoint = null;
     }
   }
 

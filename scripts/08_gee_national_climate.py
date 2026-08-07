@@ -166,12 +166,21 @@ def fetch_daily_series(geom: ee.Geometry, year_start: int, year_end: int) -> pd.
                   .filterDate(start, end)
                   .select([C.CHIRPS_PRECIP_BAND]))
 
+        # bestEffort=True: fixes a real, reproducible bug found 2026-08-07 --
+        # a fixed 9km scale (ERA5-Land's native resolution) can miss every
+        # pixel center for a genuinely tiny geometry (found on Diu, a small
+        # island union territory), returning an EMPTY reduceRegion result
+        # with no ERA5LAND_TMAX_BAND key at all -- which crashed downstream
+        # with a raw KeyError('temperature_2m_max') on every attempt,
+        # forever, for that district specifically. bestEffort tells GEE to
+        # auto-coarsen the scale only as needed to guarantee at least one
+        # pixel, rather than silently returning nothing for small regions.
         def reduce_era5(img):
-            stats = img.reduceRegion(ee.Reducer.mean(), geom, C.GEE_SCALE_METERS)
+            stats = img.reduceRegion(ee.Reducer.mean(), geom, C.GEE_SCALE_METERS, bestEffort=True)
             return ee.Feature(None, stats).set("date", img.date().format("YYYY-MM-dd"))
 
         def reduce_chirps(img):
-            stats = img.reduceRegion(ee.Reducer.mean(), geom, C.GEE_SCALE_METERS)
+            stats = img.reduceRegion(ee.Reducer.mean(), geom, C.GEE_SCALE_METERS, bestEffort=True)
             return ee.Feature(None, stats).set("date", img.date().format("YYYY-MM-dd"))
 
         era5_fc = ee.FeatureCollection(era5.map(reduce_era5))
@@ -182,7 +191,17 @@ def fetch_daily_series(geom: ee.Geometry, year_start: int, year_end: int) -> pd.
 
         era5_df = pd.DataFrame([f["properties"] for f in era5_info])
         chirps_df = pd.DataFrame([f["properties"] for f in chirps_info])
+        # Defense-in-depth alongside bestEffort=True above: a .empty check
+        # only catches zero ROWS, not a present-but-columnless DataFrame
+        # (every image in the year returned an empty reduceRegion dict,
+        # so the only key present is 'date') -- this is exactly the shape
+        # that used to crash with a raw KeyError downstream instead of
+        # being treated as "no data this year, try the next one".
         if era5_df.empty or chirps_df.empty:
+            continue
+        if C.ERA5LAND_TMAX_BAND not in era5_df.columns or C.ERA5LAND_TMIN_BAND not in era5_df.columns:
+            continue
+        if C.CHIRPS_PRECIP_BAND not in chirps_df.columns:
             continue
         year_df = era5_df.merge(chirps_df, on="date", how="outer")
         frames.append(year_df)
