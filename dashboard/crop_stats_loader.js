@@ -1,21 +1,33 @@
 /*
- * crop_stats_loader.js — district-wise, season-wise crop area/production
- * (Requirement L, docs/AUDIT_2026-08-01.md).
+ * crop_stats_loader.js — district-wise, season-wise crop area/production,
+ * nationally (CROP_DATA_PROMPT.md CHARAN 2).
  *
- * Reads data/crop_stats.json, written by scripts/fetch_crop_stats.py.
- * Unlike mandi prices, this source is a static historical dataset (last
- * updated by its publisher 2021-07-13) -- the coverage note from that file
- * is always shown so nobody mistakes 1997-2013 figures for current data.
+ * DES (Directorate of Economics and Statistics, data.desagri.gov.in) is
+ * this portal's MUKHYA (primary) crop-statistics source, 2000-01 to
+ * 2022-23, all 36 states/UTs, 372,904 records --
+ * dashboard/data/crop_stats_des_by_district/<state_slug>/<district_slug>.json
+ * (STANDING ORDERS #8.1: per-district files, never one giant blob --
+ * built by scripts/build_crop_stats_des_district_files.py from the 23
+ * national per-year files).
+ *
+ * The legacy data.gov.in pull (dashboard/data/crop_stats.json, 5 Madhya
+ * Pradesh districts, 1997-2013) is shown only as a small cross-check
+ * note where it overlaps DES, per CROP_DATA_PROMPT.md CHARAN 5's rule
+ * ("kabhi mila kar mat dikhao" -- never merge the two into one figure).
+ * docs/CROP_DATA_COVERAGE.md's CHARAN 5 finding (0.0% difference on the
+ * real overlap -- the legacy file appears to be a republish of DES's own
+ * numbers) is why this stays a footnote, not a second data column.
  */
 (function () {
   'use strict';
 
-  var DATA_URL = 'data/crop_stats.json';
-  var _data = null;
-  var _loading = false;
+  var DES_BASE = 'data/crop_stats_des_by_district/';
+  var LEGACY_URL = 'data/crop_stats.json';
 
-  // 30s timeout on every fetch (STANDING ORDERS #5) -- a slow/hung request
-  // degrades to the existing .catch() fallback instead of hanging the page.
+  var _desCache = {};       // "state_slug/district_slug" -> parsed file | null (404)
+  var _legacyData = null;
+  var _legacyLoading = false;
+
   function fetchWithTimeout(url, opts) {
     var controller = (typeof AbortController !== 'undefined') ? new AbortController() : null;
     var timer = controller ? setTimeout(function () { controller.abort(); }, 30000) : null;
@@ -32,18 +44,8 @@
   }
   function t(en, hi) { return isHindi() ? hi : en; }
 
-  function el(tag, css, html) {
-    var d = document.createElement(tag);
-    if (css) d.style.cssText = css;
-    if (html != null) d.innerHTML = html;
-    return d;
-  }
-
-  function badge(q) {
-    var c = q === 'verified' ? '#2d8f5c' : '#8a8a8a';
-    return '<span style="display:inline-block;padding:1px 7px;border-radius:9px;' +
-      'background:' + c + ';color:#fff;font-size:10px;font-weight:700;' +
-      'letter-spacing:.3px">' + q.toUpperCase() + '</span>';
+  function slugify(name) {
+    return String(name || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
   }
 
   function fmtNum(v) {
@@ -51,30 +53,56 @@
     return Math.round(v).toLocaleString('en-IN');
   }
 
-  // Same bug as mandi_loader.js (found in the same audit pass): the
-  // District dropdown holds the real display name, but
-  // fetch_crop_stats.py writes JSON keyed by slug -- multi-word district
-  // names silently showed "no data" without this.
-  function slugify(name) {
-    return String(name).trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
-  }
-  function currentDistrict() {
+  function currentStateDistrict() {
+    var ss = document.getElementById('stateSelect');
     var ds = document.getElementById('districtSelect');
-    return ds && ds.value ? slugify(ds.value) : null;
+    var state = ss && ss.value ? ss.value : null;
+    var district = ds && ds.value ? ds.value : null;
+    if (!state || !district) return null;
+    return { stateSlug: slugify(state), districtSlug: slugify(district), stateName: state, districtName: district };
+  }
+
+  function loadDesForCurrentDistrict() {
+    var sd = currentStateDistrict();
+    if (!sd) return Promise.resolve(null);
+    var key = sd.stateSlug + '/' + sd.districtSlug;
+    if (key in _desCache) return Promise.resolve(_desCache[key]);
+    var url = DES_BASE + sd.stateSlug + '/' + sd.districtSlug + '.json';
+    return fetchWithTimeout(url)
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (j) { _desCache[key] = j; return j; })
+      .catch(function () { _desCache[key] = null; return null; });
+  }
+
+  function loadLegacy() {
+    if (_legacyData || _legacyLoading) return Promise.resolve(_legacyData);
+    _legacyLoading = true;
+    return fetchWithTimeout(LEGACY_URL)
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (j) { _legacyData = j; return j; })
+      .catch(function () { return null; })
+      .finally(function () { _legacyLoading = false; });
+  }
+
+  function legacyCrossCheckNote(desDistrictName, legacyData) {
+    if (!legacyData || !legacyData.districts) return '';
+    var slug = slugify(desDistrictName);
+    var d = legacyData.districts[slug];
+    if (!d || !d.count) return '';
+    return '<div style="margin-top:8px;padding:6px 8px;background:rgba(90,106,122,.08);border-radius:4px;' +
+      'font-size:10px;line-height:1.6;opacity:.85">' +
+      t('Cross-check: a separate data.gov.in pull for this district (' + (d.year_range ? d.year_range[0] + '-' + d.year_range[1] : '1997-2013') +
+        ') also exists -- see docs/CROP_DATA_COVERAGE.md CHARAN 5 for how it compares to DES.',
+        'क्रॉस-चेक: इस ज़िले के लिए data.gov.in से भी अलग आंकड़े उपलब्ध हैं (' + (d.year_range ? d.year_range[0] + '-' + d.year_range[1] : '1997-2013') +
+        ') -- DES से तुलना docs/CROP_DATA_COVERAGE.md CHARAN 5 में देखें।') +
+      '</div>';
   }
 
   function render() {
     var box = document.getElementById('crop-stats-box');
     if (!box) return;
-
-    if (!_data) {
-      box.innerHTML = '<div style="padding:16px;font-size:12px;opacity:.8">' +
-        t('Loading crop statistics...', 'फसल आंकड़े लाए जा रहे हैं...') + '</div>';
-      return;
-    }
-
-    var dk = currentDistrict();
-    if (!dk) {
+    var sd = currentStateDistrict();
+    if (!sd) {
       box.innerHTML = '<div style="padding:16px;font-size:12px;line-height:1.8;opacity:.85">' +
         '<b>' + t('Crop Statistics', 'फसल आंकड़े') + '</b><br>' +
         t('Select a district to see historical crop area, production and yield by season.',
@@ -82,84 +110,74 @@
       return;
     }
 
-    var d = _data.districts && _data.districts[dk];
-    var meta = _data.metadata || {};
-    var noteHtml = '<div style="padding:8px 10px;margin-bottom:9px;background:rgba(201,168,67,.12);' +
-      'border-left:3px solid #c9a843;border-radius:4px;font-size:10.5px;line-height:1.6;">' +
-      (meta.coverage_note || '') + '</div>';
+    box.innerHTML = '<div style="padding:16px;font-size:12px;opacity:.8">' +
+      t('Loading crop statistics...', 'फसल आंकड़े लाए जा रहे हैं...') + '</div>';
 
-    if (!d || !d.records || !d.records.length) {
-      box.innerHTML = '<div style="padding:12px 14px;font-size:12px">' + noteHtml +
-        t('No crop statistics for this district.', 'इस ज़िले का फसल आंकड़ा नहीं है।') +
-        '</div>';
-      return;
-    }
+    Promise.all([loadDesForCurrentDistrict(), loadLegacy()]).then(function (results) {
+      // A district/state change may have happened while this was in
+      // flight -- re-check before rendering so a slow response for a
+      // previously-selected district never overwrites the current one.
+      var stillCurrent = currentStateDistrict();
+      if (!stillCurrent || stillCurrent.stateSlug !== sd.stateSlug || stillCurrent.districtSlug !== sd.districtSlug) return;
 
-    // Group by year+season, keep top crops by area within each group
-    var groups = {};
-    d.records.forEach(function (r) {
-      var key = r.year + '|' + r.season;
-      (groups[key] = groups[key] || []).push(r);
-    });
-    var groupKeys = Object.keys(groups).sort().reverse().slice(0, 6); // most recent 6 year-season groups
+      var des = results[0];
+      var legacy = results[1];
 
-    var h = '<div style="padding:12px 14px;font-size:12px;color:var(--text)">' + noteHtml;
-    h += '<div style="margin-bottom:9px">' + badge(meta.data_quality || 'verified') +
-      ' <b>' + t('Crop Statistics', 'फसल आंकड़े') + '</b> &mdash; ' + d.name +
-      ' <span style="opacity:.7">(' + (d.year_range ? d.year_range[0] + '-' + d.year_range[1] : '') + ')</span></div>';
+      if (!des || !des.records || !des.records.length) {
+        box.innerHTML = '<div style="padding:12px 14px;font-size:12px;line-height:1.8">' +
+          '<b>' + t('Crop Statistics', 'फसल आंकड़े') + '</b><br>' +
+          t('Climate data not yet available for ' + sd.districtName + '.', sd.districtName + ' के लिए फसल आंकड़े अभी उपलब्ध नहीं हैं।') +
+          '<div style="margin-top:6px;font-size:10.5px;opacity:.7">' +
+          t('Source: DES (data.desagri.gov.in), 2000-01 to 2022-23 -- this district may be newer than the source snapshot, or its name may differ; see docs/DISTRICT_NAME_MAP.md.',
+            'स्रोत: DES (data.desagri.gov.in), 2000-01 से 2022-23 -- यह ज़िला स्रोत से नया हो सकता है, या नाम अलग हो सकता है।') +
+          '</div></div>';
+        return;
+      }
 
-    groupKeys.forEach(function (key) {
-      var parts = key.split('|');
-      var rows = groups[key].slice().sort(function (a, b) { return b.area_ha - a.area_ha; }).slice(0, 8);
-      h += '<div style="margin-bottom:8px"><div style="font-size:10.5px;font-weight:700;opacity:.8;margin-bottom:3px">' +
-        parts[0] + ' &middot; ' + parts[1] + '</div>';
-      h += '<table style="width:100%;border-collapse:collapse;font-size:11px">' +
-        '<tr style="text-align:left;font-size:9.5px;opacity:.65;letter-spacing:.3px">' +
-        '<th style="padding:2px 0">' + t('CROP', 'फसल') + '</th>' +
-        '<th style="text-align:right">' + t('AREA (ha)', 'क्षेत्र (हे)') + '</th>' +
-        '<th style="text-align:right">' + t('PRODUCTION (t)', 'उत्पादन (टन)') + '</th>' +
-        '<th style="text-align:right">' + t('YIELD (t/ha)', 'उपज (टन/हे)') + '</th></tr>';
-      rows.forEach(function (r) {
-        h += '<tr style="border-top:1px solid var(--border)">' +
-          '<td style="padding:3px 0">' + r.crop + '</td>' +
-          '<td style="text-align:right;opacity:.85">' + fmtNum(r.area_ha) + '</td>' +
-          '<td style="text-align:right;opacity:.85">' + fmtNum(r.production_tonnes) + '</td>' +
-          '<td style="text-align:right;font-weight:700">' + (r.yield_tonnes_per_ha != null ? r.yield_tonnes_per_ha.toFixed(2) : '--') + '</td></tr>';
+      var groups = {};
+      des.records.forEach(function (r) {
+        var key = r.year + '|' + r.season;
+        (groups[key] = groups[key] || []).push(r);
       });
-      h += '</table></div>';
+      var groupKeys = Object.keys(groups).sort().reverse().slice(0, 6);
+
+      var h = '<div style="padding:12px 14px;font-size:12px;color:var(--text)">';
+      h += '<div style="margin-bottom:9px"><span style="display:inline-block;padding:1px 7px;border-radius:9px;' +
+        'background:#2d8f5c;color:#fff;font-size:10px;font-weight:700;letter-spacing:.3px">DES</span> ' +
+        '<b>' + t('Crop Statistics', 'फसल आंकड़े') + '</b> &mdash; ' + des.metadata.district +
+        ' <span style="opacity:.7">(' + (des.metadata.year_range ? des.metadata.year_range[0].split(' ')[0] + '-' + des.metadata.year_range[1].split(' ')[0] : '') + ')</span></div>';
+
+      groupKeys.forEach(function (key) {
+        var parts = key.split('|');
+        var rows = groups[key].slice().sort(function (a, b) { return (b.area_ha || 0) - (a.area_ha || 0); }).slice(0, 8);
+        h += '<div style="margin-bottom:8px"><div style="font-size:10.5px;font-weight:700;opacity:.8;margin-bottom:3px">' +
+          parts[0] + ' &middot; ' + parts[1] + '</div>';
+        h += '<table style="width:100%;border-collapse:collapse;font-size:11px">' +
+          '<tr style="text-align:left;font-size:9.5px;opacity:.65;letter-spacing:.3px">' +
+          '<th style="padding:2px 0">' + t('CROP', 'फसल') + '</th>' +
+          '<th style="text-align:right">' + t('AREA (ha)', 'क्षेत्र (हे)') + '</th>' +
+          '<th style="text-align:right">' + t('PRODUCTION', 'उत्पादन') + '</th>' +
+          '<th style="text-align:right">' + t('YIELD/ha', 'उपज/हे') + '</th></tr>';
+        rows.forEach(function (r) {
+          h += '<tr style="border-top:1px solid var(--border)">' +
+            '<td style="padding:3px 0">' + r.crop + '</td>' +
+            '<td style="text-align:right;opacity:.85">' + fmtNum(r.area_ha) + '</td>' +
+            '<td style="text-align:right;opacity:.85">' + fmtNum(r.production) + '</td>' +
+            '<td style="text-align:right;font-weight:700">' + (r.yield_per_ha != null ? r.yield_per_ha.toFixed(2) : '--') + '</td></tr>';
+        });
+        h += '</table></div>';
+      });
+
+      h += legacyCrossCheckNote(des.metadata.district, legacy);
+
+      h += '<div style="margin-top:6px;padding-top:8px;border-top:1px solid var(--border);' +
+        'font-size:10px;opacity:.75;line-height:1.6">' +
+        t('Source: ', 'स्रोत: ') + (des.metadata.source || 'DES, data.desagri.gov.in') +
+        '. ' + t('Yield as published by DES.', 'उपज DES द्वारा प्रकाशित के अनुसार।') +
+        '</div></div>';
+
+      box.innerHTML = h;
     });
-
-    h += '<div style="margin-top:6px;padding-top:8px;border-top:1px solid var(--border);' +
-      'font-size:10px;opacity:.75;line-height:1.6">' +
-      t('Source: ', 'स्रोत: ') + (meta.source || 'data.gov.in') +
-      '. ' + t('Yield is derived (production/area) by this portal, not published directly by the source.',
-        'उपज इस पोर्टल द्वारा गणना की गई है (उत्पादन/क्षेत्र), स्रोत द्वारा सीधे प्रकाशित नहीं।') +
-      '</div></div>';
-
-    box.innerHTML = h;
-  }
-
-  function load() {
-    if (_loading || _data) { render(); return; }
-    _loading = true;
-    fetchWithTimeout(DATA_URL)
-      .then(function (r) {
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        return r.json();
-      })
-      .then(function (j) { _data = j; render(); })
-      .catch(function (err) {
-        var box = document.getElementById('crop-stats-box');
-        if (box) {
-          box.innerHTML = '<div style="padding:16px;font-size:12px;line-height:1.8">' +
-            '<b style="color:#c0392b">' +
-            t('Crop statistics not yet generated', 'फसल आंकड़े अभी तैयार नहीं') + '</b><br>' +
-            t('Run the "Crop statistics refresh" workflow in GitHub Actions once to ' +
-              'create data/crop_stats.json. (' + err.message + ')',
-              'GitHub Actions में "Crop statistics refresh" workflow एक बार चलाएँ। (' + err.message + ')') + '</div>';
-        }
-      })
-      .finally(function () { _loading = false; });
   }
 
   function addPane() {
@@ -167,7 +185,8 @@
     var host = first ? first.parentNode : null;
     if (!host || document.getElementById('pane-cropstats')) return;
 
-    var p = el('div', '', '<div id="crop-stats-box"></div>');
+    var p = document.createElement('div');
+    p.innerHTML = '<div id="crop-stats-box"></div>';
     p.className = 'btm-pane';
     p.id = 'pane-cropstats';
     host.appendChild(p);
@@ -175,8 +194,8 @@
     var firstTab = document.querySelector('.btm-tab');
     var tabs = firstTab ? firstTab.parentNode : null;
     if (tabs && !document.getElementById('cropstats-tab')) {
-      var tab = el('div', '', '<i class="fa fa-wheat-awn"></i>' +
-        t('Crop Statistics', 'फसल आंकड़े'));
+      var tab = document.createElement('div');
+      tab.innerHTML = '<i class="fa fa-wheat-awn"></i>' + t('Crop Statistics', 'फसल आंकड़े');
       tab.className = 'btm-tab';
       tab.id = 'cropstats-tab';
       tab.onclick = function () {
@@ -186,13 +205,16 @@
         var tb = document.querySelectorAll('.btm-tab');
         for (i = 0; i < tb.length; i++) tb[i].classList.remove('active');
         this.classList.add('active');
-        load();
+        render();
       };
       tabs.appendChild(tab);
     }
 
     var ds = document.getElementById('districtSelect');
-    if (ds) ds.addEventListener('change', function () { if (_data) render(); });
+    if (ds) ds.addEventListener('change', function () {
+      var pane = document.getElementById('pane-cropstats');
+      if (pane && pane.classList.contains('active')) render();
+    });
   }
 
   function boot() {
@@ -206,5 +228,5 @@
     setTimeout(boot, 950);
   }
 
-  window.VindhyaCropStats = { reload: function () { _data = null; load(); } };
+  window.VindhyaCropStats = { reload: function () { _desCache = {}; render(); } };
 })();

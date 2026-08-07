@@ -70,6 +70,14 @@ def get_html_content():
         f"'{GITHUB_RAW}/boundaries/'"
     )
 
+    # Same concatenation-prefix pattern as boundaries/ above, for
+    # crop_stats_loader.js's per-district DES fetch
+    # ('data/crop_stats_des_by_district/' + stateSlug + '/' + districtSlug + '.json').
+    html = html.replace(
+        "'data/crop_stats_des_by_district/'",
+        f"'{GITHUB_RAW}/crop_stats_des_by_district/'"
+    )
+
     # Fix viewport for iframe rendering
     html = html.replace(
         'html,body{height:100%;overflow:hidden;}',
