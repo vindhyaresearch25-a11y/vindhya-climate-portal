@@ -69,9 +69,23 @@ negative values. Kept **entirely separate** from the legacy
   CHARAN 3 anticipated for CSV/PDF sources didn't materialize here --
   worth confirming this holds for all 23 years, not just the ones spot-
   checked.
-- CHARAN 4: state annual reports (MP + one more), not started.
 - Wiring this dataset into the dashboard UI (a crop panel currently reads
   the legacy `crop_stats.json`) -- not done this session.
+
+## CHARAN 4 — Madhya Pradesh done (partial, honestly flagged), second state not started
+
+Full methodology and the "Mila/nahi | kya chhoota" table is in
+`docs/STATE_REPORTS.md`. Short version: found MP's real official PDF
+compendium (mpkrishi.mp.gov.in), extracted the 2019-20 district-wise APY
+table (52 districts, 14 pages). Hit a real, documented obstacle -- the
+PDF's own crop-name column headers are set in a legacy pre-Unicode font
+(Kruti Dev 010) that extracts as garbage -- and worked around it by
+cross-validating each column's numbers against DES's already-verified
+data instead of guessing a font decode. **1,335 of 2,184 column-blocks
+(61%) confidently identified; 849 (39%) left unidentified rather than
+guessed**, with `extraction_verified: false` in the output file's own
+metadata. The other 3 already-downloaded MP-year PDFs, MP's Udyaniki
+report, and a second state are explicitly not done this session.
 
 ## CHARAN 7 — done, see `docs/DISTRICT_NAME_MAP.md`
 
