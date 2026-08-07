@@ -64,19 +64,25 @@
 
   function loadDesForCurrentDistrict() {
     var sd = currentStateDistrict();
-    if (!sd) return Promise.resolve(null);
+    if (!sd) return Promise.resolve({ data: null, notFound: false });
     var key = sd.stateSlug + '/' + sd.districtSlug;
     // Only successful lookups are cached -- a failed fetch (real 404 for
     // a district DES genuinely doesn't have, or a transient network
     // blip) is never memoized as permanent, so re-selecting the same
     // district later in the same session retries instead of being
     // locked into "not available" forever from one bad attempt.
-    if (key in _desCache) return Promise.resolve(_desCache[key]);
+    if (key in _desCache) return Promise.resolve({ data: _desCache[key], notFound: _desCache[key] === null });
     var url = DES_BASE + sd.stateSlug + '/' + sd.districtSlug + '.json';
     return fetchWithTimeout(url)
-      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-      .then(function (j) { _desCache[key] = j; return j; })
-      .catch(function () { return null; });
+      .then(function (r) {
+        if (r.status === 404) { _desCache[key] = null; return { data: null, notFound: true }; }
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json().then(function (j) { _desCache[key] = j; return { data: j, notFound: false }; });
+      })
+      // A real network/timeout failure (not a 404) -- distinct from "this
+      // district genuinely has no DES data" so render() can offer a
+      // retry instead of a flat "not available".
+      .catch(function (err) { return { data: null, notFound: false, error: err.message }; });
   }
 
   function loadLegacy() {
@@ -125,17 +131,32 @@
       var stillCurrent = currentStateDistrict();
       if (!stillCurrent || stillCurrent.stateSlug !== sd.stateSlug || stillCurrent.districtSlug !== sd.districtSlug) return;
 
-      var des = results[0];
+      var desResult = results[0];
       var legacy = results[1];
+      var des = desResult.data;
 
       if (!des || !des.records || !des.records.length) {
-        box.innerHTML = '<div style="padding:12px 14px;font-size:12px;line-height:1.8">' +
-          '<b>' + t('Crop Statistics', 'फसल आंकड़े') + '</b><br>' +
-          t('Climate data not yet available for ' + sd.districtName + '.', sd.districtName + ' के लिए फसल आंकड़े अभी उपलब्ध नहीं हैं।') +
-          '<div style="margin-top:6px;font-size:10.5px;opacity:.7">' +
-          t('Source: DES (data.desagri.gov.in), 2000-01 to 2022-23 -- this district may be newer than the source snapshot, or its name may differ; see docs/DISTRICT_NAME_MAP.md.',
-            'स्रोत: DES (data.desagri.gov.in), 2000-01 से 2022-23 -- यह ज़िला स्रोत से नया हो सकता है, या नाम अलग हो सकता है।') +
-          '</div></div>';
+        if (desResult.notFound) {
+          box.innerHTML = '<div style="padding:12px 14px;font-size:12px;line-height:1.8">' +
+            '<b>' + t('Crop Statistics', 'फसल आंकड़े') + '</b><br>' +
+            t('Climate data not yet available for ' + sd.districtName + '.', sd.districtName + ' के लिए फसल आंकड़े अभी उपलब्ध नहीं हैं।') +
+            '<div style="margin-top:6px;font-size:10.5px;opacity:.7">' +
+            t('Source: DES (data.desagri.gov.in), 2000-01 to 2022-23 -- this district may be newer than the source snapshot, or its name may differ; see docs/DISTRICT_NAME_MAP.md.',
+              'स्रोत: DES (data.desagri.gov.in), 2000-01 से 2022-23 -- यह ज़िला स्रोत से नया हो सकता है, या नाम अलग हो सकता है।') +
+            '</div></div>';
+        } else {
+          // A real fetch/network failure, not "this district has no DES
+          // data" -- offer a retry instead of implying it's permanently
+          // unavailable (Phase 2.8).
+          box.innerHTML = '<div style="padding:12px 14px;font-size:12px;line-height:1.8">' +
+            '<b style="color:#c0392b">' + t('Crop statistics failed to load', 'फसल आंकड़े लोड नहीं हुए') + '</b><br>' +
+            (desResult.error || '') +
+            '<br><button id="cropstats-retry-btn" style="margin-top:8px;background:#c0392b;color:#fff;' +
+            'border:none;border-radius:4px;padding:4px 14px;font-size:11px;font-weight:700;cursor:pointer;">' +
+            t('Retry', 'फिर कोशिश करें') + '</button></div>';
+          var btn = document.getElementById('cropstats-retry-btn');
+          if (btn) btn.onclick = function () { render(); };
+        }
         return;
       }
 

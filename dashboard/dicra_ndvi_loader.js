@@ -164,6 +164,17 @@
       console.log('[dicra_ndvi] ready');
     }).catch(function(err){
       console.error('[dicra_ndvi] failed:', err);
+      // Phase 2.8: this used to fail silently (console only) -- the NDVI
+      // pane just stayed an empty canvas forever with no explanation.
+      var box = document.getElementById('ndvi-error-state');
+      if (box) {
+        box.classList.remove('u-hidden');
+        box.innerHTML = '<b style="color:#c0392b">NDVI data failed to load</b><br>' +
+          err.message + '<br><button id="ndvi-retry-btn" style="margin-top:8px;background:#c0392b;color:#fff;' +
+          'border:none;border-radius:4px;padding:4px 14px;font-size:11px;font-weight:700;cursor:pointer;">Retry</button>';
+        var btn = document.getElementById('ndvi-retry-btn');
+        if (btn) btn.onclick = function () { box.classList.add('u-hidden'); init(); };
+      }
     });
   }
 

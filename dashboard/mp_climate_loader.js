@@ -734,10 +734,18 @@
       el.style.cssText = 'padding:0.3rem 0.75rem;font-size:0.65rem;font-weight:600;flex-shrink:0;display:flex;align-items:center;gap:0.5rem;border-bottom:1px solid var(--border);background:rgba(10,31,20,0.98);';
       bp.insertBefore(el, bp.firstChild);
     }
+    // Phase 2.8: error state must offer a real retry, not just say what
+    // went wrong -- this loader used to just print the failure and stop.
     el.innerHTML = (isError
-      ? '<span style="color:var(--red)">\u2716</span><span style="color:var(--red)">'+msg+'</span>'
+      ? '<span style="color:var(--red)">\u2716</span><span style="color:var(--red)">'+msg+'</span>' +
+        '<button id="climate-retry-btn" style="margin-left:auto;background:var(--red);color:#fff;border:none;' +
+        'border-radius:4px;padding:2px 10px;font-size:0.62rem;font-weight:700;cursor:pointer;">Retry</button>'
       : '<span class="live-dot"></span><span style="color:var(--text-dim)">'+msg+'</span>');
     el.style.display = 'flex';
+    if (isError) {
+      var btn = document.getElementById('climate-retry-btn');
+      if (btn) btn.onclick = function () { setLoadingStatus('Retrying...', false); init(); };
+    }
   }
 
   function init(){

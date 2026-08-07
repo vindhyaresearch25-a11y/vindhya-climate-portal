@@ -171,11 +171,13 @@
         if (box) {
           box.innerHTML = '<div style="padding:16px;font-size:12px;line-height:1.8">' +
             '<b style="color:#c0392b">' +
-            t('Mandi prices not yet generated', 'मंडी भाव अभी तैयार नहीं') + '</b><br>' +
-            t('Run the "Daily mandi prices" workflow in GitHub Actions once to ' +
-              'create data/mandi_prices.json. (' + err.message + ')',
-              'GitHub Actions में "Daily mandi prices" workflow एक बार चलाएँ, ' +
-              'तब data/mandi_prices.json बनेगी। (' + err.message + ')') + '</div>';
+            t('Mandi prices failed to load', 'मंडी भाव लोड नहीं हुए') + '</b><br>' +
+            t('(' + err.message + ')', '(' + err.message + ')') +
+            '<br><button id="mandi-retry-btn" style="margin-top:8px;background:#c0392b;color:#fff;' +
+            'border:none;border-radius:4px;padding:4px 14px;font-size:11px;font-weight:700;cursor:pointer;">' +
+            t('Retry', 'फिर कोशिश करें') + '</button></div>';
+          var btn = document.getElementById('mandi-retry-btn');
+          if (btn) btn.onclick = function () { _data = null; load(); };
         }
       })
       .finally(function () { _loading = false; });
