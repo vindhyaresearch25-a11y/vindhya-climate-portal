@@ -25,8 +25,12 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 from collections import defaultdict
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
+import district_name_map
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC_DIR = ROOT / "dashboard" / "data" / "crop_stats_des"
@@ -43,6 +47,12 @@ def strip_serial(s: str) -> str:
 
 def main() -> int:
     # {(state_slug, district_slug): {"state": .., "district": .., "records": [...]}}
+    # district_slug here is computed from the CURRENT (SoI) district name,
+    # not necessarily DES's own label -- see district_name_map.py. Without
+    # this, a renamed district (e.g. DES's "Bangalore rural" vs the
+    # dashboard dropdown's current "Bengaluru Rural") writes a file the
+    # dropdown's slug will never match, silently showing "not available"
+    # for a district that actually has real data. Found live 2026-08-07.
     by_district: dict[tuple[str, str], dict] = {}
 
     year_files = sorted(SRC_DIR.glob("*.json"))
@@ -51,11 +61,15 @@ def main() -> int:
         return 1
 
     total_records = 0
+    renamed_count = 0
     for f in year_files:
         d = json.loads(f.read_text())
         for r in d["records"]:
             state = strip_serial(r["state"])
-            district = strip_serial(r["district"])
+            district_raw = strip_serial(r["district"])
+            district = district_name_map.apply_rename(state, district_raw)
+            if district != district_raw:
+                renamed_count += 1
             key = (slugify(state), slugify(district))
             entry = by_district.setdefault(key, {"state": state, "district": district, "records": []})
             entry["records"].append({
@@ -88,7 +102,8 @@ def main() -> int:
         out_path.write_text(json.dumps(out, ensure_ascii=False, indent=1))
         written += 1
 
-    print(f"Read {total_records} records from {len(year_files)} year files.")
+    print(f"Read {total_records} records from {len(year_files)} year files "
+          f"({renamed_count} used docs/DISTRICT_NAME_MAP.md's confirmed rename).")
     print(f"Wrote {written} per-district files under {OUT_DIR}")
     return 0
 

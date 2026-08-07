@@ -66,12 +66,17 @@
     var sd = currentStateDistrict();
     if (!sd) return Promise.resolve(null);
     var key = sd.stateSlug + '/' + sd.districtSlug;
+    // Only successful lookups are cached -- a failed fetch (real 404 for
+    // a district DES genuinely doesn't have, or a transient network
+    // blip) is never memoized as permanent, so re-selecting the same
+    // district later in the same session retries instead of being
+    // locked into "not available" forever from one bad attempt.
     if (key in _desCache) return Promise.resolve(_desCache[key]);
     var url = DES_BASE + sd.stateSlug + '/' + sd.districtSlug + '.json';
     return fetchWithTimeout(url)
       .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
       .then(function (j) { _desCache[key] = j; return j; })
-      .catch(function () { _desCache[key] = null; return null; });
+      .catch(function () { return null; });
   }
 
   function loadLegacy() {
