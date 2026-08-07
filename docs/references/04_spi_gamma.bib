@@ -1,0 +1,62 @@
+% Topic: SPI calculation and the zero-inflated/mixed-gamma correction for
+% zero-precipitation months (McKee et al. and follow-ups).
+% Used by this portal for: scripts/02_compute_indices.py SPI-3/6/12 --
+% METHODOLOGY.md section 4.2 (H(x) = q + (1-q)*G(x) mixed-distribution formula).
+% Verified 2026-08-07 (McKee via droughtmanagement.info PDF fetch + conference
+% record; others via CrossRef API).
+
+@inproceedings{mckee1993relationship,
+  author    = {McKee, Thomas B. and Doesken, Nolan J. and Kleist, John},
+  title     = {The relationship of drought frequency and duration to time scales},
+  booktitle = {Proceedings of the 8th Conference on Applied Climatology},
+  year      = {1993},
+  address   = {Anaheim, CA},
+  pages     = {179--184},
+  publisher = {American Meteorological Society},
+  note      = {Originating SPI paper -- no DOI exists (pre-DOI-era conference
+               proceedings); verified as a real, extant paper via its
+               widely-mirrored PDF (e.g. droughtmanagement.info) and >10,000
+               citing works. Conference dates 17-22 January 1993. Defines SPI
+               via the incomplete gamma distribution fit to precipitation
+               totals but does not itself specify a zero-precipitation
+               correction -- see Wu et al. 2001 below for that.}
+}
+
+@article{wu2001evaluation,
+  author  = {Wu, Hong and Hayes, Michael J. and Weiss, Albert and Hu, Qi},
+  title   = {An evaluation of the Standardized Precipitation Index, the
+             {C}hina-{Z} Index and the statistical {Z}-Score},
+  journal = {International Journal of Climatology},
+  year    = {2001},
+  volume  = {21},
+  number  = {6},
+  pages   = {745--758},
+  doi     = {10.1002/joc.658},
+  note    = {Evaluates SPI's gamma-distribution fitting behaviour, including
+             months with zero precipitation, against alternative indices --
+             the substantive lineage behind the mixed-distribution correction
+             H(x) = q + (1-q)G(x) that
+             \texttt{scripts/02\_compute\_indices.py} implements (q = fraction
+             of zero-precipitation months in the record).}
+}
+
+@article{stagge2015candidate,
+  author  = {Stagge, James H. and Tallaksen, Lena M. and Gudmundsson, Lukas
+             and Van Loon, Anne F. and Stahl, Kerstin},
+  title   = {Candidate Distributions for Climatological Drought Indices
+             ({SPI} and {SPEI})},
+  journal = {International Journal of Climatology},
+  year    = {2015},
+  volume  = {35},
+  number  = {13},
+  pages   = {4027--4040},
+  doi     = {10.1002/joc.4267},
+  note    = {Recommends goodness-of-fit testing (Shapiro-Wilk on the
+             normalized index) and, for SPEI, the GEV distribution over the
+             originally-proposed log-logistic; for SPI specifically it
+             reaffirms gamma as generally adequate but stresses per-station,
+             per-month verification rather than assuming the fit holds
+             everywhere -- relevant dissenting/refining view: this portal's
+             pipeline does not currently run a goodness-of-fit check per
+             district/month (flagged in METHODOLOGY\_REVIEW.md).}
+}
