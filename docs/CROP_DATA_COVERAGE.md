@@ -72,7 +72,7 @@ negative values. Kept **entirely separate** from the legacy
 - Wiring this dataset into the dashboard UI (a crop panel currently reads
   the legacy `crop_stats.json`) -- not done this session.
 
-## CHARAN 4 — Madhya Pradesh done (partial, honestly flagged), second state not started
+## CHARAN 4 — Madhya Pradesh + Rajasthan done (both partial, honestly flagged)
 
 Full methodology and the "Mila/nahi | kya chhoota" table is in
 `docs/STATE_REPORTS.md`. Short version: found MP's real official PDF
@@ -84,8 +84,32 @@ cross-validating each column's numbers against DES's already-verified
 data instead of guessing a font decode. **1,335 of 2,184 column-blocks
 (61%) confidently identified; 849 (39%) left unidentified rather than
 guessed**, with `extraction_verified: false` in the output file's own
-metadata. The other 3 already-downloaded MP-year PDFs, MP's Udyaniki
-report, and a second state are explicitly not done this session.
+metadata. The other 3 already-downloaded MP-year PDFs and MP's Udyaniki
+report not done.
+
+**Second state (Rajasthan), also done, also partial.** Owner asked to
+extend CHARAN 4 to all 36 states, then chose to finish Rajasthan properly
+first once it became clear every state needs its own bespoke discovery +
+parsing (MP's Kruti Dev font problem and Rajasthan's letter-spaced
+headers are unrelated issues -- confirms this isn't a one-time
+obstacle). Found Rajasthan's real compendium (rajas.rajasthan.gov.in,
+Directorate of Economics & Statistics), extracted 204 verified rows -- 4
+crops (Bajra, Cotton, Maize, Wheat) across all 51 districts, area only,
+spot-checked by hand against the PDF's own printed numbers (exact
+match). Two real bugs caught and fixed during extraction (a stray
+title-text match winning column-header detection by smallest y-position
+rather than most-frequent position -- same bug class in two different
+places), and every reconstructed crop label is validated against DES's
+real crop vocabulary before being kept, which is what caught and dropped
+306 mis-extracted labels (season names, merged multi-crop blobs) rather
+than shipping them unverified.
+
+**Pace finding, reported to and acknowledged by the owner:** each state
+needs real, non-transferable engineering effort -- the remaining 34
+states are explicitly a multi-session effort going forward, not a single
+rushed pass. Punjab and Uttar Pradesh were searched this session with no
+direct district-wise PDF found on their official sites (not concluded as
+absent, just not found yet).
 
 ## CHARAN 7 — done, see `docs/DISTRICT_NAME_MAP.md`
 
