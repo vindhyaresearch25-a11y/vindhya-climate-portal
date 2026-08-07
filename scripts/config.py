@@ -113,6 +113,43 @@ GEE_SCALE_METERS    = 9000  # ERA5-Land native resolution (~9 km)
 
 NATIONAL_CLIMATE_OUT_DIR = PROJECT_ROOT / "dashboard" / "data" / "climate"
 SOI_DISTRICTS_GEOJSON    = PROJECT_ROOT / "dashboard" / "data" / "boundaries" / "soi" / "districts.geojson"
+# 2026-08-06's Hugging Face migration removed this file (and the rest of
+# boundaries/soi/) from the git working tree -- the dashboard fetches it
+# from HF at runtime via resolveDataUrl(), but local pipeline scripts
+# (this file's SOI_DISTRICTS_GEOJSON consumers, e.g.
+# 08_gee_national_climate.py, need the real geometry, not just the
+# properties-only districts_index.json) still need an actual file on
+# disk. Rather than every script re-implementing its own "if missing,
+# download" check (and risk one of them forgetting it, like
+# 08_gee_national_climate.py did on 2026-08-07 -- see its own history),
+# this caches a copy under a gitignored local path the first time any
+# script asks for it.
+_SOI_BOUNDARY_CACHE_DIR = PROJECT_ROOT / ".cache" / "boundaries"
+
+
+def ensure_local_boundary_file(relative_path: str) -> Path:
+    """Returns a local Path to boundaries/soi/<relative_path>, downloading
+    it from Hugging Face into a gitignored cache dir on first use if it
+    isn't already present in the working tree (dashboard/data/boundaries/)
+    or the cache. Real HTTP fetch, real file -- no synthetic fallback; a
+    failed download raises rather than silently returning nothing."""
+    working_tree_path = PROJECT_ROOT / "dashboard" / "data" / "boundaries" / relative_path
+    if working_tree_path.exists():
+        return working_tree_path
+    cache_path = _SOI_BOUNDARY_CACHE_DIR / relative_path
+    if cache_path.exists():
+        return cache_path
+    import json as _json
+    import urllib.request as _urlreq
+    data_config = _json.loads((PROJECT_ROOT / "dashboard" / "config" / "data_config.json").read_text())
+    url = data_config["DATA_BASE_URL"].rstrip("/") + "/boundaries/" + relative_path
+    print(f"[config] {relative_path} not found locally -- downloading from {url} "
+          f"(caching at {cache_path}, gitignored)")
+    cache_path.parent.mkdir(parents=True, exist_ok=True)
+    req = _urlreq.Request(url, headers={"User-Agent": "vindhya-climate-portal/1.0"})
+    with _urlreq.urlopen(req, timeout=180) as r:
+        cache_path.write_bytes(r.read())
+    return cache_path
 
 GEE_SOURCE_META = {
     "source": "ERA5-Land (ECMWF, via Google Earth Engine) for Tmax/Tmin, "

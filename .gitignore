@@ -16,6 +16,14 @@ gee_key*.json
 # JSON in dashboard/data/ ships.
 dashboard/data/crop_yield/_icrisat_raw.xls
 scripts/state_reports_raw/*/*.pdf
+# Operational logs/heartbeat for long-running background scripts (e.g.
+# 08_gee_national_climate.py's watchdog) -- local telemetry, not portal
+# data, never committed.
+logs/
+# Local cache for HF-migrated boundary files that local pipeline scripts
+# need real geometry from (see config.ensure_local_boundary_file()) --
+# downloaded on demand, never committed.
+.cache/
 # wrangler CLI local cache (account metadata) -- never committed
 .wrangler/
 # Office lock/temp files -- never ours to commit
