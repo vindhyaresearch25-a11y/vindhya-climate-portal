@@ -3578,9 +3578,59 @@ function getLocalResponse(question){
   return null; // not a chip question, use API
 }
 
-// Performs the actual Claude request for the latest message already in chatHistory.
-// Kept separate from sendChat so the API-key prompt can re-run it without
-// re-adding the user's message.
+// Builds the {state, district, village, lat, lon} place object the new
+// Worker's deterministic parallel prefetch keys off. lat/lon come from
+// window.currentLocationPoint (set by national_selector.js placeMarker()
+// via turf.pointOnFeature on whatever boundary is currently selected) --
+// never guessed/geocoded client-side, so get_weather can honestly report
+// "not available" instead of a wrong point when nothing's selected yet.
+function buildChatPlace(){
+  var rawDistrict = document.getElementById('districtSelect')?.value || '';
+  var rawState = document.getElementById('stateSelect')?.value || '';
+  var mpKey = currentMPDistrictKey();
+  var district = (mpKey && MP_DISTRICTS[mpKey]) ? MP_DISTRICTS[mpKey].name : rawDistrict;
+  var state = (mpKey && MP_DISTRICTS[mpKey]) ? 'Madhya Pradesh' : rawState;
+  var village = (window._mpClimateState && window._mpClimateState.currentVillage) || document.getElementById('villageSelect')?.value || null;
+  var pt = window.currentLocationPoint;
+  return {
+    state: state || null,
+    district: district || null,
+    village: village || null,
+    lat: pt ? pt.lat : null,
+    lon: pt ? pt.lon : null,
+  };
+}
+
+// Parses one Server-Sent-Events frame's payload. The Worker emits two
+// shapes on the same stream: its own custom control events (JSON objects
+// with a "type" field: meta/model/tool/error) and Workers AI's native
+// token events ({"response":"..."} per env.AI.run(..., {stream:true})),
+// terminated by the literal (non-JSON) line "data: [DONE]".
+function parseSseFrame(raw){
+  var line = raw.trim();
+  if (!line.indexOf) return null;
+  if (!line.startsWith('data:')) return null;
+  var payload = line.slice(5).trim();
+  if (payload === '[DONE]') return {done:true};
+  try{ return {done:false, obj: JSON.parse(payload)}; }
+  catch(e){ return null; }
+}
+
+// Performs the actual chat request for the latest message already in
+// chatHistory. Kept separate from sendChat so the API-key prompt can re-run
+// it without re-adding the user's message.
+//
+// REWRITTEN 2026-08-08 for the new kisan_sahayak_worker.js: the old
+// "vindhya-gemini-proxy" Worker was a flat {prompt}->{text} proxy, so this
+// function used to build one giant prompt string client-side
+// (buildChatSystemPrompt()) and wait for a single JSON blob back. The new
+// Worker does its own real-data prefetch (climate/weather/mandi/crop/
+// village, all in parallel, server-side) and streams the answer token by
+// token over SSE -- this function now sends a small structured
+// {message, history, place, lang} body and renders tokens as they arrive.
+// buildChatSystemPrompt() is kept (used by askChatAboutCadastral()'s
+// cadastral-parcel context and as a description of the 5-part answer
+// contract) but its output is no longer sent to the Worker.
 async function runChatCompletion(){
   if(chatBusy) return;
   chatBusy=true;
@@ -3591,104 +3641,160 @@ async function runChatCompletion(){
   // No API key here, deliberately. This is a static site on GitHub Pages:
   // anything in this file is readable by every visitor, so a key placed
   // here would be public within minutes (it has happened to this project
-  // before). The key lives only in a Cloudflare Worker secret; the browser
-  // talks to the Worker, never to Google directly. CHAT_PROXY_URL is the
-  // single place the endpoint is written -- if it ever moves, one line
-  // changes, not fifty.
+  // before). The new Worker needs no external API key at all (see its own
+  // header comment) -- generation runs entirely on Workers AI, a
+  // first-party Cloudflare binding. CHAT_PROXY_URL is the single place the
+  // endpoint is written -- if it ever moves, one line changes, not fifty.
   const CHAT_PROXY_URL = (window.VINDHYA_CONFIG && window.VINDHYA_CONFIG.CHAT_PROXY_URL)
-    || 'https://vindhya-gemini-proxy.vindhyaresearch25.workers.dev';
+    || 'https://vindhya-kisan-sahayak.vindhyaresearch25.workers.dev';
+
+  var place = buildChatPlace();
+  var lastUserMsg = '';
+  for (var hi = chatHistory.length - 1; hi >= 0; hi--) {
+    if (chatHistory[hi].role === 'user') { lastUserMsg = chatHistory[hi].content; break; }
+  }
+  var historyPayload = chatHistory.slice(0, -1).slice(-12).map(function(h){ return {role: h.role, content: h.content}; });
+
+  console.log('[Kisan Sahayak] place sent to Worker:', place);
+
+  var ctl = new AbortController();
+  var timer = setTimeout(function(){ ctl.abort(); }, 45000); // generous: streaming can legitimately take longer than one round-trip
+
+  var statusEl = document.getElementById('chatStatus');
+  var botDiv = null;       // created lazily on first real token, so "typing..." shows until then
+  var accumulated = '';
+  var modelUsed = null;
+  var streamErrored = false;
+  var gotAnyToken = false;
+
+  function ensureBotDiv(){
+    if (!botDiv) { hideTyping(); botDiv = addChatMsg('bot', ''); }
+    return botDiv;
+  }
+  function appendToken(t){
+    gotAnyToken = true;
+    accumulated += t;
+    var div = ensureBotDiv();
+    div.textContent = accumulated;
+    var body = document.getElementById('chatBody');
+    body.scrollTop = body.scrollHeight;
+  }
 
   try{
-    // The Worker's contract is one flat {"prompt": string} -> {"text": string}.
-    // So the system instruction, the real figures, and the conversation are
-    // folded into a single string here rather than sent as separate fields.
-    // buildChatSystemPrompt() is async now (2026-08-08) -- it fetches real
-    // per-district climate/mandi/crop data for whichever district is
-    // selected, not only the 5 original IMD districts.
-    var systemPrompt = await buildChatSystemPrompt();
-
-    var recent = chatHistory.slice(-12);
-    var transcript = '';
-    for (var i = 0; i < recent.length; i++) {
-      var who = recent[i].role === 'assistant' ? 'Sahayak' : 'Kisan';
-      transcript += who + ': ' + recent[i].content + '\n';
-    }
-
-    var fullPrompt = systemPrompt
-      + '\n\n--- Conversation so far ---\n' + transcript
-      + '\nSahayak:';
-
-    // The Worker rejects anything over 4000 characters. Trim the oldest
-    // turns rather than let the request fail outright.
-    if (fullPrompt.length > 3900) {
-      fullPrompt = systemPrompt + '\n\n--- Latest question ---\n'
-        + (recent.length ? recent[recent.length - 1].content : '')
-        + '\n\nSahayak:';
-      if (fullPrompt.length > 3900) fullPrompt = fullPrompt.slice(0, 3900);
-    }
-
-    // Owner instruction (2026-08-08): print the exact prompt sent to the
-    // Worker so real-data inclusion can be checked directly, not guessed
-    // at from the reply alone.
-    console.log('[Kisan Sahayak] full prompt sent to Worker (' + fullPrompt.length + ' chars):\n' + fullPrompt);
-
-    var ctl = new AbortController();
-    var timer = setTimeout(function(){ ctl.abort(); }, 30000);
-
-    var response = await fetch(CHAT_PROXY_URL, {
+    var response = await fetch(CHAT_PROXY_URL.replace(/\/$/, '') + '/chat', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({prompt: fullPrompt}),
+      body: JSON.stringify({
+        message: lastUserMsg,
+        history: historyPayload,
+        place: place,
+        lang: chatLangHi ? 'hi' : 'en'
+      }),
       signal: ctl.signal
     });
-    clearTimeout(timer);
-
-    var raw = await response.text();
-    var data = null;
-    try{ data = JSON.parse(raw); }catch(e){}
-
-    hideTyping();
 
     if (!response.ok) {
-      // Each status means something different to the person reading it, so
-      // say which one it is rather than one generic failure.
+      // The Worker returns plain JSON (not SSE) for request-level failures
+      // (bad JSON, empty message) -- try to read a real error out of it.
+      var raw = await response.text().catch(function(){ return ''; });
+      var errData = null;
+      try{ errData = JSON.parse(raw); }catch(e){}
+      clearTimeout(timer);
+      hideTyping();
       var errMsg;
       if (response.status === 429) {
-        errMsg = chatLangHi
-          ? '\u092c\u0939\u0941\u0924 \u091c\u093c\u094d\u092f\u093e\u0926\u093e \u0938\u0935\u093e\u0932 \u092a\u0942\u091b\u0947 \u0917\u090f\u0964 \u090f\u0915 \u092e\u093f\u0928\u091f \u092c\u093e\u0926 \u092b\u093f\u0930 \u0915\u094b\u0936\u093f\u0936 \u0915\u0940\u091c\u093f\u090f\u0964'
-          : 'Too many questions just now. Please try again in a minute.';
+        errMsg = chatLangHi ? '\u092c\u0939\u0941\u0924 \u091c\u093c\u094d\u092f\u093e\u0926\u093e \u0938\u0935\u093e\u0932 \u092a\u0942\u091b\u0947 \u0917\u090f\u0964 \u090f\u0915 \u092e\u093f\u0928\u091f \u092c\u093e\u0926 \u092b\u093f\u0930 \u0915\u094b\u0936\u093f\u0936 \u0915\u0940\u091c\u093f\u090f\u0964' : 'Too many questions just now. Please try again in a minute.';
       } else if (response.status === 403) {
-        errMsg = chatLangHi
-          ? '\u092f\u0939 \u092a\u0943\u0937\u094d\u0920 \u0915\u093f\u0938\u093e\u0928 \u0938\u0939\u093e\u092f\u0915 \u0938\u0947\u0935\u093e \u0938\u0947 \u091c\u0941\u0921\u093c\u0928\u0947 \u0915\u0940 \u0905\u0928\u0941\u092e\u0924\u093f \u0928\u0939\u0940\u0902 \u0930\u0916\u0924\u093e\u0964'
-          : 'This page is not authorised to reach the Kisan Sahayak service.';
+        errMsg = chatLangHi ? '\u092f\u0939 \u092a\u0943\u0937\u094d\u0920 \u0915\u093f\u0938\u093e\u0928 \u0938\u0939\u093e\u092f\u0915 \u0938\u0947\u0935\u093e \u0938\u0947 \u091c\u0941\u0921\u093c\u0928\u0947 \u0915\u0940 \u0905\u0928\u0941\u092e\u0924\u093f \u0928\u0939\u0940\u0902 \u0930\u0916\u0924\u093e\u0964' : 'This page is not authorised to reach the Kisan Sahayak service.';
       } else {
-        errMsg = chatLangHi
-          ? '\u0915\u093f\u0938\u093e\u0928 \u0938\u0939\u093e\u092f\u0915 \u0938\u0947\u0935\u093e \u0905\u092d\u0940 \u0909\u092a\u0932\u092c\u094d\u0927 \u0928\u0939\u0940\u0902 \u0939\u0948 (HTTP ' + response.status + ')\u0964'
-          : 'The Kisan Sahayak service is unavailable right now (HTTP ' + response.status + ').';
+        errMsg = chatLangHi ? '\u0915\u093f\u0938\u093e\u0928 \u0938\u0939\u093e\u092f\u0915 \u0938\u0947\u0935\u093e \u0905\u092d\u0940 \u0909\u092a\u0932\u092c\u094d\u0927 \u0928\u0939\u0940\u0902 \u0939\u0948 (HTTP ' + response.status + ')\u0964' : 'The Kisan Sahayak service is unavailable right now (HTTP ' + response.status + ').';
       }
-      console.error('Chat proxy error:', response.status);
       addChatMsg('bot', errMsg + (chatLangHi
         ? ' \u092e\u0948\u0902 \u092b\u093f\u0930 \u092d\u0940 \u092e\u094c\u0938\u092e, \u092b\u0938\u0932, \u092e\u0902\u0921\u0940 \u092d\u093e\u0935 \u0915\u0947 \u0905\u0938\u0932\u0940 \u0906\u0901\u0915\u0921\u093c\u0947 \u0926\u0947 \u0938\u0915\u0924\u093e \u0939\u0942\u0902\u0964'
         : ' I can still answer with real data on weather, crops and mandi prices.'));
       return;
     }
 
-    var reply = (data && typeof data.text === 'string') ? data.text.trim() : '';
-    if (!reply) {
-      reply = chatLangHi
-        ? '\u0915\u094d\u0937\u092e\u093e \u0915\u0930\u0947\u0902, \u092e\u0941\u091d\u0947 \u0909\u0924\u094d\u0924\u0930 \u092c\u0928\u093e\u0928\u0947 \u092e\u0947\u0902 \u0938\u092e\u0938\u094d\u092f\u093e \u0939\u0941\u0908\u0964 \u0915\u0943\u092a\u092f\u093e \u092a\u0941\u0928\u0903 \u092a\u094d\u0930\u092f\u093e\u0938 \u0915\u0930\u0947\u0902\u0964'
-        : 'Sorry, I couldn\'t generate a response. Please try again.';
+    var contentType = response.headers.get('Content-Type') || '';
+    if (contentType.indexOf('text/event-stream') === -1 || !response.body || !response.body.getReader) {
+      // Graceful non-streaming fallback: same endpoint, same response --
+      // just read it all at once instead of incrementally (covers an
+      // environment where fetch-body streaming isn't usable, or the Worker
+      // for some reason didn't set the SSE content-type).
+      var wholeText = await response.text();
+      var lines = wholeText.split('\n\n');
+      for (var li = 0; li < lines.length; li++) {
+        var frame = parseSseFrame(lines[li]);
+        if (!frame || frame.done) continue;
+        if (frame.obj && frame.obj.type === 'model') modelUsed = frame.obj.model;
+        else if (frame.obj && frame.obj.type === 'error') streamErrored = true;
+        else if (frame.obj && typeof frame.obj.response === 'string') appendToken(frame.obj.response);
+      }
+    } else {
+      // Real streaming path: read the body incrementally, render each
+      // token the moment it arrives (this is what gets a word on screen
+      // within seconds instead of after the whole answer is ready).
+      var reader = response.body.getReader();
+      var decoder = new TextDecoder();
+      var buffer = '';
+      try {
+        while (true) {
+          var chunk = await reader.read();
+          if (chunk.done) break;
+          buffer += decoder.decode(chunk.value, {stream:true});
+          var parts = buffer.split('\n\n');
+          buffer = parts.pop(); // last part may be incomplete, keep for next read
+          for (var pi = 0; pi < parts.length; pi++) {
+            var f = parseSseFrame(parts[pi]);
+            if (!f || f.done) continue;
+            if (f.obj && f.obj.type === 'model') { modelUsed = f.obj.model; }
+            else if (f.obj && f.obj.type === 'error') { streamErrored = true; console.error('[Kisan Sahayak] stream error event:', f.obj); }
+            else if (f.obj && f.obj.type === 'tool') { console.log('[Kisan Sahayak] tools used:', f.obj.calls); }
+            else if (f.obj && f.obj.type === 'meta') { console.log('[Kisan Sahayak] data available for this place:', f.obj.data_available); }
+            else if (f.obj && typeof f.obj.response === 'string') { appendToken(f.obj.response); }
+          }
+        }
+      } catch (streamErr) {
+        // "graceful non-streaming fallback if the stream fails partway":
+        // keep whatever text already rendered, note the interruption
+        // rather than losing the partial answer or crashing silently.
+        streamErrored = true;
+        console.error('[Kisan Sahayak] stream reading failed partway:', streamErr);
+      }
     }
-    addChatMsg('bot', reply);
-    chatHistory.push({role:'assistant', content:reply});
+
+    clearTimeout(timer);
+    hideTyping();
+
+    if (!gotAnyToken) {
+      var noReplyMsg = chatLangHi
+        ? '\u0915\u094d\u0937\u092e\u093e \u0915\u0930\u0947\u0902, \u092e\u0941\u091d\u0947 \u0909\u0924\u094d\u0924\u0930 \u092c\u0928\u093e\u0928\u0947 \u092e\u0947\u0902 \u0938\u092e\u0938\u094d\u092f\u093e \u0939\u0941\u0908\u0964 \u0915\u0943\u092a\u092f\u093e \u092a\u0941\u0928\u0903 \u092a\u094d\u0930\u092f\u093e\u0938 \u0915\u0930\u0947\u0902\u0964'
+        : "Sorry, I couldn't generate a response. Please try again.";
+      addChatMsg('bot', noReplyMsg);
+      chatHistory.push({role:'assistant', content:noReplyMsg});
+      return;
+    }
+
+    if (streamErrored) {
+      accumulated += (chatLangHi
+        ? '\n\n[\u0909\u0924\u094d\u0924\u0930 \u092c\u0940\u091a \u092e\u0947\u0902 \u0930\u0941\u0915 \u0917\u092f\u093e -- \u0935\u0939\u0940 \u0926\u093f\u0916\u093e\u092f\u093e \u091c\u093e \u0930\u0939\u093e \u0939\u0948 \u091c\u094b \u0905\u092c \u0924\u0915 \u092a\u094d\u0930\u093e\u092a\u094d\u0924 \u0939\u0941\u0906\u0964]'
+        : '\n\n[Answer was interrupted mid-way -- showing what was received so far.]');
+      if (botDiv) botDiv.textContent = accumulated;
+    }
+    chatHistory.push({role:'assistant', content:accumulated});
+    console.log('[Kisan Sahayak] model used:', modelUsed || '(unknown)');
 
   } catch(e) {
+    clearTimeout(timer);
     hideTyping();
     console.error('Chatbot error:', e);
-    // Distinguish a timeout from an unreachable service: they need
-    // different things from the reader. Either way, point back to
-    // getLocalResponse()'s real, source-cited answers, which do not
-    // depend on the proxy at all.
+    if (gotAnyToken) {
+      // We had a real connection and some real tokens, then it died before
+      // reaching the fetch()'s own try/catch above (e.g. an abort) --
+      // still keep the partial answer rather than throwing it away.
+      chatHistory.push({role:'assistant', content:accumulated});
+      return;
+    }
     var msg;
     if (e && e.name === 'AbortError') {
       msg = chatLangHi

@@ -1,0 +1,47 @@
+# Deploy config for the Kisan Sahayak chat Worker
+# (cloudflare/kisan_sahayak_worker.js). Not applied automatically -- run
+# these yourself (same rule as wrangler_kisan_upload.toml: credentials/
+# deploys that need YOUR Cloudflare login happen in your own terminal):
+#
+#   cd cloudflare
+#   wrangler deploy --config wrangler_kisan_sahayak.toml
+#
+# That's it for the core chat features (get_climate/get_weather/get_mandi/
+# get_crop_stats/search_papers all work with zero secrets -- Workers AI is a
+# first-party binding below, and the data/scholarly APIs it calls are all
+# free and keyless). No CLOUDFLARE API KEY or GEMINI KEY needed anywhere in
+# this Worker -- unlike the old vindhya-gemini-proxy Worker, generation now
+# runs entirely on Workers AI (see MODEL_FALLBACK_ORDER in the .js file).
+#
+# search_manuals (the RAG tool) additionally needs a one-time Vectorize
+# index -- see scripts/10_ingest_kisan_manuals.py's header comment for the
+# exact `wrangler vectorize create` command and the ingestion run itself.
+# Until you've done that, search_manuals degrades to an honest
+# "not configured yet" instead of erroring the whole chat -- deploy now,
+# add Vectorize later, no ordering dependency.
+#
+# After deploying: put this Worker's *.workers.dev URL into
+# dashboard/index.html -- either set window.VINDHYA_CONFIG.CHAT_PROXY_URL
+# before index.html's inline <script> runs, or edit the CHAT_PROXY_URL
+# fallback constant inside runChatCompletion() directly.
+
+name = "vindhya-kisan-sahayak"
+main = "kisan_sahayak_worker.js"
+compatibility_date = "2026-08-01"
+
+# Workers AI binding -- first-party, needs no API key/secret. This is what
+# runs every model in MODEL_FALLBACK_ORDER plus the bge-base-en-v1.5
+# embedding model for search_manuals.
+[ai]
+binding = "AI"
+
+# Vectorize binding for the RAG manual-search index. The index itself
+# (`kisan-sahayak-manuals`) must exist before this binds successfully --
+# create it once with the command in scripts/10_ingest_kisan_manuals.py's
+# header, THEN deploy (or redeploy) this Worker. Binding name
+# (VECTORIZE_INDEX) must match exactly what kisan_sahayak_worker.js and
+# scripts/10_ingest_kisan_manuals.py both expect -- documented in
+# docs/KISAN_SAHAYAK_RAG.md as the one place this contract is spelled out.
+[[vectorize]]
+binding = "VECTORIZE_INDEX"
+index_name = "kisan-sahayak-manuals"
