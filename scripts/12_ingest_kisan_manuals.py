@@ -1,5 +1,5 @@
 """
-10_ingest_kisan_manuals.py -- builds the Kisan Sahayak RAG corpus:
+12_ingest_kisan_manuals.py -- builds the Kisan Sahayak RAG corpus:
 downloads real ICAR/KVK/state-department/IMD PDFs, extracts text
 (pdfplumber), chunks it, embeds each chunk with Workers AI, and upserts
 into a Cloudflare Vectorize index. This is what kisan_sahayak_worker.js's
@@ -30,9 +30,9 @@ other credential in this repo):
                                (do NOT reuse a token with wider scope)
 
 USAGE:
-    python 10_ingest_kisan_manuals.py                       # ingest the whole CORPUS below
-    python 10_ingest_kisan_manuals.py --dry-run              # fetch+extract+chunk, print counts, no embed/upsert (no Cloudflare creds needed)
-    python 10_ingest_kisan_manuals.py --only wheat_pop_1984  # one document, by its `id` in CORPUS
+    python 12_ingest_kisan_manuals.py                       # ingest the whole CORPUS below
+    python 12_ingest_kisan_manuals.py --dry-run              # fetch+extract+chunk, print counts, no embed/upsert (no Cloudflare creds needed)
+    python 12_ingest_kisan_manuals.py --only wheat_pop_1984  # one document, by its `id` in CORPUS
 
 --------------------------------------------------------------------------
 HONEST COVERAGE (checked 2026-08-08 -- full retry log in
@@ -152,7 +152,7 @@ FETCH_DATE = time.strftime("%Y-%m-%d")
 
 
 def log(msg: str) -> None:
-    print(f"[10_ingest_kisan_manuals] {msg}", file=sys.stderr)
+    print(f"[12_ingest_kisan_manuals] {msg}", file=sys.stderr)
 
 
 def fetch_pdf_bytes(url: str) -> bytes | None:

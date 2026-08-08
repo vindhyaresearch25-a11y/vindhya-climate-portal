@@ -11,7 +11,7 @@ don't let the claim drift ahead of what was actually ingested.
 
 | Thing | Value | Where it's used |
 |---|---|---|
-| Vectorize index name | `kisan-sahayak-manuals` | `wrangler vectorize create` command below; `scripts/10_ingest_kisan_manuals.py`'s `VECTORIZE_INDEX_NAME` |
+| Vectorize index name | `kisan-sahayak-manuals` | `wrangler vectorize create` command below; `scripts/12_ingest_kisan_manuals.py`'s `VECTORIZE_INDEX_NAME` |
 | Worker binding name | `VECTORIZE_INDEX` | `cloudflare/wrangler_kisan_sahayak.toml`'s `[[vectorize]]` block; `cloudflare/kisan_sahayak_worker.js`'s `env.VECTORIZE_INDEX` |
 | Embedding model | `@cf/baai/bge-base-en-v1.5` (768-dim) | Both the Worker (query-time) and the ingestion script (ingest-time) -- **must match**, a mismatched embedding model would still "work" (no error) but return meaningless nearest-neighbours |
 
@@ -37,8 +37,8 @@ Cloudflare dashboard -> My Profile -> API Tokens):
 export CLOUDFLARE_ACCOUNT_ID=...
 export CLOUDFLARE_API_TOKEN=...
 cd scripts
-python 10_ingest_kisan_manuals.py --dry-run   # sanity check first, no creds/network writes needed beyond the PDF fetches
-python 10_ingest_kisan_manuals.py             # real embed + upsert
+python 12_ingest_kisan_manuals.py --dry-run   # sanity check first, no creds/network writes needed beyond the PDF fetches
+python 12_ingest_kisan_manuals.py             # real embed + upsert
 ```
 
 Then deploy (or redeploy) the Worker so its `[[vectorize]]` binding picks
@@ -103,7 +103,7 @@ found and would meaningfully widen crop coverage beyond wheat/rice/organic.
 
 ## Re-running after corpus changes
 
-`scripts/10_ingest_kisan_manuals.py` always **upserts** (not insert-only),
+`scripts/12_ingest_kisan_manuals.py` always **upserts** (not insert-only),
 so re-running it after editing `CORPUS` is safe -- existing chunk ids
 (`<doc id>__chunk<NNNN>`) get overwritten in place, new ids get added. It
 does not delete vectors for a document removed from `CORPUS` -- if you drop
