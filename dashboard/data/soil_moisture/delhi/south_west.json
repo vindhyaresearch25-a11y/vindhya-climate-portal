@@ -1,0 +1,341 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Delhi",
+  "district": "South West",
+  "district_lgd": 84,
+  "observation_window": "2026-08-03T19:06Z to 2026-08-08T19:06Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-08",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2147,
+  "sm_surface_stddev": 0.001,
+  "sm_rootzone_mean": 0.2229,
+  "sm_rootzone_stddev": 0.0019,
+  "n_cells": 2,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 28.6069,
+    "lon": 76.9272,
+    "sm_surface": 0.2137,
+    "sm_rootzone": 0.221,
+    "n_villages_sharing_cell": 36
+   },
+   {
+    "cell_index": 1,
+    "lat": 28.6069,
+    "lon": 77.026,
+    "sm_surface": 0.2157,
+    "sm_rootzone": 0.2249,
+    "n_villages_sharing_cell": 18
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2148,
+  "sm_surface_stddev": 0.0007,
+  "n_blocks": 3
+ },
+ "blocks": [
+  {
+   "block_name": "Dwarka",
+   "sdcode": 6086,
+   "n_villages": 2,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.2157,
+   "sm_surface_stddev": 0.0
+  },
+  {
+   "block_name": "Kapeshera",
+   "sdcode": 6085,
+   "n_villages": 28,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.2147,
+   "sm_surface_stddev": 0.001
+  },
+  {
+   "block_name": "Najafgarh",
+   "sdcode": 451,
+   "n_villages": 24,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.2139,
+   "sm_surface_stddev": 0.0006
+  }
+ ],
+ "villages": {
+  "64043": [
+   "Raota",
+   6085,
+   0
+  ],
+  "64005": [
+   "Surakh Pur",
+   451,
+   0
+  ],
+  "64004": [
+   "Dichaon Kalan",
+   451,
+   1
+  ],
+  "64034": [
+   "Jhatikra",
+   6085,
+   0
+  ],
+  "64032": [
+   "Badhosra",
+   6085,
+   1
+  ],
+  "64033": [
+   "Nanak Heri",
+   6085,
+   1
+  ],
+  "64008": [
+   "Surera",
+   451,
+   0
+  ],
+  "64020": [
+   "Isa Pur",
+   451,
+   0
+  ],
+  "64006": [
+   "Mundhela Khurd",
+   451,
+   0
+  ],
+  "64019": [
+   "Baqar Garh",
+   451,
+   0
+  ],
+  "64007": [
+   "Mundhela Kalan",
+   451,
+   0
+  ],
+  "64018": [
+   "Samas Pur Khalsa",
+   451,
+   0
+  ],
+  "64022": [
+   "Malik Pur Zer Najafgarh",
+   451,
+   0
+  ],
+  "64021": [
+   "Qazi Pur",
+   451,
+   0
+  ],
+  "64041": [
+   "Dhansa",
+   451,
+   0
+  ],
+  "64015": [
+   "Pindwala Kalan",
+   6085,
+   0
+  ],
+  "64027": [
+   "Daulat Pur",
+   6085,
+   0
+  ],
+  "64025": [
+   "Kharkhari Rond",
+   6085,
+   0
+  ],
+  "64035": [
+   "Asalat Pur Khawad",
+   6085,
+   0
+  ],
+  "64026": [
+   "Hasan Pur",
+   6085,
+   0
+  ],
+  "64029": [
+   "Kangan Heri",
+   6085,
+   1
+  ],
+  "64014": [
+   "Rewla Kham Pur",
+   6085,
+   1
+  ],
+  "64010": [
+   "Paprawat",
+   6085,
+   1
+  ],
+  "64028": [
+   "Pindwala Khurd",
+   6085,
+   0
+  ],
+  "64023": [
+   "Darya Pur Khurd",
+   6085,
+   0
+  ],
+  "64038": [
+   "Goman Hera",
+   6085,
+   0
+  ],
+  "64036": [
+   "Shikar Pur",
+   6085,
+   0
+  ],
+  "64042": [
+   "Ghalib Pur",
+   451,
+   0
+  ],
+  "64039": [
+   "Jhuljhuli",
+   451,
+   0
+  ],
+  "64040": [
+   "Sarang Pur",
+   451,
+   0
+  ],
+  "64044": [
+   "Deorala",
+   6085,
+   0
+  ],
+  "64017": [
+   "Khera Dabar",
+   451,
+   0
+  ],
+  "64016": [
+   "Kharkhari Jatmal",
+   6085,
+   0
+  ],
+  "64009": [
+   "Kharkhari Nahar",
+   451,
+   0
+  ],
+  "64024": [
+   "Sher Pur Deri",
+   451,
+   0
+  ],
+  "64037": [
+   "Jain Pur Un Inhabited",
+   6085,
+   0
+  ],
+  "64045": [
+   "Jharoda Kalan CT",
+   451,
+   0
+  ],
+  "64049": [
+   "Mitraon CT",
+   451,
+   0
+  ],
+  "64046": [
+   "Kair CT",
+   451,
+   0
+  ],
+  "64048": [
+   "Ujwa CT",
+   451,
+   0
+  ],
+  "64047": [
+   "Jaffar Pur Kalan CT",
+   451,
+   0
+  ],
+  "64050": [
+   "Khera CT",
+   451,
+   0
+  ],
+  "276402": [
+   "South Delhi Municipal Corporation",
+   6086,
+   1
+  ],
+  "64013": [
+   "Taj Pur Khurd",
+   6085,
+   1
+  ],
+  "64011": [
+   "Goela Khurd",
+   6085,
+   1
+  ],
+  "64012": [
+   "Qutab Pur",
+   6085,
+   1
+  ],
+  "64031": [
+   "Raghu Pur",
+   6085,
+   1
+  ],
+  "64030": [
+   "Salah Pur",
+   6085,
+   1
+  ],
+  "64053": [
+   "Nangli Sakrawati CT",
+   6086,
+   1
+  ],
+  "64054": [
+   "Chhawala CT",
+   6085,
+   1
+  ],
+  "64051": [
+   "Dindar Pur CT",
+   6085,
+   1
+  ],
+  "64052": [
+   "Roshan Pura Alias Dichaon Khurd CT",
+   451,
+   1
+  ],
+  "64059": [
+   "Kapas Hera CT",
+   6085,
+   1
+  ]
+ },
+ "village_count_total": 54,
+ "village_count_assigned": 54
+}

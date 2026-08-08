@@ -1019,11 +1019,11 @@ canvas.chart-canvas{max-height:100%;}
             <div class="metric-source">Source: IMD / CHIRPS (GEE), 2000–2024 mean</div>
           </div>
           <div class="metric-card">
-            <div class="metric-label">Soil Moisture</div>
+            <div class="metric-label">Soil Moisture (~9 km cell)</div>
             <div class="metric-value cyan" id="m-soil">—</div>
-            <div class="metric-bar"><div class="metric-bar-fill u-w0-cyan"></div></div>
-            <div class="metric-trend"><i class="fa fa-arrow-down u-dim"></i> Not available</div>
-            <div class="metric-source">Source: SMAP — not yet integrated</div>
+            <div class="metric-bar"><div id="bar-soil" class="metric-bar-fill u-w0-cyan"></div></div>
+            <div class="metric-trend"><i class="fa fa-arrow-down u-dim"></i> <span id="soil-trend">Select a district</span></div>
+            <div class="metric-source" id="soil-source">Source: SMAP — not yet integrated</div>
           </div>
           <div class="metric-card">
             <div class="metric-label">NDVI Score</div>
@@ -1201,7 +1201,7 @@ canvas.chart-canvas{max-height:100%;}
             <div class="sat-card"><div class="sat-name">MODIS</div><div class="sat-val u-green-sm">LIVE</div><div class="sat-unit">NDVI, via UNDP DiCRA -- Madhya Pradesh's 52 districts only</div></div>
             <div class="sat-card"><div class="sat-name">CHIRPS + ERA5-Land</div><div class="sat-val u-orange-sm">IN PROGRESS</div><div class="sat-unit">National climate indices beyond the 5 IMD districts -- see scripts/08_gee_national_climate.py</div></div>
             <div class="sat-card"><div class="sat-name">Sentinel-2</div><div class="sat-val u-fs1-dim">NOT INTEGRATED</div><div class="sat-unit">No layer in this dashboard uses it</div></div>
-            <div class="sat-card"><div class="sat-name">SMAP</div><div class="sat-val u-fs1-dim">NOT INTEGRATED</div><div class="sat-unit">Soil moisture stays "Not available" everywhere</div></div>
+            <div class="sat-card"><div class="sat-name">SMAP</div><div class="sat-val u-orange-sm">IN PROGRESS</div><div class="sat-unit">Soil moisture (~9km), all 4 tiers -- see scripts/13_gee_national_soil_moisture.py; computed for a growing set of districts, "Not available" elsewhere</div></div>
           </div>
         </div>
         <!-- AI Models -->
@@ -3655,6 +3655,7 @@ async function runChatCompletion(){
 <script src="national_climate_loader.js"></script>
 <script src="national_ndvi_loader.js"></script>
 <script src="validation_loader.js"></script>
+<script src="soil_moisture_loader.js"></script>
 <!-- national_selector.js is appended dynamically, not as a static tag here --
      see the fetchWithTimeout('config/data_config.json')...finally() block
      above, which guarantees it only loads after window.DATA_BASE_URL is

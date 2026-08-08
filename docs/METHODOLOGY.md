@@ -321,3 +321,23 @@ zonal means, so villages sharing a pixel receive identical values. The
 record is 25 years against a 30-year WMO normal. A single scenario
 (SSP2-4.5) is implemented. These are documented rather than concealed, and
 `config.VILLAGE_SAMPLE_METHOD` is scaffolded for the polygon upgrade.
+
+6. **Soil moisture (MERA_KHET_PROMPT.md B1, `scripts/13_gee_national_soil_moisture.py`)
+   is coarser than the climate layer above, deliberately shown that way.**
+   SMAP L4's real native grid is ~9 km (vs. the climate layer's 5.5-9 km) --
+   one grid cell routinely covers dozens of villages (observed range in the
+   22 districts computed so far: 1 to 24+ villages per cell). Every tier
+   states this explicitly and the village tier always shows the real count
+   of villages sharing its cell, never a village-specific number. Nearest-
+   cell assignment for villages uses plain lon/lat distance (not geodesic),
+   an approximation acceptable at this grid spacing and consistent with the
+   existing `VILLAGE_SAMPLE_METHOD="centroid"` convention above. State tier
+   is a mean of whichever district means are computed so far, not a
+   national SMAP query -- coverage is intentionally partial (22 of 733
+   districts as of 2026-08-09, see `docs/DATA_SOURCES.md`) and always shown
+   against the real total, per MERA_KHET_PROMPT.md's "naapo" (measure
+   first) instruction rather than rushed to national scale in one pass. The
+   in-dashboard irrigation hint ("dry / moderate / adequate") is a fixed,
+   code-defined volumetric-moisture reference band, not a per-place model
+   output -- explicitly labelled as varying by soil texture, not a
+   substitute for field-specific agronomic advice.

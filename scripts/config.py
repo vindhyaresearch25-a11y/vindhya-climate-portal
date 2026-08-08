@@ -201,3 +201,55 @@ NATIONAL_NDVI_OUT_DIR = PROJECT_ROOT / "dashboard" / "data" / "ndvi"
 # handled naturally by filterDate() returning fewer images for 2000.
 NDVI_YEAR_START = 2000
 NDVI_YEAR_END   = 2024
+
+# ---------- GEE NATIONAL SOIL MOISTURE (MERA_KHET_PROMPT.md B1) ----------
+# NASA/SMAP/SPL4SMGP/008 -- SMAP L4 Global 3-hourly 9km Surface and Root
+# Zone Soil Moisture. Chosen over the two alternatives after checking both
+# directly against the real GEE catalog (2026-08, see
+# scripts/13_gee_national_soil_moisture.py's header for how):
+#   - NASA_USDA/HSL/SMAP10KM_soil_moisture: REJECTED -- its own catalog
+#     page states data collection ENDED August 2022. Stale for "should I
+#     irrigate right now", which is the entire point of B1.
+#   - NASA/SMAP/SPL4SMGP/007: superseded by /008 (both exist; /007 is
+#     explicitly marked deprecated on its own catalog page).
+#   - NASA/SMAP/SPL4SMGP/008: confirmed live/actively updating, band names
+#     confirmed real (sm_surface, sm_rootzone) -- this is what's used.
+SMAP_COLLECTION = "NASA/SMAP/SPL4SMGP/008"
+SMAP_SURFACE_BAND  = "sm_surface"    # 0-5cm depth, volume fraction m3/m3 -- primary field
+SMAP_ROOTZONE_BAND = "sm_rootzone"   # 0-100cm depth, volume fraction m3/m3 -- secondary/context only
+# GEE reports this asset's pixel size as 11,000 m; SMAP's own EASE-Grid 2.0
+# native spacing is documented as 9 km -- same "reported pixel size vs.
+# documented native resolution" distinction already made for ERA5-Land
+# above (GEE_SOURCE_META['resolution']). The owner's spec is explicit:
+# state 9 km everywhere this data is shown.
+SMAP_SCALE_METERS = 11000
+SMAP_RESOLUTION_LABEL = "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)"
+# SMAP L4 has occasional per-image/per-pixel gaps; averaging the last 5
+# days of 3-hourly images per pixel is still "current conditions" (not a
+# long-term climatology) and is resilient to any single missing granule.
+SMAP_LOOKBACK_DAYS = 5
+
+NATIONAL_SOIL_MOISTURE_OUT_DIR = PROJECT_ROOT / "dashboard" / "data" / "soil_moisture"
+
+SMAP_SOURCE_META = {
+    "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture "
+              "(NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+    "resolution": SMAP_RESOLUTION_LABEL,
+    "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline "
+           "reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as "
+           "secondary context, never the headline number.",
+    "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled "
+              "directly via Earth Engine (ee.Image.sample over the district polygon -- each "
+              "cell's own value AND location kept, not collapsed into one reduceRegion mean). "
+              "Village tier: the SMAP cell nearest to the village polygon's centroid (nearest "
+              "cell-center match). Block tier: mean + standard deviation of its villages' "
+              "assigned cell values, N = village count. District tier: mean + standard "
+              "deviation of the real SMAP cells sampled directly over the district polygon, "
+              "N = cell count (independent of village-boundary coverage). State tier "
+              "(computed client-side in the dashboard loader): mean + standard deviation of "
+              "its districts' values, N = districts actually computed so far -- always shown "
+              "against the state's real total district count.",
+    "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER "
+           "claims a village-specific value; it always shows the real count of villages "
+           "sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+}

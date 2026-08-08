@@ -1,0 +1,772 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Sikkim",
+  "district": "Gyalshing",
+  "district_lgd": 228,
+  "observation_window": "2026-08-03T19:06Z to 2026-08-08T19:06Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-08",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3795,
+  "sm_surface_stddev": 0.0164,
+  "sm_rootzone_mean": 0.3791,
+  "sm_rootzone_stddev": 0.0371,
+  "n_cells": 10,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 27.2234,
+    "lon": 88.0933,
+    "sm_surface": 0.3858,
+    "sm_rootzone": 0.4037,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 1,
+    "lat": 27.2234,
+    "lon": 88.1921,
+    "sm_surface": 0.4165,
+    "sm_rootzone": 0.4346,
+    "n_villages_sharing_cell": 32
+   },
+   {
+    "cell_index": 2,
+    "lat": 27.2234,
+    "lon": 88.2909,
+    "sm_surface": 0.3857,
+    "sm_rootzone": 0.4037,
+    "n_villages_sharing_cell": 28
+   },
+   {
+    "cell_index": 3,
+    "lat": 27.3223,
+    "lon": 88.0933,
+    "sm_surface": 0.3828,
+    "sm_rootzone": 0.3999,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 4,
+    "lat": 27.3223,
+    "lon": 88.1921,
+    "sm_surface": 0.3843,
+    "sm_rootzone": 0.4016,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 5,
+    "lat": 27.3223,
+    "lon": 88.2909,
+    "sm_surface": 0.3851,
+    "sm_rootzone": 0.4027,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 6,
+    "lat": 27.4211,
+    "lon": 88.0933,
+    "sm_surface": 0.3649,
+    "sm_rootzone": 0.3362,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 7,
+    "lat": 27.4211,
+    "lon": 88.1921,
+    "sm_surface": 0.3731,
+    "sm_rootzone": 0.3567,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 8,
+    "lat": 27.5199,
+    "lon": 88.0933,
+    "sm_surface": 0.3556,
+    "sm_rootzone": 0.322,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 9,
+    "lat": 27.5199,
+    "lon": 88.1921,
+    "sm_surface": 0.3611,
+    "sm_rootzone": 0.33,
+    "n_villages_sharing_cell": 0
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3931,
+  "sm_surface_stddev": 0.006,
+  "n_blocks": 2
+ },
+ "blocks": [
+  {
+   "block_name": "Gyalshing",
+   "sdcode": 1549,
+   "n_villages": 75,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.3871,
+   "sm_surface_stddev": 0.0106
+  },
+  {
+   "block_name": "Soreng",
+   "sdcode": 1550,
+   "n_villages": 55,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3992,
+   "sm_surface_stddev": 0.0153
+  }
+ ],
+ "villages": {
+  "261002": [
+   "Unglok",
+   1549,
+   5
+  ],
+  "261086": [
+   "Siktam",
+   1550,
+   0
+  ],
+  "261085": [
+   "Tikpur",
+   1550,
+   0
+  ],
+  "261087": [
+   "Salyangdang",
+   1550,
+   1
+  ],
+  "261088": [
+   "Lungchok",
+   1550,
+   1
+  ],
+  "261089": [
+   "Lower Fambong",
+   1550,
+   1
+  ],
+  "261090": [
+   "Dhallam",
+   1550,
+   1
+  ],
+  "261083": [
+   "Ribdi",
+   1550,
+   0
+  ],
+  "261082": [
+   "Bhareng",
+   1550,
+   0
+  ],
+  "261024": [
+   "Srinagi",
+   1549,
+   4
+  ],
+  "261077": [
+   "Singling",
+   1550,
+   1
+  ],
+  "261084": [
+   "Okhery",
+   1550,
+   0
+  ],
+  "261091": [
+   "Upper Fambong",
+   1550,
+   1
+  ],
+  "261081": [
+   "Rumbuk",
+   1550,
+   1
+  ],
+  "261080": [
+   "Burikhop Rumbuk",
+   1550,
+   1
+  ],
+  "261078": [
+   "Karthok",
+   1550,
+   1
+  ],
+  "261092": [
+   "Timberbong",
+   1550,
+   1
+  ],
+  "261093": [
+   "Tharpu",
+   1550,
+   1
+  ],
+  "261094": [
+   "Soreng",
+   1550,
+   1
+  ],
+  "261079": [
+   "Burikhop",
+   1550,
+   1
+  ],
+  "261060": [
+   "Bara Samdong",
+   1550,
+   1
+  ],
+  "261061": [
+   "Sribadam",
+   1550,
+   1
+  ],
+  "261023": [
+   "Bongten",
+   1549,
+   4
+  ],
+  "261036": [
+   "Hee Patal",
+   1549,
+   1
+  ],
+  "261027": [
+   "Karmatar",
+   1549,
+   3
+  ],
+  "261022": [
+   "Sapong",
+   1549,
+   4
+  ],
+  "261028": [
+   "Sopakha",
+   1549,
+   3
+  ],
+  "261029": [
+   "Maneybung",
+   1549,
+   3
+  ],
+  "261026": [
+   "Gitang",
+   1549,
+   3
+  ],
+  "261025": [
+   "Liching",
+   1549,
+   3
+  ],
+  "261021": [
+   "Lungzik",
+   1549,
+   4
+  ],
+  "261020": [
+   "Sardong",
+   1549,
+   4
+  ],
+  "261019": [
+   "Lingchom",
+   1549,
+   4
+  ],
+  "261030": [
+   "Begha",
+   1549,
+   0
+  ],
+  "261035": [
+   "Hee",
+   1549,
+   1
+  ],
+  "261031": [
+   "Mangmo",
+   1549,
+   0
+  ],
+  "261037": [
+   "Pecherek",
+   1549,
+   1
+  ],
+  "261098": [
+   "Chumbung",
+   1550,
+   1
+  ],
+  "261032": [
+   "Dentam",
+   1549,
+   0
+  ],
+  "261033": [
+   "Sangkhu",
+   1549,
+   1
+  ],
+  "261034": [
+   "Radukhandu",
+   1549,
+   1
+  ],
+  "260993": [
+   "Sindrangbong",
+   1549,
+   3
+  ],
+  "260991": [
+   "Tingbrum",
+   1549,
+   4
+  ],
+  "260994": [
+   "Nambu",
+   1549,
+   4
+  ],
+  "260990": [
+   "Meli Singlitam",
+   1549,
+   4
+  ],
+  "260995": [
+   "Darap",
+   1549,
+   4
+  ],
+  "260996": [
+   "Sindrang",
+   1549,
+   4
+  ],
+  "260997": [
+   "Singyang",
+   1549,
+   4
+  ],
+  "260989": [
+   "Meliaching",
+   1549,
+   4
+  ],
+  "260988": [
+   "Meli",
+   1549,
+   4
+  ],
+  "260987": [
+   "Thingling Ii",
+   1549,
+   4
+  ],
+  "261073": [
+   "Suntaley",
+   1550,
+   2
+  ],
+  "261064": [
+   "Takothang",
+   1550,
+   2
+  ],
+  "261075": [
+   "Arubotey",
+   1550,
+   2
+  ],
+  "261074": [
+   "Khaniserbung",
+   1550,
+   2
+  ],
+  "261076": [
+   "Chota Samdong",
+   1550,
+   1
+  ],
+  "261059": [
+   "Reshi",
+   1550,
+   1
+  ],
+  "261063": [
+   "Parenggaon",
+   1550,
+   2
+  ],
+  "261062": [
+   "Deythang",
+   1550,
+   1
+  ],
+  "261057": [
+   "Hathidunga",
+   1550,
+   2
+  ],
+  "261055": [
+   "Sangadorji",
+   1550,
+   2
+  ],
+  "261056": [
+   "Jeel",
+   1550,
+   2
+  ],
+  "261058": [
+   "Boom",
+   1550,
+   2
+  ],
+  "261054": [
+   "Rinchenpong",
+   1550,
+   2
+  ],
+  "261065": [
+   "Chuchen",
+   1550,
+   2
+  ],
+  "261066": [
+   "Tinzerbong",
+   1550,
+   2
+  ],
+  "261067": [
+   "Suldung",
+   1550,
+   2
+  ],
+  "261068": [
+   "Kamling",
+   1550,
+   2
+  ],
+  "261070": [
+   "Segeng",
+   1550,
+   2
+  ],
+  "261069": [
+   "Mabong",
+   1550,
+   2
+  ],
+  "261071": [
+   "Samsing",
+   1550,
+   2
+  ],
+  "261072": [
+   "Gelling",
+   1550,
+   2
+  ],
+  "261099": [
+   "Zoom",
+   1550,
+   2
+  ],
+  "261095": [
+   "Malbasey",
+   1550,
+   1
+  ],
+  "261053": [
+   "Tadong",
+   1550,
+   2
+  ],
+  "261097": [
+   "Chakung",
+   1550,
+   2
+  ],
+  "261096": [
+   "Mendo Goan",
+   1550,
+   1
+  ],
+  "261044": [
+   "Meeyong",
+   1549,
+   2
+  ],
+  "261011": [
+   "Gangyep",
+   1549,
+   5
+  ],
+  "261018": [
+   "Tikjya",
+   1549,
+   4
+  ],
+  "261017": [
+   "Yangthang",
+   1549,
+   4
+  ],
+  "261043": [
+   "Mengyong",
+   1549,
+   2
+  ],
+  "261038": [
+   "Martam",
+   1549,
+   1
+  ],
+  "261039": [
+   "Bermiok",
+   1549,
+   1
+  ],
+  "261040": [
+   "Barthang",
+   1549,
+   2
+  ],
+  "261041": [
+   "Barphok",
+   1549,
+   2
+  ],
+  "261042": [
+   "Chingthang",
+   1549,
+   2
+  ],
+  "260982": [
+   "Gerethang",
+   1549,
+   4
+  ],
+  "261004": [
+   "Chongrong",
+   1549,
+   5
+  ],
+  "261012": [
+   "Lasso",
+   1549,
+   5
+  ],
+  "260999": [
+   "Chumbung",
+   1549,
+   4
+  ],
+  "261003": [
+   "Bhaluthang",
+   1549,
+   5
+  ],
+  "260998": [
+   "Naku",
+   1549,
+   4
+  ],
+  "261013": [
+   "Tashiding",
+   1549,
+   5
+  ],
+  "261001": [
+   "Yangten",
+   1549,
+   5
+  ],
+  "261016": [
+   "Kyongsa",
+   1549,
+   5
+  ],
+  "261015": [
+   "Gyalshing",
+   1549,
+   5
+  ],
+  "261000": [
+   "Pemayangtse Monastery",
+   1549,
+   5
+  ],
+  "261014": [
+   "Omchung",
+   1549,
+   5
+  ],
+  "261103": [
+   "Sribadam Forest Block",
+   1550,
+   1
+  ],
+  "999999": [
+   "R F",
+   1549,
+   7
+  ],
+  "801418": [
+   "Nayabazar Notified Bazar Area",
+   1550,
+   2
+  ],
+  "801417": [
+   "Gyalshing Np",
+   1549,
+   5
+  ],
+  "261048": [
+   "Gyalshing Forest Block",
+   1549,
+   4
+  ],
+  "261049": [
+   "Pelling Forest Blocks",
+   1549,
+   4
+  ],
+  "261051": [
+   "Dentam Forest Block",
+   1549,
+   0
+  ],
+  "260980": [
+   "Dubdi",
+   1549,
+   7
+  ],
+  "260992": [
+   "Topung",
+   1549,
+   4
+  ],
+  "260985": [
+   "Khacheoperi",
+   1549,
+   4
+  ],
+  "260984": [
+   "Tsozo",
+   1549,
+   7
+  ],
+  "260986": [
+   "Thingling I",
+   1549,
+   4
+  ],
+  "260983": [
+   "Labing",
+   1549,
+   4
+  ],
+  "260981": [
+   "Yuksom",
+   1549,
+   7
+  ],
+  "261005": [
+   "Arithang",
+   1549,
+   5
+  ],
+  "261008": [
+   "Dhupidara",
+   1549,
+   5
+  ],
+  "261007": [
+   "Labdang",
+   1549,
+   5
+  ],
+  "261006": [
+   "Kongri",
+   1549,
+   5
+  ],
+  "261010": [
+   "Mangnam",
+   1549,
+   5
+  ],
+  "261009": [
+   "Narkhola",
+   1549,
+   5
+  ],
+  "261101": [
+   "Sombaria Forest Block",
+   1550,
+   0
+  ],
+  "261102": [
+   "Soreng Forest Block",
+   1550,
+   1
+  ],
+  "261100": [
+   "Hilley Forest Block",
+   1550,
+   0
+  ],
+  "261104": [
+   "Nayabazar Forest Block",
+   1550,
+   2
+  ],
+  "261052": [
+   "Bernyak Forest Block",
+   1549,
+   1
+  ],
+  "261047": [
+   "Tashiding Forest Block",
+   1549,
+   5
+  ],
+  "261050": [
+   "Legship Forest Block",
+   1549,
+   5
+  ],
+  "261046": [
+   "Khachodpalri Forest Block",
+   1549,
+   7
+  ],
+  "261045": [
+   "Yuksam Forest Block",
+   1549,
+   7
+  ]
+ },
+ "village_count_total": 130,
+ "village_count_assigned": 130
+}

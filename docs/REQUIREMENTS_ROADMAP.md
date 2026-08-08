@@ -41,7 +41,7 @@ and state Revenue Department cadastral vectors.
 | 3 | IMD, NASA POWER, Copernicus ERA5 | Partial | IMD gridded implemented. NASA POWER live daily weather is Done (verified live 2026-08-01: real Tmax/Tmin/rain/RH for Jabalpur with correct 2-3 day publication lag). ERA5 still needs a CDS API key |
 | 17 | 30-year baseline, downscaling, SSP scenarios | Partial | Currently 25 years (2000–2024) and SSP2-4.5 only. Extending IMD to 1995 gives the 30-year normal; adding SSP1-2.6 / 3-7.0 / 5-8.5 is a parameter change in `05_gee_cmip6_2040.js` |
 | 35 | 5/10/20/30-year projections across four SSPs | Planned | Same GEE script, four scenario loops, four horizons |
-| 9 | Sentinel-2, Landsat, MODIS, SMAP indicators | Partial | MODIS NDVI via DiCRA present; Sentinel-2 NDVI/EVI, LST, and SMAP soil moisture require a GEE service account |
+| 9 | Sentinel-2, Landsat, MODIS, SMAP indicators | Partial | MODIS NDVI via DiCRA present; SMAP soil moisture now real for 22 of 733 districts (`scripts/13_gee_national_soil_moisture.py`, see section H below) — not blocked on a GEE service account any more, blocked on national scale-out; Sentinel-2 NDVI/EVI and LST still not integrated |
 | 18 | Separate hazard maps (drought, flood, heat, groundwater, crop) | Planned | Indices already computed; needs choropleth layers |
 | 22 | Scientific spatial downscaling for village indices | Partial | Nearest-pixel today; `VILLAGE_SAMPLE_METHOD = "polygon"` scaffolded in `config.py` for area-weighted zonal means |
 | 39 | 30-year historical vs future comparison | Partial | 25-year history and trend forecast available |
@@ -139,6 +139,24 @@ Removed from: sidebar nav items, the bottom-panel tab strip, the three
 `pane-ecology` no longer exists). The Forest panel's own text, which
 cross-referenced "the Biodiversity Risk panel," was updated rather than
 left pointing at a panel that no longer exists.
+
+## H. Soil Moisture built (MERA_KHET_PROMPT.md B1, 2026-08-09)
+
+The sidebar's "Soil Moisture" nav item (previously "Not available — Source:
+SMAP not yet integrated" everywhere) now shows real NASA SMAP L4 data
+(`NASA/SMAP/SPL4SMGP/008`, ~9 km) at all four tiers (village/block/
+district/state), with the real N (villages sharing a cell, cells per
+district, districts computed per state) and standard deviation shown on
+every aggregate, per this repo's honesty convention. Built:
+`scripts/13_gee_national_soil_moisture.py` (pipeline),
+`dashboard/soil_moisture_loader.js` (dashboard pane + main metric card),
+`docs/DATA_SOURCES.md` (provenance row), `docs/METHODOLOGY.md` §7
+(limitations #6). Benchmarked on Goa, then extended to Delhi, Chandigarh,
+Puducherry and Sikkim — 22 of 733 districts as of 2026-08-09, a deliberate
+partial-coverage stop per the "naapo" instruction, not a rushed national
+pass. Remaining: scale to more states (state-by-state, `--resume`,
+`logs/gee_soil_moisture_heartbeat.json` tracks progress the same way
+`08_gee_national_climate.py`'s does).
 
 ## Recommended sequence
 

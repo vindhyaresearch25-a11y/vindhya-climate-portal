@@ -1,0 +1,202 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Delhi",
+  "district": "West",
+  "district_lgd": 85,
+  "observation_window": "2026-08-03T19:06Z to 2026-08-08T19:06Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-08",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2178,
+  "sm_surface_stddev": 0.0071,
+  "sm_rootzone_mean": 0.2222,
+  "sm_rootzone_stddev": 0.0118,
+  "n_cells": 9,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 28.508,
+    "lon": 77.026,
+    "sm_surface": 0.2319,
+    "sm_rootzone": 0.2044,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 1,
+    "lat": 28.6069,
+    "lon": 76.9272,
+    "sm_surface": 0.2137,
+    "sm_rootzone": 0.221,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 2,
+    "lat": 28.6069,
+    "lon": 77.026,
+    "sm_surface": 0.2157,
+    "sm_rootzone": 0.2249,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 3,
+    "lat": 28.6069,
+    "lon": 77.1249,
+    "sm_surface": 0.2218,
+    "sm_rootzone": 0.2307,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 4,
+    "lat": 28.6069,
+    "lon": 77.2237,
+    "sm_surface": 0.2245,
+    "sm_rootzone": 0.2336,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 5,
+    "lat": 28.7057,
+    "lon": 76.9272,
+    "sm_surface": 0.2098,
+    "sm_rootzone": 0.1989,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 6,
+    "lat": 28.7057,
+    "lon": 77.026,
+    "sm_surface": 0.2085,
+    "sm_rootzone": 0.2234,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 7,
+    "lat": 28.7057,
+    "lon": 77.1249,
+    "sm_surface": 0.2142,
+    "sm_rootzone": 0.2291,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 8,
+    "lat": 28.7057,
+    "lon": 77.2237,
+    "sm_surface": 0.2202,
+    "sm_rootzone": 0.2339,
+    "n_villages_sharing_cell": 0
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2168,
+  "sm_surface_stddev": 0.0045,
+  "n_blocks": 3
+ },
+ "blocks": [
+  {
+   "block_name": "Patel Nagar",
+   "sdcode": 448,
+   "n_villages": 3,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.2177,
+   "sm_surface_stddev": 0.0029
+  },
+  {
+   "block_name": "Punjabi Bagh",
+   "sdcode": 450,
+   "n_villages": 12,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.2109,
+   "sm_surface_stddev": 0.0032
+  },
+  {
+   "block_name": "Rajouri Garden",
+   "sdcode": 449,
+   "n_villages": 1,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.2218,
+   "sm_surface_stddev": 0.0
+  }
+ ],
+ "villages": {
+  "276402": [
+   "South Delhi Municipal Corporation",
+   450,
+   7
+  ],
+  "63993": [
+   "Neel Wal",
+   450,
+   6
+  ],
+  "63994": [
+   "Jaffar Pur Alias Hiran Kudna",
+   450,
+   6
+  ],
+  "63996": [
+   "Tilang Pur Kotla CT",
+   450,
+   2
+  ],
+  "64002": [
+   "Bakkar Wala CT",
+   450,
+   6
+  ],
+  "63998": [
+   "Nilothi CT",
+   450,
+   2
+  ],
+  "63997": [
+   "Shafi Pur Ranhola CT",
+   450,
+   6
+  ],
+  "63995": [
+   "Bapraula CT",
+   450,
+   2
+  ],
+  "63991": [
+   "Hastsal CT",
+   448,
+   2
+  ],
+  "63992": [
+   "Raja Pur Khurd CT",
+   448,
+   2
+  ],
+  "64003": [
+   "Tikri Kalan CT",
+   450,
+   5
+  ],
+  "64001": [
+   "Mundka CT",
+   450,
+   6
+  ],
+  "63999": [
+   "Nangloi Jat CT",
+   450,
+   6
+  ],
+  "64000": [
+   "Quammruddin Nagar CT",
+   450,
+   6
+  ]
+ },
+ "village_count_total": 16,
+ "village_count_assigned": 16
+}

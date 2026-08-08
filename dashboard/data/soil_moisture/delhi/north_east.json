@@ -1,0 +1,234 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Delhi",
+  "district": "North East",
+  "district_lgd": 81,
+  "observation_window": "2026-08-03T19:06Z to 2026-08-08T19:06Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-08",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2305,
+  "sm_surface_stddev": 0.0162,
+  "sm_rootzone_mean": 0.2367,
+  "sm_rootzone_stddev": 0.0202,
+  "n_cells": 8,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 28.6069,
+    "lon": 77.2237,
+    "sm_surface": 0.2245,
+    "sm_rootzone": 0.2336,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 1,
+    "lat": 28.6069,
+    "lon": 77.3225,
+    "sm_surface": 0.2525,
+    "sm_rootzone": 0.2655,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 2,
+    "lat": 28.7057,
+    "lon": 77.1249,
+    "sm_surface": 0.2142,
+    "sm_rootzone": 0.2291,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 3,
+    "lat": 28.7057,
+    "lon": 77.2237,
+    "sm_surface": 0.2202,
+    "sm_rootzone": 0.2339,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 4,
+    "lat": 28.7057,
+    "lon": 77.3225,
+    "sm_surface": 0.248,
+    "sm_rootzone": 0.2653,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 5,
+    "lat": 28.8045,
+    "lon": 77.1249,
+    "sm_surface": 0.2037,
+    "sm_rootzone": 0.198,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 6,
+    "lat": 28.8045,
+    "lon": 77.2237,
+    "sm_surface": 0.2401,
+    "sm_rootzone": 0.2314,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 7,
+    "lat": 28.8045,
+    "lon": 77.3225,
+    "sm_surface": 0.2406,
+    "sm_rootzone": 0.2371,
+    "n_villages_sharing_cell": 0
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2294,
+  "sm_surface_stddev": 0.0087,
+  "n_blocks": 3
+ },
+ "blocks": [
+  {
+   "block_name": "Karawal Nagar",
+   "sdcode": 6083,
+   "n_villages": 13,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.2269,
+   "sm_surface_stddev": 0.0103
+  },
+  {
+   "block_name": "Seelam Pur",
+   "sdcode": 436,
+   "n_villages": 5,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.2202,
+   "sm_surface_stddev": 0.0
+  },
+  {
+   "block_name": "Yamuna Vihar",
+   "sdcode": 6082,
+   "n_villages": 4,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.241,
+   "sm_surface_stddev": 0.012
+  }
+ ],
+ "villages": {
+  "63966": [
+   "Sher Pur",
+   436,
+   3
+  ],
+  "63959": [
+   "Badar Pur Khadar",
+   6083,
+   6
+  ],
+  "63974": [
+   "Khan Pur Dhani CT",
+   6082,
+   4
+  ],
+  "63979": [
+   "Gokal Pur CT",
+   6082,
+   4
+  ],
+  "276401": [
+   "North Delhi Municipal Corporation",
+   436,
+   3
+  ],
+  "63968": [
+   "Sadat Pur Gujran CT",
+   6083,
+   3
+  ],
+  "63970": [
+   "Karawal Nagar CT",
+   6083,
+   3
+  ],
+  "63963": [
+   "Saba Pur Shahdara",
+   6083,
+   3
+  ],
+  "63962": [
+   "Saba Pur Delhi",
+   6083,
+   3
+  ],
+  "63960": [
+   "Pur Delhi",
+   6083,
+   6
+  ],
+  "63976": [
+   "Khajoori Khas CT",
+   436,
+   3
+  ],
+  "63965": [
+   "Bihari Pur",
+   6083,
+   3
+  ],
+  "63973": [
+   "Mustafabad CT",
+   6082,
+   3
+  ],
+  "63977": [
+   "Mir Pur Turk CT",
+   436,
+   3
+  ],
+  "63971": [
+   "Dayal Pur CT",
+   6083,
+   3
+  ],
+  "63975": [
+   "Tukhmir Pur CT",
+   6083,
+   3
+  ],
+  "63972": [
+   "Jiwan Pur Alias Johri Pur CT",
+   6083,
+   4
+  ],
+  "63964": [
+   "Sadat Pur Musalmanan Un Inhabited",
+   6083,
+   3
+  ],
+  "63969": [
+   "Baqiabad CT",
+   6083,
+   3
+  ],
+  "63961": [
+   "Pur Shahdara",
+   6083,
+   6
+  ],
+  "63978": [
+   "Ziauddin Pur CT",
+   6082,
+   4
+  ],
+  "63967": [
+   "Garhi Mendu",
+   436,
+   3
+  ]
+ },
+ "village_count_total": 22,
+ "village_count_assigned": 22
+}

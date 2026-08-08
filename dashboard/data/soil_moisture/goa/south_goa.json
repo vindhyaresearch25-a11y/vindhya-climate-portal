@@ -1,0 +1,1035 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Goa",
+  "district": "South Goa",
+  "district_lgd": 552,
+  "observation_window": "2026-08-03T19:03Z to 2026-08-08T19:03Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-08",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.4117,
+  "sm_surface_stddev": 0.055,
+  "sm_rootzone_mean": 0.4151,
+  "sm_rootzone_stddev": 0.0788,
+  "n_cells": 17,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 14.9704,
+    "lon": 74.0616,
+    "sm_surface": 0.4135,
+    "sm_rootzone": 0.4274,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 1,
+    "lat": 14.9704,
+    "lon": 74.1604,
+    "sm_surface": 0.4225,
+    "sm_rootzone": 0.4376,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 2,
+    "lat": 15.0692,
+    "lon": 74.0616,
+    "sm_surface": 0.4061,
+    "sm_rootzone": 0.415,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 3,
+    "lat": 15.0692,
+    "lon": 74.1604,
+    "sm_surface": 0.4247,
+    "sm_rootzone": 0.4399,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 4,
+    "lat": 15.0692,
+    "lon": 74.2592,
+    "sm_surface": 0.4312,
+    "sm_rootzone": 0.4474,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 5,
+    "lat": 15.1681,
+    "lon": 73.9628,
+    "sm_surface": 0.2948,
+    "sm_rootzone": 0.2454,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 6,
+    "lat": 15.1681,
+    "lon": 74.0616,
+    "sm_surface": 0.4272,
+    "sm_rootzone": 0.4448,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 7,
+    "lat": 15.1681,
+    "lon": 74.1604,
+    "sm_surface": 0.4341,
+    "sm_rootzone": 0.4507,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 8,
+    "lat": 15.1681,
+    "lon": 74.2592,
+    "sm_surface": 0.4371,
+    "sm_rootzone": 0.446,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 9,
+    "lat": 15.2669,
+    "lon": 73.9628,
+    "sm_surface": 0.2955,
+    "sm_rootzone": 0.246,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 10,
+    "lat": 15.2669,
+    "lon": 74.0616,
+    "sm_surface": 0.4462,
+    "sm_rootzone": 0.4653,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 11,
+    "lat": 15.2669,
+    "lon": 74.1604,
+    "sm_surface": 0.4542,
+    "sm_rootzone": 0.4705,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 12,
+    "lat": 15.2669,
+    "lon": 74.2592,
+    "sm_surface": 0.456,
+    "sm_rootzone": 0.4713,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 13,
+    "lat": 15.3657,
+    "lon": 73.9628,
+    "sm_surface": 0.3011,
+    "sm_rootzone": 0.2531,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 14,
+    "lat": 15.3657,
+    "lon": 74.1604,
+    "sm_surface": 0.4556,
+    "sm_rootzone": 0.4703,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 15,
+    "lat": 15.3657,
+    "lon": 74.2592,
+    "sm_surface": 0.4578,
+    "sm_rootzone": 0.471,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 16,
+    "lat": 15.4645,
+    "lon": 74.2592,
+    "sm_surface": 0.442,
+    "sm_rootzone": 0.4542,
+    "n_villages_sharing_cell": 1
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3895,
+  "sm_surface_stddev": 0.0584,
+  "n_blocks": 6
+ },
+ "blocks": [
+  {
+   "block_name": "Canacona",
+   "sdcode": 5619,
+   "n_villages": 9,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.4019,
+   "sm_surface_stddev": 0.0384
+  },
+  {
+   "block_name": "Dharbandora",
+   "sdcode": 5931,
+   "n_villages": 16,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.4539,
+   "sm_surface_stddev": 0.0046
+  },
+  {
+   "block_name": "Mormugao",
+   "sdcode": 5615,
+   "n_villages": 15,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.3011,
+   "sm_surface_stddev": 0.0
+  },
+  {
+   "block_name": "Quepem",
+   "sdcode": 5617,
+   "n_villages": 38,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.4147,
+   "sm_surface_stddev": 0.0433
+  },
+  {
+   "block_name": "Salcete",
+   "sdcode": 5616,
+   "n_villages": 48,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.3209,
+   "sm_surface_stddev": 0.0551
+  },
+  {
+   "block_name": "Sanguem",
+   "sdcode": 5618,
+   "n_villages": 37,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.4443,
+   "sm_surface_stddev": 0.0111
+  }
+ ],
+ "villages": {
+  "626880": [
+   "Chicolna",
+   5615,
+   13
+  ],
+  "627026": [
+   "Poinguinim",
+   5619,
+   0
+  ],
+  "626896": [
+   "Gandaulim",
+   5616,
+   9
+  ],
+  "626977": [
+   "Colem",
+   5931,
+   15
+  ],
+  "626988": [
+   "Calem",
+   5618,
+   11
+  ],
+  "252084": [
+   "Mormugao M Cl",
+   5615,
+   13
+  ],
+  "627027": [
+   "Loliem",
+   5619,
+   0
+  ],
+  "627028": [
+   "Cotigao",
+   5619,
+   1
+  ],
+  "626922": [
+   "Ambelim",
+   5616,
+   5
+  ],
+  "626920": [
+   "Cavelossim",
+   5616,
+   5
+  ],
+  "252097": [
+   "Quepem M Cl",
+   5617,
+   6
+  ],
+  "626953": [
+   "Morpila",
+   5617,
+   5
+  ],
+  "626961": [
+   "Barcem",
+   5617,
+   2
+  ],
+  "626962": [
+   "Gocoldem",
+   5617,
+   2
+  ],
+  "626959": [
+   "Padi",
+   5617,
+   2
+  ],
+  "626952": [
+   "Naquerim",
+   5617,
+   5
+  ],
+  "626955": [
+   "Bendordem",
+   5617,
+   6
+  ],
+  "626950": [
+   "Fatorpa",
+   5617,
+   5
+  ],
+  "626958": [
+   "Cordem",
+   5617,
+   2
+  ],
+  "626948": [
+   "Adnem",
+   5617,
+   6
+  ],
+  "626917": [
+   "Carmona",
+   5616,
+   5
+  ],
+  "626947": [
+   "Ambaulim",
+   5617,
+   6
+  ],
+  "627022": [
+   "Cola",
+   5619,
+   5
+  ],
+  "626960": [
+   "Quedem",
+   5617,
+   2
+  ],
+  "626918": [
+   "Deussua",
+   5616,
+   5
+  ],
+  "626914": [
+   "Sarzora",
+   5616,
+   9
+  ],
+  "626921": [
+   "Velim",
+   5616,
+   5
+  ],
+  "252095": [
+   "Cuncolim M Cl",
+   5616,
+   6
+  ],
+  "626916": [
+   "Orlim",
+   5616,
+   9
+  ],
+  "627024": [
+   "Canacona",
+   5619,
+   2
+  ],
+  "627023": [
+   "Agonda",
+   5619,
+   2
+  ],
+  "626919": [
+   "Assolna",
+   5616,
+   5
+  ],
+  "626956": [
+   "Cavorem",
+   5617,
+   6
+  ],
+  "626949": [
+   "Bali",
+   5617,
+   6
+  ],
+  "626954": [
+   "Tiloi",
+   5617,
+   6
+  ],
+  "626951": [
+   "Quitol",
+   5617,
+   5
+  ],
+  "252100": [
+   "Canacona",
+   5619,
+   0
+  ],
+  "627014": [
+   "Rivona",
+   5618,
+   6
+  ],
+  "626944": [
+   "Undorna",
+   5617,
+   7
+  ],
+  "626946": [
+   "Molcarnem",
+   5617,
+   7
+  ],
+  "626943": [
+   "Zanodem",
+   5617,
+   7
+  ],
+  "626941": [
+   "Sirvoi",
+   5617,
+   6
+  ],
+  "627000": [
+   "Cotarli",
+   5618,
+   7
+  ],
+  "627010": [
+   "Naiquinim",
+   5618,
+   8
+  ],
+  "627025": [
+   "Gaodongrem",
+   5619,
+   3
+  ],
+  "627019": [
+   "Nundem",
+   5618,
+   3
+  ],
+  "626968": [
+   "Mangal",
+   5617,
+   3
+  ],
+  "626966": [
+   "Corla",
+   5617,
+   3
+  ],
+  "627020": [
+   "Verlem",
+   5618,
+   4
+  ],
+  "626963": [
+   "Quisconda",
+   5617,
+   2
+  ],
+  "627018": [
+   "Netorli",
+   5618,
+   4
+  ],
+  "626965": [
+   "Sulcorna",
+   5617,
+   3
+  ],
+  "626964": [
+   "Pirla",
+   5617,
+   3
+  ],
+  "626957": [
+   "Maina",
+   5617,
+   2
+  ],
+  "627015": [
+   "Curpem",
+   5618,
+   7
+  ],
+  "627009": [
+   "Dongor",
+   5618,
+   8
+  ],
+  "627013": [
+   "Colomba",
+   5618,
+   7
+  ],
+  "627008": [
+   "Viliena",
+   5618,
+   8
+  ],
+  "626945": [
+   "Molcopona",
+   5617,
+   7
+  ],
+  "627007": [
+   "Cumbari",
+   5618,
+   8
+  ],
+  "627006": [
+   "Bati",
+   5618,
+   8
+  ],
+  "627001": [
+   "Xelpem",
+   5618,
+   7
+  ],
+  "626942": [
+   "Nagvem",
+   5617,
+   7
+  ],
+  "627005": [
+   "Potrem",
+   5618,
+   12
+  ],
+  "627012": [
+   "Curdi",
+   5618,
+   7
+  ],
+  "626967": [
+   "Cazur",
+   5617,
+   3
+  ],
+  "627016": [
+   "Vichundrem",
+   5618,
+   3
+  ],
+  "627017": [
+   "Sigonem",
+   5618,
+   8
+  ],
+  "627002": [
+   "Salauli",
+   5618,
+   7
+  ],
+  "627011": [
+   "Porteem",
+   5618,
+   7
+  ],
+  "626900": [
+   "Duncolim",
+   5616,
+   9
+  ],
+  "626892": [
+   "Majorda",
+   5616,
+   13
+  ],
+  "626890": [
+   "Camurlim",
+   5616,
+   13
+  ],
+  "626893": [
+   "Utorda",
+   5616,
+   13
+  ],
+  "626884": [
+   "Arossim",
+   5615,
+   13
+  ],
+  "252087": [
+   "Margao M Cl",
+   5616,
+   9
+  ],
+  "626912": [
+   "Paroda",
+   5616,
+   10
+  ],
+  "626909": [
+   "Dicarpale",
+   5616,
+   9
+  ],
+  "626895": [
+   "Betalbatim",
+   5616,
+   9
+  ],
+  "626894": [
+   "Gonsua",
+   5616,
+   9
+  ],
+  "626903": [
+   "Guirdolim",
+   5616,
+   10
+  ],
+  "626897": [
+   "Colva",
+   5616,
+   9
+  ],
+  "626940": [
+   "Chaifi",
+   5617,
+   10
+  ],
+  "626939": [
+   "Avedem",
+   5617,
+   10
+  ],
+  "626913": [
+   "Mulem",
+   5616,
+   10
+  ],
+  "626908": [
+   "Dramapur",
+   5616,
+   9
+  ],
+  "626906": [
+   "Adsulim",
+   5616,
+   9
+  ],
+  "626934": [
+   "Assolda",
+   5617,
+   10
+  ],
+  "626904": [
+   "Cana",
+   5616,
+   9
+  ],
+  "626907": [
+   "Talaulim",
+   5616,
+   9
+  ],
+  "626910": [
+   "Cavorim",
+   5616,
+   10
+  ],
+  "626905": [
+   "Sernabatim",
+   5616,
+   9
+  ],
+  "626898": [
+   "Vanelim",
+   5616,
+   9
+  ],
+  "626891": [
+   "Calata",
+   5616,
+   9
+  ],
+  "626938": [
+   "Cotombi",
+   5617,
+   10
+  ],
+  "626899": [
+   "Seraulim",
+   5616,
+   9
+  ],
+  "626911": [
+   "Chandor",
+   5616,
+   10
+  ],
+  "626915": [
+   "Sirlim",
+   5616,
+   9
+  ],
+  "626902": [
+   "Macasana",
+   5616,
+   10
+  ],
+  "626901": [
+   "Rachol",
+   5616,
+   13
+  ],
+  "626883": [
+   "Cansaulim",
+   5615,
+   13
+  ],
+  "626877": [
+   "Cuelim",
+   5615,
+   13
+  ],
+  "626888": [
+   "Nagoa",
+   5616,
+   13
+  ],
+  "626878": [
+   "Pale",
+   5615,
+   13
+  ],
+  "626889": [
+   "Loutulim",
+   5616,
+   13
+  ],
+  "626879": [
+   "Issorcim",
+   5615,
+   13
+  ],
+  "626874": [
+   "Dabolim",
+   5615,
+   13
+  ],
+  "626876": [
+   "Quelossim",
+   5615,
+   13
+  ],
+  "626882": [
+   "Velsao",
+   5615,
+   13
+  ],
+  "626875": [
+   "Sao Jacinto Island",
+   5615,
+   13
+  ],
+  "626987": [
+   "Santona",
+   5618,
+   11
+  ],
+  "626981": [
+   "Codli",
+   5931,
+   14
+  ],
+  "626983": [
+   "Moissal",
+   5931,
+   10
+  ],
+  "626984": [
+   "Bandoli",
+   5931,
+   11
+  ],
+  "626982": [
+   "Camarconda",
+   5931,
+   10
+  ],
+  "626996": [
+   "Costi",
+   5618,
+   11
+  ],
+  "626997": [
+   "Coranginim",
+   5618,
+   11
+  ],
+  "626936": [
+   "Xelvona",
+   5617,
+   10
+  ],
+  "626995": [
+   "Dudal",
+   5618,
+   11
+  ],
+  "626999": [
+   "Muguli",
+   5618,
+   11
+  ],
+  "626998": [
+   "Comproi",
+   5618,
+   11
+  ],
+  "626985": [
+   "Rumbrem",
+   5618,
+   11
+  ],
+  "252099": [
+   "Cotarli",
+   5618,
+   11
+  ],
+  "252096": [
+   "Curchorem Cacora M Cl",
+   5617,
+   11
+  ],
+  "626986": [
+   "Antoriem",
+   5618,
+   11
+  ],
+  "626935": [
+   "Xic Xelvona",
+   5617,
+   10
+  ],
+  "626937": [
+   "Odar",
+   5617,
+   10
+  ],
+  "626980": [
+   "Cormonem",
+   5931,
+   14
+  ],
+  "626978": [
+   "Sigao",
+   5931,
+   14
+  ],
+  "626994": [
+   "Maulinguem",
+   5618,
+   11
+  ],
+  "627004": [
+   "Tudou",
+   5618,
+   12
+  ],
+  "627003": [
+   "Uguem",
+   5618,
+   11
+  ],
+  "626993": [
+   "Patiem",
+   5618,
+   12
+  ],
+  "626992": [
+   "Dongurli",
+   5618,
+   12
+  ],
+  "626991": [
+   "Oxel",
+   5618,
+   12
+  ],
+  "626990": [
+   "Boma",
+   5618,
+   12
+  ],
+  "626973": [
+   "Aglote",
+   5931,
+   14
+  ],
+  "626974": [
+   "Surla",
+   5931,
+   16
+  ],
+  "626972": [
+   "Sancordem",
+   5931,
+   14
+  ],
+  "626975": [
+   "Molem",
+   5931,
+   15
+  ],
+  "626976": [
+   "Caranzol",
+   5931,
+   15
+  ],
+  "626979": [
+   "Sangod",
+   5931,
+   14
+  ],
+  "626971": [
+   "Darbandora",
+   5931,
+   14
+  ],
+  "626989": [
+   "Sonauli",
+   5931,
+   12
+  ],
+  "626885": [
+   "Chicalim CT",
+   5615,
+   13
+  ],
+  "999999": [
+   "Not Available",
+   5615,
+   13
+  ],
+  "626933": [
+   "Chinchinim CT",
+   5616,
+   5
+  ],
+  "626932": [
+   "Varca CT",
+   5616,
+   9
+  ],
+  "626924": [
+   "Nuvem CT",
+   5616,
+   9
+  ],
+  "626929": [
+   "Aquem CT",
+   5616,
+   9
+  ],
+  "626927": [
+   "Sao Jose De Areal CT",
+   5616,
+   9
+  ],
+  "626930": [
+   "Navelim CT",
+   5616,
+   9
+  ],
+  "626928": [
+   "Davorlim CT",
+   5616,
+   9
+  ],
+  "626931": [
+   "Benaulim CT",
+   5616,
+   9
+  ],
+  "626925": [
+   "Raia CT",
+   5616,
+   9
+  ],
+  "626926": [
+   "Curtorim CT",
+   5616,
+   10
+  ],
+  "626887": [
+   "Cortalim CT",
+   5615,
+   13
+  ],
+  "626923": [
+   "Verna CT",
+   5616,
+   13
+  ],
+  "626886": [
+   "Sancoale CT",
+   5615,
+   13
+  ],
+  "626969": [
+   "Xeldem CT",
+   5617,
+   10
+  ],
+  "627021": [
+   "Sanvordem CT",
+   5618,
+   11
+  ],
+  "627029": [
+   "Anjadip",
+   5619,
+   1
+  ],
+  "626970": [
+   "Piliem",
+   5931,
+   14
+  ]
+ },
+ "village_count_total": 163,
+ "village_count_assigned": 163
+}

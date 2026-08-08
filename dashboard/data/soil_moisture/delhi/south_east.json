@@ -1,0 +1,118 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Delhi",
+  "district": "South East",
+  "district_lgd": 670,
+  "observation_window": "2026-08-03T19:06Z to 2026-08-08T19:06Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-08",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2547,
+  "sm_surface_stddev": 0.0,
+  "sm_rootzone_mean": 0.2649,
+  "sm_rootzone_stddev": 0.0,
+  "n_cells": 1,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 28.508,
+    "lon": 77.3225,
+    "sm_surface": 0.2547,
+    "sm_rootzone": 0.2649,
+    "n_villages_sharing_cell": 11
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2547,
+  "sm_surface_stddev": 0.0,
+  "n_blocks": 3
+ },
+ "blocks": [
+  {
+   "block_name": "Defence Colony",
+   "sdcode": 455,
+   "n_villages": 3,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.2547,
+   "sm_surface_stddev": 0.0
+  },
+  {
+   "block_name": "Kalkaji",
+   "sdcode": 456,
+   "n_villages": 2,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.2547,
+   "sm_surface_stddev": 0.0
+  },
+  {
+   "block_name": "Sarita Vihar",
+   "sdcode": 6081,
+   "n_villages": 6,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.2547,
+   "sm_surface_stddev": 0.0
+  }
+ ],
+ "villages": {
+  "276402": [
+   "South Delhi Municipal Corporation",
+   455,
+   0
+  ],
+  "276447": [
+   "New Delhi Municipal Council",
+   455,
+   0
+  ],
+  "64082": [
+   "Pul Pehlad CT",
+   456,
+   0
+  ],
+  "64084": [
+   "Mithe Pur CT",
+   6081,
+   0
+  ],
+  "64085": [
+   "Molar Band CT",
+   6081,
+   0
+  ],
+  "64083": [
+   "Taj Pul CT",
+   6081,
+   0
+  ],
+  "64080": [
+   "Saidabad CT",
+   455,
+   0
+  ],
+  "64081": [
+   "Kotla Mahigiran CT",
+   6081,
+   0
+  ],
+  "64086": [
+   "Aali CT",
+   6081,
+   0
+  ],
+  "64087": [
+   "Jait Pur CT",
+   6081,
+   0
+  ]
+ },
+ "village_count_total": 11,
+ "village_count_assigned": 11
+}

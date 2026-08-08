@@ -1,0 +1,134 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Delhi",
+  "district": "New Delhi",
+  "district_lgd": 79,
+  "observation_window": "2026-08-03T19:04Z to 2026-08-08T19:04Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-08",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2361,
+  "sm_surface_stddev": 0.0183,
+  "sm_rootzone_mean": 0.2334,
+  "sm_rootzone_stddev": 0.0022,
+  "n_cells": 3,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 28.508,
+    "lon": 77.1249,
+    "sm_surface": 0.262,
+    "sm_rootzone": 0.236,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 1,
+    "lat": 28.6069,
+    "lon": 77.1249,
+    "sm_surface": 0.2218,
+    "sm_rootzone": 0.2307,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 2,
+    "lat": 28.6069,
+    "lon": 77.2237,
+    "sm_surface": 0.2245,
+    "sm_rootzone": 0.2336,
+    "n_villages_sharing_cell": 2
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2387,
+  "sm_surface_stddev": 0.0132,
+  "n_blocks": 3
+ },
+ "blocks": [
+  {
+   "block_name": "Chanakya Puri",
+   "sdcode": 443,
+   "n_villages": 2,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.2245,
+   "sm_surface_stddev": 0.0
+  },
+  {
+   "block_name": "Delhi Cantonment",
+   "sdcode": 452,
+   "n_villages": 3,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.2352,
+   "sm_surface_stddev": 0.019
+  },
+  {
+   "block_name": "Vasant Vihar",
+   "sdcode": 453,
+   "n_villages": 7,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.2563,
+   "sm_surface_stddev": 0.0141
+  }
+ ],
+ "villages": {
+  "276403": [
+   "Delhi Cantonment Board",
+   453,
+   0
+  ],
+  "276447": [
+   "New Delhi Municipal Council",
+   443,
+   2
+  ],
+  "276402": [
+   "South Delhi Municipal Corporation",
+   452,
+   0
+  ],
+  "276400": [
+   "East Delhi Municipal Corporation",
+   443,
+   2
+  ],
+  "64060": [
+   "Rajokri CT",
+   453,
+   0
+  ],
+  "64056": [
+   "Kusum Pur CT",
+   453,
+   0
+  ],
+  "64057": [
+   "Malik Pur Kohi Alias Rang Puri CT",
+   453,
+   0
+  ],
+  "64058": [
+   "Sambhalka CT",
+   453,
+   0
+  ],
+  "64061": [
+   "Ghitorni CT",
+   453,
+   0
+  ],
+  "64055": [
+   "Moradabad Pahari CT",
+   452,
+   1
+  ]
+ },
+ "village_count_total": 12,
+ "village_count_assigned": 12
+}

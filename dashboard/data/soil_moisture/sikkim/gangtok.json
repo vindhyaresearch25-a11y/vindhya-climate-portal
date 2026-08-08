@@ -1,0 +1,772 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Sikkim",
+  "district": "Gangtok",
+  "district_lgd": 225,
+  "observation_window": "2026-08-03T19:06Z to 2026-08-08T19:06Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-08",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3844,
+  "sm_surface_stddev": 0.0056,
+  "sm_rootzone_mean": 0.4003,
+  "sm_rootzone_stddev": 0.0049,
+  "n_cells": 9,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 27.2234,
+    "lon": 88.5874,
+    "sm_surface": 0.384,
+    "sm_rootzone": 0.4012,
+    "n_villages_sharing_cell": 36
+   },
+   {
+    "cell_index": 1,
+    "lat": 27.2234,
+    "lon": 88.6862,
+    "sm_surface": 0.3833,
+    "sm_rootzone": 0.4002,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 2,
+    "lat": 27.2234,
+    "lon": 88.785,
+    "sm_surface": 0.3915,
+    "sm_rootzone": 0.4027,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 3,
+    "lat": 27.3223,
+    "lon": 88.4885,
+    "sm_surface": 0.3863,
+    "sm_rootzone": 0.4048,
+    "n_villages_sharing_cell": 27
+   },
+   {
+    "cell_index": 4,
+    "lat": 27.3223,
+    "lon": 88.5874,
+    "sm_surface": 0.3851,
+    "sm_rootzone": 0.4032,
+    "n_villages_sharing_cell": 27
+   },
+   {
+    "cell_index": 5,
+    "lat": 27.3223,
+    "lon": 88.6862,
+    "sm_surface": 0.3831,
+    "sm_rootzone": 0.3998,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 6,
+    "lat": 27.3223,
+    "lon": 88.785,
+    "sm_surface": 0.3905,
+    "sm_rootzone": 0.4017,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 7,
+    "lat": 27.3223,
+    "lon": 88.8838,
+    "sm_surface": 0.3706,
+    "sm_rootzone": 0.3872,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 8,
+    "lat": 27.4211,
+    "lon": 88.785,
+    "sm_surface": 0.3849,
+    "sm_rootzone": 0.4021,
+    "n_villages_sharing_cell": 0
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3848,
+  "sm_surface_stddev": 0.0009,
+  "n_blocks": 3
+ },
+ "blocks": [
+  {
+   "block_name": "Gangtok",
+   "sdcode": 1553,
+   "n_villages": 82,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.3847,
+   "sm_surface_stddev": 0.0026
+  },
+  {
+   "block_name": "Pakyong",
+   "sdcode": 1554,
+   "n_villages": 32,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.3837,
+   "sm_surface_stddev": 0.0004
+  },
+  {
+   "block_name": "Rongli",
+   "sdcode": 1555,
+   "n_villages": 22,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.386,
+   "sm_surface_stddev": 0.0038
+  }
+ ],
+ "villages": {
+  "999999": [
+   "R F",
+   1553,
+   6
+  ],
+  "261336": [
+   "East Pendam",
+   1554,
+   0
+  ],
+  "261273": [
+   "Rabdang",
+   1553,
+   0
+  ],
+  "261371": [
+   "Tarpin",
+   1555,
+   0
+  ],
+  "261370": [
+   "Mulukey",
+   1555,
+   0
+  ],
+  "261335": [
+   "Kamerey Basmey",
+   1554,
+   0
+  ],
+  "261334": [
+   "Pachak",
+   1554,
+   0
+  ],
+  "261338": [
+   "Kartok",
+   1554,
+   0
+  ],
+  "261337": [
+   "Dikling",
+   1554,
+   0
+  ],
+  "261341": [
+   "Losing",
+   1554,
+   0
+  ],
+  "261342": [
+   "Pacheykhani",
+   1554,
+   0
+  ],
+  "261340": [
+   "Dikling Pacheykhani",
+   1554,
+   0
+  ],
+  "261332": [
+   "Pachey",
+   1554,
+   0
+  ],
+  "261348": [
+   "Thekabong",
+   1554,
+   1
+  ],
+  "261345": [
+   "Tareythang",
+   1554,
+   1
+  ],
+  "261344": [
+   "Amba",
+   1554,
+   0
+  ],
+  "261343": [
+   "Taza",
+   1554,
+   0
+  ],
+  "261270": [
+   "Sakyong",
+   1553,
+   3
+  ],
+  "261271": [
+   "Chisopani",
+   1553,
+   0
+  ],
+  "261280": [
+   "Mangthang",
+   1553,
+   0
+  ],
+  "261282": [
+   "Lingzey",
+   1553,
+   0
+  ],
+  "261283": [
+   "West Pendam",
+   1553,
+   0
+  ],
+  "261284": [
+   "Central Pendam",
+   1553,
+   0
+  ],
+  "261285": [
+   "Sajong",
+   1553,
+   0
+  ],
+  "261376": [
+   "Rhenock",
+   1555,
+   1
+  ],
+  "261281": [
+   "Sumin",
+   1553,
+   0
+  ],
+  "261339": [
+   "Chalamthang",
+   1554,
+   0
+  ],
+  "261279": [
+   "Martam",
+   1553,
+   0
+  ],
+  "261268": [
+   "Khamdong",
+   1553,
+   3
+  ],
+  "261265": [
+   "Dung Dung",
+   1553,
+   3
+  ],
+  "261264": [
+   "Singbel",
+   1553,
+   3
+  ],
+  "261263": [
+   "Patuk",
+   1553,
+   3
+  ],
+  "261259": [
+   "Chadey",
+   1553,
+   3
+  ],
+  "261260": [
+   "Simik",
+   1553,
+   3
+  ],
+  "261262": [
+   "Lingzey Simik",
+   1553,
+   3
+  ],
+  "261261": [
+   "Aritar",
+   1553,
+   3
+  ],
+  "261267": [
+   "Beng",
+   1553,
+   3
+  ],
+  "261275": [
+   "Byeng Sang",
+   1553,
+   3
+  ],
+  "261269": [
+   "Sirwani",
+   1553,
+   3
+  ],
+  "261276": [
+   "Phegyong",
+   1553,
+   3
+  ],
+  "261277": [
+   "Tirkutam",
+   1553,
+   3
+  ],
+  "261278": [
+   "Nazitam",
+   1553,
+   3
+  ],
+  "261257": [
+   "Raley Khese",
+   1553,
+   3
+  ],
+  "261258": [
+   "Tumin",
+   1553,
+   3
+  ],
+  "261266": [
+   "Budang Thangsing",
+   1553,
+   3
+  ],
+  "261274": [
+   "Namgeythang",
+   1553,
+   3
+  ],
+  "261272": [
+   "Tshalumthang",
+   1553,
+   0
+  ],
+  "261286": [
+   "Chuba",
+   1553,
+   0
+  ],
+  "261289": [
+   "Namin",
+   1553,
+   4
+  ],
+  "261288": [
+   "Tumlabung",
+   1553,
+   4
+  ],
+  "261287": [
+   "Namli",
+   1553,
+   0
+  ],
+  "261290": [
+   "Marchak",
+   1553,
+   4
+  ],
+  "261333": [
+   "Namcheybong",
+   1554,
+   0
+  ],
+  "261296": [
+   "Barbing",
+   1553,
+   4
+  ],
+  "261331": [
+   "Changey Senti Tsaney",
+   1554,
+   0
+  ],
+  "261330": [
+   "Aho",
+   1554,
+   0
+  ],
+  "261329": [
+   "Yangtam",
+   1554,
+   0
+  ],
+  "261293": [
+   "Chinzey",
+   1553,
+   4
+  ],
+  "261317": [
+   "Lingchey",
+   1553,
+   4
+  ],
+  "261310": [
+   "Nandok",
+   1553,
+   4
+  ],
+  "261294": [
+   "Ranka",
+   1553,
+   4
+  ],
+  "261328": [
+   "Chotta Singtam",
+   1554,
+   4
+  ],
+  "261308": [
+   "Tathangchen",
+   1553,
+   5
+  ],
+  "261313": [
+   "Pam",
+   1553,
+   5
+  ],
+  "261292": [
+   "Rawtey Rumtek",
+   1553,
+   4
+  ],
+  "261291": [
+   "Sajong Rumtek",
+   1553,
+   4
+  ],
+  "261297": [
+   "Rey Mendu",
+   1553,
+   4
+  ],
+  "261298": [
+   "Rey",
+   1553,
+   4
+  ],
+  "261299": [
+   "Lingdum",
+   1553,
+   4
+  ],
+  "261306": [
+   "Parbing",
+   1553,
+   4
+  ],
+  "261309": [
+   "Syari",
+   1553,
+   4
+  ],
+  "261312": [
+   "Namong",
+   1553,
+   5
+  ],
+  "261372": [
+   "Aritar",
+   1555,
+   1
+  ],
+  "261311": [
+   "Naitam",
+   1553,
+   5
+  ],
+  "261295": [
+   "Sangtong",
+   1553,
+   4
+  ],
+  "261369": [
+   "Sudunglakha",
+   1555,
+   1
+  ],
+  "261368": [
+   "Dolepchen",
+   1555,
+   1
+  ],
+  "261363": [
+   "Subaneydara",
+   1555,
+   1
+  ],
+  "261366": [
+   "Changeylakha",
+   1555,
+   1
+  ],
+  "261367": [
+   "Chujachen",
+   1555,
+   1
+  ],
+  "261255": [
+   "Kambal",
+   1553,
+   3
+  ],
+  "261365": [
+   "South Regoh",
+   1555,
+   1
+  ],
+  "261364": [
+   "North Regoh",
+   1555,
+   2
+  ],
+  "261359": [
+   "Lingtam",
+   1555,
+   2
+  ],
+  "261358": [
+   "Lamaten",
+   1555,
+   1
+  ],
+  "261346": [
+   "Bering",
+   1554,
+   1
+  ],
+  "261347": [
+   "Linkey",
+   1554,
+   1
+  ],
+  "261362": [
+   "Singaneybas",
+   1555,
+   2
+  ],
+  "261349": [
+   "Parkha",
+   1554,
+   1
+  ],
+  "261350": [
+   "Riwa",
+   1554,
+   1
+  ],
+  "261351": [
+   "Machong",
+   1554,
+   1
+  ],
+  "261361": [
+   "Premlakha",
+   1555,
+   2
+  ],
+  "261360": [
+   "Phadamchen",
+   1555,
+   2
+  ],
+  "261357": [
+   "Rolep",
+   1555,
+   1
+  ],
+  "261352": [
+   "Chuchenpheri",
+   1554,
+   1
+  ],
+  "261353": [
+   "Latuk",
+   1554,
+   5
+  ],
+  "261316": [
+   "Assam",
+   1553,
+   5
+  ],
+  "261314": [
+   "Bhusuk",
+   1553,
+   5
+  ],
+  "261307": [
+   "Rongay",
+   1553,
+   5
+  ],
+  "261315": [
+   "Gnathang",
+   1553,
+   7
+  ],
+  "261302": [
+   "Navey",
+   1553,
+   4
+  ],
+  "261301": [
+   "Lingdok",
+   1553,
+   4
+  ],
+  "261303": [
+   "Shotak",
+   1553,
+   4
+  ],
+  "261304": [
+   "Penlong",
+   1553,
+   4
+  ],
+  "261300": [
+   "Nampong",
+   1553,
+   4
+  ],
+  "261253": [
+   "Rakdong",
+   1553,
+   3
+  ],
+  "261305": [
+   "Luing",
+   1553,
+   4
+  ],
+  "261254": [
+   "Tintek",
+   1553,
+   3
+  ],
+  "261256": [
+   "Samdong",
+   1553,
+   3
+  ],
+  "261325": [
+   "Sang Forest Block",
+   1553,
+   3
+  ],
+  "261323": [
+   "Rumtek Forest Block",
+   1553,
+   4
+  ],
+  "801423": [
+   "Rangpo Np",
+   1553,
+   0
+  ],
+  "801422": [
+   "Singtam Np",
+   1553,
+   0
+  ],
+  "801421": [
+   "Gangtok M Corp",
+   1553,
+   4
+  ],
+  "261327": [
+   "Rangpo Forest Block",
+   1553,
+   0
+  ],
+  "261375": [
+   "Rhenak Forest Block",
+   1555,
+   1
+  ],
+  "261326": [
+   "Singtam Forest Block",
+   1553,
+   3
+  ],
+  "261324": [
+   "Tumen Forest Block",
+   1553,
+   3
+  ],
+  "261355": [
+   "Pakyong Forest Block",
+   1554,
+   1
+  ],
+  "261322": [
+   "Ranipool Forest Block",
+   1553,
+   4
+  ],
+  "261374": [
+   "Rongli Forest Block",
+   1555,
+   1
+  ],
+  "261354": [
+   "Assam Lingzey Forest Block",
+   1554,
+   1
+  ],
+  "261356": [
+   "Pathing Forest Block",
+   1554,
+   5
+  ],
+  "261373": [
+   "Phadamchen Forest Block",
+   1555,
+   2
+  ],
+  "261319": [
+   "Gnathang Forest Block",
+   1553,
+   7
+  ],
+  "261321": [
+   "Gangtok Forest Block",
+   1553,
+   5
+  ],
+  "261320": [
+   "Pangthang Forest Block",
+   1553,
+   5
+  ],
+  "261318": [
+   "Kyongnosla Forest Block",
+   1553,
+   5
+  ]
+ },
+ "village_count_total": 136,
+ "village_count_assigned": 136
+}
