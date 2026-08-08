@@ -24,6 +24,11 @@ _URL_PATCHES = [
     # Phase 8.4/8.6 (2026-08-08): national NDVI (GEE/MODIS) + validation
     # (CHIRPS/ERA5-Land vs IMD) manifests/loaders, same GITHUB_RAW CDN path.
     ("'data/ndvi_manifest.json'",          f"'{GITHUB_RAW}/ndvi_manifest.json'"),
+    # MERA_KHET_PROMPT.md B1 (2026-08-09): soil moisture manifest -- a
+    # single closed literal in soil_moisture_loader.js (not a
+    # concatenation), so it needs its own exact-match patch, distinct from
+    # the 'data/soil_moisture/' prefix patch below.
+    ("'data/soil_moisture/manifest.json'", f"'{GITHUB_RAW}/soil_moisture/manifest.json'"),
     # Boundary GeoJSON files (in dashboard/ root, not dashboard/data/)
     ("'mp_districts.geojson'",             f"'{GITHUB_BASE}/mp_districts.geojson'"),
     ("'mp_tehsils.geojson'",               f"'{GITHUB_BASE}/mp_tehsils.geojson'"),
@@ -41,7 +46,7 @@ _JS_FILES = ['mp_climate_loader.js', 'dicra_ndvi_loader.js', 'cadastral_loader.j
              'national_climate_loader.js', 'compare_loader.js', 'research_papers_loader.js',
              'knowledge_base_loader.js',
              'national_selector.js',
-             'national_ndvi_loader.js', 'validation_loader.js']
+             'national_ndvi_loader.js', 'validation_loader.js', 'soil_moisture_loader.js']
 
 
 def get_html_content():
@@ -117,6 +122,15 @@ def get_html_content():
     html = html.replace(
         "'data/validation/madhya_pradesh/'",
         f"'{GITHUB_RAW}/validation/madhya_pradesh/'"
+    )
+
+    # Soil moisture files ('data/soil_moisture/' + stateSlug + '/' + dslug +
+    # '.json'), used by soil_moisture_loader.js -- MERA_KHET_PROMPT.md B1.
+    # The manifest.json literal itself is patched separately in
+    # _URL_PATCHES above (it's a single closed string, not a concatenation).
+    html = html.replace(
+        "'data/soil_moisture/'",
+        f"'{GITHUB_RAW}/soil_moisture/'"
     )
 
     # Fix viewport for iframe rendering
