@@ -112,6 +112,22 @@ This is below the 5.5 km resolution of the underlying IMD climate grid, so it
 does not affect any computed index. Full-precision source vectors should be
 retained offline for any cadastral or legal use.
 
+## Compare feature (`dashboard/compare_loader.js`, Phase 6, added 2026-08-07)
+
+Not a new data file -- a client-side view that combines four existing
+sources per selected district, each labeled distinctly, never merged into
+one number:
+
+| Column | Source | Granularity actually available |
+|---|---|---|
+| Heatwave days / SPI-12 / Rainfall / Rx1day | `data/mp_climate_data.json` (Bhopal/Indore/Jabalpur/Rewa/Sidhi only) or `data/climate/<state>/<district>.json` (all other districts with a file) | Real year-by-year 2000-2024 for the 5 IMD districts; a single 2000-2024 **period average** for every GEE (ERA5-Land/CHIRPS) district -- confirmed from the file's own contents (`indices` is a flat scalar dict, not a yearly series) before this was built. The UI marks GEE-sourced cells "avg" and the year slider does not change them. |
+| NDVI | `data/dicra_ndvi.json` | Madhya Pradesh's 52 districts only (DiCRA/MODIS). Every other state shows "Data not available", never a neighbouring district's value. |
+| Population / Net area sown / Irrigated area | `data/village_profiles/<state>/<district>.json` (HF-hosted) | Summed live, client-side, from the real per-village SoI fields (`population`, `land_net_area_sown_ha`, `irrigated_area_total_ha`) across every village in the selected district's file. Every aggregate cell's tooltip states how many villages it was summed from and the source `fetch_date`; a district with no village_profiles file (SoI coverage gap) shows "Data not available", never a partial estimate. |
+
+District/State/Block/Village tier selector exists in the UI; only District
+tier is implemented -- State/Block/Village show an explicit "not built yet"
+message rather than wrong-tier or half-broken data.
+
 ## Removed in the 2026-08 cleanup
 
 - 50 synthetic districts and ~5,000 generated villages (`08_expand_climate_data.py`)

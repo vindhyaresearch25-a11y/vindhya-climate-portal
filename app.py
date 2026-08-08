@@ -30,8 +30,11 @@ _URL_PATCHES = [
 # geoai_professional.js and mandi_loader.js were previously missing from this
 # list, so neither module loaded at all on the Streamlit deployment (only on
 # GitHub Pages, which serves the scripts directly). See docs/AUDIT_2026-08-01.md J.
+# national_climate_loader.js and compare_loader.js are the same class of
+# bug as the geoai/mandi one above -- added 2026-08-07 alongside Phase 6.
 _JS_FILES = ['mp_climate_loader.js', 'dicra_ndvi_loader.js', 'cadastral_loader.js',
              'geoai_professional.js', 'mandi_loader.js', 'crop_stats_loader.js', 'live_weather_loader.js',
+             'national_climate_loader.js', 'compare_loader.js',
              'knowledge_base_loader.js',
              'national_selector.js']
 
@@ -77,6 +80,16 @@ def get_html_content():
     html = html.replace(
         "'data/crop_stats_des_by_district/'",
         f"'{GITHUB_RAW}/crop_stats_des_by_district/'"
+    )
+
+    # Same pattern for the GEE national climate files
+    # ('data/climate/' + stateSlug + '/' + districtSlug + '.json'), used by
+    # national_climate_loader.js and compare_loader.js. These live in the
+    # git repo (not the Hugging Face village_profiles/boundaries dataset),
+    # so they're served from the same GITHUB_RAW dashboard/data CDN path.
+    html = html.replace(
+        "'data/climate/'",
+        f"'{GITHUB_RAW}/climate/'"
     )
 
     # Fix viewport for iframe rendering
