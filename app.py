@@ -21,6 +21,9 @@ _URL_PATCHES = [
     ("'data/knowledge_base/index.json'",   f"'{GITHUB_RAW}/knowledge_base/index.json'"),
     ("'data/mandi_prices.json'",           f"'{GITHUB_RAW}/mandi_prices.json'"),
     ("'data/crop_stats.json'",             f"'{GITHUB_RAW}/crop_stats.json'"),
+    # Phase 8.4/8.6 (2026-08-08): national NDVI (GEE/MODIS) + validation
+    # (CHIRPS/ERA5-Land vs IMD) manifests/loaders, same GITHUB_RAW CDN path.
+    ("'data/ndvi_manifest.json'",          f"'{GITHUB_RAW}/ndvi_manifest.json'"),
     # Boundary GeoJSON files (in dashboard/ root, not dashboard/data/)
     ("'mp_districts.geojson'",             f"'{GITHUB_BASE}/mp_districts.geojson'"),
     ("'mp_tehsils.geojson'",               f"'{GITHUB_BASE}/mp_tehsils.geojson'"),
@@ -36,7 +39,8 @@ _JS_FILES = ['mp_climate_loader.js', 'dicra_ndvi_loader.js', 'cadastral_loader.j
              'geoai_professional.js', 'mandi_loader.js', 'crop_stats_loader.js', 'live_weather_loader.js',
              'national_climate_loader.js', 'compare_loader.js', 'research_papers_loader.js',
              'knowledge_base_loader.js',
-             'national_selector.js']
+             'national_selector.js',
+             'national_ndvi_loader.js', 'validation_loader.js']
 
 
 def get_html_content():
@@ -90,6 +94,21 @@ def get_html_content():
     html = html.replace(
         "'data/climate/'",
         f"'{GITHUB_RAW}/climate/'"
+    )
+
+    # Same pattern for the new national NDVI (GEE/MODIS) files
+    # ('data/ndvi/' + stateSlug + '/' + districtSlug + '.json'), used by
+    # national_ndvi_loader.js -- Phase 8.4.
+    html = html.replace(
+        "'data/ndvi/'",
+        f"'{GITHUB_RAW}/ndvi/'"
+    )
+
+    # Validation files ('data/validation/madhya_pradesh/' + dslug + '.json'),
+    # used by validation_loader.js -- Phase 8.6.
+    html = html.replace(
+        "'data/validation/madhya_pradesh/'",
+        f"'{GITHUB_RAW}/validation/madhya_pradesh/'"
     )
 
     # Fix viewport for iframe rendering

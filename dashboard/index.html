@@ -1150,6 +1150,7 @@ canvas.chart-canvas{max-height:100%;}
         <div class="btm-tab" onclick="switchTab(this,&#39;ecology&#39;)"><i class="fa fa-tree"></i>Ecology</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;village&#39;)"><i class="fa fa-house"></i>Village Intelligence</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;cadastral&#39;)"><i class="fa fa-draw-polygon"></i>Cadastral</div>
+        <div class="btm-tab" onclick="switchTab(this,&#39;validation&#39;)"><i class="fa fa-check-double"></i>Validation</div>
       </div>
 
       <div class="btm-content">
@@ -1178,6 +1179,11 @@ canvas.chart-canvas{max-height:100%;}
           <div class="section-header"><i class="fa fa-leaf u-green-sm"></i><div class="section-title">NDVI TIME SERIES (DICRA 2013-2026)</div></div>
           <div class="chart-wrap u-h200"><canvas id="chartNdvi"></canvas></div>
           <div id="ndvi-error-state" class="u-hidden" style="padding:16px;font-size:12px;line-height:1.8;"></div>
+          <!-- national_ndvi_loader.js: MODIS/GEE NDVI for districts outside
+               MP's 52 DiCRA districts. Hidden by default; shown only when a
+               non-DiCRA district with a computed GEE NDVI file is selected,
+               never merged with the DiCRA chart above. -->
+          <div id="national-ndvi-panel" class="u-hidden"></div>
         </div>
         <!-- 7-Day Forecast -->
         <div class="btm-pane" id="pane-forecast">
@@ -1426,6 +1432,23 @@ canvas.chart-canvas{max-height:100%;}
                 </div>
               </div>
             </div>
+        <!-- Validation (Phase 8.6): CHIRPS/ERA5-Land vs IMD, for the 5
+             original IMD districts only. Populated by validation_loader.js
+             from dashboard/data/validation/<state>/<district>.json --
+             genuinely computed correlation/bias/RMSE, never a canned
+             sentence. This checks IMD, it never replaces it. -->
+        <div class="btm-pane" id="pane-validation">
+          <div class="section-header"><i class="fa fa-check-double" style="color:var(--teal,#5cc3cd);font-size:var(--fs-1)"></i><div class="section-title">DATA VALIDATION — CHIRPS/ERA5-LAND vs IMD</div></div>
+          <div style="padding:0.5rem 0.75rem;font-size:var(--fs-1);line-height:1.6;color:var(--text-dim);">
+            "CHIRPS aur ERA5 ko IMD ki JAANCH ke liye, badle me nahi" — CHIRPS/ERA5-Land are used to check
+            IMD's own numbers, never to replace them. Available only for the 5 districts with a real IMD
+            time series (Bhopal, Indore, Jabalpur, Rewa, Sidhi) — this is a cross-source validation, not
+            national coverage.
+          </div>
+          <div id="validation-panel-body" style="padding:0.5rem 0.75rem;text-align:center;color:var(--text-dim);font-size:var(--fs-1);">
+            <i class="fa fa-check-double"></i> Select Bhopal, Indore, Jabalpur, Rewa or Sidhi to see the validation stats.
+          </div>
+        </div>
       </div><!-- btm-content -->
     </div><!-- bottom-panel -->
   </div><!-- main -->
@@ -3613,6 +3636,8 @@ async function runChatCompletion(){
 <script src="research_papers_loader.js"></script>
 <script src="knowledge_base_loader.js"></script>
 <script src="national_climate_loader.js"></script>
+<script src="national_ndvi_loader.js"></script>
+<script src="validation_loader.js"></script>
 <!-- national_selector.js is appended dynamically, not as a static tag here --
      see the fetchWithTimeout('config/data_config.json')...finally() block
      above, which guarantees it only loads after window.DATA_BASE_URL is
