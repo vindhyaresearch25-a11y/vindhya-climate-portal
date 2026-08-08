@@ -184,3 +184,20 @@ GEE_SOURCE_META = {
             "ETCCDI methodology as the IMD pipeline, applied to a different "
             "real, freely-published reanalysis/satellite source.",
 }
+
+# ---------- GEE NATIONAL NDVI (Phase 8.4) ----------
+# MOD13Q1 v061: MODIS Terra Vegetation Indices, 16-day composite, 250m --
+# real satellite product, freely published, distinct from
+# dashboard/data/dicra_ndvi.json's UNDP DiCRA MODIS-derived district
+# statistic (that file stays MP-only and untouched; this is an ADDITIONAL
+# national layer, never merged into it -- see scripts/10_gee_national_ndvi.py).
+MODIS_NDVI_COLLECTION = "MODIS/061/MOD13Q1"
+MODIS_NDVI_BAND       = "NDVI"
+MODIS_NDVI_SCALE_FACTOR = 0.0001   # MOD13Q1's own documented scale factor
+MODIS_NDVI_SCALE_METERS = 250      # MOD13Q1 native pixel size
+NATIONAL_NDVI_OUT_DIR = PROJECT_ROOT / "dashboard" / "data" / "ndvi"
+# MOD13Q1 record starts 2000-02-18; use the same YEAR_START/YEAR_END span as
+# the climate pipeline for a full calendar-year loop, first partial year
+# handled naturally by filterDate() returning fewer images for 2000.
+NDVI_YEAR_START = 2000
+NDVI_YEAR_END   = 2024
