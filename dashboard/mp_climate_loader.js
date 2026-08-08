@@ -605,43 +605,6 @@
     setTxt('agri-gw-level', 'Not available — CGWB/India-WRIS groundwater data is not yet integrated', 'var(--text-dim)');
   }
 
-  // ── Ecology Panel ─────────────────────────────────────────────
-  function renderEcologyPanel(districtKey, villageName){
-    var d = state.data && state.data.districts[districtKey];
-    if (!d) return;
-    var dnEl = document.getElementById('ecoDistName');
-    if (dnEl) dnEl.textContent = '— '+ d.name + (villageName ? ' › '+villageName : '') + (window._hazardYear ? ' | Year '+window._hazardYear : '');
-    // Forest cover, biodiversity risk, carbon stock, protected-area and
-    // wildlife-corridor figures require Forest Survey of India / Bhuvan land-use
-    // data, which is not integrated into this dashboard. Those fields are always
-    // shown as "Not available" rather than derived from rainfall/NDVI proxies.
-    // Only NDVI is real (UNDP DiCRA district zonal series, from the loader below).
-    var ndvi = null, ndviIsReal = false;
-    if (window._dicraNdvi && window._dicraNdvi.districts && window._dicraNdvi.districts[districtKey]) {
-      var ndviSeries = window._dicraNdvi.districts[districtKey].ndvi_mean;
-      if (ndviSeries && ndviSeries.length) { ndvi = ndviSeries[ndviSeries.length - 1]; ndviIsReal = true; }
-    }
-    var ecoSet = function(id,v,c){ var el=document.getElementById(id); if(el){el.textContent=v;if(c)el.style.color=c;} };
-    var NA = 'Not available';
-    var naColor = 'var(--text-dim)';
-    ecoSet('eco-forest', NA, naColor);
-    ecoSet('eco-ndvi', ndviIsReal ? ndvi.toFixed(2) : NA, ndviIsReal ? null : naColor);
-    ecoSet('eco-bio', NA, naColor);
-    ecoSet('eco-carbon', NA, naColor);
-    ecoSet('eco-protected', NA, naColor);
-    ecoSet('eco-wildlife', NA, naColor);
-    ecoSet('eco-deforest', NA, naColor);
-    ecoSet('eco-water', NA, naColor);
-    var bioDetailEl = document.getElementById('eco-bio-detail');
-    if (bioDetailEl) {
-      bioDetailEl.innerHTML = '<strong>Forest cover, biodiversity risk, carbon stock and protected-area figures are not available.</strong><br>'
-        + 'This dashboard does not yet integrate Forest Survey of India or Bhuvan land-use/land-cover data — see docs/DATA_SOURCES.md.<br>'
-        + (ndviIsReal
-            ? '<strong>NDVI</strong> (district zonal, UNDP DiCRA): ' + ndvi.toFixed(2) + '. NDVI alone does not determine forest cover, biodiversity, or carbon stock, so those fields are not estimated from it.'
-            : 'NDVI data is still loading or unavailable for this district.');
-    }
-  }
-
   function refreshAll(districtKey, villageName){
     state.currentDistrict = districtKey;
     state.currentVillage  = villageName || null;
@@ -652,7 +615,6 @@
     try { renderFuturePanel(districtKey); } catch(e) { console.warn('[loader] renderFuturePanel:', e); }
     try { renderVillagePanel(districtKey, villageName); } catch(e) { console.warn('[loader] renderVillagePanel:', e); }
     try { renderAgriculturePanel(districtKey, villageName); } catch(e) { console.warn('[loader] renderAgriculturePanel:', e); }
-    try { renderEcologyPanel(districtKey, villageName); } catch(e) { console.warn('[loader] renderEcologyPanel:', e); }
   }
 
   window._mpClimateRefresh = function(){
@@ -687,7 +649,6 @@
       var el = document.getElementById(id); if (el) el.innerHTML = '';
     });
     var agriName = document.getElementById('agriDistName'); if (agriName) agriName.textContent = '';
-    var ecoName = document.getElementById('ecoDistName'); if (ecoName) ecoName.textContent = '';
     // The map marker itself is national_selector.js's own `marker` var now
     // (built from the actual drawn polygon via turf.pointOnFeature at all
     // four levels) -- its clearBelow() already handles removing it, so

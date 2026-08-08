@@ -106,6 +106,40 @@ land record."
 | 25 | Full Hindi and English operation | Partial | Toggle exists; coverage should be audited string by string |
 | 31, 32 | Real-time DSS aligned with NABARD/ICAR/NITI standards | Planned | Institutional review after sections C–E |
 
+## G. Removed panels — MERA_KHET_PROMPT.md Bhaag B (2026-08-09)
+
+Eight sidebar panels were "khali" (empty placeholders, honest "Not
+available" states from the 2026-08-01 audit) and made the whole portal
+read as unfinished next to the real work (6.5 lakh villages, 400+
+districts of real climate data). The owner's instruction: "Khali panel se
+na hona behtar hai" (no panel is better than an empty one). Three were
+removed outright, permanently:
+
+| Panel | Removed | Why | Do not re-add unless |
+|---|---|---|---|
+| Satellite Viewer | 2026-08-09 | Pure duplication of the existing 5-basemap switcher (Satellite/Street/Terrain/Light/Dark, top-right map control) — same capability already live, a second entry point for it added nothing | a genuinely different satellite-layer capability (e.g. real Sentinel-2 band composites) is built, in which case it belongs under NDVI Analytics, not a revived standalone panel |
+| Panchayat Dashboard | 2026-08-09 | No real panchayat-level vulnerability data source exists or was found; the pre-audit version had shown named Gram Panchayats with invented scores | real panchayat boundaries + a real computed index exist (see `docs/NATIONAL_SCALE_RESEARCH.md`) |
+| Biodiversity Risk | 2026-08-09 | No credible biodiversity data source integrated or found; the only real figure in it (NDVI) already lives in the NDVI Analytics panel, so this panel was 100% "Not available" placeholders | a real biodiversity/forest data source (see Forest Monitor's Hansen/GFC plan below) is integrated |
+
+Two panels stay in the sidebar, explicitly labeled "coming soon" rather
+than removed (MERA_KHET_PROMPT.md's "BAAD ME" list — not farm-decision
+priorities right now, but have a real, findable, free path forward):
+
+- **Forest Monitor** — Hansen Global Forest Change is free via Google
+  Earth Engine; not prioritized yet because it isn't farming-decision
+  relevant. Nav item now carries a "SOON" badge.
+- **PMFBY Insurance** — claim status needs a farmer login (out of scope
+  for a public portal); district-level premium/claim statistics may be
+  public on pmfby.gov.in — worth a real resolvability check before
+  building, not yet done.
+
+Removed from: sidebar nav items, the bottom-panel tab strip, the three
+`btm-pane` blocks, `setNav()`'s routing branches, and
+`mp_climate_loader.js`'s `renderEcologyPanel()` (dead code once
+`pane-ecology` no longer exists). The Forest panel's own text, which
+cross-referenced "the Biodiversity Risk panel," was updated rather than
+left pointing at a panel that no longer exists.
+
 ## Recommended sequence
 
 1. ~~NASA POWER integration~~ — Done, verified live 2026-08-01

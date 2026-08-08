@@ -863,13 +863,10 @@ canvas.chart-canvas{max-height:100%;}
       <div class="nav-item" onclick="setNav(this,&#39;advisory&#39;)"><span class="nav-icon"><i class="fa fa-comment-dots"></i></span><span class="nav-label">Farmer Advisory</span></div>
       <div class="nav-item" onclick="setNav(this,&#39;pmfby&#39;)"><span class="nav-icon"><i class="fa fa-shield-halved"></i></span><span class="nav-label">PMFBY Insurance</span></div>
       <div class="nav-section-title">ECOLOGY</div>
-      <div class="nav-item" onclick="setNav(this,&#39;forest&#39;)"><span class="nav-icon"><i class="fa fa-tree"></i></span><span class="nav-label">Forest Monitor</span></div>
-      <div class="nav-item" onclick="setNav(this,&#39;bio&#39;)"><span class="nav-icon"><i class="fa fa-paw"></i></span><span class="nav-label">Biodiversity Risk</span></div>
+      <div class="nav-item" onclick="setNav(this,&#39;forest&#39;)"><span class="nav-icon"><i class="fa fa-tree"></i></span><span class="nav-label">Forest Monitor</span><span class="nav-badge">SOON</span></div>
       <div class="nav-section-title">ANALYTICS</div>
       <div class="nav-item" onclick="setNav(this,&#39;ai&#39;)"><span class="nav-icon"><i class="fa fa-chart-line"></i></span><span class="nav-label">Trend Forecast</span></div>
       <div class="nav-item" onclick="setNav(this,&#39;village&#39;)"><span class="nav-icon"><i class="fa fa-house"></i></span><span class="nav-label">Village Profile</span></div>
-      <div class="nav-item" onclick="setNav(this,&#39;panch&#39;)"><span class="nav-icon"><i class="fa fa-building"></i></span><span class="nav-label">Panchayat Dashboard</span></div>
-      <div class="nav-item" onclick="setNav(this,&#39;sat&#39;)"><span class="nav-icon"><i class="fa fa-satellite"></i></span><span class="nav-label">Satellite Viewer</span></div>
       <div class="nav-item" onclick="setNav(this,&#39;cadastral&#39;)"><span class="nav-icon"><i class="fa fa-draw-polygon"></i></span><span class="nav-label">Cadastral Map</span><span class="nav-badge">NEW</span></div>
       <div class="nav-item" onclick="setNav(this,&#39;api&#39;)"><span class="nav-icon"><i class="fa fa-code"></i></span><span class="nav-label">API Access</span></div>
       <div class="nav-item" onclick="window.open(&#39;kisan_upload.html&#39;,&#39;_blank&#39;)" title="Farmer crop ground-truth upload -- opens a separate form page, not deployed yet"><span class="nav-icon"><i class="fa fa-seedling"></i></span><span class="nav-label">Kisan Fasal Sahyog</span></div>
@@ -1141,13 +1138,10 @@ canvas.chart-canvas{max-height:100%;}
         <div class="btm-tab" onclick="switchTab(this,&#39;forecast&#39;)"><i class="fa fa-clock"></i>7-Day Forecast</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;gee&#39;)"><i class="fa fa-earth-asia"></i>GEE Workflow</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;ai&#39;)"><i class="fa fa-brain"></i>Projection Method</div>
-        <div class="btm-tab" onclick="switchTab(this,&#39;sat&#39;)"><i class="fa fa-satellite"></i>Satellites</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;api&#39;)"><i class="fa fa-code"></i>API Hub</div>
-        <div class="btm-tab" onclick="switchTab(this,&#39;panch&#39;)"><i class="fa fa-building"></i>Panchayat</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;forest&#39;)"><i class="fa fa-tree"></i>Forest</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;pmfby&#39;)"><i class="fa fa-shield-halved"></i>PMFBY</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;agriculture&#39;)"><i class="fa fa-wheat-awn"></i>Agriculture</div>
-        <div class="btm-tab" onclick="switchTab(this,&#39;ecology&#39;)"><i class="fa fa-tree"></i>Ecology</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;village&#39;)"><i class="fa fa-house"></i>Village Intelligence</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;cadastral&#39;)"><i class="fa fa-draw-polygon"></i>Cadastral</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;validation&#39;)"><i class="fa fa-check-double"></i>Validation</div>
@@ -1223,18 +1217,6 @@ canvas.chart-canvas{max-height:100%;}
             which must be run explicitly — see <code>docs/METHODOLOGY.md</code> §5.
           </div>
         </div>
-        <!-- Satellites -->
-        <div class="btm-pane" id="pane-sat">
-          <div class="section-header"><i class="fa fa-satellite u-cyan-sm"></i><div class="section-title">SATELLITE ANALYTICS PANEL</div></div>
-          <div class="u-empty-msg">
-            <i class="fa fa-satellite u-icon-lg-muted"></i>
-            <b>Not available yet</b><br>
-            Sentinel-2/MODIS/SMAP/VIIRS/ERA5 layers are not integrated into this dashboard. This panel previously
-            showed fixed placeholder values (NDVI, EVI, LST, soil moisture, etc.) that were never sourced from any
-            real satellite feed -- removed, see <code>docs/AUDIT_2026-08-01.md</code>. Real NDVI is available today
-            in the <b>NDVI Analytics</b> panel (UNDP DiCRA, district-level).
-          </div>
-        </div>
         <!-- API -->
         <div class="btm-pane" id="pane-api">
           <div class="section-header"><i class="fa fa-code u-fs1-neon"></i><div class="section-title">API ACCESS</div></div>
@@ -1247,19 +1229,6 @@ canvas.chart-canvas{max-height:100%;}
             <code>dashboard/data/*.json</code> in the repository.
           </div>
         </div>
-        <!-- Panchayat -->
-        <div class="btm-pane" id="pane-panch">
-          <div class="section-header"><i class="fa fa-building u-cyan-sm"></i><div class="section-title">PANCHAYAT VULNERABILITY RANKING</div></div>
-          <div class="u-empty-msg">
-            <i class="fa fa-building u-icon-lg-muted"></i>
-            <b>Not available yet</b><br>
-            No panchayat-level vulnerability assessment has been computed. This panel previously listed named Gram
-            Panchayats (Alirajpur, Badwah, Bijori and others) with invented vulnerability scores that were never
-            based on any real assessment -- removed, see <code>docs/AUDIT_2026-08-01.md</code>. A real ranking
-            would need panchayat-level boundaries and indices, which are not yet integrated
-            (see <code>docs/NATIONAL_SCALE_RESEARCH.md</code>).
-          </div>
-        </div>
         <!-- Forest -->
         <div class="btm-pane" id="pane-forest">
           <div class="section-header"><i class="fa fa-tree u-green-sm"></i><div class="section-title">FOREST &amp; TRIBAL ANALYTICS</div></div>
@@ -1268,8 +1237,9 @@ canvas.chart-canvas{max-height:100%;}
             <b>Not available yet</b><br>
             Forest Survey of India / Bhuvan land-use data is not integrated. This panel previously named specific
             districts (Umaria, Shahdol, Mandla and others) with invented risk levels and carbon-stock figures --
-            removed, see <code>docs/AUDIT_2026-08-01.md</code>. See the <b>Biodiversity Risk</b> panel for the
-            current honest "Not available" state on forest cover and biodiversity.
+            removed, see <code>docs/AUDIT_2026-08-01.md</code>. Hansen Global Forest Change is free via Google
+            Earth Engine and is the planned real source (MERA_KHET_PROMPT.md B6) -- not integrated yet since this
+            isn't farming-relevant enough to prioritise ahead of the crop-facing features.
           </div>
         </div>
         <!-- PMFBY -->
@@ -1330,27 +1300,6 @@ canvas.chart-canvas{max-height:100%;}
             <div style="margin-top:var(--space-05);display:flex;gap:var(--space-05);">
               <button onclick="setBtmTab('pmfby')" style="flex:1;background:var(--orange);border:none;padding:var(--space-03);border-radius:var(--radius-4);color:#fff;cursor:pointer;font-size:var(--fs-1);font-weight:600;">VIEW PMFBY INSURANCE</button>
             </div>
-          </div>
-        </div>
-        <!-- Ecology -->
-        <div class="btm-pane" id="pane-ecology">
-          <div class="section-header"><i class="fa fa-tree u-green-sm"></i><div class="section-title">ECOLOGY &amp; BIODIVERSITY <span id="ecoDistName" class="u-orange"></span></div></div>
-          <div class="u-scroll-pane">
-            <div class="u-flex-gap05-mb05-wrap">
-              <div class="metric-card u-fmw100"><div class="metric-label">FOREST COVER</div><div class="metric-value u-green" id="eco-forest">—</div></div>
-              <div class="metric-card u-fmw100"><div class="metric-label">NDVI TREND</div><div class="metric-value u-teal" id="eco-ndvi">—</div></div>
-              <div class="metric-card u-fmw100"><div class="metric-label">BIODIVERSITY</div><div class="metric-value u-yellow" id="eco-bio">—</div></div>
-              <div class="metric-card u-fmw100"><div class="metric-label">CARBON</div><div class="metric-value u-cyan" id="eco-carbon">—</div></div>
-            </div>
-            <div class="section-header u-pad-row"><i class="fa fa-map u-green-sm"></i><div class="section-title u-fs1">AREA-WISE ECOLOGICAL METRICS</div></div>
-            <div id="eco-area-metrics" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-03);font-size:var(--fs-1);">
-              <div class="forest-row"><div class="forest-indicator" style="background:var(--green)"></div><div class="forest-name">Protected Area</div><div class="forest-val u-green" id="eco-protected">—</div></div>
-              <div class="forest-row"><div class="forest-indicator" style="background:var(--teal)"></div><div class="forest-name">Wildlife Corridor</div><div class="forest-val u-teal" id="eco-wildlife">—</div></div>
-              <div class="forest-row"><div class="forest-indicator" style="background:var(--orange)"></div><div class="forest-name">Deforestation Risk</div><div class="forest-val u-orange" id="eco-deforest">—</div></div>
-              <div class="forest-row"><div class="forest-indicator" style="background:var(--yellow)"></div><div class="forest-name">Water Body %</div><div class="forest-val u-yellow" id="eco-water">—</div></div>
-            </div>
-            <div class="section-header u-pad-sm"><i class="fa fa-paw" style="color:var(--yellow);font-size:var(--fs-1)"></i><div class="section-title u-fs1">BIODIVERSITY RISK ASSESSMENT</div></div>
-            <div id="eco-bio-detail" style="font-size:var(--fs-1);line-height:1.5;color:var(--text);padding:var(--space-03);background:rgba(255,183,77,0.08);border-radius:var(--radius-4);"></div>
           </div>
         </div>
         <!-- Cadastral -->
@@ -2041,25 +1990,16 @@ function setNav(el,section){
     setBtmTab('compare');
     if (typeof window.VindhyaCompare !== 'undefined') window.VindhyaCompare.reload();
   } else if (section === 'soil') {
-    // Soil Moisture has no real data source integrated (SMAP/Bhuvan) --
-    // previously silently opened the unrelated NDVI chart. The 'sat' pane
-    // explains the gap; the honest "Not available" soil-moisture metric
-    // card on the main dashboard is always visible above the tab strip.
-    setBtmTab('sat');
+    setBtmTab('soilmoisture');
+    if (typeof window.VindhyaSoilMoisture !== 'undefined') window.VindhyaSoilMoisture.reload();
   } else if (section === 'crop' || section === 'advisory' || section === 'ground') {
     setBtmTab('agriculture');
   } else if (section === 'forest') {
     setBtmTab('forest');
-  } else if (section === 'bio') {
-    setBtmTab('ecology');
   } else if (section === 'ai') {
     setBtmTab('ai');
   } else if (section === 'pmfby') {
     setBtmTab('pmfby');
-  } else if (section === 'panch') {
-    setBtmTab('panch');
-  } else if (section === 'sat') {
-    setBtmTab('sat');
   } else if (section === 'api') {
     setBtmTab('api');
   } else if (section === 'village') {
