@@ -111,6 +111,21 @@ rushed pass. Punjab and Uttar Pradesh were searched this session with no
 direct district-wise PDF found on their official sites (not concluded as
 absent, just not found yet).
 
+**Third state (Karnataka), also done, also partial.** A third, different
+PDF problem this time -- no font-encoding or letter-spacing issue (plain
+`pdfplumber.extract_text()` worked cleanly), but a naming-vintage mismatch:
+the PDF prints current post-2014 Kannada-spelling district names
+(BELAGAVI, KALABURGI, VIJAYPURA) while `crop_stats_des/` still carries the
+older English transliterations (Belgaum, Gulbarga, Bijapur). 9 of 31
+districts needed a hand-verified alias, plus one genuine source-PDF typo
+("VIAJAYANAGARA") caught by row position. 496 verified rows -- 6 cereals
+(Rice/Jowar/Bajra/Maize/Ragi/Wheat) x 31 districts x up to 3 seasons; only
+the cereals section (19 of 171 pages) processed, pulses/oilseeds/
+commercial/horticulture/spices sections not yet done. Real bonus finding:
+the PDF's own stated 2% "bund correction" (deducted from gross area)
+resolves 358 of 380 (94%) DES-cross-checked rows to within 2 ha once
+applied. Full methodology in `docs/STATE_REPORTS.md`.
+
 ## CHARAN 7 — done, see `docs/DISTRICT_NAME_MAP.md`
 
 Reconciled all 23 years of DES district labels against the SoI boundary
