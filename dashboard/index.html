@@ -3262,153 +3262,19 @@ function buildCadastralContext(){
   return 'CADASTRAL PARCEL SELECTED: Khasra=' + parcelKhasra + ', Owner=' + parcelOwner + ', Area=' + parcelArea + ', LandUse=' + parcelLandUse + ', Soil=' + parcelSoil + ', Crop=' + parcelCrop + ', Irrigation=' + parcelIrr + ', NDVI=' + parcelNdvi + ', SoilMoisture=' + parcelSm + ', ClimateRisk=' + parcelRisk + '. Give parcel-specific crop advisory and climate alert for this khasra.';
 }
 
-// Build a context-aware system prompt from the live dashboard state.
-// ASYNC as of 2026-08-08 (owner instruction): real per-place data --
-// climate, mandi, crop stats -- must reach the prompt for EVERY selected
-// district, not only the 5 original IMD districts, and doing that for the
-// 728 other districts needs a real (fast, timeout-bounded) fetch, which a
-// synchronous function can't do. Callers must `await` this now.
-async function buildChatSystemPrompt(){
-  const rawDistrict = document.getElementById('districtSelect')?.value || '';
-  const rawState = document.getElementById('stateSelect')?.value || '';
-  // Bug fixed 2026-08-08 (owner-reported: "chuni hui jagah ka data prompt
-  // me ja hi nahi raha"): this used to do `MP_DISTRICTS[distKey]` with
-  // distKey read directly from the dropdown ("Bhopal"), but MP_DISTRICTS
-  // keys are lowercase ("bhopal") -- so the lookup silently failed for
-  // EVERY district, including Bhopal itself, and locLine/climLine never
-  // populated. currentMPDistrictKey() is this file's own established
-  // normalizer for exactly this (see its definition for the full story).
-  const mpKey = currentMPDistrictKey();
-  let locLine="No specific district selected yet.";
-  let climLine="";
-  let vilLine="";
-  let mandiLine="";
-  let cropLine="";
-
-  if(mpKey && MP_DISTRICTS[mpKey]){
-    const d=MP_DISTRICTS[mpKey];
-    locLine=`Currently selected district: ${d.name} (Madhya Pradesh). Risk=${d.risk}, drought index=${d.drought}%, max temp=${d.heat}C, NDVI=${d.ndvi}.`;
-    var cd = window._mpClimateData;
-    if (cd && cd.districts && cd.districts[mpKey]) {
-      var di = cd.districts[mpKey].indices || {};
-      var ann = cd.districts[mpKey].annual || {};
-      var lastYr = ann.years && ann.years.length ? ann.years[ann.years.length-1] : '';
-      var lastRain = ann.annual_rain_mm && ann.annual_rain_mm.length ? ann.annual_rain_mm[ann.annual_rain_mm.length-1] : '';
-      var lastHw = ann.heatwave_days && ann.heatwave_days.length ? ann.heatwave_days[ann.heatwave_days.length-1] : '';
-      climLine = `REAL IMD data for ${d.name}: 25-year mean drought_prob=${di.drought_probability_pct||'?'}%, heatwave_days/yr=${di.heatwave_days_mean||'?'}, mean_summer_tmax=${di.mean_summer_tmax||'?'}C, annual_rain=${di.annual_rain_mm_mean||'?'}mm, spi12=${di.spi12_year_end_mean||'?'}. Most recent year on record (${lastYr}): rainfall=${lastRain}mm, heatwave_days=${lastHw}. Source: IMD 0.05deg gridded daily data, 2000-2024.`;
-    }
-    var vilName = (window._mpClimateState && window._mpClimateState.currentVillage) || document.getElementById('villageSelect')?.value || null;
-    if (vilName) {
-      var villages = MP_DISTRICTS[mpKey]._villages || {};
-      for (var vid in villages) {
-        if ((villages[vid].name||'').toUpperCase() === vilName.toUpperCase()) {
-          var vi = villages[vid].indices || {};
-          vilLine = `Selected village: ${vilName}. SPI-12=${vi.spi_12||'?'}, drought_prob=${vi.drought_probability_pct||'?'}%, annual_rain=${vi.annual_rain_mm||'?'}mm, max_summer_tmax=${vi.max_summer_tmax||'?'}C.`;
-          climLine = `REAL village-level IMD data for ${vilName}: drought_prob=${vi.drought_probability_pct||'?'}%, summer_tmax=${vi.max_summer_tmax||'?'}C, annual_rain=${vi.annual_rain_mm||'?'}mm, spi12=${vi.spi_12||'?'}. Source: IMD 0.05deg gridded data, 2000-2024.`;
-          break;
-        }
-      }
-    }
-  } else if (rawDistrict && rawState) {
-    // Any of the other 728 districts -- not in MP_DISTRICTS, but may have
-    // a real GEE ERA5-Land/CHIRPS file (same source dashboard/compare_loader.js
-    // reads, same slug convention, same honest "this is a period average,
-    // not one specific year" framing).
-    locLine = `Currently selected district: ${rawDistrict}, ${rawState}.`;
-    try {
-      var slugFn = function(s){ return String(s||'').trim().toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,''); };
-      var climUrl = 'data/climate/' + slugFn(rawState) + '/' + slugFn(rawDistrict) + '.json';
-      var climCtl = new AbortController();
-      var climTmr = setTimeout(function(){ climCtl.abort(); }, 8000);
-      var climResp = await fetch(climUrl, {signal: climCtl.signal}).catch(function(){ return null; });
-      clearTimeout(climTmr);
-      if (climResp && climResp.ok) {
-        var climJson = await climResp.json();
-        var ix = climJson.indices || {};
-        climLine = `REAL data for ${rawDistrict} (2000-2024 PERIOD AVERAGE, not one specific year): heatwave_days/yr=${ix.heatwave_days??'?'}, annual_rain=${ix.annual_rain_mm??'?'}mm, spi12=${ix.spi_12??'?'}, rx1day=${ix.rx1day_mm??'?'}mm. Source: ERA5-Land + CHIRPS via Google Earth Engine, 2000-2024 average.`;
-      }
-    } catch (e) { /* no GEE climate file for this district yet -- climLine stays empty, model is told below to say so rather than invent a number */ }
-  }
-
-  // Real AGMARKNET mandi prices -- works for ANY of the 733 districts now
-  // (getRowsForDistrict slugifies internally), not gated to the 5 MP
-  // districts the way this same lookup was in getLocalResponse() before.
-  try {
-    if (window.VindhyaMandi && typeof window.VindhyaMandi.getRowsForDistrict === 'function' && rawDistrict) {
-      var mandiRows = window.VindhyaMandi.getRowsForDistrict(rawDistrict) || [];
-      if (mandiRows.length) {
-        mandiLine = 'REAL AGMARKNET mandi prices today for ' + rawDistrict + ': ' +
-          mandiRows.slice(0, 6).map(function(r){ return r.commodity + ' Rs' + r.min_price + '-' + r.max_price + '/quintal (' + r.market + ', ' + r.arrival_date + ')'; }).join('; ') + '. Source: AGMARKNET via data.gov.in, today.';
-      }
-    }
-  } catch (e) { /* mandi module not loaded yet -- mandiLine stays empty */ }
-
-  // Real DES crop area/production/yield for this district, if a file
-  // exists (same path crop_stats_loader.js reads).
-  try {
-    if (rawDistrict && rawState) {
-      var slugFn2 = function(s){ return String(s||'').trim().toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,''); };
-      var cropUrl = 'data/crop_stats_des_by_district/' + slugFn2(rawState) + '/' + slugFn2(rawDistrict) + '.json';
-      var cropCtl = new AbortController();
-      var cropTmr = setTimeout(function(){ cropCtl.abort(); }, 8000);
-      var cropResp = await fetch(cropUrl, {signal: cropCtl.signal}).catch(function(){ return null; });
-      clearTimeout(cropTmr);
-      if (cropResp && cropResp.ok) {
-        var cropJson = await cropResp.json();
-        if (cropJson.records && cropJson.records.length) {
-          var latestYear = cropJson.records.map(function(r){ return r.year; }).sort().slice(-1)[0];
-          var latestRows = cropJson.records.filter(function(r){ return r.year === latestYear; })
-            .sort(function(a,b){ return (b.area_ha||0)-(a.area_ha||0); }).slice(0, 5);
-          cropLine = 'REAL DES crop data for ' + rawDistrict + ' (' + latestYear + '): ' +
-            latestRows.map(function(r){ return r.crop + ' (' + r.season + '): area=' + r.area_ha + 'ha, production=' + r.production + ', yield=' + (r.yield_per_ha!=null?r.yield_per_ha.toFixed(2):'?') + '/ha'; }).join('; ') + '. Source: DES, data.desagri.gov.in.';
-        }
-      }
-    }
-  } catch (e) { /* no DES file for this district -- cropLine stays empty */ }
-
-  var fcLine = "";
-  if (window._forecast2040 && window._forecast2040.districts && mpKey && window._forecast2040.districts[mpKey]) {
-    var fc = window._forecast2040.districts[mpKey];
-    fcLine = `2040 forecast (indicative, OLS trend not a climate model): drought_prob=${fc.drought_probability_pct||'?'}%, max_summer_tmax=${fc.max_summer_tmax||'?'}C, heatwave_days/yr=${fc.heatwave_days_per_yr||'?'}, annual_rain=${fc.annual_rain_mm_mean||'?'}mm.`;
-  }
-  var langLine=chatLangHi
-    ? "IMPORTANT: Reply ONLY in Hindi (Devanagari script)."
-    : "Reply in English unless the user writes in Hindi, in which case reply in Hindi.";
-  var lastUserMsg = '';
-  for (var hi2 = chatHistory.length - 1; hi2 >= 0; hi2--) {
-    if (chatHistory[hi2].role === 'user') { lastUserMsg = chatHistory[hi2].content; break; }
-  }
-  var kbLine = (typeof buildKnowledgeBaseContext === 'function') ? buildKnowledgeBaseContext(lastUserMsg) : '';
-
-  // Owner instruction 2026-08-08: remove the earlier restriction that made
-  // Kisan Sahayak refuse or hedge on anything not in the data blocks below.
-  // It should now answer as openly as a general assistant (ChatGPT-style)
-  // on farming, pests, soil, disease, schemes, markets, science -- anything
-  // -- using its own knowledge freely. The ONLY hard rule left is: never
-  // invent a specific number tied to the farmer's selected PLACE (a
-  // rainfall total, price, yield etc. for a named district/village) that
-  // isn't in the REAL DATA lines below.
-  return `You are Kisan Sahayak, an open agriculture and rural-life assistant for India. Answer ANY question the farmer asks -- crops, pests, soil, disease, government schemes, markets, general science, anything -- using your own knowledge freely and in useful detail, the way a good general-purpose assistant (like ChatGPT) would. Do not refuse or hedge on general-knowledge questions.
-
-The ONLY hard rule: never invent a specific number tied to the farmer's selected PLACE (a rainfall total, temperature, mandi price, or crop yield/area for a named district or village) unless that exact number is present in the REAL DATA lines below. If asked for a place-specific figure you don't have below, say plainly that the exact figure for that place isn't available -- then still answer the rest of the question from general knowledge rather than refusing the whole thing.
-
-Do NOT invent a specific paper title, author, or publication year to sound authoritative -- a small model naming a precise-sounding citation from memory is usually wrong. If a study or organization is genuinely well-known to you (e.g. "ICAR recommends...", "FAO's IPM guidelines suggest..."), it's fine to mention it by name in general terms; otherwise just give the agronomic guidance without inventing a citation. The farmer can ask "koi research paper hai iss par" (any research paper on this) separately for real, verified citations pulled live from OpenAlex/CrossRef/DOAJ/PubMed.
-
-End your reply with exactly one line: "Source: <name>, <year>" ONLY if you used one of the REAL DATA lines below. If you answered from general knowledge only, add no source line at all.
-
---- REAL DATA (use if relevant to the question; nothing below is invented) ---
-${locLine}
-${climLine}
-${vilLine}
-${mandiLine}
-${cropLine}
-${fcLine}
-${kbLine}
-Cadastral context: ${buildCadastralContext()}
---- end real data ---
-
-${langLine}`;
-}
+// buildChatSystemPrompt() (the giant client-side prompt-builder that used
+// to fetch climate/mandi/crop data itself and hand-assemble one huge
+// string) was REMOVED 2026-08-08 along with the old runChatCompletion()
+// rewrite below -- kisan_sahayak_worker.js now does that same real-data
+// prefetch server-side (in parallel, for every one of the 733+ districts,
+// not just the 5 IMD ones) and builds its own system prompt with the
+// owner's 5-part answer structure baked in. Nothing here duplicates that
+// logic anymore; runChatCompletion() just sends {message, history, place,
+// lang, client_context}. buildCadastralContext() and
+// window.buildKnowledgeBaseContext() (the small curated government-portal/
+// paper manifest in knowledge_base_loader.js) are still real, still used --
+// see buildChatPlace() and the client_context assembly inside
+// runChatCompletion() below.
 
 function askChatAboutCadastral(){
   var ctx = buildCadastralContext();
@@ -3578,9 +3444,59 @@ function getLocalResponse(question){
   return null; // not a chip question, use API
 }
 
-// Performs the actual Claude request for the latest message already in chatHistory.
-// Kept separate from sendChat so the API-key prompt can re-run it without
-// re-adding the user's message.
+// Builds the {state, district, village, lat, lon} place object the new
+// Worker's deterministic parallel prefetch keys off. lat/lon come from
+// window.currentLocationPoint (set by national_selector.js placeMarker()
+// via turf.pointOnFeature on whatever boundary is currently selected) --
+// never guessed/geocoded client-side, so get_weather can honestly report
+// "not available" instead of a wrong point when nothing's selected yet.
+function buildChatPlace(){
+  var rawDistrict = document.getElementById('districtSelect')?.value || '';
+  var rawState = document.getElementById('stateSelect')?.value || '';
+  var mpKey = currentMPDistrictKey();
+  var district = (mpKey && MP_DISTRICTS[mpKey]) ? MP_DISTRICTS[mpKey].name : rawDistrict;
+  var state = (mpKey && MP_DISTRICTS[mpKey]) ? 'Madhya Pradesh' : rawState;
+  var village = (window._mpClimateState && window._mpClimateState.currentVillage) || document.getElementById('villageSelect')?.value || null;
+  var pt = window.currentLocationPoint;
+  return {
+    state: state || null,
+    district: district || null,
+    village: village || null,
+    lat: pt ? pt.lat : null,
+    lon: pt ? pt.lon : null,
+  };
+}
+
+// Parses one Server-Sent-Events frame's payload. The Worker emits two
+// shapes on the same stream: its own custom control events (JSON objects
+// with a "type" field: meta/model/tool/error) and Workers AI's native
+// token events ({"response":"..."} per env.AI.run(..., {stream:true})),
+// terminated by the literal (non-JSON) line "data: [DONE]".
+function parseSseFrame(raw){
+  var line = raw.trim();
+  if (!line.indexOf) return null;
+  if (!line.startsWith('data:')) return null;
+  var payload = line.slice(5).trim();
+  if (payload === '[DONE]') return {done:true};
+  try{ return {done:false, obj: JSON.parse(payload)}; }
+  catch(e){ return null; }
+}
+
+// Performs the actual chat request for the latest message already in
+// chatHistory. Kept separate from sendChat so the API-key prompt can re-run
+// it without re-adding the user's message.
+//
+// REWRITTEN 2026-08-08 for the new kisan_sahayak_worker.js: the old
+// "vindhya-gemini-proxy" Worker was a flat {prompt}->{text} proxy, so this
+// function used to build one giant prompt string client-side
+// (the old buildChatSystemPrompt(), since removed). The new Worker does
+// its own real-data prefetch (climate/weather/mandi/crop/village, all in
+// parallel, server-side) and streams the answer token by token over SSE --
+// this function now sends a small structured
+// {message, history, place, lang, client_context} body and renders tokens
+// as they arrive. client_context carries the two things that only exist
+// client-side (a selected cadastral parcel, the curated knowledge-base
+// manifest match) -- everything else moved server-side.
 async function runChatCompletion(){
   if(chatBusy) return;
   chatBusy=true;
@@ -3591,104 +3507,173 @@ async function runChatCompletion(){
   // No API key here, deliberately. This is a static site on GitHub Pages:
   // anything in this file is readable by every visitor, so a key placed
   // here would be public within minutes (it has happened to this project
-  // before). The key lives only in a Cloudflare Worker secret; the browser
-  // talks to the Worker, never to Google directly. CHAT_PROXY_URL is the
-  // single place the endpoint is written -- if it ever moves, one line
-  // changes, not fifty.
+  // before). The new Worker needs no external API key at all (see its own
+  // header comment) -- generation runs entirely on Workers AI, a
+  // first-party Cloudflare binding. CHAT_PROXY_URL is the single place the
+  // endpoint is written -- if it ever moves, one line changes, not fifty.
   const CHAT_PROXY_URL = (window.VINDHYA_CONFIG && window.VINDHYA_CONFIG.CHAT_PROXY_URL)
-    || 'https://vindhya-gemini-proxy.vindhyaresearch25.workers.dev';
+    || 'https://vindhya-kisan-sahayak.vindhyaresearch25.workers.dev';
+
+  var place = buildChatPlace();
+  var lastUserMsg = '';
+  for (var hi = chatHistory.length - 1; hi >= 0; hi--) {
+    if (chatHistory[hi].role === 'user') { lastUserMsg = chatHistory[hi].content; break; }
+  }
+  var historyPayload = chatHistory.slice(0, -1).slice(-12).map(function(h){ return {role: h.role, content: h.content}; });
+
+  // The two pieces of context that only exist client-side: a selected
+  // cadastral parcel (buildCadastralContext(), empty string if nothing's
+  // selected) and the curated knowledge-base manifest's best keyword match
+  // for this question (knowledge_base_loader.js -- a few dozen
+  // government-portal/open-access-paper entries, separate from and
+  // complementary to the Worker's own Vectorize search_manuals corpus).
+  var cadastralCtx = buildCadastralContext();
+  var kbCtx = (typeof buildKnowledgeBaseContext === 'function') ? buildKnowledgeBaseContext(lastUserMsg) : '';
+  var clientContext = [
+    cadastralCtx ? ('Cadastral context: ' + cadastralCtx) : '',
+    kbCtx || ''
+  ].filter(Boolean).join('\n');
+
+  console.log('[Kisan Sahayak] place sent to Worker:', place);
+
+  var ctl = new AbortController();
+  var timer = setTimeout(function(){ ctl.abort(); }, 45000); // generous: streaming can legitimately take longer than one round-trip
+
+  var botDiv = null;       // created lazily on first real token, so "typing..." shows until then
+  var accumulated = '';
+  var modelUsed = null;
+  var streamErrored = false;
+  var gotAnyToken = false;
+
+  function ensureBotDiv(){
+    if (!botDiv) { hideTyping(); botDiv = addChatMsg('bot', ''); }
+    return botDiv;
+  }
+  function appendToken(t){
+    gotAnyToken = true;
+    accumulated += t;
+    var div = ensureBotDiv();
+    div.textContent = accumulated;
+    var body = document.getElementById('chatBody');
+    body.scrollTop = body.scrollHeight;
+  }
 
   try{
-    // The Worker's contract is one flat {"prompt": string} -> {"text": string}.
-    // So the system instruction, the real figures, and the conversation are
-    // folded into a single string here rather than sent as separate fields.
-    // buildChatSystemPrompt() is async now (2026-08-08) -- it fetches real
-    // per-district climate/mandi/crop data for whichever district is
-    // selected, not only the 5 original IMD districts.
-    var systemPrompt = await buildChatSystemPrompt();
-
-    var recent = chatHistory.slice(-12);
-    var transcript = '';
-    for (var i = 0; i < recent.length; i++) {
-      var who = recent[i].role === 'assistant' ? 'Sahayak' : 'Kisan';
-      transcript += who + ': ' + recent[i].content + '\n';
-    }
-
-    var fullPrompt = systemPrompt
-      + '\n\n--- Conversation so far ---\n' + transcript
-      + '\nSahayak:';
-
-    // The Worker rejects anything over 4000 characters. Trim the oldest
-    // turns rather than let the request fail outright.
-    if (fullPrompt.length > 3900) {
-      fullPrompt = systemPrompt + '\n\n--- Latest question ---\n'
-        + (recent.length ? recent[recent.length - 1].content : '')
-        + '\n\nSahayak:';
-      if (fullPrompt.length > 3900) fullPrompt = fullPrompt.slice(0, 3900);
-    }
-
-    // Owner instruction (2026-08-08): print the exact prompt sent to the
-    // Worker so real-data inclusion can be checked directly, not guessed
-    // at from the reply alone.
-    console.log('[Kisan Sahayak] full prompt sent to Worker (' + fullPrompt.length + ' chars):\n' + fullPrompt);
-
-    var ctl = new AbortController();
-    var timer = setTimeout(function(){ ctl.abort(); }, 30000);
-
-    var response = await fetch(CHAT_PROXY_URL, {
+    var response = await fetch(CHAT_PROXY_URL.replace(/\/$/, '') + '/chat', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({prompt: fullPrompt}),
+      body: JSON.stringify({
+        message: lastUserMsg,
+        history: historyPayload,
+        place: place,
+        lang: chatLangHi ? 'hi' : 'en',
+        client_context: clientContext
+      }),
       signal: ctl.signal
     });
-    clearTimeout(timer);
-
-    var raw = await response.text();
-    var data = null;
-    try{ data = JSON.parse(raw); }catch(e){}
-
-    hideTyping();
 
     if (!response.ok) {
-      // Each status means something different to the person reading it, so
-      // say which one it is rather than one generic failure.
+      // The Worker returns plain JSON (not SSE) for request-level failures
+      // (bad JSON, empty message) -- try to read a real error out of it.
+      var raw = await response.text().catch(function(){ return ''; });
+      var errData = null;
+      try{ errData = JSON.parse(raw); }catch(e){}
+      clearTimeout(timer);
+      hideTyping();
       var errMsg;
       if (response.status === 429) {
-        errMsg = chatLangHi
-          ? '\u092c\u0939\u0941\u0924 \u091c\u093c\u094d\u092f\u093e\u0926\u093e \u0938\u0935\u093e\u0932 \u092a\u0942\u091b\u0947 \u0917\u090f\u0964 \u090f\u0915 \u092e\u093f\u0928\u091f \u092c\u093e\u0926 \u092b\u093f\u0930 \u0915\u094b\u0936\u093f\u0936 \u0915\u0940\u091c\u093f\u090f\u0964'
-          : 'Too many questions just now. Please try again in a minute.';
+        errMsg = chatLangHi ? '\u092c\u0939\u0941\u0924 \u091c\u093c\u094d\u092f\u093e\u0926\u093e \u0938\u0935\u093e\u0932 \u092a\u0942\u091b\u0947 \u0917\u090f\u0964 \u090f\u0915 \u092e\u093f\u0928\u091f \u092c\u093e\u0926 \u092b\u093f\u0930 \u0915\u094b\u0936\u093f\u0936 \u0915\u0940\u091c\u093f\u090f\u0964' : 'Too many questions just now. Please try again in a minute.';
       } else if (response.status === 403) {
-        errMsg = chatLangHi
-          ? '\u092f\u0939 \u092a\u0943\u0937\u094d\u0920 \u0915\u093f\u0938\u093e\u0928 \u0938\u0939\u093e\u092f\u0915 \u0938\u0947\u0935\u093e \u0938\u0947 \u091c\u0941\u0921\u093c\u0928\u0947 \u0915\u0940 \u0905\u0928\u0941\u092e\u0924\u093f \u0928\u0939\u0940\u0902 \u0930\u0916\u0924\u093e\u0964'
-          : 'This page is not authorised to reach the Kisan Sahayak service.';
+        errMsg = chatLangHi ? '\u092f\u0939 \u092a\u0943\u0937\u094d\u0920 \u0915\u093f\u0938\u093e\u0928 \u0938\u0939\u093e\u092f\u0915 \u0938\u0947\u0935\u093e \u0938\u0947 \u091c\u0941\u0921\u093c\u0928\u0947 \u0915\u0940 \u0905\u0928\u0941\u092e\u0924\u093f \u0928\u0939\u0940\u0902 \u0930\u0916\u0924\u093e\u0964' : 'This page is not authorised to reach the Kisan Sahayak service.';
       } else {
-        errMsg = chatLangHi
-          ? '\u0915\u093f\u0938\u093e\u0928 \u0938\u0939\u093e\u092f\u0915 \u0938\u0947\u0935\u093e \u0905\u092d\u0940 \u0909\u092a\u0932\u092c\u094d\u0927 \u0928\u0939\u0940\u0902 \u0939\u0948 (HTTP ' + response.status + ')\u0964'
-          : 'The Kisan Sahayak service is unavailable right now (HTTP ' + response.status + ').';
+        errMsg = chatLangHi ? '\u0915\u093f\u0938\u093e\u0928 \u0938\u0939\u093e\u092f\u0915 \u0938\u0947\u0935\u093e \u0905\u092d\u0940 \u0909\u092a\u0932\u092c\u094d\u0927 \u0928\u0939\u0940\u0902 \u0939\u0948 (HTTP ' + response.status + ')\u0964' : 'The Kisan Sahayak service is unavailable right now (HTTP ' + response.status + ').';
       }
-      console.error('Chat proxy error:', response.status);
       addChatMsg('bot', errMsg + (chatLangHi
         ? ' \u092e\u0948\u0902 \u092b\u093f\u0930 \u092d\u0940 \u092e\u094c\u0938\u092e, \u092b\u0938\u0932, \u092e\u0902\u0921\u0940 \u092d\u093e\u0935 \u0915\u0947 \u0905\u0938\u0932\u0940 \u0906\u0901\u0915\u0921\u093c\u0947 \u0926\u0947 \u0938\u0915\u0924\u093e \u0939\u0942\u0902\u0964'
         : ' I can still answer with real data on weather, crops and mandi prices.'));
       return;
     }
 
-    var reply = (data && typeof data.text === 'string') ? data.text.trim() : '';
-    if (!reply) {
-      reply = chatLangHi
-        ? '\u0915\u094d\u0937\u092e\u093e \u0915\u0930\u0947\u0902, \u092e\u0941\u091d\u0947 \u0909\u0924\u094d\u0924\u0930 \u092c\u0928\u093e\u0928\u0947 \u092e\u0947\u0902 \u0938\u092e\u0938\u094d\u092f\u093e \u0939\u0941\u0908\u0964 \u0915\u0943\u092a\u092f\u093e \u092a\u0941\u0928\u0903 \u092a\u094d\u0930\u092f\u093e\u0938 \u0915\u0930\u0947\u0902\u0964'
-        : 'Sorry, I couldn\'t generate a response. Please try again.';
+    var contentType = response.headers.get('Content-Type') || '';
+    if (contentType.indexOf('text/event-stream') === -1 || !response.body || !response.body.getReader) {
+      // Graceful non-streaming fallback: same endpoint, same response --
+      // just read it all at once instead of incrementally (covers an
+      // environment where fetch-body streaming isn't usable, or the Worker
+      // for some reason didn't set the SSE content-type).
+      var wholeText = await response.text();
+      var lines = wholeText.split('\n\n');
+      for (var li = 0; li < lines.length; li++) {
+        var frame = parseSseFrame(lines[li]);
+        if (!frame || frame.done) continue;
+        if (frame.obj && frame.obj.type === 'model') modelUsed = frame.obj.model;
+        else if (frame.obj && frame.obj.type === 'error') streamErrored = true;
+        else if (frame.obj && typeof frame.obj.response === 'string') appendToken(frame.obj.response);
+      }
+    } else {
+      // Real streaming path: read the body incrementally, render each
+      // token the moment it arrives (this is what gets a word on screen
+      // within seconds instead of after the whole answer is ready).
+      var reader = response.body.getReader();
+      var decoder = new TextDecoder();
+      var buffer = '';
+      try {
+        while (true) {
+          var chunk = await reader.read();
+          if (chunk.done) break;
+          buffer += decoder.decode(chunk.value, {stream:true});
+          var parts = buffer.split('\n\n');
+          buffer = parts.pop(); // last part may be incomplete, keep for next read
+          for (var pi = 0; pi < parts.length; pi++) {
+            var f = parseSseFrame(parts[pi]);
+            if (!f || f.done) continue;
+            if (f.obj && f.obj.type === 'model') { modelUsed = f.obj.model; }
+            else if (f.obj && f.obj.type === 'error') { streamErrored = true; console.error('[Kisan Sahayak] stream error event:', f.obj); }
+            else if (f.obj && f.obj.type === 'tool') { console.log('[Kisan Sahayak] tools used:', f.obj.calls); }
+            else if (f.obj && f.obj.type === 'meta') { console.log('[Kisan Sahayak] data available for this place:', f.obj.data_available); }
+            else if (f.obj && typeof f.obj.response === 'string') { appendToken(f.obj.response); }
+          }
+        }
+      } catch (streamErr) {
+        // "graceful non-streaming fallback if the stream fails partway":
+        // keep whatever text already rendered, note the interruption
+        // rather than losing the partial answer or crashing silently.
+        streamErrored = true;
+        console.error('[Kisan Sahayak] stream reading failed partway:', streamErr);
+      }
     }
-    addChatMsg('bot', reply);
-    chatHistory.push({role:'assistant', content:reply});
+
+    clearTimeout(timer);
+    hideTyping();
+
+    if (!gotAnyToken) {
+      var noReplyMsg = chatLangHi
+        ? '\u0915\u094d\u0937\u092e\u093e \u0915\u0930\u0947\u0902, \u092e\u0941\u091d\u0947 \u0909\u0924\u094d\u0924\u0930 \u092c\u0928\u093e\u0928\u0947 \u092e\u0947\u0902 \u0938\u092e\u0938\u094d\u092f\u093e \u0939\u0941\u0908\u0964 \u0915\u0943\u092a\u092f\u093e \u092a\u0941\u0928\u0903 \u092a\u094d\u0930\u092f\u093e\u0938 \u0915\u0930\u0947\u0902\u0964'
+        : "Sorry, I couldn't generate a response. Please try again.";
+      addChatMsg('bot', noReplyMsg);
+      chatHistory.push({role:'assistant', content:noReplyMsg});
+      return;
+    }
+
+    if (streamErrored) {
+      accumulated += (chatLangHi
+        ? '\n\n[\u0909\u0924\u094d\u0924\u0930 \u092c\u0940\u091a \u092e\u0947\u0902 \u0930\u0941\u0915 \u0917\u092f\u093e -- \u0935\u0939\u0940 \u0926\u093f\u0916\u093e\u092f\u093e \u091c\u093e \u0930\u0939\u093e \u0939\u0948 \u091c\u094b \u0905\u092c \u0924\u0915 \u092a\u094d\u0930\u093e\u092a\u094d\u0924 \u0939\u0941\u0906\u0964]'
+        : '\n\n[Answer was interrupted mid-way -- showing what was received so far.]');
+      if (botDiv) botDiv.textContent = accumulated;
+    }
+    chatHistory.push({role:'assistant', content:accumulated});
+    console.log('[Kisan Sahayak] model used:', modelUsed || '(unknown)');
 
   } catch(e) {
+    clearTimeout(timer);
     hideTyping();
     console.error('Chatbot error:', e);
-    // Distinguish a timeout from an unreachable service: they need
-    // different things from the reader. Either way, point back to
-    // getLocalResponse()'s real, source-cited answers, which do not
-    // depend on the proxy at all.
+    if (gotAnyToken) {
+      // We had a real connection and some real tokens, then it died before
+      // reaching the fetch()'s own try/catch above (e.g. an abort) --
+      // still keep the partial answer rather than throwing it away.
+      chatHistory.push({role:'assistant', content:accumulated});
+      return;
+    }
     var msg;
     if (e && e.name === 'AbortError') {
       msg = chatLangHi
