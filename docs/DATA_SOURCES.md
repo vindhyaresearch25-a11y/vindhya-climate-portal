@@ -153,6 +153,35 @@ landing-page URL) -- a query with zero real matches renders an honest
 "no papers found" message, never a placeholder citation. Sci-Hub is never
 called or referenced, per FINAL_PROMPT.md's explicit rule.
 
+## Kisan Sahayak agriculture DSS backend (`cloudflare/kisan_sahayak_worker.js`, added 2026-08-08)
+
+The chat widget's Cloudflare Worker fetches five real data sources in
+parallel for the farmer's selected place, all already-registered elsewhere
+in this file/repo -- listed here just as the consuming point, not a new
+source: `dashboard/data/mp_climate_data.json` and
+`dashboard/data/climate/<state>/<district>.json` (climate), HF-hosted
+`village_profiles/<state>/<district>.json` (village profile),
+`dashboard/data/crop_stats_des_by_district/<state>/<district>.json` (crop
+stats), `dashboard/data/mandi_prices.json` (mandi prices), and NASA POWER's
+daily point API (live weather, same source as
+`dashboard/live_weather_loader.js`). The Worker's `search_papers` tool is a
+server-side re-implementation of the OpenAlex/CrossRef/DOAJ/PubMed sources
+already wired in `dashboard/research_papers_loader.js` (same honest
+inclusion/exclusion list as the row above -- Semantic Scholar/CORE/AGRIS/
+ICAR-KRISHI are not re-litigated here, see that section).
+
+**New source as of this Worker:** `search_manuals`, a Cloudflare Vectorize
+RAG index (`kisan-sahayak-manuals`) over real ICAR/state-department/IMD
+Package-of-Practices and agromet-advisory PDFs, embedded with Workers AI's
+`@cf/baai/bge-base-en-v1.5`. Full corpus coverage, exact document list,
+what was tried and excluded, and the ingestion contract are in
+`docs/KISAN_SAHAYAK_RAG.md` -- 6 real documents ingested as of 2026-08-08
+(wheat PoP 1984/IIWBR, organic-farming PoP/Maharashtra, direct-seeded-rice
+bulletin/ICAR-CRRI 2025, Kharif agro-advisories/ICAR 2025, and IMD agromet
+bulletins for Gujarat and Assam). Neither the Vectorize index nor the
+Worker itself has been deployed by this session -- both require the
+owner's own Cloudflare login.
+
 ## Removed in the 2026-08 cleanup
 
 - 50 synthetic districts and ~5,000 generated villages (`08_expand_climate_data.py`)
