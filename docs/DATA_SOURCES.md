@@ -115,6 +115,37 @@ This is below the 5.5 km resolution of the underlying IMD climate grid, so it
 does not affect any computed index. Full-precision source vectors should be
 retained offline for any cadastral or legal use.
 
+## Groundwater / well-irrigation (MERA_KHET_PROMPT.md B2, checked 2026-08-09)
+
+Two real, honestly-separated things live in the "GROUNDWATER & IRRIGATION"
+card of the Agriculture panel:
+
+1. **Real well/tubewell-irrigated area** (`agri-gw-wells`) -- summed live,
+   client-side, from `data/village_profiles/<state>/<district>.json`'s
+   `irrigated_wells_tubewells_ha` field across every village in the
+   selected district, with the real village count shown ("Sum of N/total
+   villages..."). Genuine SoI-sourced data, already used elsewhere in the
+   dashboard (Compare feature, village profile panel) for the same field.
+2. **Groundwater level TREND** (`agri-gw-level`) -- the actual water-table
+   depth/trend, which needs CGWB/India-WRIS. Checked before building
+   anything: `indiawris.gov.in` has no documented public API (form-based
+   dashboard portal, no developer docs found); `cgwb.gov.in` has no bulk
+   machine-readable download found either. Per MERA_KHET_PROMPT.md's own
+   rule ("Nahi hai to panel me: 'No public API...' ... Scrape mat karo"),
+   this card honestly reads "No public API. Source: CGWB India-WRIS.
+   Institutional data request required." rather than being scraped or
+   estimated.
+
+**These two are never combined into one score.** The prompt's actual
+ambition ("jyada nalkoop sinchai + girta bhujal star = khatra" -- a real
+groundwater-risk index combining well density with a falling water table)
+needs the CGWB half, which isn't available -- so it isn't computed. A
+real per-state `data.gov.in` OGD channel for CGWB groundwater level data
+appears to exist (same distribution channel already used for AGMARKNET/
+crop stats in this project) but real per-state resource IDs were not
+found/verified in the time available; worth a dedicated future session,
+not chased further here to avoid guessing at unverified resource IDs.
+
 ## Compare feature (`dashboard/compare_loader.js`, Phase 6, added 2026-08-07)
 
 Not a new data file -- a client-side view that combines four existing

@@ -602,7 +602,75 @@
       setTxt('agri-gw-irr-need', 'Not available', 'var(--text-dim)');
       setTxt('agri-gw-recharge', 'Not available', 'var(--text-dim)');
     }
-    setTxt('agri-gw-level', 'Not available — CGWB/India-WRIS groundwater data is not yet integrated', 'var(--text-dim)');
+    // MERA_KHET_PROMPT.md B2: checked 2026-08-09 whether India-WRIS
+    // (indiawris.gov.in) has a public API/bulk download for groundwater
+    // level -- it does not (no documented API found; the portal is a
+    // form-based dashboard, no dev docs). CGWB's own site
+    // (cgwb.gov.in) was also checked, no bulk machine-readable download
+    // found. Per the prompt's own explicit rule ("Nahi hai to panel me:
+    // 'No public API...' ... Scrape mat karo"), this is left as an
+    // honest gap, not scraped. A real per-state data.gov.in OGD
+    // resource route exists in principle (same channel already used for
+    // AGMARKNET/crop stats) but real per-state resource IDs were not
+    // found/verified in the time available -- worth a dedicated future
+    // check, not chased further here.
+    setTxt('agri-gw-level', 'No public API. Source: CGWB India-WRIS. Institutional data request required.', 'var(--text-dim)');
+    renderWellIrrigation(districtKey, villageName);
+  }
+
+  // The OTHER half of B2 -- real, already-available data: every village's
+  // own well/tubewell-irrigated area is in the Survey of India village
+  // profile (irrigated_wells_tubewells_ha), fetched here directly (same
+  // URL/cache pattern national_selector.js's own village-profile panel
+  // uses -- a second fetch of the same small per-district file is cheap,
+  // the browser HTTP cache absorbs it). This is real data; the CGWB
+  // groundwater-LEVEL trend above it is not -- the two are never
+  // combined into one "groundwater risk" score, since that combination
+  // (MERA_KHET_PROMPT.md's actual stated goal -- "jyada nalkoop sinchai +
+  // girta bhujal star = khatra") needs the CGWB half, which isn't
+  // available.
+  var _wellIrrCache = {};
+  function renderWellIrrigation(districtKey, villageName) {
+    var el2 = document.getElementById('agri-gw-wells');
+    var noteEl = document.getElementById('agri-gw-note');
+    if (!el2) return;
+    var stateSelect = document.getElementById('stateSelect');
+    var districtSelect = document.getElementById('districtSelect');
+    var stateName = stateSelect ? stateSelect.value : null;
+    var districtName = districtSelect ? districtSelect.value : null;
+    if (!stateName || !districtName) { el2.textContent = '—'; if (noteEl) noteEl.textContent = ''; return; }
+    var slugify = function (s) { return String(s || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, ''); };
+    var sSlug = slugify(stateName), dSlug = slugify(districtName);
+    var key = sSlug + '/' + dSlug;
+    function render(data) {
+      if (!data || !data.villages) {
+        el2.textContent = 'Not available';
+        el2.style.color = 'var(--text-dim)';
+        if (noteEl) noteEl.textContent = 'No Survey of India village profile file for ' + districtName + '.';
+        return;
+      }
+      var order = data.metadata && data.metadata.field_order;
+      var iIrr = order ? order.indexOf('irrigated_wells_tubewells_ha') : -1;
+      if (iIrr < 0) { el2.textContent = 'Not available'; el2.style.color = 'var(--text-dim)'; return; }
+      var sum = 0, n = 0, total = 0;
+      Object.keys(data.villages).forEach(function (k) {
+        total++;
+        var v = data.villages[k][iIrr];
+        if (v != null) { sum += v; n++; }
+      });
+      el2.textContent = Math.round(sum).toLocaleString('en-IN') + ' ha';
+      el2.style.color = null;
+      if (noteEl) {
+        noteEl.textContent = 'Sum of ' + n + '/' + total + ' villages in ' + districtName + ' with a recorded well/tubewell-irrigated area (Survey of India village profile, ' + (data.metadata && data.metadata.fetch_date || '') + '). Real groundwater-level trend for these wells is not available (see GW LEVEL TREND above) -- this figure alone does not indicate whether the water table is falling.';
+      }
+    }
+    if (_wellIrrCache[key]) { render(_wellIrrCache[key]); return; }
+    var url = (typeof resolveDataUrl === 'function') ? resolveDataUrl('data/' + 'village_profiles/' + sSlug + '/' + dSlug + '.json') : ('data/village_profiles/' + sSlug + '/' + dSlug + '.json');
+    var ctl = new AbortController();
+    var tmr = setTimeout(function () { ctl.abort(); }, 30000);
+    fetch(url, { signal: ctl.signal }).then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) { clearTimeout(tmr); _wellIrrCache[key] = d; render(d); })
+      .catch(function () { clearTimeout(tmr); el2.textContent = 'Not available'; el2.style.color = 'var(--text-dim)'; });
   }
 
   function refreshAll(districtKey, villageName){
