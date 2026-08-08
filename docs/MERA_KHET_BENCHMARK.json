@@ -1,0 +1,78 @@
+{
+  "metadata": {
+    "purpose": "MERA_KHET_PROMPT.md A3 benchmark -- measured before building Mera Khet",
+    "polygon_center": [
+      23.15,
+      77.35
+    ],
+    "polygon_area_ha": 1.863,
+    "run_at_utc": "2026-08-08T19:04:43.401462+00:00",
+    "note": "GEE EECU cost per query is NOT obtainable via the Python API -- only visible in the Cloud Console quota dashboard (browser-only, not queryable programmatically). Not measured here; reported honestly as not measured, not estimated."
+  },
+  "benchmarks": [
+    {
+      "label": "1_dynamic_world_cropland",
+      "ok": true,
+      "seconds": 3.28,
+      "result": {
+        "label": {
+          "0": 119.7450980392157,
+          "4": 83.23921568627452
+        }
+      }
+    },
+    {
+      "label": "2_sentinel2_ndvi_latest",
+      "ok": true,
+      "seconds": 1.45,
+      "result": {
+        "ndvi_mean": 0.3197630640466798,
+        "image_date": "2026-06-09"
+      }
+    },
+    {
+      "label": "3_clear_day_count_6mo",
+      "ok": true,
+      "seconds": 1.44,
+      "result": {
+        "total_images": 45,
+        "clear_lt20pct_cloud": 28,
+        "window": "2026-02-01 to 2026-08-01"
+      }
+    },
+    {
+      "label": "4_geotiff_export_async",
+      "ok": true,
+      "seconds": 24.85,
+      "result": {
+        "final_state": "FAILED",
+        "seconds": 23.4,
+        "status": {
+          "state": "FAILED",
+          "description": "mera_khet_benchmark_geotiff",
+          "priority": 100,
+          "creation_timestamp_ms": 1786215890960,
+          "update_timestamp_ms": 1786215904810,
+          "start_timestamp_ms": 1786215893908,
+          "task_type": "EXPORT_IMAGE",
+          "attempt": 1,
+          "error_message": "Service accounts do not have storage quota.",
+          "id": "BACUDGKGZYJ6DHAURQKKBZ62",
+          "name": "projects/earthengine-legacy/operations/BACUDGKGZYJ6DHAURQKKBZ62"
+        }
+      },
+      "finding": "GeoTIFF export via toDrive fails outright with this service account -- no storage quota. No GCS bucket is configured in scripts/config.py either, so toCloudStorage isn't available as-is. Real blocker for the GeoTIFF format specifically -- needs either a GCS bucket set up and billing-linked to this GEE project, or a different export target, before GeoTIFF can be offered. Matches MERA_KHET_PROMPT.md's own fallback: ship SHP+PNG+GeoJSON+KML now, mark GeoTIFF 'jald aa raha hai' (coming soon)."
+    },
+    {
+      "label": "5_shpwrite_browser_conversion",
+      "ok": false,
+      "method": "Real MP village layer (52 districts fetched live from HF, merged: 55,937 villages, 48.9 MB GeoJSON -- matches MERA_KHET_PROMPT.md's own cited example of 'Madhya Pradesh, 55,392 gaon, ~48 MB' almost exactly). Tested @mapbox/shp-write both in Node.js and in a real Chrome tab (ruling out a Node-vs-browser artifact) via its documented zip() API.",
+      "results": {
+        "10_features": {"input": 10, "output_bytes": 3135, "verdict": "correct, all features present (plausible byte count)"},
+        "522_features_one_district_bhopal": {"input": 522, "output_shx_records": 2, "verdict": "SEVERE DROP -- only 2 of 522 features survived"},
+        "55937_features_whole_state_mp": {"input": 55937, "output_shx_records": 22, "seconds": 53.1, "output_zip_bytes": "~20KB total", "verdict": "SEVERE DROP -- only 22 of 55937 features survived, confirmed identical in Node and real Chrome"}
+      },
+      "finding": "@mapbox/shp-write silently drops the overwhelming majority of features somewhere between 10 and 522 input polygons -- confirmed in both Node.js and a real browser tab, so this is not a test-environment artifact. This is a REAL BLOCKER for the SHP export format at any realistic district/state scale (a single farmer's one polygon, ~1 feature, would likely work fine per the 10-feature result -- the risk is specifically the Location Selector's district/state-level bulk SHP download, not Mera Khet's own single-polygon SHP export). Root cause not fully diagnosed (a known shp-write library limitation at scale is suspected but not confirmed against its GitHub issues). RECOMMENDATION: Mera Khet's own single-polygon SHP download is very likely fine (1 feature, same regime as the working 10-feature test) and can ship. The Location Selector's bulk district/state SHP download must NOT ship using @mapbox/shp-write as-is until this is root-caused or replaced with a different library/approach (e.g. a server-side/Python shapefile writer via a GitHub Action, pre-built once per state rather than generated client-side on demand)."
+    }
+  ]
+}
