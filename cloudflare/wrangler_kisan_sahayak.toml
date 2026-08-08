@@ -14,11 +14,26 @@
 # runs entirely on Workers AI (see MODEL_FALLBACK_ORDER in the .js file).
 #
 # search_manuals (the RAG tool) additionally needs a one-time Vectorize
-# index -- see scripts/10_ingest_kisan_manuals.py's header comment for the
+# index -- see scripts/12_ingest_kisan_manuals.py's header comment for the
 # exact `wrangler vectorize create` command and the ingestion run itself.
-# Until you've done that, search_manuals degrades to an honest
-# "not configured yet" instead of erroring the whole chat -- deploy now,
-# add Vectorize later, no ordering dependency.
+#
+# ORDERING FIX (checked 2026-08-08): wrangler validates bound resources
+# against your real Cloudflare account at deploy time -- a [[vectorize]]
+# block pointing at an index that doesn't exist yet makes `wrangler deploy`
+# FAIL outright, not degrade gracefully. The earlier version of this file
+# claimed "deploy now, add Vectorize later, no ordering dependency," which
+# is wrong given how wrangler actually behaves. Real order:
+#   1. First deploy (below) with the [[vectorize]] block commented out --
+#      get the core chat (get_climate/get_weather/get_mandi/get_crop_stats/
+#      search_papers) live with zero Vectorize dependency.
+#   2. Run `wrangler vectorize create kisan-sahayak-manuals --dimensions=768
+#      --metric=cosine` (see scripts/12_ingest_kisan_manuals.py's header),
+#      then `python scripts/12_ingest_kisan_manuals.py` to populate it.
+#   3. Uncomment the [[vectorize]] block below and `wrangler deploy` again.
+#      search_manuals only works from this point on; before it, the Worker
+#      still answers with an honest "manual search not configured yet"
+#      instead of erroring the whole chat (see kisan_sahayak_worker.js's
+#      own handling for a missing VECTORIZE_INDEX binding).
 #
 # After deploying: put this Worker's *.workers.dev URL into
 # dashboard/index.html -- either set window.VINDHYA_CONFIG.CHAT_PROXY_URL
@@ -35,13 +50,13 @@ compatibility_date = "2026-08-01"
 [ai]
 binding = "AI"
 
-# Vectorize binding for the RAG manual-search index. The index itself
-# (`kisan-sahayak-manuals`) must exist before this binds successfully --
-# create it once with the command in scripts/10_ingest_kisan_manuals.py's
-# header, THEN deploy (or redeploy) this Worker. Binding name
+# Vectorize binding for the RAG manual-search index -- COMMENTED OUT by
+# default, see the ORDERING FIX note above for why. Uncomment only after
+# `wrangler vectorize create kisan-sahayak-manuals ...` has actually been
+# run, or this file's `wrangler deploy` will fail. Binding name
 # (VECTORIZE_INDEX) must match exactly what kisan_sahayak_worker.js and
-# scripts/10_ingest_kisan_manuals.py both expect -- documented in
+# scripts/12_ingest_kisan_manuals.py both expect -- documented in
 # docs/KISAN_SAHAYAK_RAG.md as the one place this contract is spelled out.
-[[vectorize]]
-binding = "VECTORIZE_INDEX"
-index_name = "kisan-sahayak-manuals"
+# [[vectorize]]
+# binding = "VECTORIZE_INDEX"
+# index_name = "kisan-sahayak-manuals"
