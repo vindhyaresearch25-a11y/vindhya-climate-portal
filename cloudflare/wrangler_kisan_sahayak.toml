@@ -1,10 +1,20 @@
 # Deploy config for the Kisan Sahayak chat Worker
-# (cloudflare/kisan_sahayak_worker.js). Not applied automatically -- run
-# these yourself (same rule as wrangler_kisan_upload.toml: credentials/
-# deploys that need YOUR Cloudflare login happen in your own terminal):
+# (cloudflare/kisan_sahayak_worker.js).
 #
 #   cd cloudflare
 #   wrangler deploy --config wrangler_kisan_sahayak.toml
+#
+# REUSES THE EXISTING vindhya-gemini-proxy WORKER NAME/URL (owner
+# instruction, 2026-08-08: "purane URL par hi deploy karo... kam badlav,
+# kam khatra" -- fewer changes, less risk). `name` below is the Worker's
+# real identity in Cloudflare; deploying under the SAME name as the
+# currently-live Worker overwrites its code in place at the same
+# https://vindhya-gemini-proxy.vindhyaresearch25.workers.dev URL -- no
+# client-side URL change needed anywhere. The old code (Gemini-proxy,
+# llama-3.2-3b-first) is fully replaced; there is no old-worker fallback
+# once this is deployed, which is why the owner's explicit rule is:
+# deploy -> curl-test for a real 200 + sane answer -> ONLY THEN push the
+# client change. If deploy or the curl test fails, stop, do not push.
 #
 # That's it for the core chat features (get_climate/get_weather/get_mandi/
 # get_crop_stats/search_papers all work with zero secrets -- Workers AI is a
@@ -40,7 +50,7 @@
 # before index.html's inline <script> runs, or edit the CHAT_PROXY_URL
 # fallback constant inside runChatCompletion() directly.
 
-name = "vindhya-kisan-sahayak"
+name = "vindhya-gemini-proxy"
 main = "kisan_sahayak_worker.js"
 compatibility_date = "2026-08-01"
 

@@ -3511,8 +3511,12 @@ async function runChatCompletion(){
   // header comment) -- generation runs entirely on Workers AI, a
   // first-party Cloudflare binding. CHAT_PROXY_URL is the single place the
   // endpoint is written -- if it ever moves, one line changes, not fifty.
+  // Same URL as before (owner instruction 2026-08-08: reuse
+  // vindhya-gemini-proxy's existing name/URL instead of standing up a new
+  // one -- cloudflare/wrangler_kisan_sahayak.toml deploys the new Worker
+  // code under this same name, so this constant doesn't change).
   const CHAT_PROXY_URL = (window.VINDHYA_CONFIG && window.VINDHYA_CONFIG.CHAT_PROXY_URL)
-    || 'https://vindhya-kisan-sahayak.vindhyaresearch25.workers.dev';
+    || 'https://vindhya-gemini-proxy.vindhyaresearch25.workers.dev';
 
   var place = buildChatPlace();
   var lastUserMsg = '';

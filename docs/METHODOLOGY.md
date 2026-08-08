@@ -207,6 +207,54 @@ This is intentionally simple and replaceable. A production system would calibrat
 8. **NDVI coverage is Madhya Pradesh only, plus a small MODIS/GEE start elsewhere.** `dashboard/data/dicra_ndvi.json` covers all 52 MP districts (UNDP DiCRA, manual per-district download, not an API). Since 2026-08-08, `scripts/10_gee_national_ndvi.py` (MODIS MOD13Q1 v061 via Google Earth Engine, real per-year district-mean NDVI) has begun closing the rest of the country, benchmarked and run for one state (see `NIGHT_LOG.md` for the exact district count/timing) -- still a small fraction of the ~680 remaining non-MP districts. Every district still lacking a file (either source) shows "Not available", never a substitute value. The two NDVI sources are served from separate files/loaders (`dicra_ndvi.json`+`dicra_ndvi_loader.js` vs `dashboard/data/ndvi/`+`national_ndvi_loader.js`) and are never merged into one number.
 9. **National climate indices (beyond the 5 original IMD districts) use ERA5-Land + CHIRPS via Google Earth Engine, not IMD.** IMD's own 0.05° gridded product is not published on Earth Engine and no raw IMD NetCDF file is available on the machine this pipeline runs on (checked directly against `scripts/config.py`'s `IMD_TMAX_DIR`/`IMD_TMIN_DIR`/`IMD_PRECIP_DIR` before writing `scripts/08_gee_national_climate.py`). ERA5-Land (~9 km) and CHIRPS (~5.5 km) are coarser than IMD's ~5.5 km grid for temperature specifically, and are a genuinely different product, not a substitute manufactured to fill the gap -- the exact same heatwave/SPI/ETCCDI functions from `02_compute_indices.py` are applied unchanged, only the input series differs. Every such district's output JSON states this in its own metadata block; Bhopal, Indore, Jabalpur, Rewa and Sidhi are untouched and remain IMD-derived.
 10. **ERA5-Land/CHIRPS are validated against IMD for the 5 original districts, not assumed accurate.** `scripts/11_build_validation.py` (Phase 8.6) pulls the same ERA5-Land/CHIRPS series used for the national climate layer above, for Bhopal/Indore/Jabalpur/Rewa/Sidhi specifically, and computes real Pearson correlation, mean bias, and RMSE against those districts' actual IMD `annual_trends` numbers (`dashboard/data/validation/madhya_pradesh/*.json`). This checks the national layer's plausibility on the one set of districts where a ground-truth IMD series exists; it is not a claim that the same skill holds everywhere ERA5-Land/CHIRPS are used nationally -- that would need IMD data for those districts too, which is exactly what's unavailable (see #9).
+11. **Kisan Sahayak citation policy: citations are generated from retrieved documents only, never by the model.** See the dedicated sub-section below -- this is a considered, code-enforced design decision, not a gap to be "fixed" by asking the model to cite more carefully.
+
+### 7.1 Kisan Sahayak citation policy (added 2026-08-08)
+
+Live testing of `cloudflare/kisan_sahayak_worker.js` (the chat Worker) found the
+model inventing plausible-sounding citations -- a fabricated manual title
+("मौसम विज्ञान मैनुअल, आईएमडी, 2019") that does not exist -- **despite explicit,
+repeated prompt instructions not to.** This confirmed the owner's assessment:
+prompt-only instructions ("don't invent a citation") are not reliable enough
+on their own for a farmer-facing feature, because a language model sometimes
+follows a negative instruction and sometimes doesn't, and a fabricated
+citation is worse than a fabricated number -- it manufactures false
+credibility that a farmer has no way to check.
+
+The fix is enforced in **code**, not prompt wording, in three independent
+layers (all in `cloudflare/kisan_sahayak_worker.js`):
+
+1. **The model is told to never write a citation at all.** `buildSystemPrompt()`
+   explicitly forbids writing the words "Source"/"स्रोत", any
+   organisation-name-plus-year parenthetical, `et al.`, or an `[M#]`/`[P#]`
+   tag -- this reduces how often the model tries, but is not relied upon to
+   fully work.
+2. **`stripFakeCitations()`** regex-removes any citation-shaped text from the
+   model's raw streamed output before it ever reaches the client -- whether
+   or not layer 1 worked. Applied to safely-buffered chunks (on newline
+   boundaries, never mid-token) so a pattern can never be split across a
+   flush in a way that lets half of it through unfiltered.
+3. **`buildCitationFooter()`** appends exactly one real citation block after
+   the model's answer, generated entirely from what was **actually
+   retrieved** by the deterministic data prefetch (climate/weather/mandi/
+   crop/village) and the `search_manuals`/`search_papers` tools -- never
+   from anything the model wrote. It further checks whether the answer text
+   shows real evidence a given source's specific number was actually used
+   (`answerMentionsNumber`/`answerMentionsAny`) before citing it, so a
+   source that was fetched but irrelevant to the question isn't listed. If
+   nothing real was retrieved, the footer says so honestly: "यह सामान्य कृषि
+   जानकारी है, किसी दस्तावेज़ से उद्धृत नहीं" / "This is general agricultural
+   knowledge, not quoted from any specific document" -- an honest label is
+   better than false authority.
+
+Once `search_manuals` (Cloudflare Vectorize, see `docs/KISAN_SAHAYAK_RAG.md`)
+is populated and deployed, real manual/paper citations will appear
+automatically through layer 3, because they come from an actually-retrieved
+document, not from the model claiming one exists. **Do not revert this to a
+prompt-only approach** -- verified live 2026-08-08 that prompt instructions
+alone let a real fabricated citation through; the code-enforced version was
+tested clean across 4 real questions (rainfall, pest, soil testing, a
+government scheme) with zero fabricated sources.
 
 ## 8. References
 

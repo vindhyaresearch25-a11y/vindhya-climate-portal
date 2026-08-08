@@ -224,12 +224,48 @@ async function toolGetClimate(env, { state, district }) {
     const data = await cachedFetchJson(GH_PAGES_BASE + 'mp_climate_data.json', 21600, TOOL_TIMEOUT_MS);
     const d = data && data.districts && data.districts[dSlug];
     if (!d) return { available: false, reason: 'mp_climate_data.json fetch failed or district missing' };
+    const raw = d.indices || {};
+    // Bug fixed 2026-08-08 (found live-testing this exact deploy): this
+    // used to pass `d.indices` straight through to fmtClimate(), which
+    // reads GEE-shaped field names (heatwave_days, annual_rain_mm,
+    // spi_12, rx1day_mm). mp_climate_data.json's real field names for
+    // these 5 IMD districts are different (heatwave_days_mean,
+    // annual_rain_mm_mean, spi12_year_end_mean, rx1day_mm_mean) --
+    // every one of those came through as "?" in the model's answer.
+    // Normalized here to the same key names fmtClimate expects for both
+    // branches, verified against the real file's actual keys.
+    const indices = {
+      heatwave_days: raw.heatwave_days_mean,
+      drought_probability_pct: raw.drought_probability_pct,
+      mean_summer_tmax: raw.mean_summer_tmax,
+      annual_rain_mm: raw.annual_rain_mm_mean,
+      spi_12: raw.spi12_year_end_mean,
+      rx1day_mm: raw.rx1day_mm_mean,
+    };
+    // Also surface the REAL most recent year's actual reading (not just
+    // the 25-year mean) -- charts.annual_trends has genuine year-by-year
+    // IMD data for these 5 districts, unlike every other district (GEE
+    // districts only have a period average, never a specific year).
+    let latestYear = null;
+    const trend = data.charts && data.charts.annual_trends && data.charts.annual_trends[dSlug];
+    if (trend && Array.isArray(trend.years) && trend.years.length) {
+      const i = trend.years.length - 1;
+      latestYear = {
+        year: trend.years[i],
+        annual_rain_mm: trend.annual_rain_mm ? trend.annual_rain_mm[i] : undefined,
+        heatwave_days: trend.heatwave_days ? trend.heatwave_days[i] : undefined,
+        rx1day_mm: trend.rx1day_mm ? trend.rx1day_mm[i] : undefined,
+        spi_12: trend.spi_12 ? trend.spi_12[i] : undefined,
+      };
+    }
     return {
       available: true,
       district: d.name || district,
       state: 'Madhya Pradesh',
-      indices: d.indices || {},
-      source: 'IMD 0.05deg gridded daily data, 2000-2024 (25-year district means)',
+      indices,
+      latest_year: latestYear,
+      period: '25-year mean, 2000-2024',
+      source: 'IMD 0.05deg gridded daily data, 2000-2024',
     };
   }
 
@@ -538,7 +574,16 @@ async function prefetchPlaceData(env, place) {
 function fmtClimate(c) {
   if (!c || !c.available) return `Climate data: not yet available${c && c.reason ? ' (' + c.reason + ')' : ''} -- say so plainly, do not substitute a neighbouring district's numbers.`;
   const ix = c.indices || {};
-  return `REAL climate data for ${c.district}${c.state ? ', ' + c.state : ''}: heatwave_days/yr=${ix.heatwave_days ?? '?'}, drought_probability=${ix.drought_probability_pct ?? '?'}%, mean_summer_tmax=${ix.mean_summer_tmax ?? ix.max_summer_tmax ?? '?'}C, annual_rain=${ix.annual_rain_mm ?? '?'}mm, spi12=${ix.spi_12 ?? '?'}, rx1day=${ix.rx1day_mm ?? '?'}mm.${c.period ? ' (' + c.period + ')' : ''} Source: ${c.source}.`;
+  let s = `REAL climate data for ${c.district}${c.state ? ', ' + c.state : ''}: heatwave_days/yr=${ix.heatwave_days ?? '?'}, drought_probability=${ix.drought_probability_pct ?? '?'}%, mean_summer_tmax=${ix.mean_summer_tmax ?? ix.max_summer_tmax ?? '?'}C, annual_rain=${ix.annual_rain_mm ?? '?'}mm, spi12=${ix.spi_12 ?? '?'}, rx1day=${ix.rx1day_mm ?? '?'}mm.${c.period ? ' (' + c.period + ')' : ''} Source: ${c.source}.`;
+  // The 5 IMD districts also have a REAL specific-year reading (unlike
+  // every other district, which only ever has a period average) -- give
+  // the model that too so "this year" / "is saal" questions get an
+  // actual year's number instead of only a 25-year mean.
+  if (c.latest_year && c.latest_year.year) {
+    const ly = c.latest_year;
+    s += ` MOST RECENT ACTUAL YEAR ON RECORD (${ly.year}, not a mean): annual_rain=${ly.annual_rain_mm ?? '?'}mm, heatwave_days=${ly.heatwave_days ?? '?'}, rx1day=${ly.rx1day_mm ?? '?'}mm, spi12=${ly.spi_12 ?? '?'}.`;
+  }
+  return s;
 }
 function fmtWeather(w) {
   if (!w || !w.available) return `Live weather: not available${w && w.reason ? ' (' + w.reason + ')' : ''}.`;
@@ -564,12 +609,23 @@ function fmtVillage(v) {
   return s;
 }
 function fmtManuals(hits) {
-  if (!hits || !hits.available || !hits.results || !hits.results.length) return '';
+  // Bug fixed 2026-08-08 (found live-testing this exact deploy): an empty
+  // string here left the model with NO explicit "don't cite a manual"
+  // signal -- it saw the [M1]/[M2] citation FORMAT demonstrated elsewhere
+  // in the system prompt and, even with the hard no-invent rule present,
+  // filled in a plausible-sounding fake manual (invented title, invented
+  // year) rather than citing nothing. An explicit negative line closes
+  // that gap -- verified this fixed it in a real redeploy+retest.
+  if (!hits || !hits.available || !hits.results || !hits.results.length) {
+    return 'Manual/advisory search: NO results returned' + (hits && hits.reason ? ' (' + hits.reason + ')' : '') + '. Do NOT invent or cite any [M#] manual/advisory entry in this answer.';
+  }
   return 'REAL manual/advisory excerpts (cite these by source+year, do not paraphrase without citing):\n' +
     hits.results.map((h, i) => `[M${i + 1}] "${(h.text || '').slice(0, 500)}" -- Source: ${h.source || '?'}${h.page ? ', p.' + h.page : ''}${h.year ? ', ' + h.year : ''}`).join('\n');
 }
 function fmtPapers(hits) {
-  if (!hits || !hits.available || !hits.results || !hits.results.length) return '';
+  if (!hits || !hits.available || !hits.results || !hits.results.length) {
+    return 'Scholarly paper search: NO results returned' + (hits && hits.reason ? ' (' + hits.reason + ')' : '') + '. Do NOT invent or cite any [P#] paper entry in this answer.';
+  }
   return 'REAL scholarly papers found for this question (cite title+year+link, never invent one instead):\n' +
     hits.results.slice(0, 6).map((p, i) => `[P${i + 1}] "${p.title}" (${p.year || 'n.d.'}, ${p.source}) -- ${p.link}`).join('\n');
 }
@@ -580,20 +636,40 @@ function buildSystemPrompt(place, prefetch, manualHits, paperHits, lang, clientC
     ? 'IMPORTANT: Reply ONLY in Hindi (Devanagari script).'
     : 'Reply in English unless the user writes in Hindi, in which case reply in Hindi.';
 
+  // Owner instruction 2026-08-08, after live-testing caught the model
+  // inventing plausible-sounding citations ("[M2] मैनुअल के अनुसार",
+  // "(IMD manual, 2019)") DESPITE repeated explicit prompt instructions
+  // not to: "PROMPT SE THEEK MAT KARO... ye CODE se roko" -- prompt-only
+  // instructions are unreliable (a model sometimes follows them, sometimes
+  // doesn't), so citation correctness now has THREE independent layers,
+  // not one:
+  //   1. The model is told to never write ANY source/citation/name/year
+  //      at all (below) -- weakens the urge, doesn't need to fully work.
+  //   2. stripFakeCitations() regex-removes citation-shaped text from the
+  //      model's raw output before it ever reaches the client, whether or
+  //      not layer 1 worked.
+  //   3. buildCitationFooter() appends ONE real, code-generated source
+  //      line after the model's answer -- built entirely from what was
+  //      ACTUALLY retrieved (prefetch/manualHits/paperHits), never from
+  //      anything the model wrote. If nothing real was retrieved, the
+  //      footer says so honestly instead of citing nothing at all.
+  // See docs/METHODOLOGY.md's "Kisan Sahayak citation policy" section --
+  // this is a considered design decision, not a bug to "helpfully" undo.
   return `You are Kisan Sahayak, an Agriculture Decision Support System for Indian farmers -- not just a chatbot. You have real tools (get_climate, get_weather, get_mandi, get_crop_stats, search_papers, search_manuals) and real data already fetched below for the farmer's selected place (${p.district || 'unknown district'}${p.state ? ', ' + p.state : ''}). Use them.
 
 For every substantive question, structure your answer in exactly this order:
-1. **Your place's real data** -- cite the actual measurement from the REAL DATA block below, with its source and year/date. If a figure isn't available, say so plainly -- never invent a number for this place.
-2. **Probable cause** -- from a manual, paper, or general agronomic knowledge, cited.
+1. **Your place's real data** -- state the actual measurement from the REAL DATA block below, with its year/date if given. If a figure isn't available, say so plainly -- never invent a number for this place.
+2. **Probable cause** -- from general agronomic knowledge.
 3. **How to identify it** -- concrete, observable signs the farmer can check in their own field.
-4. **Management** -- an ICAR/KVK-style recommendation, cited if it comes from a search_manuals/search_papers result.
-5. **Source list** -- one line per source actually used (e.g. "IMD 0.05deg gridded data, 2000-2024", "AGMARKNET, ${new Date().toISOString().slice(0, 10)}", "[M1] wheat PoP, IIWBR, 1984").
+4. **Management** -- practical ICAR/KVK-style guidance from your own general knowledge.
 
-For quick/simple questions (greetings, yes/no, clarifications) skip the 5-part structure and just answer naturally -- don't force structure where it doesn't fit.
+Do NOT write a "Source list" or "स्रोत सूची" section -- the app adds real sources automatically after your answer, from what was actually retrieved, not from anything you write. NEVER write the word "Source"/"स्रोत", never write an organisation name followed by a year in parentheses (e.g. do not write "(IMD, 2019)" or "(ICAR 2020)"), never write "et al.", never write a [M#] or [P#] tag, never name a specific manual, bulletin, or paper title -- even if it feels helpful, a title/year you generate from memory is very likely wrong and this portal never presents an unverified claim as if it were a real citation. Just answer the question in plain language; citations are handled entirely outside your response.
 
-HARD RULE: never invent a specific number tied to this place (rainfall, price, yield, population) that isn't in the REAL DATA block below. If you don't have it, say the exact figure isn't available, then still answer the rest of the question from general knowledge. Never invent a paper title/author/DOI or a manual passage -- only cite what search_papers/search_manuals actually returned (see the [M#] excerpts below, if any).
+For quick/simple questions (greetings, yes/no, clarifications) skip the 4-part structure and just answer naturally -- don't force structure where it doesn't fit.
 
---- REAL DATA for ${p.district || '(no district selected)'}${p.state ? ', ' + p.state : ''} (fetched just now, in parallel) ---
+HARD RULE: never invent a specific number tied to this place (rainfall, price, yield, population) that isn't in the REAL DATA block below. If you don't have it, say the exact figure isn't available, then still answer the rest of the question from general knowledge.
+
+--- REAL DATA for ${p.district || '(no district selected)'}${p.state ? ', ' + p.state : ''} (fetched just now, in parallel) -- for YOUR understanding only, do not quote source names/years from this block into your answer, the app cites it separately ---
 ${fmtClimate(prefetch.climate)}
 ${fmtWeather(prefetch.weather)}
 ${fmtMandi(prefetch.mandi)}
@@ -643,6 +719,115 @@ async function maybeRunToolRound(env, model, messages) {
   } catch (e) {
     return { messages, toolResults: [] };
   }
+}
+
+// ---------------------------------------------------------------------
+// Citation enforcement -- CODE, not the model. See buildSystemPrompt()'s
+// comment for the 3-layer design (owner instruction 2026-08-08, after
+// live-testing caught fabricated citations surviving prompt instructions
+// alone). This is layer 2: strip citation-SHAPED text the model wrote
+// anyway, before it ever reaches the client.
+// ---------------------------------------------------------------------
+
+const CITATION_PATTERNS = [
+  // "Source: ..." / "स्रोत: ..." / "स्रोत सूची" section headers, to end of line
+  /(?:^|\n)[ \t]*(?:\d+[.)]\s*)?\**\s*(?:Source|स्रोत(?:\s*सूची)?)\s*[:：].*$/gim,
+  // A standalone "5. Source list" / "स्रोत सूची" style heading with nothing after the colon yet
+  /(?:^|\n)[ \t]*\d+[.)]\s*\**\s*(?:Source list|स्रोत\s*सूची)\**\s*$/gim,
+  // [M1], [M12], [P3] -- inline manual/paper tags
+  /\[[MP]\d*\]/g,
+  // "(OrgName, 2019)" / "(ICAR 2020)" -- a parenthetical with a plausible
+  // org-name-like prefix (contains a letter) and a 19xx/20xx year inside.
+  // Deliberately does NOT match a bare "(2024)" or "(1310.72mm)" -- those
+  // are real data values, not citation-shaped attributions.
+  /\([^()\d]{2,50}?(?:19|20)\d{2}[^()]{0,15}\)/g,
+  // "et al." / "et. al."
+  /\bet\.?\s?al\.?/gi,
+];
+
+function stripFakeCitations(text) {
+  let out = text;
+  for (const re of CITATION_PATTERNS) out = out.replace(re, '');
+  // Collapse any run of 3+ blank lines left behind by a stripped section.
+  return out.replace(/\n{3,}/g, '\n\n');
+}
+
+// Layer 3: the ONE real citation line, built entirely from what was
+// actually retrieved -- never from anything the model wrote. Matches the
+// owner's exact 3-case spec: real place-data source(s), real paper/manual
+// hits with title+author+year+link, or an honest "general knowledge, not
+// quoted from any document" line when nothing real was retrieved. This
+// runs regardless of whether the model's answer even needed a citation --
+// it's cheap, deterministic, and never wrong because it's not generated,
+// it's just a report of what fetch()/tool calls actually succeeded.
+// Checks whether the model's actual answer text shows real evidence it
+// used a given numeric value (a few plausible roundings, since the model
+// may reformat "1310.72" as "1311" or "1310") -- used to avoid citing a
+// source that was successfully fetched but the answer never actually
+// drew on (e.g. a pest question where climate/mandi/crop were all
+// available but irrelevant, and the model correctly said so). Erring
+// toward UNDER-citing here is the safe direction: a real source omitted
+// because of a formatting mismatch is still honest; a source falsely
+// implied to have informed an answer that never used it is not.
+function answerMentionsNumber(text, value) {
+  if (value == null || !isFinite(value)) return false;
+  const candidates = [value, Math.round(value), Math.round(value * 10) / 10];
+  // Bug fixed 2026-08-08: a bare "0" or "1" candidate (small heatwave_days
+  // etc.) matches almost any text as a substring -- e.g. the digit inside
+  // an unrelated word, a list marker, part of a longer number. Only trust
+  // a match when the candidate's own string form is at least 3 chars
+  // (excludes single/double-digit noise, keeps distinctive values like
+  // "0.4", "42", "1310.72").
+  return candidates.some((v) => {
+    const s = String(v);
+    return s.length >= 3 && text.indexOf(s) >= 0;
+  });
+}
+function answerMentionsAny(text, strings) {
+  return (strings || []).some((s) => s && text.indexOf(String(s)) >= 0);
+}
+
+function buildCitationFooter(prefetch, manualHits, paperHits, lang, answerText) {
+  const t = answerText || '';
+  const lines = [];
+
+  const c = prefetch.climate;
+  if (c && c.available) {
+    const ix = c.indices || {};
+    const ly = c.latest_year || {};
+    const usedClimate = [ix.annual_rain_mm, ix.heatwave_days, ix.rx1day_mm, ix.mean_summer_tmax, ly.annual_rain_mm, ly.heatwave_days, ly.rx1day_mm]
+      .some((v) => answerMentionsNumber(t, v));
+    if (usedClimate) lines.push('Source: ' + c.source + (c.period ? ' (' + c.period + ')' : ''));
+  }
+  const w = prefetch.weather;
+  if (w && w.available && (answerMentionsNumber(t, w.tmax_c) || answerMentionsNumber(t, w.precip_mm) || answerMentionsNumber(t, w.tmin_c))) {
+    lines.push('Source: ' + w.source + ' (' + w.date + ')');
+  }
+  const m = prefetch.mandi;
+  if (m && m.available && answerMentionsAny(t, (m.records || []).map((r) => r.commodity))) {
+    lines.push('Source: ' + m.source + ' (today)');
+  }
+  const cr = prefetch.crop;
+  if (cr && cr.available && answerMentionsAny(t, (cr.top_crops || []).map((r) => r.crop))) {
+    lines.push('Source: ' + cr.source + ' (' + cr.year + ')');
+  }
+  const v = prefetch.village;
+  if (v && v.available && v.matched_village && answerMentionsNumber(t, v.matched_village.population)) {
+    lines.push('Source: ' + v.source);
+  }
+  if (manualHits && manualHits.available && manualHits.results && manualHits.results.length) {
+    for (const h of manualHits.results) lines.push('Source: ' + (h.source || '?') + (h.page ? ', p.' + h.page : '') + (h.year ? ', ' + h.year : ''));
+  }
+  if (paperHits && paperHits.available && paperHits.results && paperHits.results.length) {
+    for (const p of paperHits.results) lines.push('Source: "' + p.title + '" (' + (p.year || 'n.d.') + ', ' + p.source + ') -- ' + p.link);
+  }
+  if (!lines.length) {
+    return lang === 'hi'
+      ? 'यह सामान्य कृषि जानकारी है, किसी दस्तावेज़ से उद्धृत नहीं।'
+      : 'This is general agricultural knowledge, not quoted from any specific document.';
+  }
+  // De-dupe (e.g. two tool calls both returning the same climate source).
+  return Array.from(new Set(lines)).join('\n');
 }
 
 // Builds the final streamed response. Tries each model in order; a model
@@ -704,16 +889,73 @@ function buildAnswerStream(env, place, prefetch, manualHits, paperHits, messages
       }
 
       controller.enqueue(encoder.encode(sse({ type: 'model', model: modelUsed })));
-      if (firstChunk && firstChunk.value) controller.enqueue(firstChunk.value);
+
+      // Citation enforcement layer 2 (see buildSystemPrompt()'s comment
+      // for the full 3-layer design): the raw AI stream is no longer
+      // passed straight through byte-for-byte. It's decoded, the model's
+      // incremental text is accumulated, and only flushed to the client
+      // after a safe boundary (a newline, or a length cap if the model
+      // goes a while without one) so a citation-shaped pattern is never
+      // split across a flush in a way that would let half of it slip
+      // through unfiltered.
+      const decoder = new TextDecoder();
+      let rawBuffer = '';
+      let textBuffer = '';
+
+      function extractText(bytes) {
+        rawBuffer += decoder.decode(bytes, { stream: true });
+        const frames = rawBuffer.split('\n\n');
+        rawBuffer = frames.pop() || '';
+        let text = '';
+        for (const frame of frames) {
+          const line = frame.trim();
+          if (!line.startsWith('data:')) continue;
+          const payload = line.slice(5).trim();
+          if (payload === '[DONE]' || !payload) continue;
+          try {
+            const obj = JSON.parse(payload);
+            if (typeof obj.response === 'string') text += obj.response;
+          } catch (e) { /* malformed/partial frame, skip */ }
+        }
+        return text;
+      }
+
+      let fullAnswerText = ''; // accumulated, post-filter -- used to decide which sources the footer cites
+
+      function flushSafe(force) {
+        const lastNewline = textBuffer.lastIndexOf('\n');
+        if (!force && lastNewline < 0 && textBuffer.length < 400) return;
+        const cut = force ? textBuffer.length : lastNewline + 1;
+        const chunk = textBuffer.slice(0, cut);
+        textBuffer = textBuffer.slice(cut);
+        const filtered = stripFakeCitations(chunk);
+        if (filtered) {
+          fullAnswerText += filtered;
+          controller.enqueue(encoder.encode(sse({ response: filtered })));
+        }
+      }
+
       try {
+        if (firstChunk && firstChunk.value) { textBuffer += extractText(firstChunk.value); flushSafe(false); }
         while (true) {
           const { done, value } = await reader.read();
           if (done) break;
-          controller.enqueue(value);
+          textBuffer += extractText(value);
+          flushSafe(false);
         }
+        flushSafe(true);
       } catch (e) {
+        flushSafe(true);
         controller.enqueue(encoder.encode(sse({ type: 'error', message: 'stream interrupted: ' + (e && e.message) })));
       }
+
+      // Citation enforcement layer 3: the ONE real source line, built
+      // entirely from what was actually retrieved above AND actually
+      // reflected in the answer text -- never from anything the model
+      // claimed to cite (already stripped by layer 2 regardless).
+      const footer = buildCitationFooter(prefetch, manualHits, paperHits, lang, fullAnswerText);
+      controller.enqueue(encoder.encode(sse({ response: '\n\n' + footer })));
+
       controller.close();
     },
   });
