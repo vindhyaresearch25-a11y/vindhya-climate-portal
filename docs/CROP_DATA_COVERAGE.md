@@ -255,6 +255,145 @@ Two fixes landed alongside this finding regardless:
    erased already-good data for that district. Fixed to keep existing
    rows and just append a note when a refresh fails.
 
+## CHARAN 6 — Horticulture, done nationally at state level (2026-08-08)
+
+CHARAN 6's own text names "State Horticulture Department, <saal>" as the
+source, implying a 36-state PDF hunt like CHARAN 4's field-crop state
+reports. Before committing to that, checked for a national alternative
+first -- the same resolvability comparison CHARAN 4 did for Karnataka vs.
+Odisha vs. Gujarat, and the same reasoning that made DES the MUKHYA source
+for field crops instead of 36 state APY PDFs:
+
+1. **NHB (nhb.gov.in) "Area & Production Estimates for Horticulture
+   Crops" interactive query module** (`OnlineClient/rptProduction.aspx`)
+   -- real, but state-level only (no district filter anywhere in the
+   tool), years capped at 2000-01 to 2011-12, and no visible bulk
+   CSV/Excel export button. An ASP.NET postback form, not a download/API
+   per this repo's NIYAM ("Portal SCRAPE mat karo jab tak official export
+   na ho"). NHB's own separate "Area Production Statistics" page
+   (`Statistics.aspx?Type=State`) does have real downloadable files
+   (Excel for 2011-12 to 2015-16, PDF for 2016-17 to 2018-19) but stops
+   at 2018-19 -- superseded by source (3) below, which is more current
+   and already a single national file rather than ~8 separate year files.
+2. **data.gov.in** -- "All India and State Wise Area and Production of
+   various Horticulture Crops" catalog entry exists but is a narrow,
+   stale snapshot (all-India 2001-02 to 2010-11, state-wise only 2009-10
+   & 2010-11). Scattered one-off per-state district datasets exist (e.g.
+   Tamil Nadu district-wise fruits 2016-17) but there is no comprehensive
+   national district-wise horticulture resource on the platform. The
+   MIDH (Mission for Integrated Development of Horticulture) dataset on
+   AIKosh looked promising by name but turned out to be about scheme
+   implementation (nurseries, cold-chain infrastructure, subsidy
+   utilization), not Area/Production/Yield statistics, and is
+   access-restricted regardless.
+3. **"Horticultural Statistics at a Glance 2023"**, published by the
+   Horticulture Statistics Unit, Economics Statistics & Evaluation
+   Division, Dept. of Agriculture & Farmers Welfare (compiled from
+   National Horticulture Board + State Horticulture/Agriculture
+   Directorate returns) --
+   `agriwelfare.gov.in/Documents/Horticultural_Statistics_Glance_2023.pdf`.
+   A real, downloadable, 315-page national PDF compendium -- horticulture's
+   direct equivalent of desagri.gov.in's own "Agricultural Statistics at a
+   Glance". **This is the one that resolved.** Tables 7.3.1-7.3.53 are one
+   page each, one crop each, State-wise Area/Production/Productivity (or
+   Area+Production, or Production only, depending on the crop) for four
+   years (2019-20 through 2022-23) -- 53 crops across fruits, vegetables,
+   plantation crops, spices, flowers and mushroom. Clean, consistently
+   laid out, no Kruti-Dev font issue and no letter-spacing issue (contrast
+   `docs/STATE_REPORTS.md`'s Madhya Pradesh/Rajasthan obstacles).
+
+**Deliberate, considered deviation from CROP_DATA_PROMPT.md's literal
+wording**: source (3) is used as MUKHYA for horticulture instead of
+CHARAN 6's own "State Horticulture Department, <saal>" per-state hunt.
+CLAUDE.md's actual rule is honest, traceable sourcing -- not matching a
+guessed institution name -- and this national compendium is real,
+government-published, and tractable within a session, unlike 36 separate
+state Udyaniki department PDFs (even the 3 state Krishi Vibhag PDFs done
+so far each needed bespoke, non-transferable extraction engineering, per
+`docs/STATE_REPORTS.md`).
+
+**Real ceiling, not a shortcut: state-level only.** No district-wise
+national horticulture dataset was found anywhere in this search -- NHB's
+own query module has no district filter either. So
+`dashboard/data/horticulture_stats/<state_slug>.json` is state-level by
+design. `dashboard/horticulture_loader.js` labels every figure explicitly
+as a state number applying to the whole state, never implying it is
+specific to the selected district.
+
+**Extraction, verified:** `scripts/fetch_horticulture_stats.py` uses
+pdfplumber word-level extraction. Many state rows have blank cells for
+some years, so naive left-to-right token splitting would misattribute a
+value to the wrong year -- instead, each table's own TOTAL (or, for two
+tables, "All India Total") row is used to derive that table's (year,
+metric) column x1 (right-edge) coordinates, and every data row's numeric
+tokens are bucketed to the nearest of those coordinates. All **53 of 53**
+crop tables parsed cleanly, **0 ambiguous rows** (column-anchor
+collisions) across the whole run. Three real obstacles hit and fixed
+during this, each confirmed against the source PDF directly before
+trusting the fix:
+
+- Table 7.3.15 (Watermelon): the table *title* omits the word
+  "Productivity" ("Area and Production of Watermelon") but the table
+  itself has a full 3-metric layout with real productivity figures for
+  most states -- metric detection was switched from the title text to
+  each page's own unit-declaration lines ("Area in '000 Ha" / "Production
+  in '000 MT" / "Productivity in MT/Ha"), which are reliable everywhere.
+- Table 7.3.14 (Walnut): unit-declaration lines read "Area (A) in '000
+  Ha" / "Production (P) in '000 MT" instead of the plain wording every
+  other table uses -- metric detection matches on the unit suffix
+  (`'000 Ha` / `'000 MT` / `MT/Ha`), not the metric-name prefix.
+- Table 7.3.11 (Pomegranate): a real rendering defect in the source PDF
+  itself -- the year-header row's "2019-20" style labels are emitted
+  character-interleaved with the word "Production" (e.g. "Pro 2 d 0 u 1
+  c 9 t - i 2 o 0 n"), unrecoverable by word-level extraction directly.
+  Fell back to the same 4 years every other table in this single edition
+  uses, gated on this table's own TOTAL row having exactly the expected
+  4-years x metrics numeric-cell count first, so a table that didn't
+  actually cover these 4 years could never be silently mislabelled.
+
+Hand spot-checked against the PDF's own printed numbers, including one
+blank-cell case (Almond/Himachal Pradesh/2019-20: area 4,730 ha,
+production 970 t, yield 0.21 t/ha, exact; Brinjal/Madhya Pradesh/2022-23:
+area 67,580 ha, production 1,433,120 t, exact; Coriander/Meghalaya: only
+1 of 4 years has data, and it's the LAST year (2022-23) not the first --
+confirms blank-cell rows are positionally bucketed by real coordinates,
+not guessed from left-to-right order).
+
+A handful of the source's own row-label typos were corrected via a small
+hand-built alias table, cross-checked against the correctly-spelled
+variant appearing elsewhere in the very same document, not guessed:
+"ARUNCHAL PRADESH" (31 occurrences) / "ARUNACHAL PRADESH" (1) both to
+Arunachal Pradesh; "CHHATISGARH" (2) / "CHHATTISGARH" (36) both to
+Chhattisgarh; "JHARKAHND" (1, transposed letters) / "JHARKHAND" (31) both
+to Jharkhand.
+
+**Real coverage: 28 of 36 states/UTs, 4,028 records, 53 crops, 4 years
+(2019-20 to 2022-23).** The other 8 states/UTs -- Goa, Chandigarh, Delhi,
+Puducherry, Andaman & Nicobar Islands, Dadra & Nagar Haveli and Daman &
+Diu, Ladakh, Lakshadweep -- **never appear as a named row in any of the
+53 crop tables checked**, a real finding about the source, not a gap in
+this extraction: smaller producers are folded into a published "OTHERS"
+aggregate row in every table, a real number but not attributable to a
+specific state, so it is never split or guessed at and never written to
+any state's file. `dashboard/horticulture_loader.js` shows these 8 states
+a specific, honest "not individually reported by this source" message
+rather than a generic 404.
+
+**Never summed with field crops.** Per CHARAN 6's own rule ("Dono ko
+jodkar 'total crop area' mat banao -- galat hoga"), `horticulture_loader.js`
+renders in its own separate bottom-pane tab ("Horticulture"), never reads
+`crop_stats_loader.js`'s DES data, and never computes any combined total
+crop area. Every output file's metadata carries an explicit
+`never_sum_with_field_crops` note repeating this.
+
+**Not done this session:** the pre-2019 years of the same publication
+series (older editions exist back to at least 2015, would extend the
+2019-20 start further back, not fetched); Table 7.2.x (category-level
+state-total tables, e.g. all-fruits, all-vegetables per state) -- only
+the more granular per-crop Table 7.3.x series was extracted; district-wise
+horticulture data remains genuinely unavailable from any source found, not
+merely unattempted.
+
 ## Village-panel agriculture fields (CROP_DATA_PROMPT.md item 2)
 
 Done 2026-08-07. `national_selector.js`'s `renderVillageProfile()`
