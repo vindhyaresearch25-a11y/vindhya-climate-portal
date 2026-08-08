@@ -43,9 +43,10 @@
  *      their prompt text, they just can't themselves decide to fetch a
  *      *different* place or re-query at will. This is a deliberate,
  *      documented tradeoff, not an oversight.
- *   4. search_manuals is ALSO pre-triggered by a keyword heuristic (not only
- *      by model tool-choice) so RAG citations reach the answer even on the
- *      two non-tool-calling fallback models -- see looksLikeManualQuestion().
+ *   4. search_manuals AND search_papers are ALSO pre-triggered by keyword
+ *      heuristics (not only by model tool-choice) so RAG citations and real
+ *      paper links reach the answer even on the two non-tool-calling
+ *      fallback models -- see looksLikeManualQuestion()/looksLikePaperQuestion().
  *   5. The system prompt bakes in the owner's exact 5-part answer structure
  *      (place data -> probable cause -> how to identify -> management,
  *      cited -> source list) and the hard no-fabrication rule.
@@ -567,8 +568,13 @@ function fmtManuals(hits) {
   return 'REAL manual/advisory excerpts (cite these by source+year, do not paraphrase without citing):\n' +
     hits.results.map((h, i) => `[M${i + 1}] "${(h.text || '').slice(0, 500)}" -- Source: ${h.source || '?'}${h.page ? ', p.' + h.page : ''}${h.year ? ', ' + h.year : ''}`).join('\n');
 }
+function fmtPapers(hits) {
+  if (!hits || !hits.available || !hits.results || !hits.results.length) return '';
+  return 'REAL scholarly papers found for this question (cite title+year+link, never invent one instead):\n' +
+    hits.results.slice(0, 6).map((p, i) => `[P${i + 1}] "${p.title}" (${p.year || 'n.d.'}, ${p.source}) -- ${p.link}`).join('\n');
+}
 
-function buildSystemPrompt(place, prefetch, manualHits, lang, clientContext) {
+function buildSystemPrompt(place, prefetch, manualHits, paperHits, lang, clientContext) {
   const p = place || {};
   const langLine = lang === 'hi'
     ? 'IMPORTANT: Reply ONLY in Hindi (Devanagari script).'
@@ -594,6 +600,7 @@ ${fmtMandi(prefetch.mandi)}
 ${fmtCrop(prefetch.crop)}
 ${fmtVillage(prefetch.village)}
 ${fmtManuals(manualHits)}
+${fmtPapers(paperHits)}
 ${clientContext ? String(clientContext).slice(0, 1500) : ''}
 --- end real data ---
 
@@ -642,7 +649,7 @@ async function maybeRunToolRound(env, model, messages) {
 // only gets skipped if it throws (or returns an empty stream) BEFORE any
 // token is produced. Once a model starts streaming, the Worker commits to
 // it for the rest of the answer.
-function buildAnswerStream(env, place, prefetch, manualHits, messages, lang) {
+function buildAnswerStream(env, place, prefetch, manualHits, paperHits, messages, lang) {
   const encoder = new TextEncoder();
   return new ReadableStream({
     async start(controller) {
@@ -656,6 +663,7 @@ function buildAnswerStream(env, place, prefetch, manualHits, messages, lang) {
           crop: !!(prefetch.crop && prefetch.crop.available),
           village: !!(prefetch.village && prefetch.village.available),
           manuals: !!(manualHits && manualHits.available && manualHits.results && manualHits.results.length),
+          papers: !!(paperHits && paperHits.available && paperHits.results && paperHits.results.length),
         },
       })));
 
@@ -737,22 +745,28 @@ async function handleChat(request, env, ctx) {
   // Step 1: deterministic parallel prefetch of the 5 real data sources.
   const prefetchPromise = prefetchPlaceData(env, place);
 
-  // Step 2: heuristic-triggered search_manuals (bounded), so RAG citations
-  // reach the answer even on the two non-tool-calling fallback models.
+  // Step 2: heuristic-triggered search_manuals / search_papers (both
+  // bounded), so RAG citations and real paper links reach the answer even
+  // on the two non-tool-calling fallback models. Mirrors
+  // research_papers_loader.js's client-side looksLikeResearchRequest()
+  // trigger, reimplemented here for the server-side tool.
   const manualPromise = looksLikeManualQuestion(message)
     ? withTimeout(toolSearchManuals(env, { query: message }), MANUAL_SEARCH_TIMEOUT_MS, { available: false, reason: 'timed out' })
     : Promise.resolve({ available: false, reason: 'not triggered for this question' });
+  const paperPromise = looksLikePaperQuestion(message)
+    ? withTimeout(toolSearchPapers(env, { query: message }), MANUAL_SEARCH_TIMEOUT_MS, { available: false, reason: 'timed out' })
+    : Promise.resolve({ available: false, reason: 'not triggered for this question' });
 
-  const [prefetch, manualHits] = await Promise.all([prefetchPromise, manualPromise]);
+  const [prefetch, manualHits, paperHits] = await Promise.all([prefetchPromise, manualPromise, paperPromise]);
 
-  const systemPrompt = buildSystemPrompt(place, prefetch, manualHits, lang, clientContext);
+  const systemPrompt = buildSystemPrompt(place, prefetch, manualHits, paperHits, lang, clientContext);
   const messages = [
     { role: 'system', content: systemPrompt },
     ...history.filter((h) => h && h.role && h.content).map((h) => ({ role: h.role === 'assistant' ? 'assistant' : 'user', content: String(h.content).slice(0, MAX_MESSAGE_CHARS) })),
     { role: 'user', content: message },
   ];
 
-  const stream = buildAnswerStream(env, place, prefetch, manualHits, messages, lang);
+  const stream = buildAnswerStream(env, place, prefetch, manualHits, paperHits, messages, lang);
   return new Response(stream, {
     headers: {
       'Content-Type': 'text/event-stream',

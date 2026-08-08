@@ -3539,7 +3539,6 @@ async function runChatCompletion(){
   var ctl = new AbortController();
   var timer = setTimeout(function(){ ctl.abort(); }, 45000); // generous: streaming can legitimately take longer than one round-trip
 
-  var statusEl = document.getElementById('chatStatus');
   var botDiv = null;       // created lazily on first real token, so "typing..." shows until then
   var accumulated = '';
   var modelUsed = null;
