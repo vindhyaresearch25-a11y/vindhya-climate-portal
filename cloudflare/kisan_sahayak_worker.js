@@ -568,7 +568,7 @@ function fmtManuals(hits) {
     hits.results.map((h, i) => `[M${i + 1}] "${(h.text || '').slice(0, 500)}" -- Source: ${h.source || '?'}${h.page ? ', p.' + h.page : ''}${h.year ? ', ' + h.year : ''}`).join('\n');
 }
 
-function buildSystemPrompt(place, prefetch, manualHits, lang) {
+function buildSystemPrompt(place, prefetch, manualHits, lang, clientContext) {
   const p = place || {};
   const langLine = lang === 'hi'
     ? 'IMPORTANT: Reply ONLY in Hindi (Devanagari script).'
@@ -594,6 +594,7 @@ ${fmtMandi(prefetch.mandi)}
 ${fmtCrop(prefetch.crop)}
 ${fmtVillage(prefetch.village)}
 ${fmtManuals(manualHits)}
+${clientContext ? String(clientContext).slice(0, 1500) : ''}
 --- end real data ---
 
 ${langLine}`;
@@ -725,6 +726,13 @@ async function handleChat(request, env, ctx) {
   const place = body.place && typeof body.place === 'object' ? body.place : {};
   const lang = body.lang === 'hi' ? 'hi' : 'en';
   const history = Array.isArray(body.history) ? body.history.slice(-MAX_HISTORY_TURNS) : [];
+  // Optional: dashboard/knowledge_base_loader.js's small curated
+  // government-portal/open-access-paper manifest, keyword-matched
+  // client-side (dashboard/data/knowledge_base/index.json, a few dozen
+  // entries -- separate from and complementary to this Worker's own
+  // Vectorize search_manuals). Passed through as-is, length-capped, never
+  // fabricated here if the client didn't send one.
+  const clientContext = typeof body.client_context === 'string' ? body.client_context.slice(0, 1500) : '';
 
   // Step 1: deterministic parallel prefetch of the 5 real data sources.
   const prefetchPromise = prefetchPlaceData(env, place);
@@ -737,7 +745,7 @@ async function handleChat(request, env, ctx) {
 
   const [prefetch, manualHits] = await Promise.all([prefetchPromise, manualPromise]);
 
-  const systemPrompt = buildSystemPrompt(place, prefetch, manualHits, lang);
+  const systemPrompt = buildSystemPrompt(place, prefetch, manualHits, lang, clientContext);
   const messages = [
     { role: 'system', content: systemPrompt },
     ...history.filter((h) => h && h.role && h.content).map((h) => ({ role: h.role === 'assistant' ? 'assistant' : 'user', content: String(h.content).slice(0, MAX_MESSAGE_CHARS) })),
