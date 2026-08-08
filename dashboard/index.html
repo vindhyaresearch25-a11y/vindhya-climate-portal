@@ -3239,80 +3239,151 @@ function buildCadastralContext(){
   return 'CADASTRAL PARCEL SELECTED: Khasra=' + parcelKhasra + ', Owner=' + parcelOwner + ', Area=' + parcelArea + ', LandUse=' + parcelLandUse + ', Soil=' + parcelSoil + ', Crop=' + parcelCrop + ', Irrigation=' + parcelIrr + ', NDVI=' + parcelNdvi + ', SoilMoisture=' + parcelSm + ', ClimateRisk=' + parcelRisk + '. Give parcel-specific crop advisory and climate alert for this khasra.';
 }
 
-// Build a context-aware system prompt from the live dashboard state
-function buildChatSystemPrompt(){
-  const distKey=document.getElementById('districtSelect')?.value;
+// Build a context-aware system prompt from the live dashboard state.
+// ASYNC as of 2026-08-08 (owner instruction): real per-place data --
+// climate, mandi, crop stats -- must reach the prompt for EVERY selected
+// district, not only the 5 original IMD districts, and doing that for the
+// 728 other districts needs a real (fast, timeout-bounded) fetch, which a
+// synchronous function can't do. Callers must `await` this now.
+async function buildChatSystemPrompt(){
+  const rawDistrict = document.getElementById('districtSelect')?.value || '';
+  const rawState = document.getElementById('stateSelect')?.value || '';
+  // Bug fixed 2026-08-08 (owner-reported: "chuni hui jagah ka data prompt
+  // me ja hi nahi raha"): this used to do `MP_DISTRICTS[distKey]` with
+  // distKey read directly from the dropdown ("Bhopal"), but MP_DISTRICTS
+  // keys are lowercase ("bhopal") -- so the lookup silently failed for
+  // EVERY district, including Bhopal itself, and locLine/climLine never
+  // populated. currentMPDistrictKey() is this file's own established
+  // normalizer for exactly this (see its definition for the full story).
+  const mpKey = currentMPDistrictKey();
   let locLine="No specific district selected yet.";
   let climLine="";
   let vilLine="";
-  if(distKey && MP_DISTRICTS[distKey]){
-    const d=MP_DISTRICTS[distKey];
-    locLine=`Currently selected district: ${d.name}. Risk=${d.risk}, drought index=${d.drought}%, max temp=${d.heat}C, NDVI=${d.ndvi}.`;
-    // Try to get actual climate data
+  let mandiLine="";
+  let cropLine="";
+
+  if(mpKey && MP_DISTRICTS[mpKey]){
+    const d=MP_DISTRICTS[mpKey];
+    locLine=`Currently selected district: ${d.name} (Madhya Pradesh). Risk=${d.risk}, drought index=${d.drought}%, max temp=${d.heat}C, NDVI=${d.ndvi}.`;
     var cd = window._mpClimateData;
-    if (cd && cd.districts && cd.districts[distKey]) {
-      var di = cd.districts[distKey].indices || {};
-      var ann = cd.districts[distKey].annual || {};
+    if (cd && cd.districts && cd.districts[mpKey]) {
+      var di = cd.districts[mpKey].indices || {};
+      var ann = cd.districts[mpKey].annual || {};
       var lastYr = ann.years && ann.years.length ? ann.years[ann.years.length-1] : '';
       var lastRain = ann.annual_rain_mm && ann.annual_rain_mm.length ? ann.annual_rain_mm[ann.annual_rain_mm.length-1] : '';
       var lastHw = ann.heatwave_days && ann.heatwave_days.length ? ann.heatwave_days[ann.heatwave_days.length-1] : '';
-      climLine = `IMD data: drought_prob=${di.drought_probability_pct||'?'}%, heatwave_days/yr=${di.heatwave_days_mean||'?'}, mean_summer_tmax=${di.mean_summer_tmax||'?'}C, annual_rain=${di.annual_rain_mm_mean||'?'}mm, spi12=${di.spi12_year_end_mean||'?'}. Last year(${lastYr}): rain=${lastRain}mm, heatwave_days=${lastHw}.`;
+      climLine = `REAL IMD data for ${d.name}: 25-year mean drought_prob=${di.drought_probability_pct||'?'}%, heatwave_days/yr=${di.heatwave_days_mean||'?'}, mean_summer_tmax=${di.mean_summer_tmax||'?'}C, annual_rain=${di.annual_rain_mm_mean||'?'}mm, spi12=${di.spi12_year_end_mean||'?'}. Most recent year on record (${lastYr}): rainfall=${lastRain}mm, heatwave_days=${lastHw}. Source: IMD 0.05deg gridded daily data, 2000-2024.`;
     }
-    // Get selected village
     var vilName = (window._mpClimateState && window._mpClimateState.currentVillage) || document.getElementById('villageSelect')?.value || null;
     if (vilName) {
-      var villages = MP_DISTRICTS[distKey]._villages || {};
+      var villages = MP_DISTRICTS[mpKey]._villages || {};
       for (var vid in villages) {
         if ((villages[vid].name||'').toUpperCase() === vilName.toUpperCase()) {
           var vi = villages[vid].indices || {};
           vilLine = `Selected village: ${vilName}. SPI-12=${vi.spi_12||'?'}, drought_prob=${vi.drought_probability_pct||'?'}%, annual_rain=${vi.annual_rain_mm||'?'}mm, max_summer_tmax=${vi.max_summer_tmax||'?'}C.`;
-          // Override climLine with village-level data
-          climLine = `Village-level data for ${vilName}: drought_prob=${vi.drought_probability_pct||'?'}%, summer_tmax=${vi.max_summer_tmax||'?'}C, annual_rain=${vi.annual_rain_mm||'?'}mm, spi12=${vi.spi_12||'?'}.`;
+          climLine = `REAL village-level IMD data for ${vilName}: drought_prob=${vi.drought_probability_pct||'?'}%, summer_tmax=${vi.max_summer_tmax||'?'}C, annual_rain=${vi.annual_rain_mm||'?'}mm, spi12=${vi.spi_12||'?'}. Source: IMD 0.05deg gridded data, 2000-2024.`;
           break;
         }
       }
     }
+  } else if (rawDistrict && rawState) {
+    // Any of the other 728 districts -- not in MP_DISTRICTS, but may have
+    // a real GEE ERA5-Land/CHIRPS file (same source dashboard/compare_loader.js
+    // reads, same slug convention, same honest "this is a period average,
+    // not one specific year" framing).
+    locLine = `Currently selected district: ${rawDistrict}, ${rawState}.`;
+    try {
+      var slugFn = function(s){ return String(s||'').trim().toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,''); };
+      var climUrl = 'data/climate/' + slugFn(rawState) + '/' + slugFn(rawDistrict) + '.json';
+      var climCtl = new AbortController();
+      var climTmr = setTimeout(function(){ climCtl.abort(); }, 8000);
+      var climResp = await fetch(climUrl, {signal: climCtl.signal}).catch(function(){ return null; });
+      clearTimeout(climTmr);
+      if (climResp && climResp.ok) {
+        var climJson = await climResp.json();
+        var ix = climJson.indices || {};
+        climLine = `REAL data for ${rawDistrict} (2000-2024 PERIOD AVERAGE, not one specific year): heatwave_days/yr=${ix.heatwave_days??'?'}, annual_rain=${ix.annual_rain_mm??'?'}mm, spi12=${ix.spi_12??'?'}, rx1day=${ix.rx1day_mm??'?'}mm. Source: ERA5-Land + CHIRPS via Google Earth Engine, 2000-2024 average.`;
+      }
+    } catch (e) { /* no GEE climate file for this district yet -- climLine stays empty, model is told below to say so rather than invent a number */ }
   }
-  // Include forecast context if available
+
+  // Real AGMARKNET mandi prices -- works for ANY of the 733 districts now
+  // (getRowsForDistrict slugifies internally), not gated to the 5 MP
+  // districts the way this same lookup was in getLocalResponse() before.
+  try {
+    if (window.VindhyaMandi && typeof window.VindhyaMandi.getRowsForDistrict === 'function' && rawDistrict) {
+      var mandiRows = window.VindhyaMandi.getRowsForDistrict(rawDistrict) || [];
+      if (mandiRows.length) {
+        mandiLine = 'REAL AGMARKNET mandi prices today for ' + rawDistrict + ': ' +
+          mandiRows.slice(0, 6).map(function(r){ return r.commodity + ' Rs' + r.min_price + '-' + r.max_price + '/quintal (' + r.market + ', ' + r.arrival_date + ')'; }).join('; ') + '. Source: AGMARKNET via data.gov.in, today.';
+      }
+    }
+  } catch (e) { /* mandi module not loaded yet -- mandiLine stays empty */ }
+
+  // Real DES crop area/production/yield for this district, if a file
+  // exists (same path crop_stats_loader.js reads).
+  try {
+    if (rawDistrict && rawState) {
+      var slugFn2 = function(s){ return String(s||'').trim().toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,''); };
+      var cropUrl = 'data/crop_stats_des_by_district/' + slugFn2(rawState) + '/' + slugFn2(rawDistrict) + '.json';
+      var cropCtl = new AbortController();
+      var cropTmr = setTimeout(function(){ cropCtl.abort(); }, 8000);
+      var cropResp = await fetch(cropUrl, {signal: cropCtl.signal}).catch(function(){ return null; });
+      clearTimeout(cropTmr);
+      if (cropResp && cropResp.ok) {
+        var cropJson = await cropResp.json();
+        if (cropJson.records && cropJson.records.length) {
+          var latestYear = cropJson.records.map(function(r){ return r.year; }).sort().slice(-1)[0];
+          var latestRows = cropJson.records.filter(function(r){ return r.year === latestYear; })
+            .sort(function(a,b){ return (b.area_ha||0)-(a.area_ha||0); }).slice(0, 5);
+          cropLine = 'REAL DES crop data for ' + rawDistrict + ' (' + latestYear + '): ' +
+            latestRows.map(function(r){ return r.crop + ' (' + r.season + '): area=' + r.area_ha + 'ha, production=' + r.production + ', yield=' + (r.yield_per_ha!=null?r.yield_per_ha.toFixed(2):'?') + '/ha'; }).join('; ') + '. Source: DES, data.desagri.gov.in.';
+        }
+      }
+    }
+  } catch (e) { /* no DES file for this district -- cropLine stays empty */ }
+
   var fcLine = "";
-  if (window._forecast2040 && window._forecast2040.districts && distKey && window._forecast2040.districts[distKey]) {
-    var fc = window._forecast2040.districts[distKey];
-    fcLine = `2040 forecast: drought_prob=${fc.drought_probability_pct||'?'}%, max_summer_tmax=${fc.max_summer_tmax||'?'}C, heatwave_days/yr=${fc.heatwave_days_per_yr||'?'}, annual_rain=${fc.annual_rain_mm_mean||'?'}mm.`;
+  if (window._forecast2040 && window._forecast2040.districts && mpKey && window._forecast2040.districts[mpKey]) {
+    var fc = window._forecast2040.districts[mpKey];
+    fcLine = `2040 forecast (indicative, OLS trend not a climate model): drought_prob=${fc.drought_probability_pct||'?'}%, max_summer_tmax=${fc.max_summer_tmax||'?'}C, heatwave_days/yr=${fc.heatwave_days_per_yr||'?'}, annual_rain=${fc.annual_rain_mm_mean||'?'}mm.`;
   }
   var langLine=chatLangHi
     ? "IMPORTANT: Reply ONLY in Hindi (Devanagari script)."
     : "Reply in English unless the user writes in Hindi, in which case reply in Hindi.";
-  // Bug fix (2026-08-06): this referenced an undefined `text` variable --
-  // buildChatSystemPrompt() takes no arguments, so every call threw a
-  // ReferenceError before the AI request was even sent, silently
-  // breaking the knowledge-base (research paper) grounding entirely.
-  // The actual question is the last user message already pushed onto
-  // chatHistory by sendChat() before this runs.
   var lastUserMsg = '';
   for (var hi2 = chatHistory.length - 1; hi2 >= 0; hi2--) {
     if (chatHistory[hi2].role === 'user') { lastUserMsg = chatHistory[hi2].content; break; }
   }
   var kbLine = (typeof buildKnowledgeBaseContext === 'function') ? buildKnowledgeBaseContext(lastUserMsg) : '';
-  return `You are an AI Agriculture Expert for India. Answer farmer queries using the district/village data, knowledge-base excerpts, and government scheme information given below. Provide responses in both English and Hindi. Use simple language suitable for farmers.
 
-Ground rule (non-negotiable): only state a number, price, alert, or fact if it is present in the data blocks below or in general, well-established agronomy knowledge (e.g. standard fertilizer ratios, crop calendars). Never invent a mandi price, a weather alert, or a statistic to fill a template field. If the data needed to answer isn't provided below, say so explicitly (in Hindi: "यह जानकारी उपलब्ध नहीं है") and suggest the farmer contact their nearest KVK (Krishi Vigyan Kendra) or check the cited official source/portal instead of guessing.
+  // Owner instruction 2026-08-08: remove the earlier restriction that made
+  // Kisan Sahayak refuse or hedge on anything not in the data blocks below.
+  // It should now answer as openly as a general assistant (ChatGPT-style)
+  // on farming, pests, soil, disease, schemes, markets, science -- anything
+  // -- using its own knowledge freely. The ONLY hard rule left is: never
+  // invent a specific number tied to the farmer's selected PLACE (a
+  // rainfall total, price, yield etc. for a named district/village) that
+  // isn't in the REAL DATA lines below.
+  return `You are Kisan Sahayak, an open agriculture and rural-life assistant for India. Answer ANY question the farmer asks -- crops, pests, soil, disease, government schemes, markets, general science, anything -- using your own knowledge freely and in useful detail, the way a good general-purpose assistant (like ChatGPT) would. Do not refuse or hedge on general-knowledge questions.
 
-For every query, structure the answer around what's actually knowable:
-• Recommended crop(s) — only if district/soil/climate data below supports it
-• Fertilizer/irrigation guidance — standard agronomic ranges are fine to state as general guidance, clearly labeled as general (not site-specific measurement)
-• Pest and disease precautions — general guidance, clearly labeled as general
-• Nearest mandi / current prices — ONLY if provided below; otherwise say live mandi price data is not integrated and point to Agmarknet (agmarknet.gov.in)
-• Relevant government schemes — PM-KISAN, PMFBY, Soil Health Card, KCC where relevant
-• Weather advisory — only from the climate data block below
+The ONLY hard rule: never invent a specific number tied to the farmer's selected PLACE (a rainfall total, temperature, mandi price, or crop yield/area for a named district or village) unless that exact number is present in the REAL DATA lines below. If asked for a place-specific figure you don't have below, say plainly that the exact figure for that place isn't available -- then still answer the rest of the question from general knowledge rather than refusing the whole thing.
 
-Always cite which data block (district/village indices, knowledge base, or general agronomy knowledge) a claim comes from, and close with the nearest KVK contact if the query is location-specific and a KVK isn't already named.
+If a research/scientific finding is relevant, name the study or source in your own words where you know it.
 
+End your reply with exactly one line: "Source: <name>, <year>" ONLY if you used one of the REAL DATA lines below. If you answered from general knowledge only, add no source line at all.
+
+--- REAL DATA (use if relevant to the question; nothing below is invented) ---
 ${locLine}
 ${climLine}
 ${vilLine}
+${mandiLine}
+${cropLine}
 ${fcLine}
 ${kbLine}
 Cadastral context: ${buildCadastralContext()}
+--- end real data ---
+
 ${langLine}`;
 }
 
@@ -3429,9 +3500,15 @@ function getLocalResponse(question){
   // or district.
   if (q.indexOf('mandi') >= 0 || q.indexOf('nearest mandi') >= 0 || q.indexOf('निकटतम मंडी') >= 0 || q.indexOf('मंडी') >= 0) {
     var mandiRows = [];
+    // Bug fixed 2026-08-08: this used `dk` (currentMPDistrictKey(), null
+    // for any of the 728 non-MP districts), so mandi chip answers only
+    // ever worked for the 5 IMD districts even though AGMARKNET data
+    // covers all 733. getRowsForDistrict() slugifies internally and
+    // accepts the raw dropdown value for any district.
+    var rawDistrictForMandi = document.getElementById('districtSelect')?.value;
     try {
-      if (window.VindhyaMandi && typeof window.VindhyaMandi.getRowsForDistrict === 'function' && dk) {
-        mandiRows = window.VindhyaMandi.getRowsForDistrict(dk) || [];
+      if (window.VindhyaMandi && typeof window.VindhyaMandi.getRowsForDistrict === 'function' && rawDistrictForMandi) {
+        mandiRows = window.VindhyaMandi.getRowsForDistrict(rawDistrictForMandi) || [];
       }
     } catch (e) { /* fall through to the "not available" branch below */ }
     if (mandiRows.length) {
@@ -3502,7 +3579,10 @@ async function runChatCompletion(){
     // The Worker's contract is one flat {"prompt": string} -> {"text": string}.
     // So the system instruction, the real figures, and the conversation are
     // folded into a single string here rather than sent as separate fields.
-    var systemPrompt = buildChatSystemPrompt();
+    // buildChatSystemPrompt() is async now (2026-08-08) -- it fetches real
+    // per-district climate/mandi/crop data for whichever district is
+    // selected, not only the 5 original IMD districts.
+    var systemPrompt = await buildChatSystemPrompt();
 
     var recent = chatHistory.slice(-12);
     var transcript = '';
@@ -3523,6 +3603,11 @@ async function runChatCompletion(){
         + '\n\nSahayak:';
       if (fullPrompt.length > 3900) fullPrompt = fullPrompt.slice(0, 3900);
     }
+
+    // Owner instruction (2026-08-08): print the exact prompt sent to the
+    // Worker so real-data inclusion can be checked directly, not guessed
+    // at from the reply alone.
+    console.log('[Kisan Sahayak] full prompt sent to Worker (' + fullPrompt.length + ' chars):\n' + fullPrompt);
 
     var ctl = new AbortController();
     var timer = setTimeout(function(){ ctl.abort(); }, 30000);
