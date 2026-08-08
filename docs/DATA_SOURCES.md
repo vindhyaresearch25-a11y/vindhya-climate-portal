@@ -128,6 +128,28 @@ District/State/Block/Village tier selector exists in the UI; only District
 tier is implemented -- State/Block/Village show an explicit "not built yet"
 message rather than wrong-tier or half-broken data.
 
+## Kisan Sahayak research papers (`dashboard/research_papers_loader.js`, Phase 7.3, added 2026-08-08)
+
+FINAL_PROMPT.md Phase 7.3 names 8 free scholarly APIs. Each was tested with
+a real keyless request before deciding what to wire (2026-08-08):
+
+| Source | Status | Evidence |
+|---|---|---|
+| OpenAlex | Wired | `api.openalex.org/works?search=...` -- 200, real title/authors/year/DOI |
+| CrossRef | Wired | `api.crossref.org/works?query=...` -- 200, real DOI records |
+| DOAJ | Wired | `doaj.org/api/search/articles/...` -- 200, real open-access articles |
+| PubMed/PMC | Wired | NCBI eutils `esearch` + `esummary` -- 200, real PMIDs/titles |
+| Semantic Scholar | Wired, best-effort | `api.semanticscholar.org` -- returned HTTP 429 on the very first test call (public/keyless tier is heavily rate-limited); still attempted every search, failures silently dropped rather than shown as an error |
+| CORE | **Not wired** | `api.core.ac.uk/v3/search/works` returned HTTP 301 to an auth flow -- requires a registered API key this portal does not have |
+| FAO AGRIS | **Not wired** | `agris.fao.org` returned HTTP 403 (Cloudflare bot challenge) on a plain request -- no documented public JSON API found; bypassing the challenge would violate this portal's own bot-detection rule |
+| ICAR KRISHI | **Not wired** | `krishi.icar.gov.in` did not resolve (DNS failure) from the dev machine at time of writing -- no public API found |
+
+Every returned result carries a real title, real authors (from the source,
+never invented), real year, and a real link (DOI or the source's own
+landing-page URL) -- a query with zero real matches renders an honest
+"no papers found" message, never a placeholder citation. Sci-Hub is never
+called or referenced, per FINAL_PROMPT.md's explicit rule.
+
 ## Removed in the 2026-08 cleanup
 
 - 50 synthetic districts and ~5,000 generated villages (`08_expand_climate_data.py`)

@@ -34,7 +34,7 @@ _URL_PATCHES = [
 # bug as the geoai/mandi one above -- added 2026-08-07 alongside Phase 6.
 _JS_FILES = ['mp_climate_loader.js', 'dicra_ndvi_loader.js', 'cadastral_loader.js',
              'geoai_professional.js', 'mandi_loader.js', 'crop_stats_loader.js', 'live_weather_loader.js',
-             'national_climate_loader.js', 'compare_loader.js',
+             'national_climate_loader.js', 'compare_loader.js', 'research_papers_loader.js',
              'knowledge_base_loader.js',
              'national_selector.js']
 

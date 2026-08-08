@@ -3335,6 +3335,27 @@ async function sendChat(){
   chatHistory.push({role:'user', content:text});
   input.value='';
 
+  // Phase 7.3: a research-paper question gets REAL citations from free
+  // scholarly APIs (research_papers_loader.js), never routed through the
+  // LLM -- an LLM asked to cite papers can invent plausible-looking
+  // titles/DOIs, which is exactly the fabrication this portal prohibits.
+  if (typeof window.VindhyaResearchPapers !== 'undefined' && window.VindhyaResearchPapers.looksLikeResearchRequest(text)) {
+    var searchingMsg = chatLangHi ? 'असली शोध-पत्र खोजे जा रहे हैं...' : 'Searching real research papers...';
+    var statusDiv = addChatMsg('bot', searchingMsg);
+    var loc = getCurrentLocationLabel();
+    var q = window.VindhyaResearchPapers.toQuery(text) + (loc ? ' ' + loc : '');
+    window.VindhyaResearchPapers.search(q).then(function (papers) {
+      var out = window.VindhyaResearchPapers.format(papers, q.trim());
+      statusDiv.textContent = out;
+      chatHistory.push({role:'assistant', content:out});
+      document.getElementById('chatBody').scrollTop = document.getElementById('chatBody').scrollHeight;
+    }).catch(function () {
+      var failMsg = chatLangHi ? 'शोध-पत्र खोज विफल रही -- नेटवर्क समस्या हो सकती है। फिर कोशिश करें।' : 'Research paper search failed -- could be a network issue. Try again.';
+      statusDiv.textContent = failMsg;
+    });
+    return;
+  }
+
   // Try local response first (for chip questions)
   var localReply = getLocalResponse(text);
   if (localReply) {
@@ -3589,6 +3610,7 @@ async function runChatCompletion(){
 <script src="crop_stats_loader.js"></script>
 <script src="live_weather_loader.js"></script>
 <script src="compare_loader.js"></script>
+<script src="research_papers_loader.js"></script>
 <script src="knowledge_base_loader.js"></script>
 <script src="national_climate_loader.js"></script>
 <!-- national_selector.js is appended dynamically, not as a static tag here --
