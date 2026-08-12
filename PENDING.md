@@ -303,11 +303,23 @@ Ye 3 aur 5 ke baad.
 
 ---
 
-# 14. KISAN UPLOAD (ground truth) -- 0
+# 14. KISAN UPLOAD (ground truth) -- **pehle se BANA hai, sirf deploy baaki**
 
-Cloudflare D1 (free) -> GitHub Action -> HF, CC-BY.
-Naam/phone/Aadhaar **mat maango**. Anumati ka checkbox.
-Sarvajanik me nirdeshank 3 dashamlav tak gol (~100 m).
+`cloudflare/kisan_upload_worker.js` + `wrangler_kisan_upload.toml` +
+`dashboard/kisan_upload.html` (188 lines, form) + D1 schema + daily
+export script -- sab bane hue hain. Naam/phone/Aadhaar nahi maangte,
+anumati checkbox hai, 3-dashamlav rounding hai. **NAHI HUA sirf:
+deploy** (`database_id` abhi placeholder hai) -- yahi teesra item hai jo
+aapke apne Cloudflare login se hona hai, Vectorize aur Mera Khet GEE
+backend ki tarah.
+
+**Aapko teen deploy karne hain (sab `cd cloudflare` se):**
+1. `wrangler deploy --config wrangler_kisan_sahayak.toml` (item 1 --
+   Kisan Sahayak citations)
+2. `wrangler d1 create vindhya-ground-truth` + schema + `wrangler deploy
+   --config wrangler_kisan_upload.toml` (ye item -- ground truth upload)
+3. Mera Khet ka GEE backend (`GEE_BACKEND_URL` set karna, item 10 me
+   detail hai) -- ye teesra thoda bada hai, baad me bhi ho sakta hai
 
 ---
 
