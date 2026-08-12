@@ -276,6 +276,136 @@ government scheme) with zero fabricated sources.
   claim of absolute accuracy, only as an internally-consistent time series.
 - Thrasher, B. et al. (2022). NASA Global Daily Downscaled Projections, CMIP6. Scientific Data 9:262.
 
+## 9. Advisory layer (derived, rule-based) — added 2026-08-12
+
+PENDING.md item 13. `scripts/15_build_advisory.py` combines this portal's
+own already-published, already-verified pipeline outputs (Sections 2-5
+above, plus soil moisture — MERA_KHET_PROMPT.md B1) into four
+plain-language flags per district: `heatwave_risk`, `drought_risk`,
+`vegetation_stress`, `irrigation_need`. Output:
+`dashboard/data/advisory/<state_slug>/<district_slug>.json`, rendered by
+`dashboard/advisory_loader.js`.
+
+**This layer is explicitly NOT a machine-learning model, and reports no
+confidence/probability score of its own.** Every flag is a fixed,
+code-defined threshold applied to one or more numbers this repo already
+computed and published elsewhere — the exact source file and field name(s)
+are recorded in each flag's own `basis` object, and the exact numeric
+threshold crossed is stated in its `note` string, so every flag is
+auditable back to a real stored value, never a re-estimate. A district with
+no real climate file has no advisory file at all (climate is the mandatory
+minimum input); a district with climate but no NDVI/soil-moisture file
+simply omits that one flag rather than guessing — partial coverage is
+explicit per field, never per district.
+
+### 9.1 heatwave_risk
+
+Reuses, verbatim, the same LOW/MODERATE/HIGH/EXTREME bands already shown on
+the district climate panel (`national_climate_loader.js`'s
+`applyGeeMetrics()`), applied to `heatwave_days`/`severe_heatwave_days`
+from `dashboard/data/climate/<state>/<district>.json` (726 districts,
+ERA5-Land/CHIRPS via GEE) or `dashboard/data/mp_climate_data.json`
+(`heatwave_days_mean`/`severe_heatwave_days_mean`, the 5 real IMD
+districts):
+
+| Condition | Level |
+|---|---|
+| `severe_heatwave_days >= 2` | EXTREME |
+| `heatwave_days >= 8` | HIGH |
+| `heatwave_days >= 2` | MODERATE |
+| else | LOW |
+
+### 9.2 drought_risk
+
+A standalone drought-only categorisation using `drought_probability_pct`
+(pipeline output) and the **real, existing** SPI thresholds already defined
+in `scripts/config.py` (`DROUGHT_SPI_THRESHOLD=-1.0`,
+`SEVERE_DROUGHT_SPI=-1.5`) — reused, not redefined. Deliberately distinct
+from Section 6's composite district risk score above, which combines heat
++ drought into one number and is not meant as a standalone drought scale:
+
+| Condition | Level |
+|---|---|
+| `drought_probability_pct >= 40` OR `spi_12 <= -1.5` | HIGH |
+| `drought_probability_pct >= 20` OR `spi_12 <= -1.0` | MODERATE |
+| else | LOW |
+
+### 9.3 vegetation_stress (only when an NDVI file exists)
+
+Only computed where a real NDVI file exists for the district —
+`dashboard/data/dicra_ndvi.json` (UNDP DiCRA, MP's districts) or
+`dashboard/data/ndvi/<state>/<district>.json` (MODIS/GEE, from the ongoing
+`scripts/10_gee_national_ndvi.py` background run — coverage grows on the
+next run of `15_build_advisory.py`, never waited on). The district's
+**own** real per-year mean NDVI is grouped by calendar year; the latest
+year is compared against the mean/stddev of that same district's own
+*prior* years (a real relative comparison, never an absolute "good/bad"
+judgement invented from nothing):
+
+```
+z = (latest_year_mean - mean(prior_years)) / stddev(prior_years)
+z <= -1.0   -> HIGH   (below normal)
+z <= -0.5   -> MODERATE
+else        -> LOW
+```
+
+If `stddev(prior_years) == 0` (fewer than 2 usable prior years to get a
+real spread), falls back to a percent-departure metric (`<=-10% -> HIGH`,
+`<=-5% -> MODERATE`) instead of a division by zero. Requires at least 1
+prior year to exist at all; a district with only 1 year of NDVI ever gets
+no `vegetation_stress` flag (no baseline to compare against).
+
+**Partial-year guard.** A "latest year" whose real composite count is
+below 60% of the district's own typical composite count (e.g. a
+mid-calendar-year DiCRA read that only has Jan–Apr composites so far, vs.
+~23/yr typical) is a partial year, not a full year — comparing it against
+a historical *full-year* mean systematically biases the result toward
+looking artificially low, because full-year means include the lush monsoon
+months a partial dry-season year hasn't reached yet. Rather than silently
+comparing anyway (which would have been a genuine "invented risk number"
+bug of exactly the kind Section 7 above warns about) or dropping the flag
+(a farmer still wants a current read), the flag is computed **and**
+labelled `"partial_year": true` in `basis`, with an explicit caution
+sentence prepended to `note`, and severity is capped at MODERATE — a
+seasonal artifact can never present as a false HIGH.
+
+### 9.4 irrigation_need (only when a soil-moisture file exists)
+
+Only computed where `dashboard/data/soil_moisture/<state>/<district>.json`
+exists (733/733 districts as of 2026-08-12). Reuses, verbatim, the exact
+fixed reference band already live in `dashboard/soil_moisture_loader.js`'s
+`irrigationHint()` — not a new threshold invented for this layer:
+
+| Condition (`district.sm_surface_mean`) | Level |
+|---|---|
+| `< 0.15` | HIGH (irrigate soon) |
+| `< 0.30` | MODERATE |
+| else | LOW |
+
+The SMAP pipeline stores a current ~5-day observation window only, no
+per-district historical time series — so "relative to recent values" here
+means the same generic reference band the Soil Moisture tab already shows
+(explicitly labelled a fixed threshold, not a trend), not a fabricated
+history that doesn't exist in the underlying data.
+
+### Tier scope
+
+**District tier only**, in this pass, and documented as such rather than
+rushed to a shaky 4-tier version. Village/block aggregation is a
+**documented next step, not yet built**: the climate and NDVI pipelines
+this layer reads have no sub-district output at all to aggregate (unlike
+soil moisture, which has a real village→block→district breakdown from
+SMAP-cell-nearest-village matching). Building a consistent sub-district
+advisory would mean either (a) waiting for a genuinely sub-district climate
+product, or (b) explicitly documenting that a village/block "advisory"
+would just be its parent district's value relabelled, which is not a real
+finer-grained result and should not be presented as one. The state tier
+(`dashboard/advisory_loader.js`, computed client-side, never precomputed)
+is a real per-flag-level **count** across the state's computed districts —
+deliberately NOT the mean+stddev convention used for continuous soil
+moisture/climate numbers elsewhere (FINAL_PROMPT.md Phase 8.2), because a
+categorical LOW/MODERATE/HIGH/EXTREME flag has no meaningful mean; a full
+count distribution is its honest equivalent.
 
 ---
 
