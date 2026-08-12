@@ -115,14 +115,11 @@ diya (d62e579 ne DATA_SOURCES.md update kiya tha par ROADMAP.md nahi).
 
 ---
 
-# 5. SOIL MOISTURE -- 23 se aage -- **CHALU HAI (background watchdog)**
+# 5. SOIL MOISTURE -- **HUA -- 733/733 zile POORA, sab 36 rajya/UT**
 
-- SMAP (GEE, muft), chaaron star -- already `13_gee_national_soil_moisture.py`
-  me decided/coded tha
-- **Resolution 9 km** -- pehle se har output file me likha hai
-- Har aggregate: pixel count + SD -- pehle se code me hai
-- **Chalao** -- same generalized watchdog se launch kiya, chal raha hai,
-  25+ zile is run me likh chuka (Assam tak pahunch gaya jaldi hi).
+Watchdog run khud khatam hua (do laagatar khali pass = kuch bacha nahi).
+9 km resolution har file me, pixel count + SD METHODOLOGY §8.2 ke mutabik.
+Pushed.
 
 ---
 
@@ -222,16 +219,25 @@ isliye aankda nahi"*. Khali mat chhodo.
 
 ---
 
-# 10. MERA KHET (naya feature) -- **agent me chalu** (worktree isolated)
+# 10. MERA KHET (naya feature) -- **HUA (mostly), ek real gap baaki**
 
-`MERA_KHET_PROMPT.md` me poora likha hai. Sankshep me:
+`dashboard/mera_khet.js` (804 lines) live hai, sidebar me nav item,
+Cadastral panel se link ("Apna khet khud khinchiye"). `geoai_professional.js`
+ka area/perimeter code reuse kiya, naya nahi likha.
 
-- `geoai_professional.js` dobara istemal karo, naya mat likho
-- Kisan polygon khinche -> kheti wala hissa alag dikhe
-  (Dynamic World / Sentinel-2, 10 m)
-- Mausam/nami zile ka -- **label lagao ki khet ka nahi**
-- Sabse upyogi: *"aapke khet ka NDVI 0.62, gaon ka aurat 0.55"*
-- Ground truth: *"is khet me kaunsi fasal hai?"* -> D1 -> HF
+- Polygon draw -> area/perimeter: **HUA**
+- Kheti wala hissa (cropland fraction, Dynamic World/Sentinel-2 10m):
+  **NAHI HUA** -- iske liye live per-polygon GEE query chahiye, jo browser
+  se seedhe nahi ho sakta, backend chahiye. `cloudflare/mera_khet_worker.js`
+  likha gaya (real GEE service-account OAuth2 flow) par `GEE_BACKEND_URL`
+  configure/deploy nahi hua is session me -- panel honest "not yet wired
+  up" dikhata hai, koi jhoothi number nahi.
+- Mausam/nami -- **HUA**, district-tier (soil_moisture/climate files se),
+  "yah aapke khet ka apna maap nahi" label ke saath, jaisa maanga tha
+- Ground truth (fasal poochna) -- **HUA**, existing D1 pipeline reuse
+  kiya (naya pipeline nahi banaya), geometry column add kiya
+- Download: GeoJSON/KML/SHP (single-polygon) -- **HUA**. GeoTIFF -- nahi
+  (jaisa A3 benchmark ne pehle hi bataya tha, storage quota issue)
 
 **Pehle naapo:** 2-ha polygon par Dynamic World me kitna samay,
 Sentinel-2 NDVI kitni jaldi, EECU kitna.
