@@ -52,31 +52,98 @@ wrangler deploy --config wrangler_kisan_sahayak.toml
 Neither of these was run this session -- both need the owner's own
 Cloudflare login, which this sandbox cannot use (confirmed 2026-08-08).
 
-## What's actually in the corpus (verified 2026-08-08, dry-run output)
+## What's actually in the corpus (updated 2026-08-12/13, PENDING.md item 12)
 
-Six real PDFs, every one confirmed with a live HTTP fetch this session
-(200 OK, `application/pdf`), extracted with `pdfplumber`, chunked at ~500
-words with 75-word overlap. `--dry-run` output on this exact corpus:
+**`wheat_pop_1984` REMOVED 2026-08-12.** Re-fetched and read in full: it
+explicitly recommends Aldrin 5% @ 25 kg/ha (banned in India since
+2001/2002 under the Insecticides Act), BHC/HCH (banned 1997),
+organomercurial seed-dressing fungicides Ceresan/Agrosan (mercury
+compounds, banned), and Dimecron/phosphamidon (restricted for most uses
+today) at specific dosages. A metadata caveat would not stop a model from
+surfacing a banned chemical name+dosage as if it were current advice, so
+the document was dropped from `CORPUS` and its 16 vectors deleted from
+Vectorize rather than kept with a warning attached.
+
+**8 new documents added 2026-08-12/13** (PENDING.md's 8 priority crops:
+wheat, rice, soybean, chana/chickpea, sarson/mustard, cotton, maize,
+potato -- 6 of 8 got real coverage; maize and potato did not, see "Not
+covered" below). Every URL fetched live and confirmed 200 OK /
+`application/pdf` before being added. Sources: ICAR institute bulletins
+(IIWBR, CRRI, IISR, IIPR, DRMR), a State Agricultural University's own
+Package-of-Practices (Punjab Agricultural University -- the single
+richest source added, 208+184 pages covering most of the 8 crops in one
+place), and a state POP hosted on Vikaspedia (Govt. of India digital
+portal, MeitY/C-DAC). Never ResearchGate, never Sci-Hub.
+
+13 real PDFs total (6 original minus 1 removed, plus 8 new), extracted
+with `pdfplumber`, chunked at ~500 words with 75-word overlap. `--dry-run`
+output on this exact corpus (2 of 13 failed to fetch this run, both
+transient host timeouts, not excluded from `CORPUS` -- retry on the next
+ingestion run):
 
 | id | Document | Publisher | Crop | Year | Pages (text-extractable) | Chunks |
 |---|---|---|---|---|---|---|
-| `wheat_pop_1984` | Package of Practices for Increasing Wheat Production | ICAR-IIWBR | wheat | 1984 | 31 (31) | 16 |
 | `organic_pop_maharashtra` | Package of Practices for Organic Farming, Maharashtra | Dept. of Agriculture and Farmers Welfare | multiple (organic) | not stated in doc | 15 (15) | 7 |
 | `crri_direct_seeded_rice_2025` | CRRI Technology Bulletin No. 250: Direct Seeded Rice | ICAR-CRRI | rice | 2025 | 12 (12) | 8 |
 | `icar_kharif_agro_advisories_2025` | ICAR Kharif Agro-Advisories for Farmers 2025 | ICAR | multiple (kharif) | 2025 | 310 (309) | 616 |
-| `imd_agromet_gujarat` | Agromet Advisory Service Bulletin -- Gujarat | IMD, Gramin Krishi Mausam Sewa | multiple (state agromet) | rolling bulletin, no fixed year | 74 (74) | 62 |
-| `imd_agromet_assam` | Agromet Advisory Service Bulletin -- Assam | IMD, Gramin Krishi Mausam Sewa | multiple (state agromet) | rolling bulletin, no fixed year | 17 (17) | 18 |
-| **Total** | | | | | **459 pages, 458 with extractable text** | **727 chunks** |
+| `imd_agromet_gujarat` | Agromet Advisory Service Bulletin -- Gujarat | IMD, Gramin Krishi Mausam Sewa | multiple (state agromet) | rolling bulletin | 74 (74) | 62 |
+| `imd_agromet_assam` | Agromet Advisory Service Bulletin -- Assam | IMD, Gramin Krishi Mausam Sewa | multiple (state agromet) | rolling bulletin | 17 (17) | 18 |
+| `pau_pop_kharif_2026` | Package of Practices for Crops of Punjab -- Kharif 2026 | Punjab Agricultural University | multiple (paddy/rice, cotton, maize, soybean, sugarcane, kharif pulses) | 2026 | 208 (208) | 203 |
+| `pau_pop_rabi_2025_26` | Package of Practices for Crops of Punjab -- Rabi 2025-26 | Punjab Agricultural University | multiple (wheat, gram/chana, mustard/raya, potato, sugarcane, rabi pulses) | 2025 | 184 (184) | 176 |
+| `iiwbr_wheat_pocket_2023` | Wheat Cultivation in India -- Pocket Guide (EB-52) | ICAR-IIWBR | wheat | 2023 | 40 (36) | 18 |
+| `iiwbr_wheat_conservation_agri_2024` | Conservation Agriculture for Climate Resilience of Wheat Systems (RB-49) | ICAR-IIWBR | wheat | 2024 | 36 (34) | 47 |
+| `iisr_soybean_extension_2023` | Improved Technologies for Maximising Soybean Productivity (EB-18) | ICAR-IISR, Indore | soybean | 2023 | 77 (77) | 37 |
+| `iipr_chickpea_pc_report_2022` | AICRP Chickpea -- Project Coordinator's Report 2021-22 | ICAR-IIPR, Kanpur | chana/chickpea | 2022 | 46 (46) | 48 |
+| `drmr_mustard_assam_bmp_2021` | Best Management Practices of Rapeseed-Mustard for Assam | ICAR-DRMR via rmkpassam.in | sarson/mustard | 2021 | 44 (37) | 25 |
+| `cotton_maharashtra_pop` | Approved Package of Practices for Cotton: Maharashtra State | Maharashtra Dept. of Agriculture, via Vikaspedia | cotton | not stated in doc | 7 (7) | 6 |
+| **Total (as of last successful run)** | | | | | **~880 text-extractable pages** | **1263 chunks, 926 vectors live in Vectorize** |
 
-Note on `wheat_pop_1984`: it's a scanned 1984 document; pdfplumber's text
-layer for it is real but visibly OCR-garbled in places (e.g. "PACI(AGE OF
-PRACTIGES" for "PACKAGE OF PRACTICES") -- this is the document's own
-extracted text, not a bug in the chunker, and is kept as-is rather than
-"corrected" (correcting it would mean guessing what the original said).
+**Per-crop coverage, honestly assessed** (PENDING.md's 8 priority crops):
+wheat -- **strong** (2 dedicated IIWBR docs + PAU rabi POP + the removed
+1984 doc's gap is more than covered); rice -- **strong** (CRRI DSR
+bulletin + PAU kharif POP); soybean -- **covered** (1 dedicated IISR
+bulletin + PAU kharif POP); chana/chickpea -- **covered** (1 dedicated
+IIPR report + PAU rabi POP); sarson/mustard -- **covered** (1 dedicated
+DRMR bulletin + PAU rabi POP); cotton -- **covered, thin** (1 Maharashtra
+POP + PAU kharif POP; the official `cotton.dac.gov.in` POP PDF is a
+scanned image with zero extractable text -- excluded rather than shipped
+empty); **maize and potato -- NOT covered as standalone documents**, only
+whatever PAU's kharif/rabi POPs mention in passing (maize is in the
+kharif POP's crop list, potato in the rabi POP's) -- no dedicated
+bulletin found and verified this session; a real, honest gap, not
+silently padded.
+
+**Two real extraction/fetch bugs found and fixed this session**, both in
+`scripts/12_ingest_kisan_manuals.py`:
+1. `fetch_pdf_bytes()`'s exception handling didn't catch `socket.timeout`
+   on this machine's Python 3.9 (it's a distinct class from `TimeoutError`
+   before 3.10) -- a single slow host (icar.org.in, observed live) crashed
+   the *entire* multi-document run instead of failing just that one
+   document. Now also catches `socket.timeout`/`OSError`.
+2. `organic_pop_maharashtra`'s PDF renders each glyph via multiple
+   overlapping paths (a faux-bold/emboss effect from whatever tool
+   generated it) -- pdfplumber's `extract_text()` picked up every
+   overlapping instance, turning "Package" into
+   `"PPPPPaaaaaccccckkkkkaaaaagggggeeeee"` (every character repeated
+   exactly 5x). This was **already live in the original 6-document
+   corpus** since 2026-08-08, unnoticed until this session's dry-run
+   output was actually read closely. Fixed with a detector
+   (`_looks_5x_duplicated()`, checks what fraction of a page's text is
+   covered by 5+-character runs) and repair (`_fix_5x_duplicated()`,
+   collapses those runs to 1) applied per-page in `extract_pages()` --
+   scoped narrowly enough (>50% coverage threshold) that it never touches
+   normal prose elsewhere. Verified: the sample chunk now reads "Package
+   of Practices for Organic Production of Crops..." correctly. The
+   re-ingestion run in this session re-embedded this document with the
+   fix applied, so the live Vectorize index no longer carries the garbled
+   version.
+
+Note on `wheat_pop_1984`: see removal note above -- this document is
+**gone from the corpus entirely**, not merely caveated.
 The IMD bulletins are **rolling** documents re-issued twice weekly at
 state level -- their chunks carry `ingested_date`, not a claimed
 publication year, and should be re-ingested periodically to stay current
-rather than treated as a fixed historical corpus like the ICAR PoPs.
+rather than treated as a fixed historical corpus like the ICAR/PAU PoPs.
 
 Every chunk's Vectorize metadata carries `text`, `source`, `crop`, `year`,
 `publisher`, `url`, `page` (a single page number or a `"12-13"` range if

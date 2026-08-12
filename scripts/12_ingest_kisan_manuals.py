@@ -72,6 +72,8 @@ import io
 import json
 import os
 import re
+import socket
+import subprocess
 import sys
 import time
 import urllib.error
@@ -98,14 +100,20 @@ TIMEOUT = 45
 # for what was tried and excluded.
 # --------------------------------------------------------------------
 CORPUS = [
-    {
-        "id": "wheat_pop_1984",
-        "url": "https://iiwbr.org.in/wp-content/uploads/2023/08/Wheat-Package-of-practices-for-increasing-production-1984.pdf",
-        "source": "ICAR-IIWBR: Package of Practices for Increasing Wheat Production",
-        "crop": "wheat",
-        "year": 1984,
-        "publisher": "ICAR-Indian Institute of Wheat and Barley Research (IIWBR)",
-    },
+    # wheat_pop_1984 (ICAR-IIWBR 1984 "Package of Practices for Increasing
+    # Wheat Production") was REMOVED 2026-08-12 -- see
+    # docs/KISAN_SAHAYAK_RAG.md for the full reasoning. Short version:
+    # re-fetched and read in full; it explicitly recommends Aldrin (banned
+    # in India since 2001/2002 under the Insecticides Act), BHC/HCH (banned
+    # 1997), organomercurial seed-dressing fungicides Ceresan/Agrosan
+    # (mercury compounds, banned), and Dimecron/phosphamidon (restricted for
+    # most uses today) at specific dosages -- e.g. "Aldrin 5% @ 25 kg/ha".
+    # A metadata caveat would not stop the model from surfacing a banned
+    # chemical name+dosage as if it were current advice, so the document was
+    # dropped from the corpus and its 16 vectors deleted from Vectorize
+    # (`wrangler vectorize delete-vectors kisan-sahayak-manuals --ids
+    # wheat_pop_1984__chunk0000 ... chunk0015`) rather than kept with a
+    # warning attached.
     {
         "id": "organic_pop_maharashtra",
         "url": "https://agriwelfare.gov.in/Documents/POP%20Maharastra.pdf",
@@ -146,6 +154,85 @@ CORPUS = [
         "year": None,
         "publisher": "India Meteorological Department (IMD), Gramin Krishi Mausam Sewa",
     },
+
+    # -------------------------------------------------------------
+    # Added 2026-08-12 (PENDING.md item 12, "CORPUS BADAO") -- 8 more real
+    # documents, every URL fetched live and confirmed 200 OK / application/pdf
+    # this session before being added here. See docs/KISAN_SAHAYAK_RAG.md for
+    # the full per-crop coverage summary, what was tried and rejected (e.g.
+    # cotton.dac.gov.in's official POP PDF is a scanned image with zero
+    # extractable text; the 675-page CICR AICRP Cotton annual report is real
+    # but is a research-trial report, not farmer advisory content, and would
+    # have burned a large slice of the Vectorize free-tier dimension budget
+    # on tables that don't answer farmer questions -- both excluded), and the
+    # *.icar.gov.in DNS outage confirmed via public DNS (not environment-
+    # specific) that ruled out krishi.icar.gov.in / kvk.icar.gov.in /
+    # icar-nrri.in this session.
+    # -------------------------------------------------------------
+    {
+        "id": "pau_pop_kharif_2026",
+        "url": "https://pau.edu/content/ccil/pf/pp_kharif.pdf",
+        "source": "Package of Practices for Crops of Punjab -- Kharif 2026 (Vol. 43, No. 1)",
+        "crop": "multiple (kharif: paddy/rice, cotton, maize, soybean, sugarcane, kharif pulses, fodders)",
+        "year": 2026,
+        "publisher": "Punjab Agricultural University (PAU), Ludhiana",
+    },
+    {
+        "id": "pau_pop_rabi_2025_26",
+        "url": "https://pau.edu/content/ccil/pf/pp_rabi.pdf",
+        "source": "Package of Practices for Crops of Punjab -- Rabi 2025-26 (Vol. 42, No. 2)",
+        "crop": "multiple (rabi: wheat, gram/chana, mustard/raya, potato, sugarcane, rabi pulses, fodders)",
+        "year": 2025,
+        "publisher": "Punjab Agricultural University (PAU), Ludhiana",
+    },
+    {
+        "id": "iiwbr_wheat_pocket_2023",
+        "url": "https://iiwbr.org.in/wp-content/uploads/2023/08/EB-52-Wheat-Cultivation-in-India-Pocket-Guide.pdf",
+        "source": "Wheat Cultivation in India -- Pocket Guide (Extension Bulletin 52)",
+        "crop": "wheat",
+        "year": 2023,
+        "publisher": "ICAR-Indian Institute of Wheat and Barley Research (IIWBR)",
+    },
+    {
+        "id": "iiwbr_wheat_conservation_agri_2024",
+        "url": "https://iiwbr.org.in/wp-content/uploads/2024/01/RB-49-Conservation-Agriculture-for-Climate-Resilience-Sustainability-of-Wheat-based-Systems.pdf",
+        "source": "Conservation Agriculture for Climate Resilience and Sustainability of Wheat based Systems (Research Bulletin 49)",
+        "crop": "wheat",
+        "year": 2024,
+        "publisher": "ICAR-Indian Institute of Wheat and Barley Research (IIWBR)",
+    },
+    {
+        "id": "iisr_soybean_extension_2023",
+        "url": "https://icar-nsri.res.in/pdfdoc/ExtensionBulletin2023E_2.pdf",
+        "source": "Improved Technologies and Technical Recommendations for Maximising Soybean Productivity in India (Extension Bulletin 18, 2023)",
+        "crop": "soybean",
+        "year": 2023,
+        "publisher": "ICAR-Indian Institute of Soybean Research (IISR), Indore (currently hosted at icar-nsri.res.in)",
+    },
+    {
+        "id": "iipr_chickpea_pc_report_2022",
+        "url": "https://icar-iipr.org.in/wp-content/uploads/2023/07/PC-report-Chickpea_2021-22.pdf",
+        "source": "ICAR-All India Coordinated Research Project on Chickpea -- Project Coordinator's Report (2021-22)",
+        "crop": "chana/chickpea (gram)",
+        "year": 2022,
+        "publisher": "ICAR-Indian Institute of Pulses Research (IIPR), Kanpur",
+    },
+    {
+        "id": "drmr_mustard_assam_bmp_2021",
+        "url": "https://rmkpassam.in/pdf/bulletin_BMP.pdf",
+        "source": "Best Management Practices of Rapeseed-Mustard Technologies for Assam",
+        "crop": "sarson/mustard (rapeseed-mustard)",
+        "year": 2021,
+        "publisher": "ICAR-Directorate of Rapeseed-Mustard Research (DRMR), Bharatpur, via the Rapeseed-Mustard Knowledge Management Portal (rmkpassam.in), Assam",
+    },
+    {
+        "id": "cotton_maharashtra_pop",
+        "url": "https://static.vikaspedia.in/media/files_en/agriculture/crop-production/package-of-practices/practices-for-maharastra.pdf",
+        "source": "Approved Package of Practices for Cotton: Maharashtra State",
+        "crop": "cotton",
+        "year": None,  # not stated in the document itself
+        "publisher": "Maharashtra State Dept. of Agriculture POP, hosted on Vikaspedia (Govt. of India digital portal, MeitY/C-DAC) -- see docs/KISAN_SAHAYAK_RAG.md licensing note",
+    },
 ]
 
 FETCH_DATE = time.strftime("%Y-%m-%d")
@@ -156,13 +243,71 @@ def log(msg: str) -> None:
 
 
 def fetch_pdf_bytes(url: str) -> bytes | None:
+    """Tries urllib first; falls back to the system `curl` binary if urllib
+    fails with an SSL/TLS error. Confirmed 2026-08-12: this machine's system
+    Python 3 links LibreSSL 2.8.3 (no TLS 1.3 support), and at least one real
+    source (pau.edu, Punjab Agricultural University) requires TLS 1.3 and
+    hard-rejects a TLS 1.2 ClientHello -- `curl` on the same machine
+    negotiates TLS 1.3 fine (linked against a newer TLS stack), so this is a
+    genuine local-interpreter limitation, not a reason to drop an otherwise
+    real, fetchable source. The curl fallback still only returns bytes that
+    were actually fetched over the network -- no synthetic content path."""
     req = urllib.request.Request(url, headers={"User-Agent": "VindhyaClimatePortal-KisanSahayak/1.0"})
     try:
         with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
             return r.read()
-    except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError) as e:
-        log(f"FAILED fetching {url}: {e}")
-        return None
+    # NOTE (2026-08-12): on this machine's Python 3.9, socket.timeout is a
+    # DISTINCT class from TimeoutError (they were only unified as aliases in
+    # 3.10) -- the original except clause here didn't catch it, so a single
+    # slow/unresponsive server (icar.org.in, observed live) crashed the
+    # entire multi-document ingestion run instead of being logged as one
+    # document's failure. socket.timeout is also a subclass of OSError, so
+    # catching OSError alongside URLError/HTTPError covers this and any
+    # similar low-level network exception without enumerating every one.
+    except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, socket.timeout, OSError) as e:
+        log(f"urllib FAILED fetching {url}: {e} -- trying curl fallback")
+        try:
+            result = subprocess.run(
+                ["curl", "-sS", "-L", "--max-time", str(TIMEOUT), "-A", "VindhyaClimatePortal-KisanSahayak/1.0", url],
+                capture_output=True, timeout=TIMEOUT + 5, check=False,
+            )
+            if result.returncode == 0 and result.stdout:
+                return result.stdout
+            log(f"curl fallback ALSO FAILED for {url}: exit {result.returncode}, stderr={result.stderr[:300]!r}")
+            return None
+        except Exception as e2:
+            log(f"curl fallback FAILED for {url}: {e2}")
+            return None
+
+
+_REPEATED_CHAR_RUN_RE = re.compile(r"(.)\1{4,}")
+
+
+def _looks_5x_duplicated(text: str) -> bool:
+    """Detects a specific real pdfplumber extraction artifact (found
+    2026-08-12, organic_pop_maharashtra): some PDFs render each glyph via
+    multiple overlapping paths (a faux-bold/emboss effect from whatever
+    tool generated the PDF), and pdfplumber's extract_text() picks up
+    every overlapping instance, turning "Package" into
+    "PPPPPaaaaaccccckkkkkaaaaagggggeeeee" (every character repeated
+    exactly 5x, consistently, across the whole page). Detected by sampling
+    how much of the text is covered by runs of 5+ identical characters --
+    genuine prose essentially never has this property at scale (a real
+    "aaaaa" or "00000" run is rare and short), so a high coverage ratio is
+    a reliable, specific signal rather than a guess."""
+    if len(text) < 20:
+        return False
+    covered = sum(len(m.group(0)) for m in _REPEATED_CHAR_RUN_RE.finditer(text))
+    return covered / len(text) > 0.5
+
+
+def _fix_5x_duplicated(text: str) -> str:
+    """Collapses every run of 5+ identical characters to 1 -- only called
+    after _looks_5x_duplicated() confirms this specific corruption pattern
+    for the page, so it never touches normal text elsewhere. Real content
+    recovered, not fabricated: same characters the PDF actually contains,
+    just de-duplicated back to their intended single occurrence."""
+    return re.sub(r"(.)\1{4,}", r"\1", text)
 
 
 def extract_pages(pdf_bytes: bytes) -> list[str]:
@@ -172,6 +317,7 @@ def extract_pages(pdf_bytes: bytes) -> list[str]:
     if pdfplumber is None:
         raise RuntimeError("pdfplumber is not installed -- `pip install pdfplumber` (now in requirements.txt)")
     pages = []
+    n_fixed = 0
     with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
         for page in pdf.pages:
             try:
@@ -179,7 +325,12 @@ def extract_pages(pdf_bytes: bytes) -> list[str]:
             except Exception as e:
                 log(f"  page extract failed: {e}")
                 text = ""
+            if text and _looks_5x_duplicated(text):
+                text = _fix_5x_duplicated(text)
+                n_fixed += 1
             pages.append(text)
+    if n_fixed:
+        log(f"  repaired {n_fixed}/{len(pages)} page(s) with the 5x-character-duplication extraction artifact")
     return pages
 
 
@@ -200,6 +351,8 @@ def chunk_pages(pages: list[str], doc: dict) -> list[dict]:
 
     i = 0
     step = CHUNK_WORDS - CHUNK_OVERLAP_WORDS
+    doc_chunk_idx = 0  # per-DOCUMENT chunk counter -- see make_chunk_id note on
+    # why this must never be a position within the whole multi-document run.
     while i < len(stream):
         window = stream[i:i + CHUNK_WORDS]
         if not window:
@@ -212,8 +365,10 @@ def chunk_pages(pages: list[str], doc: dict) -> list[dict]:
                 "text": text,
                 "page_start": page_nos[0],
                 "page_end": page_nos[-1],
+                "doc_chunk_idx": doc_chunk_idx,
                 **{k: doc[k] for k in ("id", "source", "crop", "year", "publisher", "url")},
             })
+            doc_chunk_idx += 1
         i += step
     return chunks
 
@@ -251,6 +406,17 @@ def upsert_batch(records: list[dict]) -> None:
 
 
 def make_chunk_id(doc_id: str, idx: int) -> str:
+    """idx MUST be the chunk's position within its OWN document
+    (chunk_pages()'s doc_chunk_idx), never a position within the whole
+    multi-document run. Bug found and fixed 2026-08-12: the embed loop used
+    to pass batch_start+local_idx -- a position across the entire all_chunks
+    list spanning every document in that run -- so adding/removing/reordering
+    ANY document in CORPUS silently reassigned every later document's ids on
+    the next run, orphaning the old ids as duplicate/stale vectors in
+    Vectorize instead of upserting over them in place. See
+    docs/KISAN_SAHAYAK_RAG.md for why the existing index was wiped and
+    rebuilt from scratch once, rather than trying to reconcile old
+    global-index ids with the corrected per-document ones."""
     return f"{doc_id}__chunk{idx:04d}"
 
 
@@ -309,10 +475,9 @@ def main():
     for batch_start in range(0, len(all_chunks), EMBED_BATCH_SIZE):
         batch = all_chunks[batch_start:batch_start + EMBED_BATCH_SIZE]
         vectors = embed_batch([c["text"] for c in batch])
-        for local_idx, (chunk, vector) in enumerate(zip(batch, vectors)):
-            global_idx = batch_start + local_idx
+        for chunk, vector in zip(batch, vectors):
             records.append({
-                "id": make_chunk_id(chunk["id"], global_idx),
+                "id": make_chunk_id(chunk["id"], chunk["doc_chunk_idx"]),
                 "values": vector,
                 "metadata": {
                     "text": chunk["text"],
