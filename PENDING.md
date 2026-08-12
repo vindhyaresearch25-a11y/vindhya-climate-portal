@@ -296,10 +296,25 @@ denge. Seemaa paas aaye to RUKO.
 
 ---
 
-# 13. ADVISORY PARAT -- 0
+# 13. ADVISORY PARAT -- **DISTRICT TIER BANA, block/village/state baaki**
 
-Climate + NDVI + crop se vyutpann, chaaron star par.
-Ye 3 aur 5 ke baad.
+`scripts/15_build_advisory.py` + `dashboard/advisory_loader.js`
+(2026-08-12): climate (heatwave_risk, drought_risk) + NDVI jahaan hai
+(vegetation_stress) + soil moisture jahaan hai (irrigation_need) se 4
+rule-based flags, per district (731/733 -- climate hi mandatory minimum
+hai). AI/ML model NAHI hai, koi confidence % nahi -- har flag apne asli
+number ko cite karta hai (`docs/METHODOLOGY.md` Sec 9).
+
+State tier client-side ban gaya (per-flag-level count distribution, mean
+nahi -- categorical data ka mean nahi hota). Block/village tier abhi
+DOCUMENTED NEXT STEP hai, jaldi mein shaky nahi banaya -- climate/NDVI
+pipeline ke paas khud koi sub-district output hi nahi hai abhi (soil
+moisture ke paas hai, baaki ke paas nahi), METHODOLOGY.md Sec 9's "Tier
+scope" note dekho.
+
+NDVI coverage abhi kam hai (58/731 vegetation_stress -- background GEE run
+chal raha hai, jaise-jaise woh badhega, ye script phir se chalane par
+apne-aap badh jayega, kuch alag se karne ki zaroorat nahi).
 
 ---
 
