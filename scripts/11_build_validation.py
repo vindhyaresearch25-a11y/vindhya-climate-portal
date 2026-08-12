@@ -10,31 +10,64 @@ and used instead for 10_gee_national_ndvi.py (Task A, written alongside
 this in the same session). This file took 11. See the session's final
 report for the exact mapping.
 
+2026-08-12 EXTENSION (PENDING.md item 7 spec): the original version of
+this file compared rainfall (CHIRPS) and heatwave_days (ERA5-Land-derived,
+a derived index rather than raw temperature). The spec calls for the two
+substitutable variables to be "rainfall vs CHIRPS, temperature vs
+ERA5-Land" literally, and for each comparison to retain BOTH series' real
+per-year values (not just summary stats) so a panel can plot both lines.
+This extension adds:
+  - imd_values / other_values arrays (aligned to years_compared) on every
+    comparison block, returned by compare_series() -- for chart plotting.
+  - A genuine temperature comparison: IMD mean summer (Mar-Jun) Tmax,
+    averaged across every one of the district's village grid-cells
+    (outputs/village_indices_per_year.parquet's mean_summer_tmax column --
+    the real per-village-year output of 02_compute_indices.py's
+    heatwave_for_village() run on actual IMD NetCDF, already committed to
+    the repo; not regenerated here since IMD_TMAX_DIR is unset on this
+    machine -- verified with `python3 -c "import config as C; print(C...)"`
+    before writing this) vs ERA5-Land mean summer Tmax over the identical
+    months, computed by the SAME heatwave_for_village() function (it
+    already produces a mean_summer_tmax column alongside heatwave_days --
+    the original version of this script discarded it; this extension just
+    keeps it).
+  - heatwave_days is KEPT as a third, bonus comparison (same IMD criteria
+    applied to both sides) -- it was already real, already correct, and
+    dropping it would lose real work for no reason. temperature_validation
+    is the block that satisfies the literal spec.
+
 For the 5 districts with a real IMD-derived annual time series
 (Bhopal, Indore, Jabalpur, Rewa, Sidhi -- dashboard/data/mp_climate_data.json
-charts.annual_trends), this script pulls the equivalent ERA5-Land/CHIRPS
-values for the SAME years via Google Earth Engine (same service account /
-ee.Initialize pattern as scripts/08_gee_national_climate.py -- gee_init(),
-fetch_daily_series() and the heatwave/SPI/ETCCDI functions are imported
-directly from there / from 02_compute_indices.py, never reimplemented) and
-computes real Pearson correlation, mean bias, and RMSE against the actual
-IMD numbers already in the repo.
+charts.annual_trends, and outputs/village_indices_per_year.parquet for the
+village-level mean_summer_tmax used below), this script pulls the
+equivalent ERA5-Land/CHIRPS values for the SAME years via Google Earth
+Engine (same service account / ee.Initialize pattern as
+scripts/08_gee_national_climate.py -- gee_init(), fetch_daily_series() and
+the heatwave/SPI/ETCCDI functions are imported directly from there / from
+02_compute_indices.py, never reimplemented) and computes real Pearson
+correlation, mean bias, and RMSE against the actual IMD numbers already in
+the repo.
 
-Two fields are compared, chosen because both sides can produce them
+Three fields are compared, chosen because all sides can produce them
 honestly with an IDENTICAL name/definition -- nothing invented to force a
 match:
-  - annual_rain_mm : IMD (charts.annual_trends) vs CHIRPS (extreme_for_
+  - annual_rain_mm    : IMD (charts.annual_trends) vs CHIRPS (extreme_for_
     village's own "annual_rain_mm" output, imported from
     02_compute_indices.py -- exact same function 08_gee_national_climate.py
     uses for GEE districts).
-  - heatwave_days  : IMD (charts.annual_trends) vs ERA5-Land Tmax run
+  - mean_summer_tmax  : IMD (village_indices_per_year.parquet, averaged
+    across the district's villages) vs ERA5-Land Tmax run through
+    heatwave_for_village() -- the literal "temperature" comparison the
+    spec asks for.
+  - heatwave_days     : IMD (charts.annual_trends) vs ERA5-Land Tmax run
     through heatwave_for_village() -- the SAME IMD heatwave criteria
-    (config.HW_*), applied to a different real input grid.
+    (config.HW_*), applied to a different real input grid. Bonus/derived,
+    kept from the original version of this script.
 
 Output: dashboard/data/validation/<state_slug>/<district_slug>.json (5
-files), each with correlation/bias/RMSE/n + a full metadata block + a
-verdict string built from the actual computed numbers (never a canned
-sentence).
+files), each with correlation/bias/RMSE/n + both series' real per-year
+values + a full metadata block + a verdict string built from the actual
+computed numbers (never a canned sentence).
 
 Usage:
   python 11_build_validation.py --stage validate   # connectivity check only
@@ -70,6 +103,7 @@ extreme_for_village = _idx.extreme_for_village
 REPO_ROOT = Path(__file__).resolve().parent.parent
 MP_CLIMATE_FILE = REPO_ROOT / "dashboard" / "data" / "mp_climate_data.json"
 OUT_DIR = REPO_ROOT / "dashboard" / "data" / "validation"
+VILLAGE_PARQUET = REPO_ROOT / "outputs" / "village_indices_per_year.parquet"
 
 TARGET_DISTRICTS = ["Bhopal", "Indore", "Jabalpur", "Rewa", "Sidhi"]
 YEAR_START, YEAR_END = C.YEAR_START, C.YEAR_END
@@ -86,9 +120,12 @@ def pearson_r(a: np.ndarray, b: np.ndarray) -> float | None:
 def compare_series(imd_years: list[int], imd_vals: list[float],
                     other_years: list[int], other_vals: list[float]) -> dict | None:
     """Aligns two (year -> value) series on their common years and returns
-    real correlation/bias/RMSE. Returns None if fewer than 3 common years
-    with non-null values on both sides -- never fabricates a stat from an
-    insufficient sample."""
+    real correlation/bias/RMSE, PLUS both series' actual per-year values
+    (imd_values/other_values, aligned to years_compared) so a panel can
+    plot both lines -- not just summary stats. Returns None if fewer than
+    3 common years with non-null values on both sides -- never fabricates
+    a stat (or a padded/interpolated value array) from an insufficient
+    sample."""
     imd_map = {y: v for y, v in zip(imd_years, imd_vals) if v is not None and not (isinstance(v, float) and np.isnan(v))}
     other_map = {y: v for y, v in zip(other_years, other_vals) if v is not None and not (isinstance(v, float) and np.isnan(v))}
     common = sorted(set(imd_map) & set(other_map))
@@ -101,12 +138,31 @@ def compare_series(imd_years: list[int], imd_vals: list[float],
     return {
         "n_years": len(common),
         "years_compared": common,
+        "imd_values": [round(float(v), 3) for v in imd_arr],
+        "other_values": [round(float(v), 3) for v in other_arr],
         "pearson_r": round(r, 4) if r is not None else None,
         "mean_bias": round(float(diff.mean()), 3),          # other - IMD
         "rmse": round(float(np.sqrt((diff ** 2).mean())), 3),
         "imd_mean": round(float(imd_arr.mean()), 3),
         "other_mean": round(float(other_arr.mean()), 3),
     }
+
+
+def load_imd_mean_summer_tmax(district_name: str) -> tuple[list[int], list[float]]:
+    """Real IMD mean-summer-Tmax per year for a district, averaged across
+    every one of its villages, from the already-committed
+    outputs/village_indices_per_year.parquet (produced by
+    02_compute_indices.py's heatwave_for_village() on actual IMD NetCDF).
+    Returns ([], []) if the parquet or the district isn't present --
+    caller must treat that as "cannot compute", never substitute/pad."""
+    if not VILLAGE_PARQUET.exists():
+        return [], []
+    df = pd.read_parquet(VILLAGE_PARQUET, columns=["year", "district", "mean_summer_tmax"])
+    dsub = df[df["district"].str.upper() == district_name.upper()]
+    if dsub.empty:
+        return [], []
+    g = dsub.groupby("year")["mean_summer_tmax"].mean().dropna()
+    return g.index.tolist(), [round(float(v), 3) for v in g.values]
 
 
 def stage_validate():
@@ -180,16 +236,25 @@ def stage_run():
         chirps_years = ep.index.tolist()
         chirps_rain = ep["annual_rain_mm"].tolist()
 
-        # ERA5-Land-derived heatwave days, same IMD heatwave criteria
-        # (config.HW_*), same function 08_gee_national_climate.py uses.
+        # ERA5-Land-derived heatwave days AND mean summer Tmax, same IMD
+        # heatwave criteria (config.HW_*), same function
+        # 08_gee_national_climate.py uses -- heatwave_for_village() already
+        # aggregates mean_summer_tmax alongside heatwave_days.
         tmax = daily[C.ERA5LAND_TMAX_BAND]
         in_season = dates_idx.month.isin(C.HW_SEASON_MONTHS)
         hw = heatwave_for_village(dates_idx, tmax, in_season)
         era5_years = hw.index.tolist()
         era5_hw_days = hw["heatwave_days"].tolist()
+        era5_temp_years = hw.dropna(subset=["mean_summer_tmax"]).index.tolist()
+        era5_temp_vals = hw.dropna(subset=["mean_summer_tmax"])["mean_summer_tmax"].tolist()
+
+        # Real IMD mean summer Tmax, averaged across the district's
+        # villages, from the actual pipeline output already in the repo.
+        imd_temp_years, imd_temp_vals = load_imd_mean_summer_tmax(district_name)
 
         rain_cmp = compare_series(imd_years, imd.get("annual_rain_mm", []), chirps_years, chirps_rain)
         hw_cmp = compare_series(imd_years, imd.get("heatwave_days", []), era5_years, era5_hw_days)
+        temp_cmp = compare_series(imd_temp_years, imd_temp_vals, era5_temp_years, era5_temp_vals)
 
         verdicts = []
         if rain_cmp:
@@ -206,6 +271,24 @@ def stage_run():
             )
         else:
             verdicts.append("CHIRPS rainfall: insufficient overlapping years with non-null IMD data to compute a correlation.")
+
+        if temp_cmp:
+            r = temp_cmp["pearson_r"]
+            b = temp_cmp["mean_bias"]
+            qual = "correlates well with" if (r is not None and r >= 0.6) else \
+                   "correlates moderately with" if (r is not None and r >= 0.3) else \
+                   "shows weak/no correlation with" if r is not None else \
+                   "cannot be correlated with (insufficient variance in one series) against"
+            verdicts.append(
+                f"ERA5-Land mean summer (Mar-Jun) Tmax {qual} IMD mean summer Tmax, r={r if r is not None else 'n/a'}, "
+                f"mean bias {'+' if b >= 0 else ''}{b} deg C, RMSE {temp_cmp['rmse']} deg C "
+                f"(n={temp_cmp['n_years']} years)."
+            )
+        elif not imd_temp_years:
+            verdicts.append("ERA5-Land temperature: outputs/village_indices_per_year.parquet has no rows for this "
+                             "district, so IMD mean summer Tmax could not be computed -- no correlation attempted.")
+        else:
+            verdicts.append("ERA5-Land temperature: insufficient overlapping years with non-null IMD data to compute a correlation.")
 
         if hw_cmp:
             r = hw_cmp["pearson_r"]
@@ -227,27 +310,39 @@ def stage_run():
 
         payload = {
             "metadata": {
-                "source": "ERA5-Land (ECMWF) for Tmax (heatwave days) and CHIRPS (UCSB Climate Hazards "
-                          "Center) for precipitation, via Google Earth Engine -- validated AGAINST the "
-                          "existing IMD 0.05 deg gridded daily data already published for this district "
-                          "(dashboard/data/mp_climate_data.json), never substituted for it. Phase 8.6.",
+                "source": "ERA5-Land (ECMWF) for Tmax (temperature, heatwave days) and CHIRPS (UCSB Climate "
+                          "Hazards Center) for precipitation, via Google Earth Engine -- validated AGAINST "
+                          "the existing IMD 0.05 deg gridded daily data already published for this district "
+                          "(dashboard/data/mp_climate_data.json + outputs/village_indices_per_year.parquet), "
+                          "never substituted for it. Phase 8.6, extended 2026-08-12 (PENDING.md item 7).",
+                "source_pair": "IMD 0.05 deg gridded daily (ground truth, this district only) vs "
+                               "CHIRPS (rainfall) / ERA5-Land (temperature) via Google Earth Engine "
+                               "(the substitute used nationally for the other 726 districts without IMD "
+                               "coverage). This file measures how good that substitute is FOR THIS DISTRICT; "
+                               "it never replaces this district's own IMD numbers.",
                 "resolution": C.GEE_SOURCE_META["resolution"],
                 "crs": "EPSG:4326",
-                "method": "Per-year alignment on the district's real IMD charts.annual_trends series "
-                          "(dashboard/data/mp_climate_data.json). CHIRPS annual_rain_mm computed by "
-                          "scripts/02_compute_indices.py's extreme_for_village() (same function used for "
-                          "the national GEE climate pipeline) on GEE-fetched daily CHIRPS precipitation. "
-                          "ERA5-Land heatwave_days computed by the same heatwave_for_village() (IMD plains "
-                          "criteria, config.HW_*) on GEE-fetched daily ERA5-Land Tmax. Pearson correlation, "
-                          "mean bias (GEE minus IMD) and RMSE computed only over years present with a "
-                          "non-null value on BOTH sides -- no interpolation, no substitution.",
+                "method": "Per-year alignment (Pearson r, mean bias = other minus IMD, RMSE) computed only "
+                          "over years present with a non-null value on BOTH sides -- no interpolation, no "
+                          "substitution. CHIRPS annual_rain_mm computed by scripts/02_compute_indices.py's "
+                          "extreme_for_village() (same function used for the national GEE climate pipeline) "
+                          "on GEE-fetched daily CHIRPS precipitation, compared against the district's real "
+                          "IMD charts.annual_trends series (dashboard/data/mp_climate_data.json). ERA5-Land "
+                          "mean_summer_tmax (Mar-Jun mean daily Tmax) computed by the same "
+                          "heatwave_for_village() (IMD plains criteria, config.HW_*) on GEE-fetched daily "
+                          "ERA5-Land Tmax, compared against IMD mean_summer_tmax averaged across every one "
+                          "of the district's villages (outputs/village_indices_per_year.parquet, itself the "
+                          "real per-village-year output of heatwave_for_village() run on actual IMD NetCDF). "
+                          "heatwave_days (same function, both sides) kept as a third, bonus comparison.",
                 "baseline": f"{YEAR_START}-{YEAR_END} (same span as the district's IMD annual_trends record)",
                 "data_quality": "verified-official (real datasets on both sides, cross-source comparison)",
                 "unit_count": f"{rain_cmp['n_years'] if rain_cmp else 0} years compared for rainfall, "
-                              f"{hw_cmp['n_years'] if hw_cmp else 0} years compared for heatwave days "
-                              f"(out of {len(imd_years)} nominal years in the IMD record)",
+                              f"{temp_cmp['n_years'] if temp_cmp else 0} years compared for mean summer "
+                              f"temperature, {hw_cmp['n_years'] if hw_cmp else 0} years compared for "
+                              f"heatwave days (out of {len(imd_years)} nominal years in the IMD record)",
                 "state": "Madhya Pradesh",
                 "district": district_name,
+                "computed_date": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
                 "last_updated": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
             },
             "rainfall_validation": {
@@ -255,6 +350,13 @@ def stage_run():
                 "imd_source": "IMD 0.05 deg gridded daily precipitation NetCDF",
                 "comparison_source": "CHIRPS (UCSB Climate Hazards Center) via GEE",
                 "stats": rain_cmp,
+            },
+            "temperature_validation": {
+                "field": "mean_summer_tmax_C",
+                "imd_source": "IMD 0.05 deg gridded daily Tmax NetCDF, Mar-Jun mean, averaged across the "
+                              "district's village grid-cells (outputs/village_indices_per_year.parquet)",
+                "comparison_source": "ERA5-Land (ECMWF) Tmax via GEE, same Mar-Jun season, district-polygon mean",
+                "stats": temp_cmp,
             },
             "heatwave_validation": {
                 "field": "heatwave_days",
