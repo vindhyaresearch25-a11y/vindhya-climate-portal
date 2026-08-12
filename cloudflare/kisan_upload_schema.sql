@@ -1,6 +1,10 @@
 -- Ground-truth crop upload -- D1 schema (CROP_DATA_PROMPT.md Bhaag B).
--- Run once against a new D1 database:
+-- Run once against a NEW D1 database:
 --   wrangler d1 execute vindhya-ground-truth --file=cloudflare/kisan_upload_schema.sql
+--
+-- If a database from this schema already exists (deployed before
+-- MERA_KHET_PROMPT.md BHAAG A), instead run the additive migration once:
+--   wrangler d1 execute vindhya-ground-truth --remote --file=cloudflare/kisan_upload_schema_002_geometry.sql
 --
 -- Design notes (see docs/GROUND_TRUTH_UPLOAD.md for the full B1-B7 write-up):
 --  * No name/phone/Aadhaar column -- B1 explicitly excludes them.
@@ -17,6 +21,15 @@
 --    scripts/export_ground_truth.py doing a real point-in-polygon test
 --    against the Survey of India boundary files -- not asked of the
 --    farmer (B4: "kisan ko chunna na pade").
+--  * geometry_json (added MERA_KHET_PROMPT.md BHAAG A2): optional farmer-
+--    drawn field boundary ring, from Mera Khet (dashboard/mera_khet.js),
+--    as a JSON array of [lon,lat] pairs already rounded to 3 decimals
+--    (~100m) client-side before it ever reaches this table -- same
+--    privacy rule as lat/lon, applied to every vertex, not just the
+--    centroid. NULL for kisan_upload.html's plain point-only submissions
+--    (unaffected, still the only required geometry). This is the SAME
+--    submissions table/endpoint as before -- Mera Khet does not get its
+--    own upload pipeline, it is a second caller of this one.
 
 CREATE TABLE IF NOT EXISTS submissions (
   id            TEXT PRIMARY KEY,   -- random UUID, no personal meaning
@@ -26,6 +39,7 @@ CREATE TABLE IF NOT EXISTS submissions (
   lat           REAL NOT NULL CHECK (lat BETWEEN 6.0 AND 38.0),   -- India bbox
   lon           REAL NOT NULL CHECK (lon BETWEEN 68.0 AND 98.0),
   area_ha       REAL,               -- optional, B1
+  geometry_json TEXT,               -- optional, Mera Khet only -- see note above
   status        TEXT NOT NULL DEFAULT 'unverified'
                 CHECK (status IN ('unverified', 'verified')),     -- B4
   ip_hash       TEXT NOT NULL,      -- salted SHA-256, day-bucketed; see above
