@@ -1,0 +1,458 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Mizoram",
+  "district": "Kolasib",
+  "district_lgd": 263,
+  "observation_window": "2026-08-07T11:19Z to 2026-08-12T11:19Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3389,
+  "sm_surface_stddev": 0.0164,
+  "sm_rootzone_mean": 0.3398,
+  "sm_rootzone_stddev": 0.0286,
+  "n_cells": 17,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 23.8637,
+    "lon": 92.7376,
+    "sm_surface": 0.3602,
+    "sm_rootzone": 0.368,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 1,
+    "lat": 23.9626,
+    "lon": 92.6388,
+    "sm_surface": 0.3503,
+    "sm_rootzone": 0.3606,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 2,
+    "lat": 23.9626,
+    "lon": 92.7376,
+    "sm_surface": 0.3582,
+    "sm_rootzone": 0.3668,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 3,
+    "lat": 24.0614,
+    "lon": 92.5399,
+    "sm_surface": 0.3389,
+    "sm_rootzone": 0.3481,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 4,
+    "lat": 24.0614,
+    "lon": 92.6388,
+    "sm_surface": 0.3454,
+    "sm_rootzone": 0.355,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 5,
+    "lat": 24.0614,
+    "lon": 92.7376,
+    "sm_surface": 0.3182,
+    "sm_rootzone": 0.3019,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 6,
+    "lat": 24.0614,
+    "lon": 92.8364,
+    "sm_surface": 0.3432,
+    "sm_rootzone": 0.329,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 7,
+    "lat": 24.1602,
+    "lon": 92.5399,
+    "sm_surface": 0.3374,
+    "sm_rootzone": 0.3497,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 8,
+    "lat": 24.1602,
+    "lon": 92.6388,
+    "sm_surface": 0.3482,
+    "sm_rootzone": 0.3579,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 9,
+    "lat": 24.1602,
+    "lon": 92.7376,
+    "sm_surface": 0.3088,
+    "sm_rootzone": 0.2885,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 10,
+    "lat": 24.1602,
+    "lon": 92.8364,
+    "sm_surface": 0.3132,
+    "sm_rootzone": 0.2939,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 11,
+    "lat": 24.259,
+    "lon": 92.6388,
+    "sm_surface": 0.35,
+    "sm_rootzone": 0.3646,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 12,
+    "lat": 24.259,
+    "lon": 92.7376,
+    "sm_surface": 0.3146,
+    "sm_rootzone": 0.2979,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 13,
+    "lat": 24.259,
+    "lon": 92.8364,
+    "sm_surface": 0.3218,
+    "sm_rootzone": 0.3077,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 14,
+    "lat": 24.3578,
+    "lon": 92.7376,
+    "sm_surface": 0.3543,
+    "sm_rootzone": 0.3644,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 15,
+    "lat": 24.3578,
+    "lon": 92.8364,
+    "sm_surface": 0.3531,
+    "sm_rootzone": 0.364,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 16,
+    "lat": 24.4566,
+    "lon": 92.7376,
+    "sm_surface": 0.3462,
+    "sm_rootzone": 0.3581,
+    "n_villages_sharing_cell": 5
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3405,
+  "sm_surface_stddev": 0.0044,
+  "n_blocks": 2
+ },
+ "blocks": [
+  {
+   "block_name": "'N' Thingdawl",
+   "sdcode": 1899,
+   "n_villages": 30,
+   "n_cells_spanned": 13,
+   "sm_surface_mean": 0.3361,
+   "sm_surface_stddev": 0.0183
+  },
+  {
+   "block_name": "Bilkhawthlir",
+   "sdcode": 1900,
+   "n_villages": 25,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.3449,
+   "sm_surface_stddev": 0.012
+  }
+ ],
+ "villages": {
+  "271181": [
+   "Mualkhang",
+   1899,
+   0
+  ],
+  "271177": [
+   "Khamrang",
+   1899,
+   1
+  ],
+  "271153": [
+   "N Mualvum",
+   1899,
+   4
+  ],
+  "271182": [
+   "Sairang Dinthar",
+   1899,
+   1
+  ],
+  "271149": [
+   "Sethawn",
+   1899,
+   9
+  ],
+  "271142": [
+   "Thingdawl",
+   1899,
+   9
+  ],
+  "271145": [
+   "Rajtali",
+   1899,
+   3
+  ],
+  "271146": [
+   "Dilzau H",
+   1899,
+   3
+  ],
+  "271147": [
+   "Hortoki",
+   1899,
+   4
+  ],
+  "271170": [
+   "S Chhimluang",
+   1900,
+   8
+  ],
+  "271169": [
+   "Pangbalkawn",
+   1900,
+   8
+  ],
+  "271175": [
+   "Chemphai",
+   1900,
+   14
+  ],
+  "271171": [
+   "Meidum",
+   1900,
+   7
+  ],
+  "271148": [
+   "Lelhchhun",
+   1899,
+   9
+  ],
+  "271143": [
+   "Hmaibialaveng",
+   1899,
+   8
+  ],
+  "271144": [
+   "Asproveng",
+   1899,
+   7
+  ],
+  "271155": [
+   "Dumkhel",
+   1899,
+   7
+  ],
+  "249765": [
+   "Bairabi",
+   1900,
+   7
+  ],
+  "249766": [
+   "Kolasib",
+   1900,
+   11
+  ],
+  "249767": [
+   "N Kawnpui",
+   1899,
+   4
+  ],
+  "271163": [
+   "Phaisen",
+   1900,
+   14
+  ],
+  "271164": [
+   "Buhchangphai",
+   1900,
+   11
+  ],
+  "271162": [
+   "Bilkhawthlir North",
+   1900,
+   12
+  ],
+  "271166": [
+   "Bukvannei",
+   1900,
+   11
+  ],
+  "271165": [
+   "N Thinglian",
+   1900,
+   11
+  ],
+  "271167": [
+   "Saihapui K",
+   1900,
+   11
+  ],
+  "271176": [
+   "Zambira",
+   1900,
+   11
+  ],
+  "271178": [
+   "Lungmuat",
+   1899,
+   2
+  ],
+  "271179": [
+   "Nisapui",
+   1899,
+   2
+  ],
+  "271180": [
+   "Serkhan",
+   1899,
+   0
+  ],
+  "271183": [
+   "Sentlang",
+   1899,
+   0
+  ],
+  "271184": [
+   "Lungdai",
+   1899,
+   0
+  ],
+  "271154": [
+   "Zanlawn",
+   1899,
+   2
+  ],
+  "271152": [
+   "North Chaltlang I",
+   1899,
+   5
+  ],
+  "271151": [
+   "Bukpui",
+   1899,
+   6
+  ],
+  "271140": [
+   "Thingthelh",
+   1899,
+   10
+  ],
+  "271139": [
+   "N Hlimen",
+   1899,
+   13
+  ],
+  "271168": [
+   "Builum",
+   1900,
+   12
+  ],
+  "271150": [
+   "Saizawl",
+   1899,
+   9
+  ],
+  "271141": [
+   "Dilzau T",
+   1899,
+   12
+  ],
+  "271158": [
+   "N Chhimluang",
+   1900,
+   14
+  ],
+  "271156": [
+   "Phainuam",
+   1900,
+   16
+  ],
+  "271157": [
+   "Saihapui V",
+   1900,
+   16
+  ],
+  "271159": [
+   "Saiphai",
+   1900,
+   15
+  ],
+  "271160": [
+   "Saipum",
+   1900,
+   15
+  ],
+  "271161": [
+   "N Chawnpui",
+   1900,
+   14
+  ],
+  "271138": [
+   "Theichangbung",
+   1899,
+   13
+  ],
+  "271136": [
+   "Pualrang",
+   1899,
+   13
+  ],
+  "271137": [
+   "Parsenchhip",
+   1899,
+   13
+  ],
+  "271173": [
+   "Vakultui",
+   1900,
+   16
+  ],
+  "271172": [
+   "Chite",
+   1900,
+   16
+  ],
+  "271174": [
+   "Phaizau",
+   1900,
+   15
+  ],
+  "249764": [
+   "Vairengte",
+   1900,
+   16
+  ],
+  "999999": [
+   "Data Partially Available",
+   1900,
+   12
+  ]
+ },
+ "village_count_total": 55,
+ "village_count_assigned": 55
+}

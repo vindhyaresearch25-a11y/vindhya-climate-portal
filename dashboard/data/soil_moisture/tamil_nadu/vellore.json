@@ -1,0 +1,1895 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Tamil Nadu",
+  "district": "Vellore",
+  "district_lgd": 595,
+  "observation_window": "2026-08-07T11:25Z to 2026-08-12T11:25Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.17,
+  "sm_surface_stddev": 0.0305,
+  "sm_rootzone_mean": 0.1909,
+  "sm_rootzone_stddev": 0.0412,
+  "n_cells": 15,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 12.6977,
+    "lon": 78.9035,
+    "sm_surface": 0.2488,
+    "sm_rootzone": 0.2977,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 1,
+    "lat": 12.7965,
+    "lon": 78.9035,
+    "sm_surface": 0.2293,
+    "sm_rootzone": 0.2664,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 2,
+    "lat": 12.7965,
+    "lon": 79.0023,
+    "sm_surface": 0.1676,
+    "sm_rootzone": 0.1898,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 3,
+    "lat": 12.7965,
+    "lon": 79.1012,
+    "sm_surface": 0.1522,
+    "sm_rootzone": 0.1691,
+    "n_villages_sharing_cell": 27
+   },
+   {
+    "cell_index": 4,
+    "lat": 12.8953,
+    "lon": 78.7059,
+    "sm_surface": 0.1601,
+    "sm_rootzone": 0.1816,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 5,
+    "lat": 12.8953,
+    "lon": 78.8047,
+    "sm_surface": 0.1423,
+    "sm_rootzone": 0.1586,
+    "n_villages_sharing_cell": 31
+   },
+   {
+    "cell_index": 6,
+    "lat": 12.8953,
+    "lon": 79.0023,
+    "sm_surface": 0.1461,
+    "sm_rootzone": 0.1646,
+    "n_villages_sharing_cell": 30
+   },
+   {
+    "cell_index": 7,
+    "lat": 12.8953,
+    "lon": 79.1012,
+    "sm_surface": 0.1529,
+    "sm_rootzone": 0.1709,
+    "n_villages_sharing_cell": 31
+   },
+   {
+    "cell_index": 8,
+    "lat": 12.8953,
+    "lon": 79.2,
+    "sm_surface": 0.1606,
+    "sm_rootzone": 0.1653,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 9,
+    "lat": 12.9941,
+    "lon": 78.7059,
+    "sm_surface": 0.1652,
+    "sm_rootzone": 0.1746,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 10,
+    "lat": 12.9941,
+    "lon": 78.8047,
+    "sm_surface": 0.1405,
+    "sm_rootzone": 0.147,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 11,
+    "lat": 12.9941,
+    "lon": 78.9035,
+    "sm_surface": 0.1422,
+    "sm_rootzone": 0.1495,
+    "n_villages_sharing_cell": 29
+   },
+   {
+    "cell_index": 12,
+    "lat": 12.9941,
+    "lon": 79.0023,
+    "sm_surface": 0.1754,
+    "sm_rootzone": 0.2026,
+    "n_villages_sharing_cell": 31
+   },
+   {
+    "cell_index": 13,
+    "lat": 12.9941,
+    "lon": 79.1012,
+    "sm_surface": 0.1801,
+    "sm_rootzone": 0.209,
+    "n_villages_sharing_cell": 21
+   },
+   {
+    "cell_index": 14,
+    "lat": 12.9941,
+    "lon": 79.2,
+    "sm_surface": 0.1863,
+    "sm_rootzone": 0.217,
+    "n_villages_sharing_cell": 42
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.1665,
+  "sm_surface_stddev": 0.0127,
+  "n_blocks": 3
+ },
+ "blocks": [
+  {
+   "block_name": "Gudiyatham",
+   "sdcode": 5712,
+   "n_villages": 102,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.1486,
+   "sm_surface_stddev": 0.0107
+  },
+  {
+   "block_name": "Katpadi",
+   "sdcode": 5713,
+   "n_villages": 109,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.1745,
+   "sm_surface_stddev": 0.0148
+  },
+  {
+   "block_name": "Vellore",
+   "sdcode": 5717,
+   "n_villages": 132,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.1763,
+   "sm_surface_stddev": 0.0379
+  }
+ ],
+ "villages": {
+  "630388": [
+   "Veppalai",
+   5713,
+   14
+  ],
+  "630902": [
+   "Puthur R F",
+   5717,
+   0
+  ],
+  "630889": [
+   "Nallimalai R F",
+   5717,
+   2
+  ],
+  "803400": [
+   "Thorapadi Tp",
+   5717,
+   7
+  ],
+  "803397": [
+   "Shenbakkam Tp",
+   5717,
+   7
+  ],
+  "630907": [
+   "Karugampattur CT",
+   5717,
+   7
+  ],
+  "630910": [
+   "Konavattam CT",
+   5717,
+   7
+  ],
+  "630471": [
+   "Virudampattu CT",
+   5713,
+   7
+  ],
+  "630824": [
+   "Kuppam",
+   5717,
+   7
+  ],
+  "630825": [
+   "Murukkeri",
+   5717,
+   7
+  ],
+  "630888": [
+   "Kailasagiri R F",
+   5717,
+   3
+  ],
+  "630332": [
+   "Alinjikuppam",
+   5712,
+   5
+  ],
+  "630328": [
+   "Reddimankuppam",
+   5712,
+   4
+  ],
+  "630270": [
+   "Mordana",
+   5712,
+   10
+  ],
+  "630281": [
+   "Rangampettai",
+   5712,
+   9
+  ],
+  "630282": [
+   "Gundalapalli",
+   5712,
+   9
+  ],
+  "630269": [
+   "Aravatla",
+   5712,
+   9
+  ],
+  "630361": [
+   "Reddanaickanur and Charakkal R F",
+   5712,
+   4
+  ],
+  "630283": [
+   "Bathalapalli",
+   5712,
+   4
+  ],
+  "630349": [
+   "Jangalapalli R F",
+   5712,
+   10
+  ],
+  "630358": [
+   "Gundalapalli R F",
+   5712,
+   10
+  ],
+  "630348": [
+   "Mordana R F",
+   5712,
+   9
+  ],
+  "630284": [
+   "Erukkampattu",
+   5712,
+   9
+  ],
+  "630347": [
+   "Nayakkaneri R F",
+   5712,
+   9
+  ],
+  "630356": [
+   "Erukkampattu R F",
+   5712,
+   9
+  ],
+  "630357": [
+   "Nayakkaneri Extention R F",
+   5712,
+   9
+  ],
+  "630306": [
+   "Charakkal",
+   5712,
+   4
+  ],
+  "630303": [
+   "Kothapalli",
+   5712,
+   4
+  ],
+  "252350": [
+   "Pernampattu M",
+   5712,
+   4
+  ],
+  "630285": [
+   "Erikuthi",
+   5712,
+   4
+  ],
+  "630327": [
+   "Rajakkal",
+   5712,
+   4
+  ],
+  "630308": [
+   "Pallalakuppam",
+   5712,
+   5
+  ],
+  "630321": [
+   "Kothamarikuppam",
+   5712,
+   5
+  ],
+  "630322": [
+   "Karkur",
+   5712,
+   5
+  ],
+  "630333": [
+   "Melvaithinankuppam",
+   5712,
+   5
+  ],
+  "630330": [
+   "Chendathur",
+   5712,
+   5
+  ],
+  "630329": [
+   "Chokkarishikuppam",
+   5712,
+   5
+  ],
+  "630326": [
+   "Melkothakuppam",
+   5712,
+   4
+  ],
+  "630331": [
+   "Melmurungai",
+   5712,
+   5
+  ],
+  "630302": [
+   "Thottithoraimottur",
+   5712,
+   10
+  ],
+  "630309": [
+   "Pogalur",
+   5712,
+   5
+  ],
+  "630325": [
+   "Machampattu",
+   5712,
+   4
+  ],
+  "630323": [
+   "Vasanampalli",
+   5712,
+   4
+  ],
+  "630307": [
+   "Kempasamudram",
+   5712,
+   4
+  ],
+  "630324": [
+   "Balur",
+   5712,
+   4
+  ],
+  "630305": [
+   "Masigam",
+   5712,
+   4
+  ],
+  "630304": [
+   "Chinnadamal Cheruvu",
+   5712,
+   4
+  ],
+  "630360": [
+   "Kempasamudram R F",
+   5712,
+   4
+  ],
+  "630363": [
+   "Pallalakuppam R F",
+   5712,
+   4
+  ],
+  "630362": [
+   "Pallalakuppam Extention R F",
+   5712,
+   5
+  ],
+  "630858": [
+   "Nemandapuram",
+   5717,
+   1
+  ],
+  "252389": [
+   "Odugathur Tp",
+   5717,
+   1
+  ],
+  "630859": [
+   "Athikuppam",
+   5717,
+   0
+  ],
+  "630860": [
+   "Madayapattu",
+   5717,
+   0
+  ],
+  "630861": [
+   "Serpadi",
+   5717,
+   1
+  ],
+  "630865": [
+   "Gengasanikuppam",
+   5717,
+   0
+  ],
+  "630868": [
+   "Umayampattu",
+   5717,
+   0
+  ],
+  "630866": [
+   "Vannanthangal",
+   5717,
+   0
+  ],
+  "630867": [
+   "Melarasampattu",
+   5717,
+   0
+  ],
+  "630869": [
+   "Mulluvadi",
+   5717,
+   0
+  ],
+  "630864": [
+   "Katharikuppam",
+   5717,
+   0
+  ],
+  "630839": [
+   "Mahammadupuram",
+   5717,
+   1
+  ],
+  "630891": [
+   "Paravamalai R F",
+   5717,
+   1
+  ],
+  "630863": [
+   "Peenjamandai",
+   5717,
+   0
+  ],
+  "630857": [
+   "Pinnanthurai",
+   5717,
+   1
+  ],
+  "630856": [
+   "Kilkothur",
+   5717,
+   1
+  ],
+  "630841": [
+   "Varadalampattu",
+   5717,
+   2
+  ],
+  "630840": [
+   "Ongapadi",
+   5717,
+   1
+  ],
+  "630900": [
+   "Karuthamalai R F",
+   5717,
+   0
+  ],
+  "630899": [
+   "Karuthamalai R F",
+   5717,
+   0
+  ],
+  "630898": [
+   "Karuthamalai R F",
+   5717,
+   0
+  ],
+  "630896": [
+   "Paravamalai R F",
+   5717,
+   1
+  ],
+  "630894": [
+   "Arasampattu R F",
+   5717,
+   2
+  ],
+  "630897": [
+   "Karuthamalai R F",
+   5717,
+   0
+  ],
+  "630901": [
+   "Karuthamalai R F",
+   5717,
+   0
+  ],
+  "630895": [
+   "Paravamalai R F",
+   5717,
+   1
+  ],
+  "630890": [
+   "Paravamalai R F",
+   5717,
+   1
+  ],
+  "630870": [
+   "Periyapanaparai",
+   5717,
+   0
+  ],
+  "630871": [
+   "Pelampattu",
+   5717,
+   2
+  ],
+  "630862": [
+   "Pudukuppam",
+   5717,
+   0
+  ],
+  "630855": [
+   "Elluparai",
+   5717,
+   2
+  ],
+  "630842": [
+   "Alleri",
+   5717,
+   2
+  ],
+  "630873": [
+   "Kil Arasampattu",
+   5717,
+   3
+  ],
+  "630880": [
+   "Kammasamudram",
+   5717,
+   3
+  ],
+  "630879": [
+   "Mettupalayam",
+   5717,
+   3
+  ],
+  "630881": [
+   "Mothakkal",
+   5717,
+   3
+  ],
+  "630849": [
+   "Selamanatham",
+   5717,
+   3
+  ],
+  "630877": [
+   "Vallam",
+   5717,
+   3
+  ],
+  "630878": [
+   "Kilpallipattu",
+   5717,
+   3
+  ],
+  "630876": [
+   "Singarikoil",
+   5717,
+   3
+  ],
+  "630874": [
+   "Kathalampattu",
+   5717,
+   3
+  ],
+  "630854": [
+   "Thellai",
+   5717,
+   2
+  ],
+  "630893": [
+   "Athiyur R F",
+   5717,
+   3
+  ],
+  "630853": [
+   "Thuttikadu",
+   5717,
+   3
+  ],
+  "630848": [
+   "Pangalathan",
+   5717,
+   3
+  ],
+  "630845": [
+   "Nelvoy",
+   5717,
+   3
+  ],
+  "630844": [
+   "Sathupalaiyam",
+   5717,
+   3
+  ],
+  "630851": [
+   "Kanikkaniyan",
+   5717,
+   3
+  ],
+  "630850": [
+   "Veppampattu",
+   5717,
+   3
+  ],
+  "630843": [
+   "Sholavaram",
+   5717,
+   3
+  ],
+  "630852": [
+   "Palampakkam",
+   5717,
+   3
+  ],
+  "630875": [
+   "Palathuvannan",
+   5717,
+   3
+  ],
+  "630847": [
+   "Munjurpattu",
+   5717,
+   3
+  ],
+  "630892": [
+   "Athiyur R F",
+   5717,
+   2
+  ],
+  "630905": [
+   "Kaniyambadi R F",
+   5717,
+   3
+  ],
+  "630904": [
+   "Kathalampattu R F",
+   5717,
+   3
+  ],
+  "630838": [
+   "Karunkali",
+   5717,
+   1
+  ],
+  "630872": [
+   "Jarthankollai",
+   5717,
+   2
+  ],
+  "630903": [
+   "Thellai R F",
+   5717,
+   2
+  ],
+  "252377": [
+   "Pallikonda Tp",
+   5717,
+   6
+  ],
+  "630818": [
+   "Odiyathur",
+   5717,
+   6
+  ],
+  "630815": [
+   "Brahmanamangalam",
+   5717,
+   6
+  ],
+  "630816": [
+   "Kilkrishnapuram",
+   5717,
+   1
+  ],
+  "630814": [
+   "Kommalankuttai",
+   5717,
+   1
+  ],
+  "630813": [
+   "Unai",
+   5717,
+   6
+  ],
+  "630817": [
+   "Tippasamudram",
+   5717,
+   1
+  ],
+  "630837": [
+   "Devichettikuppam",
+   5717,
+   1
+  ],
+  "630836": [
+   "Karadikudi",
+   5717,
+   1
+  ],
+  "630792": [
+   "Kalanipakkam",
+   5717,
+   6
+  ],
+  "630819": [
+   "Vaniyambadi",
+   5717,
+   6
+  ],
+  "630791": [
+   "Kandaneri",
+   5717,
+   6
+  ],
+  "630835": [
+   "Appukal",
+   5717,
+   2
+  ],
+  "630820": [
+   "Genganallore",
+   5717,
+   6
+  ],
+  "630812": [
+   "Anaikattu",
+   5717,
+   6
+  ],
+  "630811": [
+   "Vasanthanadai",
+   5717,
+   6
+  ],
+  "630810": [
+   "Vallandaraman",
+   5717,
+   6
+  ],
+  "630793": [
+   "Erayangadu",
+   5717,
+   6
+  ],
+  "630794": [
+   "Okkanapuram",
+   5717,
+   6
+  ],
+  "630341": [
+   "Goodanagaram",
+   5712,
+   5
+  ],
+  "630274": [
+   "Rangasamudram",
+   5712,
+   12
+  ],
+  "630275": [
+   "Paradarami",
+   5712,
+   12
+  ],
+  "630273": [
+   "Dakshinapathapalayam",
+   5712,
+   11
+  ],
+  "630272": [
+   "Viludonapaliam",
+   5712,
+   11
+  ],
+  "630278": [
+   "Varadhareddipalli",
+   5712,
+   11
+  ],
+  "630277": [
+   "Veerichettipalli",
+   5712,
+   12
+  ],
+  "630294": [
+   "Kallapadi",
+   5712,
+   11
+  ],
+  "630271": [
+   "Danakondapalli",
+   5712,
+   10
+  ],
+  "630280": [
+   "Modikuppam",
+   5712,
+   10
+  ],
+  "630279": [
+   "Chengundram",
+   5712,
+   11
+  ],
+  "630292": [
+   "Ramalai",
+   5712,
+   11
+  ],
+  "630293": [
+   "Thattimanapalli",
+   5712,
+   11
+  ],
+  "630883": [
+   "Pallikonda R F",
+   5717,
+   6
+  ],
+  "630884": [
+   "Appukal R F",
+   5717,
+   6
+  ],
+  "630359": [
+   "Kallapadi R F",
+   5712,
+   11
+  ],
+  "630286": [
+   "Semballi",
+   5712,
+   10
+  ],
+  "630351": [
+   "Paradarami R F",
+   5712,
+   11
+  ],
+  "630353": [
+   "Paradarami Extention R F",
+   5712,
+   11
+  ],
+  "630296": [
+   "Moongapattu",
+   5712,
+   10
+  ],
+  "630350": [
+   "Syanagunta R F",
+   5712,
+   10
+  ],
+  "630354": [
+   "Syanagunda R F",
+   5712,
+   10
+  ],
+  "630355": [
+   "Gundalapalli Extention R F",
+   5712,
+   10
+  ],
+  "630287": [
+   "Jittapalli",
+   5712,
+   10
+  ],
+  "630337": [
+   "Chinna Thottalam",
+   5712,
+   5
+  ],
+  "630291": [
+   "Pakkam",
+   5712,
+   11
+  ],
+  "630289": [
+   "Chinnalapalli",
+   5712,
+   10
+  ],
+  "630290": [
+   "Mukkundram",
+   5712,
+   11
+  ],
+  "630295": [
+   "Kathari Kuppam",
+   5712,
+   11
+  ],
+  "630299": [
+   "Rangasamudram",
+   5712,
+   10
+  ],
+  "630288": [
+   "Thattaparai",
+   5712,
+   10
+  ],
+  "252351": [
+   "Gudiyatham M",
+   5712,
+   11
+  ],
+  "630301": [
+   "Morasapalli",
+   5712,
+   10
+  ],
+  "630298": [
+   "Agraharam",
+   5712,
+   10
+  ],
+  "630300": [
+   "Erthangal",
+   5712,
+   10
+  ],
+  "630319": [
+   "Sembedu",
+   5712,
+   5
+  ],
+  "630312": [
+   "Nellorepettai",
+   5712,
+   5
+  ],
+  "630297": [
+   "Perumbadi",
+   5712,
+   10
+  ],
+  "630320": [
+   "Pangarishikuppam",
+   5712,
+   5
+  ],
+  "630310": [
+   "Paravakkal",
+   5712,
+   5
+  ],
+  "630311": [
+   "Rajakuppam",
+   5712,
+   5
+  ],
+  "630317": [
+   "Chettikuppam",
+   5712,
+   5
+  ],
+  "630313": [
+   "Seruvangi",
+   5712,
+   5
+  ],
+  "630314": [
+   "Thalayatham",
+   5712,
+   11
+  ],
+  "630316": [
+   "Melmuttukur",
+   5712,
+   5
+  ],
+  "630318": [
+   "Bojanapuram",
+   5712,
+   5
+  ],
+  "630334": [
+   "Mailpatti",
+   5712,
+   5
+  ],
+  "630335": [
+   "Kilpatti",
+   5712,
+   5
+  ],
+  "630346": [
+   "Chithathoor",
+   5712,
+   11
+  ],
+  "630345": [
+   "Olakasi",
+   5712,
+   11
+  ],
+  "630315": [
+   "Melalathur",
+   5712,
+   11
+  ],
+  "630336": [
+   "Kulidikai",
+   5712,
+   5
+  ],
+  "630338": [
+   "Karuneekasamudram",
+   5712,
+   5
+  ],
+  "630339": [
+   "Ulli",
+   5712,
+   5
+  ],
+  "630340": [
+   "Singalpadi",
+   5712,
+   5
+  ],
+  "630342": [
+   "Ananganallore",
+   5712,
+   5
+  ],
+  "630343": [
+   "Kothakuppam",
+   5712,
+   5
+  ],
+  "630344": [
+   "Pattu",
+   5712,
+   11
+  ],
+  "630420": [
+   "Devarishikuppam",
+   5713,
+   11
+  ],
+  "630400": [
+   "Melmankuppam",
+   5713,
+   12
+  ],
+  "630419": [
+   "Kanguppam",
+   5713,
+   12
+  ],
+  "630401": [
+   "Melmoil",
+   5713,
+   12
+  ],
+  "630418": [
+   "Murukkambattu",
+   5713,
+   12
+  ],
+  "630429": [
+   "Machanur",
+   5713,
+   12
+  ],
+  "630430": [
+   "Palayakrishnapuram",
+   5713,
+   12
+  ],
+  "630428": [
+   "Sanan Kuppam",
+   5713,
+   12
+  ],
+  "630427": [
+   "Pasumathur",
+   5713,
+   11
+  ],
+  "630436": [
+   "Melur",
+   5713,
+   6
+  ],
+  "630437": [
+   "Kilur",
+   5713,
+   6
+  ],
+  "630421": [
+   "Nagal",
+   5713,
+   11
+  ],
+  "630423": [
+   "Sethuvandai",
+   5713,
+   11
+  ],
+  "630424": [
+   "Ammanankuppam",
+   5713,
+   11
+  ],
+  "630422": [
+   "Kilalathur",
+   5713,
+   11
+  ],
+  "630426": [
+   "Netteri",
+   5713,
+   11
+  ],
+  "630425": [
+   "Veppur",
+   5713,
+   11
+  ],
+  "630431": [
+   "Kavanur",
+   5713,
+   6
+  ],
+  "630417": [
+   "Alanganeri",
+   5713,
+   12
+  ],
+  "630432": [
+   "Veppanganeri",
+   5713,
+   12
+  ],
+  "630433": [
+   "Thuthithangal",
+   5713,
+   12
+  ],
+  "630435": [
+   "Pillanthipattu",
+   5713,
+   12
+  ],
+  "630364": [
+   "Pallalakuppam R F",
+   5712,
+   5
+  ],
+  "630801": [
+   "Venkatapuram",
+   5717,
+   14
+  ],
+  "630846": [
+   "Sathumadurai",
+   5717,
+   3
+  ],
+  "252388": [
+   "Pennathur Tp",
+   5717,
+   3
+  ],
+  "630832": [
+   "Kattuputhur",
+   5717,
+   3
+  ],
+  "630823": [
+   "Sekkanur",
+   5717,
+   7
+  ],
+  "630821": [
+   "Pulimedu",
+   5717,
+   2
+  ],
+  "630809": [
+   "Elavambadi",
+   5717,
+   6
+  ],
+  "630795": [
+   "Seduvalai",
+   5717,
+   6
+  ],
+  "630834": [
+   "Athiyur",
+   5717,
+   2
+  ],
+  "630833": [
+   "Usur",
+   5717,
+   7
+  ],
+  "630826": [
+   "Ariyur Part",
+   5717,
+   7
+  ],
+  "630829": [
+   "Adukkamparai",
+   5717,
+   7
+  ],
+  "630831": [
+   "Sirukalambur",
+   5717,
+   7
+  ],
+  "630827": [
+   "Edayansathu",
+   5717,
+   7
+  ],
+  "630830": [
+   "Thuttipattu",
+   5717,
+   7
+  ],
+  "630804": [
+   "Sirunkanchi",
+   5717,
+   7
+  ],
+  "630828": [
+   "Balamadai",
+   5717,
+   8
+  ],
+  "630822": [
+   "Budur",
+   5717,
+   6
+  ],
+  "630796": [
+   "Sathiyamangalam",
+   5717,
+   6
+  ],
+  "630797": [
+   "Poigai",
+   5717,
+   6
+  ],
+  "630807": [
+   "Thellur",
+   5717,
+   7
+  ],
+  "630805": [
+   "Sembedu",
+   5717,
+   7
+  ],
+  "630803": [
+   "Sadupperi",
+   5717,
+   7
+  ],
+  "630798": [
+   "Anpundi",
+   5717,
+   7
+  ],
+  "630799": [
+   "Melmanavur",
+   5717,
+   7
+  ],
+  "630806": [
+   "Abdullapuram",
+   5717,
+   7
+  ],
+  "252381": [
+   "Vellore M Corp",
+   5717,
+   7
+  ],
+  "630800": [
+   "Sampanginallore",
+   5717,
+   14
+  ],
+  "630802": [
+   "Perumugai",
+   5717,
+   8
+  ],
+  "630887": [
+   "Palamadai R F",
+   5717,
+   8
+  ],
+  "630885": [
+   "Palamadai R F",
+   5717,
+   8
+  ],
+  "630882": [
+   "Vellore R F",
+   5717,
+   8
+  ],
+  "630352": [
+   "Veerasettipalli R F",
+   5712,
+   12
+  ],
+  "630442": [
+   "Velampattu",
+   5713,
+   12
+  ],
+  "630396": [
+   "Thondanthulasi",
+   5713,
+   13
+  ],
+  "630398": [
+   "Panamadangi",
+   5713,
+   12
+  ],
+  "630444": [
+   "Vadavirinjipuram",
+   5713,
+   6
+  ],
+  "630438": [
+   "Mudinampattu",
+   5713,
+   6
+  ],
+  "630445": [
+   "Kothamangalam",
+   5713,
+   6
+  ],
+  "630443": [
+   "Valvankundram",
+   5713,
+   6
+  ],
+  "630447": [
+   "Thirumani",
+   5713,
+   13
+  ],
+  "630406": [
+   "Vilundakkal",
+   5713,
+   13
+  ],
+  "630397": [
+   "Chenji",
+   5713,
+   13
+  ],
+  "630404": [
+   "Arumbakkam",
+   5713,
+   13
+  ],
+  "630402": [
+   "Kilmuttukur",
+   5713,
+   12
+  ],
+  "630405": [
+   "Latteri",
+   5713,
+   13
+  ],
+  "630446": [
+   "Cholamur",
+   5713,
+   13
+  ],
+  "630414": [
+   "Annangudi",
+   5713,
+   13
+  ],
+  "630403": [
+   "Kalambattu",
+   5713,
+   12
+  ],
+  "630399": [
+   "Maliyapattu",
+   5713,
+   12
+  ],
+  "630416": [
+   "Angarankuppam",
+   5713,
+   12
+  ],
+  "630434": [
+   "Melvilachur",
+   5713,
+   12
+  ],
+  "630441": [
+   "Vikramachi",
+   5713,
+   12
+  ],
+  "630440": [
+   "Vaduganthangal",
+   5713,
+   12
+  ],
+  "630439": [
+   "Kilvilachur",
+   5713,
+   12
+  ],
+  "630911": [
+   "Virupakshipuram CT",
+   5717,
+   8
+  ],
+  "630451": [
+   "Dharapadavedu",
+   5713,
+   13
+  ],
+  "630395": [
+   "Karasamangalam",
+   5713,
+   13
+  ],
+  "630394": [
+   "Vandaranthangal",
+   5713,
+   13
+  ],
+  "630407": [
+   "Jaffrapet",
+   5713,
+   13
+  ],
+  "630413": [
+   "Olaiyathur",
+   5713,
+   13
+  ],
+  "630449": [
+   "Thalayarampattu",
+   5713,
+   7
+  ],
+  "630448": [
+   "Unnamalaisamudram",
+   5713,
+   7
+  ],
+  "630412": [
+   "Vanjur",
+   5713,
+   13
+  ],
+  "630450": [
+   "Thandalamkrishnapuram",
+   5713,
+   7
+  ],
+  "630408": [
+   "Karigiri",
+   5713,
+   14
+  ],
+  "630452": [
+   "Brahmapuram",
+   5713,
+   14
+  ],
+  "630393": [
+   "Oddanthangal",
+   5713,
+   14
+  ],
+  "630409": [
+   "Kandipedu",
+   5713,
+   14
+  ],
+  "630391": [
+   "Eranthangal",
+   5713,
+   14
+  ],
+  "630410": [
+   "Puthur",
+   5713,
+   14
+  ],
+  "630453": [
+   "Sevur",
+   5713,
+   14
+  ],
+  "630454": [
+   "Arumparuthi",
+   5713,
+   14
+  ],
+  "630455": [
+   "Karnampattu",
+   5713,
+   14
+  ],
+  "630385": [
+   "Kodukkanthangal",
+   5713,
+   14
+  ],
+  "630384": [
+   "Vinnampalli",
+   5713,
+   14
+  ],
+  "630392": [
+   "Serkadu",
+   5713,
+   14
+  ],
+  "630383": [
+   "Mutharasikuppam",
+   5713,
+   14
+  ],
+  "630415": [
+   "Bomminayakkanpalayam",
+   5713,
+   12
+  ],
+  "630808": [
+   "Puthur",
+   5717,
+   6
+  ],
+  "630460": [
+   "Chenji R F",
+   5713,
+   13
+  ],
+  "630461": [
+   "Panamadagi R F",
+   5713,
+   12
+  ],
+  "630466": [
+   "Virinjipuram Plantation R F",
+   5713,
+   6
+  ],
+  "630467": [
+   "Ammundi R F",
+   5713,
+   7
+  ],
+  "630462": [
+   "Bomminayakkanpalayam R F",
+   5713,
+   12
+  ],
+  "630465": [
+   "Vikramachi R F",
+   5713,
+   12
+  ],
+  "630463": [
+   "Senur R F",
+   5713,
+   13
+  ],
+  "630464": [
+   "Ammundi R F",
+   5713,
+   7
+  ],
+  "630912": [
+   "Palavansathu CT",
+   5717,
+   7
+  ],
+  "630459": [
+   "Kunjanur R F",
+   5713,
+   13
+  ],
+  "630458": [
+   "Mahimandalam R F",
+   5713,
+   14
+  ],
+  "630886": [
+   "Palamadai R F",
+   5717,
+   8
+  ],
+  "630276": [
+   "Puttavaripalli",
+   5712,
+   12
+  ],
+  "630378": [
+   "Mahimandalam",
+   5713,
+   14
+  ],
+  "630377": [
+   "Ammavaripalle",
+   5713,
+   14
+  ],
+  "630457": [
+   "Parapallumalai R F",
+   5713,
+   14
+  ],
+  "630370": [
+   "Balekuppam",
+   5713,
+   14
+  ],
+  "630369": [
+   "Thengal",
+   5713,
+   14
+  ],
+  "630908": [
+   "Kilmanavur CT",
+   5717,
+   7
+  ],
+  "630913": [
+   "Ariyur CT",
+   5717,
+   7
+  ],
+  "630367": [
+   "Sathkar CT",
+   5712,
+   9
+  ],
+  "630914": [
+   "Kaniyambadi CT",
+   5717,
+   3
+  ],
+  "630365": [
+   "Kondasamudram CT",
+   5712,
+   11
+  ],
+  "630366": [
+   "Sevur CT",
+   5712,
+   11
+  ],
+  "630368": [
+   "Valathur CT",
+   5712,
+   5
+  ],
+  "630470": [
+   "Kilvaithinankuppam CT",
+   5713,
+   12
+  ],
+  "630909": [
+   "Virinchipuram CT",
+   5717,
+   6
+  ],
+  "803396": [
+   "Sathuvachari M",
+   5717,
+   8
+  ],
+  "630906": [
+   "Alamelumangapuram CT",
+   5717,
+   8
+  ],
+  "803378": [
+   "Katpadi Tp",
+   5713,
+   14
+  ],
+  "630469": [
+   "Senur CT",
+   5713,
+   13
+  ],
+  "630472": [
+   "Kangeyanallur CT",
+   5713,
+   13
+  ],
+  "803381": [
+   "Kalinjur Tp",
+   5713,
+   13
+  ],
+  "803380": [
+   "Gandhinagar Tp",
+   5713,
+   14
+  ],
+  "803379": [
+   "Dharapadavedu M",
+   5713,
+   13
+  ],
+  "803401": [
+   "Allapuram Tp",
+   5717,
+   7
+  ],
+  "252359": [
+   "Thiruvalam Tp",
+   5713,
+   14
+  ],
+  "630456": [
+   "Ammundi",
+   5713,
+   14
+  ],
+  "630411": [
+   "Sembarayanallore",
+   5713,
+   14
+  ],
+  "630386": [
+   "Elayanellore",
+   5713,
+   14
+  ],
+  "630389": [
+   "Sripadanallore",
+   5713,
+   14
+  ],
+  "630387": [
+   "Thenpalli",
+   5713,
+   14
+  ],
+  "630390": [
+   "Kugaiyanallore",
+   5713,
+   14
+  ],
+  "630382": [
+   "Melpadi",
+   5713,
+   14
+  ],
+  "630468": [
+   "Thiruvalamplantation R F",
+   5713,
+   14
+  ],
+  "630376": [
+   "Gollapalli",
+   5713,
+   14
+  ],
+  "630379": [
+   "Perumalkuppam",
+   5713,
+   14
+  ],
+  "630380": [
+   "Erukkambattu",
+   5713,
+   14
+  ],
+  "630373": [
+   "Paramasathu",
+   5713,
+   14
+  ],
+  "630374": [
+   "Madandakuppam",
+   5713,
+   14
+  ],
+  "630372": [
+   "Ponnai",
+   5713,
+   14
+  ],
+  "630375": [
+   "Keeraisathu",
+   5713,
+   14
+  ],
+  "630371": [
+   "Kondareddipalli",
+   5713,
+   14
+  ],
+  "630381": [
+   "Vallimalai",
+   5713,
+   14
+  ]
+ },
+ "village_count_total": 343,
+ "village_count_assigned": 343
+}

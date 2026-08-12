@@ -1,0 +1,4537 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Bihar",
+  "district": "Munger",
+  "district_lgd": 207,
+  "observation_window": "2026-08-07T11:03Z to 2026-08-12T11:03Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2562,
+  "sm_surface_stddev": 0.0313,
+  "sm_rootzone_mean": 0.2517,
+  "sm_rootzone_stddev": 0.025,
+  "n_cells": 13,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 25.0495,
+    "lon": 86.5123,
+    "sm_surface": 0.3022,
+    "sm_rootzone": 0.2733,
+    "n_villages_sharing_cell": 49
+   },
+   {
+    "cell_index": 1,
+    "lat": 25.0495,
+    "lon": 86.6111,
+    "sm_surface": 0.2833,
+    "sm_rootzone": 0.2886,
+    "n_villages_sharing_cell": 146
+   },
+   {
+    "cell_index": 2,
+    "lat": 25.1483,
+    "lon": 86.4134,
+    "sm_surface": 0.2538,
+    "sm_rootzone": 0.2252,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 3,
+    "lat": 25.1483,
+    "lon": 86.5123,
+    "sm_surface": 0.2503,
+    "sm_rootzone": 0.2215,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 4,
+    "lat": 25.1483,
+    "lon": 86.6111,
+    "sm_surface": 0.2908,
+    "sm_rootzone": 0.2711,
+    "n_villages_sharing_cell": 126
+   },
+   {
+    "cell_index": 5,
+    "lat": 25.2472,
+    "lon": 86.4134,
+    "sm_surface": 0.2854,
+    "sm_rootzone": 0.2761,
+    "n_villages_sharing_cell": 149
+   },
+   {
+    "cell_index": 6,
+    "lat": 25.2472,
+    "lon": 86.5123,
+    "sm_surface": 0.2832,
+    "sm_rootzone": 0.2731,
+    "n_villages_sharing_cell": 53
+   },
+   {
+    "cell_index": 7,
+    "lat": 25.2472,
+    "lon": 86.6111,
+    "sm_surface": 0.2797,
+    "sm_rootzone": 0.2714,
+    "n_villages_sharing_cell": 53
+   },
+   {
+    "cell_index": 8,
+    "lat": 25.2472,
+    "lon": 86.7099,
+    "sm_surface": 0.2129,
+    "sm_rootzone": 0.2428,
+    "n_villages_sharing_cell": 30
+   },
+   {
+    "cell_index": 9,
+    "lat": 25.346,
+    "lon": 86.4134,
+    "sm_surface": 0.2247,
+    "sm_rootzone": 0.2167,
+    "n_villages_sharing_cell": 43
+   },
+   {
+    "cell_index": 10,
+    "lat": 25.346,
+    "lon": 86.5123,
+    "sm_surface": 0.223,
+    "sm_rootzone": 0.2123,
+    "n_villages_sharing_cell": 145
+   },
+   {
+    "cell_index": 11,
+    "lat": 25.346,
+    "lon": 86.6111,
+    "sm_surface": 0.2224,
+    "sm_rootzone": 0.2508,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 12,
+    "lat": 25.4448,
+    "lon": 86.5123,
+    "sm_surface": 0.2186,
+    "sm_rootzone": 0.2487,
+    "n_villages_sharing_cell": 46
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2678,
+  "sm_surface_stddev": 0.0242,
+  "n_blocks": 9
+ },
+ "blocks": [
+  {
+   "block_name": "Asarganj",
+   "sdcode": 1361,
+   "n_villages": 69,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.2566,
+   "sm_surface_stddev": 0.0384
+  },
+  {
+   "block_name": "Bariarpur",
+   "sdcode": 1357,
+   "n_villages": 45,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.2743,
+   "sm_surface_stddev": 0.0182
+  },
+  {
+   "block_name": "Dharhara",
+   "sdcode": 1359,
+   "n_villages": 186,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.2799,
+   "sm_surface_stddev": 0.0151
+  },
+  {
+   "block_name": "Jamalpur",
+   "sdcode": 1358,
+   "n_villages": 95,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.2307,
+   "sm_surface_stddev": 0.0198
+  },
+  {
+   "block_name": "Kharagpur",
+   "sdcode": 1360,
+   "n_villages": 121,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.2867,
+   "sm_surface_stddev": 0.0138
+  },
+  {
+   "block_name": "Munger",
+   "sdcode": 1356,
+   "n_villages": 138,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.2216,
+   "sm_surface_stddev": 0.0021
+  },
+  {
+   "block_name": "Sangrampur",
+   "sdcode": 1364,
+   "n_villages": 71,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.2844,
+   "sm_surface_stddev": 0.0044
+  },
+  {
+   "block_name": "Tarapur",
+   "sdcode": 1362,
+   "n_villages": 80,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.2872,
+   "sm_surface_stddev": 0.0037
+  },
+  {
+   "block_name": "Tetiha Bambor",
+   "sdcode": 1363,
+   "n_villages": 60,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.289,
+   "sm_surface_stddev": 0.0084
+  }
+ ],
+ "villages": {
+  "242926": [
+   "Nurbibi Mojma",
+   1359,
+   5
+  ],
+  "243087": [
+   "Gopalpur",
+   1361,
+   8
+  ],
+  "242895": [
+   "Adalpur",
+   1359,
+   5
+  ],
+  "242666": [
+   "Gulalpur",
+   1358,
+   10
+  ],
+  "242551": [
+   "Parsotimpur",
+   1356,
+   10
+  ],
+  "242882": [
+   "Dharampur",
+   1359,
+   5
+  ],
+  "242880": [
+   "Dharampur",
+   1359,
+   5
+  ],
+  "242577": [
+   "Khatebchak",
+   1356,
+   10
+  ],
+  "242932": [
+   "Sirajabad Nankar",
+   1359,
+   9
+  ],
+  "242579": [
+   "Gulam Ali Buzurg",
+   1356,
+   10
+  ],
+  "243149": [
+   "Mira Chak",
+   1362,
+   4
+  ],
+  "243252": [
+   "Hasanpur",
+   1363,
+   1
+  ],
+  "243045": [
+   "Danrihar",
+   1360,
+   0
+  ],
+  "243186": [
+   "Sijhuar",
+   1362,
+   1
+  ],
+  "243273": [
+   "Gobindpur",
+   1364,
+   1
+  ],
+  "243126": [
+   "Siardih",
+   1362,
+   4
+  ],
+  "243148": [
+   "Mohanpur",
+   1362,
+   4
+  ],
+  "242696": [
+   "Sikandarpur Arazi",
+   1358,
+   10
+  ],
+  "242908": [
+   "Jagatpur",
+   1359,
+   5
+  ],
+  "242690": [
+   "Garbhu Chak",
+   1358,
+   10
+  ],
+  "242658": [
+   "Itahri",
+   1358,
+   10
+  ],
+  "242990": [
+   "Birajpur",
+   1360,
+   4
+  ],
+  "243137": [
+   "Mohanpur",
+   1362,
+   4
+  ],
+  "242772": [
+   "Paunra Chak",
+   1359,
+   5
+  ],
+  "242790": [
+   "Rajpur",
+   1359,
+   5
+  ],
+  "242994": [
+   "Bargori",
+   1360,
+   4
+  ],
+  "243052": [
+   "Tala Kandani",
+   1360,
+   3
+  ],
+  "242664": [
+   "Mobarak Chak",
+   1358,
+   10
+  ],
+  "242649": [
+   "Kharag Sarhi",
+   1357,
+   6
+  ],
+  "242634": [
+   "Harpur Arazi",
+   1357,
+   7
+  ],
+  "242892": [
+   "Puran Chak",
+   1359,
+   5
+  ],
+  "243098": [
+   "Simpur",
+   1361,
+   8
+  ],
+  "242499": [
+   "Sultanpur Dhanai",
+   1356,
+   12
+  ],
+  "243050": [
+   "Bhimband",
+   1360,
+   2
+  ],
+  "242850": [
+   "Birojpur",
+   1359,
+   5
+  ],
+  "242856": [
+   "Harai Chak",
+   1359,
+   5
+  ],
+  "242847": [
+   "Harbanskita",
+   1359,
+   5
+  ],
+  "242813": [
+   "Jatkuta",
+   1359,
+   5
+  ],
+  "242846": [
+   "Azamganj",
+   1359,
+   5
+  ],
+  "242852": [
+   "Husenpur",
+   1359,
+   5
+  ],
+  "242857": [
+   "Khajuria",
+   1359,
+   5
+  ],
+  "242841": [
+   "Dharampur",
+   1359,
+   5
+  ],
+  "242854": [
+   "Kumarpur",
+   1359,
+   5
+  ],
+  "242812": [
+   "Bariarpur",
+   1359,
+   5
+  ],
+  "242800": [
+   "Harai Chak",
+   1359,
+   5
+  ],
+  "242869": [
+   "Gobindpur",
+   1359,
+   5
+  ],
+  "242801": [
+   "Mahganwan",
+   1359,
+   5
+  ],
+  "242835": [
+   "Tola Amra Sani",
+   1359,
+   2
+  ],
+  "242843": [
+   "Bhikhakita",
+   1359,
+   5
+  ],
+  "242805": [
+   "Nandgaon",
+   1359,
+   5
+  ],
+  "242848": [
+   "Kumarpur",
+   1359,
+   5
+  ],
+  "242849": [
+   "Bansipur",
+   1359,
+   5
+  ],
+  "242832": [
+   "Tola Sakhol",
+   1359,
+   2
+  ],
+  "242833": [
+   "Tola Goraia",
+   1359,
+   2
+  ],
+  "242834": [
+   "Tola Inarwatanr",
+   1359,
+   2
+  ],
+  "242810": [
+   "Kathor",
+   1359,
+   5
+  ],
+  "242811": [
+   "Kathor",
+   1359,
+   5
+  ],
+  "242828": [
+   "Tola Mankothia",
+   1359,
+   5
+  ],
+  "242799": [
+   "Danialpur",
+   1359,
+   5
+  ],
+  "242797": [
+   "Harpur",
+   1359,
+   5
+  ],
+  "242798": [
+   "Dharhara Kasba",
+   1359,
+   5
+  ],
+  "242845": [
+   "Baraipura",
+   1359,
+   5
+  ],
+  "242858": [
+   "Jagdispur",
+   1359,
+   5
+  ],
+  "242860": [
+   "Bhawanipur",
+   1359,
+   5
+  ],
+  "242851": [
+   "Gangta",
+   1359,
+   5
+  ],
+  "242844": [
+   "Jankikita",
+   1359,
+   5
+  ],
+  "242842": [
+   "Laheta",
+   1359,
+   5
+  ],
+  "242855": [
+   "Bansikita",
+   1359,
+   5
+  ],
+  "242853": [
+   "Badalkita",
+   1359,
+   5
+  ],
+  "242807": [
+   "Sangrampur",
+   1359,
+   5
+  ],
+  "242806": [
+   "Konabazar",
+   1359,
+   5
+  ],
+  "242804": [
+   "Gokhula",
+   1359,
+   5
+  ],
+  "242803": [
+   "Hajipur",
+   1359,
+   5
+  ],
+  "242802": [
+   "Chhemankita",
+   1359,
+   5
+  ],
+  "242829": [
+   "Tola Ghansundar",
+   1359,
+   5
+  ],
+  "242868": [
+   "Bhawanipur",
+   1359,
+   5
+  ],
+  "242837": [
+   "Tola Bariara",
+   1359,
+   2
+  ],
+  "242864": [
+   "Bhawanipur",
+   1359,
+   5
+  ],
+  "242862": [
+   "Bhawanipur",
+   1359,
+   5
+  ],
+  "242863": [
+   "Bhawanipur",
+   1359,
+   5
+  ],
+  "242859": [
+   "Bhawanipur",
+   1359,
+   5
+  ],
+  "242870": [
+   "Mozaffar Chak",
+   1359,
+   5
+  ],
+  "242871": [
+   "Jagdispur",
+   1359,
+   5
+  ],
+  "242872": [
+   "Jagdishpur",
+   1359,
+   5
+  ],
+  "242867": [
+   "Bhawanipur",
+   1359,
+   5
+  ],
+  "242866": [
+   "Bhawanipur",
+   1359,
+   5
+  ],
+  "242865": [
+   "Bhawanipur",
+   1359,
+   5
+  ],
+  "242861": [
+   "Danialpur",
+   1359,
+   5
+  ],
+  "242928": [
+   "Hemzapur",
+   1359,
+   9
+  ],
+  "242874": [
+   "Mangarh",
+   1359,
+   5
+  ],
+  "242931": [
+   "Baha Chauki",
+   1359,
+   5
+  ],
+  "242929": [
+   "Sundarpur",
+   1359,
+   5
+  ],
+  "242914": [
+   "Sibkund",
+   1359,
+   5
+  ],
+  "242933": [
+   "Lagma",
+   1359,
+   9
+  ],
+  "242607": [
+   "Zamin Digri",
+   1356,
+   9
+  ],
+  "242873": [
+   "Chaurdigar",
+   1359,
+   5
+  ],
+  "242934": [
+   "Shibkund",
+   1359,
+   9
+  ],
+  "242922": [
+   "Mojma",
+   1359,
+   5
+  ],
+  "242918": [
+   "Chak Mirza Isakbeg",
+   1359,
+   9
+  ],
+  "242605": [
+   "Kutlupur Diara",
+   1356,
+   9
+  ],
+  "242920": [
+   "Inglish",
+   1359,
+   9
+  ],
+  "242915": [
+   "Mirza Chak",
+   1359,
+   9
+  ],
+  "242736": [
+   "Singhia",
+   1358,
+   5
+  ],
+  "242919": [
+   "Shah Milik",
+   1359,
+   5
+  ],
+  "242930": [
+   "Chak Raja Mohammad",
+   1359,
+   5
+  ],
+  "242924": [
+   "Kahra Chak",
+   1359,
+   5
+  ],
+  "242927": [
+   "Chak Raja Mohammad",
+   1359,
+   5
+  ],
+  "242923": [
+   "Kothia",
+   1359,
+   5
+  ],
+  "242925": [
+   "Moglani",
+   1359,
+   9
+  ],
+  "242917": [
+   "Bhikham Chak",
+   1359,
+   9
+  ],
+  "242606": [
+   "Kutlupur Bangli",
+   1356,
+   9
+  ],
+  "242730": [
+   "Bararpunsara",
+   1358,
+   9
+  ],
+  "242916": [
+   "Lagma",
+   1359,
+   9
+  ],
+  "242921": [
+   "Mirza Chak",
+   1359,
+   5
+  ],
+  "242731": [
+   "Janipur",
+   1358,
+   9
+  ],
+  "243131": [
+   "Molna Chak",
+   1362,
+   4
+  ],
+  "243048": [
+   "Gangta",
+   1360,
+   0
+  ],
+  "243325": [
+   "Rampur",
+   1364,
+   1
+  ],
+  "243218": [
+   "Bhalguri",
+   1363,
+   1
+  ],
+  "243319": [
+   "Gonai",
+   1364,
+   1
+  ],
+  "243263": [
+   "Nonaji",
+   1363,
+   0
+  ],
+  "243215": [
+   "Thara",
+   1363,
+   0
+  ],
+  "243318": [
+   "Supaur",
+   1364,
+   1
+  ],
+  "243320": [
+   "Sarai",
+   1364,
+   1
+  ],
+  "243224": [
+   "Kalai",
+   1363,
+   1
+  ],
+  "243299": [
+   "Lachhmipura",
+   1364,
+   1
+  ],
+  "243301": [
+   "Bhawanipur",
+   1364,
+   1
+  ],
+  "243312": [
+   "Bhikhadih",
+   1364,
+   0
+  ],
+  "243300": [
+   "Chanania",
+   1364,
+   1
+  ],
+  "243304": [
+   "Raikar",
+   1364,
+   1
+  ],
+  "243305": [
+   "Jhikuli",
+   1364,
+   1
+  ],
+  "243311": [
+   "Sarkatia",
+   1364,
+   1
+  ],
+  "243306": [
+   "Makanpur",
+   1364,
+   1
+  ],
+  "243277": [
+   "Kumarsar",
+   1364,
+   1
+  ],
+  "243296": [
+   "Dhankunda",
+   1364,
+   1
+  ],
+  "243298": [
+   "Ratanpura",
+   1364,
+   1
+  ],
+  "243307": [
+   "Jhitti",
+   1364,
+   1
+  ],
+  "243310": [
+   "Khamar",
+   1364,
+   1
+  ],
+  "243313": [
+   "Samda",
+   1364,
+   0
+  ],
+  "243278": [
+   "Rangapatal",
+   1364,
+   1
+  ],
+  "243314": [
+   "Kathiari",
+   1364,
+   1
+  ],
+  "243315": [
+   "Kunri",
+   1364,
+   0
+  ],
+  "243279": [
+   "Laugain",
+   1364,
+   1
+  ],
+  "243276": [
+   "Didarganj",
+   1364,
+   1
+  ],
+  "243272": [
+   "Sahora",
+   1364,
+   1
+  ],
+  "243274": [
+   "Aliganj",
+   1364,
+   1
+  ],
+  "243317": [
+   "Patghaghar",
+   1364,
+   1
+  ],
+  "243290": [
+   "Kamargawan",
+   1364,
+   1
+  ],
+  "243289": [
+   "Kuangarhi",
+   1364,
+   1
+  ],
+  "243280": [
+   "Chanpura",
+   1364,
+   1
+  ],
+  "243286": [
+   "Pauria",
+   1364,
+   1
+  ],
+  "243288": [
+   "Khapra",
+   1364,
+   1
+  ],
+  "243287": [
+   "Jamua",
+   1364,
+   1
+  ],
+  "243281": [
+   "Balia",
+   1364,
+   1
+  ],
+  "243214": [
+   "Bhandar",
+   1363,
+   1
+  ],
+  "243285": [
+   "Karikol",
+   1364,
+   1
+  ],
+  "243225": [
+   "Mahuratanr",
+   1363,
+   1
+  ],
+  "243043": [
+   "Donra",
+   1360,
+   0
+  ],
+  "243217": [
+   "Bhalguri",
+   1363,
+   1
+  ],
+  "243049": [
+   "Gaighat",
+   1360,
+   0
+  ],
+  "243216": [
+   "Nonaji",
+   1363,
+   0
+  ],
+  "243046": [
+   "Jagdispur",
+   1360,
+   0
+  ],
+  "243322": [
+   "Sirmatpur",
+   1364,
+   1
+  ],
+  "243284": [
+   "Kathara",
+   1364,
+   1
+  ],
+  "243309": [
+   "Birajpur",
+   1364,
+   1
+  ],
+  "243293": [
+   "Mahdei",
+   1364,
+   1
+  ],
+  "243316": [
+   "Dadri",
+   1364,
+   0
+  ],
+  "243302": [
+   "Kupmar",
+   1364,
+   1
+  ],
+  "243323": [
+   "Kasraiya",
+   1364,
+   1
+  ],
+  "243275": [
+   "Mojma",
+   1364,
+   1
+  ],
+  "243283": [
+   "Kenua",
+   1364,
+   1
+  ],
+  "243042": [
+   "Islampur",
+   1360,
+   0
+  ],
+  "243291": [
+   "Kathaur",
+   1364,
+   1
+  ],
+  "243294": [
+   "Durgapur",
+   1364,
+   1
+  ],
+  "243220": [
+   "Mohanpur",
+   1363,
+   1
+  ],
+  "243221": [
+   "Mohanpur",
+   1363,
+   1
+  ],
+  "243324": [
+   "Barhaunian",
+   1364,
+   1
+  ],
+  "243041": [
+   "Dariapur",
+   1360,
+   0
+  ],
+  "243297": [
+   "Negrakita",
+   1364,
+   1
+  ],
+  "243308": [
+   "Tekania",
+   1364,
+   1
+  ],
+  "243295": [
+   "Gurgawan",
+   1364,
+   1
+  ],
+  "243321": [
+   "Banwarikita",
+   1364,
+   1
+  ],
+  "243219": [
+   "Pathal Kunda",
+   1363,
+   1
+  ],
+  "243303": [
+   "Sangrampur",
+   1364,
+   1
+  ],
+  "243282": [
+   "Babhan Chakka",
+   1364,
+   1
+  ],
+  "243292": [
+   "Khurd",
+   1364,
+   1
+  ],
+  "243223": [
+   "Tilkari",
+   1363,
+   1
+  ],
+  "243241": [
+   "Lagma",
+   1363,
+   1
+  ],
+  "243242": [
+   "Jitwarpur",
+   1363,
+   1
+  ],
+  "243330": [
+   "Heli Chak",
+   1364,
+   1
+  ],
+  "243237": [
+   "Jagatpura",
+   1363,
+   1
+  ],
+  "243258": [
+   "Chamma Chak",
+   1363,
+   0
+  ],
+  "243025": [
+   "Khoja Chak",
+   1360,
+   0
+  ],
+  "243189": [
+   "Shahpur",
+   1362,
+   1
+  ],
+  "243017": [
+   "Pakari",
+   1360,
+   1
+  ],
+  "243168": [
+   "Siswa",
+   1362,
+   1
+  ],
+  "243210": [
+   "Bangawan",
+   1363,
+   1
+  ],
+  "243183": [
+   "Khudia",
+   1362,
+   1
+  ],
+  "243175": [
+   "Dorain",
+   1362,
+   4
+  ],
+  "243204": [
+   "Kardiha",
+   1363,
+   4
+  ],
+  "243173": [
+   "Parbhara",
+   1362,
+   4
+  ],
+  "243013": [
+   "Barui",
+   1360,
+   4
+  ],
+  "243021": [
+   "Teghra",
+   1360,
+   4
+  ],
+  "243240": [
+   "Bhunna",
+   1363,
+   1
+  ],
+  "243229": [
+   "Banauli",
+   1363,
+   1
+  ],
+  "243261": [
+   "Dauria",
+   1363,
+   0
+  ],
+  "243329": [
+   "Heli Chak",
+   1364,
+   1
+  ],
+  "243331": [
+   "Chanduki",
+   1364,
+   1
+  ],
+  "243332": [
+   "Batsar",
+   1364,
+   1
+  ],
+  "243333": [
+   "Sarauna",
+   1364,
+   1
+  ],
+  "243231": [
+   "Bardiha",
+   1363,
+   1
+  ],
+  "243033": [
+   "Patori",
+   1360,
+   0
+  ],
+  "243032": [
+   "Raipura",
+   1360,
+   0
+  ],
+  "243188": [
+   "Daulataganj",
+   1362,
+   1
+  ],
+  "243039": [
+   "Mahuli",
+   1360,
+   0
+  ],
+  "243235": [
+   "Tilkari",
+   1363,
+   1
+  ],
+  "243191": [
+   "Harpur",
+   1362,
+   1
+  ],
+  "243256": [
+   "Kharui",
+   1363,
+   1
+  ],
+  "243018": [
+   "Kathna",
+   1360,
+   0
+  ],
+  "243026": [
+   "Matsumbha",
+   1360,
+   0
+  ],
+  "243207": [
+   "Dhapri",
+   1363,
+   1
+  ],
+  "243019": [
+   "Khaira",
+   1360,
+   0
+  ],
+  "243206": [
+   "Tajpur",
+   1363,
+   4
+  ],
+  "243047": [
+   "Laurhia",
+   1360,
+   0
+  ],
+  "243222": [
+   "Sabaiya",
+   1363,
+   1
+  ],
+  "243230": [
+   "Bharsar",
+   1363,
+   1
+  ],
+  "243238": [
+   "Khori",
+   1363,
+   1
+  ],
+  "243040": [
+   "Kathaum",
+   1360,
+   0
+  ],
+  "243249": [
+   "Manga Kharwe",
+   1363,
+   0
+  ],
+  "243250": [
+   "Kharwe",
+   1363,
+   0
+  ],
+  "243234": [
+   "Chanchar",
+   1363,
+   1
+  ],
+  "243232": [
+   "Khagraun",
+   1363,
+   1
+  ],
+  "243245": [
+   "Kesuli",
+   1363,
+   0
+  ],
+  "243334": [
+   "Durmatta",
+   1364,
+   1
+  ],
+  "243192": [
+   "Kajhia",
+   1362,
+   1
+  ],
+  "243247": [
+   "Dharmikharwe",
+   1363,
+   0
+  ],
+  "243251": [
+   "Barsunda",
+   1363,
+   0
+  ],
+  "243236": [
+   "Bardghatta",
+   1363,
+   1
+  ],
+  "243028": [
+   "Parmanandpur",
+   1360,
+   0
+  ],
+  "243253": [
+   "Tetiha",
+   1363,
+   1
+  ],
+  "243248": [
+   "Rajadih",
+   1363,
+   0
+  ],
+  "243027": [
+   "Bhagwanpur",
+   1360,
+   0
+  ],
+  "243036": [
+   "Amdaha Khurd",
+   1360,
+   0
+  ],
+  "243030": [
+   "Auraiya",
+   1360,
+   0
+  ],
+  "243254": [
+   "Kathni",
+   1363,
+   1
+  ],
+  "243233": [
+   "Bichhi",
+   1363,
+   1
+  ],
+  "243226": [
+   "Dhauri",
+   1363,
+   1
+  ],
+  "243190": [
+   "Belbihma",
+   1362,
+   1
+  ],
+  "243257": [
+   "Bambor",
+   1363,
+   1
+  ],
+  "243035": [
+   "Amdaha Kalan",
+   1360,
+   0
+  ],
+  "243259": [
+   "Pharsa",
+   1363,
+   0
+  ],
+  "243255": [
+   "Majlishpur",
+   1363,
+   1
+  ],
+  "243262": [
+   "Bishunpur",
+   1363,
+   0
+  ],
+  "249636": [
+   "Haveli Kharagpur",
+   1360,
+   3
+  ],
+  "243146": [
+   "Mohammadpur",
+   1362,
+   4
+  ],
+  "243209": [
+   "Jitwarpur",
+   1363,
+   1
+  ],
+  "243181": [
+   "Kalayanpur",
+   1362,
+   1
+  ],
+  "243016": [
+   "Kaithi",
+   1360,
+   4
+  ],
+  "243014": [
+   "Maha Kala",
+   1360,
+   4
+  ],
+  "243177": [
+   "Launa",
+   1362,
+   4
+  ],
+  "243208": [
+   "Lohara",
+   1363,
+   1
+  ],
+  "243169": [
+   "Mahpur",
+   1362,
+   1
+  ],
+  "243182": [
+   "Parsa",
+   1362,
+   1
+  ],
+  "243024": [
+   "Murade",
+   1360,
+   0
+  ],
+  "243171": [
+   "Maheshpur",
+   1362,
+   4
+  ],
+  "243178": [
+   "Satahara",
+   1362,
+   4
+  ],
+  "243011": [
+   "Ratmi",
+   1360,
+   4
+  ],
+  "243144": [
+   "Degaon",
+   1362,
+   4
+  ],
+  "243135": [
+   "Muskipur",
+   1362,
+   4
+  ],
+  "243009": [
+   "Mozaffarganj",
+   1360,
+   4
+  ],
+  "242963": [
+   "Murheri",
+   1360,
+   4
+  ],
+  "243138": [
+   "Sanrhi",
+   1362,
+   4
+  ],
+  "243034": [
+   "Majhgain",
+   1360,
+   0
+  ],
+  "243031": [
+   "Mohanpur",
+   1360,
+   0
+  ],
+  "243185": [
+   "Afzalnagar",
+   1362,
+   1
+  ],
+  "243038": [
+   "Tola Banhara",
+   1360,
+   0
+  ],
+  "243243": [
+   "Rainian",
+   1363,
+   0
+  ],
+  "243239": [
+   "Mojura",
+   1363,
+   1
+  ],
+  "243244": [
+   "Goarwadih",
+   1363,
+   0
+  ],
+  "243029": [
+   "Bosdeopur",
+   1360,
+   0
+  ],
+  "243194": [
+   "Gonaili",
+   1362,
+   1
+  ],
+  "243023": [
+   "Raunakabad",
+   1360,
+   3
+  ],
+  "243145": [
+   "Bhagalpura",
+   1362,
+   4
+  ],
+  "243141": [
+   "Khaira",
+   1362,
+   4
+  ],
+  "243170": [
+   "Minapur",
+   1362,
+   1
+  ],
+  "243205": [
+   "Deoraj",
+   1363,
+   4
+  ],
+  "243172": [
+   "Parbhara Kita",
+   1362,
+   4
+  ],
+  "243179": [
+   "Satahara Milik",
+   1362,
+   4
+  ],
+  "242838": [
+   "Tola Sugi",
+   1359,
+   2
+  ],
+  "243020": [
+   "Bahiri",
+   1360,
+   4
+  ],
+  "243008": [
+   "Khas Chak",
+   1360,
+   4
+  ],
+  "243136": [
+   "Chakarghata",
+   1362,
+   4
+  ],
+  "242961": [
+   "Chanken",
+   1360,
+   4
+  ],
+  "243246": [
+   "Tama",
+   1363,
+   0
+  ],
+  "243140": [
+   "Nagdaha Arazi",
+   1362,
+   4
+  ],
+  "243212": [
+   "Kazakpur",
+   1363,
+   1
+  ],
+  "243184": [
+   "Telsanda",
+   1362,
+   1
+  ],
+  "243211": [
+   "Saidpur",
+   1363,
+   1
+  ],
+  "243044": [
+   "Bagbari",
+   1360,
+   0
+  ],
+  "243227": [
+   "Amkola",
+   1363,
+   1
+  ],
+  "243037": [
+   "Jitwarpur",
+   1360,
+   0
+  ],
+  "243193": [
+   "Baijnathpur",
+   1362,
+   1
+  ],
+  "243180": [
+   "Chhata",
+   1362,
+   1
+  ],
+  "243213": [
+   "Salempur",
+   1363,
+   1
+  ],
+  "243166": [
+   "Lochni",
+   1362,
+   1
+  ],
+  "243015": [
+   "Ghana Chak",
+   1360,
+   4
+  ],
+  "243176": [
+   "Satahara Milik",
+   1362,
+   4
+  ],
+  "243174": [
+   "Alagjara",
+   1362,
+   4
+  ],
+  "243139": [
+   "Asnaha",
+   1362,
+   4
+  ],
+  "242962": [
+   "Baijalpur",
+   1360,
+   4
+  ],
+  "243010": [
+   "Rataitha",
+   1360,
+   4
+  ],
+  "243012": [
+   "Nirbhai Chak",
+   1360,
+   4
+  ],
+  "243142": [
+   "Nagdaha",
+   1362,
+   4
+  ],
+  "243143": [
+   "Khaira Khurd",
+   1362,
+   4
+  ],
+  "243328": [
+   "Koraji",
+   1364,
+   1
+  ],
+  "243260": [
+   "Tola Banhara",
+   1363,
+   0
+  ],
+  "243187": [
+   "Umra",
+   1362,
+   1
+  ],
+  "243228": [
+   "Chandih",
+   1363,
+   1
+  ],
+  "242542": [
+   "Nankar",
+   1356,
+   10
+  ],
+  "243267": [
+   "Ranadih",
+   1364,
+   1
+  ],
+  "243266": [
+   "Mania",
+   1364,
+   1
+  ],
+  "243270": [
+   "Sonhauli",
+   1364,
+   1
+  ],
+  "243268": [
+   "Bejham",
+   1364,
+   1
+  ],
+  "243269": [
+   "Kahua",
+   1364,
+   1
+  ],
+  "243326": [
+   "Khaira",
+   1364,
+   1
+  ],
+  "243271": [
+   "Bela",
+   1364,
+   1
+  ],
+  "243327": [
+   "Majhgain",
+   1364,
+   1
+  ],
+  "243264": [
+   "Heli Chak",
+   1364,
+   1
+  ],
+  "243163": [
+   "Deogaon",
+   1362,
+   1
+  ],
+  "243161": [
+   "Dhauni",
+   1362,
+   1
+  ],
+  "243156": [
+   "Rangaon",
+   1362,
+   4
+  ],
+  "243157": [
+   "Dhobai",
+   1362,
+   4
+  ],
+  "243132": [
+   "Araunga",
+   1362,
+   4
+  ],
+  "243130": [
+   "Teghra Jagirdari",
+   1362,
+   4
+  ],
+  "243134": [
+   "Manikpur",
+   1362,
+   4
+  ],
+  "243160": [
+   "Bihma",
+   1362,
+   1
+  ],
+  "243198": [
+   "Dharampur",
+   1362,
+   1
+  ],
+  "243200": [
+   "Mandwa",
+   1362,
+   1
+  ],
+  "243167": [
+   "Rasulpur",
+   1362,
+   1
+  ],
+  "243155": [
+   "Khanpur",
+   1362,
+   4
+  ],
+  "243201": [
+   "Hasanpur",
+   1362,
+   1
+  ],
+  "243195": [
+   "Madhodih",
+   1362,
+   1
+  ],
+  "243196": [
+   "Kapridih",
+   1362,
+   1
+  ],
+  "243197": [
+   "Beladih",
+   1362,
+   1
+  ],
+  "243165": [
+   "Dhanpura",
+   1362,
+   1
+  ],
+  "243159": [
+   "Kazi Chak",
+   1362,
+   1
+  ],
+  "243150": [
+   "Satkharia",
+   1362,
+   4
+  ],
+  "243151": [
+   "Madhura",
+   1362,
+   4
+  ],
+  "243158": [
+   "Goga Chak",
+   1362,
+   1
+  ],
+  "243152": [
+   "Gorgawan",
+   1362,
+   4
+  ],
+  "243154": [
+   "Rajgur",
+   1362,
+   1
+  ],
+  "243147": [
+   "Rampur Bisai",
+   1362,
+   4
+  ],
+  "243110": [
+   "Ahmadpur",
+   1361,
+   4
+  ],
+  "243111": [
+   "Jorari Milk",
+   1361,
+   4
+  ],
+  "243112": [
+   "Bangaon",
+   1361,
+   4
+  ],
+  "243107": [
+   "Jalalabad",
+   1361,
+   4
+  ],
+  "243108": [
+   "Saraun",
+   1361,
+   4
+  ],
+  "243164": [
+   "Khanpur",
+   1362,
+   1
+  ],
+  "243265": [
+   "Laurhia",
+   1364,
+   1
+  ],
+  "243153": [
+   "Sondiha",
+   1362,
+   1
+  ],
+  "243125": [
+   "Shahabad",
+   1362,
+   4
+  ],
+  "243162": [
+   "Sauna",
+   1362,
+   1
+  ],
+  "243133": [
+   "Chakni",
+   1362,
+   4
+  ],
+  "243129": [
+   "Molnadhabar",
+   1362,
+   4
+  ],
+  "243127": [
+   "Molnachak Azrakbe Maldih",
+   1362,
+   4
+  ],
+  "243105": [
+   "Rahmatpur Araazi",
+   1361,
+   4
+  ],
+  "243199": [
+   "Afzalpur",
+   1362,
+   1
+  ],
+  "243124": [
+   "Bikrampur Arazi",
+   1362,
+   4
+  ],
+  "243128": [
+   "Satkharia Arazi",
+   1362,
+   4
+  ],
+  "243203": [
+   "Tarapur CT",
+   1362,
+   1
+  ],
+  "243202": [
+   "Gazipur CT",
+   1362,
+   4
+  ],
+  "242959": [
+   "Naki",
+   1360,
+   7
+  ],
+  "242877": [
+   "Ora Bagicha",
+   1359,
+   5
+  ],
+  "242824": [
+   "Tola Karaili",
+   1359,
+   5
+  ],
+  "242979": [
+   "Lohra Lachhmipur",
+   1360,
+   4
+  ],
+  "242775": [
+   "Atwalpur",
+   1359,
+   5
+  ],
+  "242796": [
+   "Harpur Inglish",
+   1359,
+   5
+  ],
+  "242611": [
+   "Katgala",
+   1357,
+   7
+  ],
+  "242949": [
+   "Burhtetra",
+   1360,
+   7
+  ],
+  "242783": [
+   "Amari",
+   1359,
+   5
+  ],
+  "243114": [
+   "Dulhar",
+   1361,
+   4
+  ],
+  "243121": [
+   "Mangarba",
+   1361,
+   4
+  ],
+  "242996": [
+   "Mandare",
+   1360,
+   3
+  ],
+  "242948": [
+   "Bikrampur",
+   1360,
+   7
+  ],
+  "242817": [
+   "Tola Belokhar",
+   1359,
+   6
+  ],
+  "242945": [
+   "Paharpur",
+   1360,
+   6
+  ],
+  "242960": [
+   "Lachhmipur",
+   1360,
+   7
+  ],
+  "242980": [
+   "Barhouna",
+   1360,
+   4
+  ],
+  "242971": [
+   "Gaura",
+   1360,
+   4
+  ],
+  "242984": [
+   "Bagesri",
+   1360,
+   7
+  ],
+  "242827": [
+   "Tola Bagalwa",
+   1359,
+   5
+  ],
+  "242781": [
+   "Marpa Kalan",
+   1359,
+   5
+  ],
+  "242793": [
+   "Afjupur",
+   1359,
+   5
+  ],
+  "242776": [
+   "Baurna",
+   1359,
+   5
+  ],
+  "242955": [
+   "Bhadaura",
+   1360,
+   7
+  ],
+  "242988": [
+   "Shampur",
+   1360,
+   6
+  ],
+  "242618": [
+   "Lakhnaur",
+   1357,
+   7
+  ],
+  "242985": [
+   "Shampur",
+   1360,
+   7
+  ],
+  "242968": [
+   "Majhgain",
+   1360,
+   7
+  ],
+  "242620": [
+   "Bhagalpur",
+   1357,
+   7
+  ],
+  "242987": [
+   "Gopalpur",
+   1360,
+   7
+  ],
+  "242977": [
+   "Bindi",
+   1360,
+   4
+  ],
+  "242976": [
+   "Kendua Kishunpur",
+   1360,
+   4
+  ],
+  "242995": [
+   "Gobadda",
+   1360,
+   4
+  ],
+  "242974": [
+   "Kaurian",
+   1360,
+   4
+  ],
+  "243120": [
+   "Khand Chak",
+   1361,
+   4
+  ],
+  "242766": [
+   "Kudratabad",
+   1359,
+   6
+  ],
+  "242998": [
+   "Sibpur Laugain",
+   1360,
+   4
+  ],
+  "243003": [
+   "Khanrbihari",
+   1360,
+   4
+  ],
+  "243000": [
+   "Baijalpur",
+   1360,
+   4
+  ],
+  "242778": [
+   "Tetraun",
+   1359,
+   5
+  ],
+  "242779": [
+   "Sawaia",
+   1359,
+   5
+  ],
+  "242953": [
+   "Agarhan",
+   1360,
+   7
+  ],
+  "242952": [
+   "Manpur",
+   1360,
+   7
+  ],
+  "242942": [
+   "Lachhu Chak",
+   1360,
+   6
+  ],
+  "242972": [
+   "Gonai",
+   1360,
+   4
+  ],
+  "243005": [
+   "Baukhra",
+   1360,
+   4
+  ],
+  "243004": [
+   "Sasan",
+   1360,
+   4
+  ],
+  "243002": [
+   "Bhusi Chak",
+   1360,
+   4
+  ],
+  "243006": [
+   "Parsando",
+   1360,
+   4
+  ],
+  "243113": [
+   "Kharwa",
+   1361,
+   4
+  ],
+  "242966": [
+   "Khiridih",
+   1360,
+   4
+  ],
+  "243054": [
+   "Daman Koh",
+   1360,
+   3
+  ],
+  "242978": [
+   "Nisahara",
+   1360,
+   4
+  ],
+  "243116": [
+   "Belsara",
+   1361,
+   4
+  ],
+  "242975": [
+   "Sadobh",
+   1360,
+   4
+  ],
+  "242993": [
+   "Ghorakhar",
+   1360,
+   3
+  ],
+  "243117": [
+   "Gorha",
+   1361,
+   4
+  ],
+  "242989": [
+   "Chandpur",
+   1360,
+   7
+  ],
+  "242621": [
+   "Pipra",
+   1357,
+   7
+  ],
+  "242619": [
+   "Kathara",
+   1357,
+   7
+  ],
+  "243115": [
+   "Amaia",
+   1361,
+   4
+  ],
+  "242986": [
+   "Madanpur",
+   1360,
+   7
+  ],
+  "242617": [
+   "Bhatgawan",
+   1357,
+   7
+  ],
+  "242951": [
+   "Bahira",
+   1360,
+   7
+  ],
+  "242946": [
+   "Teliadih",
+   1360,
+   6
+  ],
+  "242964": [
+   "Fateha",
+   1360,
+   4
+  ],
+  "242808": [
+   "Bangalma",
+   1359,
+   5
+  ],
+  "242973": [
+   "Turukdih",
+   1360,
+   4
+  ],
+  "243122": [
+   "Ufraul",
+   1361,
+   4
+  ],
+  "242965": [
+   "Bela",
+   1360,
+   4
+  ],
+  "243001": [
+   "Chakaita",
+   1360,
+   4
+  ],
+  "242786": [
+   "Ramchandarpur",
+   1359,
+   5
+  ],
+  "242774": [
+   "Daulatpur",
+   1359,
+   5
+  ],
+  "242886": [
+   "Tika Chak",
+   1359,
+   5
+  ],
+  "243062": [
+   "Bhatehri",
+   1361,
+   4
+  ],
+  "242997": [
+   "Jalsakra",
+   1360,
+   4
+  ],
+  "242981": [
+   "Harpur",
+   1360,
+   4
+  ],
+  "242830": [
+   "Tola Kothwa",
+   1359,
+   2
+  ],
+  "243119": [
+   "Baijalpur",
+   1361,
+   4
+  ],
+  "242825": [
+   "Tola Satgharwa",
+   1359,
+   2
+  ],
+  "242970": [
+   "Birajpur",
+   1360,
+   7
+  ],
+  "242826": [
+   "Tola Saradhi",
+   1359,
+   5
+  ],
+  "242823": [
+   "Tola Baijnath Pathria",
+   1359,
+   5
+  ],
+  "242789": [
+   "Gopalpur",
+   1359,
+   5
+  ],
+  "242821": [
+   "Tola Lakarkola",
+   1359,
+   6
+  ],
+  "242954": [
+   "Karharia",
+   1360,
+   7
+  ],
+  "242615": [
+   "Murla",
+   1357,
+   7
+  ],
+  "242819": [
+   "Tola Kalithan",
+   1359,
+   6
+  ],
+  "242820": [
+   "Tola Barhmasia",
+   1359,
+   6
+  ],
+  "242795": [
+   "Mohanpur",
+   1359,
+   5
+  ],
+  "242818": [
+   "Tola Dukhar Chak",
+   1359,
+   6
+  ],
+  "242958": [
+   "Galimpur",
+   1360,
+   7
+  ],
+  "242887": [
+   "Harpur",
+   1359,
+   5
+  ],
+  "242876": [
+   "Khushalpur",
+   1359,
+   5
+  ],
+  "242770": [
+   "Bari Chak",
+   1359,
+   5
+  ],
+  "242765": [
+   "Lohchi",
+   1359,
+   5
+  ],
+  "242947": [
+   "Lohchi",
+   1360,
+   7
+  ],
+  "242982": [
+   "Dhapri",
+   1360,
+   4
+  ],
+  "243118": [
+   "Sagrampur",
+   1361,
+   4
+  ],
+  "242791": [
+   "Rampur",
+   1359,
+   5
+  ],
+  "242780": [
+   "Gopali Chak",
+   1359,
+   5
+  ],
+  "242950": [
+   "Bindraban",
+   1360,
+   7
+  ],
+  "242883": [
+   "Lakrapatal",
+   1359,
+   5
+  ],
+  "242768": [
+   "Pachrukhi",
+   1359,
+   5
+  ],
+  "242610": [
+   "Karharia",
+   1357,
+   7
+  ],
+  "242809": [
+   "Bangalma",
+   1359,
+   5
+  ],
+  "242956": [
+   "Bindraban",
+   1360,
+   7
+  ],
+  "242613": [
+   "Tulsipur",
+   1357,
+   7
+  ],
+  "242787": [
+   "Marpa Khurd",
+   1359,
+   5
+  ],
+  "242831": [
+   "Tola Tetaria",
+   1359,
+   2
+  ],
+  "242992": [
+   "Bankati",
+   1360,
+   4
+  ],
+  "242983": [
+   "Kabadpur",
+   1360,
+   4
+  ],
+  "242969": [
+   "Bagesri Arazi",
+   1360,
+   7
+  ],
+  "242967": [
+   "Pharka",
+   1360,
+   7
+  ],
+  "242777": [
+   "Basantpur",
+   1359,
+   5
+  ],
+  "242822": [
+   "Tola Sumeri Pathri",
+   1359,
+   5
+  ],
+  "242788": [
+   "Gujasti Arazi",
+   1359,
+   5
+  ],
+  "242792": [
+   "Gangapur",
+   1359,
+   5
+  ],
+  "242784": [
+   "Bishunpur",
+   1359,
+   5
+  ],
+  "242794": [
+   "Gauripur",
+   1359,
+   5
+  ],
+  "242785": [
+   "Lachhmipur",
+   1359,
+   5
+  ],
+  "242782": [
+   "Birijpur",
+   1359,
+   5
+  ],
+  "242884": [
+   "Sangrampur",
+   1359,
+   5
+  ],
+  "242944": [
+   "Birojpur",
+   1360,
+   6
+  ],
+  "242839": [
+   "Tola Raunakabad Pahar",
+   1359,
+   3
+  ],
+  "242614": [
+   "Kharia",
+   1357,
+   7
+  ],
+  "243022": [
+   "Dariyapur",
+   1360,
+   3
+  ],
+  "243007": [
+   "Madhuban",
+   1360,
+   3
+  ],
+  "243051": [
+   "Tala Rajasare",
+   1360,
+   3
+  ],
+  "242999": [
+   "Larui",
+   1360,
+   4
+  ],
+  "242957": [
+   "Galimpur",
+   1360,
+   7
+  ],
+  "242836": [
+   "Tola Paisra",
+   1359,
+   2
+  ],
+  "242771": [
+   "Bari Chak",
+   1359,
+   5
+  ],
+  "242612": [
+   "Tulsipur",
+   1357,
+   7
+  ],
+  "243053": [
+   "Raunakabad",
+   1360,
+   3
+  ],
+  "242991": [
+   "Baijnathpur",
+   1360,
+   6
+  ],
+  "242941": [
+   "Paharpur",
+   1360,
+   6
+  ],
+  "242767": [
+   "Harchak",
+   1359,
+   6
+  ],
+  "242769": [
+   "Bhagalpur Lakheraj",
+   1359,
+   5
+  ],
+  "242885": [
+   "Sangrampur",
+   1359,
+   5
+  ],
+  "242773": [
+   "Daulatpur",
+   1359,
+   5
+  ],
+  "249635": [
+   "Jamalpur",
+   1358,
+   10
+  ],
+  "242630": [
+   "Kumarpur Arazi",
+   1357,
+   7
+  ],
+  "242940": [
+   "Dagri",
+   1360,
+   6
+  ],
+  "242631": [
+   "Bahadurpur",
+   1357,
+   7
+  ],
+  "242701": [
+   "Mohammadpur",
+   1358,
+   9
+  ],
+  "242656": [
+   "Patam",
+   1358,
+   10
+  ],
+  "242875": [
+   "Dharbara Kasba Arazi",
+   1359,
+   5
+  ],
+  "242675": [
+   "Gulalpur",
+   1358,
+   10
+  ],
+  "242680": [
+   "Banaudhi",
+   1358,
+   10
+  ],
+  "242548": [
+   "Khateb Chak",
+   1356,
+   10
+  ],
+  "242668": [
+   "Sandalpur",
+   1358,
+   10
+  ],
+  "242559": [
+   "Samaspur Saran",
+   1356,
+   10
+  ],
+  "242663": [
+   "Samaspur",
+   1358,
+   10
+  ],
+  "242545": [
+   "Bardah",
+   1356,
+   10
+  ],
+  "242661": [
+   "Mahamda",
+   1358,
+   10
+  ],
+  "242745": [
+   "Halimpur",
+   1358,
+   10
+  ],
+  "242660": [
+   "Rampur",
+   1358,
+   10
+  ],
+  "242763": [
+   "Itwa",
+   1359,
+   6
+  ],
+  "242762": [
+   "Dasrathpur",
+   1359,
+   6
+  ],
+  "242626": [
+   "Bagra",
+   1357,
+   7
+  ],
+  "242638": [
+   "Bariarpur",
+   1357,
+   7
+  ],
+  "242655": [
+   "Itahri",
+   1358,
+   10
+  ],
+  "242694": [
+   "Godai Chak",
+   1358,
+   10
+  ],
+  "242556": [
+   "Bakarpur",
+   1356,
+   10
+  ],
+  "242547": [
+   "Hasanpur",
+   1356,
+   10
+  ],
+  "242553": [
+   "Manikpur",
+   1356,
+   10
+  ],
+  "242549": [
+   "Nankar",
+   1356,
+   10
+  ],
+  "242591": [
+   "Samaspur Saran",
+   1356,
+   10
+  ],
+  "242659": [
+   "Mahamda",
+   1358,
+   10
+  ],
+  "242691": [
+   "Ramnager",
+   1358,
+   10
+  ],
+  "242909": [
+   "Bhalar",
+   1359,
+   5
+  ],
+  "242756": [
+   "Sarobag",
+   1359,
+   6
+  ],
+  "242627": [
+   "Chuki Nirpur",
+   1357,
+   7
+  ],
+  "242937": [
+   "Danagra Chak",
+   1360,
+   6
+  ],
+  "242636": [
+   "Mahdewa",
+   1357,
+   7
+  ],
+  "242758": [
+   "Paharpur",
+   1359,
+   6
+  ],
+  "242759": [
+   "Matadih",
+   1359,
+   6
+  ],
+  "242641": [
+   "Ratanpur",
+   1357,
+   6
+  ],
+  "242751": [
+   "Phulka",
+   1359,
+   6
+  ],
+  "242700": [
+   "Sitarampur",
+   1358,
+   9
+  ],
+  "242699": [
+   "Parham",
+   1358,
+   9
+  ],
+  "242743": [
+   "Hasanganj",
+   1358,
+   10
+  ],
+  "242682": [
+   "Chananpura",
+   1358,
+   10
+  ],
+  "242669": [
+   "Maida Begam Khalsa",
+   1358,
+   10
+  ],
+  "242602": [
+   "Jankinagar",
+   1356,
+   10
+  ],
+  "242526": [
+   "Nandlapur",
+   1356,
+   10
+  ],
+  "242889": [
+   "Puran Chak",
+   1359,
+   5
+  ],
+  "242692": [
+   "Ramnger Inglish",
+   1358,
+   10
+  ],
+  "242644": [
+   "Rajdhan Arazi",
+   1357,
+   6
+  ],
+  "242645": [
+   "Babu Chak",
+   1357,
+   10
+  ],
+  "242742": [
+   "Adampur",
+   1358,
+   10
+  ],
+  "242671": [
+   "Bagnaulakha",
+   1358,
+   10
+  ],
+  "242540": [
+   "Nauagarhi",
+   1356,
+   10
+  ],
+  "242642": [
+   "Gosain Chak",
+   1357,
+   6
+  ],
+  "242750": [
+   "Ramchandarpur",
+   1359,
+   6
+  ],
+  "242816": [
+   "Tola Barmanni",
+   1359,
+   6
+  ],
+  "242632": [
+   "Mirza Chak",
+   1357,
+   7
+  ],
+  "242761": [
+   "Dariapur",
+   1359,
+   6
+  ],
+  "242624": [
+   "Nirpur",
+   1357,
+   7
+  ],
+  "242625": [
+   "Nirpur",
+   1357,
+   7
+  ],
+  "242936": [
+   "Sagrampur",
+   1360,
+   6
+  ],
+  "242755": [
+   "Adampur",
+   1359,
+   6
+  ],
+  "242939": [
+   "Parsotimpur",
+   1360,
+   6
+  ],
+  "242760": [
+   "Bikrampur",
+   1359,
+   6
+  ],
+  "242752": [
+   "Gobindpur",
+   1359,
+   6
+  ],
+  "242637": [
+   "Barail",
+   1357,
+   6
+  ],
+  "242749": [
+   "Masumganj",
+   1359,
+   6
+  ],
+  "242640": [
+   "Kazi Chak",
+   1357,
+   10
+  ],
+  "242698": [
+   "Patam",
+   1358,
+   10
+  ],
+  "242747": [
+   "Indrukh",
+   1358,
+   10
+  ],
+  "242741": [
+   "Sagrampur",
+   1358,
+   10
+  ],
+  "242748": [
+   "Gauripur",
+   1358,
+   10
+  ],
+  "242601": [
+   "Keshopur",
+   1356,
+   10
+  ],
+  "242888": [
+   "Adalpur",
+   1359,
+   5
+  ],
+  "242629": [
+   "Barail Arazi",
+   1357,
+   7
+  ],
+  "242623": [
+   "Nurpur",
+   1357,
+   7
+  ],
+  "242754": [
+   "Bokhra",
+   1359,
+   6
+  ],
+  "242753": [
+   "Hasanpur",
+   1359,
+   6
+  ],
+  "242913": [
+   "Jagatpur",
+   1359,
+   5
+  ],
+  "242714": [
+   "Janipur",
+   1358,
+   5
+  ],
+  "242746": [
+   "Chak Mansingh",
+   1358,
+   10
+  ],
+  "242662": [
+   "Garhi Rampur",
+   1358,
+   10
+  ],
+  "242689": [
+   "Bhagi Chak",
+   1358,
+   10
+  ],
+  "242657": [
+   "Rampur Kalan",
+   1358,
+   10
+  ],
+  "242604": [
+   "Sohil Chak",
+   1356,
+   10
+  ],
+  "242744": [
+   "Adampur",
+   1358,
+   10
+  ],
+  "242681": [
+   "Mustafapur",
+   1358,
+   10
+  ],
+  "242685": [
+   "Safiabad",
+   1358,
+   10
+  ],
+  "242672": [
+   "Bagnaulakha",
+   1358,
+   10
+  ],
+  "242676": [
+   "Bank",
+   1358,
+   10
+  ],
+  "242554": [
+   "Masudan Chak",
+   1356,
+   10
+  ],
+  "242597": [
+   "Salempur",
+   1356,
+   10
+  ],
+  "242546": [
+   "Kalyan Chak",
+   1356,
+   10
+  ],
+  "242550": [
+   "Dariapur",
+   1356,
+   10
+  ],
+  "242537": [
+   "Tarapur Diara",
+   1356,
+   11
+  ],
+  "249634": [
+   "Munger",
+   1356,
+   10
+  ],
+  "242734": [
+   "Karamat Chak",
+   1358,
+   9
+  ],
+  "242879": [
+   "Dharampur",
+   1359,
+   5
+  ],
+  "242733": [
+   "Janipur",
+   1358,
+   9
+  ],
+  "242670": [
+   "Dadan Chak",
+   1358,
+   10
+  ],
+  "242600": [
+   "Salempur",
+   1356,
+   10
+  ],
+  "242735": [
+   "Kanakol",
+   1358,
+   5
+  ],
+  "242650": [
+   "Kharag Sarhi",
+   1357,
+   6
+  ],
+  "242840": [
+   "Tola Banaili Pahar",
+   1359,
+   6
+  ],
+  "242943": [
+   "Pasi Chak",
+   1360,
+   6
+  ],
+  "242764": [
+   "Sirdhar Chak",
+   1359,
+   5
+  ],
+  "242815": [
+   "Tola Khutwan",
+   1359,
+   6
+  ],
+  "242628": [
+   "Barail Arazi",
+   1357,
+   7
+  ],
+  "242633": [
+   "Paharpur Arazi",
+   1357,
+   7
+  ],
+  "242910": [
+   "Adampur",
+   1359,
+   6
+  ],
+  "242907": [
+   "Jagatpur",
+   1359,
+   5
+  ],
+  "242938": [
+   "Telia",
+   1360,
+   6
+  ],
+  "242935": [
+   "Birajpur Arazi",
+   1360,
+   6
+  ],
+  "242911": [
+   "Adampur",
+   1359,
+   5
+  ],
+  "242635": [
+   "Barail",
+   1357,
+   7
+  ],
+  "242713": [
+   "Janipur",
+   1358,
+   5
+  ],
+  "242912": [
+   "Jagatpur",
+   1359,
+   5
+  ],
+  "242648": [
+   "Pasi Chak",
+   1357,
+   6
+  ],
+  "242647": [
+   "Pasi Chak",
+   1357,
+   6
+  ],
+  "242651": [
+   "Rakas Chulha",
+   1357,
+   6
+  ],
+  "242639": [
+   "Rajdhan",
+   1357,
+   6
+  ],
+  "242653": [
+   "Madhodih",
+   1357,
+   10
+  ],
+  "242697": [
+   "Shahadat Chak",
+   1358,
+   10
+  ],
+  "242687": [
+   "Bindwara Arazi",
+   1358,
+   10
+  ],
+  "242693": [
+   "Shahadat Chak",
+   1358,
+   10
+  ],
+  "242740": [
+   "Jhajha",
+   1358,
+   10
+  ],
+  "242688": [
+   "Mughraura",
+   1358,
+   10
+  ],
+  "242738": [
+   "Faradah",
+   1358,
+   9
+  ],
+  "242598": [
+   "Salempur",
+   1356,
+   10
+  ],
+  "242543": [
+   "Sultanpur",
+   1356,
+   10
+  ],
+  "242737": [
+   "Hiro Diara",
+   1358,
+   9
+  ],
+  "242652": [
+   "Chiraiabad",
+   1357,
+   10
+  ],
+  "242695": [
+   "Godai Chak",
+   1358,
+   10
+  ],
+  "242674": [
+   "Harpur",
+   1358,
+   10
+  ],
+  "242665": [
+   "Shutar Khana Gulalpur",
+   1358,
+   10
+  ],
+  "242677": [
+   "Tajpur",
+   1358,
+   10
+  ],
+  "242678": [
+   "Dayanatnagar",
+   1358,
+   10
+  ],
+  "242646": [
+   "Pasi Chak",
+   1357,
+   6
+  ],
+  "242643": [
+   "Rajdhan",
+   1357,
+   6
+  ],
+  "242684": [
+   "Inglish",
+   1358,
+   10
+  ],
+  "242683": [
+   "Sirajabad Inglish",
+   1358,
+   10
+  ],
+  "242673": [
+   "Fatma Chak",
+   1358,
+   10
+  ],
+  "242686": [
+   "Bishunpur",
+   1358,
+   10
+  ],
+  "242739": [
+   "Mohanddinpur",
+   1358,
+   10
+  ],
+  "242679": [
+   "Lachhumanpur",
+   1358,
+   10
+  ],
+  "242667": [
+   "Mohiuddinpur",
+   1358,
+   10
+  ],
+  "242712": [
+   "Lakheraj",
+   1358,
+   9
+  ],
+  "242716": [
+   "Janipur",
+   1358,
+   5
+  ],
+  "242715": [
+   "Janipur",
+   1358,
+   5
+  ],
+  "242717": [
+   "Janipur",
+   1358,
+   5
+  ],
+  "242718": [
+   "Janipur",
+   1358,
+   5
+  ],
+  "242719": [
+   "Janipur",
+   1358,
+   5
+  ],
+  "242720": [
+   "Janipur",
+   1358,
+   5
+  ],
+  "242721": [
+   "Janipur",
+   1358,
+   5
+  ],
+  "242722": [
+   "Janipur",
+   1358,
+   9
+  ],
+  "242708": [
+   "Mohammadpur",
+   1358,
+   9
+  ],
+  "242705": [
+   "Mohammadpur",
+   1358,
+   9
+  ],
+  "242709": [
+   "Mohammadpur",
+   1358,
+   9
+  ],
+  "242702": [
+   "Mohammadpur",
+   1358,
+   9
+  ],
+  "242728": [
+   "Mohammadpur",
+   1358,
+   9
+  ],
+  "242603": [
+   "Milki Chak",
+   1356,
+   10
+  ],
+  "242555": [
+   "Bakarpur Inglish",
+   1356,
+   10
+  ],
+  "242558": [
+   "Chak Bharthi",
+   1356,
+   10
+  ],
+  "242757": [
+   "Khirodharpur",
+   1359,
+   6
+  ],
+  "242902": [
+   "Adalpur",
+   1359,
+   5
+  ],
+  "242593": [
+   "Mahammadpur",
+   1356,
+   10
+  ],
+  "242723": [
+   "Janipur",
+   1358,
+   9
+  ],
+  "242724": [
+   "Janipur",
+   1358,
+   9
+  ],
+  "242725": [
+   "Janipur",
+   1358,
+   9
+  ],
+  "242711": [
+   "Mohammadpur",
+   1358,
+   9
+  ],
+  "242726": [
+   "Mohammadpur",
+   1358,
+   9
+  ],
+  "242727": [
+   "Mohammadpur",
+   1358,
+   9
+  ],
+  "242710": [
+   "Janipur",
+   1358,
+   9
+  ],
+  "242707": [
+   "Mohammadpur",
+   1358,
+   9
+  ],
+  "242704": [
+   "Mohammadpur",
+   1358,
+   9
+  ],
+  "242703": [
+   "Mohammadpur",
+   1358,
+   9
+  ],
+  "242706": [
+   "Mohammadpur",
+   1358,
+   9
+  ],
+  "242729": [
+   "Janipur",
+   1358,
+   9
+  ],
+  "242732": [
+   "Janipur",
+   1358,
+   9
+  ],
+  "242552": [
+   "Khatib Chak",
+   1356,
+   10
+  ],
+  "242599": [
+   "Salempur",
+   1356,
+   10
+  ],
+  "242814": [
+   "Tola Amjhar",
+   1359,
+   6
+  ],
+  "242906": [
+   "Anantpur",
+   1359,
+   5
+  ],
+  "242905": [
+   "Anantpur",
+   1359,
+   5
+  ],
+  "242904": [
+   "Anantpur",
+   1359,
+   5
+  ],
+  "242903": [
+   "Adalpur",
+   1359,
+   5
+  ],
+  "242901": [
+   "Adalpur",
+   1359,
+   5
+  ],
+  "242900": [
+   "Adalpur",
+   1359,
+   5
+  ],
+  "242899": [
+   "Adalpur",
+   1359,
+   5
+  ],
+  "242898": [
+   "Adalpur",
+   1359,
+   5
+  ],
+  "242897": [
+   "Adalpur",
+   1359,
+   5
+  ],
+  "242896": [
+   "Adalpur",
+   1359,
+   5
+  ],
+  "242894": [
+   "Dharampur",
+   1359,
+   5
+  ],
+  "242878": [
+   "Dharampur",
+   1359,
+   5
+  ],
+  "242881": [
+   "Dharampur",
+   1359,
+   5
+  ],
+  "242578": [
+   "Sundarpur",
+   1356,
+   10
+  ],
+  "242573": [
+   "Hasannagar",
+   1356,
+   10
+  ],
+  "242544": [
+   "Nankar",
+   1356,
+   10
+  ],
+  "242890": [
+   "Puran Chak",
+   1359,
+   5
+  ],
+  "242893": [
+   "Puran Chak",
+   1359,
+   5
+  ],
+  "242891": [
+   "Adalpur",
+   1359,
+   5
+  ],
+  "243074": [
+   "Sajua",
+   1361,
+   8
+  ],
+  "243106": [
+   "Bikrampur",
+   1361,
+   4
+  ],
+  "243078": [
+   "Sajua Milik",
+   1361,
+   8
+  ],
+  "243058": [
+   "Chorgaon",
+   1361,
+   8
+  ],
+  "243094": [
+   "Sadpur",
+   1361,
+   8
+  ],
+  "243060": [
+   "Lagma",
+   1361,
+   4
+  ],
+  "243081": [
+   "Korian",
+   1361,
+   8
+  ],
+  "243072": [
+   "Adras",
+   1361,
+   4
+  ],
+  "243099": [
+   "Chapha",
+   1361,
+   8
+  ],
+  "243073": [
+   "Mamai",
+   1361,
+   4
+  ],
+  "243068": [
+   "Dhuria Arazi",
+   1361,
+   4
+  ],
+  "243071": [
+   "Pansain",
+   1361,
+   4
+  ],
+  "243067": [
+   "Pansain Arazi",
+   1361,
+   4
+  ],
+  "243070": [
+   "Dhuria",
+   1361,
+   4
+  ],
+  "243109": [
+   "Makwa",
+   1361,
+   4
+  ],
+  "243065": [
+   "Mirzapur",
+   1361,
+   4
+  ],
+  "243064": [
+   "Jorari",
+   1361,
+   4
+  ],
+  "243066": [
+   "Berain",
+   1361,
+   4
+  ],
+  "243069": [
+   "Badarkha",
+   1361,
+   4
+  ],
+  "243083": [
+   "Kamrainarazi",
+   1361,
+   8
+  ],
+  "243090": [
+   "Madhopur Inglish",
+   1361,
+   8
+  ],
+  "243061": [
+   "Kharbhatua",
+   1361,
+   4
+  ],
+  "243085": [
+   "Kamrain",
+   1361,
+   8
+  ],
+  "243088": [
+   "Madhopur",
+   1361,
+   8
+  ],
+  "243056": [
+   "Dholpahari Milik",
+   1361,
+   7
+  ],
+  "243104": [
+   "Bakarabad",
+   1361,
+   4
+  ],
+  "243063": [
+   "Beraik Arazi",
+   1361,
+   4
+  ],
+  "243075": [
+   "Sajua Arazi",
+   1361,
+   8
+  ],
+  "243089": [
+   "Sadpur Arazi",
+   1361,
+   8
+  ],
+  "243079": [
+   "Sajua Jagirdari",
+   1361,
+   8
+  ],
+  "243077": [
+   "Sajua Milik",
+   1361,
+   8
+  ],
+  "243102": [
+   "Rahmatpur",
+   1361,
+   4
+  ],
+  "243080": [
+   "Chapha Milik",
+   1361,
+   8
+  ],
+  "243076": [
+   "Sajua Arazi",
+   1361,
+   8
+  ],
+  "243096": [
+   "Masumganj",
+   1361,
+   8
+  ],
+  "243091": [
+   "Sadhopur Inglish",
+   1361,
+   8
+  ],
+  "243057": [
+   "Kaujhi",
+   1361,
+   4
+  ],
+  "243059": [
+   "Parsotimpur Satgharia",
+   1361,
+   8
+  ],
+  "243055": [
+   "Dholphari Mal",
+   1361,
+   7
+  ],
+  "242616": [
+   "Murla",
+   1357,
+   7
+  ],
+  "243092": [
+   "Masudanpur Arazi",
+   1361,
+   8
+  ],
+  "243093": [
+   "Sadpur Inglish",
+   1361,
+   8
+  ],
+  "243084": [
+   "Masudanpur",
+   1361,
+   8
+  ],
+  "243097": [
+   "Damodarpur",
+   1361,
+   8
+  ],
+  "243103": [
+   "Rahmatpur Arazi",
+   1361,
+   4
+  ],
+  "243086": [
+   "Sagrampur Arazi",
+   1361,
+   8
+  ],
+  "243082": [
+   "Sangrampur",
+   1361,
+   8
+  ],
+  "243095": [
+   "Sagrampur Arazi",
+   1361,
+   8
+  ],
+  "243100": [
+   "Sajua Arazi",
+   1361,
+   8
+  ],
+  "243101": [
+   "Kumaitha",
+   1361,
+   8
+  ],
+  "242654": [
+   "Paria CT",
+   1357,
+   7
+  ],
+  "243123": [
+   "Asarganj CT",
+   1361,
+   4
+  ],
+  "242622": [
+   "Binda Diara",
+   1357,
+   11
+  ],
+  "242525": [
+   "Sitalpur",
+   1356,
+   10
+  ],
+  "242538": [
+   "Taufir",
+   1356,
+   12
+  ],
+  "242473": [
+   "Tikarampur",
+   1356,
+   12
+  ],
+  "242530": [
+   "Mirzapur Bardah",
+   1356,
+   10
+  ],
+  "242523": [
+   "Shankarpur",
+   1356,
+   10
+  ],
+  "242557": [
+   "Kataria",
+   1356,
+   10
+  ],
+  "242527": [
+   "Khatib Chak",
+   1356,
+   10
+  ],
+  "242569": [
+   "Shakarpur",
+   1356,
+   10
+  ],
+  "242522": [
+   "Mahuli Arazi",
+   1356,
+   10
+  ],
+  "242521": [
+   "Kazi Chak",
+   1356,
+   10
+  ],
+  "242485": [
+   "Sham Kita",
+   1356,
+   12
+  ],
+  "242480": [
+   "Bhagwan Singh Jagir",
+   1356,
+   12
+  ],
+  "242532": [
+   "Nankar",
+   1356,
+   10
+  ],
+  "242529": [
+   "Khatib Chak Arazi",
+   1356,
+   10
+  ],
+  "242528": [
+   "Parsotimpur",
+   1356,
+   10
+  ],
+  "242533": [
+   "Sultanpur",
+   1356,
+   10
+  ],
+  "242534": [
+   "Dhan Rajepur",
+   1356,
+   10
+  ],
+  "242536": [
+   "Manikpur",
+   1356,
+   10
+  ],
+  "242520": [
+   "Lachhanpur",
+   1356,
+   10
+  ],
+  "242519": [
+   "Gobindpur",
+   1356,
+   12
+  ],
+  "242518": [
+   "Kanhari Chak",
+   1356,
+   12
+  ],
+  "242490": [
+   "Shamaspur",
+   1356,
+   12
+  ],
+  "242568": [
+   "Mai",
+   1356,
+   10
+  ],
+  "242570": [
+   "Chak Ibrahim",
+   1356,
+   10
+  ],
+  "242571": [
+   "Ajodhya",
+   1356,
+   10
+  ],
+  "242524": [
+   "Sikandrapur",
+   1356,
+   10
+  ],
+  "242608": [
+   "Jafarnagar",
+   1356,
+   9
+  ],
+  "242486": [
+   "Harnathpur",
+   1356,
+   12
+  ],
+  "242541": [
+   "Nankar",
+   1356,
+   10
+  ],
+  "242498": [
+   "Parsotimpur",
+   1356,
+   12
+  ],
+  "242535": [
+   "Mirzapur Bardah",
+   1356,
+   10
+  ],
+  "242496": [
+   "Tilak Singh Arazi",
+   1356,
+   12
+  ],
+  "242500": [
+   "Manik Singh",
+   1356,
+   12
+  ],
+  "242508": [
+   "Sarmastpur",
+   1356,
+   12
+  ],
+  "242491": [
+   "Khoda Baksh",
+   1356,
+   12
+  ],
+  "242516": [
+   "Gondar Chak",
+   1356,
+   12
+  ],
+  "242531": [
+   "Nankar Arazi",
+   1356,
+   10
+  ],
+  "242504": [
+   "Parsotimpurjagirhayat Mohammad",
+   1356,
+   12
+  ],
+  "242505": [
+   "Kishunpur",
+   1356,
+   10
+  ],
+  "242502": [
+   "Sultanpur Arazi",
+   1356,
+   12
+  ],
+  "242506": [
+   "Surji",
+   1356,
+   12
+  ],
+  "242507": [
+   "Shankarpur",
+   1356,
+   12
+  ],
+  "242517": [
+   "Mahuli",
+   1356,
+   12
+  ],
+  "242489": [
+   "Rahmatullah Jagir",
+   1356,
+   12
+  ],
+  "242488": [
+   "Kamarpur",
+   1356,
+   12
+  ],
+  "242492": [
+   "Naraen Daktar",
+   1356,
+   12
+  ],
+  "242509": [
+   "Usri",
+   1356,
+   12
+  ],
+  "242493": [
+   "Reaz Ali",
+   1356,
+   12
+  ],
+  "242487": [
+   "Alilashkarpur",
+   1356,
+   12
+  ],
+  "242497": [
+   "Kasimpur",
+   1356,
+   12
+  ],
+  "242495": [
+   "Bahadur Khan",
+   1356,
+   12
+  ],
+  "242484": [
+   "Kasimabad",
+   1356,
+   12
+  ],
+  "242481": [
+   "Bhagwan Singh Jagir",
+   1356,
+   12
+  ],
+  "242478": [
+   "Kaem Khan Jagir",
+   1356,
+   12
+  ],
+  "242482": [
+   "Mulki Hawaldar Jagir",
+   1356,
+   12
+  ],
+  "242483": [
+   "Sadullah Jagir",
+   1356,
+   12
+  ],
+  "242539": [
+   "Bhelwa",
+   1356,
+   11
+  ],
+  "242476": [
+   "Mangli Khan Jagir",
+   1356,
+   12
+  ],
+  "242475": [
+   "Paran Singh Jagir",
+   1356,
+   12
+  ],
+  "242474": [
+   "Hulasarai Jagir",
+   1356,
+   12
+  ],
+  "242477": [
+   "Ganga Prashad",
+   1356,
+   12
+  ],
+  "242609": [
+   "Sawal Khas",
+   1356,
+   12
+  ],
+  "242512": [
+   "Harnathpur Barni",
+   1356,
+   12
+  ],
+  "242575": [
+   "Chakbir",
+   1356,
+   10
+  ],
+  "242587": [
+   "Sajawalpur",
+   1356,
+   10
+  ],
+  "242590": [
+   "Inglish",
+   1356,
+   10
+  ],
+  "242581": [
+   "Nawada",
+   1356,
+   10
+  ],
+  "242584": [
+   "Shakarpur Lakheraj",
+   1356,
+   10
+  ],
+  "242592": [
+   "Kasim Chak",
+   1356,
+   10
+  ],
+  "242596": [
+   "Sirmatpur",
+   1356,
+   10
+  ],
+  "242586": [
+   "Muzaffarpur Kasimpur",
+   1356,
+   10
+  ],
+  "242595": [
+   "Sarmadpur",
+   1356,
+   10
+  ],
+  "242574": [
+   "Mahuli",
+   1356,
+   10
+  ],
+  "242576": [
+   "Gobindpur",
+   1356,
+   10
+  ],
+  "242567": [
+   "Nandlalpur",
+   1356,
+   10
+  ],
+  "242560": [
+   "Paduman Chak",
+   1356,
+   10
+  ],
+  "242594": [
+   "Kasimpur",
+   1356,
+   10
+  ],
+  "242588": [
+   "Sajawalpur",
+   1356,
+   10
+  ],
+  "242563": [
+   "Ghansham Chak",
+   1356,
+   10
+  ],
+  "242572": [
+   "Hasannagar",
+   1356,
+   10
+  ],
+  "242564": [
+   "Sitalpur",
+   1356,
+   10
+  ],
+  "242583": [
+   "Gobindpur",
+   1356,
+   10
+  ],
+  "242585": [
+   "Hasannagar",
+   1356,
+   10
+  ],
+  "242503": [
+   "Parsotimpur Jagir Nur Mohammad",
+   1356,
+   12
+  ],
+  "242501": [
+   "Madhe Singh Inglish",
+   1356,
+   12
+  ],
+  "242494": [
+   "Jagarnath Singh",
+   1356,
+   12
+  ],
+  "242510": [
+   "Sundharpur Samilat",
+   1356,
+   12
+  ],
+  "242515": [
+   "Lachhanpur",
+   1356,
+   12
+  ],
+  "242511": [
+   "Khem Narayanpur",
+   1356,
+   12
+  ],
+  "242514": [
+   "Basdeopur",
+   1356,
+   10
+  ],
+  "242513": [
+   "Amarpur",
+   1356,
+   10
+  ],
+  "242479": [
+   "Kudaratulah Jagir",
+   1356,
+   12
+  ],
+  "242566": [
+   "Chak Mansingh",
+   1356,
+   10
+  ],
+  "242562": [
+   "Paduman Chak",
+   1356,
+   10
+  ],
+  "242580": [
+   "Gobindpur",
+   1356,
+   10
+  ],
+  "242561": [
+   "Ganga Chak",
+   1356,
+   10
+  ],
+  "242582": [
+   "Hasannagar",
+   1356,
+   10
+  ],
+  "242589": [
+   "Chak Rajdhar",
+   1356,
+   10
+  ],
+  "242565": [
+   "Mina Chak",
+   1356,
+   10
+  ]
+ },
+ "village_count_total": 865,
+ "village_count_assigned": 865
+}

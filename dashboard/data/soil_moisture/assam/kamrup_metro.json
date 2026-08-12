@@ -1,0 +1,1263 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Assam",
+  "district": "Kamrup Metro",
+  "district_lgd": 618,
+  "observation_window": "2026-08-07T11:02Z to 2026-08-12T11:02Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3695,
+  "sm_surface_stddev": 0.0374,
+  "sm_rootzone_mean": 0.366,
+  "sm_rootzone_stddev": 0.0439,
+  "n_cells": 9,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 26.0377,
+    "lon": 91.9471,
+    "sm_surface": 0.4344,
+    "sm_rootzone": 0.4537,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 1,
+    "lat": 26.0377,
+    "lon": 92.0459,
+    "sm_surface": 0.431,
+    "sm_rootzone": 0.4292,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 2,
+    "lat": 26.1365,
+    "lon": 91.6506,
+    "sm_surface": 0.3523,
+    "sm_rootzone": 0.3456,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 3,
+    "lat": 26.1365,
+    "lon": 91.7494,
+    "sm_surface": 0.3737,
+    "sm_rootzone": 0.3671,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 4,
+    "lat": 26.1365,
+    "lon": 91.8482,
+    "sm_surface": 0.3726,
+    "sm_rootzone": 0.3699,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 5,
+    "lat": 26.1365,
+    "lon": 91.9471,
+    "sm_surface": 0.3551,
+    "sm_rootzone": 0.35,
+    "n_villages_sharing_cell": 38
+   },
+   {
+    "cell_index": 6,
+    "lat": 26.1365,
+    "lon": 92.0459,
+    "sm_surface": 0.3502,
+    "sm_rootzone": 0.3369,
+    "n_villages_sharing_cell": 51
+   },
+   {
+    "cell_index": 7,
+    "lat": 26.1365,
+    "lon": 92.1447,
+    "sm_surface": 0.3404,
+    "sm_rootzone": 0.3251,
+    "n_villages_sharing_cell": 27
+   },
+   {
+    "cell_index": 8,
+    "lat": 26.2353,
+    "lon": 91.9471,
+    "sm_surface": 0.316,
+    "sm_rootzone": 0.3166,
+    "n_villages_sharing_cell": 31
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3601,
+  "sm_surface_stddev": 0.0159,
+  "n_blocks": 5
+ },
+ "blocks": [
+  {
+   "block_name": "Azara",
+   "sdcode": 2127,
+   "n_villages": 28,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3569,
+   "sm_surface_stddev": 0.0088
+  },
+  {
+   "block_name": "Chandrapur",
+   "sdcode": 2131,
+   "n_villages": 44,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3307,
+   "sm_surface_stddev": 0.0232
+  },
+  {
+   "block_name": "Dispur",
+   "sdcode": 2129,
+   "n_villages": 7,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3728,
+   "sm_surface_stddev": 0.0004
+  },
+  {
+   "block_name": "Guwahati",
+   "sdcode": 2128,
+   "n_villages": 2,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.3737,
+   "sm_surface_stddev": 0.0
+  },
+  {
+   "block_name": "Sonapur",
+   "sdcode": 2130,
+   "n_villages": 147,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.3662,
+   "sm_surface_stddev": 0.0329
+  }
+ ],
+ "villages": {
+  "303606": [
+   "Kurkuria Grant",
+   2131,
+   5
+  ],
+  "303460": [
+   "Batakuchi N C",
+   2130,
+   5
+  ],
+  "249854": [
+   "Guwahati",
+   2128,
+   3
+  ],
+  "303405": [
+   "Garbhanga N C",
+   2127,
+   3
+  ],
+  "303404": [
+   "Lakhara",
+   2127,
+   3
+  ],
+  "303401": [
+   "Gog",
+   2127,
+   3
+  ],
+  "303402": [
+   "Gog N C",
+   2127,
+   3
+  ],
+  "303403": [
+   "Lakhara N C",
+   2127,
+   3
+  ],
+  "303398": [
+   "Pamehi",
+   2127,
+   2
+  ],
+  "303417": [
+   "Deurali",
+   2127,
+   2
+  ],
+  "303416": [
+   "Pacheniapara",
+   2127,
+   2
+  ],
+  "303414": [
+   "Matikutni",
+   2127,
+   2
+  ],
+  "303413": [
+   "Jogipara",
+   2127,
+   2
+  ],
+  "303412": [
+   "Jabe",
+   2127,
+   2
+  ],
+  "303411": [
+   "Pat Gaon",
+   2127,
+   2
+  ],
+  "303410": [
+   "Barjhar",
+   2127,
+   2
+  ],
+  "303407": [
+   "Mirzapur",
+   2127,
+   2
+  ],
+  "303409": [
+   "Agcia",
+   2127,
+   2
+  ],
+  "303406": [
+   "Mikirpara Chokardoi",
+   2127,
+   2
+  ],
+  "303408": [
+   "Kendukuchi",
+   2127,
+   2
+  ],
+  "303418": [
+   "Jangaliapara",
+   2127,
+   2
+  ],
+  "303415": [
+   "Kamar Gaon",
+   2127,
+   2
+  ],
+  "303399": [
+   "Char Majir N C",
+   2127,
+   2
+  ],
+  "303400": [
+   "Chanchali",
+   2127,
+   2
+  ],
+  "303422": [
+   "Kahi Kuchi CT",
+   2127,
+   2
+  ],
+  "303419": [
+   "Azara CT",
+   2127,
+   2
+  ],
+  "303420": [
+   "Garal CT",
+   2127,
+   2
+  ],
+  "303421": [
+   "Majir Gaon CT",
+   2127,
+   2
+  ],
+  "303423": [
+   "Dharapur CT",
+   2127,
+   2
+  ],
+  "999999": [
+   "South Amsang R F",
+   2130,
+   5
+  ],
+  "303482": [
+   "Aparikola Gaon",
+   2130,
+   0
+  ],
+  "303497": [
+   "Barkacharang N C",
+   2130,
+   1
+  ],
+  "303495": [
+   "Kakar N C",
+   2130,
+   0
+  ],
+  "303494": [
+   "Bandargog N C",
+   2130,
+   1
+  ],
+  "303496": [
+   "Tegheria N C",
+   2130,
+   1
+  ],
+  "303473": [
+   "Sarutari N C",
+   2130,
+   0
+  ],
+  "303493": [
+   "Aparikola N C",
+   2130,
+   0
+  ],
+  "303481": [
+   "Moupur Gaon",
+   2130,
+   0
+  ],
+  "303483": [
+   "Barni",
+   2130,
+   0
+  ],
+  "303466": [
+   "Sarutari Gaon",
+   2130,
+   0
+  ],
+  "303467": [
+   "Tamulikuchi Gaon",
+   2130,
+   4
+  ],
+  "303472": [
+   "Maragdola N C",
+   2130,
+   0
+  ],
+  "303474": [
+   "Ambher N C",
+   2130,
+   4
+  ],
+  "303468": [
+   "Ambher Gaon",
+   2130,
+   4
+  ],
+  "303448": [
+   "Kamarkuchi",
+   2130,
+   4
+  ],
+  "303450": [
+   "Upar Tepechia N C",
+   2130,
+   5
+  ],
+  "303445": [
+   "Kamarkuchi N C",
+   2130,
+   5
+  ],
+  "303449": [
+   "Amerigog N C",
+   2130,
+   4
+  ],
+  "303439": [
+   "Amseng",
+   2130,
+   4
+  ],
+  "303444": [
+   "Bozra N C",
+   2130,
+   4
+  ],
+  "303443": [
+   "Amseng N C",
+   2130,
+   4
+  ],
+  "303446": [
+   "Tepechia",
+   2130,
+   5
+  ],
+  "303465": [
+   "Maragdala",
+   2130,
+   0
+  ],
+  "303471": [
+   "Sonai N C",
+   2130,
+   5
+  ],
+  "303451": [
+   "Tepechia N C",
+   2130,
+   5
+  ],
+  "303452": [
+   "Karchia N C",
+   2130,
+   5
+  ],
+  "303442": [
+   "Bamunkhat N C",
+   2130,
+   5
+  ],
+  "303438": [
+   "Bamunkhat",
+   2130,
+   5
+  ],
+  "303437": [
+   "Ghagua Gaon",
+   2130,
+   5
+  ],
+  "303453": [
+   "Batakuchi",
+   2130,
+   5
+  ],
+  "303447": [
+   "Kachia Gaon",
+   2130,
+   5
+  ],
+  "303470": [
+   "Kamalajari N C",
+   2130,
+   5
+  ],
+  "303492": [
+   "Moupur N C",
+   2130,
+   0
+  ],
+  "303480": [
+   "Dhemai Gaon",
+   2130,
+   0
+  ],
+  "303491": [
+   "Dhemai N C",
+   2130,
+   0
+  ],
+  "303490": [
+   "Lofar N C",
+   2130,
+   0
+  ],
+  "303478": [
+   "Nartap",
+   2130,
+   0
+  ],
+  "303489": [
+   "Nartap N C",
+   2130,
+   0
+  ],
+  "303487": [
+   "Bhakuagog N C",
+   2130,
+   0
+  ],
+  "303477": [
+   "Luri Gaon",
+   2130,
+   0
+  ],
+  "303484": [
+   "Luri Grant",
+   2130,
+   0
+  ],
+  "303488": [
+   "Luri N C",
+   2130,
+   0
+  ],
+  "303476": [
+   "Bhakuagog",
+   2130,
+   5
+  ],
+  "303485": [
+   "Barkuchi N C",
+   2130,
+   6
+  ],
+  "303535": [
+   "Khat Tetelia N C",
+   2130,
+   6
+  ],
+  "303475": [
+   "Barkuchi",
+   2130,
+   5
+  ],
+  "303504": [
+   "Dikchak N C",
+   2130,
+   6
+  ],
+  "303464": [
+   "Sonai Gaon",
+   2130,
+   0
+  ],
+  "303463": [
+   "Kamalajari Gaon",
+   2130,
+   5
+  ],
+  "303469": [
+   "Loflong N C",
+   2130,
+   5
+  ],
+  "303462": [
+   "Loflong",
+   2130,
+   5
+  ],
+  "303459": [
+   "Dhamara Pathar",
+   2130,
+   5
+  ],
+  "303461": [
+   "Barkhat N C",
+   2130,
+   5
+  ],
+  "303458": [
+   "Barkhat Gaon",
+   2130,
+   5
+  ],
+  "303457": [
+   "Sialekhaiti",
+   2130,
+   5
+  ],
+  "303456": [
+   "Moirakuchi",
+   2130,
+   5
+  ],
+  "303454": [
+   "Dhangiri",
+   2130,
+   5
+  ],
+  "303455": [
+   "Lomati",
+   2130,
+   5
+  ],
+  "303436": [
+   "Juboi",
+   2130,
+   5
+  ],
+  "303441": [
+   "Digarupar N C",
+   2130,
+   5
+  ],
+  "303501": [
+   "Kachutali Pathar",
+   2130,
+   6
+  ],
+  "303500": [
+   "Sonapur Pathar",
+   2130,
+   5
+  ],
+  "303503": [
+   "Dikchak",
+   2130,
+   5
+  ],
+  "303486": [
+   "Tamuli Kuchi N C",
+   2130,
+   6
+  ],
+  "303502": [
+   "Chamata Pathar",
+   2130,
+   6
+  ],
+  "303511": [
+   "Bajeni Gaon",
+   2130,
+   6
+  ],
+  "303519": [
+   "Bejeni Grant",
+   2130,
+   6
+  ],
+  "303509": [
+   "Bargog",
+   2130,
+   6
+  ],
+  "303521": [
+   "Bargog N C",
+   2130,
+   6
+  ],
+  "303518": [
+   "Gomaria Bagicha",
+   2130,
+   6
+  ],
+  "303520": [
+   "Gomaria Pathar",
+   2130,
+   6
+  ],
+  "303512": [
+   "Gomaria Gaon",
+   2130,
+   6
+  ],
+  "303513": [
+   "Gomaria N C",
+   2130,
+   6
+  ],
+  "303515": [
+   "Amara Pathar N C",
+   2130,
+   6
+  ],
+  "303525": [
+   "Teteliguri Pathar",
+   2130,
+   6
+  ],
+  "303529": [
+   "Khat Tetelia",
+   2130,
+   6
+  ],
+  "303532": [
+   "Teteliguri N C",
+   2130,
+   6
+  ],
+  "303479": [
+   "Lofar Gaon",
+   2130,
+   0
+  ],
+  "303528": [
+   "Tetelia Pathar",
+   2130,
+   6
+  ],
+  "303581": [
+   "Kharghuli N C",
+   2131,
+   4
+  ],
+  "303597": [
+   "Kamarpur Village",
+   2131,
+   8
+  ],
+  "303596": [
+   "Kamarpur Pahar",
+   2131,
+   8
+  ],
+  "303598": [
+   "Dhamkhunda",
+   2131,
+   5
+  ],
+  "303595": [
+   "Dhamkhunda",
+   2131,
+   8
+  ],
+  "303594": [
+   "Govali",
+   2131,
+   8
+  ],
+  "303600": [
+   "Dhipujijan Pam",
+   2131,
+   8
+  ],
+  "303599": [
+   "Dhipuji Pathar",
+   2131,
+   8
+  ],
+  "303623": [
+   "Borbila Bill",
+   2131,
+   8
+  ],
+  "303593": [
+   "Ghoramarajan Pam",
+   2131,
+   8
+  ],
+  "303592": [
+   "Gobardhan Grant",
+   2131,
+   8
+  ],
+  "303591": [
+   "Hatibagara",
+   2131,
+   8
+  ],
+  "303589": [
+   "Kajalichowki",
+   2131,
+   8
+  ],
+  "303587": [
+   "Chandrapur",
+   2131,
+   8
+  ],
+  "303607": [
+   "Juboi",
+   2131,
+   5
+  ],
+  "303608": [
+   "Gharua",
+   2131,
+   5
+  ],
+  "303618": [
+   "Thakurkuchi N C",
+   2131,
+   5
+  ],
+  "303617": [
+   "Birkuchi",
+   2131,
+   4
+  ],
+  "303615": [
+   "Bonda",
+   2131,
+   4
+  ],
+  "303616": [
+   "Bonda",
+   2131,
+   4
+  ],
+  "303605": [
+   "Niz Panbari",
+   2131,
+   8
+  ],
+  "303604": [
+   "Michamari",
+   2131,
+   8
+  ],
+  "303601": [
+   "Michamari",
+   2131,
+   8
+  ],
+  "303586": [
+   "Tatimara",
+   2131,
+   8
+  ],
+  "303588": [
+   "Chandrapur",
+   2131,
+   8
+  ],
+  "303602": [
+   "Thakurkuchi Gaon",
+   2131,
+   8
+  ],
+  "303603": [
+   "Thakurbari",
+   2131,
+   8
+  ],
+  "303619": [
+   "Khankar N C",
+   2131,
+   8
+  ],
+  "303611": [
+   "Hojobari",
+   2131,
+   8
+  ],
+  "303585": [
+   "Barchapahi",
+   2131,
+   8
+  ],
+  "303584": [
+   "Hojobari",
+   2131,
+   8
+  ],
+  "303583": [
+   "Khankar",
+   2131,
+   8
+  ],
+  "303612": [
+   "Khankar",
+   2131,
+   8
+  ],
+  "303613": [
+   "Panikhati",
+   2131,
+   4
+  ],
+  "303433": [
+   "Tintukura N C",
+   2129,
+   4
+  ],
+  "303582": [
+   "Panikhaiti",
+   2131,
+   4
+  ],
+  "303614": [
+   "Kharghuli",
+   2131,
+   4
+  ],
+  "303609": [
+   "Niz Panbari",
+   2131,
+   8
+  ],
+  "303434": [
+   "Kharghuli",
+   2129,
+   4
+  ],
+  "303431": [
+   "Bonda Grant",
+   2129,
+   4
+  ],
+  "303432": [
+   "Bonda Grant",
+   2129,
+   4
+  ],
+  "303430": [
+   "Kalitakuchi N C",
+   2129,
+   4
+  ],
+  "303440": [
+   "Bozra",
+   2130,
+   4
+  ],
+  "303590": [
+   "Mikirpam",
+   2131,
+   8
+  ],
+  "303610": [
+   "Ahorigog",
+   2131,
+   8
+  ],
+  "303621": [
+   "Hajobari N C",
+   2131,
+   8
+  ],
+  "303622": [
+   "Niz Panbari N C",
+   2131,
+   8
+  ],
+  "303620": [
+   "Michamari N C",
+   2131,
+   4
+  ],
+  "303559": [
+   "Ouzari",
+   2130,
+   7
+  ],
+  "303575": [
+   "Nibira N C",
+   2130,
+   7
+  ],
+  "303576": [
+   "Topatoli N C",
+   2130,
+   7
+  ],
+  "303499": [
+   "Uppar Killing N C",
+   2130,
+   1
+  ],
+  "303498": [
+   "Kalangpur N C",
+   2130,
+   1
+  ],
+  "303570": [
+   "Topatoli Gaon",
+   2130,
+   7
+  ],
+  "303571": [
+   "Nibira",
+   2130,
+   7
+  ],
+  "303573": [
+   "Bherakuchi Pathar",
+   2130,
+   7
+  ],
+  "303572": [
+   "Bherakuchi Gaon",
+   2130,
+   7
+  ],
+  "303577": [
+   "Bejeni N C",
+   2130,
+   7
+  ],
+  "303510": [
+   "Hahara Gaon",
+   2130,
+   6
+  ],
+  "303505": [
+   "Amarapathar",
+   2130,
+   6
+  ],
+  "303506": [
+   "Bagibari Pathar",
+   2130,
+   6
+  ],
+  "303507": [
+   "Hahara Pathar",
+   2130,
+   6
+  ],
+  "303517": [
+   "Hahara N C",
+   2130,
+   6
+  ],
+  "303516": [
+   "Mitani N C",
+   2130,
+   6
+  ],
+  "303514": [
+   "Mitani Gaon",
+   2130,
+   6
+  ],
+  "303557": [
+   "Maloibari Pathar",
+   2130,
+   6
+  ],
+  "303508": [
+   "Mitani Pathar",
+   2130,
+   6
+  ],
+  "303534": [
+   "Rewa N C",
+   2130,
+   6
+  ],
+  "303522": [
+   "Rewa Gaon",
+   2130,
+   6
+  ],
+  "303533": [
+   "Lomsum N C",
+   2130,
+   6
+  ],
+  "303536": [
+   "Tegheria Gaon",
+   2130,
+   6
+  ],
+  "303538": [
+   "Khaloibari",
+   2130,
+   6
+  ],
+  "303543": [
+   "Khaloibari N C",
+   2130,
+   6
+  ],
+  "303544": [
+   "Bhogpur N C",
+   2130,
+   6
+  ],
+  "303567": [
+   "Talani N C",
+   2130,
+   6
+  ],
+  "303566": [
+   "Dharbam",
+   2130,
+   7
+  ],
+  "303541": [
+   "Bhogpur",
+   2130,
+   6
+  ],
+  "303540": [
+   "Salana",
+   2130,
+   6
+  ],
+  "303531": [
+   "Tetelia N C",
+   2130,
+   6
+  ],
+  "303527": [
+   "Tetelia Gaon",
+   2130,
+   6
+  ],
+  "303530": [
+   "Lomsum Gaon",
+   2130,
+   6
+  ],
+  "303524": [
+   "Teteliguri",
+   2130,
+   6
+  ],
+  "303526": [
+   "Lomsum Pathar",
+   2130,
+   6
+  ],
+  "303523": [
+   "Rewa Pathar",
+   2130,
+   6
+  ],
+  "303539": [
+   "Helagog",
+   2130,
+   6
+  ],
+  "303537": [
+   "Tegheria Gaon",
+   2130,
+   6
+  ],
+  "303545": [
+   "Ulubam",
+   2130,
+   6
+  ],
+  "303550": [
+   "Maloibari Gaon",
+   2130,
+   6
+  ],
+  "303551": [
+   "Maloibari Jangle",
+   2130,
+   7
+  ],
+  "303552": [
+   "Pub Maloibari",
+   2130,
+   7
+  ],
+  "303547": [
+   "Kendubam",
+   2130,
+   6
+  ],
+  "303548": [
+   "Kendubam Bagicha",
+   2130,
+   6
+  ],
+  "303546": [
+   "Senabar",
+   2130,
+   7
+  ],
+  "303549": [
+   "Sakurabori",
+   2130,
+   7
+  ],
+  "303553": [
+   "Durung",
+   2130,
+   7
+  ],
+  "303560": [
+   "Gaon Dimoria",
+   2130,
+   7
+  ],
+  "303562": [
+   "Ullani",
+   2130,
+   7
+  ],
+  "303563": [
+   "Tamhalong",
+   2130,
+   7
+  ],
+  "303565": [
+   "Dakhin Dimoria",
+   2130,
+   7
+  ],
+  "303568": [
+   "Killing N C",
+   2130,
+   7
+  ],
+  "303564": [
+   "Uttar Dimoria",
+   2130,
+   7
+  ],
+  "303569": [
+   "Kahikuchi",
+   2130,
+   7
+  ],
+  "303555": [
+   "Ouzari",
+   2130,
+   7
+  ],
+  "303554": [
+   "Murkata",
+   2130,
+   7
+  ],
+  "303556": [
+   "Maloibari N C",
+   2130,
+   7
+  ],
+  "303561": [
+   "Niz Dimoria",
+   2130,
+   7
+  ],
+  "303558": [
+   "Ouzari",
+   2130,
+   7
+  ],
+  "303542": [
+   "Tegharia N C",
+   2130,
+   6
+  ],
+  "303574": [
+   "Bherakuchi N C",
+   2130,
+   7
+  ],
+  "303579": [
+   "Barua Bari Gaon CT",
+   2130,
+   5
+  ],
+  "303580": [
+   "Sonapur Gaon CT",
+   2130,
+   5
+  ],
+  "303578": [
+   "Digaru Gaon Digarubar Gaon CT",
+   2130,
+   5
+  ],
+  "303624": [
+   "Chandrapur Baghicha CT",
+   2131,
+   8
+  ],
+  "303435": [
+   "Narengi OG",
+   2129,
+   4
+  ]
+ },
+ "village_count_total": 228,
+ "village_count_assigned": 228
+}

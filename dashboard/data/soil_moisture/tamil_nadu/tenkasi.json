@@ -1,0 +1,1390 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Tamil Nadu",
+  "district": "Tenkasi",
+  "district_lgd": 733,
+  "observation_window": "2026-08-07T11:25Z to 2026-08-12T11:25Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.1977,
+  "sm_surface_stddev": 0.0736,
+  "sm_rootzone_mean": 0.1807,
+  "sm_rootzone_stddev": 0.0837,
+  "n_cells": 22,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 8.8439,
+    "lon": 77.4213,
+    "sm_surface": 0.1878,
+    "sm_rootzone": 0.1425,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 1,
+    "lat": 8.8439,
+    "lon": 77.5201,
+    "sm_surface": 0.1476,
+    "sm_rootzone": 0.1255,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 2,
+    "lat": 8.9427,
+    "lon": 77.2237,
+    "sm_surface": 0.389,
+    "sm_rootzone": 0.3926,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 3,
+    "lat": 8.9427,
+    "lon": 77.3225,
+    "sm_surface": 0.2215,
+    "sm_rootzone": 0.1696,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 4,
+    "lat": 8.9427,
+    "lon": 77.4213,
+    "sm_surface": 0.1789,
+    "sm_rootzone": 0.1402,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 5,
+    "lat": 8.9427,
+    "lon": 77.5201,
+    "sm_surface": 0.1383,
+    "sm_rootzone": 0.1217,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 6,
+    "lat": 8.9427,
+    "lon": 77.6189,
+    "sm_surface": 0.123,
+    "sm_rootzone": 0.1147,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 7,
+    "lat": 9.0415,
+    "lon": 77.2237,
+    "sm_surface": 0.3872,
+    "sm_rootzone": 0.39,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 8,
+    "lat": 9.0415,
+    "lon": 77.3225,
+    "sm_surface": 0.2224,
+    "sm_rootzone": 0.1591,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 9,
+    "lat": 9.0415,
+    "lon": 77.4213,
+    "sm_surface": 0.1772,
+    "sm_rootzone": 0.1388,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 10,
+    "lat": 9.0415,
+    "lon": 77.5201,
+    "sm_surface": 0.1331,
+    "sm_rootzone": 0.1196,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 11,
+    "lat": 9.0415,
+    "lon": 77.6189,
+    "sm_surface": 0.1173,
+    "sm_rootzone": 0.1126,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 12,
+    "lat": 9.1404,
+    "lon": 77.3225,
+    "sm_surface": 0.248,
+    "sm_rootzone": 0.2089,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 13,
+    "lat": 9.1404,
+    "lon": 77.4213,
+    "sm_surface": 0.1727,
+    "sm_rootzone": 0.1378,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 14,
+    "lat": 9.1404,
+    "lon": 77.5201,
+    "sm_surface": 0.123,
+    "sm_rootzone": 0.1178,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 15,
+    "lat": 9.1404,
+    "lon": 77.6189,
+    "sm_surface": 0.2339,
+    "sm_rootzone": 0.269,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 16,
+    "lat": 9.2392,
+    "lon": 77.3225,
+    "sm_surface": 0.2538,
+    "sm_rootzone": 0.2082,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 17,
+    "lat": 9.2392,
+    "lon": 77.4213,
+    "sm_surface": 0.1677,
+    "sm_rootzone": 0.1294,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 18,
+    "lat": 9.2392,
+    "lon": 77.5201,
+    "sm_surface": 0.1188,
+    "sm_rootzone": 0.112,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 19,
+    "lat": 9.2392,
+    "lon": 77.6189,
+    "sm_surface": 0.2289,
+    "sm_rootzone": 0.2725,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 20,
+    "lat": 9.2392,
+    "lon": 77.7177,
+    "sm_surface": 0.2101,
+    "sm_rootzone": 0.2646,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 21,
+    "lat": 9.338,
+    "lon": 77.4213,
+    "sm_surface": 0.1682,
+    "sm_rootzone": 0.1292,
+    "n_villages_sharing_cell": 5
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2036,
+  "sm_surface_stddev": 0.0716,
+  "n_blocks": 6
+ },
+ "blocks": [
+  {
+   "block_name": "Alangulam",
+   "sdcode": 5875,
+   "n_villages": 34,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.1567,
+   "sm_surface_stddev": 0.0213
+  },
+  {
+   "block_name": "Sankarankoil",
+   "sdcode": 5871,
+   "n_villages": 87,
+   "n_cells_spanned": 10,
+   "sm_surface_mean": 0.1728,
+   "sm_surface_stddev": 0.0508
+  },
+  {
+   "block_name": "Shenkottai",
+   "sdcode": 5874,
+   "n_villages": 20,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.3548,
+   "sm_surface_stddev": 0.0664
+  },
+  {
+   "block_name": "Sivagiri",
+   "sdcode": 5870,
+   "n_villages": 24,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.1686,
+   "sm_surface_stddev": 0.0227
+  },
+  {
+   "block_name": "Tenkasi",
+   "sdcode": 5873,
+   "n_villages": 38,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.2219,
+   "sm_surface_stddev": 0.0453
+  },
+  {
+   "block_name": "Veerakeralamputhur",
+   "sdcode": 5872,
+   "n_villages": 23,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.1469,
+   "sm_surface_stddev": 0.0215
+  }
+ ],
+ "villages": {
+  "642784": [
+   "Kunnakudi",
+   5874,
+   3
+  ],
+  "253000": [
+   "Melagaram Tp",
+   5873,
+   3
+  ],
+  "642764": [
+   "Pattappathu",
+   5873,
+   3
+  ],
+  "642785": [
+   "Vallam Part",
+   5874,
+   2
+  ],
+  "252997": [
+   "Tenkasi M",
+   5873,
+   3
+  ],
+  "252999": [
+   "Ilanji Tp",
+   5873,
+   3
+  ],
+  "642759": [
+   "Tiruchitrambalam",
+   5873,
+   4
+  ],
+  "642760": [
+   "Melapavoor",
+   5873,
+   4
+  ],
+  "642761": [
+   "Kulasekarapatti",
+   5873,
+   4
+  ],
+  "642762": [
+   "Gunaramanallur",
+   5873,
+   3
+  ],
+  "642765": [
+   "Courtallam",
+   5873,
+   3
+  ],
+  "642740": [
+   "Vellakal",
+   5872,
+   4
+  ],
+  "642767": [
+   "Mathalamparai",
+   5873,
+   3
+  ],
+  "642775": [
+   "Courtallam Slopes R F",
+   5873,
+   2
+  ],
+  "253001": [
+   "Courtalam Tp",
+   5873,
+   2
+  ],
+  "253007": [
+   "Kilapavoor Tp",
+   5875,
+   4
+  ],
+  "642766": [
+   "Ayiraperi",
+   5873,
+   3
+  ],
+  "642769": [
+   "Kallurani",
+   5873,
+   3
+  ],
+  "642770": [
+   "Thippampatti",
+   5873,
+   3
+  ],
+  "642805": [
+   "Pethanadarpatti",
+   5875,
+   0
+  ],
+  "642768": [
+   "Sillaraipuravu",
+   5873,
+   3
+  ],
+  "642771": [
+   "Avudaiyanoor",
+   5873,
+   0
+  ],
+  "642804": [
+   "Poolankulam",
+   5875,
+   0
+  ],
+  "642806": [
+   "Vengadampatti",
+   5875,
+   0
+  ],
+  "642807": [
+   "Madathoor",
+   5875,
+   0
+  ],
+  "642808": [
+   "Anaindaperumalnadanur",
+   5875,
+   0
+  ],
+  "642755": [
+   "Kasidharmam",
+   5873,
+   8
+  ],
+  "642789": [
+   "Puliyarai R F Part",
+   5874,
+   2
+  ],
+  "642786": [
+   "Nagalkadu",
+   5874,
+   2
+  ],
+  "642763": [
+   "Minadiseri",
+   5873,
+   3
+  ],
+  "642750": [
+   "Poygai",
+   5873,
+   9
+  ],
+  "642746": [
+   "Chockampatti",
+   5873,
+   13
+  ],
+  "252990": [
+   "Puliankudi M",
+   5870,
+   13
+  ],
+  "642634": [
+   "Malayadikkurichi",
+   5870,
+   13
+  ],
+  "642684": [
+   "Madhathupatti",
+   5871,
+   13
+  ],
+  "642683": [
+   "Punnaivanam",
+   5871,
+   13
+  ],
+  "642747": [
+   "Boganallur",
+   5873,
+   13
+  ],
+  "252994": [
+   "Kadayanallur M",
+   5873,
+   12
+  ],
+  "642685": [
+   "Ariyanayagipuram",
+   5871,
+   13
+  ],
+  "253002": [
+   "Achampudur Tp",
+   5874,
+   7
+  ],
+  "642711": [
+   "Sendamangalam",
+   5871,
+   9
+  ],
+  "642748": [
+   "Kambaneri Pudukudi",
+   5873,
+   8
+  ],
+  "642754": [
+   "Idaikal",
+   5873,
+   8
+  ],
+  "253003": [
+   "Vadakarai Keezhpadugai Tp",
+   5874,
+   7
+  ],
+  "642749": [
+   "Kanagasabapathiperi",
+   5873,
+   9
+  ],
+  "642753": [
+   "Nainaragaram",
+   5873,
+   8
+  ],
+  "642776": [
+   "Neduvayal",
+   5874,
+   8
+  ],
+  "642751": [
+   "Urmelazhagian",
+   5873,
+   8
+  ],
+  "253004": [
+   "Panpoli Tp",
+   5874,
+   7
+  ],
+  "642779": [
+   "Tenpottai",
+   5874,
+   7
+  ],
+  "642777": [
+   "Elathur",
+   5874,
+   8
+  ],
+  "253005": [
+   "Pudur S Tp",
+   5874,
+   7
+  ],
+  "252995": [
+   "Sambavar Vadagarai Tp",
+   5873,
+   9
+  ],
+  "642752": [
+   "Kilankadu",
+   5873,
+   8
+  ],
+  "642782": [
+   "Periapillaivalasai",
+   5874,
+   2
+  ],
+  "253006": [
+   "Shenkottai M",
+   5874,
+   2
+  ],
+  "642780": [
+   "Puliyarai",
+   5874,
+   7
+  ],
+  "642730": [
+   "Kulaiyaneri",
+   5872,
+   9
+  ],
+  "642756": [
+   "Kodikurichi",
+   5873,
+   8
+  ],
+  "252996": [
+   "Aygudi Tp",
+   5873,
+   8
+  ],
+  "642781": [
+   "Karkudi",
+   5874,
+   2
+  ],
+  "642783": [
+   "Piranoor",
+   5874,
+   2
+  ],
+  "252993": [
+   "Surandai Tp",
+   5872,
+   4
+  ],
+  "642778": [
+   "Kanakkupillaivalasai",
+   5874,
+   7
+  ],
+  "642629": [
+   "Subramanyapuram",
+   5870,
+   17
+  ],
+  "642757": [
+   "Kuthukalvalasai",
+   5873,
+   3
+  ],
+  "252998": [
+   "Sundarapandiapuram Tp",
+   5873,
+   4
+  ],
+  "642758": [
+   "Pattakurichi",
+   5873,
+   3
+  ],
+  "642772": [
+   "Krishnapuram R F",
+   5873,
+   12
+  ],
+  "642773": [
+   "Vairavankulam R F",
+   5873,
+   12
+  ],
+  "642774": [
+   "Kadayanallur Upper Slopes",
+   5873,
+   12
+  ],
+  "252987": [
+   "Sivagiri Tp",
+   5870,
+   21
+  ],
+  "642787": [
+   "Puliyarai R F Part",
+   5874,
+   7
+  ],
+  "642788": [
+   "V M Pidagai R F",
+   5874,
+   7
+  ],
+  "642638": [
+   "Sivagiri Reserve Forest",
+   5870,
+   16
+  ],
+  "642619": [
+   "Viswanathapperi",
+   5870,
+   21
+  ],
+  "642625": [
+   "Tirumalapuram",
+   5870,
+   17
+  ],
+  "642624": [
+   "Ramanathapuram",
+   5870,
+   17
+  ],
+  "642630": [
+   "Darukapuram",
+   5870,
+   17
+  ],
+  "642626": [
+   "Naranapuram",
+   5870,
+   17
+  ],
+  "252989": [
+   "Vasudevanallur Tp",
+   5870,
+   17
+  ],
+  "642628": [
+   "Sanganapperi",
+   5870,
+   17
+  ],
+  "642621": [
+   "Rayagiri",
+   5870,
+   21
+  ],
+  "642790": [
+   "Sumaitheerthapuram CT",
+   5874,
+   3
+  ],
+  "642819": [
+   "Mayamankurichi R F",
+   5875,
+   1
+  ],
+  "642637": [
+   "Alangulam",
+   5870,
+   13
+  ],
+  "642721": [
+   "Devarkulam A",
+   5871,
+   6
+  ],
+  "642735": [
+   "Vadakkukavalakurichi",
+   5872,
+   5
+  ],
+  "642742": [
+   "Veeranam",
+   5872,
+   5
+  ],
+  "642739": [
+   "Rajagopalaperi",
+   5872,
+   4
+  ],
+  "642741": [
+   "Veerakeralampudur",
+   5872,
+   4
+  ],
+  "642796": [
+   "Kavalakurichi",
+   5875,
+   5
+  ],
+  "642797": [
+   "Kadanganeri",
+   5875,
+   6
+  ],
+  "642794": [
+   "Kidarakulam",
+   5875,
+   5
+  ],
+  "642792": [
+   "Thuthikulam",
+   5875,
+   5
+  ],
+  "642791": [
+   "Kaluneerkulam",
+   5875,
+   4
+  ],
+  "642800": [
+   "Nettur",
+   5875,
+   5
+  ],
+  "642799": [
+   "Subbaihapuram",
+   5875,
+   5
+  ],
+  "642793": [
+   "Mayamankurichi",
+   5875,
+   1
+  ],
+  "642802": [
+   "Ayyanarkulam",
+   5875,
+   1
+  ],
+  "642814": [
+   "Sivalarkulam Part",
+   5875,
+   1
+  ],
+  "253008": [
+   "Alangulam Tp",
+   5875,
+   1
+  ],
+  "642803": [
+   "Andipatti",
+   5875,
+   0
+  ],
+  "642815": [
+   "Marandai",
+   5875,
+   1
+  ],
+  "642812": [
+   "Kuthapanjan",
+   5875,
+   1
+  ],
+  "642813": [
+   "Pudupatti",
+   5875,
+   1
+  ],
+  "642811": [
+   "Anjankattalai",
+   5875,
+   0
+  ],
+  "642818": [
+   "Udayampuli",
+   5875,
+   1
+  ],
+  "642816": [
+   "Maruthamputhur",
+   5875,
+   1
+  ],
+  "642809": [
+   "Thuppakkudi",
+   5875,
+   0
+  ],
+  "642817": [
+   "Odaimarichan",
+   5875,
+   1
+  ],
+  "642810": [
+   "Rawthaperi",
+   5875,
+   0
+  ],
+  "642795": [
+   "Kasikkavvaithan",
+   5875,
+   5
+  ],
+  "642820": [
+   "Kottamalai R F",
+   5875,
+   1
+  ],
+  "642743": [
+   "Agaram",
+   5872,
+   5
+  ],
+  "642801": [
+   "Naranapuram",
+   5875,
+   5
+  ],
+  "642798": [
+   "Kaduvetti",
+   5875,
+   6
+  ],
+  "642745": [
+   "Vellakalparambu R F",
+   5872,
+   5
+  ],
+  "642821": [
+   "Kavalakutti Parambai R F",
+   5875,
+   1
+  ],
+  "642676": [
+   "Vagaikulam",
+   5871,
+   15
+  ],
+  "642713": [
+   "Echchanda",
+   5871,
+   10
+  ],
+  "642722": [
+   "Sundankurichi",
+   5871,
+   6
+  ],
+  "642723": [
+   "Mela Ilandaikulam",
+   5871,
+   6
+  ],
+  "642666": [
+   "Alagapuri",
+   5871,
+   19
+  ],
+  "642632": [
+   "Ariyur",
+   5870,
+   18
+  ],
+  "642665": [
+   "Perunkottur",
+   5871,
+   19
+  ],
+  "642682": [
+   "Nochikulam",
+   5871,
+   14
+  ],
+  "642678": [
+   "Sevalkulam",
+   5871,
+   15
+  ],
+  "642667": [
+   "Madhurapuri",
+   5871,
+   19
+  ],
+  "642664": [
+   "Kalppakulam",
+   5871,
+   14
+  ],
+  "642633": [
+   "Nagaram",
+   5870,
+   13
+  ],
+  "642681": [
+   "Vadakkupudur",
+   5871,
+   14
+  ],
+  "642680": [
+   "Veeriruppu",
+   5871,
+   14
+  ],
+  "642679": [
+   "Malaiyankulam",
+   5871,
+   15
+  ],
+  "252992": [
+   "Sankarankoil M",
+   5871,
+   14
+  ],
+  "642677": [
+   "Naluvasankottai",
+   5871,
+   15
+  ],
+  "642635": [
+   "Talaivankottai",
+   5870,
+   13
+  ],
+  "642675": [
+   "Kuruvikulam South",
+   5871,
+   15
+  ],
+  "642673": [
+   "Athipatti",
+   5871,
+   15
+  ],
+  "642689": [
+   "Therkku Sankarankovil",
+   5871,
+   14
+  ],
+  "642688": [
+   "Poigai",
+   5871,
+   14
+  ],
+  "642693": [
+   "Usilamgulam",
+   5871,
+   15
+  ],
+  "642694": [
+   "Palankottai",
+   5871,
+   15
+  ],
+  "642636": [
+   "Ramaswamipuram",
+   5870,
+   13
+  ],
+  "642692": [
+   "Ilandaikulam",
+   5871,
+   15
+  ],
+  "642687": [
+   "Kilveerasigamani",
+   5871,
+   13
+  ],
+  "642691": [
+   "Ko Maruthappapuram",
+   5871,
+   14
+  ],
+  "642705": [
+   "Kurukkalpatti",
+   5871,
+   11
+  ],
+  "642697": [
+   "Mahendravadi",
+   5871,
+   15
+  ],
+  "642696": [
+   "Chettikulam",
+   5871,
+   15
+  ],
+  "642690": [
+   "Periyakovilankulam",
+   5871,
+   14
+  ],
+  "642706": [
+   "Chinnakovilankulam",
+   5871,
+   14
+  ],
+  "642686": [
+   "Veerasigamani",
+   5871,
+   13
+  ],
+  "642703": [
+   "Keelaneelidanallur",
+   5871,
+   11
+  ],
+  "642704": [
+   "Melaneelidanallur",
+   5871,
+   15
+  ],
+  "642708": [
+   "Naduvakurichi Major",
+   5871,
+   14
+  ],
+  "642707": [
+   "Naduvakurichi Minor",
+   5871,
+   10
+  ],
+  "642701": [
+   "Sayamalai",
+   5871,
+   11
+  ],
+  "642702": [
+   "Marudankinar",
+   5871,
+   11
+  ],
+  "642710": [
+   "Kulasekaramangalam",
+   5871,
+   9
+  ],
+  "642709": [
+   "Pattadaikatti",
+   5871,
+   10
+  ],
+  "642724": [
+   "Keelakalangal",
+   5872,
+   10
+  ],
+  "642725": [
+   "Balabadraramapuram",
+   5872,
+   10
+  ],
+  "642714": [
+   "Vadakkuppanaivadali",
+   5871,
+   11
+  ],
+  "642712": [
+   "Vellalankulam",
+   5871,
+   10
+  ],
+  "642726": [
+   "Marukkalankulam",
+   5872,
+   11
+  ],
+  "642716": [
+   "Achchampatti",
+   5871,
+   11
+  ],
+  "642715": [
+   "Narikudi",
+   5871,
+   11
+  ],
+  "642727": [
+   "Melamarudappapuram",
+   5872,
+   10
+  ],
+  "642729": [
+   "Melakaangal",
+   5872,
+   10
+  ],
+  "642731": [
+   "Anaikulam",
+   5872,
+   9
+  ],
+  "642728": [
+   "Navaneethakrishnapuram",
+   5872,
+   10
+  ],
+  "642720": [
+   "Vanniconendal",
+   5871,
+   6
+  ],
+  "642732": [
+   "Kuruchampatti",
+   5872,
+   10
+  ],
+  "642733": [
+   "Uthumalai",
+   5872,
+   5
+  ],
+  "642736": [
+   "Karuvanda",
+   5872,
+   5
+  ],
+  "642738": [
+   "Vadi",
+   5872,
+   4
+  ],
+  "642737": [
+   "Achankuttam",
+   5872,
+   5
+  ],
+  "642734": [
+   "Muthammalpuram",
+   5872,
+   6
+  ],
+  "642744": [
+   "Uthumalai R F",
+   5872,
+   6
+  ],
+  "642672": [
+   "Kulakkattakurichi",
+   5871,
+   20
+  ],
+  "642671": [
+   "Sundaresapuram",
+   5871,
+   20
+  ],
+  "642669": [
+   "Kuruvikulam North",
+   5871,
+   20
+  ],
+  "642674": [
+   "Ramalingapuram",
+   5871,
+   15
+  ],
+  "642695": [
+   "Alangulam",
+   5871,
+   15
+  ],
+  "642698": [
+   "Kalappalankulam",
+   5871,
+   15
+  ],
+  "642699": [
+   "Nalanthula",
+   5871,
+   11
+  ],
+  "642700": [
+   "K Karisalkulam",
+   5871,
+   11
+  ],
+  "642717": [
+   "Vellappaneri",
+   5871,
+   11
+  ],
+  "642718": [
+   "Thadiyampatti",
+   5871,
+   11
+  ],
+  "642719": [
+   "Moovirunthali",
+   5871,
+   6
+  ],
+  "642822": [
+   "Nallur CT",
+   5875,
+   1
+  ],
+  "642640": [
+   "Valavandapuram",
+   5871,
+   18
+  ],
+  "252988": [
+   "Rayagiri Tp",
+   5870,
+   21
+  ],
+  "642642": [
+   "Rengasamudram",
+   5871,
+   19
+  ],
+  "642639": [
+   "Perumalpatti",
+   5871,
+   18
+  ],
+  "642641": [
+   "Pandappuli",
+   5871,
+   19
+  ],
+  "642654": [
+   "Paruvakkudi",
+   5871,
+   18
+  ],
+  "642622": [
+   "Thenmalai",
+   5870,
+   18
+  ],
+  "642620": [
+   "Inam Kovilpatti",
+   5870,
+   21
+  ],
+  "642653": [
+   "Karisattan",
+   5871,
+   19
+  ],
+  "642643": [
+   "Kalingappatti",
+   5871,
+   19
+  ],
+  "642623": [
+   "Gudalur",
+   5870,
+   17
+  ],
+  "642658": [
+   "Karivalamvandanallur",
+   5871,
+   18
+  ],
+  "642645": [
+   "Chattrappatti",
+   5871,
+   19
+  ],
+  "642655": [
+   "Panaiyur",
+   5871,
+   18
+  ],
+  "642652": [
+   "Kulasekarapperi",
+   5871,
+   19
+  ],
+  "642650": [
+   "Vellakulam",
+   5871,
+   19
+  ],
+  "642657": [
+   "Kuvalaikkanni",
+   5871,
+   18
+  ],
+  "642659": [
+   "Vayali",
+   5871,
+   19
+  ],
+  "642627": [
+   "Nelkattum Seval",
+   5870,
+   17
+  ],
+  "642656": [
+   "Periyur",
+   5871,
+   18
+  ],
+  "642651": [
+   "A Karisalkulam",
+   5871,
+   19
+  ],
+  "642631": [
+   "Pattakurichi",
+   5870,
+   17
+  ],
+  "642662": [
+   "Perumpathur",
+   5871,
+   18
+  ],
+  "642661": [
+   "Manalur",
+   5871,
+   18
+  ],
+  "642660": [
+   "Sathirakondan",
+   5871,
+   19
+  ],
+  "642663": [
+   "Vadikkottai",
+   5871,
+   18
+  ],
+  "642668": [
+   "A Madhurapuri",
+   5871,
+   19
+  ],
+  "642644": [
+   "Subbiahpuram",
+   5871,
+   19
+  ],
+  "642646": [
+   "Varaganur",
+   5871,
+   20
+  ],
+  "642647": [
+   "Naduvappatti",
+   5871,
+   20
+  ],
+  "252991": [
+   "Thiruvenkadam Tp",
+   5871,
+   20
+  ],
+  "642648": [
+   "Maipparai",
+   5871,
+   20
+  ],
+  "642649": [
+   "Sangupatti",
+   5871,
+   20
+  ],
+  "642670": [
+   "Kurunjakulam",
+   5871,
+   20
+  ]
+ },
+ "village_count_total": 226,
+ "village_count_assigned": 226
+}

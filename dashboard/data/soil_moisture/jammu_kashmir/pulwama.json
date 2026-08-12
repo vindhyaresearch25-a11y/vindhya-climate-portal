@@ -1,0 +1,1834 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Jammu & Kashmir",
+  "district": "Pulwama",
+  "district_lgd": 11,
+  "observation_window": "2026-08-07T11:09Z to 2026-08-12T11:09Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2678,
+  "sm_surface_stddev": 0.0358,
+  "sm_rootzone_mean": 0.2753,
+  "sm_rootzone_stddev": 0.0246,
+  "n_cells": 8,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 33.844,
+    "lon": 74.8521,
+    "sm_surface": 0.331,
+    "sm_rootzone": 0.3369,
+    "n_villages_sharing_cell": 83
+   },
+   {
+    "cell_index": 1,
+    "lat": 33.844,
+    "lon": 74.9509,
+    "sm_surface": 0.3086,
+    "sm_rootzone": 0.2802,
+    "n_villages_sharing_cell": 55
+   },
+   {
+    "cell_index": 2,
+    "lat": 33.844,
+    "lon": 75.0498,
+    "sm_surface": 0.2941,
+    "sm_rootzone": 0.2691,
+    "n_villages_sharing_cell": 37
+   },
+   {
+    "cell_index": 3,
+    "lat": 33.9428,
+    "lon": 74.9509,
+    "sm_surface": 0.2455,
+    "sm_rootzone": 0.2683,
+    "n_villages_sharing_cell": 86
+   },
+   {
+    "cell_index": 4,
+    "lat": 33.9428,
+    "lon": 75.0498,
+    "sm_surface": 0.2413,
+    "sm_rootzone": 0.2654,
+    "n_villages_sharing_cell": 34
+   },
+   {
+    "cell_index": 5,
+    "lat": 33.9428,
+    "lon": 75.1486,
+    "sm_surface": 0.253,
+    "sm_rootzone": 0.268,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 6,
+    "lat": 34.0417,
+    "lon": 75.0498,
+    "sm_surface": 0.2231,
+    "sm_rootzone": 0.2491,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 7,
+    "lat": 34.0417,
+    "lon": 75.1486,
+    "sm_surface": 0.246,
+    "sm_rootzone": 0.2652,
+    "n_villages_sharing_cell": 1
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2733,
+  "sm_surface_stddev": 0.0333,
+  "n_blocks": 8
+ },
+ "blocks": [
+  {
+   "block_name": "Aripal",
+   "sdcode": 6795,
+   "n_villages": 21,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.232,
+   "sm_surface_stddev": 0.0108
+  },
+  {
+   "block_name": "Awantipora",
+   "sdcode": 49,
+   "n_villages": 38,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.274,
+   "sm_surface_stddev": 0.0282
+  },
+  {
+   "block_name": "Kakapora",
+   "sdcode": 6793,
+   "n_villages": 42,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.247,
+   "sm_surface_stddev": 0.0096
+  },
+  {
+   "block_name": "Pampore",
+   "sdcode": 48,
+   "n_villages": 27,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.2387,
+   "sm_surface_stddev": 0.0102
+  },
+  {
+   "block_name": "Pulwama",
+   "sdcode": 51,
+   "n_villages": 73,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3023,
+   "sm_surface_stddev": 0.035
+  },
+  {
+   "block_name": "Rajpora",
+   "sdcode": 6796,
+   "n_villages": 51,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3306,
+   "sm_surface_stddev": 0.0031
+  },
+  {
+   "block_name": "Shahoora",
+   "sdcode": 6794,
+   "n_villages": 37,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3039,
+   "sm_surface_stddev": 0.0068
+  },
+  {
+   "block_name": "Tral",
+   "sdcode": 50,
+   "n_villages": 47,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.2582,
+   "sm_surface_stddev": 0.0205
+  }
+ ],
+ "villages": {
+  "3196": [
+   "Kachipora",
+   6796,
+   0
+  ],
+  "3240": [
+   "Draklarn",
+   6796,
+   0
+  ],
+  "3241": [
+   "Khaigam",
+   6796,
+   0
+  ],
+  "3242": [
+   "Sanger Wani",
+   6796,
+   0
+  ],
+  "3243": [
+   "Bagh Sanger Wani",
+   6796,
+   0
+  ],
+  "3130": [
+   "Malwari",
+   51,
+   3
+  ],
+  "3116": [
+   "Gul Bugh",
+   6793,
+   3
+  ],
+  "3160": [
+   "Zadoora",
+   51,
+   0
+  ],
+  "3137": [
+   "Rakh Lajoora",
+   51,
+   3
+  ],
+  "3134": [
+   "Taki Safullah",
+   6793,
+   3
+  ],
+  "3135": [
+   "Trich",
+   6793,
+   3
+  ],
+  "3133": [
+   "Rakh Pahoo",
+   6793,
+   3
+  ],
+  "3140": [
+   "Puchal",
+   51,
+   3
+  ],
+  "3150": [
+   "Badi Bagh",
+   6793,
+   3
+  ],
+  "3141": [
+   "Kululoo",
+   51,
+   3
+  ],
+  "3161": [
+   "Naranow Pora",
+   51,
+   0
+  ],
+  "3153": [
+   "Urbagh",
+   51,
+   3
+  ],
+  "3157": [
+   "Nowpora Nowgam",
+   51,
+   0
+  ],
+  "3155": [
+   "Newa",
+   51,
+   3
+  ],
+  "3146": [
+   "Bag I Trich",
+   6793,
+   3
+  ],
+  "3145": [
+   "Narwa",
+   6793,
+   3
+  ],
+  "3138": [
+   "Mahirud Uterpora",
+   51,
+   3
+  ],
+  "3151": [
+   "Gundi Pora",
+   6793,
+   3
+  ],
+  "3156": [
+   "Ugar Gund",
+   51,
+   0
+  ],
+  "3162": [
+   "Wahi Bugh",
+   51,
+   0
+  ],
+  "3147": [
+   "Senzi Wathroo",
+   6793,
+   3
+  ],
+  "3129": [
+   "Ranbir Pora Nagam",
+   51,
+   0
+  ],
+  "3136": [
+   "Frastabagh",
+   6793,
+   3
+  ],
+  "3149": [
+   "Pinglena",
+   51,
+   3
+  ],
+  "3154": [
+   "Inder",
+   51,
+   0
+  ],
+  "3139": [
+   "Karewa Lajoora",
+   51,
+   3
+  ],
+  "3009": [
+   "Malang Pora",
+   49,
+   1
+  ],
+  "3152": [
+   "Urcharsoo",
+   51,
+   3
+  ],
+  "3142": [
+   "Lajoora",
+   51,
+   1
+  ],
+  "3148": [
+   "Mandina",
+   6793,
+   3
+  ],
+  "3158": [
+   "Dafar Pora",
+   51,
+   0
+  ],
+  "3168": [
+   "Gudoora",
+   51,
+   0
+  ],
+  "3170": [
+   "Hanji Khaloo",
+   51,
+   1
+  ],
+  "3159": [
+   "Loos Wani",
+   51,
+   0
+  ],
+  "3167": [
+   "Karimabad",
+   51,
+   0
+  ],
+  "3173": [
+   "Pathan",
+   51,
+   1
+  ],
+  "3163": [
+   "Chewa Kalan",
+   6796,
+   0
+  ],
+  "3284": [
+   "Wagum",
+   51,
+   0
+  ],
+  "3169": [
+   "Bara Pora",
+   51,
+   0
+  ],
+  "3143": [
+   "Talan Gam",
+   6793,
+   1
+  ],
+  "3171": [
+   "Gangoo",
+   51,
+   1
+  ],
+  "3172": [
+   "Uthoora",
+   51,
+   1
+  ],
+  "248166": [
+   "Municipal Council Pulwama",
+   51,
+   0
+  ],
+  "3165": [
+   "Chewa Khurud",
+   51,
+   0
+  ],
+  "3166": [
+   "Mong Hama",
+   51,
+   0
+  ],
+  "3176": [
+   "Koil",
+   51,
+   1
+  ],
+  "3187": [
+   "Gusoo",
+   6796,
+   0
+  ],
+  "3164": [
+   "Ashmendar",
+   51,
+   0
+  ],
+  "3174": [
+   "Mugal Pora",
+   51,
+   1
+  ],
+  "3186": [
+   "Deeri",
+   51,
+   0
+  ],
+  "3185": [
+   "Murran",
+   51,
+   0
+  ],
+  "3184": [
+   "Kangan",
+   51,
+   0
+  ],
+  "3180": [
+   "Tenghar",
+   51,
+   1
+  ],
+  "3183": [
+   "Thmuna",
+   51,
+   0
+  ],
+  "3182": [
+   "Drusoo",
+   51,
+   1
+  ],
+  "3188": [
+   "Frasi Pora",
+   6796,
+   0
+  ],
+  "3178": [
+   "Bander Pora",
+   51,
+   1
+  ],
+  "3179": [
+   "Payer",
+   51,
+   1
+  ],
+  "3193": [
+   "Zagi Gam",
+   6796,
+   0
+  ],
+  "3194": [
+   "Frastpora",
+   51,
+   0
+  ],
+  "3181": [
+   "Much Pora",
+   51,
+   1
+  ],
+  "3195": [
+   "Mitri Gam",
+   51,
+   0
+  ],
+  "3201": [
+   "Dadoora",
+   51,
+   0
+  ],
+  "3205": [
+   "Baba Har",
+   51,
+   0
+  ],
+  "3203": [
+   "Tiken Batpora",
+   51,
+   0
+  ],
+  "3210": [
+   "Naira",
+   51,
+   1
+  ],
+  "3191": [
+   "Rahmoo",
+   6796,
+   0
+  ],
+  "3200": [
+   "Shanker Pora",
+   51,
+   0
+  ],
+  "3204": [
+   "Sona Samilo",
+   6796,
+   0
+  ],
+  "3208": [
+   "Chatripora Palpora",
+   51,
+   1
+  ],
+  "3206": [
+   "Bunoora",
+   51,
+   0
+  ],
+  "3212": [
+   "Nowhar Mal Pora",
+   51,
+   1
+  ],
+  "3286": [
+   "Sonta Bugh",
+   6796,
+   0
+  ],
+  "3214": [
+   "Naw Nagri",
+   51,
+   1
+  ],
+  "3199": [
+   "Putrigam",
+   6796,
+   0
+  ],
+  "3202": [
+   "Gulshan Abad",
+   6796,
+   0
+  ],
+  "3192": [
+   "Mirgund Thokerpor",
+   6796,
+   0
+  ],
+  "3211": [
+   "Janda Wal",
+   51,
+   1
+  ],
+  "3207": [
+   "Chandi Pora",
+   51,
+   0
+  ],
+  "3198": [
+   "Sona Chikoo",
+   6796,
+   0
+  ],
+  "3209": [
+   "Trichal",
+   51,
+   1
+  ],
+  "3213": [
+   "Chand Gam",
+   6794,
+   1
+  ],
+  "3231": [
+   "Chana Pora",
+   6796,
+   0
+  ],
+  "3197": [
+   "Akahal",
+   6796,
+   0
+  ],
+  "3230": [
+   "Belowder Gund",
+   6796,
+   0
+  ],
+  "3234": [
+   "Drabgam",
+   6796,
+   0
+  ],
+  "3232": [
+   "Avendgand",
+   6796,
+   0
+  ],
+  "3215": [
+   "Shit Paray Pora",
+   6794,
+   1
+  ],
+  "3226": [
+   "Tahab",
+   51,
+   1
+  ],
+  "3236": [
+   "Kamrazi Pora",
+   6796,
+   0
+  ],
+  "3233": [
+   "Pach Har",
+   6796,
+   0
+  ],
+  "3228": [
+   "Bandzoo",
+   51,
+   0
+  ],
+  "3235": [
+   "Aglar Kandi",
+   6796,
+   0
+  ],
+  "3252": [
+   "Rajpora Ullar",
+   6796,
+   0
+  ],
+  "3229": [
+   "Arigam Chirath",
+   6796,
+   0
+  ],
+  "3222": [
+   "Pala Pora",
+   6794,
+   1
+  ],
+  "3227": [
+   "Rajmal",
+   51,
+   0
+  ],
+  "3251": [
+   "Hardo Hanjan",
+   6796,
+   0
+  ],
+  "3223": [
+   "Bhatnoor",
+   6794,
+   1
+  ],
+  "3225": [
+   "Zasow",
+   6794,
+   1
+  ],
+  "3221": [
+   "Yader Shahoora",
+   6794,
+   1
+  ],
+  "3224": [
+   "Tumlahal",
+   6794,
+   1
+  ],
+  "3250": [
+   "Chandi Pora",
+   6796,
+   0
+  ],
+  "3253": [
+   "Ari Hal",
+   6796,
+   0
+  ],
+  "3249": [
+   "Dangerporaspn",
+   6796,
+   0
+  ],
+  "3271": [
+   "Gudbugh",
+   6794,
+   1
+  ],
+  "3273": [
+   "Nowpora Payeen",
+   6794,
+   1
+  ],
+  "3270": [
+   "Armulah",
+   6794,
+   1
+  ],
+  "3265": [
+   "Tantray Pora",
+   6794,
+   1
+  ],
+  "3262": [
+   "Arabal",
+   6796,
+   0
+  ],
+  "3272": [
+   "Alie Pora",
+   6794,
+   1
+  ],
+  "3263": [
+   "Rakh Children",
+   6796,
+   1
+  ],
+  "3274": [
+   "Haji Darpora",
+   6794,
+   1
+  ],
+  "3269": [
+   "Achan",
+   6794,
+   1
+  ],
+  "3246": [
+   "Qasba Yar",
+   6796,
+   0
+  ],
+  "3264": [
+   "Lassi Pora",
+   6794,
+   1
+  ],
+  "3261": [
+   "Nikas Mahirakh",
+   6796,
+   0
+  ],
+  "3266": [
+   "Pati Pora",
+   6794,
+   1
+  ],
+  "3268": [
+   "Panjren",
+   6794,
+   1
+  ],
+  "3239": [
+   "Abhama",
+   6796,
+   0
+  ],
+  "3254": [
+   "Kuchopora",
+   6796,
+   0
+  ],
+  "3244": [
+   "Achgozz Bamnoo",
+   6796,
+   0
+  ],
+  "3245": [
+   "Chaki Dewan Badri",
+   6796,
+   0
+  ],
+  "3259": [
+   "Uzram Pathri",
+   6796,
+   0
+  ],
+  "3255": [
+   "Gaber Pora",
+   6796,
+   0
+  ],
+  "3267": [
+   "Gund Achan",
+   6794,
+   1
+  ],
+  "3260": [
+   "Drach",
+   6796,
+   0
+  ],
+  "3247": [
+   "Qalampora",
+   6796,
+   0
+  ],
+  "3257": [
+   "Hawal",
+   6796,
+   0
+  ],
+  "3256": [
+   "Kunjoo",
+   6796,
+   0
+  ],
+  "3258": [
+   "Uthmula",
+   6796,
+   0
+  ],
+  "3144": [
+   "Gund Zabar",
+   51,
+   3
+  ],
+  "3010": [
+   "Awan Pora",
+   49,
+   1
+  ],
+  "3019": [
+   "Kerawa",
+   49,
+   1
+  ],
+  "3190": [
+   "Tanghar",
+   6796,
+   0
+  ],
+  "3189": [
+   "Tujan",
+   6796,
+   0
+  ],
+  "3248": [
+   "Yaderspn",
+   6796,
+   0
+  ],
+  "3237": [
+   "Kani Gam",
+   6796,
+   0
+  ],
+  "3175": [
+   "Teng Pora",
+   51,
+   1
+  ],
+  "3132": [
+   "Hakri Pora",
+   6793,
+   3
+  ],
+  "3285": [
+   "Chinar Bagh",
+   51,
+   0
+  ],
+  "3238": [
+   "Kadi Pora",
+   6796,
+   0
+  ],
+  "3287": [
+   "Sheikhhar",
+   6796,
+   0
+  ],
+  "3070": [
+   "Nazneen Pora",
+   50,
+   5
+  ],
+  "3005": [
+   "Rajpora",
+   49,
+   4
+  ],
+  "3027": [
+   "Pad Gam Pora",
+   49,
+   3
+  ],
+  "3077": [
+   "Nigeen Pora",
+   50,
+   5
+  ],
+  "3064": [
+   "Lal Gam",
+   50,
+   4
+  ],
+  "3076": [
+   "Panir Jagir",
+   50,
+   5
+  ],
+  "3067": [
+   "Naibugh",
+   50,
+   4
+  ],
+  "3068": [
+   "Sherabad",
+   50,
+   4
+  ],
+  "2989": [
+   "Khankah",
+   49,
+   4
+  ],
+  "3006": [
+   "Kanjinag",
+   49,
+   4
+  ],
+  "3087": [
+   "Baigund",
+   50,
+   4
+  ],
+  "3007": [
+   "Larki Pora",
+   49,
+   4
+  ],
+  "2988": [
+   "Shahabad Payeen",
+   49,
+   4
+  ],
+  "3085": [
+   "Buchoo",
+   50,
+   4
+  ],
+  "3078": [
+   "Pinglish",
+   50,
+   5
+  ],
+  "2990": [
+   "Goori Kadal",
+   49,
+   4
+  ],
+  "2991": [
+   "Shahabad Bala",
+   49,
+   4
+  ],
+  "3083": [
+   "Hardmir",
+   50,
+   4
+  ],
+  "3084": [
+   "Amirabad",
+   50,
+   4
+  ],
+  "3086": [
+   "Nowdal",
+   50,
+   4
+  ],
+  "3092": [
+   "Badipora",
+   50,
+   2
+  ],
+  "3008": [
+   "Rakh Watal Pora",
+   49,
+   1
+  ],
+  "3079": [
+   "Cheribugh",
+   50,
+   5
+  ],
+  "2992": [
+   "Mirza Pora",
+   49,
+   2
+  ],
+  "3082": [
+   "Sangrama",
+   50,
+   2
+  ],
+  "3088": [
+   "Dadsara",
+   50,
+   2
+  ],
+  "3089": [
+   "Saimoh",
+   50,
+   2
+  ],
+  "3081": [
+   "Ratsona",
+   50,
+   2
+  ],
+  "3080": [
+   "Lari Bal",
+   50,
+   5
+  ],
+  "3091": [
+   "Lariyar",
+   50,
+   2
+  ],
+  "3095": [
+   "Amlar",
+   50,
+   2
+  ],
+  "3011": [
+   "Tokuna",
+   49,
+   1
+  ],
+  "2998": [
+   "K Koot",
+   49,
+   2
+  ],
+  "2994": [
+   "Poshwan",
+   49,
+   2
+  ],
+  "2997": [
+   "Hari Pari Gam",
+   49,
+   2
+  ],
+  "3012": [
+   "Now Gam Ullar",
+   49,
+   2
+  ],
+  "3090": [
+   "Quil Shikargah",
+   50,
+   2
+  ],
+  "3013": [
+   "Reshipora",
+   49,
+   2
+  ],
+  "3096": [
+   "Bargam",
+   50,
+   2
+  ],
+  "3093": [
+   "Doonigund",
+   50,
+   2
+  ],
+  "2996": [
+   "Chersoo",
+   49,
+   2
+  ],
+  "2999": [
+   "Noorpora",
+   49,
+   2
+  ],
+  "3177": [
+   "Wakher Wan",
+   51,
+   1
+  ],
+  "2995": [
+   "Larmoh Awan Pora",
+   49,
+   2
+  ],
+  "3016": [
+   "Kadipora",
+   49,
+   2
+  ],
+  "3018": [
+   "Renzi Pora",
+   49,
+   1
+  ],
+  "3014": [
+   "Dogri Pora",
+   49,
+   2
+  ],
+  "3017": [
+   "Chakher",
+   49,
+   1
+  ],
+  "3021": [
+   "Panz Gam",
+   6794,
+   2
+  ],
+  "3020": [
+   "Udipora Shahoora",
+   6794,
+   1
+  ],
+  "3218": [
+   "Senzen Shahoora",
+   6794,
+   1
+  ],
+  "3022": [
+   "Grav Gund",
+   6794,
+   2
+  ],
+  "3217": [
+   "Udoora Shahoora",
+   6794,
+   1
+  ],
+  "3025": [
+   "Khelan Gundmusa",
+   6794,
+   2
+  ],
+  "3219": [
+   "Chakoora",
+   6794,
+   2
+  ],
+  "3216": [
+   "Wasoora",
+   6794,
+   1
+  ],
+  "3023": [
+   "Ladermur",
+   6794,
+   2
+  ],
+  "3220": [
+   "Wahi Pora",
+   6794,
+   1
+  ],
+  "3275": [
+   "Niloora Chodribagh",
+   6794,
+   1
+  ],
+  "3277": [
+   "Litter Shister",
+   6794,
+   2
+  ],
+  "3279": [
+   "Rakh Litter",
+   6794,
+   2
+  ],
+  "3278": [
+   "Zahid Bagh",
+   6794,
+   2
+  ],
+  "3276": [
+   "Nikloora",
+   6794,
+   1
+  ],
+  "3015": [
+   "Kani Pora Ullar",
+   49,
+   2
+  ],
+  "3063": [
+   "Aali Gund",
+   50,
+   4
+  ],
+  "3094": [
+   "Chandri Gam",
+   50,
+   2
+  ],
+  "2993": [
+   "Partappora",
+   49,
+   2
+  ],
+  "3000": [
+   "Sail",
+   49,
+   2
+  ],
+  "3029": [
+   "Naina",
+   6794,
+   2
+  ],
+  "3024": [
+   "Brawbandina",
+   6794,
+   2
+  ],
+  "3026": [
+   "Kawni",
+   6794,
+   2
+  ],
+  "3031": [
+   "Pranigam",
+   6795,
+   6
+  ],
+  "3032": [
+   "Gulistan",
+   6795,
+   6
+  ],
+  "3033": [
+   "Hajinard",
+   6795,
+   6
+  ],
+  "2960": [
+   "Naginder",
+   48,
+   6
+  ],
+  "2959": [
+   "Bethan",
+   48,
+   6
+  ],
+  "3034": [
+   "Satoora",
+   6795,
+   6
+  ],
+  "3035": [
+   "Gutroo",
+   6795,
+   6
+  ],
+  "2961": [
+   "Zaintrag",
+   48,
+   6
+  ],
+  "248163": [
+   "Municipal Committee Khrew",
+   48,
+   6
+  ],
+  "2963": [
+   "Woyen Bala",
+   48,
+   6
+  ],
+  "2962": [
+   "Satpakhren",
+   48,
+   6
+  ],
+  "3037": [
+   "Khangund",
+   6795,
+   6
+  ],
+  "248162": [
+   "Municipal Committee Pampore",
+   48,
+   3
+  ],
+  "2965": [
+   "Meej",
+   48,
+   3
+  ],
+  "2966": [
+   "Baghi",
+   48,
+   3
+  ],
+  "3038": [
+   "Jawahir Pora",
+   6795,
+   6
+  ],
+  "2964": [
+   "Munpara",
+   48,
+   3
+  ],
+  "3039": [
+   "Deedarpora",
+   6795,
+   6
+  ],
+  "2969": [
+   "Lal Pora Chatdam",
+   48,
+   3
+  ],
+  "2972": [
+   "Konibal",
+   48,
+   3
+  ],
+  "3040": [
+   "Dar Gani Gund",
+   6795,
+   6
+  ],
+  "2976": [
+   "Shar Shali",
+   48,
+   6
+  ],
+  "3042": [
+   "Aripal",
+   6795,
+   6
+  ],
+  "2975": [
+   "Gund Bal",
+   48,
+   3
+  ],
+  "3097": [
+   "Kandizal",
+   6793,
+   3
+  ],
+  "3041": [
+   "Hewan",
+   6795,
+   6
+  ],
+  "2974": [
+   "Androosa",
+   48,
+   3
+  ],
+  "3043": [
+   "Daramgund",
+   6795,
+   4
+  ],
+  "2971": [
+   "Krunchoo",
+   48,
+   3
+  ],
+  "3044": [
+   "Patimgam Gudpor",
+   6795,
+   4
+  ],
+  "2973": [
+   "Dusoo",
+   48,
+   3
+  ],
+  "2978": [
+   "Ladhoo",
+   48,
+   3
+  ],
+  "3046": [
+   "Syedabad",
+   6795,
+   4
+  ],
+  "3049": [
+   "Panzoo",
+   6795,
+   5
+  ],
+  "3045": [
+   "Waged",
+   6795,
+   4
+  ],
+  "3050": [
+   "Lalpora",
+   50,
+   5
+  ],
+  "3048": [
+   "Lurgam",
+   6795,
+   5
+  ],
+  "2977": [
+   "Mandak Pal",
+   48,
+   4
+  ],
+  "2980": [
+   "Patal Bagh",
+   48,
+   3
+  ],
+  "2979": [
+   "Chandhara",
+   48,
+   3
+  ],
+  "3051": [
+   "Mach Hama",
+   50,
+   5
+  ],
+  "3047": [
+   "Loru Jagir",
+   6795,
+   4
+  ],
+  "3052": [
+   "Monghama",
+   50,
+   5
+  ],
+  "3099": [
+   "Nihama",
+   6793,
+   3
+  ],
+  "3100": [
+   "Marwal",
+   6793,
+   3
+  ],
+  "2981": [
+   "Samboora",
+   6793,
+   3
+  ],
+  "2983": [
+   "Leth Pora",
+   48,
+   3
+  ],
+  "3060": [
+   "Gaang",
+   50,
+   4
+  ],
+  "3111": [
+   "Sather Gund",
+   6793,
+   3
+  ],
+  "3104": [
+   "Wanpora",
+   51,
+   3
+  ],
+  "3061": [
+   "Gulshan Pora",
+   50,
+   4
+  ],
+  "2982": [
+   "Alochi Bagh",
+   48,
+   3
+  ],
+  "3113": [
+   "Bander Pora Chirat",
+   6793,
+   3
+  ],
+  "3101": [
+   "Ban Gund",
+   51,
+   3
+  ],
+  "3059": [
+   "Seer",
+   6795,
+   4
+  ],
+  "3075": [
+   "Karmula",
+   50,
+   5
+  ],
+  "3112": [
+   "Lalhar",
+   6793,
+   3
+  ],
+  "3103": [
+   "Hanipora Chatinhama",
+   51,
+   3
+  ],
+  "3053": [
+   "Chatro Gam",
+   50,
+   5
+  ],
+  "3109": [
+   "Lurow",
+   6793,
+   3
+  ],
+  "2985": [
+   "Barsoo",
+   49,
+   3
+  ],
+  "3114": [
+   "Resipora Chirat",
+   6793,
+   3
+  ],
+  "3105": [
+   "Tumchi Nowpora",
+   51,
+   3
+  ],
+  "3001": [
+   "Udi Pora Chirath",
+   49,
+   3
+  ],
+  "3110": [
+   "Kazi Gund",
+   6793,
+   3
+  ],
+  "3106": [
+   "Pari Gam",
+   51,
+   3
+  ],
+  "3058": [
+   "Kuchmulla",
+   50,
+   4
+  ],
+  "3057": [
+   "Nader",
+   6795,
+   4
+  ],
+  "3125": [
+   "Gundi Bagh",
+   6793,
+   3
+  ],
+  "248164": [
+   "Municipal Committee Tral",
+   50,
+   5
+  ],
+  "3054": [
+   "Khasipora",
+   50,
+   5
+  ],
+  "3115": [
+   "Monveji",
+   6793,
+   3
+  ],
+  "3062": [
+   "Bata Gund",
+   50,
+   4
+  ],
+  "3002": [
+   "Kanli Bagh",
+   49,
+   3
+  ],
+  "3056": [
+   "Gamraj",
+   50,
+   4
+  ],
+  "3120": [
+   "Doh Gam",
+   6793,
+   3
+  ],
+  "3108": [
+   "Khalisa Parigam",
+   51,
+   3
+  ],
+  "3072": [
+   "Shah Pora",
+   50,
+   5
+  ],
+  "3119": [
+   "Pahoo",
+   6793,
+   3
+  ],
+  "3071": [
+   "Chewa Ullar",
+   50,
+   5
+  ],
+  "3003": [
+   "Goori Pora",
+   49,
+   3
+  ],
+  "3126": [
+   "Kisri Gam",
+   6793,
+   3
+  ],
+  "248165": [
+   "Municipal Committee Awantipora",
+   49,
+   4
+  ],
+  "3121": [
+   "Naman",
+   6793,
+   3
+  ],
+  "2986": [
+   "Jawbrara",
+   49,
+   3
+  ],
+  "3073": [
+   "Mandoora",
+   50,
+   5
+  ],
+  "2987": [
+   "Midoora",
+   49,
+   4
+  ],
+  "3118": [
+   "Mir Bagh",
+   6793,
+   3
+  ],
+  "3055": [
+   "Devar",
+   50,
+   5
+  ],
+  "3117": [
+   "Ratni Pora",
+   6793,
+   3
+  ],
+  "3124": [
+   "Pingal Gam",
+   6793,
+   3
+  ],
+  "3074": [
+   "Bhatnoor",
+   50,
+   5
+  ],
+  "3066": [
+   "Gulab Bagh",
+   50,
+   4
+  ],
+  "3127": [
+   "Kati Bugh",
+   6793,
+   3
+  ],
+  "3128": [
+   "Urwan",
+   51,
+   0
+  ],
+  "3122": [
+   "Bugum Bagh",
+   6793,
+   3
+  ],
+  "3065": [
+   "Naner",
+   50,
+   4
+  ],
+  "3004": [
+   "Aghanzi Pora",
+   49,
+   3
+  ],
+  "3131": [
+   "Singo Narbal",
+   6793,
+   3
+  ],
+  "3069": [
+   "Arigam",
+   50,
+   4
+  ],
+  "3123": [
+   "Kousi Bagh",
+   6793,
+   3
+  ],
+  "2970": [
+   "Namlabal",
+   48,
+   3
+  ],
+  "3281": [
+   "Mirpora",
+   6793,
+   3
+  ],
+  "3107": [
+   "Harri Garh",
+   51,
+   3
+  ],
+  "3098": [
+   "Khadarmoh",
+   6793,
+   3
+  ],
+  "2967": [
+   "Befroo Drangah Bal",
+   48,
+   3
+  ],
+  "2968": [
+   "Jazeera Sitara",
+   48,
+   3
+  ],
+  "3282": [
+   "Ukhoo",
+   6793,
+   3
+  ],
+  "3283": [
+   "Laribal",
+   6793,
+   3
+  ],
+  "3280": [
+   "Kaka Pora",
+   6793,
+   3
+  ],
+  "3102": [
+   "Loli Pora",
+   6793,
+   3
+  ],
+  "999999": [
+   "Forest Block",
+   50,
+   7
+  ],
+  "3030": [
+   "Batpora",
+   6794,
+   2
+  ],
+  "3028": [
+   "Danger Pora",
+   49,
+   3
+  ],
+  "3036": [
+   "Nargistan",
+   6795,
+   6
+  ]
+ },
+ "village_count_total": 336,
+ "village_count_assigned": 336
+}

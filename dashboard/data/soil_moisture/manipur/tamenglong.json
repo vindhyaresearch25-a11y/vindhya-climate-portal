@@ -1,0 +1,876 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Manipur",
+  "district": "Tamenglong",
+  "district_lgd": 258,
+  "observation_window": "2026-08-07T11:18Z to 2026-08-12T11:18Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3444,
+  "sm_surface_stddev": 0.03,
+  "sm_rootzone_mean": 0.3424,
+  "sm_rootzone_stddev": 0.0399,
+  "n_cells": 27,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 24.7531,
+    "lon": 93.2317,
+    "sm_surface": 0.3578,
+    "sm_rootzone": 0.375,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 1,
+    "lat": 24.7531,
+    "lon": 93.3305,
+    "sm_surface": 0.3499,
+    "sm_rootzone": 0.347,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 2,
+    "lat": 24.8519,
+    "lon": 93.3305,
+    "sm_surface": 0.345,
+    "sm_rootzone": 0.3402,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 3,
+    "lat": 24.8519,
+    "lon": 93.4293,
+    "sm_surface": 0.3467,
+    "sm_rootzone": 0.3398,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 4,
+    "lat": 24.8519,
+    "lon": 93.5281,
+    "sm_surface": 0.3805,
+    "sm_rootzone": 0.3908,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 5,
+    "lat": 24.8519,
+    "lon": 93.6269,
+    "sm_surface": 0.3706,
+    "sm_rootzone": 0.3837,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 6,
+    "lat": 24.8519,
+    "lon": 93.7257,
+    "sm_surface": 0.3682,
+    "sm_rootzone": 0.3671,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 7,
+    "lat": 24.9507,
+    "lon": 93.3305,
+    "sm_surface": 0.3351,
+    "sm_rootzone": 0.3253,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 8,
+    "lat": 24.9507,
+    "lon": 93.4293,
+    "sm_surface": 0.3898,
+    "sm_rootzone": 0.4053,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 9,
+    "lat": 24.9507,
+    "lon": 93.5281,
+    "sm_surface": 0.3353,
+    "sm_rootzone": 0.3269,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 10,
+    "lat": 24.9507,
+    "lon": 93.6269,
+    "sm_surface": 0.3723,
+    "sm_rootzone": 0.3848,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 11,
+    "lat": 24.9507,
+    "lon": 93.7257,
+    "sm_surface": 0.3078,
+    "sm_rootzone": 0.2896,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 12,
+    "lat": 25.0495,
+    "lon": 93.3305,
+    "sm_surface": 0.308,
+    "sm_rootzone": 0.295,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 13,
+    "lat": 25.0495,
+    "lon": 93.4293,
+    "sm_surface": 0.3318,
+    "sm_rootzone": 0.3201,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 14,
+    "lat": 25.0495,
+    "lon": 93.5281,
+    "sm_surface": 0.327,
+    "sm_rootzone": 0.316,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 15,
+    "lat": 25.0495,
+    "lon": 93.6269,
+    "sm_surface": 0.3737,
+    "sm_rootzone": 0.3846,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 16,
+    "lat": 25.0495,
+    "lon": 93.7257,
+    "sm_surface": 0.3048,
+    "sm_rootzone": 0.2877,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 17,
+    "lat": 25.1483,
+    "lon": 93.4293,
+    "sm_surface": 0.3915,
+    "sm_rootzone": 0.4001,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 18,
+    "lat": 25.1483,
+    "lon": 93.5281,
+    "sm_surface": 0.3709,
+    "sm_rootzone": 0.3755,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 19,
+    "lat": 25.1483,
+    "lon": 93.6269,
+    "sm_surface": 0.3664,
+    "sm_rootzone": 0.3716,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 20,
+    "lat": 25.1483,
+    "lon": 93.7257,
+    "sm_surface": 0.3592,
+    "sm_rootzone": 0.3643,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 21,
+    "lat": 25.2472,
+    "lon": 93.4293,
+    "sm_surface": 0.3828,
+    "sm_rootzone": 0.387,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 22,
+    "lat": 25.2472,
+    "lon": 93.7257,
+    "sm_surface": 0.3034,
+    "sm_rootzone": 0.2906,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 23,
+    "lat": 25.2472,
+    "lon": 93.8245,
+    "sm_surface": 0.3108,
+    "sm_rootzone": 0.3034,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 24,
+    "lat": 25.346,
+    "lon": 93.7257,
+    "sm_surface": 0.2992,
+    "sm_rootzone": 0.2848,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 25,
+    "lat": 25.346,
+    "lon": 93.8245,
+    "sm_surface": 0.3079,
+    "sm_rootzone": 0.2986,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 26,
+    "lat": 25.4448,
+    "lon": 93.8245,
+    "sm_surface": 0.3025,
+    "sm_rootzone": 0.2909,
+    "n_villages_sharing_cell": 1
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3474,
+  "sm_surface_stddev": 0.0117,
+  "n_blocks": 3
+ },
+ "blocks": [
+  {
+   "block_name": "Tamenglong",
+   "sdcode": 1866,
+   "n_villages": 36,
+   "n_cells_spanned": 9,
+   "sm_surface_mean": 0.3571,
+   "sm_surface_stddev": 0.0214
+  },
+  {
+   "block_name": "Tamenglong North",
+   "sdcode": 1865,
+   "n_villages": 31,
+   "n_cells_spanned": 11,
+   "sm_surface_mean": 0.331,
+   "sm_surface_stddev": 0.0313
+  },
+  {
+   "block_name": "Tamenglong West",
+   "sdcode": 1864,
+   "n_villages": 55,
+   "n_cells_spanned": 11,
+   "sm_surface_mean": 0.3541,
+   "sm_surface_stddev": 0.0228
+  }
+ ],
+ "villages": {
+  "269203": [
+   "Tharon",
+   1866,
+   14
+  ],
+  "999999": [
+   "Data Partially Available",
+   1866,
+   9
+  ],
+  "269116": [
+   "Maokot",
+   1864,
+   0
+  ],
+  "269137": [
+   "T Motbung",
+   1864,
+   0
+  ],
+  "269135": [
+   "Thingchamphai",
+   1864,
+   0
+  ],
+  "269142": [
+   "Pangkotphai",
+   1864,
+   0
+  ],
+  "269122": [
+   "Khedarga Khasi",
+   1864,
+   0
+  ],
+  "269139": [
+   "Lhangnom",
+   1864,
+   0
+  ],
+  "269140": [
+   "Kolbung",
+   1864,
+   0
+  ],
+  "269129": [
+   "Kaimai",
+   1864,
+   1
+  ],
+  "269136": [
+   "Tolen",
+   1864,
+   1
+  ],
+  "269141": [
+   "Tongtao",
+   1864,
+   0
+  ],
+  "269138": [
+   "Thingtatbung",
+   1864,
+   0
+  ],
+  "269121": [
+   "Ngahmunphai",
+   1864,
+   0
+  ],
+  "269123": [
+   "Karamkha Khasi",
+   1864,
+   0
+  ],
+  "269132": [
+   "Tatbung",
+   1864,
+   0
+  ],
+  "269130": [
+   "Muktokhal",
+   1864,
+   0
+  ],
+  "269131": [
+   "Vangaichungpao",
+   1864,
+   0
+  ],
+  "269128": [
+   "Sibilong",
+   1864,
+   1
+  ],
+  "269133": [
+   "Old Kaiphundai",
+   1864,
+   0
+  ],
+  "269119": [
+   "Oinamlong",
+   1864,
+   1
+  ],
+  "269134": [
+   "Phaitol",
+   1864,
+   0
+  ],
+  "269126": [
+   "Nungkao",
+   1864,
+   1
+  ],
+  "269125": [
+   "Kaiphundai",
+   1864,
+   0
+  ],
+  "269118": [
+   "Longjon",
+   1864,
+   3
+  ],
+  "269109": [
+   "Ningning",
+   1864,
+   2
+  ],
+  "269111": [
+   "Chingkhonglong",
+   1864,
+   2
+  ],
+  "269112": [
+   "Jeilatjang",
+   1864,
+   2
+  ],
+  "269113": [
+   "Atengba",
+   1864,
+   2
+  ],
+  "269110": [
+   "Chingkao",
+   1864,
+   2
+  ],
+  "269127": [
+   "Rangkekilong",
+   1864,
+   7
+  ],
+  "269117": [
+   "Vanchengphai",
+   1864,
+   8
+  ],
+  "269115": [
+   "J Pabram",
+   1864,
+   7
+  ],
+  "269183": [
+   "Taobam",
+   1866,
+   3
+  ],
+  "269184": [
+   "Awangkhul",
+   1866,
+   4
+  ],
+  "269182": [
+   "Sempang",
+   1866,
+   3
+  ],
+  "269185": [
+   "Langkhong",
+   1866,
+   4
+  ],
+  "269186": [
+   "Lukhambi",
+   1866,
+   4
+  ],
+  "269181": [
+   "Keikao",
+   1866,
+   3
+  ],
+  "269180": [
+   "Sanglungpang",
+   1866,
+   3
+  ],
+  "269187": [
+   "Nagaching",
+   1866,
+   4
+  ],
+  "269205": [
+   "Ramlalong",
+   1866,
+   3
+  ],
+  "269179": [
+   "Tabanglong",
+   1866,
+   8
+  ],
+  "269176": [
+   "Akhui",
+   1866,
+   9
+  ],
+  "269194": [
+   "Kabui Khullen",
+   1866,
+   10
+  ],
+  "269124": [
+   "Khedraga Mikir",
+   1864,
+   0
+  ],
+  "269114": [
+   "Thiulon",
+   1864,
+   7
+  ],
+  "269098": [
+   "Longchai",
+   1864,
+   12
+  ],
+  "269120": [
+   "Aben",
+   1864,
+   12
+  ],
+  "269092": [
+   "Pumram",
+   1864,
+   12
+  ],
+  "269091": [
+   "Kandihang",
+   1864,
+   12
+  ],
+  "269093": [
+   "Njungkok",
+   1864,
+   12
+  ],
+  "269090": [
+   "Mandu",
+   1864,
+   12
+  ],
+  "269107": [
+   "Saramba",
+   1864,
+   8
+  ],
+  "269106": [
+   "Azuram",
+   1864,
+   13
+  ],
+  "269105": [
+   "Namtiram",
+   1864,
+   13
+  ],
+  "269104": [
+   "Phelong",
+   1864,
+   17
+  ],
+  "269108": [
+   "Taningjam",
+   1864,
+   18
+  ],
+  "269148": [
+   "Pallong",
+   1865,
+   15
+  ],
+  "269147": [
+   "Taipram",
+   1865,
+   18
+  ],
+  "269146": [
+   "Langpram",
+   1865,
+   18
+  ],
+  "269151": [
+   "Piulong",
+   1865,
+   19
+  ],
+  "269178": [
+   "Bamgaijang",
+   1866,
+   8
+  ],
+  "269198": [
+   "Punglam",
+   1866,
+   9
+  ],
+  "269175": [
+   "Khongjaron Khunkha",
+   1866,
+   8
+  ],
+  "269197": [
+   "Khebuching",
+   1866,
+   9
+  ],
+  "269199": [
+   "Wairangba",
+   1866,
+   9
+  ],
+  "269201": [
+   "Dailong",
+   1866,
+   9
+  ],
+  "269200": [
+   "Bhalok",
+   1866,
+   9
+  ],
+  "269202": [
+   "Sonpram",
+   1866,
+   14
+  ],
+  "269204": [
+   "L Pabram",
+   1866,
+   14
+  ],
+  "269177": [
+   "Kahulong",
+   1866,
+   9
+  ],
+  "269174": [
+   "Khongjaron Khunthak",
+   1866,
+   9
+  ],
+  "269173": [
+   "Duigailong",
+   1866,
+   8
+  ],
+  "269089": [
+   "Tousem",
+   1864,
+   17
+  ],
+  "269094": [
+   "Phoklong",
+   1864,
+   17
+  ],
+  "269102": [
+   "Inem",
+   1864,
+   18
+  ],
+  "269101": [
+   "Impa",
+   1864,
+   18
+  ],
+  "269095": [
+   "Togoram",
+   1864,
+   17
+  ],
+  "269099": [
+   "Magulong",
+   1864,
+   18
+  ],
+  "269103": [
+   "New Magulong",
+   1864,
+   21
+  ],
+  "269097": [
+   "Katangam",
+   1864,
+   21
+  ],
+  "269100": [
+   "Katang",
+   1864,
+   21
+  ],
+  "269096": [
+   "Katiang",
+   1864,
+   21
+  ],
+  "269207": [
+   "Tamenglong CT",
+   1866,
+   9
+  ],
+  "269188": [
+   "Nungtek",
+   1866,
+   5
+  ],
+  "269189": [
+   "Maranging",
+   1866,
+   6
+  ],
+  "269191": [
+   "Pungmon",
+   1866,
+   6
+  ],
+  "269190": [
+   "Ejeirong",
+   1866,
+   6
+  ],
+  "269192": [
+   "Haochong",
+   1866,
+   5
+  ],
+  "269206": [
+   "Bakua",
+   1866,
+   10
+  ],
+  "269171": [
+   "Khundong Khunkhaiba",
+   1865,
+   11
+  ],
+  "269170": [
+   "Nurathen",
+   1865,
+   11
+  ],
+  "269169": [
+   "Atangkhullen",
+   1865,
+   16
+  ],
+  "269166": [
+   "Lasan",
+   1865,
+   16
+  ],
+  "269149": [
+   "Lamlaba",
+   1865,
+   15
+  ],
+  "269168": [
+   "Atangkhunou",
+   1865,
+   16
+  ],
+  "269150": [
+   "Kabonram",
+   1865,
+   15
+  ],
+  "269172": [
+   "S Songpibung",
+   1865,
+   16
+  ],
+  "269152": [
+   "Langmei",
+   1865,
+   19
+  ],
+  "269153": [
+   "Tamei",
+   1865,
+   19
+  ],
+  "269167": [
+   "Old Thenjang",
+   1865,
+   20
+  ],
+  "269193": [
+   "Oktan",
+   1866,
+   10
+  ],
+  "269195": [
+   "Thingra",
+   1866,
+   10
+  ],
+  "269196": [
+   "Kajinglong",
+   1866,
+   15
+  ],
+  "269145": [
+   "Dikiuram",
+   1865,
+   19
+  ],
+  "269155": [
+   "Tamah",
+   1865,
+   20
+  ],
+  "269154": [
+   "Kawalong",
+   1865,
+   19
+  ],
+  "269144": [
+   "Konphung",
+   1865,
+   19
+  ],
+  "269156": [
+   "Old Takou",
+   1865,
+   22
+  ],
+  "269157": [
+   "New Kadi",
+   1865,
+   22
+  ],
+  "269159": [
+   "Elleng",
+   1865,
+   22
+  ],
+  "269165": [
+   "Old Kadi",
+   1865,
+   23
+  ],
+  "269158": [
+   "Chaton I",
+   1865,
+   22
+  ],
+  "269160": [
+   "Dunong",
+   1865,
+   24
+  ],
+  "269164": [
+   "Kuilong I",
+   1865,
+   25
+  ],
+  "269161": [
+   "Makuinong",
+   1865,
+   24
+  ],
+  "269143": [
+   "Lenglong",
+   1865,
+   22
+  ],
+  "269163": [
+   "Old Lemta",
+   1865,
+   25
+  ],
+  "269162": [
+   "Nallong",
+   1865,
+   26
+  ]
+ },
+ "village_count_total": 122,
+ "village_count_assigned": 122
+}

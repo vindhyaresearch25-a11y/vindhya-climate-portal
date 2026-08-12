@@ -1,0 +1,550 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Tamil Nadu",
+  "district": "The Nilgiris",
+  "district_lgd": 587,
+  "observation_window": "2026-08-07T11:24Z to 2026-08-12T11:24Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3599,
+  "sm_surface_stddev": 0.0515,
+  "sm_rootzone_mean": 0.3673,
+  "sm_rootzone_stddev": 0.058,
+  "n_cells": 22,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 11.2155,
+    "lon": 76.532,
+    "sm_surface": 0.406,
+    "sm_rootzone": 0.4219,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 1,
+    "lat": 11.2155,
+    "lon": 76.6308,
+    "sm_surface": 0.3971,
+    "sm_rootzone": 0.4116,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 2,
+    "lat": 11.3143,
+    "lon": 76.6308,
+    "sm_surface": 0.3926,
+    "sm_rootzone": 0.4052,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 3,
+    "lat": 11.3143,
+    "lon": 76.7296,
+    "sm_surface": 0.3773,
+    "sm_rootzone": 0.3816,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 4,
+    "lat": 11.3143,
+    "lon": 76.8284,
+    "sm_surface": 0.293,
+    "sm_rootzone": 0.2855,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 5,
+    "lat": 11.4131,
+    "lon": 76.4332,
+    "sm_surface": 0.4124,
+    "sm_rootzone": 0.4299,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 6,
+    "lat": 11.4131,
+    "lon": 76.532,
+    "sm_surface": 0.4029,
+    "sm_rootzone": 0.4167,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 7,
+    "lat": 11.4131,
+    "lon": 76.6308,
+    "sm_surface": 0.3858,
+    "sm_rootzone": 0.3959,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 8,
+    "lat": 11.4131,
+    "lon": 76.7296,
+    "sm_surface": 0.3585,
+    "sm_rootzone": 0.3612,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 9,
+    "lat": 11.4131,
+    "lon": 76.8284,
+    "sm_surface": 0.3302,
+    "sm_rootzone": 0.3245,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 10,
+    "lat": 11.4131,
+    "lon": 76.9272,
+    "sm_surface": 0.2328,
+    "sm_rootzone": 0.2248,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 11,
+    "lat": 11.5119,
+    "lon": 76.3343,
+    "sm_surface": 0.4172,
+    "sm_rootzone": 0.4343,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 12,
+    "lat": 11.5119,
+    "lon": 76.4332,
+    "sm_surface": 0.4005,
+    "sm_rootzone": 0.4162,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 13,
+    "lat": 11.5119,
+    "lon": 76.532,
+    "sm_surface": 0.3866,
+    "sm_rootzone": 0.398,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 14,
+    "lat": 11.5119,
+    "lon": 76.6308,
+    "sm_surface": 0.3833,
+    "sm_rootzone": 0.3922,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 15,
+    "lat": 11.5119,
+    "lon": 76.7296,
+    "sm_surface": 0.3309,
+    "sm_rootzone": 0.3285,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 16,
+    "lat": 11.5119,
+    "lon": 76.8284,
+    "sm_surface": 0.293,
+    "sm_rootzone": 0.2932,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 17,
+    "lat": 11.5119,
+    "lon": 76.9272,
+    "sm_surface": 0.2565,
+    "sm_rootzone": 0.2695,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 18,
+    "lat": 11.6107,
+    "lon": 76.4332,
+    "sm_surface": 0.3947,
+    "sm_rootzone": 0.4086,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 19,
+    "lat": 11.6107,
+    "lon": 76.532,
+    "sm_surface": 0.3855,
+    "sm_rootzone": 0.3972,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 20,
+    "lat": 11.6107,
+    "lon": 76.6308,
+    "sm_surface": 0.3701,
+    "sm_rootzone": 0.3778,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 21,
+    "lat": 11.6107,
+    "lon": 76.7296,
+    "sm_surface": 0.31,
+    "sm_rootzone": 0.3072,
+    "n_villages_sharing_cell": 0
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3606,
+  "sm_surface_stddev": 0.0496,
+  "n_blocks": 6
+ },
+ "blocks": [
+  {
+   "block_name": "Coonoor",
+   "sdcode": 5758,
+   "n_villages": 11,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3347,
+   "sm_surface_stddev": 0.0402
+  },
+  {
+   "block_name": "Gudalur",
+   "sdcode": 5755,
+   "n_villages": 6,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.3944,
+   "sm_surface_stddev": 0.0097
+  },
+  {
+   "block_name": "Kotagiri",
+   "sdcode": 5757,
+   "n_villages": 16,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.2668,
+   "sm_surface_stddev": 0.0398
+  },
+  {
+   "block_name": "Kundah",
+   "sdcode": 5759,
+   "n_villages": 7,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3964,
+   "sm_surface_stddev": 0.0044
+  },
+  {
+   "block_name": "Panthalur",
+   "sdcode": 5754,
+   "n_villages": 5,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.4139,
+   "sm_surface_stddev": 0.0067
+  },
+  {
+   "block_name": "Udhagamandalam",
+   "sdcode": 5756,
+   "n_villages": 13,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.3573,
+   "sm_surface_stddev": 0.0287
+  }
+ ],
+ "villages": {
+  "635085": [
+   "Mudumalai",
+   5755,
+   19
+  ],
+  "635118": [
+   "Mulligoor",
+   5759,
+   0
+  ],
+  "635084": [
+   "Nellakotta",
+   5755,
+   18
+  ],
+  "635081": [
+   "Munnanad",
+   5754,
+   11
+  ],
+  "635086": [
+   "Srimadurai",
+   5755,
+   13
+  ],
+  "635080": [
+   "Erumad",
+   5754,
+   11
+  ],
+  "635082": [
+   "Nelliyalam",
+   5754,
+   12
+  ],
+  "252595": [
+   "Devarshola Tp",
+   5755,
+   12
+  ],
+  "635083": [
+   "Cherangode",
+   5754,
+   11
+  ],
+  "252920": [
+   "Gudalur M",
+   5755,
+   13
+  ],
+  "252594": [
+   "Nelliyalam M",
+   5754,
+   11
+  ],
+  "252597": [
+   "O Valley Tp",
+   5755,
+   5
+  ],
+  "635109": [
+   "Kotagiri",
+   5757,
+   9
+  ],
+  "635116": [
+   "Hubbathala CT",
+   5758,
+   3
+  ],
+  "635121": [
+   "Kinnakkorai",
+   5759,
+   1
+  ],
+  "635093": [
+   "Hullathi",
+   5756,
+   14
+  ],
+  "252602": [
+   "Jagathala Tp",
+   5757,
+   9
+  ],
+  "635110": [
+   "Jackanarai",
+   5757,
+   10
+  ],
+  "277302": [
+   "Wellington Cb",
+   5758,
+   4
+  ],
+  "252603": [
+   "Kethi Tp",
+   5758,
+   3
+  ],
+  "635113": [
+   "Coonoor",
+   5758,
+   4
+  ],
+  "635111": [
+   "Yedappalli",
+   5758,
+   9
+  ],
+  "635112": [
+   "Burliyar",
+   5758,
+   4
+  ],
+  "252605": [
+   "Coonoor M",
+   5758,
+   4
+  ],
+  "635117": [
+   "Ithalar",
+   5759,
+   2
+  ],
+  "635102": [
+   "Nandipuram",
+   5757,
+   17
+  ],
+  "252607": [
+   "Adikaratti Tp",
+   5758,
+   3
+  ],
+  "635119": [
+   "Balacola",
+   5759,
+   2
+  ],
+  "635120": [
+   "Melkundah",
+   5759,
+   1
+  ],
+  "252608": [
+   "Huligal Tp",
+   5758,
+   4
+  ],
+  "252609": [
+   "Bikketti Tp",
+   5759,
+   2
+  ],
+  "635114": [
+   "Melur",
+   5758,
+   3
+  ],
+  "252610": [
+   "Kilkunda Tp",
+   5759,
+   1
+  ],
+  "635088": [
+   "Kadanad",
+   5756,
+   15
+  ],
+  "635087": [
+   "Masinagudi",
+   5756,
+   20
+  ],
+  "635097": [
+   "Hallimoyar",
+   5757,
+   17
+  ],
+  "635089": [
+   "Ebbanad",
+   5756,
+   15
+  ],
+  "635090": [
+   "Kukkal",
+   5756,
+   16
+  ],
+  "252601": [
+   "Kotagiri Tp",
+   5757,
+   9
+  ],
+  "252598": [
+   "Sholur Tp",
+   5756,
+   14
+  ],
+  "635099": [
+   "Kodanad",
+   5757,
+   17
+  ],
+  "635100": [
+   "Nedugula",
+   5757,
+   16
+  ],
+  "252599": [
+   "Naduvattam Tp",
+   5756,
+   6
+  ],
+  "635092": [
+   "Thuneri",
+   5756,
+   8
+  ],
+  "635091": [
+   "Kagguchi",
+   5756,
+   9
+  ],
+  "635101": [
+   "Denad",
+   5757,
+   10
+  ],
+  "635108": [
+   "Naduhatty",
+   5757,
+   9
+  ],
+  "635105": [
+   "Kadinamala",
+   5757,
+   10
+  ],
+  "635107": [
+   "Konakarai",
+   5757,
+   10
+  ],
+  "635096": [
+   "Thummanatti",
+   5756,
+   8
+  ],
+  "252600": [
+   "Udhagamandalam M",
+   5756,
+   8
+  ],
+  "635095": [
+   "Udhagamandalam",
+   5756,
+   8
+  ],
+  "635106": [
+   "Kengarai",
+   5757,
+   10
+  ],
+  "635094": [
+   "Nanjanad",
+   5756,
+   7
+  ],
+  "635104": [
+   "Kokkode",
+   5757,
+   10
+  ],
+  "635103": [
+   "Aracode",
+   5757,
+   10
+  ],
+  "635098": [
+   "Kallampalayam",
+   5757,
+   17
+  ],
+  "635115": [
+   "Aravankad Ts CT",
+   5758,
+   3
+  ]
+ },
+ "village_count_total": 58,
+ "village_count_assigned": 58
+}

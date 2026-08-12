@@ -1,0 +1,58 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Dadra & Nagar Havelli and Daman & Diu",
+  "district": "Dadra And Nagar Haveli",
+  "district_lgd": 465,
+  "observation_window": "2026-08-07T11:06Z to 2026-08-12T11:06Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "unavailable (HTTP Error 404: Not Found)"
+ },
+ "district": {
+  "sm_surface_mean": 0.452,
+  "sm_surface_stddev": 0.0509,
+  "sm_rootzone_mean": 0.4658,
+  "sm_rootzone_stddev": 0.0579,
+  "n_cells": 4,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 20.1088,
+    "lon": 73.0735,
+    "sm_surface": 0.4043,
+    "sm_rootzone": 0.4242
+   },
+   {
+    "cell_index": 1,
+    "lat": 20.1088,
+    "lon": 73.1723,
+    "sm_surface": 0.398,
+    "sm_rootzone": 0.3938
+   },
+   {
+    "cell_index": 2,
+    "lat": 20.2076,
+    "lon": 72.9746,
+    "sm_surface": 0.4989,
+    "sm_rootzone": 0.5264
+   },
+   {
+    "cell_index": 3,
+    "lat": 20.3064,
+    "lon": 73.0735,
+    "sm_surface": 0.5067,
+    "sm_rootzone": 0.5188
+   }
+  ]
+ },
+ "district_block_rollup": null,
+ "blocks": [],
+ "villages": {},
+ "village_count_total": 0,
+ "village_count_assigned": 0
+}

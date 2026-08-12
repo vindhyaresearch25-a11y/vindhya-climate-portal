@@ -1,0 +1,1650 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Meghalaya",
+  "district": "South West Khasi Hills",
+  "district_lgd": 658,
+  "observation_window": "2026-08-07T11:18Z to 2026-08-12T11:18Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.45,
+  "sm_surface_stddev": 0.0322,
+  "sm_rootzone_mean": 0.4581,
+  "sm_rootzone_stddev": 0.0431,
+  "n_cells": 11,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 25.2472,
+    "lon": 90.9589,
+    "sm_surface": 0.4482,
+    "sm_rootzone": 0.4639,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 1,
+    "lat": 25.2472,
+    "lon": 91.0577,
+    "sm_surface": 0.4491,
+    "sm_rootzone": 0.4642,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 2,
+    "lat": 25.2472,
+    "lon": 91.1565,
+    "sm_surface": 0.4499,
+    "sm_rootzone": 0.4514,
+    "n_villages_sharing_cell": 27
+   },
+   {
+    "cell_index": 3,
+    "lat": 25.2472,
+    "lon": 91.2554,
+    "sm_surface": 0.5012,
+    "sm_rootzone": 0.5115,
+    "n_villages_sharing_cell": 40
+   },
+   {
+    "cell_index": 4,
+    "lat": 25.2472,
+    "lon": 91.3542,
+    "sm_surface": 0.4822,
+    "sm_rootzone": 0.5057,
+    "n_villages_sharing_cell": 64
+   },
+   {
+    "cell_index": 5,
+    "lat": 25.346,
+    "lon": 91.1565,
+    "sm_surface": 0.4202,
+    "sm_rootzone": 0.4205,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 6,
+    "lat": 25.346,
+    "lon": 91.2554,
+    "sm_surface": 0.414,
+    "sm_rootzone": 0.4094,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 7,
+    "lat": 25.346,
+    "lon": 91.3542,
+    "sm_surface": 0.485,
+    "sm_rootzone": 0.508,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 8,
+    "lat": 25.346,
+    "lon": 91.453,
+    "sm_surface": 0.4814,
+    "sm_rootzone": 0.5049,
+    "n_villages_sharing_cell": 70
+   },
+   {
+    "cell_index": 9,
+    "lat": 25.4448,
+    "lon": 91.3542,
+    "sm_surface": 0.4091,
+    "sm_rootzone": 0.3994,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 10,
+    "lat": 25.4448,
+    "lon": 91.453,
+    "sm_surface": 0.4092,
+    "sm_rootzone": 0.4007,
+    "n_villages_sharing_cell": 32
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.4624,
+  "sm_surface_stddev": 0.0127,
+  "n_blocks": 2
+ },
+ "blocks": [
+  {
+   "block_name": "Mawkyrwat",
+   "sdcode": 1984,
+   "n_villages": 141,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.4497,
+   "sm_surface_stddev": 0.0352
+  },
+  {
+   "block_name": "Ranikor",
+   "sdcode": 1983,
+   "n_villages": 162,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.4751,
+   "sm_surface_stddev": 0.0206
+  }
+ ],
+ "villages": {
+  "277246": [
+   "Kalapathar",
+   1983,
+   2
+  ],
+  "277324": [
+   "Dommyntong",
+   1984,
+   9
+  ],
+  "277135": [
+   "Sooling",
+   1983,
+   0
+  ],
+  "277136": [
+   "Umtengkut",
+   1983,
+   1
+  ],
+  "277137": [
+   "Thadteja",
+   1983,
+   1
+  ],
+  "277138": [
+   "Amarsang",
+   1983,
+   1
+  ],
+  "277140": [
+   "Weikut",
+   1983,
+   1
+  ],
+  "277141": [
+   "Pormadar",
+   1983,
+   1
+  ],
+  "277142": [
+   "Nongkulang",
+   1983,
+   1
+  ],
+  "277143": [
+   "Nongjri",
+   1983,
+   2
+  ],
+  "277219": [
+   "Khonjoy A",
+   1983,
+   1
+  ],
+  "277220": [
+   "Chibak",
+   1983,
+   1
+  ],
+  "277221": [
+   "Upper Chibak",
+   1983,
+   1
+  ],
+  "277222": [
+   "Rongdikgre",
+   1983,
+   1
+  ],
+  "277223": [
+   "Rongdanggai",
+   1983,
+   1
+  ],
+  "277224": [
+   "Chitokgre",
+   1983,
+   0
+  ],
+  "277225": [
+   "Rongdhigre",
+   1983,
+   0
+  ],
+  "277226": [
+   "Kampilgre",
+   1983,
+   0
+  ],
+  "277227": [
+   "Chimasora",
+   1983,
+   0
+  ],
+  "277228": [
+   "Maheshkola",
+   1983,
+   0
+  ],
+  "277229": [
+   "Ganganagar B",
+   1983,
+   0
+  ],
+  "277230": [
+   "Ganganagar A",
+   1983,
+   0
+  ],
+  "277231": [
+   "Gillagora",
+   1983,
+   1
+  ],
+  "277232": [
+   "Upper Gillagora",
+   1983,
+   1
+  ],
+  "277233": [
+   "Koraibari",
+   1983,
+   1
+  ],
+  "277234": [
+   "Upper Koraibari",
+   1983,
+   1
+  ],
+  "277235": [
+   "Kaitakona",
+   1983,
+   1
+  ],
+  "277236": [
+   "Majisora",
+   1983,
+   1
+  ],
+  "277237": [
+   "Garobita",
+   1983,
+   1
+  ],
+  "277238": [
+   "Kutchiasora",
+   1983,
+   1
+  ],
+  "277239": [
+   "Bagli",
+   1983,
+   1
+  ],
+  "277240": [
+   "Noasora",
+   1983,
+   1
+  ],
+  "277241": [
+   "Rongdusora",
+   1983,
+   1
+  ],
+  "277242": [
+   "Chiragao",
+   1983,
+   2
+  ],
+  "277139": [
+   "Chikoit",
+   1983,
+   1
+  ],
+  "277243": [
+   "Lakma",
+   1983,
+   2
+  ],
+  "277244": [
+   "Borsora",
+   1983,
+   2
+  ],
+  "277245": [
+   "Shippur",
+   1983,
+   2
+  ],
+  "277217": [
+   "Sawnumbor",
+   1983,
+   2
+  ],
+  "277218": [
+   "Mairamading",
+   1983,
+   2
+  ],
+  "277144": [
+   "Poitbli",
+   1983,
+   2
+  ],
+  "277145": [
+   "Nonghyllam",
+   1983,
+   2
+  ],
+  "277146": [
+   "Nongumsur",
+   1983,
+   2
+  ],
+  "277216": [
+   "Mawkhar",
+   1983,
+   2
+  ],
+  "277158": [
+   "Thangbyrniang",
+   1983,
+   2
+  ],
+  "277163": [
+   "Nongphanwir",
+   1983,
+   3
+  ],
+  "277164": [
+   "Phudumiap",
+   1983,
+   3
+  ],
+  "277165": [
+   "Rilang",
+   1983,
+   3
+  ],
+  "277166": [
+   "Arphewsan Mile",
+   1983,
+   3
+  ],
+  "277167": [
+   "Kensohsan",
+   1983,
+   3
+  ],
+  "277213": [
+   "Pamdaba",
+   1983,
+   3
+  ],
+  "277214": [
+   "Alikwareng",
+   1983,
+   3
+  ],
+  "277215": [
+   "Rajaju",
+   1983,
+   2
+  ],
+  "277247": [
+   "Chintusora",
+   1983,
+   3
+  ],
+  "277248": [
+   "Rajai B",
+   1983,
+   2
+  ],
+  "277249": [
+   "Rajai A",
+   1983,
+   3
+  ],
+  "277250": [
+   "Kalapahaar",
+   1983,
+   3
+  ],
+  "277251": [
+   "Tilagao",
+   1983,
+   3
+  ],
+  "277168": [
+   "Shnongkalong",
+   1983,
+   3
+  ],
+  "277169": [
+   "Mawphuli",
+   1983,
+   3
+  ],
+  "277170": [
+   "Dirang",
+   1983,
+   3
+  ],
+  "277171": [
+   "Photeitsim",
+   1983,
+   3
+  ],
+  "277192": [
+   "Myriaw",
+   1983,
+   4
+  ],
+  "277193": [
+   "Kolomboit",
+   1983,
+   4
+  ],
+  "277199": [
+   "Pyndensohsham",
+   1983,
+   4
+  ],
+  "277200": [
+   "Ditumtum",
+   1983,
+   4
+  ],
+  "277201": [
+   "Domlinar",
+   1983,
+   4
+  ],
+  "277202": [
+   "Phodkroh",
+   1983,
+   4
+  ],
+  "277203": [
+   "Panchiring B",
+   1983,
+   4
+  ],
+  "277204": [
+   "Mawhati",
+   1983,
+   4
+  ],
+  "277205": [
+   "Munai",
+   1983,
+   3
+  ],
+  "277206": [
+   "Rudu A",
+   1983,
+   4
+  ],
+  "277207": [
+   "Rudu B",
+   1983,
+   3
+  ],
+  "277208": [
+   "Munaisora",
+   1983,
+   3
+  ],
+  "277209": [
+   "Mawlongbah",
+   1983,
+   3
+  ],
+  "277210": [
+   "Khadphra",
+   1983,
+   3
+  ],
+  "277211": [
+   "Ranikor",
+   1983,
+   3
+  ],
+  "277212": [
+   "Nolikata",
+   1983,
+   3
+  ],
+  "277252": [
+   "Mawpyllun",
+   1983,
+   3
+  ],
+  "277253": [
+   "Khangkhlak",
+   1983,
+   3
+  ],
+  "277254": [
+   "Largao",
+   1983,
+   3
+  ],
+  "277255": [
+   "Kewri",
+   1983,
+   3
+  ],
+  "277256": [
+   "Chikunbari A",
+   1983,
+   3
+  ],
+  "277257": [
+   "Chikunbari B",
+   1983,
+   3
+  ],
+  "277258": [
+   "Shippapara",
+   1983,
+   3
+  ],
+  "277259": [
+   "Bolabeta",
+   1983,
+   3
+  ],
+  "277260": [
+   "New Rangasora",
+   1983,
+   3
+  ],
+  "277261": [
+   "Koraikora",
+   1983,
+   3
+  ],
+  "277262": [
+   "West Rangasora",
+   1983,
+   3
+  ],
+  "277263": [
+   "East Rangasora",
+   1983,
+   3
+  ],
+  "277264": [
+   "Wanokchiring",
+   1983,
+   3
+  ],
+  "277265": [
+   "East Gulsora",
+   1983,
+   4
+  ],
+  "277266": [
+   "New Gulsora",
+   1983,
+   3
+  ],
+  "277267": [
+   "Nayapara",
+   1983,
+   4
+  ],
+  "277268": [
+   "Tibichiring",
+   1983,
+   4
+  ],
+  "277269": [
+   "Ampangre",
+   1983,
+   4
+  ],
+  "277270": [
+   "Koltapara",
+   1983,
+   4
+  ],
+  "277271": [
+   "Lower Koltapara",
+   1983,
+   4
+  ],
+  "277272": [
+   "Sodorkura",
+   1983,
+   4
+  ],
+  "277273": [
+   "Lower Rajapara",
+   1983,
+   4
+  ],
+  "277274": [
+   "Upper Rajapara",
+   1983,
+   4
+  ],
+  "277275": [
+   "Khasiadop",
+   1983,
+   4
+  ],
+  "277276": [
+   "Bakrachiring",
+   1983,
+   4
+  ],
+  "277277": [
+   "Makbilkol",
+   1983,
+   4
+  ],
+  "277278": [
+   "Lower Puksora",
+   1983,
+   4
+  ],
+  "277279": [
+   "Panchiring A",
+   1983,
+   4
+  ],
+  "277280": [
+   "Chijongchiring",
+   1983,
+   4
+  ],
+  "277281": [
+   "Upper Panchiring",
+   1983,
+   4
+  ],
+  "277282": [
+   "Upper Puksora",
+   1983,
+   4
+  ],
+  "277283": [
+   "Assimgittim",
+   1983,
+   4
+  ],
+  "277284": [
+   "Phodkylla",
+   1983,
+   4
+  ],
+  "277285": [
+   "Nongthymmai",
+   1983,
+   4
+  ],
+  "277286": [
+   "Umpung",
+   1983,
+   4
+  ],
+  "277287": [
+   "Mawshaliah",
+   1983,
+   4
+  ],
+  "277288": [
+   "Songdongktieh",
+   1983,
+   4
+  ],
+  "277289": [
+   "New Moilam",
+   1983,
+   4
+  ],
+  "277290": [
+   "Old Moilam",
+   1983,
+   4
+  ],
+  "277291": [
+   "Umbir",
+   1983,
+   4
+  ],
+  "277292": [
+   "Jimaduar",
+   1983,
+   4
+  ],
+  "277293": [
+   "Mulapat",
+   1983,
+   4
+  ],
+  "277147": [
+   "Nongbahjynrin",
+   1983,
+   2
+  ],
+  "277148": [
+   "Nongmalang",
+   1983,
+   2
+  ],
+  "277149": [
+   "Wahkaji",
+   1983,
+   2
+  ],
+  "277150": [
+   "Domiasiat",
+   1983,
+   2
+  ],
+  "277151": [
+   "Mawthabah",
+   1983,
+   2
+  ],
+  "277152": [
+   "Phlangdiloin",
+   1983,
+   2
+  ],
+  "277153": [
+   "Rangkhiat",
+   1983,
+   2
+  ],
+  "277154": [
+   "Langpa",
+   1983,
+   2
+  ],
+  "277155": [
+   "Rngimawpat",
+   1983,
+   2
+  ],
+  "277156": [
+   "Pyndensynnia",
+   1983,
+   2
+  ],
+  "277157": [
+   "Phlangmawprah",
+   1983,
+   2
+  ],
+  "277159": [
+   "Nongmluh",
+   1983,
+   3
+  ],
+  "277160": [
+   "Mawphansaw",
+   1983,
+   3
+  ],
+  "277161": [
+   "Mawthungmalang",
+   1983,
+   3
+  ],
+  "277162": [
+   "Mawmynsor",
+   1983,
+   3
+  ],
+  "277172": [
+   "Pyndenlaru",
+   1983,
+   4
+  ],
+  "277173": [
+   "Thangrai",
+   1983,
+   4
+  ],
+  "277174": [
+   "Nongkdait",
+   1983,
+   4
+  ],
+  "277175": [
+   "Nongkdait Nongtwah",
+   1983,
+   4
+  ],
+  "277176": [
+   "Mawendeng",
+   1983,
+   4
+  ],
+  "277177": [
+   "Nongbah",
+   1983,
+   4
+  ],
+  "277178": [
+   "Nongktieh",
+   1983,
+   4
+  ],
+  "277182": [
+   "Nongdewsaw",
+   1983,
+   4
+  ],
+  "277183": [
+   "Mawtaiem",
+   1983,
+   4
+  ],
+  "277184": [
+   "Domsohkhai",
+   1983,
+   4
+  ],
+  "277298": [
+   "Nongthymmai Langjaud",
+   1984,
+   5
+  ],
+  "277299": [
+   "Pyndenkseh",
+   1984,
+   5
+  ],
+  "277300": [
+   "Pyndenkseh Sepngi",
+   1984,
+   5
+  ],
+  "277301": [
+   "New Pyndenkseh",
+   1984,
+   5
+  ],
+  "277302": [
+   "Nongdiloin",
+   1984,
+   6
+  ],
+  "277303": [
+   "Mawpat",
+   1984,
+   6
+  ],
+  "277304": [
+   "Mawkhlaitngap",
+   1984,
+   6
+  ],
+  "277305": [
+   "Umdohlun",
+   1984,
+   6
+  ],
+  "277306": [
+   "Nongrim Mawpat",
+   1984,
+   6
+  ],
+  "277307": [
+   "Demnar",
+   1984,
+   6
+  ],
+  "277308": [
+   "Myriem",
+   1984,
+   6
+  ],
+  "277309": [
+   "Langtor",
+   1984,
+   6
+  ],
+  "277310": [
+   "Mawjarain",
+   1984,
+   6
+  ],
+  "277311": [
+   "Awro",
+   1984,
+   6
+  ],
+  "277312": [
+   "Kensimphlang",
+   1984,
+   6
+  ],
+  "277434": [
+   "Ngunraw",
+   1984,
+   6
+  ],
+  "277435": [
+   "Rangjadong",
+   1984,
+   6
+  ],
+  "277296": [
+   "Ngundilang",
+   1984,
+   5
+  ],
+  "277297": [
+   "Brithawsoh",
+   1984,
+   5
+  ],
+  "277194": [
+   "Pyndenwar",
+   1983,
+   4
+  ],
+  "277195": [
+   "Trongpleng",
+   1983,
+   4
+  ],
+  "277196": [
+   "Mawpait Trongpleng",
+   1983,
+   4
+  ],
+  "277197": [
+   "Mawlongroh",
+   1983,
+   4
+  ],
+  "277198": [
+   "Domshken",
+   1983,
+   4
+  ],
+  "277294": [
+   "Kakorkura",
+   1983,
+   4
+  ],
+  "277295": [
+   "Balat",
+   1983,
+   4
+  ],
+  "277179": [
+   "Keniong",
+   1983,
+   4
+  ],
+  "277180": [
+   "Thiepdiengngan",
+   1983,
+   4
+  ],
+  "277181": [
+   "Wahbamon",
+   1983,
+   4
+  ],
+  "277185": [
+   "Dommawlein",
+   1983,
+   4
+  ],
+  "277186": [
+   "Nongkynbah",
+   1983,
+   4
+  ],
+  "277187": [
+   "Nongpdengkynbah",
+   1983,
+   4
+  ],
+  "277188": [
+   "Sarin",
+   1983,
+   4
+  ],
+  "277189": [
+   "Raibah",
+   1983,
+   4
+  ],
+  "277190": [
+   "Mawpud",
+   1983,
+   4
+  ],
+  "277191": [
+   "Lower Mawpud",
+   1983,
+   4
+  ],
+  "277313": [
+   "Mawthanrew Mawlyngngad",
+   1984,
+   7
+  ],
+  "277379": [
+   "Pawphlang",
+   1984,
+   8
+  ],
+  "277380": [
+   "Pawphlang Perkseh",
+   1984,
+   8
+  ],
+  "277415": [
+   "Mawmerang",
+   1984,
+   8
+  ],
+  "277416": [
+   "Nongeitser",
+   1984,
+   8
+  ],
+  "277417": [
+   "Mawtngam",
+   1984,
+   8
+  ],
+  "277418": [
+   "Hilland",
+   1984,
+   8
+  ],
+  "277420": [
+   "Jerlang",
+   1984,
+   8
+  ],
+  "277421": [
+   "Lummawbah",
+   1984,
+   8
+  ],
+  "277423": [
+   "Manad",
+   1984,
+   8
+  ],
+  "277424": [
+   "Mawsain",
+   1984,
+   8
+  ],
+  "277425": [
+   "Mawtangden",
+   1984,
+   8
+  ],
+  "277426": [
+   "Pyndenlyngdoh",
+   1984,
+   8
+  ],
+  "277427": [
+   "Pynden Sohlang",
+   1984,
+   8
+  ],
+  "277428": [
+   "Mawrap",
+   1984,
+   8
+  ],
+  "999999": [
+   "Data Partially Available",
+   1984,
+   7
+  ],
+  "277429": [
+   "Mawbidong",
+   1984,
+   8
+  ],
+  "277430": [
+   "Mawkhyrwang",
+   1984,
+   8
+  ],
+  "277431": [
+   "Nongnam",
+   1984,
+   8
+  ],
+  "277432": [
+   "Mawbri",
+   1984,
+   8
+  ],
+  "277433": [
+   "Lumpyngngad",
+   1984,
+   8
+  ],
+  "277422": [
+   "Tynnai",
+   1984,
+   8
+  ],
+  "277398": [
+   "Lawblei",
+   1984,
+   8
+  ],
+  "277400": [
+   "Nonglang",
+   1984,
+   8
+  ],
+  "277401": [
+   "Pynden Sakwang",
+   1984,
+   8
+  ],
+  "277402": [
+   "Rangmaw",
+   1984,
+   8
+  ],
+  "277403": [
+   "Mawlangwir",
+   1984,
+   8
+  ],
+  "277404": [
+   "Phlangmawtangdiar",
+   1984,
+   8
+  ],
+  "277405": [
+   "Mawten",
+   1984,
+   8
+  ],
+  "277406": [
+   "Mawkohphet",
+   1984,
+   8
+  ],
+  "277407": [
+   "Dewlieh",
+   1984,
+   8
+  ],
+  "277408": [
+   "Domjyrti",
+   1984,
+   8
+  ],
+  "277409": [
+   "Pynden Mawlieh",
+   1984,
+   8
+  ],
+  "277410": [
+   "Phlangkynshi Sepngi",
+   1984,
+   8
+  ],
+  "277411": [
+   "Phlangkynshi Mihngi",
+   1984,
+   8
+  ],
+  "277412": [
+   "Domtynrong",
+   1984,
+   8
+  ],
+  "277413": [
+   "Phlangjaud",
+   1984,
+   8
+  ],
+  "277414": [
+   "Mawksiar Pondi",
+   1984,
+   8
+  ],
+  "277419": [
+   "Phutjaud",
+   1984,
+   8
+  ],
+  "277314": [
+   "Rangthong Nongbah",
+   1984,
+   7
+  ],
+  "277315": [
+   "Photjaud Rangthong",
+   1984,
+   7
+  ],
+  "277316": [
+   "Mawsaw",
+   1984,
+   7
+  ],
+  "277317": [
+   "Mawsaw Mihngi",
+   1984,
+   9
+  ],
+  "277318": [
+   "Tiehshrah Dombah",
+   1984,
+   7
+  ],
+  "277319": [
+   "Rangdikhew",
+   1984,
+   7
+  ],
+  "277320": [
+   "Rangblang Pomtrai",
+   1984,
+   9
+  ],
+  "277321": [
+   "Rangblang A",
+   1984,
+   9
+  ],
+  "277322": [
+   "Sasniang",
+   1984,
+   9
+  ],
+  "277323": [
+   "Mawblei",
+   1984,
+   9
+  ],
+  "277325": [
+   "Rangblang Namlang",
+   1984,
+   9
+  ],
+  "277327": [
+   "Rembyrngaw",
+   1984,
+   9
+  ],
+  "277328": [
+   "Domtraw",
+   1984,
+   9
+  ],
+  "277329": [
+   "Tiehtaliar",
+   1984,
+   10
+  ],
+  "277330": [
+   "Domshrah",
+   1984,
+   10
+  ],
+  "277331": [
+   "Pynden Mawramhah",
+   1984,
+   10
+  ],
+  "277332": [
+   "Nonglyngkein",
+   1984,
+   10
+  ],
+  "277333": [
+   "Laitlawsnai",
+   1984,
+   10
+  ],
+  "277334": [
+   "Rohbah",
+   1984,
+   10
+  ],
+  "277335": [
+   "Sohmasen",
+   1984,
+   9
+  ],
+  "277336": [
+   "Umsaitshriew",
+   1984,
+   9
+  ],
+  "277337": [
+   "Thangmaw Nongrim",
+   1984,
+   9
+  ],
+  "277338": [
+   "Photjalei",
+   1984,
+   10
+  ],
+  "277339": [
+   "Nongmyllam",
+   1984,
+   10
+  ],
+  "277340": [
+   "Domruah Mawmitbah",
+   1984,
+   10
+  ],
+  "277341": [
+   "Pharmahiong",
+   1984,
+   10
+  ],
+  "277342": [
+   "Sohma",
+   1984,
+   10
+  ],
+  "277343": [
+   "Kharew",
+   1984,
+   10
+  ],
+  "277344": [
+   "Wahsiej",
+   1984,
+   10
+  ],
+  "277345": [
+   "Mawthawpdah",
+   1984,
+   10
+  ],
+  "277346": [
+   "Siejiong",
+   1984,
+   10
+  ],
+  "277347": [
+   "Mawkabait",
+   1984,
+   10
+  ],
+  "277348": [
+   "Laitnong",
+   1984,
+   10
+  ],
+  "277349": [
+   "Nongbrei Nongdom",
+   1984,
+   10
+  ],
+  "277350": [
+   "Pyndenmawthawiang",
+   1984,
+   10
+  ],
+  "277351": [
+   "Pyndenumsaw",
+   1984,
+   10
+  ],
+  "277352": [
+   "Shngimawlein",
+   1984,
+   10
+  ],
+  "277326": [
+   "Laitphlang",
+   1984,
+   9
+  ],
+  "277353": [
+   "Marshilong",
+   1984,
+   10
+  ],
+  "277354": [
+   "Nongbah Marshilong",
+   1984,
+   10
+  ],
+  "277355": [
+   "Nongdiat",
+   1984,
+   10
+  ],
+  "277356": [
+   "Mawkhew",
+   1984,
+   10
+  ],
+  "277357": [
+   "Mawkyllung",
+   1984,
+   10
+  ],
+  "277358": [
+   "Jashiar",
+   1984,
+   10
+  ],
+  "277359": [
+   "Laitjynrai",
+   1984,
+   8
+  ],
+  "277360": [
+   "Lad Dommawiong",
+   1984,
+   8
+  ],
+  "277361": [
+   "Mawjyrsiem",
+   1984,
+   10
+  ],
+  "277362": [
+   "Mawsep",
+   1984,
+   10
+  ],
+  "277363": [
+   "Mawthong",
+   1984,
+   10
+  ],
+  "277364": [
+   "Rangblang Nongbah",
+   1984,
+   8
+  ],
+  "277365": [
+   "Rangblang Laitdom",
+   1984,
+   8
+  ],
+  "277366": [
+   "Nongsynrieh",
+   1984,
+   8
+  ],
+  "277367": [
+   "Rangblang Pombriew",
+   1984,
+   8
+  ],
+  "277368": [
+   "Mawsyntiew",
+   1984,
+   8
+  ],
+  "277369": [
+   "Sohsyniang",
+   1984,
+   8
+  ],
+  "277370": [
+   "Nongbah Dommawthung",
+   1984,
+   8
+  ],
+  "277371": [
+   "Mawthawiang Nongtraw",
+   1984,
+   8
+  ],
+  "277372": [
+   "Diwian Rangblang",
+   1984,
+   8
+  ],
+  "277373": [
+   "Diwian Mawiong",
+   1984,
+   8
+  ],
+  "277374": [
+   "Mawiong",
+   1984,
+   8
+  ],
+  "277375": [
+   "Domjajew",
+   1984,
+   8
+  ],
+  "277376": [
+   "Diwian",
+   1984,
+   8
+  ],
+  "277377": [
+   "Diwian Nongbah Rim",
+   1984,
+   8
+  ],
+  "277378": [
+   "Sumsier Domtyllang",
+   1984,
+   8
+  ],
+  "277381": [
+   "Phottdei",
+   1984,
+   8
+  ],
+  "277382": [
+   "Nongmawlein",
+   1984,
+   8
+  ],
+  "277383": [
+   "Mawranglang",
+   1984,
+   8
+  ],
+  "277384": [
+   "Nongnad",
+   1984,
+   8
+  ],
+  "277385": [
+   "Sohkhyllam",
+   1984,
+   8
+  ],
+  "277386": [
+   "New Dewlieh",
+   1984,
+   8
+  ],
+  "277387": [
+   "Sakwang",
+   1984,
+   10
+  ],
+  "277388": [
+   "Shaid Shaid Umioid",
+   1984,
+   8
+  ],
+  "277389": [
+   "Pyndendiwah",
+   1984,
+   8
+  ],
+  "277390": [
+   "Mawpharkhrew",
+   1984,
+   8
+  ],
+  "277391": [
+   "Jakrem",
+   1984,
+   8
+  ],
+  "277392": [
+   "Mawpon Myrkhew",
+   1984,
+   8
+  ],
+  "277393": [
+   "Myrkhew",
+   1984,
+   10
+  ],
+  "277394": [
+   "Mawpon",
+   1984,
+   8
+  ],
+  "277395": [
+   "Diwah Shaid Moit",
+   1984,
+   8
+  ],
+  "277396": [
+   "Umjarain",
+   1984,
+   8
+  ],
+  "277397": [
+   "Mawsde",
+   1984,
+   8
+  ],
+  "277399": [
+   "Mawkyrwat",
+   1984,
+   8
+  ]
+ },
+ "village_count_total": 303,
+ "village_count_assigned": 303
+}

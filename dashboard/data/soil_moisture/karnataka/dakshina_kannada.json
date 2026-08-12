@@ -1,0 +1,2308 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Karnataka",
+  "district": "Dakshina Kannada",
+  "district_lgd": 534,
+  "observation_window": "2026-08-07T11:12Z to 2026-08-12T11:12Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.4449,
+  "sm_surface_stddev": 0.02,
+  "sm_rootzone_mean": 0.4552,
+  "sm_rootzone_stddev": 0.0408,
+  "n_cells": 42,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 12.5001,
+    "lon": 75.3462,
+    "sm_surface": 0.4342,
+    "sm_rootzone": 0.4499,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 1,
+    "lat": 12.5001,
+    "lon": 75.5438,
+    "sm_surface": 0.437,
+    "sm_rootzone": 0.4508,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 2,
+    "lat": 12.5989,
+    "lon": 75.2474,
+    "sm_surface": 0.4343,
+    "sm_rootzone": 0.4496,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 3,
+    "lat": 12.5989,
+    "lon": 75.3462,
+    "sm_surface": 0.4355,
+    "sm_rootzone": 0.4502,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 4,
+    "lat": 12.5989,
+    "lon": 75.445,
+    "sm_surface": 0.4366,
+    "sm_rootzone": 0.4505,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 5,
+    "lat": 12.5989,
+    "lon": 75.5438,
+    "sm_surface": 0.4371,
+    "sm_rootzone": 0.451,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 6,
+    "lat": 12.5989,
+    "lon": 75.6426,
+    "sm_surface": 0.4368,
+    "sm_rootzone": 0.4512,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 7,
+    "lat": 12.6977,
+    "lon": 75.1486,
+    "sm_surface": 0.4546,
+    "sm_rootzone": 0.4641,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 8,
+    "lat": 12.6977,
+    "lon": 75.2474,
+    "sm_surface": 0.4573,
+    "sm_rootzone": 0.4685,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 9,
+    "lat": 12.6977,
+    "lon": 75.3462,
+    "sm_surface": 0.4579,
+    "sm_rootzone": 0.4688,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 10,
+    "lat": 12.6977,
+    "lon": 75.445,
+    "sm_surface": 0.4537,
+    "sm_rootzone": 0.469,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 11,
+    "lat": 12.6977,
+    "lon": 75.5438,
+    "sm_surface": 0.454,
+    "sm_rootzone": 0.4692,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 12,
+    "lat": 12.7965,
+    "lon": 74.8521,
+    "sm_surface": 0.3301,
+    "sm_rootzone": 0.1997,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 13,
+    "lat": 12.7965,
+    "lon": 74.9509,
+    "sm_surface": 0.4506,
+    "sm_rootzone": 0.4596,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 14,
+    "lat": 12.7965,
+    "lon": 75.0498,
+    "sm_surface": 0.4536,
+    "sm_rootzone": 0.4645,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 15,
+    "lat": 12.7965,
+    "lon": 75.1486,
+    "sm_surface": 0.4556,
+    "sm_rootzone": 0.4672,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 16,
+    "lat": 12.7965,
+    "lon": 75.2474,
+    "sm_surface": 0.4573,
+    "sm_rootzone": 0.4683,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 17,
+    "lat": 12.7965,
+    "lon": 75.3462,
+    "sm_surface": 0.4531,
+    "sm_rootzone": 0.4687,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 18,
+    "lat": 12.7965,
+    "lon": 75.445,
+    "sm_surface": 0.453,
+    "sm_rootzone": 0.4687,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 19,
+    "lat": 12.7965,
+    "lon": 75.5438,
+    "sm_surface": 0.4356,
+    "sm_rootzone": 0.4504,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 20,
+    "lat": 12.8953,
+    "lon": 74.8521,
+    "sm_surface": 0.4486,
+    "sm_rootzone": 0.4661,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 21,
+    "lat": 12.8953,
+    "lon": 74.9509,
+    "sm_surface": 0.4517,
+    "sm_rootzone": 0.4683,
+    "n_villages_sharing_cell": 21
+   },
+   {
+    "cell_index": 22,
+    "lat": 12.8953,
+    "lon": 75.0498,
+    "sm_surface": 0.4541,
+    "sm_rootzone": 0.4693,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 23,
+    "lat": 12.8953,
+    "lon": 75.1486,
+    "sm_surface": 0.4555,
+    "sm_rootzone": 0.4669,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 24,
+    "lat": 12.8953,
+    "lon": 75.2474,
+    "sm_surface": 0.4557,
+    "sm_rootzone": 0.4671,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 25,
+    "lat": 12.8953,
+    "lon": 75.3462,
+    "sm_surface": 0.4559,
+    "sm_rootzone": 0.4672,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 26,
+    "lat": 12.8953,
+    "lon": 75.445,
+    "sm_surface": 0.4522,
+    "sm_rootzone": 0.4681,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 27,
+    "lat": 12.8953,
+    "lon": 75.5438,
+    "sm_surface": 0.4341,
+    "sm_rootzone": 0.4489,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 28,
+    "lat": 12.9941,
+    "lon": 74.8521,
+    "sm_surface": 0.4486,
+    "sm_rootzone": 0.4646,
+    "n_villages_sharing_cell": 21
+   },
+   {
+    "cell_index": 29,
+    "lat": 12.9941,
+    "lon": 74.9509,
+    "sm_surface": 0.4516,
+    "sm_rootzone": 0.4671,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 30,
+    "lat": 12.9941,
+    "lon": 75.0498,
+    "sm_surface": 0.4536,
+    "sm_rootzone": 0.468,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 31,
+    "lat": 12.9941,
+    "lon": 75.1486,
+    "sm_surface": 0.4538,
+    "sm_rootzone": 0.4649,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 32,
+    "lat": 12.9941,
+    "lon": 75.2474,
+    "sm_surface": 0.4537,
+    "sm_rootzone": 0.469,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 33,
+    "lat": 12.9941,
+    "lon": 75.3462,
+    "sm_surface": 0.4508,
+    "sm_rootzone": 0.4679,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 34,
+    "lat": 12.9941,
+    "lon": 75.445,
+    "sm_surface": 0.435,
+    "sm_rootzone": 0.4433,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 35,
+    "lat": 13.0929,
+    "lon": 74.8521,
+    "sm_surface": 0.4517,
+    "sm_rootzone": 0.462,
+    "n_villages_sharing_cell": 21
+   },
+   {
+    "cell_index": 36,
+    "lat": 13.0929,
+    "lon": 74.9509,
+    "sm_surface": 0.4535,
+    "sm_rootzone": 0.4679,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 37,
+    "lat": 13.0929,
+    "lon": 75.0498,
+    "sm_surface": 0.4541,
+    "sm_rootzone": 0.4682,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 38,
+    "lat": 13.0929,
+    "lon": 75.1486,
+    "sm_surface": 0.4554,
+    "sm_rootzone": 0.4689,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 39,
+    "lat": 13.0929,
+    "lon": 75.2474,
+    "sm_surface": 0.4358,
+    "sm_rootzone": 0.4502,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 40,
+    "lat": 13.0929,
+    "lon": 75.3462,
+    "sm_surface": 0.4328,
+    "sm_rootzone": 0.4487,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 41,
+    "lat": 13.0929,
+    "lon": 75.445,
+    "sm_surface": 0.4296,
+    "sm_rootzone": 0.4462,
+    "n_villages_sharing_cell": 1
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.449,
+  "sm_surface_stddev": 0.0057,
+  "n_blocks": 7
+ },
+ "blocks": [
+  {
+   "block_name": "Bantval",
+   "sdcode": 5562,
+   "n_villages": 82,
+   "n_cells_spanned": 10,
+   "sm_surface_mean": 0.4538,
+   "sm_surface_stddev": 0.0016
+  },
+  {
+   "block_name": "Beltangadi",
+   "sdcode": 5563,
+   "n_villages": 81,
+   "n_cells_spanned": 16,
+   "sm_surface_mean": 0.45,
+   "sm_surface_stddev": 0.0083
+  },
+  {
+   "block_name": "Kadaba",
+   "sdcode": 7104,
+   "n_villages": 42,
+   "n_cells_spanned": 9,
+   "sm_surface_mean": 0.4514,
+   "sm_surface_stddev": 0.0071
+  },
+  {
+   "block_name": "Mangaluru",
+   "sdcode": 5561,
+   "n_villages": 80,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.4385,
+   "sm_surface_stddev": 0.0362
+  },
+  {
+   "block_name": "Moodubidire",
+   "sdcode": 7102,
+   "n_villages": 24,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.4538,
+   "sm_surface_stddev": 0.0008
+  },
+  {
+   "block_name": "Puttur",
+   "sdcode": 5564,
+   "n_villages": 33,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.4532,
+   "sm_surface_stddev": 0.008
+  },
+  {
+   "block_name": "Sulya",
+   "sdcode": 5565,
+   "n_villages": 34,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.4424,
+   "sm_surface_stddev": 0.0087
+  }
+ ],
+ "villages": {
+  "617768": [
+   "Aletty",
+   5565,
+   0
+  ],
+  "617767": [
+   "Ubaradka Mittur",
+   5565,
+   4
+  ],
+  "617762": [
+   "Mandekolu",
+   5565,
+   3
+  ],
+  "617763": [
+   "Ajjavara",
+   5565,
+   3
+  ],
+  "252036": [
+   "Sulya",
+   5565,
+   4
+  ],
+  "617792": [
+   "Kalmakaru",
+   5565,
+   6
+  ],
+  "617771": [
+   "Markanja",
+   5565,
+   5
+  ],
+  "617769": [
+   "Thodikana",
+   5565,
+   1
+  ],
+  "617770": [
+   "Aranthodu",
+   5565,
+   1
+  ],
+  "617773": [
+   "Sampaje",
+   5565,
+   1
+  ],
+  "617789": [
+   "Balagodu",
+   5565,
+   6
+  ],
+  "617791": [
+   "Kollamogru",
+   5565,
+   6
+  ],
+  "617772": [
+   "Madappady",
+   5565,
+   5
+  ],
+  "617766": [
+   "Nellurkembraje",
+   5565,
+   4
+  ],
+  "617586": [
+   "Salethur",
+   5562,
+   14
+  ],
+  "617584": [
+   "Netlamudnur",
+   5562,
+   15
+  ],
+  "617564": [
+   "Naringana",
+   5562,
+   13
+  ],
+  "617498": [
+   "Kinnya",
+   5561,
+   12
+  ],
+  "617563": [
+   "Phajeer",
+   5562,
+   13
+  ],
+  "617585": [
+   "Vittalpadanur",
+   5562,
+   14
+  ],
+  "617565": [
+   "Balepuni",
+   5562,
+   13
+  ],
+  "617742": [
+   "Panaje",
+   5564,
+   7
+  ],
+  "617575": [
+   "Kolnadu",
+   5562,
+   14
+  ],
+  "252027": [
+   "Ullal",
+   5561,
+   12
+  ],
+  "617577": [
+   "Veerakamba",
+   5562,
+   14
+  ],
+  "617562": [
+   "Kurnad",
+   5562,
+   13
+  ],
+  "617588": [
+   "Kanyana",
+   5562,
+   14
+  ],
+  "617595": [
+   "Kepu",
+   5562,
+   7
+  ],
+  "617524": [
+   "Padushedde OG",
+   5561,
+   20
+  ],
+  "617594": [
+   "Vittalmudnoor",
+   5562,
+   15
+  ],
+  "617570": [
+   "Manchi",
+   5562,
+   14
+  ],
+  "617566": [
+   "Ira",
+   5562,
+   13
+  ],
+  "617578": [
+   "Ananthadi",
+   5562,
+   15
+  ],
+  "617561": [
+   "Chelur",
+   5562,
+   13
+  ],
+  "617438": [
+   "Thokur",
+   5561,
+   35
+  ],
+  "617596": [
+   "Punacha",
+   5562,
+   7
+  ],
+  "617593": [
+   "Kula",
+   5562,
+   15
+  ],
+  "617592": [
+   "Idkidu",
+   5562,
+   15
+  ],
+  "617583": [
+   "Kedila",
+   5562,
+   15
+  ],
+  "617590": [
+   "Manila",
+   5562,
+   7
+  ],
+  "617589": [
+   "Peruvai",
+   5562,
+   7
+  ],
+  "617591": [
+   "Alike",
+   5562,
+   7
+  ],
+  "617582": [
+   "Perne",
+   5562,
+   15
+  ],
+  "617731": [
+   "Balnadu Rural",
+   5564,
+   7
+  ],
+  "617587": [
+   "Karopady",
+   5562,
+   14
+  ],
+  "617576": [
+   "Bolanthuru",
+   5562,
+   14
+  ],
+  "617580": [
+   "Peraje",
+   5562,
+   15
+  ],
+  "617687": [
+   "Kudippadi",
+   5564,
+   15
+  ],
+  "617688": [
+   "Padnoor Rural",
+   5564,
+   15
+  ],
+  "617686": [
+   "Kabaka Rural",
+   5564,
+   15
+  ],
+  "617741": [
+   "Irde",
+   5564,
+   7
+  ],
+  "617496": [
+   "Pavoor",
+   5561,
+   21
+  ],
+  "617557": [
+   "Meremajalu",
+   5562,
+   21
+  ],
+  "617493": [
+   "Ulaibettu",
+   5561,
+   21
+  ],
+  "617481": [
+   "Paduperar",
+   5561,
+   29
+  ],
+  "617441": [
+   "Aikala",
+   5561,
+   35
+  ],
+  "617495": [
+   "Amblamogru",
+   5561,
+   12
+  ],
+  "617497": [
+   "Boliyar",
+   5561,
+   13
+  ],
+  "617482": [
+   "Kompadavu",
+   5561,
+   29
+  ],
+  "617487": [
+   "Badagayedapadavu",
+   5561,
+   29
+  ],
+  "617437": [
+   "Haleangady",
+   5561,
+   35
+  ],
+  "617442": [
+   "Menna Bettu",
+   5561,
+   35
+  ],
+  "617453": [
+   "Niddodi",
+   7102,
+   36
+  ],
+  "617443": [
+   "Kemral",
+   5561,
+   35
+  ],
+  "617484": [
+   "Adyapady",
+   5561,
+   28
+  ],
+  "617492": [
+   "Tankaulipady",
+   5561,
+   21
+  ],
+  "617486": [
+   "Tenkayedapadavu",
+   5561,
+   29
+  ],
+  "617478": [
+   "Permude",
+   5561,
+   28
+  ],
+  "617454": [
+   "Badagumijaru",
+   7102,
+   36
+  ],
+  "617473": [
+   "Madya",
+   5561,
+   28
+  ],
+  "617485": [
+   "Kandavara",
+   5561,
+   29
+  ],
+  "617491": [
+   "Mogaru",
+   5561,
+   29
+  ],
+  "617480": [
+   "Malavoor",
+   5561,
+   28
+  ],
+  "617479": [
+   "Kalavar",
+   5561,
+   28
+  ],
+  "617477": [
+   "Tenkayekkar",
+   5561,
+   28
+  ],
+  "617474": [
+   "Surinje",
+   5561,
+   28
+  ],
+  "617475": [
+   "Delanthabettu",
+   5561,
+   28
+  ],
+  "617445": [
+   "Panja",
+   5561,
+   28
+  ],
+  "617446": [
+   "Attur",
+   5561,
+   28
+  ],
+  "617455": [
+   "Tenkamijar",
+   7102,
+   29
+  ],
+  "617447": [
+   "Kilenjur",
+   5561,
+   28
+  ],
+  "617476": [
+   "Badagayekkaru",
+   5561,
+   28
+  ],
+  "617444": [
+   "Koikude",
+   5561,
+   28
+  ],
+  "617448": [
+   "Nadugodu",
+   5561,
+   28
+  ],
+  "617449": [
+   "Kondemula",
+   5561,
+   35
+  ],
+  "617436": [
+   "Pavanje",
+   5561,
+   28
+  ],
+  "617434": [
+   "Padupanamboor",
+   5561,
+   35
+  ],
+  "617433": [
+   "Bellairu",
+   5561,
+   35
+  ],
+  "617483": [
+   "Muchur",
+   5561,
+   29
+  ],
+  "617435": [
+   "Sasihithlu",
+   5561,
+   35
+  ],
+  "617494": [
+   "Mallur",
+   5561,
+   21
+  ],
+  "252021": [
+   "Mangaluru",
+   5561,
+   20
+  ],
+  "617572": [
+   "Balthila",
+   5562,
+   22
+  ],
+  "617571": [
+   "Golthamajal",
+   5562,
+   14
+  ],
+  "617573": [
+   "Barimar",
+   5562,
+   23
+  ],
+  "617567": [
+   "Sajipamuda",
+   5562,
+   22
+  ],
+  "617552": [
+   "Uli",
+   5562,
+   23
+  ],
+  "617549": [
+   "Devasyamudur",
+   5562,
+   23
+  ],
+  "617547": [
+   "Devasyapadur",
+   5562,
+   23
+  ],
+  "617551": [
+   "Tenkakajekar",
+   5562,
+   23
+  ],
+  "617559": [
+   "Kallige",
+   5562,
+   21
+  ],
+  "617555": [
+   "Tenkabellur",
+   5562,
+   21
+  ],
+  "617541": [
+   "Kavalpadur",
+   5562,
+   23
+  ],
+  "617546": [
+   "Kavalmudur",
+   5562,
+   23
+  ],
+  "617542": [
+   "Kadabettu",
+   5562,
+   22
+  ],
+  "617531": [
+   "Kuriyala",
+   5562,
+   22
+  ],
+  "617550": [
+   "Badagakajekar",
+   5562,
+   23
+  ],
+  "617532": [
+   "Amtady",
+   5562,
+   22
+  ],
+  "617556": [
+   "Ammunje",
+   5562,
+   21
+  ],
+  "617526": [
+   "Sangabettu",
+   5562,
+   30
+  ],
+  "252018": [
+   "Mudbidri",
+   7102,
+   37
+  ],
+  "252033": [
+   "Bantval",
+   5562,
+   22
+  ],
+  "617560": [
+   "Sajipapadu",
+   5562,
+   21
+  ],
+  "617569": [
+   "Shambhoor",
+   5562,
+   22
+  ],
+  "617553": [
+   "Maninalkur",
+   5562,
+   23
+  ],
+  "617538": [
+   "Pilimogru",
+   5562,
+   30
+  ],
+  "617554": [
+   "Badaga Bellur",
+   5562,
+   21
+  ],
+  "617537": [
+   "Kudambettu",
+   5562,
+   31
+  ],
+  "617539": [
+   "Budoli",
+   5562,
+   30
+  ],
+  "617717": [
+   "Charvaka",
+   7104,
+   9
+  ],
+  "617543": [
+   "Moodapadukodi",
+   5562,
+   23
+  ],
+  "617533": [
+   "Panjikal",
+   5562,
+   22
+  ],
+  "617457": [
+   "Ervuailu",
+   7102,
+   30
+  ],
+  "617548": [
+   "Sarapady",
+   5562,
+   23
+  ],
+  "617534": [
+   "Koila",
+   5562,
+   30
+  ],
+  "617544": [
+   "Irvathur",
+   5562,
+   31
+  ],
+  "617697": [
+   "Alanthaya",
+   7104,
+   17
+  ],
+  "617489": [
+   "Kolavooru",
+   5561,
+   29
+  ],
+  "617545": [
+   "Pilathabettu",
+   5562,
+   31
+  ],
+  "617529": [
+   "Rayee",
+   5562,
+   30
+  ],
+  "617490": [
+   "Muthuru",
+   5561,
+   29
+  ],
+  "617535": [
+   "Chennaithodi",
+   5562,
+   30
+  ],
+  "617488": [
+   "Killenjaru",
+   5561,
+   29
+  ],
+  "617458": [
+   "Puchhamoguru",
+   7102,
+   30
+  ],
+  "617528": [
+   "Kukkipady",
+   5562,
+   30
+  ],
+  "617536": [
+   "Ajjibettu",
+   5562,
+   31
+  ],
+  "617527": [
+   "Eliyanadugodu",
+   5562,
+   30
+  ],
+  "617530": [
+   "Arala",
+   5562,
+   30
+  ],
+  "617456": [
+   "Thodaru",
+   7102,
+   29
+  ],
+  "617459": [
+   "Hosabettu",
+   7102,
+   30
+  ],
+  "617738": [
+   "Mundoor",
+   5564,
+   8
+  ],
+  "617525": [
+   "Karpe",
+   5562,
+   30
+  ],
+  "617540": [
+   "Mudanadugodu",
+   5562,
+   22
+  ],
+  "617579": [
+   "Mani",
+   5562,
+   15
+  ],
+  "617574": [
+   "Kadeshwalya",
+   5562,
+   15
+  ],
+  "617568": [
+   "Amtoor",
+   5562,
+   14
+  ],
+  "617666": [
+   "Thekkaru",
+   5563,
+   23
+  ],
+  "617659": [
+   "Parenky",
+   5563,
+   23
+  ],
+  "617658": [
+   "Kukkala",
+   5563,
+   23
+  ],
+  "617649": [
+   "Maladi",
+   5563,
+   31
+  ],
+  "617631": [
+   "Kukkedi",
+   5563,
+   31
+  ],
+  "617621": [
+   "Andinje",
+   5563,
+   38
+  ],
+  "617628": [
+   "Pilya",
+   5563,
+   38
+  ],
+  "617622": [
+   "Kudyadi",
+   5563,
+   38
+  ],
+  "617610": [
+   "Kokradi",
+   5563,
+   38
+  ],
+  "617612": [
+   "Peradi",
+   5563,
+   38
+  ],
+  "617613": [
+   "Kashipatna",
+   5563,
+   38
+  ],
+  "617614": [
+   "Badakodi",
+   5563,
+   37
+  ],
+  "617615": [
+   "Hosangadi",
+   5563,
+   30
+  ],
+  "617616": [
+   "Arambodi",
+   5563,
+   30
+  ],
+  "617617": [
+   "Gunduri",
+   5563,
+   31
+  ],
+  "617630": [
+   "Bajire",
+   5563,
+   31
+  ],
+  "617618": [
+   "Venooru",
+   5563,
+   31
+  ],
+  "617629": [
+   "Nittade",
+   5563,
+   31
+  ],
+  "617632": [
+   "Nalkuru",
+   5563,
+   31
+  ],
+  "617619": [
+   "Karimanelu",
+   5563,
+   31
+  ],
+  "617620": [
+   "Moodukodi",
+   5563,
+   31
+  ],
+  "617648": [
+   "Gardadi",
+   5563,
+   31
+  ],
+  "617558": [
+   "Kodman",
+   5562,
+   21
+  ],
+  "617787": [
+   "Subramanya",
+   7104,
+   6
+  ],
+  "617581": [
+   "Biliyur",
+   5562,
+   16
+  ],
+  "617750": [
+   "Nettanigemudnoor",
+   5564,
+   2
+  ],
+  "617746": [
+   "Madnooru",
+   5564,
+   2
+  ],
+  "617749": [
+   "Paduvannur",
+   5564,
+   2
+  ],
+  "617747": [
+   "Badagannur",
+   5564,
+   2
+  ],
+  "617744": [
+   "Ariyadka",
+   5564,
+   8
+  ],
+  "617739": [
+   "Kedambady",
+   5564,
+   8
+  ],
+  "617740": [
+   "Olamogru",
+   5564,
+   8
+  ],
+  "617748": [
+   "Nidpalli",
+   5564,
+   8
+  ],
+  "617743": [
+   "Bettampady",
+   5564,
+   7
+  ],
+  "252035": [
+   "Puttur",
+   5564,
+   16
+  ],
+  "617720": [
+   "Savanur",
+   7104,
+   9
+  ],
+  "617732": [
+   "Aryapu Rural",
+   5564,
+   8
+  ],
+  "617733": [
+   "Kuriya",
+   5564,
+   8
+  ],
+  "617734": [
+   "Kemminje Rural",
+   5564,
+   8
+  ],
+  "617691": [
+   "Chickamudnoor Rural",
+   5564,
+   16
+  ],
+  "617718": [
+   "Kudmaru",
+   7104,
+   9
+  ],
+  "617751": [
+   "Kolthige",
+   5564,
+   3
+  ],
+  "617722": [
+   "Palthadi",
+   7104,
+   9
+  ],
+  "617745": [
+   "Keyyur",
+   5564,
+   8
+  ],
+  "617737": [
+   "Sarve",
+   5564,
+   8
+  ],
+  "617723": [
+   "Belandoor",
+   7104,
+   9
+  ],
+  "617725": [
+   "Kaniyoor",
+   7104,
+   9
+  ],
+  "617726": [
+   "Dolpady",
+   7104,
+   10
+  ],
+  "617727": [
+   "Kadaba",
+   7104,
+   10
+  ],
+  "617729": [
+   "102 Nekkilady",
+   7104,
+   11
+  ],
+  "617728": [
+   "Kodimbala",
+   7104,
+   10
+  ],
+  "617715": [
+   "Bantra",
+   7104,
+   19
+  ],
+  "617701": [
+   "Ichlampady",
+   7104,
+   18
+  ],
+  "617710": [
+   "Ballya",
+   7104,
+   18
+  ],
+  "617709": [
+   "Kunthoor",
+   7104,
+   18
+  ],
+  "617708": [
+   "Perabe",
+   7104,
+   17
+  ],
+  "617724": [
+   "Kaimana",
+   7104,
+   9
+  ],
+  "617719": [
+   "Alankaru",
+   7104,
+   17
+  ],
+  "617706": [
+   "Ramakunja",
+   7104,
+   17
+  ],
+  "617707": [
+   "Haleneranki",
+   7104,
+   17
+  ],
+  "617699": [
+   "Nelyadi",
+   7104,
+   17
+  ],
+  "617735": [
+   "Narimogru",
+   5564,
+   16
+  ],
+  "617705": [
+   "Koila",
+   7104,
+   17
+  ],
+  "617736": [
+   "Shanthigodu",
+   5564,
+   16
+  ],
+  "617693": [
+   "Nekkiladi",
+   5564,
+   16
+  ],
+  "617519": [
+   "Talapady CT",
+   5561,
+   12
+  ],
+  "617516": [
+   "Munnur CT",
+   5561,
+   12
+  ],
+  "617520": [
+   "Manjanady CT",
+   5561,
+   13
+  ],
+  "617604": [
+   "Kairangala CT",
+   5562,
+   13
+  ],
+  "617518": [
+   "Kotekara CT",
+   5561,
+   12
+  ],
+  "617517": [
+   "Someshwar CT",
+   5561,
+   12
+  ],
+  "617690": [
+   "Kodimbady",
+   5564,
+   16
+  ],
+  "617605": [
+   "Vittal CT",
+   5562,
+   15
+  ],
+  "617515": [
+   "Belma CT",
+   5561,
+   12
+  ],
+  "617500": [
+   "Bajpe CT",
+   5561,
+   28
+  ],
+  "617514": [
+   "Konaje CT",
+   5561,
+   13
+  ],
+  "617511": [
+   "Adyar CT",
+   5561,
+   21
+  ],
+  "617513": [
+   "Harekala CT",
+   5561,
+   13
+  ],
+  "617510": [
+   "Neermarga CT",
+   5561,
+   21
+  ],
+  "617508": [
+   "Addur CT",
+   5561,
+   21
+  ],
+  "617509": [
+   "Bondathila CT",
+   5561,
+   21
+  ],
+  "617507": [
+   "Mulur CT",
+   5561,
+   21
+  ],
+  "617597": [
+   "Kariyangala CT",
+   5562,
+   21
+  ],
+  "617512": [
+   "Arkula CT",
+   5561,
+   21
+  ],
+  "617598": [
+   "Pudu CT",
+   5562,
+   21
+  ],
+  "617521": [
+   "Chelliru OG",
+   5561,
+   28
+  ],
+  "617504": [
+   "Muduperar CT",
+   5561,
+   29
+  ],
+  "617502": [
+   "Kenjar CT",
+   5561,
+   28
+  ],
+  "617501": [
+   "Thokur 62 CT",
+   5561,
+   28
+  ],
+  "617503": [
+   "Kolambe CT",
+   5561,
+   29
+  ],
+  "617505": [
+   "Badagaulipady CT",
+   5561,
+   29
+  ],
+  "617506": [
+   "Mudushedde CT",
+   5561,
+   20
+  ],
+  "617522": [
+   "Kuthethur OG",
+   5561,
+   28
+  ],
+  "617523": [
+   "Bala OG",
+   5561,
+   28
+  ],
+  "617602": [
+   "Narikombu CT",
+   5562,
+   22
+  ],
+  "617603": [
+   "Navoor CT",
+   5562,
+   22
+  ],
+  "617599": [
+   "Thumbe CT",
+   5562,
+   21
+  ],
+  "617601": [
+   "Munnuru CT",
+   5562,
+   22
+  ],
+  "617600": [
+   "Sajipanadu CT",
+   5562,
+   21
+  ],
+  "617694": [
+   "Hirebandadi",
+   5564,
+   16
+  ],
+  "617692": [
+   "Bellipadi",
+   5564,
+   16
+  ],
+  "617714": [
+   "Bilinele",
+   7104,
+   11
+  ],
+  "617730": [
+   "Aithoor",
+   7104,
+   11
+  ],
+  "617716": [
+   "Kutrupadi",
+   7104,
+   18
+  ],
+  "617711": [
+   "Noojibalthila",
+   7104,
+   18
+  ],
+  "617712": [
+   "Renjilady",
+   7104,
+   18
+  ],
+  "617702": [
+   "Konaje",
+   7104,
+   19
+  ],
+  "617713": [
+   "Kombaru",
+   7104,
+   19
+  ],
+  "617704": [
+   "Shiribagilu",
+   7104,
+   19
+  ],
+  "617689": [
+   "Bannur Rural",
+   5564,
+   16
+  ],
+  "617721": [
+   "Punachpady",
+   7104,
+   9
+  ],
+  "617758": [
+   "Mupperia",
+   5565,
+   10
+  ],
+  "617778": [
+   "Pambethady",
+   5565,
+   10
+  ],
+  "617777": [
+   "Aivathoklu",
+   5565,
+   10
+  ],
+  "617755": [
+   "Balila",
+   5565,
+   10
+  ],
+  "617776": [
+   "Yenmooru",
+   7104,
+   10
+  ],
+  "617775": [
+   "Yedamangala",
+   7104,
+   10
+  ],
+  "617774": [
+   "Murulya",
+   5565,
+   10
+  ],
+  "617754": [
+   "Kodiyala",
+   5565,
+   9
+  ],
+  "617753": [
+   "Peruvaje",
+   5565,
+   9
+  ],
+  "617756": [
+   "Bellare",
+   5565,
+   9
+  ],
+  "617757": [
+   "Kalanja",
+   5565,
+   10
+  ],
+  "617642": [
+   "Kanyady",
+   5563,
+   33
+  ],
+  "617764": [
+   "Amarapadnoor",
+   5565,
+   4
+  ],
+  "617779": [
+   "Kalmadka",
+   5565,
+   10
+  ],
+  "617759": [
+   "Aivarnadu",
+   5565,
+   3
+  ],
+  "617761": [
+   "Kanaka Majalu",
+   5565,
+   3
+  ],
+  "617760": [
+   "Jalsoor",
+   5565,
+   3
+  ],
+  "617790": [
+   "Hariharapallathadka",
+   5565,
+   6
+  ],
+  "617784": [
+   "Devachalla",
+   5565,
+   5
+  ],
+  "617780": [
+   "Kuthkunja",
+   5565,
+   10
+  ],
+  "617781": [
+   "Kenya",
+   7104,
+   11
+  ],
+  "617783": [
+   "Guthigaru",
+   5565,
+   5
+  ],
+  "617782": [
+   "Balpa",
+   7104,
+   11
+  ],
+  "617785": [
+   "Nalkooru",
+   5565,
+   5
+  ],
+  "617788": [
+   "Inakidu",
+   7104,
+   6
+  ],
+  "617786": [
+   "Yenekallu",
+   7104,
+   11
+  ],
+  "617765": [
+   "Amaramudnur",
+   5565,
+   4
+  ],
+  "617695": [
+   "Bajathuru",
+   5564,
+   17
+  ],
+  "617681": [
+   "Kokkada",
+   5563,
+   25
+  ],
+  "617667": [
+   "Barya",
+   5563,
+   24
+  ],
+  "617634": [
+   "Thenkakaranduru",
+   5563,
+   32
+  ],
+  "617669": [
+   "Ilanthila",
+   5563,
+   24
+  ],
+  "617671": [
+   "Mogru",
+   5563,
+   25
+  ],
+  "617668": [
+   "Karaya",
+   5563,
+   24
+  ],
+  "617627": [
+   "Badagakaranduru",
+   5563,
+   39
+  ],
+  "617664": [
+   "Thannirpantha",
+   5563,
+   24
+  ],
+  "617665": [
+   "Puthila",
+   5563,
+   24
+  ],
+  "617626": [
+   "Karambaru",
+   5563,
+   32
+  ],
+  "617670": [
+   "Urvalu",
+   5563,
+   24
+  ],
+  "617660": [
+   "Machina",
+   5563,
+   24
+  ],
+  "617650": [
+   "Sonandur",
+   5563,
+   32
+  ],
+  "617651": [
+   "Odilnala",
+   5563,
+   32
+  ],
+  "617633": [
+   "Balenja",
+   5563,
+   32
+  ],
+  "617647": [
+   "Padangady",
+   5563,
+   32
+  ],
+  "617646": [
+   "Melanthabettu",
+   5563,
+   32
+  ],
+  "252034": [
+   "Beltangadi",
+   5563,
+   32
+  ],
+  "617652": [
+   "Koyyur",
+   5563,
+   33
+  ],
+  "617655": [
+   "Mundaje",
+   5563,
+   33
+  ],
+  "617663": [
+   "Kaniyooru",
+   5563,
+   24
+  ],
+  "617662": [
+   "Nyayatarpu",
+   5563,
+   24
+  ],
+  "617661": [
+   "Kaliya",
+   5563,
+   32
+  ],
+  "617683": [
+   "Rekhya",
+   5563,
+   18
+  ],
+  "617682": [
+   "Hathyadka",
+   5563,
+   26
+  ],
+  "617654": [
+   "Kalamanja",
+   5563,
+   33
+  ],
+  "617679": [
+   "Nidle",
+   5563,
+   26
+  ],
+  "617678": [
+   "Kalanja",
+   5563,
+   26
+  ],
+  "617676": [
+   "Puduvettu",
+   5563,
+   34
+  ],
+  "617684": [
+   "Shibaje",
+   5563,
+   27
+  ],
+  "617677": [
+   "Shishila",
+   5563,
+   27
+  ],
+  "617657": [
+   "Neriya",
+   5563,
+   34
+  ],
+  "617656": [
+   "Thotathadi",
+   5563,
+   34
+  ],
+  "617640": [
+   "Kadirudyavara",
+   5563,
+   40
+  ],
+  "617675": [
+   "Chibidre",
+   5563,
+   34
+  ],
+  "617644": [
+   "Laila",
+   5563,
+   32
+  ],
+  "617653": [
+   "Ujire",
+   5563,
+   33
+  ],
+  "617643": [
+   "Nada",
+   5563,
+   33
+  ],
+  "617641": [
+   "Indabettu",
+   5563,
+   40
+  ],
+  "617680": [
+   "Patrame",
+   5563,
+   25
+  ],
+  "617674": [
+   "Dharmasthala",
+   5563,
+   33
+  ],
+  "617673": [
+   "Belalu",
+   5563,
+   25
+  ],
+  "617672": [
+   "Bandaru",
+   5563,
+   25
+  ],
+  "617645": [
+   "Munduru",
+   5563,
+   32
+  ],
+  "617703": [
+   "Shirady",
+   7104,
+   19
+  ],
+  "617700": [
+   "Kowkradi",
+   7104,
+   26
+  ],
+  "617696": [
+   "G0Lithattu",
+   7104,
+   25
+  ],
+  "617698": [
+   "Konalu",
+   7104,
+   17
+  ],
+  "617460": [
+   "Puthige",
+   7102,
+   36
+  ],
+  "617431": [
+   "Shimanthur",
+   5561,
+   35
+  ],
+  "617452": [
+   "Kallamundkooru",
+   7102,
+   36
+  ],
+  "617430": [
+   "Kavathar",
+   5561,
+   35
+  ],
+  "617468": [
+   "Valpadi",
+   7102,
+   37
+  ],
+  "617429": [
+   "Kollur",
+   5561,
+   35
+  ],
+  "617425": [
+   "Athikari Bettu",
+   5561,
+   35
+  ],
+  "252017": [
+   "Mulki",
+   5561,
+   35
+  ],
+  "617469": [
+   "Padukonaje",
+   7102,
+   37
+  ],
+  "617470": [
+   "Moodukonaje",
+   7102,
+   37
+  ],
+  "617432": [
+   "Kilpady",
+   5561,
+   35
+  ],
+  "617471": [
+   "Shirthadi",
+   7102,
+   37
+  ],
+  "617450": [
+   "Kadandale",
+   7102,
+   36
+  ],
+  "617461": [
+   "Beluvai",
+   7102,
+   36
+  ],
+  "617466": [
+   "Panapila",
+   7102,
+   37
+  ],
+  "617611": [
+   "Savya",
+   5563,
+   38
+  ],
+  "617467": [
+   "Nellikaru",
+   7102,
+   38
+  ],
+  "617472": [
+   "Mantrady",
+   7102,
+   38
+  ],
+  "617428": [
+   "Ulipady",
+   5561,
+   35
+  ],
+  "617465": [
+   "Daregudde",
+   7102,
+   37
+  ],
+  "617462": [
+   "Padumarnadu",
+   7102,
+   37
+  ],
+  "617426": [
+   "Karnire",
+   5561,
+   35
+  ],
+  "617427": [
+   "Balkunje",
+   5561,
+   35
+  ],
+  "617463": [
+   "Moodumarnadu",
+   7102,
+   37
+  ],
+  "617464": [
+   "Kellaputhige",
+   7102,
+   37
+  ],
+  "617451": [
+   "Paladka",
+   7102,
+   36
+  ],
+  "617440": [
+   "Elinje",
+   5561,
+   35
+  ],
+  "617439": [
+   "Elathur",
+   5561,
+   35
+  ],
+  "617608": [
+   "Kuthluru",
+   5563,
+   38
+  ],
+  "617609": [
+   "Sulkeri",
+   5563,
+   38
+  ],
+  "617607": [
+   "Naravi",
+   5563,
+   38
+  ],
+  "617606": [
+   "Marodi",
+   5563,
+   38
+  ],
+  "617623": [
+   "Navara",
+   5563,
+   39
+  ],
+  "617624": [
+   "Sulkerimogru",
+   5563,
+   39
+  ],
+  "617625": [
+   "Shirlalu",
+   5563,
+   39
+  ],
+  "617635": [
+   "Savanalu",
+   5563,
+   39
+  ],
+  "617639": [
+   "Charmadi",
+   5563,
+   41
+  ],
+  "617637": [
+   "Mithabagilu",
+   5563,
+   40
+  ],
+  "617638": [
+   "Malavanthige",
+   5563,
+   40
+  ],
+  "617636": [
+   "Navooru",
+   5563,
+   40
+  ],
+  "617752": [
+   "Uppinangady CT",
+   5564,
+   16
+  ],
+  "617685": [
+   "Kuvettu CT",
+   5563,
+   32
+  ],
+  "617499": [
+   "Talipady CT",
+   5561,
+   35
+  ]
+ },
+ "village_count_total": 376,
+ "village_count_assigned": 376
+}

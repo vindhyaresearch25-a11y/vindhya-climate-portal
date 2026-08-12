@@ -1,0 +1,325 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Manipur",
+  "district": "Jiribam",
+  "district_lgd": 713,
+  "observation_window": "2026-08-07T11:18Z to 2026-08-12T11:18Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3069,
+  "sm_surface_stddev": 0.0021,
+  "sm_rootzone_mean": 0.3014,
+  "sm_rootzone_stddev": 0.0015,
+  "n_cells": 2,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 24.7531,
+    "lon": 93.1328,
+    "sm_surface": 0.3048,
+    "sm_rootzone": 0.303,
+    "n_villages_sharing_cell": 50
+   },
+   {
+    "cell_index": 1,
+    "lat": 24.8519,
+    "lon": 93.2317,
+    "sm_surface": 0.309,
+    "sm_rootzone": 0.2999,
+    "n_villages_sharing_cell": 3
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.305,
+  "sm_surface_stddev": 0.0,
+  "n_blocks": 1
+ },
+ "blocks": [
+  {
+   "block_name": "Jiribam",
+   "sdcode": 1883,
+   "n_villages": 53,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.305,
+   "sm_surface_stddev": 0.001
+  }
+ ],
+ "villages": {
+  "270153": [
+   "Hilghat",
+   1883,
+   0
+  ],
+  "270160": [
+   "Dibong",
+   1883,
+   0
+  ],
+  "270176": [
+   "Nungkhal",
+   1883,
+   0
+  ],
+  "270183": [
+   "Baiboni",
+   1883,
+   0
+  ],
+  "270187": [
+   "Abompunjee",
+   1883,
+   0
+  ],
+  "270190": [
+   "Lamabhutangkhal",
+   1883,
+   0
+  ],
+  "270191": [
+   "Bhutangkhal",
+   1883,
+   0
+  ],
+  "270189": [
+   "Chotobekra",
+   1883,
+   0
+  ],
+  "270192": [
+   "Jatrapur",
+   1883,
+   0
+  ],
+  "270193": [
+   "Borobekra",
+   1883,
+   0
+  ],
+  "270194": [
+   "Guakhal",
+   1883,
+   0
+  ],
+  "270195": [
+   "Harinagar",
+   1883,
+   0
+  ],
+  "270196": [
+   "Bhomikpara",
+   1883,
+   0
+  ],
+  "270199": [
+   "Tupidhor",
+   1883,
+   0
+  ],
+  "270200": [
+   "Durgapur",
+   1883,
+   0
+  ],
+  "270201": [
+   "Narayanpur",
+   1883,
+   0
+  ],
+  "270197": [
+   "Jakuradhor Part I",
+   1883,
+   0
+  ],
+  "270198": [
+   "Jakuradhor Part Ii",
+   1883,
+   0
+  ],
+  "270202": [
+   "Madhupur",
+   1883,
+   0
+  ],
+  "270203": [
+   "Choudhurikhal",
+   1883,
+   0
+  ],
+  "270185": [
+   "Dholakhal",
+   1883,
+   0
+  ],
+  "270162": [
+   "Kamaranga",
+   1883,
+   0
+  ],
+  "270161": [
+   "Mahadebpur",
+   1883,
+   0
+  ],
+  "270159": [
+   "Chindong Leikai",
+   1883,
+   0
+  ],
+  "270167": [
+   "Islamabad",
+   1883,
+   0
+  ],
+  "270168": [
+   "Champanagar Meitei",
+   1883,
+   0
+  ],
+  "270164": [
+   "Sonapur",
+   1883,
+   0
+  ],
+  "270169": [
+   "Bakhal",
+   1883,
+   0
+  ],
+  "270170": [
+   "Champanagar Muslim",
+   1883,
+   0
+  ],
+  "270165": [
+   "Aglapur",
+   1883,
+   0
+  ],
+  "270172": [
+   "Jarolpokpi",
+   1883,
+   0
+  ],
+  "270174": [
+   "Mullargao",
+   1883,
+   0
+  ],
+  "270175": [
+   "Leishabithol",
+   1883,
+   0
+  ],
+  "270166": [
+   "Lalpani",
+   1883,
+   0
+  ],
+  "270171": [
+   "Rasidpur",
+   1883,
+   0
+  ],
+  "270179": [
+   "Binselu",
+   1883,
+   0
+  ],
+  "270181": [
+   "Nungphou",
+   1883,
+   0
+  ],
+  "270173": [
+   "Kashimpur",
+   1883,
+   0
+  ],
+  "270177": [
+   "Ahamadabad",
+   1883,
+   0
+  ],
+  "270178": [
+   "Chandranathpur",
+   1883,
+   0
+  ],
+  "270180": [
+   "Berabak",
+   1883,
+   0
+  ],
+  "270182": [
+   "Latingkhal",
+   1883,
+   0
+  ],
+  "270184": [
+   "Makhabosti",
+   1883,
+   0
+  ],
+  "270186": [
+   "Tilka Compani",
+   1883,
+   0
+  ],
+  "270188": [
+   "Jirimukh",
+   1883,
+   0
+  ],
+  "270163": [
+   "Kamrangha Kuki",
+   1883,
+   0
+  ],
+  "270156": [
+   "Babukhal",
+   1883,
+   1
+  ],
+  "270157": [
+   "Sabughat",
+   1883,
+   1
+  ],
+  "270158": [
+   "Boroikhal",
+   1883,
+   1
+  ],
+  "270154": [
+   "Uchathol",
+   1883,
+   0
+  ],
+  "270155": [
+   "Narandhor Basa",
+   1883,
+   0
+  ],
+  "801493": [
+   "Jiribam M Cl",
+   1883,
+   0
+  ],
+  "999999": [
+   "Data Partially Available",
+   1883,
+   0
+  ]
+ },
+ "village_count_total": 53,
+ "village_count_assigned": 53
+}

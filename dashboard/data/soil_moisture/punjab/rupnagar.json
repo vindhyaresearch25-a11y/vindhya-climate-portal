@@ -1,0 +1,3269 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Punjab",
+  "district": "Rupnagar",
+  "district_lgd": 42,
+  "observation_window": "2026-08-07T11:22Z to 2026-08-12T11:22Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2281,
+  "sm_surface_stddev": 0.0271,
+  "sm_rootzone_mean": 0.2187,
+  "sm_rootzone_stddev": 0.0263,
+  "n_cells": 12,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 30.7808,
+    "lon": 76.532,
+    "sm_surface": 0.245,
+    "sm_rootzone": 0.2387,
+    "n_villages_sharing_cell": 41
+   },
+   {
+    "cell_index": 1,
+    "lat": 30.8796,
+    "lon": 76.3343,
+    "sm_surface": 0.2427,
+    "sm_rootzone": 0.2402,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 2,
+    "lat": 30.8796,
+    "lon": 76.4332,
+    "sm_surface": 0.2524,
+    "sm_rootzone": 0.2426,
+    "n_villages_sharing_cell": 75
+   },
+   {
+    "cell_index": 3,
+    "lat": 30.8796,
+    "lon": 76.532,
+    "sm_surface": 0.2585,
+    "sm_rootzone": 0.2468,
+    "n_villages_sharing_cell": 65
+   },
+   {
+    "cell_index": 4,
+    "lat": 30.9784,
+    "lon": 76.3343,
+    "sm_surface": 0.2499,
+    "sm_rootzone": 0.2435,
+    "n_villages_sharing_cell": 31
+   },
+   {
+    "cell_index": 5,
+    "lat": 30.9784,
+    "lon": 76.532,
+    "sm_surface": 0.2687,
+    "sm_rootzone": 0.2538,
+    "n_villages_sharing_cell": 66
+   },
+   {
+    "cell_index": 6,
+    "lat": 30.9784,
+    "lon": 76.6308,
+    "sm_surface": 0.2199,
+    "sm_rootzone": 0.199,
+    "n_villages_sharing_cell": 47
+   },
+   {
+    "cell_index": 7,
+    "lat": 31.0772,
+    "lon": 76.532,
+    "sm_surface": 0.1988,
+    "sm_rootzone": 0.1903,
+    "n_villages_sharing_cell": 46
+   },
+   {
+    "cell_index": 8,
+    "lat": 31.176,
+    "lon": 76.4332,
+    "sm_surface": 0.1896,
+    "sm_rootzone": 0.1801,
+    "n_villages_sharing_cell": 40
+   },
+   {
+    "cell_index": 9,
+    "lat": 31.176,
+    "lon": 76.532,
+    "sm_surface": 0.2166,
+    "sm_rootzone": 0.1951,
+    "n_villages_sharing_cell": 87
+   },
+   {
+    "cell_index": 10,
+    "lat": 31.2748,
+    "lon": 76.3343,
+    "sm_surface": 0.1866,
+    "sm_rootzone": 0.2045,
+    "n_villages_sharing_cell": 48
+   },
+   {
+    "cell_index": 11,
+    "lat": 31.2748,
+    "lon": 76.4332,
+    "sm_surface": 0.208,
+    "sm_rootzone": 0.1902,
+    "n_villages_sharing_cell": 58
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2235,
+  "sm_surface_stddev": 0.0237,
+  "n_blocks": 4
+ },
+ "blocks": [
+  {
+   "block_name": "Anandpur Sahib",
+   "sdcode": 262,
+   "n_villages": 191,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.2063,
+   "sm_surface_stddev": 0.0123
+  },
+  {
+   "block_name": "Chamkaur Sahib",
+   "sdcode": 265,
+   "n_villages": 193,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.2508,
+   "sm_surface_stddev": 0.0056
+  },
+  {
+   "block_name": "Nangal",
+   "sdcode": 263,
+   "n_villages": 62,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.1945,
+   "sm_surface_stddev": 0.0103
+  },
+  {
+   "block_name": "Rup Nagar",
+   "sdcode": 264,
+   "n_villages": 175,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.2425,
+   "sm_surface_stddev": 0.0266
+  }
+ ],
+ "villages": {
+  "38837": [
+   "Taprian Dyal Singh",
+   265,
+   1
+  ],
+  "38745": [
+   "Ramgarh Alias Dekwala",
+   264,
+   3
+  ],
+  "38899": [
+   "Udhampur",
+   265,
+   2
+  ],
+  "38855": [
+   "Rampur Bet",
+   265,
+   2
+  ],
+  "38785": [
+   "Sheikhupur",
+   265,
+   2
+  ],
+  "38458": [
+   "Seikhpur",
+   262,
+   9
+  ],
+  "38592": [
+   "Chhoti Jhakhian",
+   264,
+   9
+  ],
+  "38929": [
+   "Sukho Majra",
+   265,
+   0
+  ],
+  "38925": [
+   "Doom Chheri",
+   265,
+   0
+  ],
+  "38933": [
+   "Badwali",
+   265,
+   0
+  ],
+  "38903": [
+   "Boothgarh",
+   265,
+   0
+  ],
+  "38928": [
+   "Chalaki",
+   265,
+   0
+  ],
+  "38936": [
+   "Ramgarh Alias Manda",
+   265,
+   0
+  ],
+  "38923": [
+   "Rampur Mehrab",
+   265,
+   0
+  ],
+  "38938": [
+   "Bari Mandauli",
+   265,
+   0
+  ],
+  "38932": [
+   "Shahpur",
+   265,
+   0
+  ],
+  "38927": [
+   "Bahbalpur",
+   265,
+   0
+  ],
+  "38924": [
+   "Sangatpur",
+   265,
+   0
+  ],
+  "38926": [
+   "Tajpur",
+   265,
+   0
+  ],
+  "38931": [
+   "Datarpur",
+   265,
+   0
+  ],
+  "38934": [
+   "Rattangarh",
+   265,
+   0
+  ],
+  "38902": [
+   "Kajauli",
+   265,
+   0
+  ],
+  "38922": [
+   "Kanjla",
+   265,
+   0
+  ],
+  "38937": [
+   "Chhoti Mandauli",
+   265,
+   0
+  ],
+  "248320": [
+   "Morinda",
+   265,
+   0
+  ],
+  "38956": [
+   "Morinda",
+   265,
+   0
+  ],
+  "38930": [
+   "Rambagh",
+   265,
+   0
+  ],
+  "38935": [
+   "Kulheri",
+   265,
+   0
+  ],
+  "38669": [
+   "Haveli Chhoti",
+   264,
+   5
+  ],
+  "38670": [
+   "Arazi Ropar",
+   264,
+   5
+  ],
+  "38839": [
+   "Ama",
+   265,
+   2
+  ],
+  "38812": [
+   "Chak Nahar",
+   265,
+   4
+  ],
+  "38643": [
+   "Mianpur Bandalian",
+   264,
+   5
+  ],
+  "38942": [
+   "Man Kheri",
+   265,
+   0
+  ],
+  "38390": [
+   "Chandesar",
+   262,
+   11
+  ],
+  "38393": [
+   "Sadhewal",
+   262,
+   11
+  ],
+  "38348": [
+   "Boothgarh",
+   262,
+   10
+  ],
+  "38811": [
+   "Phassa",
+   265,
+   4
+  ],
+  "38883": [
+   "Dulchi Majra",
+   265,
+   3
+  ],
+  "38860": [
+   "Haron",
+   265,
+   2
+  ],
+  "38767": [
+   "Rattanpur",
+   265,
+   5
+  ],
+  "38886": [
+   "Samrauli",
+   265,
+   3
+  ],
+  "38893": [
+   "Amrali",
+   265,
+   2
+  ],
+  "38904": [
+   "Kalaran",
+   265,
+   0
+  ],
+  "38887": [
+   "Rasulpur",
+   265,
+   3
+  ],
+  "38901": [
+   "Ballan",
+   265,
+   2
+  ],
+  "38900": [
+   "Kotli",
+   265,
+   2
+  ],
+  "38865": [
+   "Chuhar Majra",
+   265,
+   2
+  ],
+  "38890": [
+   "Oind",
+   265,
+   2
+  ],
+  "38892": [
+   "Lutheri",
+   265,
+   2
+  ],
+  "38872": [
+   "Chhota Makrauna",
+   265,
+   2
+  ],
+  "38833": [
+   "Kiri Afghana",
+   265,
+   1
+  ],
+  "38737": [
+   "Solkhian",
+   264,
+   3
+  ],
+  "38852": [
+   "Bhaku Majra",
+   265,
+   2
+  ],
+  "38911": [
+   "Kakrali",
+   265,
+   3
+  ],
+  "38916": [
+   "Gopalpur",
+   265,
+   0
+  ],
+  "38869": [
+   "Barsalpur",
+   265,
+   2
+  ],
+  "38888": [
+   "Bara Samana",
+   265,
+   2
+  ],
+  "38859": [
+   "Mundian",
+   265,
+   2
+  ],
+  "38894": [
+   "Majri",
+   265,
+   2
+  ],
+  "38878": [
+   "Dugri",
+   265,
+   3
+  ],
+  "38874": [
+   "Salempur",
+   265,
+   2
+  ],
+  "38914": [
+   "Dhangrali",
+   265,
+   0
+  ],
+  "38858": [
+   "Dehar",
+   265,
+   2
+  ],
+  "38896": [
+   "Bari Rauni",
+   265,
+   2
+  ],
+  "38834": [
+   "Bassi Gujjran",
+   265,
+   1
+  ],
+  "38939": [
+   "Rangian",
+   265,
+   0
+  ],
+  "38891": [
+   "Ramgarh",
+   265,
+   2
+  ],
+  "38856": [
+   "Bara Gadhram",
+   265,
+   2
+  ],
+  "38912": [
+   "Bamnara",
+   265,
+   0
+  ],
+  "38906": [
+   "Dumna",
+   265,
+   2
+  ],
+  "38871": [
+   "Pipal Majra",
+   265,
+   2
+  ],
+  "38831": [
+   "Kotla Bet",
+   265,
+   1
+  ],
+  "38866": [
+   "Saidpur",
+   265,
+   2
+  ],
+  "38864": [
+   "Sandhuan",
+   265,
+   1
+  ],
+  "38862": [
+   "Katlaur",
+   265,
+   1
+  ],
+  "38861": [
+   "Kandola",
+   265,
+   1
+  ],
+  "38832": [
+   "Khera",
+   265,
+   1
+  ],
+  "38919": [
+   "Aurnauli",
+   265,
+   0
+  ],
+  "38882": [
+   "Salahpur",
+   265,
+   3
+  ],
+  "38739": [
+   "Khabra",
+   264,
+   3
+  ],
+  "38897": [
+   "Chaklan",
+   265,
+   2
+  ],
+  "38877": [
+   "Kotli",
+   265,
+   2
+  ],
+  "38854": [
+   "Talapur",
+   265,
+   2
+  ],
+  "38876": [
+   "Santpur",
+   265,
+   2
+  ],
+  "38910": [
+   "Sotal",
+   265,
+   3
+  ],
+  "38879": [
+   "Balsanda",
+   265,
+   3
+  ],
+  "38889": [
+   "Chhota Samana",
+   265,
+   2
+  ],
+  "38915": [
+   "Nathwalpur",
+   265,
+   0
+  ],
+  "38835": [
+   "Dhaulran",
+   265,
+   1
+  ],
+  "38885": [
+   "Boor Majra",
+   265,
+   3
+  ],
+  "38740": [
+   "Haripur Alias Rormajra",
+   264,
+   3
+  ],
+  "38913": [
+   "Khairpur",
+   265,
+   0
+  ],
+  "38909": [
+   "Dhanauri",
+   265,
+   3
+  ],
+  "38898": [
+   "Sarhana",
+   265,
+   2
+  ],
+  "38738": [
+   "Goslan",
+   264,
+   3
+  ],
+  "38920": [
+   "Bangian",
+   265,
+   0
+  ],
+  "38857": [
+   "Gagon",
+   265,
+   2
+  ],
+  "38948": [
+   "Paprali",
+   265,
+   3
+  ],
+  "38873": [
+   "Bara Makrauna",
+   265,
+   2
+  ],
+  "38853": [
+   "Chhota Gadhram",
+   265,
+   2
+  ],
+  "38867": [
+   "Bhurara",
+   265,
+   2
+  ],
+  "38868": [
+   "Gobindpur Alias Dhespur",
+   265,
+   2
+  ],
+  "38905": [
+   "Mundian",
+   265,
+   0
+  ],
+  "38908": [
+   "Kainaur",
+   265,
+   3
+  ],
+  "38917": [
+   "Kotla",
+   265,
+   0
+  ],
+  "38907": [
+   "Fatehgarh",
+   265,
+   0
+  ],
+  "38752": [
+   "Sihon Majra",
+   264,
+   3
+  ],
+  "38895": [
+   "Chhoti Rauni",
+   265,
+   2
+  ],
+  "38918": [
+   "Saheri",
+   265,
+   0
+  ],
+  "38921": [
+   "Dholan Majra",
+   265,
+   0
+  ],
+  "38870": [
+   "Rurkee",
+   265,
+   2
+  ],
+  "38941": [
+   "Akbarpur",
+   265,
+   0
+  ],
+  "38875": [
+   "Raulu Majra",
+   265,
+   2
+  ],
+  "38827": [
+   "Rokali Mangarh",
+   265,
+   1
+  ],
+  "38830": [
+   "Kishanpura",
+   265,
+   1
+  ],
+  "38881": [
+   "Pathreri Jattan",
+   265,
+   3
+  ],
+  "38829": [
+   "Kotla Sarmukh Singh",
+   265,
+   1
+  ],
+  "38884": [
+   "Mehpalon",
+   265,
+   3
+  ],
+  "38863": [
+   "Chak Amar Singh",
+   265,
+   2
+  ],
+  "38940": [
+   "Kishanpur",
+   265,
+   0
+  ],
+  "38678": [
+   "Chhoti Jhallian",
+   264,
+   5
+  ],
+  "38774": [
+   "Khalilpur",
+   265,
+   2
+  ],
+  "38676": [
+   "Mansuha Kalan",
+   264,
+   5
+  ],
+  "38796": [
+   "Beli Attalgarh",
+   265,
+   2
+  ],
+  "38787": [
+   "Bhauwal",
+   265,
+   2
+  ],
+  "38694": [
+   "Chhoti Railon",
+   264,
+   5
+  ],
+  "38772": [
+   "Bara Surtanpur",
+   265,
+   5
+  ],
+  "38673": [
+   "Samrala",
+   264,
+   5
+  ],
+  "38817": [
+   "Behrampur Bet",
+   265,
+   4
+  ],
+  "38685": [
+   "Bara Phool",
+   264,
+   5
+  ],
+  "38680": [
+   "Bhauwal",
+   264,
+   5
+  ],
+  "38777": [
+   "Ranga",
+   265,
+   2
+  ],
+  "38824": [
+   "Hafizabad",
+   265,
+   4
+  ],
+  "38677": [
+   "Mahlan",
+   264,
+   2
+  ],
+  "38768": [
+   "Ramgarh",
+   265,
+   5
+  ],
+  "38779": [
+   "Chupki",
+   265,
+   2
+  ],
+  "38644": [
+   "Katli",
+   264,
+   5
+  ],
+  "38797": [
+   "Gobindgarh Kulchian",
+   265,
+   4
+  ],
+  "38818": [
+   "Dalla",
+   265,
+   4
+  ],
+  "38815": [
+   "Rampur",
+   265,
+   4
+  ],
+  "38705": [
+   "Lakhmipur",
+   264,
+   3
+  ],
+  "38819": [
+   "Khokhar",
+   265,
+   4
+  ],
+  "38671": [
+   "Abhepur Beli",
+   264,
+   5
+  ],
+  "38823": [
+   "Dhumewal",
+   265,
+   4
+  ],
+  "38672": [
+   "Khairabad",
+   264,
+   5
+  ],
+  "38807": [
+   "Makowal",
+   265,
+   4
+  ],
+  "38814": [
+   "Mohan Majra",
+   265,
+   4
+  ],
+  "38789": [
+   "Ferozepur",
+   265,
+   2
+  ],
+  "38703": [
+   "Bheora",
+   264,
+   5
+  ],
+  "38736": [
+   "Asmanpur",
+   264,
+   3
+  ],
+  "38781": [
+   "Karkhana Bela",
+   265,
+   2
+  ],
+  "38792": [
+   "Balrampur",
+   265,
+   2
+  ],
+  "248319": [
+   "Rupnagar",
+   264,
+   5
+  ],
+  "38820": [
+   "Salahpur",
+   265,
+   4
+  ],
+  "38682": [
+   "Budha Bhora",
+   264,
+   5
+  ],
+  "38783": [
+   "Kulian",
+   265,
+   2
+  ],
+  "38851": [
+   "Kheri Salabatpur",
+   265,
+   2
+  ],
+  "38816": [
+   "Taprian Amar Singh",
+   265,
+   4
+  ],
+  "38689": [
+   "Chhota Bande Mahal",
+   264,
+   3
+  ],
+  "38675": [
+   "Bara Bande Mehal",
+   264,
+   5
+  ],
+  "38693": [
+   "Rasulpur",
+   264,
+   5
+  ],
+  "38825": [
+   "Fatehpur",
+   265,
+   1
+  ],
+  "38683": [
+   "Chhota Phool",
+   264,
+   5
+  ],
+  "38679": [
+   "Manusuha Khurd",
+   264,
+   5
+  ],
+  "38836": [
+   "Bir Guru",
+   265,
+   1
+  ],
+  "38813": [
+   "Fatehgarh Viran",
+   265,
+   4
+  ],
+  "38808": [
+   "Chak Lahori",
+   265,
+   4
+  ],
+  "38688": [
+   "Sangatpur",
+   264,
+   3
+  ],
+  "38844": [
+   "Bhairon Majra",
+   265,
+   2
+  ],
+  "38674": [
+   "Bari Railon",
+   264,
+   5
+  ],
+  "38686": [
+   "Nanowal",
+   264,
+   5
+  ],
+  "38821": [
+   "Rashidpur",
+   265,
+   4
+  ],
+  "38848": [
+   "Chaunta Khurd",
+   265,
+   2
+  ],
+  "38826": [
+   "Mahtot",
+   265,
+   1
+  ],
+  "38842": [
+   "Jatana",
+   265,
+   2
+  ],
+  "38809": [
+   "Panj Peda",
+   265,
+   4
+  ],
+  "38798": [
+   "Zindanpur",
+   265,
+   4
+  ],
+  "38845": [
+   "Bhoje Majra",
+   265,
+   2
+  ],
+  "38799": [
+   "Bara Daudpur",
+   265,
+   4
+  ],
+  "38803": [
+   "Taprian Rashidpur",
+   265,
+   4
+  ],
+  "38849": [
+   "Bhaini",
+   265,
+   2
+  ],
+  "38793": [
+   "Jasran",
+   265,
+   4
+  ],
+  "38621": [
+   "Alampur",
+   264,
+   5
+  ],
+  "38771": [
+   "Chhota Surtanpur",
+   265,
+   5
+  ],
+  "38880": [
+   "Bari Jhallian",
+   265,
+   3
+  ],
+  "38773": [
+   "Muajudinpur",
+   265,
+   2
+  ],
+  "38784": [
+   "Jagatpur",
+   265,
+   2
+  ],
+  "38801": [
+   "Malewal",
+   265,
+   4
+  ],
+  "38850": [
+   "Chaunta Kalan",
+   265,
+   2
+  ],
+  "38778": [
+   "Khizarpur",
+   265,
+   2
+  ],
+  "38846": [
+   "Bhalian",
+   265,
+   2
+  ],
+  "38691": [
+   "Bara",
+   264,
+   3
+  ],
+  "38847": [
+   "Suleman Shikoh",
+   265,
+   2
+  ],
+  "38843": [
+   "Fatehgarh",
+   265,
+   2
+  ],
+  "38668": [
+   "Shampura",
+   264,
+   5
+  ],
+  "38810": [
+   "Sarangpur",
+   265,
+   4
+  ],
+  "38707": [
+   "Pathar Majra",
+   264,
+   3
+  ],
+  "38841": [
+   "Manjitpura Chamar Majra",
+   265,
+   2
+  ],
+  "38681": [
+   "Rautan",
+   264,
+   5
+  ],
+  "38788": [
+   "Lakhewal",
+   265,
+   2
+  ],
+  "38786": [
+   "Farid",
+   265,
+   2
+  ],
+  "38806": [
+   "Sultanpur",
+   265,
+   4
+  ],
+  "38840": [
+   "Mukarabpur",
+   265,
+   2
+  ],
+  "38706": [
+   "Gandhon Khurd",
+   264,
+   3
+  ],
+  "38791": [
+   "Bela",
+   265,
+   2
+  ],
+  "38782": [
+   "Garhi",
+   265,
+   2
+  ],
+  "38805": [
+   "Saidpur",
+   265,
+   4
+  ],
+  "38828": [
+   "Kahanpur",
+   265,
+   1
+  ],
+  "38667": [
+   "Nanakpur Alias Sharfabad",
+   264,
+   5
+  ],
+  "38776": [
+   "Baman",
+   265,
+   2
+  ],
+  "38695": [
+   "Paprala",
+   264,
+   5
+  ],
+  "38794": [
+   "Attari",
+   265,
+   4
+  ],
+  "38690": [
+   "Gobindpur",
+   264,
+   3
+  ],
+  "38802": [
+   "Ghurkewal",
+   265,
+   4
+  ],
+  "38770": [
+   "Taprian Gharispur",
+   265,
+   5
+  ],
+  "38822": [
+   "Bazidpur",
+   265,
+   4
+  ],
+  "38645": [
+   "Khawaspur",
+   264,
+   5
+  ],
+  "38687": [
+   "Pathreri Rajputan",
+   264,
+   3
+  ],
+  "38684": [
+   "Gurdaspur",
+   264,
+   5
+  ],
+  "38769": [
+   "Taprian Boothgarh",
+   265,
+   5
+  ],
+  "38775": [
+   "Assarpur",
+   265,
+   2
+  ],
+  "38692": [
+   "Salaura",
+   264,
+   3
+  ],
+  "38704": [
+   "Gurpura",
+   264,
+   5
+  ],
+  "38795": [
+   "Beli Kalan",
+   265,
+   4
+  ],
+  "38766": [
+   "Kamalpur",
+   265,
+   2
+  ],
+  "38838": [
+   "Khanpur",
+   265,
+   1
+  ],
+  "38735": [
+   "Behrampur Zimidara",
+   264,
+   3
+  ],
+  "38790": [
+   "Muzafat",
+   265,
+   2
+  ],
+  "38800": [
+   "Chhota Daudpur",
+   265,
+   4
+  ],
+  "38804": [
+   "Malana",
+   265,
+   4
+  ],
+  "38780": [
+   "Karkhana Bharatgarh",
+   265,
+   2
+  ],
+  "800260": [
+   "Chamkaur Sahib",
+   265,
+   2
+  ],
+  "38765": [
+   "Kotla Nihang",
+   264,
+   5
+  ],
+  "38470": [
+   "Asmanpur",
+   262,
+   9
+  ],
+  "38461": [
+   "Lahrian",
+   262,
+   9
+  ],
+  "38449": [
+   "Kumbewal",
+   262,
+   9
+  ],
+  "38620": [
+   "Bahadarpur",
+   264,
+   5
+  ],
+  "38493": [
+   "Khatana",
+   262,
+   7
+  ],
+  "38381": [
+   "Thana",
+   262,
+   8
+  ],
+  "38378": [
+   "Sakhpur",
+   262,
+   8
+  ],
+  "38450": [
+   "Mussapur",
+   262,
+   9
+  ],
+  "38451": [
+   "Chahar Majra",
+   262,
+   9
+  ],
+  "38496": [
+   "Tibba Tapprian",
+   262,
+   7
+  ],
+  "38492": [
+   "Rajgiri",
+   262,
+   7
+  ],
+  "38486": [
+   "Bhogipur",
+   262,
+   7
+  ],
+  "38484": [
+   "Takhatgarh",
+   262,
+   9
+  ],
+  "38445": [
+   "Jhinjri",
+   262,
+   9
+  ],
+  "38432": [
+   "Sukhe Majra",
+   262,
+   8
+  ],
+  "38614": [
+   "Jahangir",
+   264,
+   7
+  ],
+  "38448": [
+   "Lakhno",
+   262,
+   9
+  ],
+  "38431": [
+   "Samirowal",
+   262,
+   8
+  ],
+  "38453": [
+   "Mirpur",
+   262,
+   9
+  ],
+  "38491": [
+   "Dhamana",
+   262,
+   7
+  ],
+  "38473": [
+   "Nurpur Kalan",
+   262,
+   8
+  ],
+  "38439": [
+   "Gurse Majra",
+   262,
+   8
+  ],
+  "38386": [
+   "Sabaur",
+   262,
+   8
+  ],
+  "38383": [
+   "Karura",
+   262,
+   8
+  ],
+  "38418": [
+   "Mehndali Kalan",
+   262,
+   9
+  ],
+  "38436": [
+   "Nurpur Khurd",
+   262,
+   8
+  ],
+  "38423": [
+   "Buraj",
+   262,
+   9
+  ],
+  "38430": [
+   "Mukari",
+   262,
+   8
+  ],
+  "38424": [
+   "Balowal",
+   262,
+   9
+  ],
+  "38444": [
+   "Rauli",
+   262,
+   9
+  ],
+  "38435": [
+   "Hiyatpur",
+   262,
+   8
+  ],
+  "38471": [
+   "Sandhoa",
+   262,
+   9
+  ],
+  "38379": [
+   "Jhangrian",
+   262,
+   8
+  ],
+  "38427": [
+   "Lodipur",
+   262,
+   9
+  ],
+  "38434": [
+   "Singhpur",
+   262,
+   8
+  ],
+  "38446": [
+   "Majra",
+   262,
+   9
+  ],
+  "38415": [
+   "Gajjpur",
+   262,
+   9
+  ],
+  "38480": [
+   "Balewal",
+   262,
+   8
+  ],
+  "38372": [
+   "Hirpur Ganura",
+   262,
+   8
+  ],
+  "38483": [
+   "Bahman Majra",
+   262,
+   7
+  ],
+  "38476": [
+   "Chandpur",
+   262,
+   8
+  ],
+  "38426": [
+   "Mothapur",
+   262,
+   8
+  ],
+  "38478": [
+   "Barari",
+   262,
+   9
+  ],
+  "38510": [
+   "Kheri",
+   262,
+   9
+  ],
+  "38468": [
+   "Munna",
+   262,
+   9
+  ],
+  "38437": [
+   "Kartarpur",
+   262,
+   8
+  ],
+  "38417": [
+   "Badhal",
+   262,
+   9
+  ],
+  "38488": [
+   "Sarthali",
+   262,
+   7
+  ],
+  "38474": [
+   "Rure Majra",
+   262,
+   8
+  ],
+  "38612": [
+   "Chak Dhera",
+   264,
+   7
+  ],
+  "38472": [
+   "Azampur",
+   262,
+   9
+  ],
+  "38370": [
+   "Kalwan",
+   262,
+   8
+  ],
+  "38441": [
+   "Saini Majra",
+   262,
+   9
+  ],
+  "38485": [
+   "Bhaton",
+   262,
+   7
+  ],
+  "38477": [
+   "Kangar",
+   262,
+   8
+  ],
+  "38482": [
+   "Jhandian",
+   262,
+   7
+  ],
+  "38487": [
+   "Jatwahar",
+   262,
+   7
+  ],
+  "38455": [
+   "Chanauli",
+   262,
+   9
+  ],
+  "38447": [
+   "Saskaur",
+   262,
+   9
+  ],
+  "38416": [
+   "Chandpur",
+   262,
+   9
+  ],
+  "38425": [
+   "Amarpur Bela",
+   262,
+   9
+  ],
+  "38433": [
+   "Saupur",
+   262,
+   8
+  ],
+  "38466": [
+   "Bains",
+   262,
+   9
+  ],
+  "38428": [
+   "Gobindpur",
+   262,
+   8
+  ],
+  "38442": [
+   "Simbal Majra",
+   262,
+   8
+  ],
+  "38429": [
+   "Mawa",
+   262,
+   8
+  ],
+  "38440": [
+   "Jatpur",
+   262,
+   8
+  ],
+  "38475": [
+   "Jatauli",
+   262,
+   8
+  ],
+  "38371": [
+   "Rampur Kalan",
+   262,
+   8
+  ],
+  "38382": [
+   "Barian",
+   262,
+   8
+  ],
+  "38438": [
+   "Gopalpur",
+   262,
+   8
+  ],
+  "38374": [
+   "Saidpur",
+   262,
+   8
+  ],
+  "38443": [
+   "Lasari",
+   262,
+   8
+  ],
+  "38494": [
+   "Bathlour Khad",
+   262,
+   7
+  ],
+  "38387": [
+   "Bhaini",
+   262,
+   8
+  ],
+  "38377": [
+   "Jhaj",
+   262,
+   8
+  ],
+  "38481": [
+   "Tibba Nangal",
+   262,
+   7
+  ],
+  "38380": [
+   "Pachranda",
+   262,
+   8
+  ],
+  "38376": [
+   "Raipur",
+   262,
+   8
+  ],
+  "38459": [
+   "Lalpur",
+   262,
+   9
+  ],
+  "38613": [
+   "Miani",
+   264,
+   7
+  ],
+  "38479": [
+   "Bassali",
+   262,
+   8
+  ],
+  "38384": [
+   "Katta",
+   262,
+   8
+  ],
+  "38452": [
+   "Barwa",
+   262,
+   9
+  ],
+  "38615": [
+   "Patial",
+   264,
+   5
+  ],
+  "38454": [
+   "Bhatauli",
+   262,
+   9
+  ],
+  "38375": [
+   "Dumewal",
+   262,
+   8
+  ],
+  "38460": [
+   "Asalatpur",
+   262,
+   9
+  ],
+  "38467": [
+   "Aulakh",
+   262,
+   9
+  ],
+  "38385": [
+   "Ghahi Majra",
+   262,
+   8
+  ],
+  "38469": [
+   "Raipur",
+   262,
+   9
+  ],
+  "38495": [
+   "Garh Bagga",
+   262,
+   5
+  ],
+  "38709": [
+   "Gandhon Kalan",
+   264,
+   3
+  ],
+  "38700": [
+   "Dau Majra",
+   264,
+   3
+  ],
+  "38617": [
+   "Doburji",
+   264,
+   7
+  ],
+  "38637": [
+   "Ahmedpur",
+   264,
+   5
+  ],
+  "38540": [
+   "Mehandpur",
+   263,
+   10
+  ],
+  "38541": [
+   "Bhangal",
+   263,
+   10
+  ],
+  "38538": [
+   "Pasiwal",
+   263,
+   10
+  ],
+  "38555": [
+   "Chhotewal",
+   263,
+   10
+  ],
+  "38572": [
+   "Bhaton",
+   263,
+   10
+  ],
+  "38400": [
+   "Bacholi",
+   262,
+   11
+  ],
+  "38566": [
+   "Nangal Nikku",
+   263,
+   11
+  ],
+  "38582": [
+   "Darauli",
+   263,
+   11
+  ],
+  "38388": [
+   "Aggampur",
+   262,
+   11
+  ],
+  "38559": [
+   "Kalsera",
+   263,
+   10
+  ],
+  "38363": [
+   "Paili Khurd",
+   262,
+   11
+  ],
+  "38549": [
+   "Bhikhapur",
+   263,
+   10
+  ],
+  "38360": [
+   "Barari",
+   262,
+   11
+  ],
+  "38356": [
+   "Ghamirpur",
+   262,
+   11
+  ],
+  "38350": [
+   "Samundari",
+   262,
+   10
+  ],
+  "38573": [
+   "Palsari",
+   263,
+   10
+  ],
+  "38587": [
+   "Bela Ramgarh",
+   263,
+   11
+  ],
+  "38395": [
+   "Banni",
+   262,
+   11
+  ],
+  "38588": [
+   "Thalon",
+   263,
+   11
+  ],
+  "38394": [
+   "Ganguwal",
+   262,
+   11
+  ],
+  "38581": [
+   "Bhalowal",
+   263,
+   11
+  ],
+  "38362": [
+   "Basowal",
+   262,
+   11
+  ],
+  "38354": [
+   "Khanpur",
+   262,
+   11
+  ],
+  "38561": [
+   "Swamipur",
+   263,
+   10
+  ],
+  "38537": [
+   "Bhalari",
+   263,
+   10
+  ],
+  "38584": [
+   "Bhanupali",
+   263,
+   11
+  ],
+  "38565": [
+   "Hambewal",
+   263,
+   10
+  ],
+  "38373": [
+   "Baihara",
+   262,
+   11
+  ],
+  "38553": [
+   "Surewal",
+   263,
+   10
+  ],
+  "38571": [
+   "Jol",
+   263,
+   10
+  ],
+  "38535": [
+   "Palasi",
+   263,
+   10
+  ],
+  "38359": [
+   "Sajmour",
+   262,
+   11
+  ],
+  "38399": [
+   "Lamlehri",
+   262,
+   11
+  ],
+  "38545": [
+   "Kulgraon",
+   263,
+   10
+  ],
+  "38419": [
+   "Mindhwan",
+   262,
+   9
+  ],
+  "38361": [
+   "Dheru",
+   262,
+   11
+  ],
+  "38389": [
+   "Mahrauli",
+   262,
+   11
+  ],
+  "38574": [
+   "Raipur",
+   263,
+   11
+  ],
+  "38368": [
+   "Khamera",
+   262,
+   11
+  ],
+  "38352": [
+   "Palahta",
+   262,
+   10
+  ],
+  "38586": [
+   "Jindbari",
+   263,
+   11
+  ],
+  "38589": [
+   "Sainsowal",
+   263,
+   11
+  ],
+  "38391": [
+   "Lang Majri",
+   262,
+   11
+  ],
+  "38564": [
+   "Dubheta",
+   263,
+   10
+  ],
+  "38534": [
+   "Bhanam",
+   263,
+   10
+  ],
+  "38396": [
+   "Chak",
+   262,
+   11
+  ],
+  "38563": [
+   "Talwara",
+   263,
+   11
+  ],
+  "38357": [
+   "Surewal",
+   262,
+   11
+  ],
+  "38551": [
+   "Sehjowal",
+   263,
+   10
+  ],
+  "38365": [
+   "Paili Kalan",
+   262,
+   11
+  ],
+  "38421": [
+   "Thappal",
+   262,
+   9
+  ],
+  "38404": [
+   "Tarapur",
+   262,
+   9
+  ],
+  "38568": [
+   "Meghpur",
+   263,
+   11
+  ],
+  "38345": [
+   "Mahain",
+   262,
+   11
+  ],
+  "38544": [
+   "Diyapur",
+   263,
+   10
+  ],
+  "38579": [
+   "Jandla",
+   263,
+   11
+  ],
+  "38367": [
+   "Dholowal",
+   262,
+   11
+  ],
+  "38403": [
+   "Nanowal",
+   262,
+   9
+  ],
+  "38556": [
+   "Maujowal",
+   263,
+   10
+  ],
+  "38398": [
+   "Mianpur",
+   262,
+   11
+  ],
+  "38342": [
+   "Raisera",
+   262,
+   10
+  ],
+  "38543": [
+   "Sukhsal",
+   263,
+   10
+  ],
+  "38349": [
+   "Kahanpur",
+   262,
+   10
+  ],
+  "38578": [
+   "Dab Khera",
+   263,
+   11
+  ],
+  "38580": [
+   "Kalitran",
+   263,
+   11
+  ],
+  "38548": [
+   "Sangatpur",
+   263,
+   10
+  ],
+  "38392": [
+   "Majara",
+   262,
+   11
+  ],
+  "38552": [
+   "Bainspur",
+   263,
+   10
+  ],
+  "38369": [
+   "Kukowal",
+   262,
+   11
+  ],
+  "38576": [
+   "Barahmpur",
+   263,
+   11
+  ],
+  "38533": [
+   "Bhallan",
+   263,
+   10
+  ],
+  "38547": [
+   "Gohlani",
+   263,
+   10
+  ],
+  "38402": [
+   "Jhajar",
+   262,
+   11
+  ],
+  "38347": [
+   "Dasgran",
+   262,
+   11
+  ],
+  "38570": [
+   "Patti",
+   263,
+   11
+  ],
+  "38397": [
+   "Sahota",
+   262,
+   9
+  ],
+  "38569": [
+   "Manakpur",
+   263,
+   11
+  ],
+  "38542": [
+   "Daghaur",
+   263,
+   10
+  ],
+  "38401": [
+   "Rampur",
+   262,
+   11
+  ],
+  "38585": [
+   "Nangli",
+   263,
+   11
+  ],
+  "248317": [
+   "Anandpur Sahib",
+   262,
+   9
+  ],
+  "38567": [
+   "Dohkli",
+   263,
+   10
+  ],
+  "38364": [
+   "Kalota",
+   262,
+   11
+  ],
+  "38366": [
+   "Mangewal",
+   262,
+   11
+  ],
+  "38531": [
+   "Harsabela",
+   263,
+   11
+  ],
+  "38577": [
+   "Ajauli",
+   263,
+   11
+  ],
+  "38560": [
+   "Bhabhaur Sahib",
+   263,
+   10
+  ],
+  "38583": [
+   "Duhnal",
+   263,
+   11
+  ],
+  "38532": [
+   "Algran",
+   263,
+   11
+  ],
+  "38575": [
+   "Bandleri",
+   263,
+   11
+  ],
+  "38536": [
+   "Nangran Kalmot",
+   263,
+   10
+  ],
+  "38343": [
+   "Nalhoti",
+   262,
+   10
+  ],
+  "38346": [
+   "Dher",
+   262,
+   11
+  ],
+  "38353": [
+   "Spalwan",
+   262,
+   10
+  ],
+  "38341": [
+   "Gochar",
+   262,
+   10
+  ],
+  "38351": [
+   "Haripur",
+   262,
+   10
+  ],
+  "38554": [
+   "Hazipur",
+   263,
+   10
+  ],
+  "38358": [
+   "Bikapur",
+   262,
+   11
+  ],
+  "38355": [
+   "Behlu",
+   262,
+   11
+  ],
+  "38550": [
+   "Melwan",
+   263,
+   10
+  ],
+  "38562": [
+   "Khera Bagh",
+   263,
+   10
+  ],
+  "38420": [
+   "Jhinjri",
+   262,
+   9
+  ],
+  "38539": [
+   "Majari",
+   263,
+   10
+  ],
+  "38546": [
+   "Bela Dhiani",
+   263,
+   10
+  ],
+  "38344": [
+   "Sawara",
+   262,
+   11
+  ],
+  "38422": [
+   "Mataur",
+   262,
+   9
+  ],
+  "38558": [
+   "Rampur Sahni",
+   263,
+   10
+  ],
+  "38557": [
+   "Medha Majra",
+   263,
+   10
+  ],
+  "38639": [
+   "Balawalpur",
+   264,
+   5
+  ],
+  "38633": [
+   "Thali",
+   264,
+   6
+  ],
+  "38618": [
+   "Gunu Majra",
+   264,
+   7
+  ],
+  "38743": [
+   "Santpur Alias Chupki",
+   264,
+   3
+  ],
+  "38755": [
+   "Kakron",
+   264,
+   3
+  ],
+  "38950": [
+   "Charheri",
+   265,
+   3
+  ],
+  "38514": [
+   "Bhatoli",
+   262,
+   9
+  ],
+  "38946": [
+   "Behdali",
+   265,
+   3
+  ],
+  "38744": [
+   "Brahman Majra",
+   264,
+   3
+  ],
+  "38754": [
+   "Kalal Majra",
+   264,
+   3
+  ],
+  "38944": [
+   "Chutamali",
+   265,
+   0
+  ],
+  "38747": [
+   "Atalgarh",
+   264,
+   3
+  ],
+  "38756": [
+   "Balamgarh Alias Mandwara",
+   264,
+   3
+  ],
+  "38954": [
+   "Fatehgarh",
+   265,
+   3
+  ],
+  "38943": [
+   "Chatamala",
+   265,
+   0
+  ],
+  "38749": [
+   "Bhago Majra",
+   264,
+   3
+  ],
+  "38725": [
+   "Kishanpura",
+   264,
+   6
+  ],
+  "38750": [
+   "Chaklan",
+   264,
+   3
+  ],
+  "38945": [
+   "Dhianpura",
+   265,
+   0
+  ],
+  "38949": [
+   "Bhagowal",
+   265,
+   3
+  ],
+  "38955": [
+   "Chintgarh",
+   265,
+   3
+  ],
+  "38751": [
+   "Mugal Majri",
+   264,
+   3
+  ],
+  "38953": [
+   "Adhrera",
+   265,
+   3
+  ],
+  "38748": [
+   "Lohari",
+   264,
+   3
+  ],
+  "38753": [
+   "Kishanpur",
+   264,
+   3
+  ],
+  "38746": [
+   "Chararian",
+   264,
+   3
+  ],
+  "38741": [
+   "Singh",
+   264,
+   3
+  ],
+  "38951": [
+   "Ban Majra",
+   265,
+   3
+  ],
+  "38947": [
+   "Behdala",
+   265,
+   3
+  ],
+  "38742": [
+   "Bhagwantpur",
+   264,
+   3
+  ],
+  "38952": [
+   "Mathari",
+   265,
+   3
+  ],
+  "38715": [
+   "Bhaddal",
+   264,
+   6
+  ],
+  "38636": [
+   "Dugri",
+   264,
+   5
+  ],
+  "38702": [
+   "Simbal Jhalian",
+   264,
+   5
+  ],
+  "38728": [
+   "Babani Kalan",
+   264,
+   6
+  ],
+  "38666": [
+   "Hussainpur",
+   264,
+   5
+  ],
+  "38650": [
+   "Chararian",
+   264,
+   6
+  ],
+  "38647": [
+   "Ladhal",
+   264,
+   5
+  ],
+  "38711": [
+   "Mianpur",
+   264,
+   3
+  ],
+  "38721": [
+   "Kakaut",
+   264,
+   6
+  ],
+  "38717": [
+   "Ramgarh",
+   264,
+   6
+  ],
+  "38757": [
+   "Jabarhera",
+   264,
+   6
+  ],
+  "38640": [
+   "Malikpur",
+   264,
+   5
+  ],
+  "38652": [
+   "Chak Karman",
+   264,
+   6
+  ],
+  "38658": [
+   "Bholon Kalewal",
+   264,
+   6
+  ],
+  "38730": [
+   "Panjola",
+   264,
+   6
+  ],
+  "38631": [
+   "Chhoti Makori",
+   264,
+   6
+  ],
+  "38716": [
+   "Siyasatpur",
+   264,
+   6
+  ],
+  "38719": [
+   "Kudaspur",
+   264,
+   6
+  ],
+  "38712": [
+   "Madpur",
+   264,
+   3
+  ],
+  "38723": [
+   "Haripur",
+   264,
+   6
+  ],
+  "38718": [
+   "Khanpur",
+   264,
+   6
+  ],
+  "38727": [
+   "Rampur",
+   264,
+   6
+  ],
+  "800258": [
+   "Nangal",
+   263,
+   10
+  ],
+  "38591": [
+   "Oustee Colony Block A",
+   263,
+   10
+  ],
+  "38590": [
+   "Oustee Colony Block B",
+   263,
+   10
+  ],
+  "38701": [
+   "Thauna",
+   264,
+   5
+  ],
+  "38648": [
+   "Sanana",
+   264,
+   5
+  ],
+  "38659": [
+   "Bagwali",
+   264,
+   6
+  ],
+  "38653": [
+   "Mansali",
+   264,
+   6
+  ],
+  "38655": [
+   "Jhandian",
+   264,
+   6
+  ],
+  "38696": [
+   "Phoolpur Garewal",
+   264,
+   5
+  ],
+  "38661": [
+   "Akabarpur",
+   264,
+   5
+  ],
+  "38664": [
+   "Khalidpur",
+   264,
+   5
+  ],
+  "38732": [
+   "Akalgarh Urf Burjwala",
+   264,
+   3
+  ],
+  "38734": [
+   "Raje Majra",
+   264,
+   3
+  ],
+  "38714": [
+   "Sarari",
+   264,
+   6
+  ],
+  "38663": [
+   "Majri",
+   264,
+   5
+  ],
+  "38698": [
+   "Sainfalpur",
+   264,
+   6
+  ],
+  "38651": [
+   "Dangauli",
+   264,
+   6
+  ],
+  "38724": [
+   "Hirdapur",
+   264,
+   6
+  ],
+  "38697": [
+   "Magror",
+   264,
+   5
+  ],
+  "38760": [
+   "Kheri",
+   264,
+   6
+  ],
+  "38710": [
+   "Manak Majra",
+   264,
+   3
+  ],
+  "38729": [
+   "Babani Khurd",
+   264,
+   6
+  ],
+  "38761": [
+   "Harnampur",
+   264,
+   6
+  ],
+  "38646": [
+   "Bairampur",
+   264,
+   5
+  ],
+  "38722": [
+   "Majri",
+   264,
+   6
+  ],
+  "38762": [
+   "Bardar",
+   264,
+   6
+  ],
+  "38641": [
+   "Tapal Majra",
+   264,
+   5
+  ],
+  "38656": [
+   "Bhagalan",
+   264,
+   6
+  ],
+  "38699": [
+   "Parhi",
+   264,
+   5
+  ],
+  "38720": [
+   "Bari",
+   264,
+   6
+  ],
+  "38731": [
+   "Panjoli",
+   264,
+   3
+  ],
+  "38665": [
+   "Dargah Shah Khalid Binwalid",
+   264,
+   5
+  ],
+  "38632": [
+   "Bari Makori",
+   264,
+   6
+  ],
+  "38649": [
+   "Dhaloh",
+   264,
+   6
+  ],
+  "38713": [
+   "Santokhgarh",
+   264,
+   6
+  ],
+  "38726": [
+   "Purkhali",
+   264,
+   6
+  ],
+  "38708": [
+   "Rangilpur",
+   264,
+   3
+  ],
+  "38657": [
+   "Fatehpur",
+   264,
+   6
+  ],
+  "38759": [
+   "Bindrakh",
+   264,
+   6
+  ],
+  "38733": [
+   "Raipur Patti Gandhon",
+   264,
+   3
+  ],
+  "38660": [
+   "Alibak",
+   264,
+   5
+  ],
+  "38642": [
+   "Mianpur Raian",
+   264,
+   5
+  ],
+  "38758": [
+   "Sultanpur",
+   264,
+   6
+  ],
+  "38662": [
+   "Shahpur",
+   264,
+   5
+  ],
+  "38654": [
+   "Naurangpur",
+   264,
+   6
+  ],
+  "38624": [
+   "Rawal Majra",
+   264,
+   5
+  ],
+  "38619": [
+   "Loudhi Majra",
+   264,
+   5
+  ],
+  "38489": [
+   "Bajrur",
+   262,
+   7
+  ],
+  "38607": [
+   "Majri",
+   264,
+   7
+  ],
+  "38500": [
+   "Abiana Kalan",
+   262,
+   7
+  ],
+  "38599": [
+   "Bharatgarh",
+   264,
+   7
+  ],
+  "38623": [
+   "Lohgarh Fidey",
+   264,
+   5
+  ],
+  "38608": [
+   "Kot Bala",
+   264,
+   7
+  ],
+  "38638": [
+   "Chandpur",
+   264,
+   5
+  ],
+  "38628": [
+   "Ghanaula",
+   264,
+   6
+  ],
+  "38598": [
+   "Kakrala",
+   264,
+   7
+  ],
+  "38629": [
+   "Bikkon",
+   264,
+   6
+  ],
+  "38497": [
+   "Batarla",
+   262,
+   7
+  ],
+  "38634": [
+   "Singhpura",
+   264,
+   6
+  ],
+  "38600": [
+   "Kharota",
+   264,
+   7
+  ],
+  "38601": [
+   "Himatpur",
+   264,
+   7
+  ],
+  "38604": [
+   "Naggal",
+   264,
+   7
+  ],
+  "38499": [
+   "Madhopur",
+   262,
+   7
+  ],
+  "38606": [
+   "Diwari",
+   264,
+   7
+  ],
+  "38635": [
+   "Alipur",
+   264,
+   5
+  ],
+  "38622": [
+   "Dakala",
+   264,
+   5
+  ],
+  "38616": [
+   "Mado Majra",
+   264,
+   7
+  ],
+  "38630": [
+   "Shaho Majra",
+   264,
+   6
+  ],
+  "38596": [
+   "Beli",
+   264,
+   7
+  ],
+  "38501": [
+   "Nangal",
+   262,
+   7
+  ],
+  "38605": [
+   "Manguwal",
+   264,
+   6
+  ],
+  "38597": [
+   "Bara Pind",
+   264,
+   7
+  ],
+  "38626": [
+   "Inderpura",
+   264,
+   6
+  ],
+  "38627": [
+   "Saini Majra",
+   264,
+   6
+  ],
+  "38464": [
+   "Bhauwal",
+   262,
+   9
+  ],
+  "38490": [
+   "Abiana Khurd",
+   262,
+   7
+  ],
+  "38498": [
+   "Dahirpur",
+   262,
+   7
+  ],
+  "38625": [
+   "Ratanpura",
+   264,
+   7
+  ],
+  "38502": [
+   "Chonta",
+   262,
+   7
+  ],
+  "38602": [
+   "Kimatpur",
+   264,
+   7
+  ],
+  "38611": [
+   "Awankot",
+   264,
+   7
+  ],
+  "38609": [
+   "Asspur",
+   264,
+   7
+  ],
+  "38603": [
+   "Alowal",
+   264,
+   7
+  ],
+  "38610": [
+   "Taraf",
+   264,
+   7
+  ],
+  "38529": [
+   "Hardo Haripur",
+   262,
+   9
+  ],
+  "38504": [
+   "Bal",
+   262,
+   9
+  ],
+  "38520": [
+   "Ghanaur",
+   262,
+   9
+  ],
+  "38508": [
+   "Tirak Gandhi",
+   262,
+   9
+  ],
+  "38594": [
+   "Bari Jhakhian",
+   264,
+   7
+  ],
+  "38515": [
+   "Bhagwala",
+   262,
+   9
+  ],
+  "38506": [
+   "Fatehpur Bunga",
+   262,
+   9
+  ],
+  "38522": [
+   "Chamrauli",
+   262,
+   9
+  ],
+  "38414": [
+   "Kotla",
+   262,
+   9
+  ],
+  "38527": [
+   "Mianpur Handur",
+   262,
+   9
+  ],
+  "38530": [
+   "Attari",
+   262,
+   9
+  ],
+  "38519": [
+   "Nard",
+   262,
+   9
+  ],
+  "38462": [
+   "Taprian Chak Chal Alias Kujal",
+   262,
+   9
+  ],
+  "38505": [
+   "Pirthipur",
+   262,
+   9
+  ],
+  "38517": [
+   "Majher",
+   262,
+   9
+  ],
+  "38512": [
+   "Kalyanpur",
+   262,
+   9
+  ],
+  "38456": [
+   "Shahpur",
+   262,
+   9
+  ],
+  "38503": [
+   "Chhaja",
+   262,
+   7
+  ],
+  "38521": [
+   "Maura",
+   262,
+   9
+  ],
+  "38595": [
+   "Bhaowal",
+   264,
+   7
+  ],
+  "38465": [
+   "Paharon",
+   262,
+   9
+  ],
+  "38526": [
+   "Dadhi",
+   262,
+   9
+  ],
+  "38513": [
+   "Jeowal",
+   262,
+   9
+  ],
+  "38511": [
+   "Abadi Kiratpur Sahib",
+   262,
+   9
+  ],
+  "38516": [
+   "Baruwala",
+   262,
+   9
+  ],
+  "38593": [
+   "Haler",
+   264,
+   9
+  ],
+  "38457": [
+   "Bassi",
+   262,
+   9
+  ],
+  "38528": [
+   "Hardo Namoh",
+   262,
+   9
+  ],
+  "38411": [
+   "Daulowal",
+   262,
+   9
+  ],
+  "38412": [
+   "Raipur Sani",
+   262,
+   9
+  ],
+  "38524": [
+   "Dehni",
+   262,
+   9
+  ],
+  "38525": [
+   "Dhabur",
+   262,
+   9
+  ],
+  "38509": [
+   "Naulakha",
+   262,
+   9
+  ],
+  "38523": [
+   "Massewal",
+   262,
+   9
+  ],
+  "38507": [
+   "Tirak Karman",
+   262,
+   9
+  ],
+  "38518": [
+   "Chikna",
+   262,
+   9
+  ],
+  "38463": [
+   "Sarai",
+   262,
+   9
+  ],
+  "38408": [
+   "Samlah",
+   262,
+   9
+  ],
+  "38406": [
+   "Dhanera",
+   262,
+   9
+  ],
+  "38409": [
+   "Paharpur",
+   262,
+   9
+  ],
+  "38405": [
+   "Mohiwal",
+   262,
+   9
+  ],
+  "38407": [
+   "Lakher",
+   262,
+   9
+  ],
+  "38410": [
+   "Balauli",
+   262,
+   9
+  ],
+  "38413": [
+   "Mehndali Khurd",
+   262,
+   9
+  ],
+  "38764": [
+   "Ghanauli",
+   264,
+   6
+  ],
+  "38763": [
+   "Nehon",
+   264,
+   7
+  ]
+ },
+ "village_count_total": 621,
+ "village_count_assigned": 621
+}

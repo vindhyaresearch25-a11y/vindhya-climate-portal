@@ -1,0 +1,900 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Nagaland",
+  "district": "Phek",
+  "district_lgd": 248,
+  "observation_window": "2026-08-07T11:19Z to 2026-08-12T11:19Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3775,
+  "sm_surface_stddev": 0.0222,
+  "sm_rootzone_mean": 0.3872,
+  "sm_rootzone_stddev": 0.029,
+  "n_cells": 19,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 25.5436,
+    "lon": 94.2198,
+    "sm_surface": 0.3957,
+    "sm_rootzone": 0.4097,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 1,
+    "lat": 25.5436,
+    "lon": 94.3186,
+    "sm_surface": 0.3981,
+    "sm_rootzone": 0.4149,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 2,
+    "lat": 25.5436,
+    "lon": 94.4174,
+    "sm_surface": 0.3985,
+    "sm_rootzone": 0.4164,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 3,
+    "lat": 25.5436,
+    "lon": 94.6151,
+    "sm_surface": 0.3785,
+    "sm_rootzone": 0.3967,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 4,
+    "lat": 25.5436,
+    "lon": 94.7139,
+    "sm_surface": 0.3389,
+    "sm_rootzone": 0.3443,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 5,
+    "lat": 25.5436,
+    "lon": 94.8127,
+    "sm_surface": 0.3417,
+    "sm_rootzone": 0.3453,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 6,
+    "lat": 25.6424,
+    "lon": 94.2198,
+    "sm_surface": 0.3952,
+    "sm_rootzone": 0.4103,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 7,
+    "lat": 25.6424,
+    "lon": 94.3186,
+    "sm_surface": 0.3421,
+    "sm_rootzone": 0.335,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 8,
+    "lat": 25.6424,
+    "lon": 94.4174,
+    "sm_surface": 0.3944,
+    "sm_rootzone": 0.3891,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 9,
+    "lat": 25.6424,
+    "lon": 94.5162,
+    "sm_surface": 0.3957,
+    "sm_rootzone": 0.4133,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 10,
+    "lat": 25.6424,
+    "lon": 94.6151,
+    "sm_surface": 0.3909,
+    "sm_rootzone": 0.4094,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 11,
+    "lat": 25.6424,
+    "lon": 94.7139,
+    "sm_surface": 0.3492,
+    "sm_rootzone": 0.3499,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 12,
+    "lat": 25.6424,
+    "lon": 94.8127,
+    "sm_surface": 0.3777,
+    "sm_rootzone": 0.3965,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 13,
+    "lat": 25.7412,
+    "lon": 94.3186,
+    "sm_surface": 0.3903,
+    "sm_rootzone": 0.3832,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 14,
+    "lat": 25.7412,
+    "lon": 94.4174,
+    "sm_surface": 0.3925,
+    "sm_rootzone": 0.4087,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 15,
+    "lat": 25.7412,
+    "lon": 94.5162,
+    "sm_surface": 0.3897,
+    "sm_rootzone": 0.4003,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 16,
+    "lat": 25.7412,
+    "lon": 94.6151,
+    "sm_surface": 0.3892,
+    "sm_rootzone": 0.4071,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 17,
+    "lat": 25.7412,
+    "lon": 94.8127,
+    "sm_surface": 0.3768,
+    "sm_rootzone": 0.3956,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 18,
+    "lat": 25.84,
+    "lon": 94.4174,
+    "sm_surface": 0.3378,
+    "sm_rootzone": 0.3315,
+    "n_villages_sharing_cell": 3
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3844,
+  "sm_surface_stddev": 0.0133,
+  "n_blocks": 14
+ },
+ "blocks": [
+  {
+   "block_name": "Chetheba",
+   "sdcode": 1807,
+   "n_villages": 10,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3633,
+   "sm_surface_stddev": 0.026
+  },
+  {
+   "block_name": "Chizami",
+   "sdcode": 1812,
+   "n_villages": 7,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3984,
+   "sm_surface_stddev": 0.0001
+  },
+  {
+   "block_name": "Chozuba",
+   "sdcode": 1806,
+   "n_villages": 9,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3849,
+   "sm_surface_stddev": 0.0151
+  },
+  {
+   "block_name": "Khezhakeno",
+   "sdcode": 1811,
+   "n_villages": 3,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.3957,
+   "sm_surface_stddev": 0.0
+  },
+  {
+   "block_name": "Khuza",
+   "sdcode": 1802,
+   "n_villages": 8,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3901,
+   "sm_surface_stddev": 0.0009
+  },
+  {
+   "block_name": "Meluri",
+   "sdcode": 1803,
+   "n_villages": 14,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.3819,
+   "sm_surface_stddev": 0.0142
+  },
+  {
+   "block_name": "Pfutsero",
+   "sdcode": 1809,
+   "n_villages": 9,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3964,
+   "sm_surface_stddev": 0.0012
+  },
+  {
+   "block_name": "Phek Sadar",
+   "sdcode": 1801,
+   "n_villages": 17,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.393,
+   "sm_surface_stddev": 0.0028
+  },
+  {
+   "block_name": "Phokhungri",
+   "sdcode": 1805,
+   "n_villages": 12,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.3568,
+   "sm_surface_stddev": 0.0177
+  },
+  {
+   "block_name": "Phor",
+   "sdcode": 1804,
+   "n_villages": 11,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3668,
+   "sm_surface_stddev": 0.0133
+  },
+  {
+   "block_name": "Razieba",
+   "sdcode": 1813,
+   "n_villages": 6,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.3981,
+   "sm_surface_stddev": 0.0
+  },
+  {
+   "block_name": "Sakraba",
+   "sdcode": 1808,
+   "n_villages": 11,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3849,
+   "sm_surface_stddev": 0.0202
+  },
+  {
+   "block_name": "Sekruzu",
+   "sdcode": 1800,
+   "n_villages": 10,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3756,
+   "sm_surface_stddev": 0.0248
+  },
+  {
+   "block_name": "Zuketsa",
+   "sdcode": 1810,
+   "n_villages": 6,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.3957,
+   "sm_surface_stddev": 0.0
+  }
+ ],
+ "villages": {
+  "999999": [
+   "Data Partially Available",
+   1804,
+   17
+  ],
+  "267876": [
+   "Kami",
+   1809,
+   0
+  ],
+  "267874": [
+   "Lekromi",
+   1809,
+   1
+  ],
+  "267872": [
+   "Kikruma",
+   1809,
+   0
+  ],
+  "267871": [
+   "R D Block Kikruma Ur",
+   1809,
+   0
+  ],
+  "267879": [
+   "Zapami",
+   1810,
+   0
+  ],
+  "267881": [
+   "Lasumi",
+   1810,
+   0
+  ],
+  "267878": [
+   "Leshemi",
+   1810,
+   0
+  ],
+  "267880": [
+   "Zuketsa",
+   1810,
+   0
+  ],
+  "267882": [
+   "Khezakeno Hq",
+   1811,
+   0
+  ],
+  "267883": [
+   "Khezakeno Village",
+   1811,
+   0
+  ],
+  "253210": [
+   "Pfutsero Town",
+   1809,
+   1
+  ],
+  "267873": [
+   "Pfutseromi",
+   1809,
+   1
+  ],
+  "267884": [
+   "Sumi Swemi",
+   1812,
+   2
+  ],
+  "267886": [
+   "Chizami Vill",
+   1812,
+   2
+  ],
+  "267885": [
+   "Chizami Hq",
+   1812,
+   2
+  ],
+  "267887": [
+   "Enhulumi",
+   1812,
+   2
+  ],
+  "267888": [
+   "Mesulumi",
+   1812,
+   1
+  ],
+  "267889": [
+   "Thetsumi",
+   1812,
+   2
+  ],
+  "267890": [
+   "Tsupfume",
+   1813,
+   1
+  ],
+  "267891": [
+   "Zelume",
+   1813,
+   1
+  ],
+  "267892": [
+   "Razieba Hq",
+   1813,
+   1
+  ],
+  "267894": [
+   "Zhavame",
+   1813,
+   1
+  ],
+  "267821": [
+   "Akhen",
+   1803,
+   3
+  ],
+  "267820": [
+   "Reguri",
+   1803,
+   3
+  ],
+  "267819": [
+   "Kanjang",
+   1803,
+   3
+  ],
+  "267836": [
+   "Phokhungri Hq",
+   1805,
+   5
+  ],
+  "267839": [
+   "Avankhu",
+   1805,
+   5
+  ],
+  "267840": [
+   "Old Thewati",
+   1805,
+   5
+  ],
+  "267842": [
+   "New Thewati",
+   1805,
+   5
+  ],
+  "267841": [
+   "Washelo",
+   1805,
+   4
+  ],
+  "267852": [
+   "Chesezumi",
+   1807,
+   7
+  ],
+  "267856": [
+   "Thenyizumi",
+   1807,
+   6
+  ],
+  "267853": [
+   "Chetheba Hq",
+   1807,
+   6
+  ],
+  "267870": [
+   "Phusachodu",
+   1809,
+   6
+  ],
+  "267789": [
+   "Sohomi",
+   1801,
+   15
+  ],
+  "267788": [
+   "Satheri",
+   1801,
+   15
+  ],
+  "267787": [
+   "Ketsapo",
+   1801,
+   14
+  ],
+  "249723": [
+   "Phek",
+   1801,
+   14
+  ],
+  "267794": [
+   "Chosaba",
+   1801,
+   8
+  ],
+  "267793": [
+   "Phek Basa",
+   1801,
+   9
+  ],
+  "267796": [
+   "Phek Old Town",
+   1801,
+   8
+  ],
+  "267797": [
+   "Phek Village",
+   1801,
+   9
+  ],
+  "267795": [
+   "Surhoba",
+   1801,
+   8
+  ],
+  "267800": [
+   "Lozaphuhu",
+   1801,
+   9
+  ],
+  "267798": [
+   "Losami",
+   1801,
+   8
+  ],
+  "267799": [
+   "Losami Junction Ur",
+   1801,
+   2
+  ],
+  "267805": [
+   "Khuza Village",
+   1802,
+   15
+  ],
+  "267806": [
+   "Khuza Hq",
+   1802,
+   15
+  ],
+  "267803": [
+   "Chiepoketa",
+   1802,
+   15
+  ],
+  "267804": [
+   "Metsale",
+   1802,
+   14
+  ],
+  "267781": [
+   "Phugwi",
+   1800,
+   14
+  ],
+  "267786": [
+   "Ruzazho",
+   1800,
+   14
+  ],
+  "267785": [
+   "Suthazu Nawe",
+   1800,
+   14
+  ],
+  "267783": [
+   "New Ruzazho",
+   1800,
+   14
+  ],
+  "267782": [
+   "Sekrezu",
+   1800,
+   14
+  ],
+  "267784": [
+   "Suthazu Nasa",
+   1800,
+   13
+  ],
+  "267780": [
+   "Khutsami",
+   1800,
+   13
+  ],
+  "267779": [
+   "Therhutsesemi",
+   1800,
+   18
+  ],
+  "267848": [
+   "Thevopisu",
+   1806,
+   13
+  ],
+  "267849": [
+   "Runguzumi Nawe",
+   1806,
+   7
+  ],
+  "267847": [
+   "Chozuba Vill",
+   1806,
+   13
+  ],
+  "267850": [
+   "Runguzumi Nasa",
+   1806,
+   13
+  ],
+  "267846": [
+   "Khesomi",
+   1806,
+   13
+  ],
+  "267844": [
+   "Chozuba Hq",
+   1806,
+   13
+  ],
+  "267843": [
+   "Yoruba",
+   1806,
+   13
+  ],
+  "267851": [
+   "Chesezu Nasa",
+   1807,
+   7
+  ],
+  "267854": [
+   "Khulazu Basa",
+   1807,
+   7
+  ],
+  "267857": [
+   "Khulazu Bawe",
+   1807,
+   7
+  ],
+  "267859": [
+   "Thipuzu",
+   1807,
+   7
+  ],
+  "267869": [
+   "Sakraba",
+   1808,
+   8
+  ],
+  "267866": [
+   "Gidemi Gozuto",
+   1808,
+   8
+  ],
+  "267865": [
+   "Sakraba Hq",
+   1808,
+   8
+  ],
+  "267864": [
+   "Pholami Old",
+   1808,
+   8
+  ],
+  "267862": [
+   "Lower Khomi",
+   1808,
+   8
+  ],
+  "267863": [
+   "Pholami New",
+   1808,
+   8
+  ],
+  "267861": [
+   "Middle Khomi",
+   1808,
+   8
+  ],
+  "267860": [
+   "Upper Khomi",
+   1808,
+   8
+  ],
+  "267868": [
+   "Porba",
+   1808,
+   7
+  ],
+  "267858": [
+   "Rihuba",
+   1807,
+   7
+  ],
+  "267778": [
+   "Dzulhami",
+   1800,
+   18
+  ],
+  "267792": [
+   "Tezatse",
+   1801,
+   15
+  ],
+  "267791": [
+   "Kizari",
+   1801,
+   16
+  ],
+  "267790": [
+   "Kotisu",
+   1801,
+   15
+  ],
+  "267807": [
+   "Tehephu",
+   1802,
+   15
+  ],
+  "267808": [
+   "Khutsokhuno",
+   1802,
+   15
+  ],
+  "267818": [
+   "Mollen",
+   1803,
+   11
+  ],
+  "267816": [
+   "Lephori",
+   1803,
+   10
+  ],
+  "267815": [
+   "Khumiasu",
+   1803,
+   10
+  ],
+  "267817": [
+   "Matikhru",
+   1803,
+   10
+  ],
+  "267814": [
+   "Meluri Village",
+   1803,
+   10
+  ],
+  "267813": [
+   "Meluri Hq",
+   1803,
+   10
+  ],
+  "267812": [
+   "Kukhegwo",
+   1803,
+   11
+  ],
+  "267810": [
+   "Akhegwo",
+   1803,
+   16
+  ],
+  "267809": [
+   "New Akhegwo",
+   1803,
+   16
+  ],
+  "267830": [
+   "Weziho",
+   1804,
+   11
+  ],
+  "267831": [
+   "Weziho Town",
+   1804,
+   11
+  ],
+  "267823": [
+   "Phor",
+   1804,
+   17
+  ],
+  "267824": [
+   "Wuzu",
+   1804,
+   17
+  ],
+  "267825": [
+   "Yesi",
+   1804,
+   17
+  ],
+  "267822": [
+   "New Phor",
+   1804,
+   17
+  ],
+  "267826": [
+   "Hutsu",
+   1804,
+   17
+  ],
+  "267827": [
+   "Kuzatu",
+   1804,
+   17
+  ],
+  "267828": [
+   "Satuza",
+   1804,
+   11
+  ],
+  "267832": [
+   "Sutsu",
+   1805,
+   17
+  ],
+  "267833": [
+   "Laruri",
+   1805,
+   12
+  ],
+  "267834": [
+   "Mokie",
+   1805,
+   12
+  ],
+  "267835": [
+   "Phokhungri Vill",
+   1805,
+   12
+  ],
+  "267838": [
+   "Letsam",
+   1805,
+   12
+  ],
+  "267837": [
+   "Zipu",
+   1805,
+   11
+  ],
+  "267802": [
+   "Suthotsu",
+   1802,
+   15
+  ],
+  "267875": [
+   "Kade Ur",
+   1809,
+   0
+  ],
+  "267877": [
+   "Lowuza Ur",
+   1810,
+   0
+  ],
+  "267893": [
+   "Zavachu",
+   1813,
+   1
+  ],
+  "267855": [
+   "Phuyoba",
+   1807,
+   6
+  ],
+  "267801": [
+   "Lanyezho Lanye Ur",
+   1801,
+   9
+  ],
+  "267845": [
+   "Chozubasa Ur",
+   1806,
+   13
+  ],
+  "267867": [
+   "Wibo Mithun Research Centre Ur",
+   1808,
+   7
+  ],
+  "267811": [
+   "Akhegwo Junction Ur",
+   1803,
+   16
+  ],
+  "267829": [
+   "Yesisotha Centre Ur",
+   1804,
+   11
+  ]
+ },
+ "village_count_total": 133,
+ "village_count_assigned": 133
+}

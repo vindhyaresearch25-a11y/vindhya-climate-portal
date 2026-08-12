@@ -1,0 +1,795 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Nagaland",
+  "district": "Peren",
+  "district_lgd": 613,
+  "observation_window": "2026-08-07T11:19Z to 2026-08-12T11:19Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3411,
+  "sm_surface_stddev": 0.0286,
+  "sm_rootzone_mean": 0.3352,
+  "sm_rootzone_stddev": 0.0352,
+  "n_cells": 16,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 25.2472,
+    "lon": 93.5281,
+    "sm_surface": 0.3268,
+    "sm_rootzone": 0.3141,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 1,
+    "lat": 25.2472,
+    "lon": 93.6269,
+    "sm_surface": 0.3615,
+    "sm_rootzone": 0.3634,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 2,
+    "lat": 25.346,
+    "lon": 93.5281,
+    "sm_surface": 0.3708,
+    "sm_rootzone": 0.3725,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 3,
+    "lat": 25.346,
+    "lon": 93.6269,
+    "sm_surface": 0.3741,
+    "sm_rootzone": 0.3752,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 4,
+    "lat": 25.4448,
+    "lon": 93.5281,
+    "sm_surface": 0.3013,
+    "sm_rootzone": 0.285,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 5,
+    "lat": 25.4448,
+    "lon": 93.6269,
+    "sm_surface": 0.3064,
+    "sm_rootzone": 0.2888,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 6,
+    "lat": 25.4448,
+    "lon": 93.7257,
+    "sm_surface": 0.3628,
+    "sm_rootzone": 0.3664,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 7,
+    "lat": 25.5436,
+    "lon": 93.3305,
+    "sm_surface": 0.331,
+    "sm_rootzone": 0.3281,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 8,
+    "lat": 25.5436,
+    "lon": 93.4293,
+    "sm_surface": 0.3168,
+    "sm_rootzone": 0.3097,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 9,
+    "lat": 25.5436,
+    "lon": 93.5281,
+    "sm_surface": 0.3497,
+    "sm_rootzone": 0.3431,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 10,
+    "lat": 25.5436,
+    "lon": 93.6269,
+    "sm_surface": 0.3026,
+    "sm_rootzone": 0.2867,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 11,
+    "lat": 25.5436,
+    "lon": 93.7257,
+    "sm_surface": 0.2974,
+    "sm_rootzone": 0.2819,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 12,
+    "lat": 25.6424,
+    "lon": 93.5281,
+    "sm_surface": 0.341,
+    "sm_rootzone": 0.3382,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 13,
+    "lat": 25.6424,
+    "lon": 93.6269,
+    "sm_surface": 0.3607,
+    "sm_rootzone": 0.3552,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 14,
+    "lat": 25.6424,
+    "lon": 93.7257,
+    "sm_surface": 0.383,
+    "sm_rootzone": 0.3808,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 15,
+    "lat": 25.6424,
+    "lon": 93.8245,
+    "sm_surface": 0.371,
+    "sm_rootzone": 0.3742,
+    "n_villages_sharing_cell": 17
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3484,
+  "sm_surface_stddev": 0.0158,
+  "n_blocks": 7
+ },
+ "blocks": [
+  {
+   "block_name": "Athibung",
+   "sdcode": 1853,
+   "n_villages": 26,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.3422,
+   "sm_surface_stddev": 0.0202
+  },
+  {
+   "block_name": "Jalukie",
+   "sdcode": 1852,
+   "n_villages": 24,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.3645,
+   "sm_surface_stddev": 0.0249
+  },
+  {
+   "block_name": "Kebai Khelma",
+   "sdcode": 1854,
+   "n_villages": 14,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.3198,
+   "sm_surface_stddev": 0.021
+  },
+  {
+   "block_name": "Nsong",
+   "sdcode": 1855,
+   "n_villages": 9,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3561,
+   "sm_surface_stddev": 0.0207
+  },
+  {
+   "block_name": "Pedi (Ngwalwa)",
+   "sdcode": 1851,
+   "n_villages": 15,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.371,
+   "sm_surface_stddev": 0.0
+  },
+  {
+   "block_name": "Peren",
+   "sdcode": 1857,
+   "n_villages": 12,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.3421,
+   "sm_surface_stddev": 0.0308
+  },
+  {
+   "block_name": "Tening",
+   "sdcode": 1856,
+   "n_villages": 21,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.3429,
+   "sm_surface_stddev": 0.0324
+  }
+ ],
+ "villages": {
+  "999999": [
+   "Data Partially Available",
+   1851,
+   15
+  ],
+  "268335": [
+   "Vongkithem B Ur",
+   1853,
+   12
+  ],
+  "268371": [
+   "Nzauna",
+   1855,
+   0
+  ],
+  "268370": [
+   "Lalong",
+   1855,
+   0
+  ],
+  "268368": [
+   "Nsong Vill",
+   1855,
+   2
+  ],
+  "268363": [
+   "New Ngaolong",
+   1854,
+   2
+  ],
+  "268369": [
+   "Ngam",
+   1855,
+   0
+  ],
+  "268365": [
+   "Nsong Hq",
+   1855,
+   2
+  ],
+  "268367": [
+   "Old Ngaulong",
+   1855,
+   2
+  ],
+  "268366": [
+   "Nchan",
+   1855,
+   2
+  ],
+  "268364": [
+   "Bamsiakelu",
+   1855,
+   2
+  ],
+  "268346": [
+   "Bunglen Ur",
+   1853,
+   9
+  ],
+  "268382": [
+   "Nkio Old",
+   1856,
+   2
+  ],
+  "268376": [
+   "Upper Sinjol",
+   1856,
+   4
+  ],
+  "268372": [
+   "Heiranglwa",
+   1856,
+   5
+  ],
+  "268362": [
+   "Nkio B",
+   1854,
+   4
+  ],
+  "268361": [
+   "Phaikolum",
+   1854,
+   4
+  ],
+  "268360": [
+   "Nkio New",
+   1854,
+   8
+  ],
+  "268359": [
+   "Sailhem",
+   1854,
+   8
+  ],
+  "268358": [
+   "Khelma",
+   1854,
+   4
+  ],
+  "268356": [
+   "Nsenlwa",
+   1854,
+   8
+  ],
+  "268355": [
+   "Ikeisingram",
+   1854,
+   8
+  ],
+  "268354": [
+   "Beisumpuilwo Ur",
+   1854,
+   8
+  ],
+  "268353": [
+   "New Soget",
+   1854,
+   8
+  ],
+  "268352": [
+   "Songngou",
+   1854,
+   9
+  ],
+  "268348": [
+   "Gopibung Ur",
+   1853,
+   9
+  ],
+  "268357": [
+   "Old Soget",
+   1854,
+   4
+  ],
+  "268351": [
+   "Lower Sinjol",
+   1854,
+   9
+  ],
+  "268345": [
+   "Bongkolong",
+   1853,
+   9
+  ],
+  "268344": [
+   "New Beisumpui",
+   1853,
+   9
+  ],
+  "268336": [
+   "Pellhang B Ur",
+   1853,
+   9
+  ],
+  "268343": [
+   "Athibung",
+   1853,
+   9
+  ],
+  "268349": [
+   "Songsang",
+   1853,
+   9
+  ],
+  "268350": [
+   "Old Beisumpui",
+   1853,
+   9
+  ],
+  "268339": [
+   "Pellhang",
+   1853,
+   9
+  ],
+  "268347": [
+   "Mouicham Ur",
+   1853,
+   9
+  ],
+  "268337": [
+   "Gellhang Ur",
+   1853,
+   9
+  ],
+  "268387": [
+   "Tepun",
+   1856,
+   3
+  ],
+  "268389": [
+   "Nzau Namsan",
+   1856,
+   3
+  ],
+  "268388": [
+   "Nzau Old",
+   1856,
+   3
+  ],
+  "268386": [
+   "Tening Namsan Ur",
+   1856,
+   3
+  ],
+  "268385": [
+   "Tening Old",
+   1856,
+   3
+  ],
+  "268390": [
+   "Ntu",
+   1856,
+   1
+  ],
+  "268325": [
+   "Dzukwaram",
+   1852,
+   11
+  ],
+  "268395": [
+   "Ndunglwa",
+   1857,
+   15
+  ],
+  "268394": [
+   "Peletkie",
+   1857,
+   11
+  ],
+  "268399": [
+   "Old Puilwa",
+   1857,
+   6
+  ],
+  "268398": [
+   "New Puilwa",
+   1857,
+   6
+  ],
+  "268397": [
+   "Peren Old",
+   1857,
+   6
+  ],
+  "268396": [
+   "Peren Namdi Ur",
+   1857,
+   11
+  ],
+  "253204": [
+   "Peren Town Council",
+   1857,
+   6
+  ],
+  "268378": [
+   "Azailong",
+   1856,
+   5
+  ],
+  "268377": [
+   "Nkialwa",
+   1856,
+   5
+  ],
+  "268375": [
+   "Mbaulwa",
+   1856,
+   5
+  ],
+  "268374": [
+   "Old Tesen",
+   1856,
+   5
+  ],
+  "268373": [
+   "New Tesen",
+   1856,
+   5
+  ],
+  "268401": [
+   "Kendung",
+   1857,
+   6
+  ],
+  "268380": [
+   "Mbaupunchi",
+   1856,
+   6
+  ],
+  "268381": [
+   "Nchangram",
+   1856,
+   5
+  ],
+  "268379": [
+   "Mbaupungwa",
+   1856,
+   5
+  ],
+  "268400": [
+   "Mpai",
+   1857,
+   6
+  ],
+  "268384": [
+   "Tening Christ Vill Ur",
+   1856,
+   3
+  ],
+  "268383": [
+   "Tening Hq",
+   1856,
+   3
+  ],
+  "268342": [
+   "Songlhuh",
+   1853,
+   10
+  ],
+  "268340": [
+   "Inbung",
+   1853,
+   10
+  ],
+  "268341": [
+   "Old Chalkot",
+   1853,
+   10
+  ],
+  "268393": [
+   "Kipeujang Ur",
+   1857,
+   11
+  ],
+  "268392": [
+   "Peren New",
+   1857,
+   10
+  ],
+  "268334": [
+   "Vongkithem",
+   1853,
+   10
+  ],
+  "268324": [
+   "Kejanglwa",
+   1852,
+   11
+  ],
+  "268338": [
+   "New Pellhang Ur",
+   1853,
+   10
+  ],
+  "268303": [
+   "Kelagim Ur",
+   1851,
+   15
+  ],
+  "268301": [
+   "Poilwa Namci",
+   1851,
+   15
+  ],
+  "268300": [
+   "Poilwa",
+   1851,
+   15
+  ],
+  "268299": [
+   "Benreu",
+   1851,
+   15
+  ],
+  "268302": [
+   "Poilwa Namdi Ur",
+   1851,
+   15
+  ],
+  "268304": [
+   "Inavi Hevuto Ur",
+   1852,
+   12
+  ],
+  "268331": [
+   "Newchamcha Ur",
+   1853,
+   12
+  ],
+  "268308": [
+   "Libamphai",
+   1852,
+   12
+  ],
+  "268307": [
+   "Jalukie Zangdi",
+   1852,
+   13
+  ],
+  "268306": [
+   "Jalukiekam",
+   1852,
+   12
+  ],
+  "268309": [
+   "Jalukie S J Sangtam",
+   1852,
+   13
+  ],
+  "268290": [
+   "Heningkunglwa",
+   1851,
+   15
+  ],
+  "268323": [
+   "Mhai",
+   1852,
+   15
+  ],
+  "268311": [
+   "Jalukielo",
+   1852,
+   13
+  ],
+  "268328": [
+   "Lilen B Ur",
+   1853,
+   13
+  ],
+  "268329": [
+   "Phanjang",
+   1853,
+   13
+  ],
+  "268327": [
+   "Lilen",
+   1853,
+   13
+  ],
+  "268333": [
+   "New Chalkot",
+   1853,
+   13
+  ],
+  "268332": [
+   "Phaijol",
+   1853,
+   13
+  ],
+  "268330": [
+   "Saijang",
+   1853,
+   13
+  ],
+  "268318": [
+   "Samzuram",
+   1852,
+   14
+  ],
+  "268310": [
+   "Mhaikam",
+   1852,
+   13
+  ],
+  "268322": [
+   "Dunki",
+   1852,
+   14
+  ],
+  "268317": [
+   "Jalukie Lower Khel Ur",
+   1852,
+   14
+  ],
+  "268316": [
+   "Jalukie B",
+   1852,
+   14
+  ],
+  "268320": [
+   "Jalukie Upper Khel Ur",
+   1852,
+   14
+  ],
+  "253205": [
+   "Jalukie Town Council",
+   1852,
+   14
+  ],
+  "268315": [
+   "New Jalukie",
+   1852,
+   14
+  ],
+  "268312": [
+   "Nkwareu",
+   1852,
+   14
+  ],
+  "268314": [
+   "Mhainamtsi",
+   1852,
+   14
+  ],
+  "268321": [
+   "Jalukie Old",
+   1852,
+   14
+  ],
+  "268296": [
+   "Hainaikui Ur",
+   1851,
+   15
+  ],
+  "268305": [
+   "Viniho Ur",
+   1852,
+   13
+  ],
+  "268297": [
+   "Pedi",
+   1851,
+   15
+  ],
+  "268295": [
+   "Ngwalwa Vill",
+   1851,
+   15
+  ],
+  "268291": [
+   "Ngwalwa Hq",
+   1851,
+   15
+  ],
+  "268292": [
+   "Gaili",
+   1851,
+   15
+  ],
+  "268293": [
+   "Punglwa B Ur",
+   1851,
+   15
+  ],
+  "268294": [
+   "Punglwa",
+   1851,
+   15
+  ],
+  "268326": [
+   "Beisumpuikam",
+   1853,
+   12
+  ],
+  "268391": [
+   "Canamram Ur",
+   1856,
+   1
+  ],
+  "268319": [
+   "Jalukieram",
+   1852,
+   14
+  ],
+  "268313": [
+   "Jalukie Rongdai Ur",
+   1852,
+   13
+  ],
+  "268298": [
+   "Heunanbe Ur",
+   1851,
+   15
+  ]
+ },
+ "village_count_total": 121,
+ "village_count_assigned": 121
+}

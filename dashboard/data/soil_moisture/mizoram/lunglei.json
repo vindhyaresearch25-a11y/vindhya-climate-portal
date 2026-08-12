@@ -1,0 +1,1391 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Mizoram",
+  "district": "Lunglei",
+  "district_lgd": 265,
+  "observation_window": "2026-08-07T11:19Z to 2026-08-12T11:19Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3807,
+  "sm_surface_stddev": 0.0144,
+  "sm_rootzone_mean": 0.3975,
+  "sm_rootzone_stddev": 0.0163,
+  "n_cells": 41,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 22.5792,
+    "lon": 92.7376,
+    "sm_surface": 0.3628,
+    "sm_rootzone": 0.3789,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 1,
+    "lat": 22.5792,
+    "lon": 92.9352,
+    "sm_surface": 0.3957,
+    "sm_rootzone": 0.4147,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 2,
+    "lat": 22.678,
+    "lon": 92.6388,
+    "sm_surface": 0.3817,
+    "sm_rootzone": 0.4003,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 3,
+    "lat": 22.678,
+    "lon": 92.7376,
+    "sm_surface": 0.3749,
+    "sm_rootzone": 0.3953,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 4,
+    "lat": 22.678,
+    "lon": 92.8364,
+    "sm_surface": 0.3979,
+    "sm_rootzone": 0.4184,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 5,
+    "lat": 22.7768,
+    "lon": 92.5399,
+    "sm_surface": 0.3827,
+    "sm_rootzone": 0.401,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 6,
+    "lat": 22.7768,
+    "lon": 92.6388,
+    "sm_surface": 0.3783,
+    "sm_rootzone": 0.3973,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 7,
+    "lat": 22.7768,
+    "lon": 92.7376,
+    "sm_surface": 0.3778,
+    "sm_rootzone": 0.3974,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 8,
+    "lat": 22.7768,
+    "lon": 92.8364,
+    "sm_surface": 0.4007,
+    "sm_rootzone": 0.4205,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 9,
+    "lat": 22.7768,
+    "lon": 93.034,
+    "sm_surface": 0.3973,
+    "sm_rootzone": 0.4161,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 10,
+    "lat": 22.8756,
+    "lon": 92.5399,
+    "sm_surface": 0.3793,
+    "sm_rootzone": 0.3974,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 11,
+    "lat": 22.8756,
+    "lon": 92.6388,
+    "sm_surface": 0.3746,
+    "sm_rootzone": 0.3934,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 12,
+    "lat": 22.8756,
+    "lon": 92.7376,
+    "sm_surface": 0.3786,
+    "sm_rootzone": 0.3969,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 13,
+    "lat": 22.8756,
+    "lon": 92.8364,
+    "sm_surface": 0.3998,
+    "sm_rootzone": 0.4184,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 14,
+    "lat": 22.8756,
+    "lon": 92.9352,
+    "sm_surface": 0.3975,
+    "sm_rootzone": 0.4157,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 15,
+    "lat": 22.8756,
+    "lon": 93.034,
+    "sm_surface": 0.3973,
+    "sm_rootzone": 0.4153,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 16,
+    "lat": 22.9744,
+    "lon": 92.4411,
+    "sm_surface": 0.371,
+    "sm_rootzone": 0.385,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 17,
+    "lat": 22.9744,
+    "lon": 92.5399,
+    "sm_surface": 0.3742,
+    "sm_rootzone": 0.3921,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 18,
+    "lat": 22.9744,
+    "lon": 92.6388,
+    "sm_surface": 0.3738,
+    "sm_rootzone": 0.3918,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 19,
+    "lat": 22.9744,
+    "lon": 92.7376,
+    "sm_surface": 0.3768,
+    "sm_rootzone": 0.394,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 20,
+    "lat": 22.9744,
+    "lon": 92.8364,
+    "sm_surface": 0.3994,
+    "sm_rootzone": 0.4171,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 21,
+    "lat": 22.9744,
+    "lon": 92.9352,
+    "sm_surface": 0.3973,
+    "sm_rootzone": 0.4147,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 22,
+    "lat": 22.9744,
+    "lon": 93.034,
+    "sm_surface": 0.3969,
+    "sm_rootzone": 0.414,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 23,
+    "lat": 22.9744,
+    "lon": 93.1328,
+    "sm_surface": 0.3965,
+    "sm_rootzone": 0.4135,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 24,
+    "lat": 23.0732,
+    "lon": 92.4411,
+    "sm_surface": 0.3702,
+    "sm_rootzone": 0.3832,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 25,
+    "lat": 23.0732,
+    "lon": 92.5399,
+    "sm_surface": 0.3686,
+    "sm_rootzone": 0.3839,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 26,
+    "lat": 23.0732,
+    "lon": 92.6388,
+    "sm_surface": 0.3689,
+    "sm_rootzone": 0.3864,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 27,
+    "lat": 23.0732,
+    "lon": 92.7376,
+    "sm_surface": 0.375,
+    "sm_rootzone": 0.3914,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 28,
+    "lat": 23.0732,
+    "lon": 92.8364,
+    "sm_surface": 0.3981,
+    "sm_rootzone": 0.4152,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 29,
+    "lat": 23.0732,
+    "lon": 92.9352,
+    "sm_surface": 0.3968,
+    "sm_rootzone": 0.4126,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 30,
+    "lat": 23.0732,
+    "lon": 93.034,
+    "sm_surface": 0.3969,
+    "sm_rootzone": 0.4133,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 31,
+    "lat": 23.172,
+    "lon": 92.4411,
+    "sm_surface": 0.3576,
+    "sm_rootzone": 0.3647,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 32,
+    "lat": 23.172,
+    "lon": 92.5399,
+    "sm_surface": 0.3576,
+    "sm_rootzone": 0.3703,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 33,
+    "lat": 23.172,
+    "lon": 92.6388,
+    "sm_surface": 0.3752,
+    "sm_rootzone": 0.3944,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 34,
+    "lat": 23.172,
+    "lon": 92.7376,
+    "sm_surface": 0.3744,
+    "sm_rootzone": 0.3919,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 35,
+    "lat": 23.172,
+    "lon": 92.8364,
+    "sm_surface": 0.3976,
+    "sm_rootzone": 0.4151,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 36,
+    "lat": 23.2709,
+    "lon": 92.4411,
+    "sm_surface": 0.3556,
+    "sm_rootzone": 0.3625,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 37,
+    "lat": 23.2709,
+    "lon": 92.5399,
+    "sm_surface": 0.3571,
+    "sm_rootzone": 0.3696,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 38,
+    "lat": 23.2709,
+    "lon": 92.6388,
+    "sm_surface": 0.3587,
+    "sm_rootzone": 0.3706,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 39,
+    "lat": 23.3697,
+    "lon": 92.5399,
+    "sm_surface": 0.3691,
+    "sm_rootzone": 0.388,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 40,
+    "lat": 23.3697,
+    "lon": 92.6388,
+    "sm_surface": 0.3695,
+    "sm_rootzone": 0.3868,
+    "n_villages_sharing_cell": 3
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3816,
+  "sm_surface_stddev": 0.0131,
+  "n_blocks": 4
+ },
+ "blocks": [
+  {
+   "block_name": "Hnahthial",
+   "sdcode": 1915,
+   "n_villages": 27,
+   "n_cells_spanned": 9,
+   "sm_surface_mean": 0.3971,
+   "sm_surface_stddev": 0.0003
+  },
+  {
+   "block_name": "Lunglei",
+   "sdcode": 1914,
+   "n_villages": 50,
+   "n_cells_spanned": 13,
+   "sm_surface_mean": 0.3904,
+   "sm_surface_stddev": 0.0111
+  },
+  {
+   "block_name": "Lungsen",
+   "sdcode": 1913,
+   "n_villages": 84,
+   "n_cells_spanned": 13,
+   "sm_surface_mean": 0.3756,
+   "sm_surface_stddev": 0.005
+  },
+  {
+   "block_name": "West Bunghmun",
+   "sdcode": 1912,
+   "n_villages": 41,
+   "n_cells_spanned": 10,
+   "sm_surface_mean": 0.3634,
+   "sm_surface_stddev": 0.0073
+  }
+ ],
+ "villages": {
+  "999999": [
+   "Data Partially Available",
+   1915,
+   22
+  ],
+  "271488": [
+   "Champasuri",
+   1913,
+   10
+  ],
+  "271543": [
+   "S Lunglei",
+   1914,
+   35
+  ],
+  "271492": [
+   "Khangrasuri",
+   1913,
+   10
+  ],
+  "271519": [
+   "Rualalung",
+   1913,
+   2
+  ],
+  "271523": [
+   "Hmunthar",
+   1913,
+   3
+  ],
+  "271522": [
+   "Chawngte L",
+   1913,
+   2
+  ],
+  "271521": [
+   "Gulsil",
+   1913,
+   2
+  ],
+  "271520": [
+   "Vairawkai",
+   1913,
+   2
+  ],
+  "271524": [
+   "Sihtlang",
+   1913,
+   3
+  ],
+  "271476": [
+   "Chhuahthum",
+   1913,
+   10
+  ],
+  "271495": [
+   "Chhumkhum",
+   1913,
+   11
+  ],
+  "271497": [
+   "Mautlang Lungsen",
+   1913,
+   11
+  ],
+  "271498": [
+   "Phairuangkai",
+   1913,
+   6
+  ],
+  "271499": [
+   "Rotlang West",
+   1913,
+   6
+  ],
+  "271500": [
+   "Rangte",
+   1913,
+   6
+  ],
+  "271513": [
+   "Thanzamasora",
+   1913,
+   6
+  ],
+  "271514": [
+   "Upper Lungrang S",
+   1913,
+   2
+  ],
+  "271517": [
+   "Sedailui",
+   1913,
+   2
+  ],
+  "271518": [
+   "Lalnutui",
+   1913,
+   2
+  ],
+  "271516": [
+   "Zehtet",
+   1913,
+   3
+  ],
+  "271485": [
+   "Tablabagh",
+   1913,
+   16
+  ],
+  "271491": [
+   "Thekaduar",
+   1913,
+   10
+  ],
+  "271493": [
+   "Balungsuri",
+   1913,
+   10
+  ],
+  "271503": [
+   "Silkur",
+   1913,
+   10
+  ],
+  "271496": [
+   "Benga Veng",
+   1913,
+   11
+  ],
+  "271504": [
+   "Borsegojasora",
+   1913,
+   10
+  ],
+  "271507": [
+   "Tiperaghat",
+   1913,
+   10
+  ],
+  "271506": [
+   "Tiperaghat Ii",
+   1913,
+   10
+  ],
+  "271505": [
+   "Tiperaghat Iii",
+   1913,
+   5
+  ],
+  "271510": [
+   "Khojoysury",
+   1913,
+   5
+  ],
+  "271509": [
+   "Letisuri",
+   1913,
+   5
+  ],
+  "271502": [
+   "Khojoisuri Old",
+   1913,
+   5
+  ],
+  "271501": [
+   "Khojoisuri New",
+   1913,
+   5
+  ],
+  "271511": [
+   "Bornasuri",
+   1913,
+   5
+  ],
+  "271512": [
+   "Chawilung S",
+   1913,
+   5
+  ],
+  "271494": [
+   "Zohmun",
+   1913,
+   10
+  ],
+  "271508": [
+   "Thumbasora",
+   1913,
+   5
+  ],
+  "271567": [
+   "Pachang",
+   1914,
+   11
+  ],
+  "271570": [
+   "Buknuam",
+   1914,
+   7
+  ],
+  "271566": [
+   "Thehlep",
+   1914,
+   11
+  ],
+  "271460": [
+   "Vanzawl",
+   1913,
+   16
+  ],
+  "271461": [
+   "Zuangzawl",
+   1913,
+   16
+  ],
+  "271528": [
+   "Khawmawi",
+   1913,
+   0
+  ],
+  "271526": [
+   "S Tlangkhang",
+   1913,
+   3
+  ],
+  "271527": [
+   "Samang",
+   1913,
+   0
+  ],
+  "271479": [
+   "Gurusora",
+   1913,
+   16
+  ],
+  "271480": [
+   "Borahorinachhuah",
+   1913,
+   16
+  ],
+  "271585": [
+   "Mamte",
+   1914,
+   1
+  ],
+  "271586": [
+   "Thingfal",
+   1914,
+   1
+  ],
+  "271515": [
+   "Sailen",
+   1913,
+   3
+  ],
+  "271525": [
+   "Damlui",
+   1913,
+   3
+  ],
+  "271602": [
+   "Bualpui H",
+   1915,
+   15
+  ],
+  "271611": [
+   "Muallianpui",
+   1915,
+   15
+  ],
+  "271612": [
+   "Lungpuitlang",
+   1915,
+   15
+  ],
+  "271613": [
+   "South Vanlaiphai",
+   1915,
+   9
+  ],
+  "271610": [
+   "Darzo",
+   1915,
+   14
+  ],
+  "271609": [
+   "Tuipui D",
+   1915,
+   14
+  ],
+  "271603": [
+   "South Lungleng",
+   1915,
+   15
+  ],
+  "271608": [
+   "Rotlang East",
+   1915,
+   14
+  ],
+  "271568": [
+   "Runtung",
+   1914,
+   7
+  ],
+  "271569": [
+   "Chithar",
+   1914,
+   7
+  ],
+  "271578": [
+   "Thangte",
+   1914,
+   7
+  ],
+  "271577": [
+   "Thangpui",
+   1914,
+   7
+  ],
+  "271573": [
+   "Thaizawl",
+   1914,
+   8
+  ],
+  "271575": [
+   "Bualte",
+   1914,
+   8
+  ],
+  "271572": [
+   "Sairep",
+   1914,
+   13
+  ],
+  "271579": [
+   "Tualthu",
+   1914,
+   8
+  ],
+  "271574": [
+   "Hlumte",
+   1914,
+   8
+  ],
+  "271580": [
+   "Mualthuam S",
+   1914,
+   8
+  ],
+  "271587": [
+   "Tawipui N I",
+   1914,
+   8
+  ],
+  "271571": [
+   "Vaisam",
+   1914,
+   7
+  ],
+  "271582": [
+   "Mualcheng South",
+   1914,
+   4
+  ],
+  "271583": [
+   "Tawipui S",
+   1914,
+   4
+  ],
+  "271584": [
+   "Thlengang",
+   1914,
+   4
+  ],
+  "271565": [
+   "New Dawn",
+   1914,
+   13
+  ],
+  "271588": [
+   "Tawipui N Ii",
+   1914,
+   4
+  ],
+  "271576": [
+   "Bualte Bawk",
+   1914,
+   8
+  ],
+  "271581": [
+   "Herhse",
+   1914,
+   8
+  ],
+  "271446": [
+   "Devasuri",
+   1912,
+   24
+  ],
+  "271448": [
+   "Malsury",
+   1912,
+   24
+  ],
+  "271449": [
+   "Puankhai",
+   1912,
+   24
+  ],
+  "271450": [
+   "Lokisuri",
+   1912,
+   24
+  ],
+  "271452": [
+   "Sumasumi",
+   1912,
+   24
+  ],
+  "271451": [
+   "New Belkhai Tuikawi",
+   1912,
+   25
+  ],
+  "271456": [
+   "Serte",
+   1912,
+   27
+  ],
+  "271535": [
+   "Bolia",
+   1913,
+   25
+  ],
+  "271536": [
+   "Tuisen Chhuah",
+   1913,
+   25
+  ],
+  "271530": [
+   "New Vuakmual",
+   1913,
+   26
+  ],
+  "271533": [
+   "Zawlpui Lungsen",
+   1913,
+   18
+  ],
+  "271473": [
+   "Putlungasih",
+   1913,
+   18
+  ],
+  "271472": [
+   "Kauchhuah",
+   1913,
+   18
+  ],
+  "271470": [
+   "Phairuangchhuah",
+   1913,
+   18
+  ],
+  "271538": [
+   "Lungrang S",
+   1913,
+   18
+  ],
+  "271539": [
+   "Vuakmual",
+   1913,
+   18
+  ],
+  "271465": [
+   "Tuichawngchhuah",
+   1913,
+   17
+  ],
+  "271537": [
+   "Belpei",
+   1913,
+   17
+  ],
+  "271466": [
+   "Tuichawng",
+   1913,
+   10
+  ],
+  "271468": [
+   "Undermanik",
+   1913,
+   10
+  ],
+  "271467": [
+   "Rolui",
+   1913,
+   10
+  ],
+  "271469": [
+   "Sihphirtlang",
+   1913,
+   10
+  ],
+  "271475": [
+   "Lungsen I",
+   1913,
+   11
+  ],
+  "271474": [
+   "Belthei",
+   1913,
+   11
+  ],
+  "271462": [
+   "Chengkawllui",
+   1913,
+   17
+  ],
+  "271459": [
+   "Ukdasuri Tuilet",
+   1913,
+   16
+  ],
+  "271529": [
+   "Kalapani",
+   1913,
+   16
+  ],
+  "271481": [
+   "Balukiasuri",
+   1913,
+   16
+  ],
+  "271482": [
+   "New Balukiasuri",
+   1913,
+   16
+  ],
+  "271483": [
+   "Lamthai Iii",
+   1913,
+   16
+  ],
+  "271484": [
+   "Lamthai Ii",
+   1913,
+   16
+  ],
+  "271490": [
+   "Bindiasora",
+   1913,
+   16
+  ],
+  "271447": [
+   "Hnahkhai",
+   1912,
+   24
+  ],
+  "271453": [
+   "Thingkhim",
+   1912,
+   25
+  ],
+  "271454": [
+   "Tuikawi",
+   1912,
+   25
+  ],
+  "271531": [
+   "Pangtlang",
+   1913,
+   18
+  ],
+  "271471": [
+   "Mualmu",
+   1913,
+   17
+  ],
+  "271534": [
+   "Hruizam",
+   1913,
+   17
+  ],
+  "271489": [
+   "Muriskata",
+   1913,
+   10
+  ],
+  "271487": [
+   "Nunsury I",
+   1913,
+   16
+  ],
+  "271486": [
+   "Serhuan",
+   1913,
+   16
+  ],
+  "271464": [
+   "Diblibagh",
+   1913,
+   17
+  ],
+  "271463": [
+   "Sugarbasora",
+   1913,
+   17
+  ],
+  "271478": [
+   "Dinthar",
+   1913,
+   16
+  ],
+  "271477": [
+   "Kumraghat",
+   1913,
+   16
+  ],
+  "249779": [
+   "Tlabung",
+   1913,
+   10
+  ],
+  "271424": [
+   "Darngawn",
+   1912,
+   37
+  ],
+  "271428": [
+   "Buarpui",
+   1912,
+   38
+  ],
+  "271429": [
+   "Bungtlang West",
+   1912,
+   38
+  ],
+  "271430": [
+   "S Dampui",
+   1912,
+   37
+  ],
+  "271431": [
+   "Kawnpui W",
+   1912,
+   37
+  ],
+  "271422": [
+   "Laisawral",
+   1912,
+   36
+  ],
+  "271421": [
+   "Sesawm",
+   1912,
+   36
+  ],
+  "271432": [
+   "Tleu",
+   1912,
+   37
+  ],
+  "271433": [
+   "Thenhlum",
+   1912,
+   32
+  ],
+  "271419": [
+   "Marpara S",
+   1912,
+   36
+  ],
+  "271420": [
+   "Terabonia",
+   1912,
+   36
+  ],
+  "271442": [
+   "Salmar",
+   1912,
+   31
+  ],
+  "271445": [
+   "Saisen",
+   1912,
+   31
+  ],
+  "271440": [
+   "Phainuam",
+   1912,
+   31
+  ],
+  "271443": [
+   "Mauzam",
+   1912,
+   31
+  ],
+  "271444": [
+   "Bandiasora",
+   1912,
+   31
+  ],
+  "271458": [
+   "Hmundo",
+   1912,
+   31
+  ],
+  "271439": [
+   "New Sachan",
+   1912,
+   31
+  ],
+  "271438": [
+   "Sachan",
+   1912,
+   31
+  ],
+  "271437": [
+   "Bunghmun West Bunghmun",
+   1912,
+   32
+  ],
+  "271435": [
+   "Changpui",
+   1912,
+   33
+  ],
+  "271436": [
+   "Lungchem",
+   1912,
+   33
+  ],
+  "271455": [
+   "Sertlangpui",
+   1912,
+   33
+  ],
+  "271434": [
+   "Kawlhawk",
+   1912,
+   33
+  ],
+  "271423": [
+   "Kohzai",
+   1912,
+   36
+  ],
+  "271441": [
+   "Machuasora",
+   1912,
+   31
+  ],
+  "271532": [
+   "Saitumkawn",
+   1913,
+   32
+  ],
+  "271425": [
+   "Dengsur",
+   1912,
+   40
+  ],
+  "271426": [
+   "S Khawlek",
+   1912,
+   40
+  ],
+  "271427": [
+   "New Khawlek",
+   1912,
+   40
+  ],
+  "271457": [
+   "S Lungdai",
+   1912,
+   27
+  ],
+  "271591": [
+   "Pangzawl North",
+   1915,
+   29
+  ],
+  "271592": [
+   "Thiltlang",
+   1915,
+   29
+  ],
+  "271594": [
+   "Chawngtui South",
+   1915,
+   30
+  ],
+  "271595": [
+   "Tarpho",
+   1915,
+   22
+  ],
+  "271596": [
+   "Khawhri",
+   1915,
+   22
+  ],
+  "271597": [
+   "Aithur",
+   1915,
+   22
+  ],
+  "271598": [
+   "Cherhlun",
+   1915,
+   22
+  ],
+  "271599": [
+   "Old Ngharchhip",
+   1915,
+   23
+  ],
+  "271600": [
+   "New Ngharchhip",
+   1915,
+   23
+  ],
+  "271601": [
+   "Thingsai",
+   1915,
+   23
+  ],
+  "271607": [
+   "Maudarh",
+   1915,
+   14
+  ],
+  "271606": [
+   "Leite",
+   1915,
+   14
+  ],
+  "271605": [
+   "Kutkawk",
+   1915,
+   21
+  ],
+  "271604": [
+   "Denlung",
+   1915,
+   21
+  ],
+  "271593": [
+   "Khawhlum",
+   1915,
+   29
+  ],
+  "271547": [
+   "Mualthuam N",
+   1914,
+   27
+  ],
+  "271549": [
+   "Lungmawi",
+   1914,
+   28
+  ],
+  "271551": [
+   "Haulawng",
+   1914,
+   27
+  ],
+  "271553": [
+   "Phaileng South",
+   1914,
+   28
+  ],
+  "271550": [
+   "Hmuntlang",
+   1914,
+   28
+  ],
+  "271552": [
+   "Mausen",
+   1914,
+   19
+  ],
+  "271556": [
+   "Thuampui",
+   1914,
+   19
+  ],
+  "271557": [
+   "Chengpui",
+   1914,
+   20
+  ],
+  "271562": [
+   "Ralvawng",
+   1914,
+   20
+  ],
+  "271560": [
+   "Vanhne",
+   1914,
+   19
+  ],
+  "271554": [
+   "Zotuitlang",
+   1914,
+   20
+  ],
+  "249781": [
+   "Hnahthial",
+   1915,
+   21
+  ],
+  "271555": [
+   "Valcheng",
+   1914,
+   20
+  ],
+  "271558": [
+   "Saza I B",
+   1914,
+   19
+  ],
+  "271559": [
+   "Kawmzawl",
+   1914,
+   19
+  ],
+  "271561": [
+   "Siallu Cattle Farm",
+   1914,
+   13
+  ],
+  "271564": [
+   "Dawn",
+   1914,
+   13
+  ],
+  "271563": [
+   "Matbawk",
+   1914,
+   13
+  ],
+  "271589": [
+   "Rawpui",
+   1915,
+   35
+  ],
+  "271590": [
+   "Khawnglung",
+   1915,
+   29
+  ],
+  "271541": [
+   "Kanghmun S",
+   1914,
+   34
+  ],
+  "271542": [
+   "Zote S",
+   1914,
+   35
+  ],
+  "271544": [
+   "Ramlaitui",
+   1914,
+   34
+  ],
+  "271545": [
+   "Chhipphir",
+   1914,
+   35
+  ],
+  "271546": [
+   "Sekhum",
+   1914,
+   34
+  ],
+  "271548": [
+   "Bualpui V",
+   1914,
+   35
+  ],
+  "801516": [
+   "Lunglei",
+   1914,
+   12
+  ],
+  "271540": [
+   "Ngiautlang",
+   1913,
+   18
+  ]
+ },
+ "village_count_total": 202,
+ "village_count_assigned": 202
+}

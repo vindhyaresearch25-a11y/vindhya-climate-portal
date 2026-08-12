@@ -1,0 +1,2764 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Assam",
+  "district": "Chirang",
+  "district_lgd": 612,
+  "observation_window": "2026-08-07T11:02Z to 2026-08-12T11:02Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3378,
+  "sm_surface_stddev": 0.0644,
+  "sm_rootzone_mean": 0.3189,
+  "sm_rootzone_stddev": 0.1029,
+  "n_cells": 18,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 26.4329,
+    "lon": 90.4648,
+    "sm_surface": 0.3991,
+    "sm_rootzone": 0.3822,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 1,
+    "lat": 26.5317,
+    "lon": 90.4648,
+    "sm_surface": 0.3962,
+    "sm_rootzone": 0.4072,
+    "n_villages_sharing_cell": 69
+   },
+   {
+    "cell_index": 2,
+    "lat": 26.5317,
+    "lon": 90.5637,
+    "sm_surface": 0.3988,
+    "sm_rootzone": 0.4361,
+    "n_villages_sharing_cell": 54
+   },
+   {
+    "cell_index": 3,
+    "lat": 26.5317,
+    "lon": 90.6625,
+    "sm_surface": 0.3925,
+    "sm_rootzone": 0.4289,
+    "n_villages_sharing_cell": 61
+   },
+   {
+    "cell_index": 4,
+    "lat": 26.5317,
+    "lon": 90.7613,
+    "sm_surface": 0.3808,
+    "sm_rootzone": 0.3693,
+    "n_villages_sharing_cell": 57
+   },
+   {
+    "cell_index": 5,
+    "lat": 26.6306,
+    "lon": 90.366,
+    "sm_surface": 0.4067,
+    "sm_rootzone": 0.3931,
+    "n_villages_sharing_cell": 31
+   },
+   {
+    "cell_index": 6,
+    "lat": 26.6306,
+    "lon": 90.4648,
+    "sm_surface": 0.3989,
+    "sm_rootzone": 0.4105,
+    "n_villages_sharing_cell": 35
+   },
+   {
+    "cell_index": 7,
+    "lat": 26.6306,
+    "lon": 90.5637,
+    "sm_surface": 0.3942,
+    "sm_rootzone": 0.4305,
+    "n_villages_sharing_cell": 53
+   },
+   {
+    "cell_index": 8,
+    "lat": 26.6306,
+    "lon": 90.6625,
+    "sm_surface": 0.2513,
+    "sm_rootzone": 0.234,
+    "n_villages_sharing_cell": 30
+   },
+   {
+    "cell_index": 9,
+    "lat": 26.6306,
+    "lon": 90.7613,
+    "sm_surface": 0.2401,
+    "sm_rootzone": 0.1542,
+    "n_villages_sharing_cell": 33
+   },
+   {
+    "cell_index": 10,
+    "lat": 26.6306,
+    "lon": 90.8601,
+    "sm_surface": 0.2207,
+    "sm_rootzone": 0.1747,
+    "n_villages_sharing_cell": 30
+   },
+   {
+    "cell_index": 11,
+    "lat": 26.7294,
+    "lon": 90.4648,
+    "sm_surface": 0.2815,
+    "sm_rootzone": 0.2253,
+    "n_villages_sharing_cell": 21
+   },
+   {
+    "cell_index": 12,
+    "lat": 26.7294,
+    "lon": 90.5637,
+    "sm_surface": 0.2776,
+    "sm_rootzone": 0.1579,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 13,
+    "lat": 26.7294,
+    "lon": 90.6625,
+    "sm_surface": 0.2557,
+    "sm_rootzone": 0.242,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 14,
+    "lat": 26.7294,
+    "lon": 90.7613,
+    "sm_surface": 0.3066,
+    "sm_rootzone": 0.1798,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 15,
+    "lat": 26.7294,
+    "lon": 90.8601,
+    "sm_surface": 0.3749,
+    "sm_rootzone": 0.3883,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 16,
+    "lat": 26.8282,
+    "lon": 90.366,
+    "sm_surface": 0.3443,
+    "sm_rootzone": 0.358,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 17,
+    "lat": 26.8282,
+    "lon": 90.4648,
+    "sm_surface": 0.3604,
+    "sm_rootzone": 0.369,
+    "n_villages_sharing_cell": 7
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3711,
+  "sm_surface_stddev": 0.0225,
+  "n_blocks": 3
+ },
+ "blocks": [
+  {
+   "block_name": "Bengtol",
+   "sdcode": 2113,
+   "n_villages": 85,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.3917,
+   "sm_surface_stddev": 0.0284
+  },
+  {
+   "block_name": "Bijni (Pt)",
+   "sdcode": 2115,
+   "n_villages": 293,
+   "n_cells_spanned": 11,
+   "sm_surface_mean": 0.3399,
+   "sm_surface_stddev": 0.0721
+  },
+  {
+   "block_name": "Sidli (Pt)",
+   "sdcode": 2114,
+   "n_villages": 137,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.3818,
+   "sm_surface_stddev": 0.0389
+  }
+ ],
+ "villages": {
+  "302225": [
+   "Garabdara",
+   2115,
+   10
+  ],
+  "302305": [
+   "Amteka F V",
+   2115,
+   12
+  ],
+  "301816": [
+   "Basugaon",
+   2115,
+   0
+  ],
+  "301999": [
+   "Kamardanga",
+   2114,
+   0
+  ],
+  "302004": [
+   "Charaikhosra",
+   2114,
+   0
+  ],
+  "302003": [
+   "Tilokgaon",
+   2114,
+   0
+  ],
+  "302002": [
+   "Bijoygaon",
+   2114,
+   0
+  ],
+  "301819": [
+   "Bhutiapara",
+   2115,
+   0
+  ],
+  "301813": [
+   "Kachutola",
+   2115,
+   0
+  ],
+  "301814": [
+   "Bhutkura",
+   2115,
+   0
+  ],
+  "301818": [
+   "Basugaon Thuribari",
+   2115,
+   0
+  ],
+  "249823": [
+   "Basugaon",
+   2115,
+   0
+  ],
+  "301817": [
+   "Nichinapara",
+   2115,
+   0
+  ],
+  "301815": [
+   "Hekaipara",
+   2115,
+   0
+  ],
+  "301998": [
+   "Amguri",
+   2114,
+   0
+  ],
+  "302008": [
+   "Bhumeswar Hill Nc",
+   2114,
+   0
+  ],
+  "301997": [
+   "Dangtala",
+   2114,
+   0
+  ],
+  "302001": [
+   "Ravapara",
+   2114,
+   0
+  ],
+  "302010": [
+   "Purba Bhadra",
+   2114,
+   0
+  ],
+  "302000": [
+   "Kakragaon",
+   2114,
+   0
+  ],
+  "302007": [
+   "Kinaborgaon",
+   2114,
+   0
+  ],
+  "301996": [
+   "Petlagaon",
+   2114,
+   0
+  ],
+  "302006": [
+   "Simlaguri",
+   2114,
+   0
+  ],
+  "302009": [
+   "Purba Bhadra",
+   2114,
+   0
+  ],
+  "302303": [
+   "Nadhiapara",
+   2115,
+   4
+  ],
+  "302304": [
+   "Kumargaon",
+   2115,
+   4
+  ],
+  "302301": [
+   "Dangaigaon",
+   2115,
+   4
+  ],
+  "302302": [
+   "Kashdoba",
+   2115,
+   4
+  ],
+  "302300": [
+   "Chatrasing",
+   2115,
+   4
+  ],
+  "301928": [
+   "Nepalpara",
+   2114,
+   5
+  ],
+  "301886": [
+   "Kanthalmari",
+   2113,
+   5
+  ],
+  "301905": [
+   "Gorshingpara",
+   2113,
+   5
+  ],
+  "301906": [
+   "Aminpara",
+   2114,
+   5
+  ],
+  "301904": [
+   "Paschim Golajhar",
+   2113,
+   5
+  ],
+  "301903": [
+   "Purba Golajhar",
+   2113,
+   5
+  ],
+  "301902": [
+   "Dorogaon",
+   2113,
+   5
+  ],
+  "301900": [
+   "Bashbari",
+   2113,
+   5
+  ],
+  "301901": [
+   "Katribari",
+   2113,
+   5
+  ],
+  "301899": [
+   "Purba Basbari",
+   2113,
+   6
+  ],
+  "301898": [
+   "Purba Ashrabari",
+   2113,
+   6
+  ],
+  "301897": [
+   "Ashrabari",
+   2113,
+   5
+  ],
+  "301896": [
+   "Runikhata",
+   2113,
+   5
+  ],
+  "301892": [
+   "Dakhin Dakhingaon",
+   2113,
+   5
+  ],
+  "301891": [
+   "Madhyam Dakhungaon",
+   2113,
+   6
+  ],
+  "301883": [
+   "Uttar Dakhungaon",
+   2113,
+   6
+  ],
+  "301884": [
+   "Thaikajhar",
+   2113,
+   6
+  ],
+  "301893": [
+   "Madyam Runikhata",
+   2113,
+   5
+  ],
+  "301895": [
+   "Memerumbari",
+   2113,
+   5
+  ],
+  "301894": [
+   "Kumguri",
+   2113,
+   5
+  ],
+  "301888": [
+   "Modati",
+   2113,
+   5
+  ],
+  "301885": [
+   "Bhurpar",
+   2113,
+   5
+  ],
+  "301887": [
+   "Udalguri",
+   2113,
+   5
+  ],
+  "301890": [
+   "Uttar Runikhata",
+   2113,
+   5
+  ],
+  "301889": [
+   "Salbari Bhurpar",
+   2113,
+   5
+  ],
+  "301843": [
+   "Balapara Ii",
+   2113,
+   6
+  ],
+  "301822": [
+   "Balapara I",
+   2113,
+   6
+  ],
+  "301821": [
+   "Salbari Ii",
+   2113,
+   11
+  ],
+  "301959": [
+   "Namalpur",
+   2114,
+   1
+  ],
+  "301918": [
+   "Amguri Ii",
+   2114,
+   1
+  ],
+  "301942": [
+   "Bamungaon",
+   2114,
+   1
+  ],
+  "301934": [
+   "Jaoliabari",
+   2114,
+   1
+  ],
+  "301941": [
+   "Athiabari",
+   2114,
+   1
+  ],
+  "301946": [
+   "Dipu",
+   2114,
+   1
+  ],
+  "301956": [
+   "Kumguri Dipu",
+   2114,
+   1
+  ],
+  "301957": [
+   "Kashikotra",
+   2114,
+   1
+  ],
+  "301912": [
+   "Taktara",
+   2114,
+   1
+  ],
+  "301922": [
+   "Ulubari",
+   2114,
+   0
+  ],
+  "301921": [
+   "Kathalpara",
+   2114,
+   1
+  ],
+  "301920": [
+   "Nehalgaon",
+   2114,
+   1
+  ],
+  "301919": [
+   "Guwabari",
+   2114,
+   1
+  ],
+  "301913": [
+   "Ghoramara",
+   2114,
+   1
+  ],
+  "301910": [
+   "Girjiangaon",
+   2114,
+   1
+  ],
+  "301911": [
+   "Pathargaon",
+   2114,
+   1
+  ],
+  "301949": [
+   "Kashikotra",
+   2114,
+   1
+  ],
+  "301947": [
+   "Dhopguri",
+   2114,
+   1
+  ],
+  "301909": [
+   "Batagaon",
+   2114,
+   1
+  ],
+  "301954": [
+   "Choto Moabari",
+   2114,
+   1
+  ],
+  "301953": [
+   "Shyamsing Killa",
+   2114,
+   1
+  ],
+  "301908": [
+   "Deulguri",
+   2114,
+   1
+  ],
+  "301950": [
+   "Gendergaon",
+   2114,
+   1
+  ],
+  "301951": [
+   "Pretgaon",
+   2114,
+   1
+  ],
+  "301948": [
+   "Syamthaibari",
+   2114,
+   1
+  ],
+  "301952": [
+   "Mojabari",
+   2114,
+   1
+  ],
+  "301939": [
+   "Dologaon",
+   2114,
+   1
+  ],
+  "301940": [
+   "Amguri",
+   2114,
+   1
+  ],
+  "301935": [
+   "Balapara",
+   2114,
+   1
+  ],
+  "301933": [
+   "Kahibari",
+   2114,
+   1
+  ],
+  "301925": [
+   "Batabari",
+   2114,
+   5
+  ],
+  "999999": [
+   "Panbari R F",
+   2115,
+   10
+  ],
+  "301924": [
+   "Uttar Ishilakata",
+   2114,
+   5
+  ],
+  "301923": [
+   "Uttar Nangdorbari",
+   2114,
+   5
+  ],
+  "301926": [
+   "Ishilkata",
+   2114,
+   5
+  ],
+  "301932": [
+   "Goragaon Sallbari",
+   2114,
+   1
+  ],
+  "301936": [
+   "Lauripara",
+   2114,
+   1
+  ],
+  "301929": [
+   "Chandpur",
+   2114,
+   5
+  ],
+  "301927": [
+   "Dakhin Nangdarbari",
+   2114,
+   5
+  ],
+  "301931": [
+   "Juiloga",
+   2114,
+   5
+  ],
+  "301938": [
+   "Goragaon",
+   2114,
+   1
+  ],
+  "301937": [
+   "Garuubhasa",
+   2114,
+   5
+  ],
+  "301930": [
+   "Garubhasa",
+   2114,
+   5
+  ],
+  "301811": [
+   "Khagrabari",
+   2115,
+   0
+  ],
+  "301807": [
+   "Tirimari",
+   2115,
+   1
+  ],
+  "301808": [
+   "Sakatiuzanpara",
+   2115,
+   1
+  ],
+  "301812": [
+   "Nalbari",
+   2115,
+   1
+  ],
+  "301809": [
+   "Sakati Bhatipara",
+   2115,
+   1
+  ],
+  "301810": [
+   "Fulguri",
+   2115,
+   1
+  ],
+  "302037": [
+   "Santipur F Block",
+   2114,
+   11
+  ],
+  "302015": [
+   "Santipur Fv",
+   2114,
+   11
+  ],
+  "302018": [
+   "Khagrabari F V",
+   2114,
+   11
+  ],
+  "302019": [
+   "Bardangi Fv",
+   2114,
+   11
+  ],
+  "302026": [
+   "Dhalpani Forest Block",
+   2114,
+   16
+  ],
+  "302011": [
+   "Simalaguri F V",
+   2114,
+   11
+  ],
+  "302027": [
+   "Simlaguri Forest Block",
+   2114,
+   11
+  ],
+  "302028": [
+   "Dakhingaon F V",
+   2114,
+   11
+  ],
+  "302031": [
+   "Khungring F V",
+   2114,
+   11
+  ],
+  "302030": [
+   "Bhur F V",
+   2114,
+   5
+  ],
+  "302033": [
+   "Hatidhura F V",
+   2114,
+   5
+  ],
+  "302032": [
+   "Aminpara F V",
+   2114,
+   6
+  ],
+  "302036": [
+   "Salbari F Block",
+   2114,
+   11
+  ],
+  "302017": [
+   "Birinchiguri F V",
+   2114,
+   11
+  ],
+  "302014": [
+   "Salbari F V",
+   2114,
+   11
+  ],
+  "302013": [
+   "Ranipur F V",
+   2114,
+   6
+  ],
+  "302034": [
+   "Duttapur F Block",
+   2114,
+   6
+  ],
+  "302012": [
+   "Duttapur Fv",
+   2114,
+   6
+  ],
+  "302035": [
+   "Ranipur F Block",
+   2114,
+   6
+  ],
+  "301907": [
+   "Fulguri",
+   2114,
+   1
+  ],
+  "302309": [
+   "Bhatarmari",
+   2115,
+   10
+  ],
+  "301872": [
+   "Salbari",
+   2113,
+   6
+  ],
+  "301873": [
+   "Domgaon",
+   2113,
+   6
+  ],
+  "301874": [
+   "Paschim Hulmagaon",
+   2113,
+   1
+  ],
+  "301875": [
+   "Hulmagaon I",
+   2113,
+   1
+  ],
+  "301876": [
+   "Hulmagaon Ii",
+   2113,
+   1
+  ],
+  "301877": [
+   "Subhaijhar",
+   2113,
+   1
+  ],
+  "301871": [
+   "Bhodeyaguri",
+   2113,
+   6
+  ],
+  "301870": [
+   "Anthaibari",
+   2113,
+   6
+  ],
+  "301869": [
+   "Boro Nilibari",
+   2113,
+   6
+  ],
+  "301820": [
+   "Salbari I",
+   2113,
+   11
+  ],
+  "301824": [
+   "Burijhar",
+   2113,
+   11
+  ],
+  "301823": [
+   "Tukrajhar I",
+   2113,
+   6
+  ],
+  "301826": [
+   "Tukrajhar Ii",
+   2113,
+   6
+  ],
+  "301842": [
+   "Kumguri",
+   2114,
+   6
+  ],
+  "301844": [
+   "Deulguri",
+   2114,
+   6
+  ],
+  "301845": [
+   "Bengtol Kumguri",
+   2113,
+   6
+  ],
+  "301846": [
+   "Kanibhur",
+   2113,
+   6
+  ],
+  "301841": [
+   "Aie Powali Ii",
+   2113,
+   6
+  ],
+  "301827": [
+   "Aie Poali",
+   2113,
+   6
+  ],
+  "301825": [
+   "Burijhar Ii",
+   2113,
+   6
+  ],
+  "301828": [
+   "Sisubari",
+   2113,
+   11
+  ],
+  "301829": [
+   "Sisubari",
+   2113,
+   12
+  ],
+  "301830": [
+   "Aie Nadi Dhubri",
+   2113,
+   7
+  ],
+  "301831": [
+   "Aie Nadi Dhubri",
+   2113,
+   6
+  ],
+  "301839": [
+   "Aie Nadi Dhubri",
+   2113,
+   6
+  ],
+  "301840": [
+   "Aie Nadi Dhubri",
+   2113,
+   7
+  ],
+  "301847": [
+   "Aie Chara",
+   2113,
+   7
+  ],
+  "301854": [
+   "Durgapur",
+   2113,
+   6
+  ],
+  "301856": [
+   "Serfanguri",
+   2113,
+   6
+  ],
+  "301855": [
+   "Bengtol Ii",
+   2113,
+   6
+  ],
+  "301857": [
+   "Bengtol I",
+   2113,
+   6
+  ],
+  "301858": [
+   "Bikrampur",
+   2113,
+   6
+  ],
+  "301859": [
+   "Rani Sundari",
+   2113,
+   7
+  ],
+  "301878": [
+   "Purba Domgaon",
+   2113,
+   6
+  ],
+  "301868": [
+   "Daobobil",
+   2113,
+   7
+  ],
+  "301879": [
+   "Choto Nilibari",
+   2113,
+   2
+  ],
+  "301881": [
+   "Deborgaon",
+   2114,
+   2
+  ],
+  "301882": [
+   "Khairabari",
+   2113,
+   2
+  ],
+  "301880": [
+   "Madarpur",
+   2113,
+   2
+  ],
+  "301867": [
+   "Nathurbari",
+   2113,
+   7
+  ],
+  "301865": [
+   "Charagaon",
+   2113,
+   2
+  ],
+  "301864": [
+   "Hurhuti",
+   2113,
+   2
+  ],
+  "301862": [
+   "Paschim Joypur",
+   2113,
+   7
+  ],
+  "301866": [
+   "Paniagaon",
+   2113,
+   7
+  ],
+  "301861": [
+   "Beshorbari",
+   2113,
+   7
+  ],
+  "301863": [
+   "Nangalbhanga",
+   2113,
+   7
+  ],
+  "301851": [
+   "Sishubari",
+   2113,
+   7
+  ],
+  "301852": [
+   "Oxiguri",
+   2113,
+   7
+  ],
+  "301853": [
+   "Polashguri",
+   2113,
+   7
+  ],
+  "301848": [
+   "Dingaldong",
+   2113,
+   7
+  ],
+  "301850": [
+   "Khagrabari",
+   2113,
+   7
+  ],
+  "301849": [
+   "Ouguri",
+   2113,
+   7
+  ],
+  "301837": [
+   "Maopar",
+   2113,
+   7
+  ],
+  "301838": [
+   "Pub Maopar",
+   2113,
+   7
+  ],
+  "301832": [
+   "Patabari I",
+   2113,
+   7
+  ],
+  "301833": [
+   "Patabari Ii",
+   2113,
+   7
+  ],
+  "301836": [
+   "Bishpani",
+   2113,
+   7
+  ],
+  "301834": [
+   "Pub Patabari",
+   2113,
+   7
+  ],
+  "302306": [
+   "Koilamoila Fv",
+   2115,
+   12
+  ],
+  "302050": [
+   "Parbatipur",
+   2115,
+   12
+  ],
+  "302056": [
+   "Dakhin Gendabil",
+   2115,
+   7
+  ],
+  "302051": [
+   "Gendabil",
+   2115,
+   7
+  ],
+  "302052": [
+   "Koila Moila",
+   2115,
+   12
+  ],
+  "302057": [
+   "Balaguri",
+   2115,
+   7
+  ],
+  "302063": [
+   "Elengmari",
+   2115,
+   7
+  ],
+  "302064": [
+   "Simluguri",
+   2115,
+   7
+  ],
+  "302066": [
+   "Lakhipur",
+   2115,
+   7
+  ],
+  "302065": [
+   "Amguri",
+   2115,
+   7
+  ],
+  "302062": [
+   "Ravapara",
+   2115,
+   7
+  ],
+  "302058": [
+   "Kherdanga",
+   2115,
+   7
+  ],
+  "302055": [
+   "Parbatjhora",
+   2115,
+   7
+  ],
+  "302049": [
+   "Sishubari",
+   2115,
+   7
+  ],
+  "302053": [
+   "Narayanpur",
+   2115,
+   7
+  ],
+  "302059": [
+   "Nowagaon",
+   2115,
+   7
+  ],
+  "302060": [
+   "Patalmari",
+   2115,
+   7
+  ],
+  "302061": [
+   "Pub Amguri",
+   2115,
+   7
+  ],
+  "302074": [
+   "Rangijhora",
+   2115,
+   7
+  ],
+  "302075": [
+   "Khungkhurajhora",
+   2115,
+   7
+  ],
+  "302077": [
+   "Bhowraguri",
+   2115,
+   8
+  ],
+  "302076": [
+   "Doiumguri",
+   2115,
+   8
+  ],
+  "302054": [
+   "Napalpara",
+   2115,
+   7
+  ],
+  "302114": [
+   "Kumarsali Pather",
+   2115,
+   8
+  ],
+  "302113": [
+   "Kumarsali",
+   2115,
+   8
+  ],
+  "302112": [
+   "Choto Ladanguri",
+   2115,
+   8
+  ],
+  "302110": [
+   "Boro Ladanguri",
+   2115,
+   8
+  ],
+  "302109": [
+   "Boro Ladanguri",
+   2115,
+   8
+  ],
+  "302120": [
+   "Dimajhora",
+   2115,
+   8
+  ],
+  "302078": [
+   "Ladanguri",
+   2115,
+   8
+  ],
+  "302073": [
+   "Durgapur",
+   2115,
+   7
+  ],
+  "302067": [
+   "Kaliagaon",
+   2115,
+   7
+  ],
+  "302072": [
+   "Makragaon",
+   2115,
+   7
+  ],
+  "302080": [
+   "Uttar Baldi",
+   2115,
+   7
+  ],
+  "302082": [
+   "Baldi",
+   2115,
+   7
+  ],
+  "302079": [
+   "Uttar Baldi",
+   2115,
+   8
+  ],
+  "302081": [
+   "Pub Boldi",
+   2115,
+   8
+  ],
+  "302070": [
+   "Bhabanipur",
+   2115,
+   7
+  ],
+  "302068": [
+   "Joypur",
+   2115,
+   7
+  ],
+  "302111": [
+   "Choto Ladanguri",
+   2115,
+   8
+  ],
+  "302115": [
+   "Ballamguri",
+   2115,
+   8
+  ],
+  "302117": [
+   "Dangsiapara",
+   2115,
+   8
+  ],
+  "302119": [
+   "Puradia",
+   2115,
+   8
+  ],
+  "302147": [
+   "Bhumkipara",
+   2115,
+   8
+  ],
+  "302118": [
+   "Oxiguri",
+   2115,
+   8
+  ],
+  "302116": [
+   "Dangsiapara",
+   2115,
+   8
+  ],
+  "302150": [
+   "Dakhin Makra",
+   2115,
+   8
+  ],
+  "302151": [
+   "Dakhin Makra",
+   2115,
+   8
+  ],
+  "302149": [
+   "Dakhin Makra",
+   2115,
+   8
+  ],
+  "302152": [
+   "Dakhin Makra",
+   2115,
+   8
+  ],
+  "302148": [
+   "Amaraguri",
+   2115,
+   8
+  ],
+  "302168": [
+   "Bhowraguri",
+   2115,
+   8
+  ],
+  "302167": [
+   "Laukuriguri",
+   2115,
+   8
+  ],
+  "302154": [
+   "Daranga",
+   2115,
+   9
+  ],
+  "302153": [
+   "Daranga",
+   2115,
+   9
+  ],
+  "302164": [
+   "Patkiguri",
+   2115,
+   9
+  ],
+  "302155": [
+   "Agrang",
+   2115,
+   9
+  ],
+  "302169": [
+   "Makhanaguri",
+   2115,
+   3
+  ],
+  "302146": [
+   "Silbari Abadipara",
+   2115,
+   3
+  ],
+  "302170": [
+   "Dahalapara",
+   2115,
+   3
+  ],
+  "302166": [
+   "Pakeriguri",
+   2115,
+   9
+  ],
+  "302165": [
+   "Simlaguri",
+   2115,
+   9
+  ],
+  "302185": [
+   "Pub Makra",
+   2115,
+   4
+  ],
+  "302186": [
+   "Baripara Banduguri",
+   2115,
+   4
+  ],
+  "302243": [
+   "Lasatipara",
+   2115,
+   4
+  ],
+  "302184": [
+   "Kaliyagaon",
+   2115,
+   4
+  ],
+  "302264": [
+   "Bangaljhora",
+   2115,
+   4
+  ],
+  "302244": [
+   "Pubkhamarpara",
+   2115,
+   4
+  ],
+  "302157": [
+   "Dahaladanga",
+   2115,
+   9
+  ],
+  "302158": [
+   "Sikajhora",
+   2115,
+   9
+  ],
+  "302194": [
+   "Bishnupur",
+   2115,
+   9
+  ],
+  "302160": [
+   "Dahaladanga",
+   2115,
+   9
+  ],
+  "302156": [
+   "Agrang",
+   2115,
+   9
+  ],
+  "302162": [
+   "Sonaikhola",
+   2115,
+   9
+  ],
+  "302163": [
+   "Jharbispani",
+   2115,
+   9
+  ],
+  "302187": [
+   "Dewanpara",
+   2115,
+   4
+  ],
+  "302242": [
+   "Silikhaguri",
+   2115,
+   4
+  ],
+  "302241": [
+   "Dewanpara",
+   2115,
+   4
+  ],
+  "302188": [
+   "Gundamara",
+   2115,
+   4
+  ],
+  "302190": [
+   "Fulkumari",
+   2115,
+   9
+  ],
+  "302159": [
+   "Sikajhora",
+   2115,
+   9
+  ],
+  "302196": [
+   "Doilong Doilangjhar",
+   2115,
+   9
+  ],
+  "302195": [
+   "Doilong Doilangjhar",
+   2115,
+   9
+  ],
+  "302205": [
+   "Lakhijhora",
+   2115,
+   9
+  ],
+  "302206": [
+   "Barpathar",
+   2115,
+   9
+  ],
+  "302211": [
+   "Chourang",
+   2115,
+   10
+  ],
+  "302212": [
+   "Chourang",
+   2115,
+   10
+  ],
+  "302207": [
+   "Barpathar",
+   2115,
+   9
+  ],
+  "302204": [
+   "Lakhijhora",
+   2115,
+   9
+  ],
+  "302203": [
+   "Lakhijhora",
+   2115,
+   9
+  ],
+  "302202": [
+   "Barpathar",
+   2115,
+   9
+  ],
+  "302193": [
+   "Bishnupur",
+   2115,
+   9
+  ],
+  "302192": [
+   "Bishnupur",
+   2115,
+   9
+  ],
+  "302197": [
+   "Doilong Doilangjhar",
+   2115,
+   9
+  ],
+  "302198": [
+   "Doilong Doilangjhar",
+   2115,
+   9
+  ],
+  "302191": [
+   "Bispani",
+   2115,
+   9
+  ],
+  "302199": [
+   "Bamunijhara",
+   2115,
+   9
+  ],
+  "302093": [
+   "Kahibari",
+   2115,
+   2
+  ],
+  "302094": [
+   "Kahibari",
+   2115,
+   2
+  ],
+  "302095": [
+   "Sukhanipara",
+   2115,
+   2
+  ],
+  "302096": [
+   "Khamarpara Khumarpara",
+   2115,
+   2
+  ],
+  "302097": [
+   "Rowmari",
+   2115,
+   2
+  ],
+  "302092": [
+   "Palashguri Palangsuguri",
+   2115,
+   2
+  ],
+  "302091": [
+   "Palashguri Palangsuguri",
+   2115,
+   2
+  ],
+  "302098": [
+   "Odalguri",
+   2115,
+   2
+  ],
+  "302090": [
+   "Dologaon",
+   2115,
+   2
+  ],
+  "301972": [
+   "Nepalpara",
+   2115,
+   2
+  ],
+  "302088": [
+   "Odalguri",
+   2115,
+   2
+  ],
+  "302086": [
+   "Palangsuguri",
+   2115,
+   2
+  ],
+  "302085": [
+   "Paschim Gumargaon",
+   2115,
+   7
+  ],
+  "302071": [
+   "Boldi",
+   2115,
+   7
+  ],
+  "302083": [
+   "Pub Gumargaon",
+   2115,
+   7
+  ],
+  "302087": [
+   "Tulsijhora",
+   2115,
+   2
+  ],
+  "302084": [
+   "Sikapara",
+   2115,
+   2
+  ],
+  "302104": [
+   "Sikapara",
+   2115,
+   2
+  ],
+  "302121": [
+   "Uttarpara",
+   2115,
+   8
+  ],
+  "302145": [
+   "Deotari",
+   2115,
+   3
+  ],
+  "302144": [
+   "Galapara",
+   2115,
+   3
+  ],
+  "302171": [
+   "Pachim Makra",
+   2115,
+   3
+  ],
+  "302213": [
+   "Chourang",
+   2115,
+   10
+  ],
+  "302214": [
+   "Kachubil",
+   2115,
+   10
+  ],
+  "302215": [
+   "Kachubil",
+   2115,
+   10
+  ],
+  "302208": [
+   "Lathaijhar",
+   2115,
+   9
+  ],
+  "302210": [
+   "Chourang",
+   2115,
+   10
+  ],
+  "302218": [
+   "Panbari",
+   2115,
+   10
+  ],
+  "302217": [
+   "Thaisobari",
+   2115,
+   10
+  ],
+  "302278": [
+   "Charagaon",
+   2115,
+   4
+  ],
+  "302245": [
+   "Kamargaon",
+   2115,
+   3
+  ],
+  "302296": [
+   "Fagunagaon",
+   2115,
+   4
+  ],
+  "302292": [
+   "Koptuli",
+   2115,
+   4
+  ],
+  "302277": [
+   "Matiapara",
+   2115,
+   4
+  ],
+  "302275": [
+   "Chatianguri",
+   2115,
+   4
+  ],
+  "302183": [
+   "Barlawgaon",
+   2115,
+   3
+  ],
+  "302143": [
+   "Betnapara",
+   2115,
+   3
+  ],
+  "302125": [
+   "Subaijhar",
+   2115,
+   3
+  ],
+  "302123": [
+   "Uttarpara",
+   2115,
+   8
+  ],
+  "302128": [
+   "Silbari",
+   2115,
+   3
+  ],
+  "302141": [
+   "Monkocha [Silbari",
+   2115,
+   3
+  ],
+  "302179": [
+   "Bashbari [Ambari",
+   2115,
+   3
+  ],
+  "302178": [
+   "Gelasugaon",
+   2115,
+   3
+  ],
+  "302124": [
+   "Dagarpara",
+   2115,
+   8
+  ],
+  "302126": [
+   "Malipara",
+   2115,
+   3
+  ],
+  "302139": [
+   "Kathalguri",
+   2115,
+   3
+  ],
+  "302140": [
+   "Bashbari [Ambari",
+   2115,
+   3
+  ],
+  "302250": [
+   "Charapet",
+   2115,
+   3
+  ],
+  "302249": [
+   "Bholatal",
+   2115,
+   3
+  ],
+  "302142": [
+   "Khaturibari",
+   2115,
+   3
+  ],
+  "302177": [
+   "Dahalapara",
+   2115,
+   3
+  ],
+  "302248": [
+   "Bhoiatal",
+   2115,
+   3
+  ],
+  "302299": [
+   "Sialmari",
+   2115,
+   4
+  ],
+  "302298": [
+   "Amguri",
+   2115,
+   4
+  ],
+  "249839": [
+   "Bijni",
+   2115,
+   3
+  ],
+  "302272": [
+   "Kawatika",
+   2115,
+   3
+  ],
+  "302270": [
+   "Batabari",
+   2115,
+   3
+  ],
+  "302267": [
+   "Barlesiagaon",
+   2115,
+   3
+  ],
+  "302259": [
+   "Gargaon",
+   2115,
+   3
+  ],
+  "302105": [
+   "Tangabari",
+   2115,
+   2
+  ],
+  "302174": [
+   "Sowari",
+   2115,
+   3
+  ],
+  "302175": [
+   "Sowari",
+   2115,
+   3
+  ],
+  "302182": [
+   "Baripara",
+   2115,
+   3
+  ],
+  "302173": [
+   "Baripara",
+   2115,
+   3
+  ],
+  "302261": [
+   "Kochpara",
+   2115,
+   3
+  ],
+  "302256": [
+   "Baghmara",
+   2115,
+   3
+  ],
+  "302294": [
+   "Bijni Gaon",
+   2115,
+   4
+  ],
+  "302226": [
+   "Ballimari",
+   2115,
+   10
+  ],
+  "302290": [
+   "Monakucha",
+   2115,
+   4
+  ],
+  "302287": [
+   "Monakosha",
+   2115,
+   4
+  ],
+  "302288": [
+   "Goroimari",
+   2115,
+   4
+  ],
+  "302289": [
+   "Goroimari",
+   2115,
+   4
+  ],
+  "302285": [
+   "Bedlangkhaity",
+   2115,
+   4
+  ],
+  "302230": [
+   "Kharija Bispani",
+   2115,
+   4
+  ],
+  "302228": [
+   "Damugaon",
+   2115,
+   10
+  ],
+  "302224": [
+   "Bagidara",
+   2115,
+   10
+  ],
+  "302189": [
+   "Khunthaibari",
+   2115,
+   4
+  ],
+  "302291": [
+   "Hawargaon",
+   2115,
+   4
+  ],
+  "302246": [
+   "Elengmari",
+   2115,
+   4
+  ],
+  "302239": [
+   "Bagargaon",
+   2115,
+   4
+  ],
+  "302240": [
+   "Silikhaguri",
+   2115,
+   4
+  ],
+  "302237": [
+   "Larugaon",
+   2115,
+   4
+  ],
+  "302236": [
+   "Silikhaguri",
+   2115,
+   4
+  ],
+  "302280": [
+   "Kawadi Sonaikhowa",
+   2115,
+   4
+  ],
+  "302281": [
+   "Kawadi",
+   2115,
+   4
+  ],
+  "302238": [
+   "Larugaon",
+   2115,
+   4
+  ],
+  "302284": [
+   "Goroimari",
+   2115,
+   4
+  ],
+  "302234": [
+   "Betbari",
+   2115,
+   4
+  ],
+  "302235": [
+   "Purakhola",
+   2115,
+   4
+  ],
+  "302233": [
+   "Betbari",
+   2115,
+   4
+  ],
+  "302263": [
+   "Kharija Bispani",
+   2115,
+   4
+  ],
+  "302216": [
+   "Thaisobari",
+   2115,
+   10
+  ],
+  "302231": [
+   "Andhargaon",
+   2115,
+   10
+  ],
+  "302209": [
+   "Barshijhara",
+   2115,
+   10
+  ],
+  "302219": [
+   "Boulajhar",
+   2115,
+   10
+  ],
+  "302221": [
+   "Burisuta",
+   2115,
+   10
+  ],
+  "302223": [
+   "Abdaguri",
+   2115,
+   10
+  ],
+  "302222": [
+   "Garabdara",
+   2115,
+   10
+  ],
+  "302201": [
+   "Borgaon",
+   2115,
+   9
+  ],
+  "302251": [
+   "Charapet",
+   2115,
+   3
+  ],
+  "302252": [
+   "Sishubari",
+   2115,
+   3
+  ],
+  "302258": [
+   "Majrabari",
+   2115,
+   3
+  ],
+  "302257": [
+   "Majrabari",
+   2115,
+   3
+  ],
+  "302255": [
+   "Khujurapguri",
+   2115,
+   3
+  ],
+  "302253": [
+   "Sishubari",
+   2115,
+   3
+  ],
+  "302135": [
+   "Sannyashibari",
+   2115,
+   3
+  ],
+  "302134": [
+   "Sannyashibari",
+   2115,
+   3
+  ],
+  "302099": [
+   "Odalguri",
+   2115,
+   2
+  ],
+  "302133": [
+   "Khujrabguri",
+   2115,
+   3
+  ],
+  "302132": [
+   "Chourabari",
+   2115,
+   2
+  ],
+  "302131": [
+   "Chourabari",
+   2115,
+   2
+  ],
+  "302138": [
+   "Chamugaon",
+   2115,
+   3
+  ],
+  "302130": [
+   "Dongapeta",
+   2115,
+   3
+  ],
+  "302127": [
+   "Charai Khosara",
+   2115,
+   3
+  ],
+  "302107": [
+   "Malipara",
+   2115,
+   3
+  ],
+  "302106": [
+   "Tangabari",
+   2115,
+   3
+  ],
+  "302100": [
+   "Choto Amguri",
+   2115,
+   2
+  ],
+  "302103": [
+   "Ugapara",
+   2115,
+   2
+  ],
+  "301971": [
+   "Deborbill",
+   2114,
+   2
+  ],
+  "301975": [
+   "Bherbhery",
+   2114,
+   2
+  ],
+  "301970": [
+   "Dangagaon",
+   2114,
+   2
+  ],
+  "301976": [
+   "Barighara Borchara",
+   2114,
+   2
+  ],
+  "301977": [
+   "Hasraobari",
+   2114,
+   2
+  ],
+  "301981": [
+   "Amguri",
+   2115,
+   2
+  ],
+  "301980": [
+   "Banduguri",
+   2114,
+   2
+  ],
+  "301982": [
+   "Dakhin Amguri",
+   2114,
+   2
+  ],
+  "301989": [
+   "Bartalowa",
+   2114,
+   2
+  ],
+  "301990": [
+   "Bherbhery",
+   2114,
+   2
+  ],
+  "301991": [
+   "Kukurmari",
+   2114,
+   2
+  ],
+  "301968": [
+   "Ujanigaon",
+   2114,
+   2
+  ],
+  "301969": [
+   "Pubra Ankhorbari",
+   2114,
+   2
+  ],
+  "301979": [
+   "Hatipota",
+   2114,
+   2
+  ],
+  "301983": [
+   "Silpota",
+   2114,
+   1
+  ],
+  "301978": [
+   "Bilashpur",
+   2114,
+   1
+  ],
+  "301967": [
+   "Pashim Ankarbari",
+   2114,
+   1
+  ],
+  "301966": [
+   "Padmapur",
+   2114,
+   1
+  ],
+  "301965": [
+   "Tangabari",
+   2114,
+   1
+  ],
+  "301945": [
+   "Silghagri",
+   2114,
+   1
+  ],
+  "301943": [
+   "Dangshibari",
+   2114,
+   1
+  ],
+  "301944": [
+   "Bairajhora",
+   2114,
+   1
+  ],
+  "301955": [
+   "Thunkhobari",
+   2114,
+   1
+  ],
+  "301958": [
+   "Kolobari",
+   2114,
+   1
+  ],
+  "301963": [
+   "Krishnapur",
+   2114,
+   1
+  ],
+  "301984": [
+   "Palashbari",
+   2114,
+   1
+  ],
+  "301985": [
+   "Dangagaon",
+   2114,
+   1
+  ],
+  "301986": [
+   "Baikhungaon",
+   2114,
+   1
+  ],
+  "301988": [
+   "Saljhora",
+   2114,
+   1
+  ],
+  "301987": [
+   "Uttar Kajalgaon",
+   2114,
+   1
+  ],
+  "301993": [
+   "Madhyam Kajalgaon",
+   2114,
+   1
+  ],
+  "301992": [
+   "Manglagaon",
+   2114,
+   1
+  ],
+  "301960": [
+   "Nimagaon",
+   2114,
+   1
+  ],
+  "301961": [
+   "Sidli",
+   2114,
+   1
+  ],
+  "301962": [
+   "Rajajan",
+   2114,
+   1
+  ],
+  "301914": [
+   "Duligaon",
+   2114,
+   1
+  ],
+  "301915": [
+   "Pakhriguri",
+   2114,
+   1
+  ],
+  "301916": [
+   "Gossaigaon",
+   2114,
+   1
+  ],
+  "301994": [
+   "Dakshin Kajalgaon",
+   2114,
+   1
+  ],
+  "301995": [
+   "Maigaon",
+   2114,
+   0
+  ],
+  "302295": [
+   "Supariguri",
+   2115,
+   4
+  ],
+  "302273": [
+   "Bhetagaon",
+   2115,
+   4
+  ],
+  "302268": [
+   "Choto Lawgong",
+   2115,
+   3
+  ],
+  "302265": [
+   "Bhatipara Lasatipara",
+   2115,
+   4
+  ],
+  "302260": [
+   "Gargaon",
+   2115,
+   3
+  ],
+  "302181": [
+   "Dongagaon",
+   2115,
+   3
+  ],
+  "301917": [
+   "Pakhriguri",
+   2114,
+   1
+  ],
+  "302005": [
+   "Nilibari",
+   2114,
+   0
+  ],
+  "302312": [
+   "Tekiamari",
+   2115,
+   4
+  ],
+  "302313": [
+   "Bhangnamari",
+   2115,
+   10
+  ],
+  "302314": [
+   "Niz Damugaon",
+   2115,
+   10
+  ],
+  "302311": [
+   "Bagidwara",
+   2115,
+   10
+  ],
+  "302308": [
+   "Kahitama N C",
+   2115,
+   10
+  ],
+  "302310": [
+   "Dimajuli",
+   2115,
+   10
+  ],
+  "302315": [
+   "Uttar Burikhamar",
+   2115,
+   10
+  ],
+  "301835": [
+   "Borpathar",
+   2113,
+   7
+  ],
+  "301974": [
+   "Kolobari",
+   2115,
+   2
+  ],
+  "301973": [
+   "Katribari",
+   2114,
+   2
+  ],
+  "302089": [
+   "Nangalbhanga",
+   2115,
+   2
+  ],
+  "301964": [
+   "Soulmari",
+   2114,
+   1
+  ],
+  "302136": [
+   "Mazrabari",
+   2115,
+   3
+  ],
+  "302176": [
+   "Dahalapara",
+   2115,
+   3
+  ],
+  "302122": [
+   "Simlaguri",
+   2115,
+   8
+  ],
+  "302200": [
+   "Ulubari",
+   2115,
+   9
+  ],
+  "302161": [
+   "Sikajhora",
+   2115,
+   9
+  ],
+  "302282": [
+   "Dawaguri",
+   2115,
+   4
+  ],
+  "302279": [
+   "Charagaon",
+   2115,
+   4
+  ],
+  "302137": [
+   "Khujrabguri",
+   2115,
+   2
+  ],
+  "302293": [
+   "Moneswari",
+   2115,
+   4
+  ],
+  "302232": [
+   "Boupara",
+   2115,
+   4
+  ],
+  "302229": [
+   "Bogidara",
+   2115,
+   10
+  ],
+  "302262": [
+   "Bishdoba",
+   2115,
+   4
+  ],
+  "302227": [
+   "Abdaguri",
+   2115,
+   10
+  ],
+  "302180": [
+   "Khamarguri",
+   2115,
+   3
+  ],
+  "302274": [
+   "Chatianguri",
+   2115,
+   4
+  ],
+  "302276": [
+   "Choto Lawgong",
+   2115,
+   3
+  ],
+  "302266": [
+   "Dongagaon",
+   2115,
+   3
+  ],
+  "302269": [
+   "Bhetagaon",
+   2115,
+   3
+  ],
+  "302307": [
+   "Kanamakra Fv Rangijhora Fv",
+   2115,
+   12
+  ],
+  "302069": [
+   "Manikpur",
+   2115,
+   7
+  ],
+  "302129": [
+   "Malipara",
+   2115,
+   3
+  ],
+  "302102": [
+   "Ledopara",
+   2115,
+   2
+  ],
+  "302108": [
+   "Dogarpara",
+   2115,
+   8
+  ],
+  "302220": [
+   "Burisuta",
+   2115,
+   10
+  ],
+  "302271": [
+   "Doturi",
+   2115,
+   3
+  ],
+  "302283": [
+   "Dhupguri",
+   2115,
+   4
+  ],
+  "302297": [
+   "Fagunagaon",
+   2115,
+   4
+  ],
+  "302043": [
+   "Chapaguri Pt I",
+   2115,
+   2
+  ],
+  "302044": [
+   "Chapaguri Pt Ii",
+   2115,
+   2
+  ],
+  "302046": [
+   "Dawkhanagar",
+   2115,
+   2
+  ],
+  "302022": [
+   "Hatisar F V",
+   2114,
+   17
+  ],
+  "302039": [
+   "Hatijar F Block",
+   2114,
+   17
+  ],
+  "302040": [
+   "Malivita F Block Including Relief Camp",
+   2114,
+   17
+  ],
+  "302023": [
+   "Malivita F V",
+   2114,
+   17
+  ],
+  "302038": [
+   "Deosri F Block",
+   2114,
+   17
+  ],
+  "302021": [
+   "Deosri Fv",
+   2114,
+   17
+  ],
+  "302024": [
+   "Amteka F V",
+   2114,
+   11
+  ],
+  "302016": [
+   "Nizlaguri F V",
+   2114,
+   11
+  ],
+  "302041": [
+   "Patabari F Block",
+   2114,
+   11
+  ],
+  "302020": [
+   "Molandubi F V",
+   2114,
+   11
+  ],
+  "302025": [
+   "Patabari F V",
+   2114,
+   11
+  ],
+  "302048": [
+   "Kharija Dalaigaon",
+   2115,
+   2
+  ],
+  "301860": [
+   "Balabari",
+   2113,
+   7
+  ],
+  "302101": [
+   "Udalguri",
+   2115,
+   2
+  ],
+  "302172": [
+   "Moynaguri",
+   2115,
+   3
+  ],
+  "302286": [
+   "Kharija Bispani",
+   2115,
+   4
+  ],
+  "302254": [
+   "Sishubari",
+   2115,
+   3
+  ],
+  "302247": [
+   "Garjasali",
+   2115,
+   3
+  ],
+  "302047": [
+   "Dawkhanagar",
+   2115,
+   2
+  ],
+  "302042": [
+   "Chatibor Gaon CT",
+   2114,
+   2
+  ],
+  "302029": [
+   "Bhurbasti Fb",
+   2114,
+   11
+  ],
+  "302045": [
+   "Fuchulupara",
+   2115,
+   2
+  ]
+ },
+ "village_count_total": 515,
+ "village_count_assigned": 515
+}

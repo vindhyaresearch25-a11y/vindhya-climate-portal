@@ -1,0 +1,1321 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Chhattisgarh",
+  "district": "Gaurella Pendra Marwahi",
+  "district_lgd": 734,
+  "observation_window": "2026-08-07T11:06Z to 2026-08-12T11:06Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3274,
+  "sm_surface_stddev": 0.021,
+  "sm_rootzone_mean": 0.2815,
+  "sm_rootzone_stddev": 0.0371,
+  "n_cells": 17,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 22.5792,
+    "lon": 82.0656,
+    "sm_surface": 0.3218,
+    "sm_rootzone": 0.3143,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 1,
+    "lat": 22.5792,
+    "lon": 82.1644,
+    "sm_surface": 0.3196,
+    "sm_rootzone": 0.3121,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 2,
+    "lat": 22.678,
+    "lon": 81.868,
+    "sm_surface": 0.378,
+    "sm_rootzone": 0.3605,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 3,
+    "lat": 22.678,
+    "lon": 81.9668,
+    "sm_surface": 0.3208,
+    "sm_rootzone": 0.2606,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 4,
+    "lat": 22.678,
+    "lon": 82.0656,
+    "sm_surface": 0.3194,
+    "sm_rootzone": 0.2593,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 5,
+    "lat": 22.678,
+    "lon": 82.1644,
+    "sm_surface": 0.3189,
+    "sm_rootzone": 0.3093,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 6,
+    "lat": 22.7768,
+    "lon": 81.868,
+    "sm_surface": 0.3709,
+    "sm_rootzone": 0.3415,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 7,
+    "lat": 22.7768,
+    "lon": 81.9668,
+    "sm_surface": 0.3166,
+    "sm_rootzone": 0.2552,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 8,
+    "lat": 22.7768,
+    "lon": 82.0656,
+    "sm_surface": 0.3185,
+    "sm_rootzone": 0.2551,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 9,
+    "lat": 22.8756,
+    "lon": 81.868,
+    "sm_surface": 0.3681,
+    "sm_rootzone": 0.3382,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 10,
+    "lat": 22.8756,
+    "lon": 81.9668,
+    "sm_surface": 0.3176,
+    "sm_rootzone": 0.2547,
+    "n_villages_sharing_cell": 21
+   },
+   {
+    "cell_index": 11,
+    "lat": 22.8756,
+    "lon": 82.0656,
+    "sm_surface": 0.3178,
+    "sm_rootzone": 0.2546,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 12,
+    "lat": 22.9744,
+    "lon": 81.9668,
+    "sm_surface": 0.3166,
+    "sm_rootzone": 0.2542,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 13,
+    "lat": 22.9744,
+    "lon": 82.0656,
+    "sm_surface": 0.3166,
+    "sm_rootzone": 0.2541,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 14,
+    "lat": 22.9744,
+    "lon": 82.1644,
+    "sm_surface": 0.3134,
+    "sm_rootzone": 0.2554,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 15,
+    "lat": 23.0732,
+    "lon": 81.9668,
+    "sm_surface": 0.3154,
+    "sm_rootzone": 0.2536,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 16,
+    "lat": 23.0732,
+    "lon": 82.0656,
+    "sm_surface": 0.3153,
+    "sm_rootzone": 0.2533,
+    "n_villages_sharing_cell": 14
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3284,
+  "sm_surface_stddev": 0.0158,
+  "n_blocks": 3
+ },
+ "blocks": [
+  {
+   "block_name": "Marwahi",
+   "sdcode": 3288,
+   "n_villages": 86,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.3164,
+   "sm_surface_stddev": 0.0012
+  },
+  {
+   "block_name": "Pendra",
+   "sdcode": 3289,
+   "n_villages": 53,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.3182,
+   "sm_surface_stddev": 0.001
+  },
+  {
+   "block_name": "Pendra Road Gorella",
+   "sdcode": 3287,
+   "n_villages": 88,
+   "n_cells_spanned": 10,
+   "sm_surface_mean": 0.3507,
+   "sm_surface_stddev": 0.0263
+  }
+ ],
+ "villages": {
+  "437613": [
+   "Kesla",
+   3289,
+   8
+  ],
+  "437563": [
+   "Bandhauri",
+   3288,
+   12
+  ],
+  "437430": [
+   "Jhirnapondi",
+   3287,
+   10
+  ],
+  "437570": [
+   "Naraur",
+   3288,
+   10
+  ],
+  "437562": [
+   "Nimdha",
+   3288,
+   12
+  ],
+  "437523": [
+   "Enthi",
+   3288,
+   12
+  ],
+  "437519": [
+   "Seoni",
+   3288,
+   12
+  ],
+  "437547": [
+   "Katra",
+   3288,
+   14
+  ],
+  "437557": [
+   "Deori Dand",
+   3288,
+   13
+  ],
+  "437556": [
+   "Sacharatola",
+   3288,
+   13
+  ],
+  "437555": [
+   "Piperdol",
+   3288,
+   13
+  ],
+  "437522": [
+   "Pandri",
+   3288,
+   12
+  ],
+  "437572": [
+   "Salhekota",
+   3288,
+   10
+  ],
+  "437553": [
+   "Kargikalan",
+   3288,
+   13
+  ],
+  "437527": [
+   "Ghusaria",
+   3288,
+   13
+  ],
+  "437548": [
+   "Kumhari",
+   3288,
+   13
+  ],
+  "437578": [
+   "Banshital",
+   3288,
+   11
+  ],
+  "437554": [
+   "Litiyasarai",
+   3288,
+   13
+  ],
+  "437550": [
+   "Gullidand",
+   3288,
+   13
+  ],
+  "437551": [
+   "Magurda",
+   3288,
+   14
+  ],
+  "437529": [
+   "Marwahi",
+   3288,
+   13
+  ],
+  "437575": [
+   "Bargawan",
+   3288,
+   11
+  ],
+  "437571": [
+   "Larkeni",
+   3288,
+   10
+  ],
+  "437573": [
+   "Dhitora",
+   3288,
+   11
+  ],
+  "437574": [
+   "Bharridand",
+   3288,
+   11
+  ],
+  "437561": [
+   "Khurpa",
+   3288,
+   12
+  ],
+  "437525": [
+   "Chachedi",
+   3288,
+   12
+  ],
+  "437558": [
+   "Rajadih",
+   3288,
+   13
+  ],
+  "437560": [
+   "Karsiwa",
+   3288,
+   12
+  ],
+  "437559": [
+   "Ratga",
+   3288,
+   13
+  ],
+  "437577": [
+   "Amera Tikra",
+   3288,
+   11
+  ],
+  "437581": [
+   "Naka",
+   3288,
+   14
+  ],
+  "437549": [
+   "Madakot",
+   3288,
+   13
+  ],
+  "437526": [
+   "Madwahi",
+   3288,
+   13
+  ],
+  "437580": [
+   "Mouharitola",
+   3288,
+   11
+  ],
+  "437524": [
+   "Dharhar",
+   3288,
+   12
+  ],
+  "437528": [
+   "Chichghona",
+   3288,
+   13
+  ],
+  "437579": [
+   "Danikundi",
+   3288,
+   14
+  ],
+  "437515": [
+   "Maladand",
+   3288,
+   15
+  ],
+  "437514": [
+   "Karhani",
+   3288,
+   15
+  ],
+  "437516": [
+   "Ghinauchi",
+   3288,
+   15
+  ],
+  "437518": [
+   "Badraudi",
+   3288,
+   12
+  ],
+  "437517": [
+   "Deogawan",
+   3288,
+   15
+  ],
+  "437513": [
+   "Dandiya",
+   3288,
+   15
+  ],
+  "437512": [
+   "Pondi",
+   3288,
+   15
+  ],
+  "437545": [
+   "Lohari",
+   3288,
+   16
+  ],
+  "437531": [
+   "Dhanaura",
+   3288,
+   16
+  ],
+  "437544": [
+   "Chanadongri",
+   3288,
+   16
+  ],
+  "437543": [
+   "Karhaniya",
+   3288,
+   16
+  ],
+  "437536": [
+   "Kachhar",
+   3288,
+   16
+  ],
+  "437540": [
+   "Dhummatola",
+   3288,
+   16
+  ],
+  "437521": [
+   "Bahutadol",
+   3288,
+   12
+  ],
+  "437520": [
+   "Patharri",
+   3288,
+   12
+  ],
+  "437532": [
+   "Parasi",
+   3288,
+   15
+  ],
+  "437535": [
+   "Bagrad",
+   3288,
+   16
+  ],
+  "437511": [
+   "Changeri",
+   3288,
+   15
+  ],
+  "437534": [
+   "Jhiriyatola",
+   3288,
+   16
+  ],
+  "437537": [
+   "Tendumuda",
+   3288,
+   16
+  ],
+  "437542": [
+   "Usarh",
+   3288,
+   16
+  ],
+  "437538": [
+   "Tikathi",
+   3288,
+   16
+  ],
+  "437539": [
+   "Baraur",
+   3288,
+   16
+  ],
+  "437541": [
+   "Bahrijhorki",
+   3288,
+   16
+  ],
+  "437533": [
+   "Ganaya",
+   3288,
+   16
+  ],
+  "437530": [
+   "Manaura",
+   3288,
+   13
+  ],
+  "437552": [
+   "Semardarri",
+   3288,
+   14
+  ],
+  "437471": [
+   "Kotariyadand",
+   3287,
+   2
+  ],
+  "437470": [
+   "Kenwchi",
+   3287,
+   2
+  ],
+  "437479": [
+   "Amadob",
+   3287,
+   2
+  ],
+  "437482": [
+   "Tanwardabra",
+   3287,
+   2
+  ],
+  "437483": [
+   "Piparkhunti",
+   3287,
+   2
+  ],
+  "437480": [
+   "Gourkheda",
+   3287,
+   2
+  ],
+  "437436": [
+   "Meduka",
+   3287,
+   9
+  ],
+  "437447": [
+   "Khamali Kalan",
+   3287,
+   6
+  ],
+  "437448": [
+   "Khamali Khurd",
+   3287,
+   6
+  ],
+  "437465": [
+   "Harratola",
+   3287,
+   6
+  ],
+  "437432": [
+   "Lakhanwahi",
+   3287,
+   9
+  ],
+  "437439": [
+   "Gummatola",
+   3287,
+   9
+  ],
+  "437438": [
+   "Bhaskura",
+   3287,
+   9
+  ],
+  "437443": [
+   "Gangpur",
+   3287,
+   6
+  ],
+  "437431": [
+   "Kotkharra",
+   3287,
+   7
+  ],
+  "437446": [
+   "Korja",
+   3287,
+   6
+  ],
+  "437435": [
+   "Barwasan1",
+   3287,
+   9
+  ],
+  "437449": [
+   "Anjani",
+   3287,
+   6
+  ],
+  "437434": [
+   "Khanta",
+   3287,
+   10
+  ],
+  "437455": [
+   "Jhagra Khand",
+   3287,
+   6
+  ],
+  "437463": [
+   "Mandpur",
+   3287,
+   6
+  ],
+  "437450": [
+   "Kanhari",
+   3287,
+   6
+  ],
+  "437452": [
+   "Tendumuda",
+   3287,
+   6
+  ],
+  "999999": [
+   "Reserved Forest",
+   3289,
+   8
+  ],
+  "437453": [
+   "Dhanauli",
+   3287,
+   6
+  ],
+  "437461": [
+   "Bijarwar",
+   3287,
+   6
+  ],
+  "437478": [
+   "Badhawandand",
+   3287,
+   2
+  ],
+  "437477": [
+   "Padwaniya",
+   3287,
+   2
+  ],
+  "437486": [
+   "Paterkoni",
+   3287,
+   2
+  ],
+  "437458": [
+   "Chuktipani",
+   3287,
+   6
+  ],
+  "437451": [
+   "Gorakhpur",
+   3287,
+   6
+  ],
+  "437462": [
+   "Belgahna",
+   3287,
+   6
+  ],
+  "437457": [
+   "Bedkhodara",
+   3287,
+   6
+  ],
+  "437456": [
+   "Karngara",
+   3287,
+   6
+  ],
+  "437441": [
+   "Andhiyarkhoh",
+   3287,
+   9
+  ],
+  "437437": [
+   "Darri",
+   3287,
+   9
+  ],
+  "437475": [
+   "Dewargaon",
+   3287,
+   6
+  ],
+  "437487": [
+   "Sarbahra",
+   3287,
+   3
+  ],
+  "437474": [
+   "Taraigoan",
+   3287,
+   2
+  ],
+  "437476": [
+   "Pakaria",
+   3287,
+   2
+  ],
+  "437484": [
+   "Banghat",
+   3287,
+   2
+  ],
+  "437459": [
+   "Girwar",
+   3287,
+   6
+  ],
+  "437444": [
+   "Dahibahra",
+   3287,
+   6
+  ],
+  "437442": [
+   "Harri",
+   3287,
+   9
+  ],
+  "437433": [
+   "Sapni",
+   3287,
+   10
+  ],
+  "437428": [
+   "Pipariya",
+   3287,
+   10
+  ],
+  "437460": [
+   "Dounjra",
+   3287,
+   6
+  ],
+  "437445": [
+   "Pandripani",
+   3287,
+   6
+  ],
+  "437440": [
+   "Salheghori",
+   3287,
+   9
+  ],
+  "437485": [
+   "Madana",
+   3287,
+   6
+  ],
+  "250610": [
+   "Gaurella",
+   3287,
+   6
+  ],
+  "437454": [
+   "Newsa",
+   3287,
+   6
+  ],
+  "437464": [
+   "Lalpur",
+   3287,
+   6
+  ],
+  "437473": [
+   "Thengadand",
+   3287,
+   2
+  ],
+  "437481": [
+   "Thadpathra",
+   3287,
+   2
+  ],
+  "437472": [
+   "Khodri",
+   3287,
+   3
+  ],
+  "437498": [
+   "Dungra",
+   3287,
+   0
+  ],
+  "437502": [
+   "Lamna",
+   3287,
+   1
+  ],
+  "437646": [
+   "Fulwaripara",
+   3289,
+   5
+  ],
+  "437491": [
+   "Kargi Khurd",
+   3287,
+   4
+  ],
+  "437495": [
+   "Jogisar",
+   3287,
+   3
+  ],
+  "437499": [
+   "Umarkhohi",
+   3287,
+   0
+  ],
+  "437497": [
+   "Belpat",
+   3287,
+   0
+  ],
+  "437501": [
+   "Kotmi Khurd",
+   3287,
+   1
+  ],
+  "437496": [
+   "Haripur",
+   3287,
+   3
+  ],
+  "437494": [
+   "Banjhorka",
+   3287,
+   3
+  ],
+  "437504": [
+   "Bagra",
+   3287,
+   5
+  ],
+  "437507": [
+   "Piparbahra",
+   3287,
+   1
+  ],
+  "437503": [
+   "Poota",
+   3287,
+   1
+  ],
+  "437506": [
+   "Amgaon",
+   3287,
+   1
+  ],
+  "437508": [
+   "Tidi",
+   3287,
+   1
+  ],
+  "437505": [
+   "Tikarkhurd",
+   3287,
+   5
+  ],
+  "437509": [
+   "Dandjamdi Kalan",
+   3287,
+   1
+  ],
+  "437500": [
+   "Basti",
+   3287,
+   5
+  ],
+  "437467": [
+   "Dumariha",
+   3287,
+   7
+  ],
+  "437600": [
+   "Sewra",
+   3289,
+   7
+  ],
+  "437468": [
+   "Semara",
+   3287,
+   7
+  ],
+  "437599": [
+   "Bacharwar",
+   3289,
+   7
+  ],
+  "437596": [
+   "Bagdi",
+   3288,
+   10
+  ],
+  "437566": [
+   "Dongariya",
+   3288,
+   10
+  ],
+  "437493": [
+   "Ranijhap",
+   3287,
+   3
+  ],
+  "437488": [
+   "Sadhwani",
+   3287,
+   3
+  ],
+  "437565": [
+   "Masurikhar",
+   3288,
+   10
+  ],
+  "437466": [
+   "Andu",
+   3287,
+   7
+  ],
+  "437489": [
+   "Dhangawan",
+   3287,
+   3
+  ],
+  "437598": [
+   "Bandhi",
+   3289,
+   7
+  ],
+  "437567": [
+   "Gudumdeori",
+   3288,
+   10
+  ],
+  "437594": [
+   "Majhganwan",
+   3288,
+   10
+  ],
+  "437595": [
+   "Mahora",
+   3288,
+   10
+  ],
+  "437429": [
+   "Tauli",
+   3287,
+   10
+  ],
+  "437569": [
+   "Dhaubahar",
+   3288,
+   10
+  ],
+  "437469": [
+   "Bhadoura",
+   3287,
+   7
+  ],
+  "437597": [
+   "Amarpur",
+   3289,
+   7
+  ],
+  "437601": [
+   "Adbhar",
+   3289,
+   7
+  ],
+  "250609": [
+   "Pendra",
+   3289,
+   7
+  ],
+  "437609": [
+   "Bisesara",
+   3289,
+   11
+  ],
+  "437617": [
+   "Tilora",
+   3289,
+   8
+  ],
+  "437619": [
+   "Kanchandih",
+   3289,
+   8
+  ],
+  "437637": [
+   "Padariya",
+   3289,
+   8
+  ],
+  "437585": [
+   "Sekhwa",
+   3288,
+   11
+  ],
+  "437602": [
+   "Kudkai",
+   3289,
+   7
+  ],
+  "437611": [
+   "Sakola",
+   3289,
+   8
+  ],
+  "437608": [
+   "Piplamar",
+   3289,
+   11
+  ],
+  "437583": [
+   "Rumga",
+   3288,
+   11
+  ],
+  "437610": [
+   "Bhandi1",
+   3289,
+   8
+  ],
+  "437621": [
+   "Girari",
+   3289,
+   7
+  ],
+  "437638": [
+   "Amaru",
+   3289,
+   8
+  ],
+  "437636": [
+   "Nawapara",
+   3289,
+   8
+  ],
+  "437490": [
+   "Lalati",
+   3287,
+   7
+  ],
+  "437634": [
+   "Sarkhor",
+   3289,
+   7
+  ],
+  "437643": [
+   "Jilda",
+   3289,
+   5
+  ],
+  "437635": [
+   "Sonbacharwar",
+   3289,
+   4
+  ],
+  "437630": [
+   "Pankota",
+   3289,
+   4
+  ],
+  "437628": [
+   "Ghaghra",
+   3289,
+   4
+  ],
+  "437620": [
+   "Ganjan",
+   3289,
+   8
+  ],
+  "437623": [
+   "Tangiyamar",
+   3289,
+   8
+  ],
+  "437605": [
+   "Latkoni Kalan",
+   3289,
+   7
+  ],
+  "437587": [
+   "Kolbira",
+   3288,
+   11
+  ],
+  "437644": [
+   "Kanaibahara",
+   3289,
+   5
+  ],
+  "437616": [
+   "Godha",
+   3289,
+   8
+  ],
+  "437604": [
+   "Patgawan",
+   3289,
+   7
+  ],
+  "437625": [
+   "Bariumrao",
+   3289,
+   8
+  ],
+  "437640": [
+   "Pithampur",
+   3289,
+   4
+  ],
+  "437645": [
+   "Ghatbahra",
+   3289,
+   5
+  ],
+  "437492": [
+   "Newri Nawapara",
+   3287,
+   3
+  ],
+  "437632": [
+   "Murmur",
+   3289,
+   4
+  ],
+  "437641": [
+   "Bendarchuwan",
+   3289,
+   4
+  ],
+  "437622": [
+   "Jatadeori",
+   3289,
+   8
+  ],
+  "437626": [
+   "Harradih",
+   3289,
+   8
+  ],
+  "437629": [
+   "Jamdi Khurd",
+   3289,
+   4
+  ],
+  "437586": [
+   "Patharra",
+   3288,
+   11
+  ],
+  "437618": [
+   "Deori Khurd",
+   3289,
+   8
+  ],
+  "437593": [
+   "Andi",
+   3288,
+   10
+  ],
+  "437592": [
+   "Nagawahi",
+   3288,
+   11
+  ],
+  "437591": [
+   "Dumarkherawa",
+   3288,
+   10
+  ],
+  "437633": [
+   "Lata",
+   3289,
+   4
+  ],
+  "437627": [
+   "Amadand",
+   3289,
+   4
+  ],
+  "437647": [
+   "Bamhani",
+   3289,
+   5
+  ],
+  "437631": [
+   "Basantpur",
+   3289,
+   8
+  ],
+  "437606": [
+   "Kudri",
+   3289,
+   7
+  ],
+  "437614": [
+   "Kotmi Kalan",
+   3289,
+   8
+  ],
+  "437607": [
+   "Pandrikhar",
+   3289,
+   8
+  ],
+  "437615": [
+   "Damdam",
+   3289,
+   11
+  ],
+  "437590": [
+   "Kodawahi",
+   3288,
+   10
+  ],
+  "437589": [
+   "Latkoni Khurd",
+   3288,
+   10
+  ],
+  "437576": [
+   "Dongratola",
+   3288,
+   11
+  ],
+  "437624": [
+   "Nawagaon",
+   3289,
+   8
+  ],
+  "437612": [
+   "Deori Kalan",
+   3289,
+   8
+  ],
+  "437642": [
+   "Kodgar",
+   3289,
+   4
+  ],
+  "437588": [
+   "Silpahari",
+   3288,
+   11
+  ],
+  "437584": [
+   "Madai",
+   3288,
+   11
+  ],
+  "437603": [
+   "Jhabar",
+   3289,
+   8
+  ],
+  "437639": [
+   "Khardi",
+   3289,
+   5
+  ],
+  "437568": [
+   "Dhanpur",
+   3288,
+   10
+  ],
+  "437582": [
+   "Matiyadand",
+   3288,
+   11
+  ],
+  "437510": [
+   "Gandhipur",
+   3287,
+   3
+  ],
+  "437427": [
+   "Khairjhiti",
+   3287,
+   9
+  ],
+  "437564": [
+   "Darmohali",
+   3288,
+   10
+  ],
+  "437426": [
+   "Padkhuri",
+   3287,
+   9
+  ],
+  "437546": [
+   "Beljhiriya",
+   3288,
+   14
+  ]
+ },
+ "village_count_total": 227,
+ "village_count_assigned": 227
+}

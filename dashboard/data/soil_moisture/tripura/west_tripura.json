@@ -1,0 +1,605 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Tripura",
+  "district": "West Tripura",
+  "district_lgd": 272,
+  "observation_window": "2026-08-07T11:26Z to 2026-08-12T11:26Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3098,
+  "sm_surface_stddev": 0.034,
+  "sm_rootzone_mean": 0.2933,
+  "sm_rootzone_stddev": 0.0416,
+  "n_cells": 10,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 23.7649,
+    "lon": 91.2554,
+    "sm_surface": 0.276,
+    "sm_rootzone": 0.2435,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 1,
+    "lat": 23.7649,
+    "lon": 91.3542,
+    "sm_surface": 0.27,
+    "sm_rootzone": 0.2578,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 2,
+    "lat": 23.7649,
+    "lon": 91.453,
+    "sm_surface": 0.2675,
+    "sm_rootzone": 0.2562,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 3,
+    "lat": 23.8637,
+    "lon": 91.2554,
+    "sm_surface": 0.3316,
+    "sm_rootzone": 0.3164,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 4,
+    "lat": 23.8637,
+    "lon": 91.3542,
+    "sm_surface": 0.2779,
+    "sm_rootzone": 0.2419,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 5,
+    "lat": 23.8637,
+    "lon": 91.453,
+    "sm_surface": 0.3125,
+    "sm_rootzone": 0.2945,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 6,
+    "lat": 23.8637,
+    "lon": 91.5518,
+    "sm_surface": 0.3568,
+    "sm_rootzone": 0.3712,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 7,
+    "lat": 23.9626,
+    "lon": 91.3542,
+    "sm_surface": 0.3337,
+    "sm_rootzone": 0.3171,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 8,
+    "lat": 23.9626,
+    "lon": 91.453,
+    "sm_surface": 0.3102,
+    "sm_rootzone": 0.2923,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 9,
+    "lat": 24.0614,
+    "lon": 91.453,
+    "sm_surface": 0.3622,
+    "sm_rootzone": 0.3417,
+    "n_villages_sharing_cell": 14
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3092,
+  "sm_surface_stddev": 0.0186,
+  "n_blocks": 3
+ },
+ "blocks": [
+  {
+   "block_name": "Jirania",
+   "sdcode": 6679,
+   "n_villages": 37,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.3038,
+   "sm_surface_stddev": 0.0313
+  },
+  {
+   "block_name": "Mohanpur",
+   "sdcode": 6689,
+   "n_villages": 41,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.3341,
+   "sm_surface_stddev": 0.024
+  },
+  {
+   "block_name": "Sadar",
+   "sdcode": 6696,
+   "n_villages": 15,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.2896,
+   "sm_surface_stddev": 0.0254
+  }
+ ],
+ "villages": {
+  "271994": [
+   "Purba Debendranagar Part",
+   6679,
+   5
+  ],
+  "271850": [
+   "Noagaon Part",
+   6689,
+   7
+  ],
+  "271989": [
+   "Ashigarh",
+   6679,
+   5
+  ],
+  "272020": [
+   "Bikramnagar",
+   6696,
+   0
+  ],
+  "272022": [
+   "Srinagar",
+   6696,
+   1
+  ],
+  "272017": [
+   "Badharghat Part",
+   6696,
+   0
+  ],
+  "272019": [
+   "Pandabpur",
+   6696,
+   0
+  ],
+  "272018": [
+   "Ishanchandranagar",
+   6696,
+   0
+  ],
+  "272021": [
+   "Kanchanmala",
+   6696,
+   1
+  ],
+  "272026": [
+   "Madhupur CT",
+   6696,
+   0
+  ],
+  "272024": [
+   "Anandanagar CT",
+   6696,
+   1
+  ],
+  "272025": [
+   "Dukli CT",
+   6696,
+   0
+  ],
+  "272027": [
+   "Madhuban CT",
+   6696,
+   0
+  ],
+  "272012": [
+   "Champabari",
+   6679,
+   6
+  ],
+  "272011": [
+   "Champaknagar",
+   6679,
+   2
+  ],
+  "272010": [
+   "Belbari",
+   6679,
+   2
+  ],
+  "272009": [
+   "Janmejoynagar",
+   6679,
+   2
+  ],
+  "272008": [
+   "Radhapur",
+   6679,
+   2
+  ],
+  "272007": [
+   "Radhamohanpur",
+   6679,
+   2
+  ],
+  "272001": [
+   "Purba Noagoan",
+   6679,
+   1
+  ],
+  "272000": [
+   "Tulakona",
+   6679,
+   1
+  ],
+  "271846": [
+   "Mantala Part",
+   6689,
+   9
+  ],
+  "271867": [
+   "Paschim Simna Part",
+   6689,
+   9
+  ],
+  "271868": [
+   "Megliband Part",
+   6689,
+   9
+  ],
+  "271884": [
+   "Chandpur",
+   6689,
+   8
+  ],
+  "271882": [
+   "Thamakari",
+   6689,
+   8
+  ],
+  "271878": [
+   "Kamukchhara",
+   6689,
+   8
+  ],
+  "271875": [
+   "Baikunthapur",
+   6689,
+   8
+  ],
+  "271874": [
+   "Mantala Part",
+   6689,
+   9
+  ],
+  "271983": [
+   "Ramchandranagar",
+   6679,
+   4
+  ],
+  "271860": [
+   "Bodhjongnagar",
+   6689,
+   4
+  ],
+  "271853": [
+   "Fatikchhara",
+   6689,
+   7
+  ],
+  "272006": [
+   "Jirania",
+   6679,
+   2
+  ],
+  "271852": [
+   "Bamutia",
+   6689,
+   7
+  ],
+  "249786": [
+   "Agartala M Cl",
+   6696,
+   3
+  ],
+  "271851": [
+   "Kalkalia",
+   6689,
+   7
+  ],
+  "271857": [
+   "Barjala Part",
+   6696,
+   3
+  ],
+  "271859": [
+   "Debendrachandranagar Part",
+   6689,
+   4
+  ],
+  "271854": [
+   "Laxmilunga",
+   6689,
+   3
+  ],
+  "271858": [
+   "Kunjaban Part",
+   6696,
+   3
+  ],
+  "271855": [
+   "Lankamura Part",
+   6689,
+   3
+  ],
+  "271856": [
+   "Ramnagar Part Minabari",
+   6696,
+   3
+  ],
+  "271877": [
+   "Subalsingh",
+   6689,
+   9
+  ],
+  "271885": [
+   "Domrakaridak",
+   6689,
+   8
+  ],
+  "271886": [
+   "Tuichhamankuri",
+   6689,
+   8
+  ],
+  "271883": [
+   "Barkanthalia",
+   6689,
+   8
+  ],
+  "271879": [
+   "Surendranagar",
+   6689,
+   8
+  ],
+  "271880": [
+   "Mohanpur Part",
+   6689,
+   8
+  ],
+  "271881": [
+   "Noagaon Part",
+   6689,
+   8
+  ],
+  "271982": [
+   "Sibnagar",
+   6679,
+   5
+  ],
+  "271981": [
+   "Wakkinagar",
+   6679,
+   5
+  ],
+  "271988": [
+   "Patnipara",
+   6679,
+   5
+  ],
+  "271990": [
+   "Khengrai",
+   6679,
+   6
+  ],
+  "271991": [
+   "Harbhang",
+   6679,
+   6
+  ],
+  "271985": [
+   "Dinabandhunagar",
+   6679,
+   5
+  ],
+  "271987": [
+   "Kathirambari",
+   6679,
+   5
+  ],
+  "271993": [
+   "Mandainagar",
+   6679,
+   5
+  ],
+  "271992": [
+   "Dinakobrapara",
+   6679,
+   6
+  ],
+  "271995": [
+   "Bhrigudas Para",
+   6679,
+   6
+  ],
+  "271997": [
+   "Atuthangbari",
+   6679,
+   6
+  ],
+  "271984": [
+   "Laxmipur Part",
+   6679,
+   4
+  ],
+  "271986": [
+   "Paschim Barjalai",
+   6679,
+   5
+  ],
+  "272005": [
+   "Purba Debendranagar Part",
+   6679,
+   5
+  ],
+  "272004": [
+   "Joynagar",
+   6679,
+   5
+  ],
+  "272003": [
+   "Purba Barjalai",
+   6679,
+   5
+  ],
+  "249785": [
+   "Ranirbazar Np",
+   6679,
+   4
+  ],
+  "271999": [
+   "Mekhlipara",
+   6679,
+   4
+  ],
+  "271998": [
+   "Laxmipur Part",
+   6679,
+   4
+  ],
+  "272002": [
+   "Majlishpur Part",
+   6679,
+   5
+  ],
+  "271848": [
+   "Bejoynagar",
+   6689,
+   7
+  ],
+  "271847": [
+   "Kalachhara",
+   6689,
+   8
+  ],
+  "271862": [
+   "Uttar Debendrachandranagar",
+   6689,
+   7
+  ],
+  "271849": [
+   "Mohanpur Part",
+   6689,
+   7
+  ],
+  "271861": [
+   "Tulabagan",
+   6689,
+   7
+  ],
+  "271843": [
+   "Paschim Simna Part",
+   6689,
+   9
+  ],
+  "271844": [
+   "Megliband Part",
+   6689,
+   9
+  ],
+  "271845": [
+   "Ishanpur Part",
+   6689,
+   9
+  ],
+  "271996": [
+   "Jamilongpara",
+   6679,
+   6
+  ],
+  "271869": [
+   "Purba Simna",
+   6689,
+   9
+  ],
+  "271871": [
+   "Sankhola",
+   6689,
+   9
+  ],
+  "271870": [
+   "Uttar Dashgharia",
+   6689,
+   9
+  ],
+  "271876": [
+   "Dakshin Dashgharia",
+   6689,
+   9
+  ],
+  "271872": [
+   "Ishanpur Part",
+   6689,
+   9
+  ],
+  "271873": [
+   "Baluaban",
+   6689,
+   9
+  ],
+  "271864": [
+   "Narsingarh CT",
+   6689,
+   3
+  ],
+  "272023": [
+   "Charipara CT",
+   6696,
+   0
+  ],
+  "272016": [
+   "Bankimnagar CT",
+   6679,
+   5
+  ],
+  "272015": [
+   "Uttar Champamura CT",
+   6679,
+   4
+  ],
+  "272013": [
+   "Radhakishorenagar CT",
+   6679,
+   4
+  ],
+  "272014": [
+   "Briddhanagar CT",
+   6679,
+   4
+  ],
+  "271865": [
+   "Singarbil CT",
+   6689,
+   3
+  ],
+  "271866": [
+   "Gandhigram CT",
+   6689,
+   3
+  ],
+  "271863": [
+   "Taranagar CT",
+   6689,
+   7
+  ]
+ },
+ "village_count_total": 93,
+ "village_count_assigned": 93
+}

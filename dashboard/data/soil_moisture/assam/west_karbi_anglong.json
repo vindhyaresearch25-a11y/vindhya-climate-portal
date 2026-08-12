@@ -1,0 +1,3105 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Assam",
+  "district": "West Karbi Anglong",
+  "district_lgd": 710,
+  "observation_window": "2026-08-07T11:03Z to 2026-08-12T11:03Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3711,
+  "sm_surface_stddev": 0.0515,
+  "sm_rootzone_mean": 0.3604,
+  "sm_rootzone_stddev": 0.0527,
+  "n_cells": 27,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 25.6424,
+    "lon": 92.5399,
+    "sm_surface": 0.4033,
+    "sm_rootzone": 0.3879,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 1,
+    "lat": 25.6424,
+    "lon": 92.6388,
+    "sm_surface": 0.3941,
+    "sm_rootzone": 0.4062,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 2,
+    "lat": 25.6424,
+    "lon": 92.7376,
+    "sm_surface": 0.3325,
+    "sm_rootzone": 0.3269,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 3,
+    "lat": 25.7412,
+    "lon": 92.2435,
+    "sm_surface": 0.4154,
+    "sm_rootzone": 0.4043,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 4,
+    "lat": 25.7412,
+    "lon": 92.3423,
+    "sm_surface": 0.4119,
+    "sm_rootzone": 0.3995,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 5,
+    "lat": 25.7412,
+    "lon": 92.4411,
+    "sm_surface": 0.407,
+    "sm_rootzone": 0.3912,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 6,
+    "lat": 25.7412,
+    "lon": 92.5399,
+    "sm_surface": 0.3484,
+    "sm_rootzone": 0.337,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 7,
+    "lat": 25.7412,
+    "lon": 92.6388,
+    "sm_surface": 0.378,
+    "sm_rootzone": 0.3591,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 8,
+    "lat": 25.7412,
+    "lon": 92.7376,
+    "sm_surface": 0.3232,
+    "sm_rootzone": 0.3171,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 9,
+    "lat": 25.84,
+    "lon": 92.2435,
+    "sm_surface": 0.4135,
+    "sm_rootzone": 0.4011,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 10,
+    "lat": 25.84,
+    "lon": 92.3423,
+    "sm_surface": 0.4109,
+    "sm_rootzone": 0.3985,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 11,
+    "lat": 25.84,
+    "lon": 92.4411,
+    "sm_surface": 0.4029,
+    "sm_rootzone": 0.3873,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 12,
+    "lat": 25.84,
+    "lon": 92.5399,
+    "sm_surface": 0.3921,
+    "sm_rootzone": 0.3732,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 13,
+    "lat": 25.84,
+    "lon": 92.6388,
+    "sm_surface": 0.3798,
+    "sm_rootzone": 0.3605,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 14,
+    "lat": 25.84,
+    "lon": 92.7376,
+    "sm_surface": 0.3267,
+    "sm_rootzone": 0.3244,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 15,
+    "lat": 25.84,
+    "lon": 92.8364,
+    "sm_surface": 0.2509,
+    "sm_rootzone": 0.2388,
+    "n_villages_sharing_cell": 58
+   },
+   {
+    "cell_index": 16,
+    "lat": 25.84,
+    "lon": 92.9352,
+    "sm_surface": 0.2525,
+    "sm_rootzone": 0.2349,
+    "n_villages_sharing_cell": 27
+   },
+   {
+    "cell_index": 17,
+    "lat": 25.9389,
+    "lon": 92.2435,
+    "sm_surface": 0.4109,
+    "sm_rootzone": 0.4048,
+    "n_villages_sharing_cell": 32
+   },
+   {
+    "cell_index": 18,
+    "lat": 25.9389,
+    "lon": 92.3423,
+    "sm_surface": 0.4096,
+    "sm_rootzone": 0.3977,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 19,
+    "lat": 25.9389,
+    "lon": 92.4411,
+    "sm_surface": 0.4218,
+    "sm_rootzone": 0.4118,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 20,
+    "lat": 25.9389,
+    "lon": 92.5399,
+    "sm_surface": 0.3917,
+    "sm_rootzone": 0.3738,
+    "n_villages_sharing_cell": 36
+   },
+   {
+    "cell_index": 21,
+    "lat": 25.9389,
+    "lon": 92.6388,
+    "sm_surface": 0.3914,
+    "sm_rootzone": 0.3991,
+    "n_villages_sharing_cell": 36
+   },
+   {
+    "cell_index": 22,
+    "lat": 25.9389,
+    "lon": 92.7376,
+    "sm_surface": 0.275,
+    "sm_rootzone": 0.2586,
+    "n_villages_sharing_cell": 21
+   },
+   {
+    "cell_index": 23,
+    "lat": 26.0377,
+    "lon": 92.3423,
+    "sm_surface": 0.3591,
+    "sm_rootzone": 0.3469,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 24,
+    "lat": 26.0377,
+    "lon": 92.4411,
+    "sm_surface": 0.4168,
+    "sm_rootzone": 0.4126,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 25,
+    "lat": 26.0377,
+    "lon": 92.5399,
+    "sm_surface": 0.4084,
+    "sm_rootzone": 0.3955,
+    "n_villages_sharing_cell": 56
+   },
+   {
+    "cell_index": 26,
+    "lat": 26.0377,
+    "lon": 92.7376,
+    "sm_surface": 0.2926,
+    "sm_rootzone": 0.2816,
+    "n_villages_sharing_cell": 19
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3607,
+  "sm_surface_stddev": 0.0,
+  "n_blocks": 1
+ },
+ "blocks": [
+  {
+   "block_name": "Donka",
+   "sdcode": 2088,
+   "n_villages": 569,
+   "n_cells_spanned": 27,
+   "sm_surface_mean": 0.3607,
+   "sm_surface_stddev": 0.0593
+  }
+ ],
+ "villages": {
+  "295399": [
+   "Tengkeralangso",
+   2088,
+   25
+  ],
+  "295786": [
+   "Lowai Amsih",
+   2088,
+   3
+  ],
+  "295785": [
+   "Umru Laru",
+   2088,
+   3
+  ],
+  "295783": [
+   "Umat",
+   2088,
+   3
+  ],
+  "295789": [
+   "Pabang",
+   2088,
+   3
+  ],
+  "295800": [
+   "Umnem",
+   2088,
+   3
+  ],
+  "295794": [
+   "Lumphus",
+   2088,
+   3
+  ],
+  "295815": [
+   "Singdoloi",
+   2088,
+   3
+  ],
+  "295814": [
+   "Umlado",
+   2088,
+   3
+  ],
+  "295798": [
+   "Umsarang",
+   2088,
+   3
+  ],
+  "295796": [
+   "Umwang",
+   2088,
+   9
+  ],
+  "295797": [
+   "Umteliah",
+   2088,
+   9
+  ],
+  "295333": [
+   "Mokoidharam",
+   2088,
+   9
+  ],
+  "295350": [
+   "Rongchirim",
+   2088,
+   9
+  ],
+  "295351": [
+   "Rong Arak",
+   2088,
+   9
+  ],
+  "295330": [
+   "Denghar",
+   2088,
+   9
+  ],
+  "295335": [
+   "Um Hi",
+   2088,
+   9
+  ],
+  "295777": [
+   "Rongjangphong",
+   2088,
+   9
+  ],
+  "295338": [
+   "Umpanai",
+   2088,
+   9
+  ],
+  "295436": [
+   "Umpani Chistian",
+   2088,
+   17
+  ],
+  "295339": [
+   "Umpanai Dukan",
+   2088,
+   17
+  ],
+  "295434": [
+   "Umswai Christian",
+   2088,
+   17
+  ],
+  "295336": [
+   "Langhanjar Phangeho",
+   2088,
+   17
+  ],
+  "295322": [
+   "Umswai Langdo Lalung",
+   2088,
+   17
+  ],
+  "295332": [
+   "Khon Amkha",
+   2088,
+   17
+  ],
+  "295325": [
+   "Rapadang",
+   2088,
+   17
+  ],
+  "295355": [
+   "Silaguri",
+   2088,
+   17
+  ],
+  "295442": [
+   "Mithi Gaon",
+   2088,
+   17
+  ],
+  "295300": [
+   "Rakhui Hidi",
+   2088,
+   17
+  ],
+  "295445": [
+   "Chong Kup",
+   2088,
+   17
+  ],
+  "295359": [
+   "Mailangcheng",
+   2088,
+   17
+  ],
+  "295317": [
+   "Lang Arkhon Umswai",
+   2088,
+   17
+  ],
+  "295315": [
+   "Roman Marjong",
+   2088,
+   17
+  ],
+  "295298": [
+   "Karbi Hidi",
+   2088,
+   17
+  ],
+  "295326": [
+   "Pantalo",
+   2088,
+   17
+  ],
+  "295323": [
+   "Marjong Lalung",
+   2088,
+   17
+  ],
+  "295356": [
+   "Nongtham",
+   2088,
+   17
+  ],
+  "295319": [
+   "Chidamakha",
+   2088,
+   17
+  ],
+  "295329": [
+   "Moroh",
+   2088,
+   17
+  ],
+  "295296": [
+   "Pumakunchi",
+   2088,
+   17
+  ],
+  "295435": [
+   "Rong Arkhon",
+   2088,
+   17
+  ],
+  "295331": [
+   "Umseneng Maolen",
+   2088,
+   17
+  ],
+  "295696": [
+   "Kyarbon",
+   2088,
+   0
+  ],
+  "295694": [
+   "Lum Mutem",
+   2088,
+   0
+  ],
+  "295692": [
+   "Khatkhasala",
+   2088,
+   0
+  ],
+  "295693": [
+   "Skap",
+   2088,
+   0
+  ],
+  "295691": [
+   "Psiar",
+   2088,
+   0
+  ],
+  "295681": [
+   "Tapat",
+   2088,
+   5
+  ],
+  "295677": [
+   "Umpaweng Langhemphi",
+   2088,
+   5
+  ],
+  "295685": [
+   "Nongtirong",
+   2088,
+   6
+  ],
+  "295686": [
+   "Wanpung",
+   2088,
+   6
+  ],
+  "295682": [
+   "Umbaso",
+   2088,
+   0
+  ],
+  "295676": [
+   "Am Ih",
+   2088,
+   5
+  ],
+  "295674": [
+   "Arting Sanphaw",
+   2088,
+   5
+  ],
+  "295678": [
+   "Langkeroi",
+   2088,
+   5
+  ],
+  "295680": [
+   "Kholaphiang",
+   2088,
+   5
+  ],
+  "295679": [
+   "Tadolangso",
+   2088,
+   5
+  ],
+  "295807": [
+   "Rongmandiu",
+   2088,
+   5
+  ],
+  "295806": [
+   "Umphanchi",
+   2088,
+   5
+  ],
+  "295805": [
+   "Monjili",
+   2088,
+   11
+  ],
+  "295671": [
+   "Longpai",
+   2088,
+   11
+  ],
+  "295453": [
+   "Uzandonka",
+   2088,
+   12
+  ],
+  "295817": [
+   "Birmaine",
+   2088,
+   11
+  ],
+  "295822": [
+   "Rongchek",
+   2088,
+   10
+  ],
+  "295802": [
+   "Rumphum",
+   2088,
+   4
+  ],
+  "295804": [
+   "Umdap",
+   2088,
+   4
+  ],
+  "295799": [
+   "Pampura",
+   2088,
+   3
+  ],
+  "295784": [
+   "Mausaladyang",
+   2088,
+   3
+  ],
+  "295787": [
+   "Umlapher",
+   2088,
+   3
+  ],
+  "295834": [
+   "Maina Hanse Gaon",
+   2088,
+   10
+  ],
+  "295813": [
+   "Rongmandu Engti Gaon",
+   2088,
+   10
+  ],
+  "295808": [
+   "Oklokpi",
+   2088,
+   10
+  ],
+  "295684": [
+   "Rongpangbong",
+   2088,
+   6
+  ],
+  "295695": [
+   "Mokoilum",
+   2088,
+   6
+  ],
+  "295697": [
+   "Phlang",
+   2088,
+   6
+  ],
+  "295687": [
+   "Rongkhelan",
+   2088,
+   6
+  ],
+  "295688": [
+   "Sametan",
+   2088,
+   6
+  ],
+  "295689": [
+   "Mukroh",
+   2088,
+   6
+  ],
+  "295683": [
+   "Madan Men Ih",
+   2088,
+   6
+  ],
+  "295746": [
+   "Komalongjon",
+   2088,
+   7
+  ],
+  "295745": [
+   "Denglier",
+   2088,
+   7
+  ],
+  "295742": [
+   "Morap",
+   2088,
+   7
+  ],
+  "295741": [
+   "Umjulaher",
+   2088,
+   7
+  ],
+  "295738": [
+   "Khindeliar",
+   2088,
+   7
+  ],
+  "295737": [
+   "Upilangso",
+   2088,
+   7
+  ],
+  "295739": [
+   "Lumsajar",
+   2088,
+   7
+  ],
+  "295740": [
+   "Sarucha",
+   2088,
+   7
+  ],
+  "295744": [
+   "Lamarang",
+   2088,
+   7
+  ],
+  "295708": [
+   "Woterang Langso",
+   2088,
+   1
+  ],
+  "295707": [
+   "Madan Nongkirla",
+   2088,
+   1
+  ],
+  "295706": [
+   "Umplong",
+   2088,
+   1
+  ],
+  "295704": [
+   "Mothade",
+   2088,
+   2
+  ],
+  "295690": [
+   "Umkhirmi",
+   2088,
+   1
+  ],
+  "295703": [
+   "Longtarthepi",
+   2088,
+   1
+  ],
+  "295702": [
+   "Sopiem",
+   2088,
+   1
+  ],
+  "295701": [
+   "Muva",
+   2088,
+   1
+  ],
+  "295728": [
+   "Rongnihang",
+   2088,
+   7
+  ],
+  "295729": [
+   "Thatskai",
+   2088,
+   1
+  ],
+  "295730": [
+   "Mukhim",
+   2088,
+   1
+  ],
+  "295699": [
+   "Saliat",
+   2088,
+   1
+  ],
+  "295698": [
+   "Mulaber",
+   2088,
+   1
+  ],
+  "295700": [
+   "Mujen",
+   2088,
+   1
+  ],
+  "295721": [
+   "Langlongpak",
+   2088,
+   2
+  ],
+  "295720": [
+   "Taseng",
+   2088,
+   2
+  ],
+  "295731": [
+   "Mukhim Khasi",
+   2088,
+   2
+  ],
+  "295661": [
+   "Niz Rongkhang",
+   2088,
+   6
+  ],
+  "295662": [
+   "Badong",
+   2088,
+   6
+  ],
+  "295672": [
+   "Socheng",
+   2088,
+   12
+  ],
+  "295666": [
+   "Umchera",
+   2088,
+   6
+  ],
+  "295474": [
+   "Langtukthepi",
+   2088,
+   12
+  ],
+  "295475": [
+   "Thai Hong",
+   2088,
+   12
+  ],
+  "295463": [
+   "Ronghidi",
+   2088,
+   6
+  ],
+  "295473": [
+   "Phongjangre",
+   2088,
+   12
+  ],
+  "295464": [
+   "Arsong",
+   2088,
+   13
+  ],
+  "295465": [
+   "Chek Artu",
+   2088,
+   13
+  ],
+  "295466": [
+   "Long Epi",
+   2088,
+   13
+  ],
+  "295630": [
+   "Longle Athan",
+   2088,
+   6
+  ],
+  "295670": [
+   "Langkircha",
+   2088,
+   7
+  ],
+  "295668": [
+   "Umphu Kuki",
+   2088,
+   7
+  ],
+  "295667": [
+   "Umphu Karbi",
+   2088,
+   13
+  ],
+  "295459": [
+   "Phong Apam",
+   2088,
+   13
+  ],
+  "295458": [
+   "Nong Krong",
+   2088,
+   13
+  ],
+  "295663": [
+   "Baida",
+   2088,
+   8
+  ],
+  "295675": [
+   "Khanduli",
+   2088,
+   5
+  ],
+  "295669": [
+   "Mujong Nepali",
+   2088,
+   7
+  ],
+  "295747": [
+   "Amlong",
+   2088,
+   7
+  ],
+  "295803": [
+   "Lang Er Dang",
+   2088,
+   11
+  ],
+  "295801": [
+   "Rupai",
+   2088,
+   11
+  ],
+  "295793": [
+   "Khili Umwang",
+   2088,
+   10
+  ],
+  "295795": [
+   "Moput",
+   2088,
+   9
+  ],
+  "295782": [
+   "Langhonjar Phangcho",
+   2088,
+   9
+  ],
+  "295341": [
+   "Umsamukh",
+   2088,
+   9
+  ],
+  "295342": [
+   "Umbormon",
+   2088,
+   9
+  ],
+  "295369": [
+   "Balikunchi",
+   2088,
+   10
+  ],
+  "295368": [
+   "Borrongkhoi",
+   2088,
+   10
+  ],
+  "295344": [
+   "Singkung",
+   2088,
+   10
+  ],
+  "295343": [
+   "Mubai",
+   2088,
+   18
+  ],
+  "295314": [
+   "Khaplang Kunchi",
+   2088,
+   18
+  ],
+  "295439": [
+   "Dukekpi",
+   2088,
+   18
+  ],
+  "295345": [
+   "Ullukuachi",
+   2088,
+   18
+  ],
+  "295364": [
+   "Kakoti Goan",
+   2088,
+   18
+  ],
+  "295362": [
+   "Lakhon Gaon",
+   2088,
+   17
+  ],
+  "295363": [
+   "Ronghang Gaon",
+   2088,
+   17
+  ],
+  "295327": [
+   "Mokaba",
+   2088,
+   17
+  ],
+  "295321": [
+   "Umlata Ap",
+   2088,
+   17
+  ],
+  "295346": [
+   "Umkasi",
+   2088,
+   17
+  ],
+  "295340": [
+   "Birsingki",
+   2088,
+   17
+  ],
+  "295334": [
+   "Umjiri",
+   2088,
+   9
+  ],
+  "295361": [
+   "Engti Thengkiri",
+   2088,
+   17
+  ],
+  "295446": [
+   "Agra Kunchi",
+   2088,
+   18
+  ],
+  "295348": [
+   "Chalai Ar",
+   2088,
+   18
+  ],
+  "295308": [
+   "Pongraguri",
+   2088,
+   18
+  ],
+  "295353": [
+   "Morten",
+   2088,
+   18
+  ],
+  "295347": [
+   "Maslai Kunchi",
+   2088,
+   18
+  ],
+  "295318": [
+   "Rumphom",
+   2088,
+   18
+  ],
+  "295419": [
+   "Khaya Hanse",
+   2088,
+   18
+  ],
+  "295301": [
+   "Keng Abat",
+   2088,
+   23
+  ],
+  "295302": [
+   "Sinari Roman",
+   2088,
+   23
+  ],
+  "295306": [
+   "Bogajamin",
+   2088,
+   23
+  ],
+  "295303": [
+   "Amduba",
+   2088,
+   23
+  ],
+  "295441": [
+   "Useneng",
+   2088,
+   23
+  ],
+  "295305": [
+   "Hadau",
+   2088,
+   23
+  ],
+  "295304": [
+   "Kumrai Khura",
+   2088,
+   23
+  ],
+  "295316": [
+   "Umswai",
+   2088,
+   17
+  ],
+  "295313": [
+   "Phutsari",
+   2088,
+   17
+  ],
+  "295774": [
+   "Kungripi",
+   2088,
+   11
+  ],
+  "295773": [
+   "Dengthawali",
+   2088,
+   11
+  ],
+  "295812": [
+   "Serengdap",
+   2088,
+   11
+  ],
+  "295811": [
+   "Lang Ikso",
+   2088,
+   19
+  ],
+  "295354": [
+   "Morten Nongtham",
+   2088,
+   18
+  ],
+  "295841": [
+   "Rongchomang Sevar",
+   2088,
+   19
+  ],
+  "295840": [
+   "Mukinda Sevar",
+   2088,
+   19
+  ],
+  "295770": [
+   "Phulok Kro Gaon",
+   2088,
+   18
+  ],
+  "295759": [
+   "Engti Habai",
+   2088,
+   10
+  ],
+  "295760": [
+   "Rongkor",
+   2088,
+   10
+  ],
+  "295776": [
+   "Amser",
+   2088,
+   10
+  ],
+  "295839": [
+   "Masereng",
+   2088,
+   10
+  ],
+  "295781": [
+   "Latmarleng",
+   2088,
+   10
+  ],
+  "295792": [
+   "Sabuda",
+   2088,
+   10
+  ],
+  "295791": [
+   "Dengthit",
+   2088,
+   10
+  ],
+  "295772": [
+   "Malingkisir",
+   2088,
+   19
+  ],
+  "295838": [
+   "Kongehing Tokbi Gaon",
+   2088,
+   19
+  ],
+  "295847": [
+   "Mane Teron Gaon",
+   2088,
+   19
+  ],
+  "295845": [
+   "Arlong Sarlong",
+   2088,
+   19
+  ],
+  "295823": [
+   "Tirkim",
+   2088,
+   19
+  ],
+  "295844": [
+   "Maine Bey Gaon",
+   2088,
+   19
+  ],
+  "295778": [
+   "Patimukha",
+   2088,
+   19
+  ],
+  "295780": [
+   "Kynthung",
+   2088,
+   19
+  ],
+  "295358": [
+   "Durang",
+   2088,
+   24
+  ],
+  "295352": [
+   "Kramkunchi",
+   2088,
+   24
+  ],
+  "295375": [
+   "Langlongku",
+   2088,
+   24
+  ],
+  "295357": [
+   "Terangnagor",
+   2088,
+   24
+  ],
+  "295367": [
+   "Ahom Buroi",
+   2088,
+   24
+  ],
+  "295775": [
+   "Kamaidap",
+   2088,
+   18
+  ],
+  "295828": [
+   "Umrinti Gaon",
+   2088,
+   19
+  ],
+  "295673": [
+   "Mokoiram",
+   2088,
+   12
+  ],
+  "295455": [
+   "Somupong",
+   2088,
+   12
+  ],
+  "295337": [
+   "Rongchek",
+   2088,
+   12
+  ],
+  "295830": [
+   "Langteng",
+   2088,
+   20
+  ],
+  "295448": [
+   "Rong Phom",
+   2088,
+   20
+  ],
+  "295497": [
+   "Deramukam",
+   2088,
+   19
+  ],
+  "295843": [
+   "Patarao",
+   2088,
+   20
+  ],
+  "295842": [
+   "Parbat Gaon Rongkhlan",
+   2088,
+   20
+  ],
+  "295846": [
+   "Chinong Kadai",
+   2088,
+   12
+  ],
+  "295437": [
+   "Ouguri T E",
+   2088,
+   12
+  ],
+  "295827": [
+   "Borpu",
+   2088,
+   12
+  ],
+  "295490": [
+   "Barman Gaon Deori",
+   2088,
+   20
+  ],
+  "295824": [
+   "Langmet",
+   2088,
+   20
+  ],
+  "295829": [
+   "Langmet",
+   2088,
+   20
+  ],
+  "295765": [
+   "Biriklongtar",
+   2088,
+   20
+  ],
+  "295460": [
+   "Long Eh Pi",
+   2088,
+   20
+  ],
+  "295451": [
+   "Tika",
+   2088,
+   20
+  ],
+  "295825": [
+   "Umrini Gaon",
+   2088,
+   12
+  ],
+  "249923": [
+   "Hamren",
+   2088,
+   13
+  ],
+  "295457": [
+   "Nok Terang",
+   2088,
+   13
+  ],
+  "295750": [
+   "Solamukha",
+   2088,
+   13
+  ],
+  "295751": [
+   "Langap",
+   2088,
+   13
+  ],
+  "295769": [
+   "Langlongdang",
+   2088,
+   13
+  ],
+  "295635": [
+   "Harsing Teron",
+   2088,
+   13
+  ],
+  "295517": [
+   "Radhanagar",
+   2088,
+   14
+  ],
+  "249924": [
+   "Donkamokam",
+   2088,
+   21
+  ],
+  "295626": [
+   "Long E Pi",
+   2088,
+   13
+  ],
+  "295625": [
+   "Chengbiri",
+   2088,
+   13
+  ],
+  "295462": [
+   "Mupirchung",
+   2088,
+   21
+  ],
+  "295627": [
+   "Umahalangso",
+   2088,
+   21
+  ],
+  "295450": [
+   "Rongtara",
+   2088,
+   21
+  ],
+  "295623": [
+   "Podumpukhuri",
+   2088,
+   21
+  ],
+  "295640": [
+   "Ronglangbung",
+   2088,
+   21
+  ],
+  "295545": [
+   "Bogorighat",
+   2088,
+   21
+  ],
+  "295549": [
+   "Cheng Cheng Bil",
+   2088,
+   21
+  ],
+  "295646": [
+   "Bali Gaon",
+   2088,
+   21
+  ],
+  "295767": [
+   "Sumer Pathar Langparpan",
+   2088,
+   21
+  ],
+  "295766": [
+   "Langsangti",
+   2088,
+   21
+  ],
+  "999999": [
+   "Data Partially Available",
+   2088,
+   12
+  ],
+  "295539": [
+   "Ranaima",
+   2088,
+   21
+  ],
+  "295454": [
+   "Linchika",
+   2088,
+   13
+  ],
+  "295768": [
+   "Langsomepi",
+   2088,
+   13
+  ],
+  "295574": [
+   "Phoroklangso",
+   2088,
+   13
+  ],
+  "295567": [
+   "Kolonga",
+   2088,
+   13
+  ],
+  "295590": [
+   "Kuthepi Terang Gaon",
+   2088,
+   14
+  ],
+  "295748": [
+   "Umpoo",
+   2088,
+   21
+  ],
+  "295641": [
+   "Kolising Gaon",
+   2088,
+   21
+  ],
+  "295647": [
+   "Tisso Gaon",
+   2088,
+   22
+  ],
+  "295648": [
+   "Rongpi Gaon",
+   2088,
+   22
+  ],
+  "295624": [
+   "Bamon Terang",
+   2088,
+   21
+  ],
+  "295749": [
+   "Longle Athan",
+   2088,
+   13
+  ],
+  "295757": [
+   "Laram",
+   2088,
+   20
+  ],
+  "295836": [
+   "Solu Rongphar",
+   2088,
+   20
+  ],
+  "295835": [
+   "Langang Engti Gaon",
+   2088,
+   20
+  ],
+  "295848": [
+   "Lang Makang",
+   2088,
+   19
+  ],
+  "295809": [
+   "Murap",
+   2088,
+   19
+  ],
+  "295779": [
+   "Thengmu",
+   2088,
+   19
+  ],
+  "295820": [
+   "Rongnihang",
+   2088,
+   20
+  ],
+  "295826": [
+   "Amtereng",
+   2088,
+   20
+  ],
+  "295328": [
+   "Umchetri",
+   2088,
+   20
+  ],
+  "295752": [
+   "Langang Tokbi",
+   2088,
+   20
+  ],
+  "295754": [
+   "Dikisir",
+   2088,
+   20
+  ],
+  "295790": [
+   "Jalalon",
+   2088,
+   20
+  ],
+  "295756": [
+   "Jhaluklangteng",
+   2088,
+   20
+  ],
+  "295771": [
+   "Long E Lubui",
+   2088,
+   19
+  ],
+  "295819": [
+   "Bukiching",
+   2088,
+   25
+  ],
+  "295821": [
+   "Langteng Rongphar",
+   2088,
+   25
+  ],
+  "295854": [
+   "Hanthor Gaon Rf",
+   2088,
+   19
+  ],
+  "295853": [
+   "Banai Rf",
+   2088,
+   24
+  ],
+  "295400": [
+   "Natun Borpathar",
+   2088,
+   25
+  ],
+  "295413": [
+   "Langtuk Teron",
+   2088,
+   24
+  ],
+  "295514": [
+   "Nogahoria Pgr",
+   2088,
+   24
+  ],
+  "295411": [
+   "Amlokkhi",
+   2088,
+   25
+  ],
+  "295410": [
+   "Rongkangtui",
+   2088,
+   25
+  ],
+  "295407": [
+   "Sarleng Tisso",
+   2088,
+   25
+  ],
+  "295406": [
+   "Rongphelang",
+   2088,
+   25
+  ],
+  "295418": [
+   "Harlok Jasera",
+   2088,
+   25
+  ],
+  "295417": [
+   "Maj Barpathar",
+   2088,
+   25
+  ],
+  "295432": [
+   "Amtereng",
+   2088,
+   25
+  ],
+  "295431": [
+   "Lengri",
+   2088,
+   20
+  ],
+  "295425": [
+   "Rongkimi",
+   2088,
+   20
+  ],
+  "295426": [
+   "Tharve Abi",
+   2088,
+   20
+  ],
+  "295423": [
+   "Ran Habai",
+   2088,
+   20
+  ],
+  "295422": [
+   "Eden Bari",
+   2088,
+   20
+  ],
+  "295421": [
+   "Maisam",
+   2088,
+   25
+  ],
+  "295427": [
+   "Doloni",
+   2088,
+   25
+  ],
+  "295420": [
+   "Umsero",
+   2088,
+   25
+  ],
+  "295430": [
+   "Panbari",
+   2088,
+   25
+  ],
+  "295428": [
+   "Enghin Gaon",
+   2088,
+   25
+  ],
+  "295429": [
+   "Kharupindha",
+   2088,
+   25
+  ],
+  "295629": [
+   "Umru Phong Langso",
+   2088,
+   20
+  ],
+  "295491": [
+   "Thepli Aram",
+   2088,
+   20
+  ],
+  "295764": [
+   "Larsing",
+   2088,
+   20
+  ],
+  "295763": [
+   "Longre",
+   2088,
+   20
+  ],
+  "295761": [
+   "Umru",
+   2088,
+   20
+  ],
+  "295655": [
+   "Phetkuso",
+   2088,
+   20
+  ],
+  "295449": [
+   "Baithalangso",
+   2088,
+   20
+  ],
+  "295512": [
+   "Kheroni Nepali Pgr",
+   2088,
+   21
+  ],
+  "295614": [
+   "Doloni",
+   2088,
+   21
+  ],
+  "295620": [
+   "Ling Ding",
+   2088,
+   26
+  ],
+  "295619": [
+   "Lang Herang",
+   2088,
+   26
+  ],
+  "295618": [
+   "Hanlokrok",
+   2088,
+   26
+  ],
+  "295611": [
+   "Mir Ingku",
+   2088,
+   26
+  ],
+  "295613": [
+   "Jaljuri Longbui",
+   2088,
+   26
+  ],
+  "295612": [
+   "Amguri",
+   2088,
+   21
+  ],
+  "295541": [
+   "Kheroni Maj Basti",
+   2088,
+   21
+  ],
+  "295511": [
+   "Kheroni Purana Basti Pgr",
+   2088,
+   21
+  ],
+  "295615": [
+   "Raja Gaon",
+   2088,
+   21
+  ],
+  "295543": [
+   "Baksadubi Pgr",
+   2088,
+   22
+  ],
+  "295607": [
+   "Pub Khanajan",
+   2088,
+   22
+  ],
+  "295617": [
+   "Garo Gaon",
+   2088,
+   21
+  ],
+  "295515": [
+   "Bagisadubi",
+   2088,
+   20
+  ],
+  "295452": [
+   "Umcheret",
+   2088,
+   21
+  ],
+  "295488": [
+   "Kabung Ronghang Gaon",
+   2088,
+   21
+  ],
+  "295622": [
+   "Tengkeralangso",
+   2088,
+   21
+  ],
+  "295621": [
+   "Saru Borthol",
+   2088,
+   21
+  ],
+  "295487": [
+   "Telehor",
+   2088,
+   21
+  ],
+  "295638": [
+   "Sotobali",
+   2088,
+   21
+  ],
+  "295637": [
+   "Tharve Langso",
+   2088,
+   21
+  ],
+  "295762": [
+   "Wodilangso",
+   2088,
+   21
+  ],
+  "295639": [
+   "Goroimari",
+   2088,
+   21
+  ],
+  "295643": [
+   "Angpong Gaon",
+   2088,
+   21
+  ],
+  "295642": [
+   "Kumpathar",
+   2088,
+   21
+  ],
+  "295616": [
+   "Bogori Gaon",
+   2088,
+   21
+  ],
+  "295645": [
+   "Haldikrong",
+   2088,
+   22
+  ],
+  "295405": [
+   "Rong Ikso",
+   2088,
+   25
+  ],
+  "295398": [
+   "Tengkeralangso",
+   2088,
+   25
+  ],
+  "295424": [
+   "Borsing Hanse",
+   2088,
+   20
+  ],
+  "295542": [
+   "Dekreng Pgr",
+   2088,
+   26
+  ],
+  "295810": [
+   "Umseken",
+   2088,
+   19
+  ],
+  "295833": [
+   "Engti Gaon",
+   2088,
+   25
+  ],
+  "295816": [
+   "Morinto",
+   2088,
+   19
+  ],
+  "295753": [
+   "Langang Rongphar",
+   2088,
+   20
+  ],
+  "295755": [
+   "Langteng Senar",
+   2088,
+   20
+  ],
+  "295433": [
+   "Minro",
+   2088,
+   25
+  ],
+  "295443": [
+   "Bong Sal",
+   2088,
+   24
+  ],
+  "295312": [
+   "Langerdang",
+   2088,
+   24
+  ],
+  "295311": [
+   "Uthankunchi",
+   2088,
+   24
+  ],
+  "295310": [
+   "Silangkunchi",
+   2088,
+   24
+  ],
+  "295381": [
+   "Saru Amli",
+   2088,
+   24
+  ],
+  "295382": [
+   "Bor Amli",
+   2088,
+   23
+  ],
+  "295383": [
+   "Chupi Kelok",
+   2088,
+   23
+  ],
+  "295384": [
+   "Langpok Kang",
+   2088,
+   23
+  ],
+  "295297": [
+   "Amserli",
+   2088,
+   23
+  ],
+  "295292": [
+   "Baulagog",
+   2088,
+   23
+  ],
+  "295444": [
+   "Pandong Mohe",
+   2088,
+   23
+  ],
+  "295324": [
+   "Marjong",
+   2088,
+   23
+  ],
+  "295299": [
+   "Lembra",
+   2088,
+   23
+  ],
+  "295294": [
+   "Amguri",
+   2088,
+   23
+  ],
+  "295440": [
+   "Soru Rongkhoi",
+   2088,
+   23
+  ],
+  "295295": [
+   "Ouguri",
+   2088,
+   23
+  ],
+  "295320": [
+   "Amsubra",
+   2088,
+   23
+  ],
+  "295349": [
+   "Harba Sa",
+   2088,
+   23
+  ],
+  "295447": [
+   "Amri Khat",
+   2088,
+   23
+  ],
+  "295649": [
+   "Womu Attar",
+   2088,
+   23
+  ],
+  "295438": [
+   "Barim Gaon",
+   2088,
+   24
+  ],
+  "295365": [
+   "Bichi Thur",
+   2088,
+   24
+  ],
+  "295366": [
+   "Borgaon",
+   2088,
+   24
+  ],
+  "295360": [
+   "Kro Kengdang",
+   2088,
+   24
+  ],
+  "295850": [
+   "Sinai Nadi R F",
+   2088,
+   24
+  ],
+  "295371": [
+   "Sinai Nadi",
+   2088,
+   24
+  ],
+  "295395": [
+   "Khatomari",
+   2088,
+   24
+  ],
+  "295412": [
+   "Sarbura Senar",
+   2088,
+   24
+  ],
+  "295293": [
+   "Beltola",
+   2088,
+   23
+  ],
+  "295372": [
+   "Voksong Ghelapata",
+   2088,
+   24
+  ],
+  "295370": [
+   "Dalimbari",
+   2088,
+   24
+  ],
+  "295392": [
+   "Thangsing Senar",
+   2088,
+   25
+  ],
+  "295393": [
+   "Langmekloo",
+   2088,
+   25
+  ],
+  "295394": [
+   "Thanghonsing",
+   2088,
+   24
+  ],
+  "295379": [
+   "Keraidong",
+   2088,
+   24
+  ],
+  "295658": [
+   "Chekso Borkheromi",
+   2088,
+   25
+  ],
+  "295380": [
+   "Kong Kat",
+   2088,
+   25
+  ],
+  "295660": [
+   "Longboi Ronghang Gaon",
+   2088,
+   25
+  ],
+  "295657": [
+   "Matiparbat",
+   2088,
+   25
+  ],
+  "295401": [
+   "Sar Engti",
+   2088,
+   25
+  ],
+  "295468": [
+   "Hongkram Adarsha",
+   2088,
+   25
+  ],
+  "295656": [
+   "Langang Senar Gaon",
+   2088,
+   25
+  ],
+  "295851": [
+   "Jukuta Rf",
+   2088,
+   25
+  ],
+  "295387": [
+   "Hatigarh",
+   2088,
+   25
+  ],
+  "295391": [
+   "Langlongku",
+   2088,
+   25
+  ],
+  "295388": [
+   "Radhala",
+   2088,
+   25
+  ],
+  "295389": [
+   "Dighali Pukhuri",
+   2088,
+   25
+  ],
+  "295818": [
+   "Patikyndok",
+   2088,
+   25
+  ],
+  "295396": [
+   "Karbi Archon",
+   2088,
+   25
+  ],
+  "295376": [
+   "Burajungthung",
+   2088,
+   25
+  ],
+  "295385": [
+   "Mortel",
+   2088,
+   25
+  ],
+  "295831": [
+   "Umpaklong",
+   2088,
+   25
+  ],
+  "295386": [
+   "Ben Terang",
+   2088,
+   25
+  ],
+  "295415": [
+   "Rongagora",
+   2088,
+   25
+  ],
+  "295402": [
+   "Bilo Ke Ap",
+   2088,
+   25
+  ],
+  "295408": [
+   "Rongtumeng",
+   2088,
+   25
+  ],
+  "295409": [
+   "Bogori Anglong",
+   2088,
+   25
+  ],
+  "295404": [
+   "Tumprop",
+   2088,
+   25
+  ],
+  "295403": [
+   "Phangchophe Re Re",
+   2088,
+   25
+  ],
+  "295416": [
+   "Sucha",
+   2088,
+   25
+  ],
+  "295378": [
+   "Pipar Gaon",
+   2088,
+   25
+  ],
+  "295390": [
+   "Borkok",
+   2088,
+   25
+  ],
+  "295377": [
+   "Karbi Lalung",
+   2088,
+   25
+  ],
+  "295397": [
+   "Plimplam Abi",
+   2088,
+   25
+  ],
+  "295659": [
+   "Santipur",
+   2088,
+   25
+  ],
+  "295832": [
+   "Chiri",
+   2088,
+   25
+  ],
+  "295852": [
+   "Tmulbari Rf",
+   2088,
+   25
+  ],
+  "295705": [
+   "Mowlian",
+   2088,
+   2
+  ],
+  "295714": [
+   "Durbin Tilla",
+   2088,
+   2
+  ],
+  "295713": [
+   "Rongche Jeng",
+   2088,
+   2
+  ],
+  "295711": [
+   "Rongjangphong",
+   2088,
+   2
+  ],
+  "295712": [
+   "Rongtar Me",
+   2088,
+   2
+  ],
+  "295715": [
+   "Jyrykyndeng",
+   2088,
+   2
+  ],
+  "295710": [
+   "Mutha",
+   2088,
+   2
+  ],
+  "295709": [
+   "Langsomepi",
+   2088,
+   2
+  ],
+  "295716": [
+   "Chongkhili",
+   2088,
+   2
+  ],
+  "295719": [
+   "Langkiding",
+   2088,
+   2
+  ],
+  "295718": [
+   "Phonglangso",
+   2088,
+   8
+  ],
+  "295722": [
+   "Mokindur",
+   2088,
+   8
+  ],
+  "295735": [
+   "Rongmanpi",
+   2088,
+   2
+  ],
+  "295734": [
+   "Moknor",
+   2088,
+   2
+  ],
+  "295733": [
+   "Bandeng",
+   2088,
+   8
+  ],
+  "295736": [
+   "Umta Ap",
+   2088,
+   8
+  ],
+  "295743": [
+   "Muriap",
+   2088,
+   8
+  ],
+  "295727": [
+   "Amtukapam",
+   2088,
+   8
+  ],
+  "295717": [
+   "Chirimthepi",
+   2088,
+   8
+  ],
+  "295724": [
+   "Charchim D C R F",
+   2088,
+   8
+  ],
+  "295723": [
+   "Charchim",
+   2088,
+   8
+  ],
+  "295725": [
+   "Prisek",
+   2088,
+   8
+  ],
+  "295788": [
+   "Ratial",
+   2088,
+   8
+  ],
+  "295726": [
+   "Amreng",
+   2088,
+   8
+  ],
+  "295732": [
+   "Usaliet",
+   2088,
+   8
+  ],
+  "295665": [
+   "Chekphubang",
+   2088,
+   8
+  ],
+  "295482": [
+   "Akelal",
+   2088,
+   14
+  ],
+  "295477": [
+   "Amlet",
+   2088,
+   8
+  ],
+  "295495": [
+   "Chengbong",
+   2088,
+   14
+  ],
+  "295476": [
+   "Langchithing",
+   2088,
+   15
+  ],
+  "295636": [
+   "Sing Rongphar",
+   2088,
+   15
+  ],
+  "295580": [
+   "Dima Gaon",
+   2088,
+   15
+  ],
+  "295483": [
+   "Woham Langso",
+   2088,
+   8
+  ],
+  "295478": [
+   "San Sika Nihang Basti",
+   2088,
+   15
+  ],
+  "295650": [
+   "Sampathar",
+   2088,
+   15
+  ],
+  "295664": [
+   "Umtalong",
+   2088,
+   8
+  ],
+  "295581": [
+   "Dima Gaon",
+   2088,
+   8
+  ],
+  "295654": [
+   "Chamr",
+   2088,
+   15
+  ],
+  "295583": [
+   "Harsing Bey Gaon",
+   2088,
+   16
+  ],
+  "295501": [
+   "Mekve Pathar",
+   2088,
+   15
+  ],
+  "295506": [
+   "Sarumatikhula",
+   2088,
+   15
+  ],
+  "295502": [
+   "Lang Sibu",
+   2088,
+   15
+  ],
+  "295498": [
+   "Langparpam",
+   2088,
+   15
+  ],
+  "295503": [
+   "Rikang Mehom",
+   2088,
+   15
+  ],
+  "295481": [
+   "Langthat",
+   2088,
+   15
+  ],
+  "295479": [
+   "Langmepi",
+   2088,
+   15
+  ],
+  "295461": [
+   "Rongkongtui",
+   2088,
+   14
+  ],
+  "295480": [
+   "Lang Amek",
+   2088,
+   15
+  ],
+  "295485": [
+   "Dera Arlok",
+   2088,
+   15
+  ],
+  "295484": [
+   "Derajuri",
+   2088,
+   14
+  ],
+  "295538": [
+   "Deklem",
+   2088,
+   16
+  ],
+  "295525": [
+   "Belbari",
+   2088,
+   16
+  ],
+  "295534": [
+   "Watijur",
+   2088,
+   16
+  ],
+  "295610": [
+   "Rongjamir",
+   2088,
+   26
+  ],
+  "295602": [
+   "Upper Taradubi",
+   2088,
+   26
+  ],
+  "295471": [
+   "Rupachithi",
+   2088,
+   26
+  ],
+  "295600": [
+   "Hatimora",
+   2088,
+   26
+  ],
+  "295601": [
+   "Ganganagar",
+   2088,
+   26
+  ],
+  "295604": [
+   "Bhelapara",
+   2088,
+   26
+  ],
+  "295582": [
+   "Uttar Bali Gaon",
+   2088,
+   26
+  ],
+  "295597": [
+   "Mugasong",
+   2088,
+   22
+  ],
+  "295859": [
+   "Satsong R F",
+   2088,
+   22
+  ],
+  "295599": [
+   "Tumpreng",
+   2088,
+   26
+  ],
+  "295594": [
+   "Rongphar Senot",
+   2088,
+   26
+  ],
+  "295609": [
+   "Rpngkuroi",
+   2088,
+   26
+  ],
+  "295560": [
+   "Rongphar Gaon",
+   2088,
+   22
+  ],
+  "295605": [
+   "Sat Gaon",
+   2088,
+   22
+  ],
+  "295598": [
+   "Tumpreng Bazaar",
+   2088,
+   22
+  ],
+  "295606": [
+   "Satgaon Bazaar",
+   2088,
+   22
+  ],
+  "295608": [
+   "Kanajan",
+   2088,
+   22
+  ],
+  "295595": [
+   "Notun Ghelani",
+   2088,
+   22
+  ],
+  "295596": [
+   "Pub Ghelani",
+   2088,
+   22
+  ],
+  "295858": [
+   "Bithung Rf",
+   2088,
+   22
+  ],
+  "295628": [
+   "Larsing Engti",
+   2088,
+   14
+  ],
+  "295568": [
+   "Kolonga",
+   2088,
+   14
+  ],
+  "295589": [
+   "Kuthepi Nepali Gaon",
+   2088,
+   14
+  ],
+  "295456": [
+   "Amsalam",
+   2088,
+   22
+  ],
+  "295651": [
+   "Terang Gaon",
+   2088,
+   16
+  ],
+  "295518": [
+   "Wasilong",
+   2088,
+   16
+  ],
+  "295519": [
+   "Deklem",
+   2088,
+   16
+  ],
+  "295540": [
+   "Maimaru Das Basti",
+   2088,
+   16
+  ],
+  "295505": [
+   "Bormatikhula",
+   2088,
+   15
+  ],
+  "295558": [
+   "Lalmati",
+   2088,
+   15
+  ],
+  "295513": [
+   "Kheroni Kachari Pgr",
+   2088,
+   15
+  ],
+  "295544": [
+   "L S M Farm",
+   2088,
+   15
+  ],
+  "295633": [
+   "Ampathar",
+   2088,
+   15
+  ],
+  "295508": [
+   "Kheroni",
+   2088,
+   15
+  ],
+  "295547": [
+   "Kheroni Garo Gaon",
+   2088,
+   15
+  ],
+  "295546": [
+   "Bogorighat",
+   2088,
+   15
+  ],
+  "295855": [
+   "Rongkhana Rf",
+   2088,
+   15
+  ],
+  "295499": [
+   "Disakisim",
+   2088,
+   15
+  ],
+  "295414": [
+   "Sarbura Teron",
+   2088,
+   15
+  ],
+  "295758": [
+   "Batlok Teron Gaon",
+   2088,
+   15
+  ],
+  "295507": [
+   "Ampathar",
+   2088,
+   15
+  ],
+  "295494": [
+   "Theso",
+   2088,
+   15
+  ],
+  "295576": [
+   "Karbi Rongsopi",
+   2088,
+   15
+  ],
+  "295504": [
+   "Phelangpi",
+   2088,
+   15
+  ],
+  "295559": [
+   "Enchin Langso",
+   2088,
+   15
+  ],
+  "295554": [
+   "Rongmandu",
+   2088,
+   15
+  ],
+  "295564": [
+   "Rebabali",
+   2088,
+   15
+  ],
+  "295573": [
+   "Deramukh",
+   2088,
+   15
+  ],
+  "295572": [
+   "Sitoli Jan",
+   2088,
+   15
+  ],
+  "295548": [
+   "Chera Pathar",
+   2088,
+   15
+  ],
+  "295587": [
+   "Rongkuru",
+   2088,
+   15
+  ],
+  "295551": [
+   "Priloo",
+   2088,
+   15
+  ],
+  "295486": [
+   "Thenglong",
+   2088,
+   14
+  ],
+  "295492": [
+   "Harlong Sora",
+   2088,
+   14
+  ],
+  "295552": [
+   "Engleng Gaon Deuri",
+   2088,
+   14
+  ],
+  "295837": [
+   "Wadilangso",
+   2088,
+   14
+  ],
+  "295467": [
+   "Hongkram",
+   2088,
+   14
+  ],
+  "295565": [
+   "Kathar Gaon",
+   2088,
+   14
+  ],
+  "295593": [
+   "Mulokbong",
+   2088,
+   14
+  ],
+  "295592": [
+   "Sar Senot",
+   2088,
+   14
+  ],
+  "295591": [
+   "Borsing Engleng",
+   2088,
+   14
+  ],
+  "295588": [
+   "Ingti Kaibong",
+   2088,
+   22
+  ],
+  "295584": [
+   "Kelengdun Teron Gaon",
+   2088,
+   15
+  ],
+  "295557": [
+   "Mukhim",
+   2088,
+   15
+  ],
+  "295575": [
+   "Karbi Rongsopi",
+   2088,
+   15
+  ],
+  "295309": [
+   "Mugaguri",
+   2088,
+   15
+  ],
+  "295570": [
+   "Kolonga",
+   2088,
+   15
+  ],
+  "295550": [
+   "Theso Bil",
+   2088,
+   14
+  ],
+  "295489": [
+   "Harlong Chebat",
+   2088,
+   15
+  ],
+  "295493": [
+   "Jengkha",
+   2088,
+   14
+  ],
+  "295472": [
+   "Serlongchor",
+   2088,
+   14
+  ],
+  "295496": [
+   "Jengkro",
+   2088,
+   14
+  ],
+  "295307": [
+   "Tharakunchi",
+   2088,
+   14
+  ],
+  "295857": [
+   "Hanthor Teron Rf",
+   2088,
+   14
+  ],
+  "295856": [
+   "Hai Artu Rf",
+   2088,
+   14
+  ],
+  "295586": [
+   "Basa Rongphar",
+   2088,
+   22
+  ],
+  "295585": [
+   "Kamar Hanse",
+   2088,
+   22
+  ],
+  "295566": [
+   "Klengdun Hanse Gaon",
+   2088,
+   15
+  ],
+  "295563": [
+   "Sildubi",
+   2088,
+   15
+  ],
+  "295556": [
+   "Menmeji",
+   2088,
+   15
+  ],
+  "295562": [
+   "Khandajan",
+   2088,
+   15
+  ],
+  "295634": [
+   "Telehor",
+   2088,
+   15
+  ],
+  "295571": [
+   "Jengkha Ronghang Gaon",
+   2088,
+   15
+  ],
+  "295569": [
+   "Langminso",
+   2088,
+   14
+  ],
+  "295644": [
+   "Kawoimari",
+   2088,
+   22
+  ],
+  "295555": [
+   "Ramthepi",
+   2088,
+   15
+  ],
+  "295553": [
+   "Englong Parpan",
+   2088,
+   15
+  ],
+  "295632": [
+   "Borbali",
+   2088,
+   22
+  ],
+  "295500": [
+   "Wayungdisa",
+   2088,
+   15
+  ],
+  "295561": [
+   "Borbali",
+   2088,
+   15
+  ],
+  "295577": [
+   "Kolonga D C R F",
+   2088,
+   15
+  ],
+  "295516": [
+   "Doyangmukh",
+   2088,
+   16
+  ],
+  "295652": [
+   "Sukhihadi",
+   2088,
+   16
+  ],
+  "295527": [
+   "Majiahadi",
+   2088,
+   16
+  ],
+  "295526": [
+   "Bakrifanghaja",
+   2088,
+   16
+  ],
+  "295533": [
+   "Hawaipur",
+   2088,
+   16
+  ],
+  "295653": [
+   "Birsokro Gaon",
+   2088,
+   16
+  ],
+  "295523": [
+   "Mailoo Bl",
+   2088,
+   16
+  ],
+  "295529": [
+   "Mosoka",
+   2088,
+   16
+  ],
+  "295531": [
+   "Jirim Gaon",
+   2088,
+   16
+  ],
+  "295535": [
+   "Watijur",
+   2088,
+   16
+  ],
+  "295530": [
+   "Guha Gaon",
+   2088,
+   16
+  ],
+  "295521": [
+   "Nawaibil",
+   2088,
+   16
+  ],
+  "295528": [
+   "Jiribasa",
+   2088,
+   16
+  ],
+  "295520": [
+   "Lamsakham",
+   2088,
+   16
+  ],
+  "295524": [
+   "Takhua Hadi",
+   2088,
+   16
+  ],
+  "295537": [
+   "Kerelajan",
+   2088,
+   16
+  ],
+  "295522": [
+   "Raisem",
+   2088,
+   16
+  ],
+  "295532": [
+   "Hajagapher",
+   2088,
+   16
+  ],
+  "295536": [
+   "Lambapathar",
+   2088,
+   16
+  ],
+  "295470": [
+   "Lutumari",
+   2088,
+   26
+  ],
+  "295603": [
+   "Namtaradubi",
+   2088,
+   26
+  ],
+  "295469": [
+   "Lotumari Bohapi",
+   2088,
+   26
+  ],
+  "295510": [
+   "Arnam Anglong Kheroni",
+   2088,
+   21
+  ],
+  "295509": [
+   "Ronkiri Rongphat Gaon",
+   2088,
+   21
+  ],
+  "295373": [
+   "Langteng",
+   2088,
+   25
+  ],
+  "295374": [
+   "Mayang",
+   2088,
+   24
+  ],
+  "295578": [
+   "Rongklirdap Tokli Gaon",
+   2088,
+   15
+  ],
+  "295579": [
+   "Rongmindar Ronghong Gaon",
+   2088,
+   15
+  ]
+ },
+ "village_count_total": 569,
+ "village_count_assigned": 569
+}

@@ -1,0 +1,4379 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Assam",
+  "district": "Biswanath",
+  "district_lgd": 705,
+  "observation_window": "2026-08-07T11:02Z to 2026-08-12T11:02Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2829,
+  "sm_surface_stddev": 0.0296,
+  "sm_rootzone_mean": 0.2827,
+  "sm_rootzone_stddev": 0.0329,
+  "n_cells": 18,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 26.7294,
+    "lon": 93.1328,
+    "sm_surface": 0.3043,
+    "sm_rootzone": 0.3127,
+    "n_villages_sharing_cell": 86
+   },
+   {
+    "cell_index": 1,
+    "lat": 26.7294,
+    "lon": 93.2317,
+    "sm_surface": 0.2997,
+    "sm_rootzone": 0.3102,
+    "n_villages_sharing_cell": 31
+   },
+   {
+    "cell_index": 2,
+    "lat": 26.7294,
+    "lon": 93.3305,
+    "sm_surface": 0.2989,
+    "sm_rootzone": 0.3049,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 3,
+    "lat": 26.7294,
+    "lon": 93.6269,
+    "sm_surface": 0.2906,
+    "sm_rootzone": 0.2926,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 4,
+    "lat": 26.8282,
+    "lon": 93.1328,
+    "sm_surface": 0.2512,
+    "sm_rootzone": 0.25,
+    "n_villages_sharing_cell": 80
+   },
+   {
+    "cell_index": 5,
+    "lat": 26.8282,
+    "lon": 93.2317,
+    "sm_surface": 0.2623,
+    "sm_rootzone": 0.2715,
+    "n_villages_sharing_cell": 59
+   },
+   {
+    "cell_index": 6,
+    "lat": 26.8282,
+    "lon": 93.3305,
+    "sm_surface": 0.2964,
+    "sm_rootzone": 0.2958,
+    "n_villages_sharing_cell": 60
+   },
+   {
+    "cell_index": 7,
+    "lat": 26.8282,
+    "lon": 93.4293,
+    "sm_surface": 0.2983,
+    "sm_rootzone": 0.3033,
+    "n_villages_sharing_cell": 57
+   },
+   {
+    "cell_index": 8,
+    "lat": 26.8282,
+    "lon": 93.5281,
+    "sm_surface": 0.2987,
+    "sm_rootzone": 0.2927,
+    "n_villages_sharing_cell": 66
+   },
+   {
+    "cell_index": 9,
+    "lat": 26.8282,
+    "lon": 93.6269,
+    "sm_surface": 0.3053,
+    "sm_rootzone": 0.2998,
+    "n_villages_sharing_cell": 61
+   },
+   {
+    "cell_index": 10,
+    "lat": 26.8282,
+    "lon": 93.7257,
+    "sm_surface": 0.3267,
+    "sm_rootzone": 0.3361,
+    "n_villages_sharing_cell": 42
+   },
+   {
+    "cell_index": 11,
+    "lat": 26.927,
+    "lon": 93.1328,
+    "sm_surface": 0.296,
+    "sm_rootzone": 0.2967,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 12,
+    "lat": 26.927,
+    "lon": 93.2317,
+    "sm_surface": 0.297,
+    "sm_rootzone": 0.2956,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 13,
+    "lat": 26.927,
+    "lon": 93.3305,
+    "sm_surface": 0.2407,
+    "sm_rootzone": 0.2342,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 14,
+    "lat": 26.927,
+    "lon": 93.4293,
+    "sm_surface": 0.2261,
+    "sm_rootzone": 0.2213,
+    "n_villages_sharing_cell": 35
+   },
+   {
+    "cell_index": 15,
+    "lat": 26.927,
+    "lon": 93.5281,
+    "sm_surface": 0.2362,
+    "sm_rootzone": 0.2287,
+    "n_villages_sharing_cell": 51
+   },
+   {
+    "cell_index": 16,
+    "lat": 26.927,
+    "lon": 93.6269,
+    "sm_surface": 0.2456,
+    "sm_rootzone": 0.2352,
+    "n_villages_sharing_cell": 78
+   },
+   {
+    "cell_index": 17,
+    "lat": 26.927,
+    "lon": 93.7257,
+    "sm_surface": 0.3182,
+    "sm_rootzone": 0.3064,
+    "n_villages_sharing_cell": 95
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2838,
+  "sm_surface_stddev": 0.0094,
+  "n_blocks": 3
+ },
+ "blocks": [
+  {
+   "block_name": "Biswanath",
+   "sdcode": 2045,
+   "n_villages": 382,
+   "n_cells_spanned": 11,
+   "sm_surface_mean": 0.2808,
+   "sm_surface_stddev": 0.0238
+  },
+  {
+   "block_name": "Gohpur",
+   "sdcode": 2047,
+   "n_villages": 233,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.2965,
+   "sm_surface_stddev": 0.0338
+  },
+  {
+   "block_name": "Helem",
+   "sdcode": 2046,
+   "n_villages": 226,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.274,
+   "sm_surface_stddev": 0.0328
+  }
+ ],
+ "villages": {
+  "287144": [
+   "Dangtala",
+   2046,
+   15
+  ],
+  "286572": [
+   "Bhimajuli",
+   2045,
+   4
+  ],
+  "286603": [
+   "B Miadi",
+   2045,
+   4
+  ],
+  "286970": [
+   "Salana Pathar",
+   2046,
+   8
+  ],
+  "286791": [
+   "Mijikajan T E",
+   2045,
+   4
+  ],
+  "286804": [
+   "Barbil T E",
+   2045,
+   6
+  ],
+  "286722": [
+   "Monabari Pathar",
+   2045,
+   1
+  ],
+  "287272": [
+   "Rajghar Lakhipur",
+   2047,
+   16
+  ],
+  "287280": [
+   "Dubia Karbi",
+   2047,
+   17
+  ],
+  "287351": [
+   "Palleng Bari",
+   2047,
+   16
+  ],
+  "286925": [
+   "Bongaon",
+   2045,
+   11
+  ],
+  "286825": [
+   "Bargang Rangagara T E",
+   2045,
+   6
+  ],
+  "286826": [
+   "Bargang Rangagara T E",
+   2045,
+   6
+  ],
+  "286916": [
+   "Rupajuli Anthaibori",
+   2045,
+   4
+  ],
+  "286688": [
+   "Gaibandha",
+   2045,
+   0
+  ],
+  "286696": [
+   "Komalia",
+   2045,
+   0
+  ],
+  "286689": [
+   "Garoi Mari",
+   2045,
+   0
+  ],
+  "286691": [
+   "Sal Mari",
+   2045,
+   0
+  ],
+  "286680": [
+   "Komalia",
+   2045,
+   0
+  ],
+  "286677": [
+   "Pratapgarh S P P",
+   2045,
+   0
+  ],
+  "286679": [
+   "Komalia",
+   2045,
+   0
+  ],
+  "286681": [
+   "Komalia",
+   2045,
+   0
+  ],
+  "286682": [
+   "Kamalia",
+   2045,
+   0
+  ],
+  "286659": [
+   "Da Gaon",
+   2045,
+   0
+  ],
+  "286663": [
+   "Uttar Da Gaon",
+   2045,
+   0
+  ],
+  "286695": [
+   "Jarani",
+   2045,
+   0
+  ],
+  "286690": [
+   "Singi Mari",
+   2045,
+   0
+  ],
+  "286692": [
+   "Jahaj Duba",
+   2045,
+   0
+  ],
+  "286808": [
+   "Nonke Bongali",
+   2045,
+   6
+  ],
+  "286633": [
+   "Salaikhati Bangali",
+   2045,
+   0
+  ],
+  "286668": [
+   "Chalia",
+   2045,
+   0
+  ],
+  "286662": [
+   "Mukhar Garh",
+   2045,
+   0
+  ],
+  "286667": [
+   "Chalia",
+   2045,
+   0
+  ],
+  "286676": [
+   "Pratap Garh",
+   2045,
+   0
+  ],
+  "286661": [
+   "Kadamani Basti",
+   2045,
+   0
+  ],
+  "286674": [
+   "Nilpur T E",
+   2045,
+   0
+  ],
+  "286660": [
+   "Kadamani Gaon",
+   2045,
+   0
+  ],
+  "286672": [
+   "Sadharu T E",
+   2045,
+   0
+  ],
+  "286673": [
+   "Sadharu T E",
+   2045,
+   0
+  ],
+  "286623": [
+   "Sakomatha S P P",
+   2045,
+   0
+  ],
+  "286675": [
+   "Pratap Garh",
+   2045,
+   0
+  ],
+  "286610": [
+   "Pratap Ghar T E",
+   2045,
+   0
+  ],
+  "286620": [
+   "Sakomatha",
+   2045,
+   0
+  ],
+  "286618": [
+   "Sadharu Ghop S P P",
+   2045,
+   0
+  ],
+  "286616": [
+   "Sadharu Ghop",
+   2045,
+   0
+  ],
+  "286617": [
+   "Sadharu Ghop",
+   2045,
+   0
+  ],
+  "286658": [
+   "Gare Hagi",
+   2045,
+   0
+  ],
+  "286665": [
+   "Chalia",
+   2045,
+   0
+  ],
+  "286670": [
+   "Chalia",
+   2045,
+   0
+  ],
+  "286666": [
+   "Chalia",
+   2045,
+   0
+  ],
+  "286669": [
+   "Chalia",
+   2045,
+   0
+  ],
+  "286552": [
+   "Pathai Jan",
+   2045,
+   4
+  ],
+  "286627": [
+   "Koch Gaon",
+   2045,
+   0
+  ],
+  "286629": [
+   "Petuli Bari",
+   2045,
+   0
+  ],
+  "286604": [
+   "Balu Danga",
+   2045,
+   0
+  ],
+  "286562": [
+   "Diring T E",
+   2045,
+   4
+  ],
+  "286567": [
+   "Pabhoi T E",
+   2045,
+   4
+  ],
+  "286568": [
+   "Pabhoi T E",
+   2045,
+   4
+  ],
+  "286566": [
+   "Pabhoi T E",
+   2045,
+   4
+  ],
+  "286565": [
+   "Pabhoi T E",
+   2045,
+   4
+  ],
+  "286593": [
+   "Pabhoi",
+   2045,
+   4
+  ],
+  "286635": [
+   "Salaikhati Mikir",
+   2045,
+   4
+  ],
+  "286632": [
+   "Ranga Muri",
+   2045,
+   4
+  ],
+  "286628": [
+   "Kuwari",
+   2045,
+   0
+  ],
+  "286605": [
+   "Sakomatha Gaon",
+   2045,
+   0
+  ],
+  "286595": [
+   "Bamuni Pathar",
+   2045,
+   4
+  ],
+  "286634": [
+   "Salaikhati Kachari",
+   2045,
+   4
+  ],
+  "286594": [
+   "Missamari",
+   2045,
+   4
+  ],
+  "286564": [
+   "Pabhoi T E",
+   2045,
+   4
+  ],
+  "286563": [
+   "Pabhoi T E",
+   2045,
+   4
+  ],
+  "286550": [
+   "Bijoy Pur",
+   2045,
+   4
+  ],
+  "286549": [
+   "Diring Pathar",
+   2045,
+   4
+  ],
+  "286596": [
+   "Diring Pathar",
+   2045,
+   4
+  ],
+  "286598": [
+   "Barpukhuri T E",
+   2045,
+   4
+  ],
+  "286557": [
+   "Dhali T E",
+   2045,
+   4
+  ],
+  "286556": [
+   "Dhali T E",
+   2045,
+   4
+  ],
+  "286558": [
+   "Dhali T E",
+   2045,
+   4
+  ],
+  "286561": [
+   "Diring T E",
+   2045,
+   4
+  ],
+  "286571": [
+   "Tarajuli",
+   2045,
+   4
+  ],
+  "286579": [
+   "Mahjulipathar",
+   2045,
+   4
+  ],
+  "286577": [
+   "Salai Khati",
+   2045,
+   4
+  ],
+  "286576": [
+   "Salai Khatipathar",
+   2045,
+   4
+  ],
+  "286575": [
+   "Salai Khatibasti",
+   2045,
+   4
+  ],
+  "286578": [
+   "Mahjulibasti",
+   2045,
+   4
+  ],
+  "286581": [
+   "Dhalidili Sang",
+   2045,
+   4
+  ],
+  "286574": [
+   "Mahalakhi",
+   2045,
+   4
+  ],
+  "286570": [
+   "Naharani",
+   2045,
+   4
+  ],
+  "286580": [
+   "Dhali Dilisang",
+   2045,
+   4
+  ],
+  "286559": [
+   "Dhali T E",
+   2045,
+   4
+  ],
+  "286560": [
+   "Diring T E",
+   2045,
+   4
+  ],
+  "286548": [
+   "Dhali Kohiar Bari",
+   2045,
+   4
+  ],
+  "286597": [
+   "Dhali Mara Diring",
+   2045,
+   4
+  ],
+  "286582": [
+   "Dhali Lakhan Basti",
+   2045,
+   4
+  ],
+  "286585": [
+   "Barpathar",
+   2045,
+   4
+  ],
+  "286586": [
+   "Barpathar",
+   2045,
+   4
+  ],
+  "286583": [
+   "Dhali Kherbari",
+   2045,
+   4
+  ],
+  "286590": [
+   "Majuli Ghur T E",
+   2045,
+   4
+  ],
+  "286600": [
+   "Sakomatha",
+   2045,
+   4
+  ],
+  "286589": [
+   "Majuli Ghur T E",
+   2045,
+   4
+  ],
+  "286636": [
+   "Bhimajuli",
+   2045,
+   0
+  ],
+  "286591": [
+   "Majuli Ghur T E",
+   2045,
+   0
+  ],
+  "286592": [
+   "Majuli Ghur T E",
+   2045,
+   4
+  ],
+  "286587": [
+   "Barpathar",
+   2045,
+   4
+  ],
+  "286584": [
+   "Barpathar",
+   2045,
+   4
+  ],
+  "286588": [
+   "Majuli Ghur T E",
+   2045,
+   0
+  ],
+  "286624": [
+   "Majuli Garh",
+   2045,
+   0
+  ],
+  "286606": [
+   "Kamar Jan",
+   2045,
+   0
+  ],
+  "286614": [
+   "Pratap Ghar T E",
+   2045,
+   0
+  ],
+  "286613": [
+   "Pratap Ghar T E",
+   2045,
+   0
+  ],
+  "286609": [
+   "Babu Bil",
+   2045,
+   0
+  ],
+  "286615": [
+   "Pratap Ghar T E",
+   2045,
+   0
+  ],
+  "286611": [
+   "Pratap Ghar T E",
+   2045,
+   0
+  ],
+  "286626": [
+   "Majuli Garh",
+   2045,
+   0
+  ],
+  "286601": [
+   "Sakomatha",
+   2045,
+   0
+  ],
+  "286607": [
+   "Bengenabari",
+   2045,
+   0
+  ],
+  "286608": [
+   "Begun Bari Bagicha",
+   2045,
+   0
+  ],
+  "286599": [
+   "Sakomatha",
+   2045,
+   0
+  ],
+  "286619": [
+   "Sadharu Ghop S P P",
+   2045,
+   0
+  ],
+  "286621": [
+   "Sakomatha",
+   2045,
+   0
+  ],
+  "286678": [
+   "Chalia Chapari",
+   2045,
+   0
+  ],
+  "286671": [
+   "Sadharu Guri",
+   2045,
+   0
+  ],
+  "286622": [
+   "Sakomatha S P P",
+   2045,
+   0
+  ],
+  "286625": [
+   "Majuli Garh",
+   2045,
+   0
+  ],
+  "286612": [
+   "Pratap Ghar T E",
+   2045,
+   0
+  ],
+  "286664": [
+   "Kadamani Pathar",
+   2045,
+   0
+  ],
+  "286553": [
+   "Joypur",
+   2045,
+   4
+  ],
+  "286573": [
+   "Maruabasti",
+   2045,
+   4
+  ],
+  "286637": [
+   "Madhupur",
+   2045,
+   0
+  ],
+  "286912": [
+   "Balamguri",
+   2045,
+   4
+  ],
+  "286602": [
+   "Sakomatha S P P",
+   2045,
+   4
+  ],
+  "999999": [
+   "Gohpur Reserved Forest",
+   2047,
+   16
+  ],
+  "286686": [
+   "Na Bazar",
+   2045,
+   0
+  ],
+  "286683": [
+   "Dakhin Da Gaon",
+   2045,
+   0
+  ],
+  "286684": [
+   "Gar Bhitar",
+   2045,
+   0
+  ],
+  "286694": [
+   "Biswanath Town",
+   2045,
+   0
+  ],
+  "286649": [
+   "Gowal Toli",
+   2045,
+   0
+  ],
+  "286652": [
+   "Bholakata",
+   2045,
+   0
+  ],
+  "286653": [
+   "Bholakata",
+   2045,
+   0
+  ],
+  "286647": [
+   "Bhir Gaon",
+   2045,
+   0
+  ],
+  "286648": [
+   "Pani Bharal",
+   2045,
+   0
+  ],
+  "286687": [
+   "Umato Mani",
+   2045,
+   1
+  ],
+  "286693": [
+   "Niz Biswanath",
+   2045,
+   0
+  ],
+  "286651": [
+   "Bali Dubi",
+   2045,
+   1
+  ],
+  "286685": [
+   "Chuwa Guri",
+   2045,
+   0
+  ],
+  "286655": [
+   "Japari Jan",
+   2045,
+   0
+  ],
+  "286654": [
+   "Japari Jan",
+   2045,
+   1
+  ],
+  "286656": [
+   "Japari Jan",
+   2045,
+   1
+  ],
+  "286650": [
+   "Sila Mari",
+   2045,
+   1
+  ],
+  "286644": [
+   "Papari Guri",
+   2045,
+   0
+  ],
+  "249879": [
+   "Biswanath Chariali",
+   2045,
+   0
+  ],
+  "286638": [
+   "Kamar Gaon",
+   2045,
+   0
+  ],
+  "286639": [
+   "Lehu Gaon",
+   2045,
+   0
+  ],
+  "286645": [
+   "Ara Bari",
+   2045,
+   0
+  ],
+  "286646": [
+   "Bam Gaon",
+   2045,
+   0
+  ],
+  "286642": [
+   "Maral Gaon",
+   2045,
+   1
+  ],
+  "286643": [
+   "Bali Pukhuri",
+   2045,
+   1
+  ],
+  "286732": [
+   "Niz Baghmara",
+   2045,
+   1
+  ],
+  "286733": [
+   "Brahmaputra Chapari",
+   2045,
+   1
+  ],
+  "286734": [
+   "Baghmari T E",
+   2045,
+   1
+  ],
+  "286730": [
+   "Jara Bari",
+   2045,
+   1
+  ],
+  "286762": [
+   "Bihpukhuri",
+   2045,
+   1
+  ],
+  "286735": [
+   "Komurakhati Grazing",
+   2045,
+   2
+  ],
+  "286760": [
+   "Kathani Bari Pathar",
+   2045,
+   2
+  ],
+  "286758": [
+   "Kathani Basti",
+   2045,
+   2
+  ],
+  "286756": [
+   "Monabari",
+   2045,
+   2
+  ],
+  "286772": [
+   "Monabari",
+   2045,
+   1
+  ],
+  "286775": [
+   "Monabari",
+   2045,
+   1
+  ],
+  "286757": [
+   "Monabari",
+   2045,
+   1
+  ],
+  "286771": [
+   "Monabari P P Bihpukhuri",
+   2045,
+   1
+  ],
+  "286770": [
+   "Monabari P P",
+   2045,
+   1
+  ],
+  "286774": [
+   "Monabari P P",
+   2045,
+   1
+  ],
+  "286768": [
+   "Monabari",
+   2045,
+   1
+  ],
+  "286765": [
+   "Monabari T E",
+   2045,
+   2
+  ],
+  "286848": [
+   "Gang Dalani",
+   2045,
+   2
+  ],
+  "286849": [
+   "Bargang Chapari",
+   2045,
+   2
+  ],
+  "286844": [
+   "Gang Mouthan",
+   2045,
+   2
+  ],
+  "286845": [
+   "Bahbari Pathar",
+   2045,
+   2
+  ],
+  "286846": [
+   "Bahbari Gaon",
+   2045,
+   2
+  ],
+  "286843": [
+   "Jaluk Bari",
+   2045,
+   2
+  ],
+  "286853": [
+   "Rangsali Dalani",
+   2045,
+   6
+  ],
+  "286856": [
+   "Chengelijan",
+   2045,
+   6
+  ],
+  "286854": [
+   "Nepali Bari",
+   2045,
+   7
+  ],
+  "286855": [
+   "Batia Mari",
+   2045,
+   7
+  ],
+  "286877": [
+   "Rowmari",
+   2045,
+   7
+  ],
+  "286880": [
+   "Batiamari",
+   2045,
+   7
+  ],
+  "286881": [
+   "Batiamari",
+   2045,
+   7
+  ],
+  "286883": [
+   "Bihmari Gaon",
+   2045,
+   7
+  ],
+  "286875": [
+   "Barajuli Gaon",
+   2045,
+   7
+  ],
+  "286876": [
+   "Barajuli Nepali",
+   2045,
+   7
+  ],
+  "286902": [
+   "Batia Mari",
+   2045,
+   7
+  ],
+  "286901": [
+   "Batia Mari",
+   2045,
+   7
+  ],
+  "286898": [
+   "Rongsali Sonari",
+   2045,
+   6
+  ],
+  "286851": [
+   "Niz Behali",
+   2045,
+   6
+  ],
+  "286842": [
+   "Telengania",
+   2045,
+   6
+  ],
+  "286850": [
+   "Than Behali",
+   2045,
+   6
+  ],
+  "286852": [
+   "Kamar Pukhuri",
+   2045,
+   6
+  ],
+  "286903": [
+   "Batia Mari",
+   2045,
+   7
+  ],
+  "286878": [
+   "Bedeti Guri",
+   2045,
+   7
+  ],
+  "286879": [
+   "Bagijuli Pathar",
+   2045,
+   7
+  ],
+  "286897": [
+   "Padum Pukhuri",
+   2045,
+   7
+  ],
+  "286896": [
+   "Jamuani",
+   2045,
+   6
+  ],
+  "286899": [
+   "Cheni Mari",
+   2045,
+   6
+  ],
+  "286895": [
+   "Bengabari",
+   2045,
+   6
+  ],
+  "286900": [
+   "Bongali Gaon",
+   2045,
+   6
+  ],
+  "286904": [
+   "Kulaguri Gaon",
+   2045,
+   6
+  ],
+  "286861": [
+   "Behali T E",
+   2045,
+   6
+  ],
+  "286871": [
+   "Kulaguri Pathar",
+   2045,
+   6
+  ],
+  "286894": [
+   "Barali Mara",
+   2045,
+   6
+  ],
+  "286905": [
+   "Bedeti Pathar",
+   2045,
+   7
+  ],
+  "286874": [
+   "Nasbor Gaon",
+   2045,
+   7
+  ],
+  "286890": [
+   "Barajuli Pathar",
+   2045,
+   7
+  ],
+  "286884": [
+   "Bedeti T E",
+   2045,
+   7
+  ],
+  "286873": [
+   "Barajuli T E",
+   2045,
+   6
+  ],
+  "286872": [
+   "Bedeti T E",
+   2045,
+   6
+  ],
+  "286885": [
+   "Barajuli T E",
+   2045,
+   7
+  ],
+  "286887": [
+   "Lal Pukhuri",
+   2045,
+   14
+  ],
+  "286891": [
+   "Bihmari",
+   2045,
+   14
+  ],
+  "286908": [
+   "Bihmari F V",
+   2045,
+   13
+  ],
+  "286909": [
+   "Thandapani F V",
+   2045,
+   14
+  ],
+  "286888": [
+   "Bihmari Gaon",
+   2045,
+   14
+  ],
+  "286889": [
+   "Madhupur",
+   2045,
+   14
+  ],
+  "286870": [
+   "Bihmari Jarani",
+   2045,
+   13
+  ],
+  "286886": [
+   "Barajuli T E",
+   2045,
+   6
+  ],
+  "286869": [
+   "Natun Bihmari",
+   2045,
+   13
+  ],
+  "286867": [
+   "Kulaguri Jarani",
+   2045,
+   6
+  ],
+  "286864": [
+   "Natun Serelia",
+   2045,
+   6
+  ],
+  "286866": [
+   "Sial Mari",
+   2045,
+   6
+  ],
+  "286868": [
+   "Serelia Bongali",
+   2045,
+   6
+  ],
+  "286865": [
+   "Hatimara Pathar",
+   2045,
+   6
+  ],
+  "286860": [
+   "Behali Mikir",
+   2045,
+   6
+  ],
+  "286862": [
+   "Serelia Kuhiar Bari",
+   2045,
+   6
+  ],
+  "286841": [
+   "Ketela Gaon",
+   2045,
+   6
+  ],
+  "286819": [
+   "Rangagara T E",
+   2045,
+   13
+  ],
+  "286815": [
+   "Ketela T E",
+   2045,
+   6
+  ],
+  "286759": [
+   "Kathani Bari",
+   2045,
+   1
+  ],
+  "286847": [
+   "Pithia Mari",
+   2045,
+   2
+  ],
+  "286892": [
+   "Batiamari N C",
+   2045,
+   7
+  ],
+  "286882": [
+   "Batiamari",
+   2045,
+   7
+  ],
+  "286818": [
+   "Rangagara T E",
+   2045,
+   6
+  ],
+  "286810": [
+   "Rangagarah",
+   2045,
+   6
+  ],
+  "286812": [
+   "Bargang",
+   2045,
+   6
+  ],
+  "286814": [
+   "Ketela T E",
+   2045,
+   6
+  ],
+  "286817": [
+   "Bargang T E Ketela",
+   2045,
+   6
+  ],
+  "286813": [
+   "Ketela",
+   2045,
+   6
+  ],
+  "286809": [
+   "Rangagarah",
+   2045,
+   5
+  ],
+  "286798": [
+   "Bagari Suti",
+   2045,
+   5
+  ],
+  "286834": [
+   "Rangagora",
+   2045,
+   5
+  ],
+  "286797": [
+   "Tenga Bari",
+   2045,
+   5
+  ],
+  "286702": [
+   "Barjarani",
+   2045,
+   5
+  ],
+  "286703": [
+   "Muja Basti",
+   2045,
+   12
+  ],
+  "286705": [
+   "Bharali Juli",
+   2045,
+   12
+  ],
+  "286704": [
+   "Biri Jan",
+   2045,
+   5
+  ],
+  "286706": [
+   "Ranga Jan",
+   2045,
+   12
+  ],
+  "286707": [
+   "Nahar Bari",
+   2045,
+   12
+  ],
+  "286701": [
+   "Barjarani",
+   2045,
+   5
+  ],
+  "286700": [
+   "Barjarani",
+   2045,
+   5
+  ],
+  "286699": [
+   "Barjarani Bangali",
+   2045,
+   5
+  ],
+  "286698": [
+   "Barjarani Mikir",
+   2045,
+   5
+  ],
+  "286697": [
+   "Solmari",
+   2045,
+   5
+  ],
+  "286713": [
+   "Garoimari",
+   2045,
+   5
+  ],
+  "286800": [
+   "Kuhiar Bari Nepali",
+   2045,
+   5
+  ],
+  "286796": [
+   "Bargang",
+   2045,
+   5
+  ],
+  "286799": [
+   "Sukan Suti",
+   2045,
+   6
+  ],
+  "286816": [
+   "Ketela T E",
+   2045,
+   6
+  ],
+  "286858": [
+   "Bijuli Jarani",
+   2045,
+   6
+  ],
+  "286838": [
+   "Maran Gaon",
+   2045,
+   6
+  ],
+  "286857": [
+   "Kachamari",
+   2045,
+   6
+  ],
+  "286859": [
+   "Serelia Pathar",
+   2045,
+   6
+  ],
+  "286836": [
+   "Khelmati Pathar",
+   2045,
+   6
+  ],
+  "286806": [
+   "Barbil T E",
+   2045,
+   6
+  ],
+  "286835": [
+   "Khelmati Gaon",
+   2045,
+   6
+  ],
+  "286837": [
+   "Barkatia Bari",
+   2045,
+   6
+  ],
+  "286805": [
+   "Barbil T E",
+   2045,
+   6
+  ],
+  "286807": [
+   "Barbil T E",
+   2045,
+   6
+  ],
+  "286839": [
+   "Nakania Pathar",
+   2045,
+   6
+  ],
+  "286840": [
+   "Barbil Kachari",
+   2045,
+   6
+  ],
+  "286803": [
+   "Nil Bari",
+   2045,
+   6
+  ],
+  "286802": [
+   "Deka Pathar",
+   2045,
+   6
+  ],
+  "286766": [
+   "Monabari T E",
+   2045,
+   5
+  ],
+  "286723": [
+   "Tipu Basti",
+   2045,
+   6
+  ],
+  "286721": [
+   "Dhemaji Bari",
+   2045,
+   5
+  ],
+  "286720": [
+   "Dhemaji Bari",
+   2045,
+   5
+  ],
+  "286712": [
+   "Ara Gang",
+   2045,
+   5
+  ],
+  "286801": [
+   "Kuhiar Bari Bongali",
+   2045,
+   5
+  ],
+  "286719": [
+   "Madhu Rani",
+   2045,
+   5
+  ],
+  "286718": [
+   "Ratowa",
+   2045,
+   5
+  ],
+  "286727": [
+   "Ratowa Pathar",
+   2045,
+   5
+  ],
+  "286763": [
+   "Monabari T E",
+   2045,
+   5
+  ],
+  "286764": [
+   "Monabari T E",
+   2045,
+   5
+  ],
+  "286769": [
+   "Monabari",
+   2045,
+   5
+  ],
+  "286773": [
+   "Monabari",
+   2045,
+   1
+  ],
+  "286767": [
+   "Monabari T E",
+   2045,
+   1
+  ],
+  "286776": [
+   "Monabari T E",
+   2045,
+   1
+  ],
+  "286729": [
+   "Monabari Basti",
+   2045,
+   1
+  ],
+  "286761": [
+   "Bihpukhuri T E",
+   2045,
+   1
+  ],
+  "286726": [
+   "Disiri Pathar",
+   2045,
+   1
+  ],
+  "286725": [
+   "Bihpukhuri Bongali",
+   2045,
+   5
+  ],
+  "286739": [
+   "Siju Bari",
+   2045,
+   5
+  ],
+  "286728": [
+   "Bihpukhuri Kachari",
+   2045,
+   5
+  ],
+  "286737": [
+   "Pulisomani",
+   2045,
+   5
+  ],
+  "286710": [
+   "Pachim Jinjia",
+   2045,
+   5
+  ],
+  "286709": [
+   "Pub Jinjia",
+   2045,
+   5
+  ],
+  "286714": [
+   "Garoi Mari",
+   2045,
+   5
+  ],
+  "286711": [
+   "Singi Bil",
+   2045,
+   5
+  ],
+  "286708": [
+   "Uttar Jinjia",
+   2045,
+   5
+  ],
+  "286715": [
+   "Jingia T E",
+   2045,
+   5
+  ],
+  "286717": [
+   "Jingia T E",
+   2045,
+   5
+  ],
+  "286716": [
+   "Jingia T E",
+   2045,
+   5
+  ],
+  "286786": [
+   "Mijikajan T E",
+   2045,
+   5
+  ],
+  "286743": [
+   "Mijika",
+   2045,
+   5
+  ],
+  "286736": [
+   "Pulisomani",
+   2045,
+   5
+  ],
+  "286792": [
+   "Mijikajan T E",
+   2045,
+   5
+  ],
+  "286785": [
+   "Mijikajan T E",
+   2045,
+   5
+  ],
+  "286741": [
+   "Ghora Mari",
+   2045,
+   5
+  ],
+  "286742": [
+   "Kala Pani",
+   2045,
+   5
+  ],
+  "286754": [
+   "Bapujar",
+   2045,
+   4
+  ],
+  "286746": [
+   "Mijuka",
+   2045,
+   4
+  ],
+  "286781": [
+   "Mijikajan T E",
+   2045,
+   5
+  ],
+  "286787": [
+   "Mijikajan T E",
+   2045,
+   4
+  ],
+  "286789": [
+   "Mijikajan T E",
+   2045,
+   5
+  ],
+  "286794": [
+   "Mijikajan T E",
+   2045,
+   5
+  ],
+  "286779": [
+   "Oria Basti",
+   2045,
+   5
+  ],
+  "286778": [
+   "Kalahandi",
+   2045,
+   5
+  ],
+  "286555": [
+   "Samur Juli",
+   2045,
+   4
+  ],
+  "286554": [
+   "Tinisuti Mukh",
+   2045,
+   4
+  ],
+  "286780": [
+   "Na Pamua",
+   2045,
+   4
+  ],
+  "286793": [
+   "Mijikajan T E",
+   2045,
+   4
+  ],
+  "286788": [
+   "Mijikajan T E",
+   2045,
+   4
+  ],
+  "286755": [
+   "Mizikajan",
+   2045,
+   4
+  ],
+  "286782": [
+   "Mijikajan T E",
+   2045,
+   4
+  ],
+  "286569": [
+   "Pabhoi T E",
+   2045,
+   4
+  ],
+  "286551": [
+   "Sarih Bil",
+   2045,
+   4
+  ],
+  "286740": [
+   "Laow Dalani",
+   2045,
+   5
+  ],
+  "286731": [
+   "Disiri Pathar",
+   2045,
+   5
+  ],
+  "286753": [
+   "Solmari Bongali",
+   2045,
+   1
+  ],
+  "286640": [
+   "Gerua Bari",
+   2045,
+   0
+  ],
+  "286751": [
+   "Simalu Guri",
+   2045,
+   0
+  ],
+  "286752": [
+   "Niz Salmara",
+   2045,
+   5
+  ],
+  "286749": [
+   "Gereki",
+   2045,
+   4
+  ],
+  "286747": [
+   "Khara Simalu",
+   2045,
+   4
+  ],
+  "286631": [
+   "Barkura",
+   2045,
+   4
+  ],
+  "286630": [
+   "Japow Bari",
+   2045,
+   0
+  ],
+  "286750": [
+   "Dighal Tangani",
+   2045,
+   4
+  ],
+  "286811": [
+   "Rangagarah",
+   2045,
+   13
+  ],
+  "286657": [
+   "Goghali Bhanga",
+   2045,
+   1
+  ],
+  "286745": [
+   "Mijika",
+   2045,
+   4
+  ],
+  "286783": [
+   "Mijikajan T E",
+   2045,
+   4
+  ],
+  "286790": [
+   "Mijikajan T E",
+   2045,
+   5
+  ],
+  "286744": [
+   "Mijika",
+   2045,
+   5
+  ],
+  "286738": [
+   "Pulisomani",
+   2045,
+   5
+  ],
+  "286641": [
+   "Fatika Basti",
+   2045,
+   1
+  ],
+  "286926": [
+   "Dulung Mukh",
+   2046,
+   14
+  ],
+  "286927": [
+   "Uttar Kari Bil",
+   2046,
+   14
+  ],
+  "286990": [
+   "Tara Juli",
+   2046,
+   14
+  ],
+  "286991": [
+   "Dhekia Juli",
+   2046,
+   14
+  ],
+  "286989": [
+   "Kekuri Jan Gaon",
+   2046,
+   14
+  ],
+  "287004": [
+   "Kekurijan",
+   2046,
+   15
+  ],
+  "287130": [
+   "Lakhipur",
+   2046,
+   16
+  ],
+  "287137": [
+   "Mandali Para",
+   2046,
+   16
+  ],
+  "287147": [
+   "Gopal Gaon",
+   2046,
+   16
+  ],
+  "287098": [
+   "Majgaon Part",
+   2046,
+   16
+  ],
+  "287097": [
+   "Gohpur T E Grant",
+   2046,
+   16
+  ],
+  "287133": [
+   "Angra Bari Asra",
+   2046,
+   15
+  ],
+  "287138": [
+   "Natun Bhogpur",
+   2046,
+   15
+  ],
+  "287136": [
+   "Rangpur",
+   2046,
+   15
+  ],
+  "287122": [
+   "Khandimara Deori Gaon",
+   2046,
+   15
+  ],
+  "287145": [
+   "Hantapara",
+   2046,
+   15
+  ],
+  "287135": [
+   "Mising Kathani",
+   2046,
+   15
+  ],
+  "287134": [
+   "Balijan Brahmapur",
+   2046,
+   15
+  ],
+  "287118": [
+   "Balijan Ban Gaon",
+   2046,
+   15
+  ],
+  "287023": [
+   "Brahmajan T E",
+   2046,
+   15
+  ],
+  "287025": [
+   "Balijan N C",
+   2046,
+   15
+  ],
+  "287033": [
+   "Than Bholaguri",
+   2046,
+   15
+  ],
+  "287026": [
+   "Na Daini Gaon",
+   2046,
+   15
+  ],
+  "287032": [
+   "Jorabari",
+   2046,
+   15
+  ],
+  "287034": [
+   "Jalukbari",
+   2046,
+   8
+  ],
+  "287132": [
+   "Banar Gaon Balijan",
+   2046,
+   15
+  ],
+  "287131": [
+   "Angra Bari Asra",
+   2046,
+   15
+  ],
+  "287095": [
+   "Gohpur T E Grant",
+   2046,
+   8
+  ],
+  "287093": [
+   "Bholaguri T E",
+   2046,
+   8
+  ],
+  "287094": [
+   "Bholaguri T E",
+   2046,
+   8
+  ],
+  "287092": [
+   "Bholaguri Gaon",
+   2046,
+   8
+  ],
+  "287087": [
+   "Magani Kachari",
+   2046,
+   8
+  ],
+  "287089": [
+   "Magani Pam",
+   2046,
+   8
+  ],
+  "287088": [
+   "Hatibandha Pam",
+   2046,
+   9
+  ],
+  "287096": [
+   "Gohpur T E Grant",
+   2046,
+   15
+  ],
+  "287100": [
+   "Gohpur T E",
+   2046,
+   9
+  ],
+  "287099": [
+   "Gohpur T E",
+   2046,
+   9
+  ],
+  "287060": [
+   "Gopal Jarani",
+   2046,
+   9
+  ],
+  "287061": [
+   "Toltoli",
+   2046,
+   9
+  ],
+  "287062": [
+   "Lohitmukh",
+   2046,
+   9
+  ],
+  "287078": [
+   "Louguti",
+   2046,
+   9
+  ],
+  "287076": [
+   "Khehuwa",
+   2046,
+   9
+  ],
+  "287083": [
+   "Kuhimari",
+   2046,
+   9
+  ],
+  "287084": [
+   "Golchepa Miri Pathar",
+   2046,
+   9
+  ],
+  "287101": [
+   "Purubbari T E",
+   2046,
+   9
+  ],
+  "287106": [
+   "Balijan Miri Pathar",
+   2046,
+   9
+  ],
+  "287104": [
+   "Purup Bari T E",
+   2046,
+   9
+  ],
+  "287105": [
+   "Bhogpur Pathar",
+   2046,
+   9
+  ],
+  "287057": [
+   "Thute Chapori",
+   2046,
+   8
+  ],
+  "287117": [
+   "Lakhimi Chapari",
+   2046,
+   8
+  ],
+  "287119": [
+   "Brahmajan Rly Colony",
+   2046,
+   8
+  ],
+  "286953": [
+   "Gonai Tapu",
+   2046,
+   7
+  ],
+  "287022": [
+   "Brahmajan",
+   2046,
+   15
+  ],
+  "287024": [
+   "Brahmajan",
+   2046,
+   15
+  ],
+  "287027": [
+   "Nirmala T E",
+   2046,
+   15
+  ],
+  "287031": [
+   "Itapara",
+   2046,
+   8
+  ],
+  "287091": [
+   "Bholaguri Magoni",
+   2046,
+   8
+  ],
+  "287069": [
+   "Na Pamua",
+   2046,
+   8
+  ],
+  "287086": [
+   "Ghimarujan",
+   2046,
+   8
+  ],
+  "287085": [
+   "Jokapara",
+   2046,
+   9
+  ],
+  "287074": [
+   "Kaboimari",
+   2046,
+   8
+  ],
+  "287059": [
+   "Toltoli",
+   2046,
+   8
+  ],
+  "287065": [
+   "Dathkola",
+   2046,
+   8
+  ],
+  "287064": [
+   "Bordoloni",
+   2046,
+   8
+  ],
+  "287072": [
+   "Akhoi Phuta",
+   2046,
+   8
+  ],
+  "287071": [
+   "Bagar Pathar",
+   2046,
+   8
+  ],
+  "287070": [
+   "Bilatia",
+   2046,
+   8
+  ],
+  "287073": [
+   "Bakari Doloni",
+   2046,
+   8
+  ],
+  "287066": [
+   "Hatibandhia",
+   2046,
+   8
+  ],
+  "287067": [
+   "Natun Hatibandhia",
+   2046,
+   8
+  ],
+  "287050": [
+   "Bekijan",
+   2046,
+   8
+  ],
+  "287051": [
+   "Barjohabari",
+   2046,
+   8
+  ],
+  "287056": [
+   "Hatijan",
+   2046,
+   8
+  ],
+  "287055": [
+   "Dipara Pukhuri",
+   2046,
+   8
+  ],
+  "287052": [
+   "Moranbari",
+   2046,
+   8
+  ],
+  "287054": [
+   "Telini Pukhuri",
+   2046,
+   8
+  ],
+  "286971": [
+   "Amaguri",
+   2046,
+   8
+  ],
+  "286968": [
+   "Thalipukaria",
+   2046,
+   8
+  ],
+  "286955": [
+   "Santipur",
+   2046,
+   7
+  ],
+  "286954": [
+   "Purana Buroighat",
+   2046,
+   7
+  ],
+  "286961": [
+   "Barhati Guri",
+   2046,
+   7
+  ],
+  "286962": [
+   "Miri Pathar",
+   2046,
+   7
+  ],
+  "286966": [
+   "Bebejia",
+   2046,
+   7
+  ],
+  "286967": [
+   "Halema Guri",
+   2046,
+   8
+  ],
+  "286972": [
+   "Telar Sunga Bori",
+   2046,
+   8
+  ],
+  "287053": [
+   "Dhopabar",
+   2046,
+   8
+  ],
+  "287048": [
+   "Charengia",
+   2046,
+   8
+  ],
+  "287047": [
+   "Baranga Bari",
+   2046,
+   8
+  ],
+  "286973": [
+   "Balama Guri",
+   2046,
+   8
+  ],
+  "286974": [
+   "Am Tola",
+   2046,
+   8
+  ],
+  "287046": [
+   "Hukajan",
+   2046,
+   8
+  ],
+  "287049": [
+   "Khatar Bari",
+   2046,
+   8
+  ],
+  "287068": [
+   "Rangalial",
+   2046,
+   8
+  ],
+  "287036": [
+   "Balijan",
+   2046,
+   8
+  ],
+  "287037": [
+   "Chilathia",
+   2046,
+   8
+  ],
+  "287038": [
+   "Brahmajan",
+   2046,
+   8
+  ],
+  "287042": [
+   "Dariakhat",
+   2046,
+   8
+  ],
+  "287043": [
+   "Borani Pathar",
+   2046,
+   8
+  ],
+  "287040": [
+   "Bamun Bari",
+   2046,
+   8
+  ],
+  "287039": [
+   "Thalipukaria",
+   2046,
+   8
+  ],
+  "287035": [
+   "Kekoramari",
+   2046,
+   8
+  ],
+  "287045": [
+   "Affara Khat",
+   2046,
+   8
+  ],
+  "286976": [
+   "Ghahi Gaon",
+   2046,
+   8
+  ],
+  "286980": [
+   "Halem T E",
+   2046,
+   7
+  ],
+  "287044": [
+   "Goroi Mari",
+   2046,
+   8
+  ],
+  "286998": [
+   "Teton Bari",
+   2046,
+   8
+  ],
+  "287121": [
+   "Teton Bari Rly Colony",
+   2046,
+   8
+  ],
+  "287030": [
+   "Jogibari",
+   2046,
+   8
+  ],
+  "287028": [
+   "Nirmala T E",
+   2046,
+   15
+  ],
+  "286999": [
+   "Purani Geraj",
+   2046,
+   15
+  ],
+  "287029": [
+   "Amjarani",
+   2046,
+   15
+  ],
+  "287000": [
+   "Purani Geraj Kochari",
+   2046,
+   15
+  ],
+  "286977": [
+   "Teton Pukhuri",
+   2046,
+   8
+  ],
+  "286997": [
+   "Kari Geraj",
+   2046,
+   8
+  ],
+  "287001": [
+   "Mora Chengelijan",
+   2046,
+   15
+  ],
+  "286996": [
+   "Hatimara",
+   2046,
+   14
+  ],
+  "287003": [
+   "Tinikhania",
+   2046,
+   15
+  ],
+  "287002": [
+   "Noloni Bari",
+   2046,
+   14
+  ],
+  "286992": [
+   "Chengeli Jan",
+   2046,
+   14
+  ],
+  "286983": [
+   "Karibil Kachari",
+   2046,
+   14
+  ],
+  "286975": [
+   "Am Tola Bori",
+   2046,
+   8
+  ],
+  "286959": [
+   "Sonari Paria",
+   2046,
+   8
+  ],
+  "286958": [
+   "Gadharia Pathar",
+   2046,
+   7
+  ],
+  "286960": [
+   "Gadharia Basti",
+   2046,
+   7
+  ],
+  "286956": [
+   "Nepali Pathar",
+   2046,
+   7
+  ],
+  "286952": [
+   "Kurua Pathar",
+   2046,
+   7
+  ],
+  "286957": [
+   "Nepali Basti",
+   2046,
+   7
+  ],
+  "286951": [
+   "Ara Suti",
+   2046,
+   7
+  ],
+  "286946": [
+   "Aribhanga Bori",
+   2046,
+   7
+  ],
+  "286945": [
+   "Lepeta Para",
+   2046,
+   7
+  ],
+  "286944": [
+   "Dighali Pathar",
+   2046,
+   7
+  ],
+  "286943": [
+   "Hahara Pathar",
+   2046,
+   7
+  ],
+  "286942": [
+   "Amlokhi Dalani",
+   2046,
+   7
+  ],
+  "286979": [
+   "Chandamari Gaon",
+   2046,
+   7
+  ],
+  "286941": [
+   "Missa Mari",
+   2046,
+   7
+  ],
+  "286948": [
+   "Mukali Gaon",
+   2046,
+   7
+  ],
+  "286947": [
+   "Aribhanga Gaon",
+   2046,
+   7
+  ],
+  "286950": [
+   "Kurua Basti",
+   2046,
+   7
+  ],
+  "286949": [
+   "Aribhanga Pathar",
+   2046,
+   7
+  ],
+  "286940": [
+   "Bali Gaon",
+   2046,
+   7
+  ],
+  "286938": [
+   "Fatia Bari",
+   2046,
+   7
+  ],
+  "286939": [
+   "Ganu Gaon",
+   2046,
+   7
+  ],
+  "286936": [
+   "Natun Boroighat",
+   2046,
+   7
+  ],
+  "286934": [
+   "Pachim Tokowbari",
+   2046,
+   7
+  ],
+  "286935": [
+   "Tokowbari",
+   2046,
+   7
+  ],
+  "286937": [
+   "Rangajan",
+   2046,
+   7
+  ],
+  "286978": [
+   "Halem T E",
+   2046,
+   7
+  ],
+  "286995": [
+   "Sakumathia",
+   2046,
+   14
+  ],
+  "286994": [
+   "Kawri Pathar",
+   2046,
+   14
+  ],
+  "286982": [
+   "Karibil Nepali",
+   2046,
+   14
+  ],
+  "286993": [
+   "Kemai Jaroni",
+   2046,
+   14
+  ],
+  "286981": [
+   "Chandamari Bangali",
+   2046,
+   14
+  ],
+  "286933": [
+   "Chandamari Pathar",
+   2046,
+   14
+  ],
+  "286928": [
+   "Kari Bil Bongali",
+   2046,
+   14
+  ],
+  "286930": [
+   "Kari Bil Chapari",
+   2046,
+   14
+  ],
+  "286929": [
+   "Bhalua Danga",
+   2046,
+   14
+  ],
+  "286984": [
+   "Karibil",
+   2046,
+   14
+  ],
+  "287120": [
+   "Helem Rly Colony",
+   2046,
+   7
+  ],
+  "287041": [
+   "Garudhuwa Dubi",
+   2046,
+   8
+  ],
+  "287090": [
+   "Rahdhola Basti",
+   2046,
+   8
+  ],
+  "286863": [
+   "Mahan Brahmaputra Chapori",
+   2045,
+   6
+  ],
+  "286795": [
+   "Bargang",
+   2045,
+   6
+  ],
+  "286777": [
+   "Monabari T E",
+   2045,
+   5
+  ],
+  "286724": [
+   "Gela Pukhuri",
+   2045,
+   5
+  ],
+  "286784": [
+   "Mijikajan T E",
+   2045,
+   5
+  ],
+  "287077": [
+   "Mohlati",
+   2046,
+   9
+  ],
+  "286964": [
+   "Lakhi Chapari",
+   2046,
+   7
+  ],
+  "287075": [
+   "Nalani Doba",
+   2046,
+   9
+  ],
+  "287063": [
+   "Khalihamari",
+   2046,
+   9
+  ],
+  "287058": [
+   "Hatijan",
+   2046,
+   8
+  ],
+  "286969": [
+   "Pahuchuwa Bori",
+   2046,
+   8
+  ],
+  "286965": [
+   "Kani Para Bori",
+   2046,
+   8
+  ],
+  "286963": [
+   "Miri Gaon",
+   2046,
+   7
+  ],
+  "286931": [
+   "Kari Bil",
+   2046,
+   14
+  ],
+  "286932": [
+   "Kari Bil",
+   2046,
+   14
+  ],
+  "287355": [
+   "Kakila Pathar",
+   2047,
+   16
+  ],
+  "286748": [
+   "Mijika",
+   2045,
+   4
+  ],
+  "286893": [
+   "Bill Mari Nke",
+   2045,
+   7
+  ],
+  "287148": [
+   "Simalugari",
+   2046,
+   16
+  ],
+  "286922": [
+   "Rongajan Pabhoi R F",
+   2045,
+   12
+  ],
+  "286920": [
+   "Bagijuli",
+   2045,
+   12
+  ],
+  "286833": [
+   "Rangagora",
+   2045,
+   13
+  ],
+  "286906": [
+   "Serelia F V",
+   2045,
+   13
+  ],
+  "286907": [
+   "Kulaguri F V",
+   2045,
+   13
+  ],
+  "286986": [
+   "Boroi T E",
+   2046,
+   14
+  ],
+  "286988": [
+   "Boroi T E",
+   2046,
+   14
+  ],
+  "286985": [
+   "Chira Juli",
+   2046,
+   14
+  ],
+  "287005": [
+   "Boroi T E",
+   2046,
+   14
+  ],
+  "287006": [
+   "Boroi",
+   2046,
+   14
+  ],
+  "287007": [
+   "Boroi Grant",
+   2046,
+   14
+  ],
+  "287010": [
+   "Boroi",
+   2046,
+   15
+  ],
+  "287011": [
+   "Dufflagarh Grant",
+   2046,
+   15
+  ],
+  "287018": [
+   "Dufflagarh T E",
+   2046,
+   15
+  ],
+  "287020": [
+   "Dufflagarh T E",
+   2046,
+   15
+  ],
+  "287019": [
+   "Boroi T E",
+   2046,
+   15
+  ],
+  "287017": [
+   "Dufflagarh T E",
+   2046,
+   15
+  ],
+  "287021": [
+   "Dufflagarh T E",
+   2046,
+   15
+  ],
+  "287016": [
+   "Dufflagarh T E",
+   2046,
+   15
+  ],
+  "287015": [
+   "Dufflagarh",
+   2046,
+   15
+  ],
+  "287012": [
+   "Dufflagarh",
+   2046,
+   15
+  ],
+  "287013": [
+   "Dufflagarh Grant",
+   2046,
+   15
+  ],
+  "287123": [
+   "Upper Balijan",
+   2046,
+   15
+  ],
+  "287124": [
+   "Tengabari",
+   2046,
+   15
+  ],
+  "287140": [
+   "Brahmapur",
+   2046,
+   15
+  ],
+  "287125": [
+   "Dhuna Bari",
+   2046,
+   15
+  ],
+  "287141": [
+   "Borbali",
+   2046,
+   16
+  ],
+  "287142": [
+   "Chatrangraza Bari",
+   2046,
+   16
+  ],
+  "287143": [
+   "Krishna Pur",
+   2046,
+   15
+  ],
+  "287126": [
+   "Deuri Gaon",
+   2046,
+   15
+  ],
+  "287128": [
+   "Milan Pur",
+   2046,
+   15
+  ],
+  "287146": [
+   "Gorbalizan",
+   2046,
+   15
+  ],
+  "287129": [
+   "Anandapur",
+   2046,
+   15
+  ],
+  "287127": [
+   "Santi Pur",
+   2046,
+   15
+  ],
+  "287139": [
+   "Joypur",
+   2046,
+   15
+  ],
+  "287014": [
+   "Balijan Mazdur",
+   2046,
+   15
+  ],
+  "287008": [
+   "Boroi P K",
+   2046,
+   14
+  ],
+  "286987": [
+   "Boroi T E",
+   2046,
+   14
+  ],
+  "287009": [
+   "Boroi",
+   2046,
+   15
+  ],
+  "287354": [
+   "Gojen Pathar",
+   2047,
+   16
+  ],
+  "287353": [
+   "Nacher Bari",
+   2047,
+   16
+  ],
+  "287291": [
+   "Satrang",
+   2047,
+   16
+  ],
+  "287273": [
+   "Udangsri",
+   2047,
+   16
+  ],
+  "287312": [
+   "Kukurjan",
+   2047,
+   16
+  ],
+  "287103": [
+   "Delhousi T E",
+   2046,
+   9
+  ],
+  "287108": [
+   "Padma Pur",
+   2046,
+   9
+  ],
+  "287109": [
+   "Delhousi Kachari",
+   2046,
+   9
+  ],
+  "287107": [
+   "Purup Bari Kachari",
+   2046,
+   9
+  ],
+  "287110": [
+   "Chatran Guri Pathar",
+   2046,
+   9
+  ],
+  "287111": [
+   "Balijan Chapari",
+   2046,
+   9
+  ],
+  "287112": [
+   "Kukura Kata",
+   2046,
+   9
+  ],
+  "287113": [
+   "Bortamuli",
+   2046,
+   9
+  ],
+  "287082": [
+   "Batamari Bor Tamuli",
+   2046,
+   9
+  ],
+  "287081": [
+   "Raja Bari",
+   2046,
+   9
+  ],
+  "287080": [
+   "Chara Bandha",
+   2046,
+   9
+  ],
+  "287079": [
+   "Saru Tamuli",
+   2046,
+   9
+  ],
+  "287114": [
+   "Bortamuli",
+   2046,
+   9
+  ],
+  "287115": [
+   "Lokasa Bortamuli",
+   2046,
+   9
+  ],
+  "287116": [
+   "Ganai Chapari",
+   2046,
+   9
+  ],
+  "249880": [
+   "Gohpur",
+   2047,
+   16
+  ],
+  "287271": [
+   "N C Chirakhowa Chapari",
+   2047,
+   9
+  ],
+  "287265": [
+   "Gajpur",
+   2047,
+   9
+  ],
+  "287264": [
+   "Rowna Mukh",
+   2047,
+   9
+  ],
+  "287266": [
+   "Charai Bari",
+   2047,
+   10
+  ],
+  "287269": [
+   "Kutum Gaon",
+   2047,
+   10
+  ],
+  "287267": [
+   "Bali Gaon",
+   2047,
+   10
+  ],
+  "287270": [
+   "Bahu Mari",
+   2047,
+   10
+  ],
+  "287268": [
+   "Dak Chapari",
+   2047,
+   10
+  ],
+  "287245": [
+   "Uppar Tinsukia",
+   2047,
+   10
+  ],
+  "287246": [
+   "Uppar Tinsukia",
+   2047,
+   10
+  ],
+  "287250": [
+   "Charai Bari",
+   2047,
+   10
+  ],
+  "287259": [
+   "Rownamukh Gaon Miri",
+   2047,
+   9
+  ],
+  "287258": [
+   "Rownamukh Pathar",
+   2047,
+   9
+  ],
+  "287256": [
+   "Chirakhowa",
+   2047,
+   9
+  ],
+  "287257": [
+   "Chirakhowa",
+   2047,
+   9
+  ],
+  "287254": [
+   "Beji Suti",
+   2047,
+   9
+  ],
+  "287255": [
+   "Beji Suti",
+   2047,
+   9
+  ],
+  "287249": [
+   "Charai Bari",
+   2047,
+   10
+  ],
+  "287243": [
+   "Simaluguri Bali Gaon",
+   2047,
+   10
+  ],
+  "287244": [
+   "Uppar Tinsukia",
+   2047,
+   10
+  ],
+  "287235": [
+   "Kamdewal",
+   2047,
+   10
+  ],
+  "287236": [
+   "Mazpichala",
+   2047,
+   10
+  ],
+  "287237": [
+   "Pichala Miri",
+   2047,
+   10
+  ],
+  "287223": [
+   "Aliguri",
+   2047,
+   10
+  ],
+  "287220": [
+   "Ghuria Gaon",
+   2047,
+   10
+  ],
+  "287218": [
+   "Deuri Gaon",
+   2047,
+   10
+  ],
+  "287212": [
+   "Khutikatiya",
+   2047,
+   17
+  ],
+  "287211": [
+   "Kukura Chowa",
+   2047,
+   17
+  ],
+  "287214": [
+   "Deuri Chuck",
+   2047,
+   10
+  ],
+  "287219": [
+   "Khatar Gaon",
+   2047,
+   10
+  ],
+  "287221": [
+   "Satiyara",
+   2047,
+   10
+  ],
+  "287222": [
+   "Natun Khatar",
+   2047,
+   10
+  ],
+  "287224": [
+   "Pukpara Pathar",
+   2047,
+   10
+  ],
+  "287228": [
+   "Kamdewal",
+   2047,
+   10
+  ],
+  "287227": [
+   "Kamdewal",
+   2047,
+   10
+  ],
+  "287225": [
+   "Pukpara Gaon",
+   2047,
+   10
+  ],
+  "287217": [
+   "Khatar Pathar",
+   2047,
+   10
+  ],
+  "287215": [
+   "Daladalani",
+   2047,
+   17
+  ],
+  "287209": [
+   "Tihula Bori",
+   2047,
+   10
+  ],
+  "287216": [
+   "Daladalani",
+   2047,
+   10
+  ],
+  "287232": [
+   "Dilapakhara",
+   2047,
+   10
+  ],
+  "287233": [
+   "Dilapakhara",
+   2047,
+   10
+  ],
+  "287226": [
+   "Tengakhowa",
+   2047,
+   10
+  ],
+  "287234": [
+   "Kohilaguri",
+   2047,
+   10
+  ],
+  "287238": [
+   "Biha Guri",
+   2047,
+   10
+  ],
+  "287241": [
+   "Dhandi Pathar",
+   2047,
+   10
+  ],
+  "287242": [
+   "Tinsukia",
+   2047,
+   10
+  ],
+  "287248": [
+   "Raja Bari",
+   2047,
+   10
+  ],
+  "287247": [
+   "Raja Bahar",
+   2047,
+   9
+  ],
+  "287240": [
+   "Majikuchi",
+   2047,
+   10
+  ],
+  "287239": [
+   "Majikuchi",
+   2047,
+   10
+  ],
+  "287230": [
+   "Majikuchi",
+   2047,
+   10
+  ],
+  "287231": [
+   "Khetriati",
+   2047,
+   10
+  ],
+  "287252": [
+   "Raja Bari",
+   2047,
+   9
+  ],
+  "287253": [
+   "Chara Bandha",
+   2047,
+   9
+  ],
+  "287263": [
+   "Rangamuri",
+   2047,
+   9
+  ],
+  "287262": [
+   "Gamariati",
+   2047,
+   9
+  ],
+  "287261": [
+   "Dusutimukh",
+   2047,
+   9
+  ],
+  "287260": [
+   "Kharai Pam",
+   2047,
+   9
+  ],
+  "287177": [
+   "Uzapara",
+   2047,
+   9
+  ],
+  "287176": [
+   "Uzapara",
+   2047,
+   9
+  ],
+  "287251": [
+   "Chakala",
+   2047,
+   9
+  ],
+  "287187": [
+   "Kakila Pathar",
+   2047,
+   9
+  ],
+  "287171": [
+   "Barphalong",
+   2047,
+   9
+  ],
+  "287175": [
+   "Chakura",
+   2047,
+   9
+  ],
+  "287174": [
+   "Chakura",
+   2047,
+   9
+  ],
+  "287178": [
+   "Chakala",
+   2047,
+   9
+  ],
+  "287229": [
+   "Barachuk Pathar",
+   2047,
+   10
+  ],
+  "287208": [
+   "Pahukata",
+   2047,
+   10
+  ],
+  "287203": [
+   "Mikir Bara Chuck",
+   2047,
+   17
+  ],
+  "287205": [
+   "Jagara Dalani",
+   2047,
+   17
+  ],
+  "287207": [
+   "Mornoi Guri",
+   2047,
+   17
+  ],
+  "287210": [
+   "Kalita Gaon",
+   2047,
+   17
+  ],
+  "287206": [
+   "Chengamara Guri",
+   2047,
+   17
+  ],
+  "287199": [
+   "Changmara Jarani",
+   2047,
+   17
+  ],
+  "287197": [
+   "Supahi Bari",
+   2047,
+   17
+  ],
+  "287198": [
+   "Darrangi Mornoi",
+   2047,
+   17
+  ],
+  "287195": [
+   "Sutar Doloni",
+   2047,
+   17
+  ],
+  "287196": [
+   "Singara Jan",
+   2047,
+   17
+  ],
+  "287193": [
+   "Dubia Bori",
+   2047,
+   17
+  ],
+  "287194": [
+   "Dubia Jarani",
+   2047,
+   17
+  ],
+  "287204": [
+   "Kumar Kata",
+   2047,
+   17
+  ],
+  "287202": [
+   "Kumar Kata",
+   2047,
+   17
+  ],
+  "287201": [
+   "Kumar Kata",
+   2047,
+   17
+  ],
+  "287200": [
+   "Dubia Pathar",
+   2047,
+   17
+  ],
+  "287192": [
+   "Dubia Gaon",
+   2047,
+   17
+  ],
+  "287182": [
+   "Madurani",
+   2047,
+   17
+  ],
+  "287164": [
+   "Naharani",
+   2047,
+   17
+  ],
+  "287183": [
+   "Kakila Jarani",
+   2047,
+   17
+  ],
+  "287184": [
+   "Kakila Guri",
+   2047,
+   16
+  ],
+  "287190": [
+   "Auni Bori",
+   2047,
+   17
+  ],
+  "287189": [
+   "Bardop",
+   2047,
+   17
+  ],
+  "287188": [
+   "Sonali Bori",
+   2047,
+   16
+  ],
+  "287179": [
+   "Khalihai Pathar",
+   2047,
+   16
+  ],
+  "287170": [
+   "Balitika",
+   2047,
+   16
+  ],
+  "287169": [
+   "Barghuli",
+   2047,
+   16
+  ],
+  "287156": [
+   "Badal Pathar",
+   2047,
+   16
+  ],
+  "287186": [
+   "Solengi Guri",
+   2047,
+   16
+  ],
+  "287167": [
+   "Solengi Pathar",
+   2047,
+   16
+  ],
+  "287163": [
+   "Tingali Bori",
+   2047,
+   16
+  ],
+  "287185": [
+   "Kharani Jan",
+   2047,
+   16
+  ],
+  "287166": [
+   "Na Pam",
+   2047,
+   16
+  ],
+  "287181": [
+   "Naharani",
+   2047,
+   16
+  ],
+  "287180": [
+   "Gopal Pur",
+   2047,
+   16
+  ],
+  "287165": [
+   "Naharani",
+   2047,
+   16
+  ],
+  "287153": [
+   "Ghagora Basti",
+   2047,
+   16
+  ],
+  "287157": [
+   "Deona Bori",
+   2047,
+   16
+  ],
+  "287155": [
+   "Chengai Gaon",
+   2047,
+   16
+  ],
+  "287150": [
+   "Naya Ghagra",
+   2047,
+   16
+  ],
+  "287149": [
+   "Naya Ghagra",
+   2047,
+   16
+  ],
+  "287152": [
+   "Natun Chatrang",
+   2047,
+   16
+  ],
+  "287172": [
+   "Gahpur Pathar",
+   2047,
+   9
+  ],
+  "287173": [
+   "Bherveri Pathar",
+   2047,
+   9
+  ],
+  "287154": [
+   "Ali Tala",
+   2047,
+   16
+  ],
+  "287213": [
+   "Gagai Gaon",
+   2047,
+   17
+  ],
+  "287102": [
+   "Purup Bari T E",
+   2046,
+   9
+  ],
+  "287191": [
+   "Uttar Dubia",
+   2047,
+   17
+  ],
+  "287161": [
+   "Simaluguri",
+   2047,
+   16
+  ],
+  "287159": [
+   "Bagani Bari",
+   2047,
+   16
+  ],
+  "287160": [
+   "Pub Rangajan",
+   2047,
+   16
+  ],
+  "287158": [
+   "Uttar Sonapur",
+   2047,
+   16
+  ],
+  "287162": [
+   "Sonapur",
+   2047,
+   16
+  ],
+  "287168": [
+   "Nalbari",
+   2047,
+   16
+  ],
+  "287352": [
+   "Gomari Guri",
+   2047,
+   16
+  ],
+  "287346": [
+   "Asra Bari",
+   2047,
+   16
+  ],
+  "287313": [
+   "Anandapur",
+   2047,
+   16
+  ],
+  "287314": [
+   "Kherani",
+   2047,
+   16
+  ],
+  "287344": [
+   "Nareng Guri",
+   2047,
+   16
+  ],
+  "287345": [
+   "Bali Gaon",
+   2047,
+   16
+  ],
+  "287347": [
+   "Haldibari",
+   2047,
+   16
+  ],
+  "287350": [
+   "Ikarabari",
+   2047,
+   16
+  ],
+  "287349": [
+   "Ikarabari",
+   2047,
+   16
+  ],
+  "287299": [
+   "Polisomani Dafala",
+   2047,
+   16
+  ],
+  "287298": [
+   "Polisomanimishing Bejiamukh",
+   2047,
+   16
+  ],
+  "287297": [
+   "Santipur",
+   2047,
+   16
+  ],
+  "287315": [
+   "Kheranibari",
+   2047,
+   16
+  ],
+  "287316": [
+   "Thaisuguri",
+   2047,
+   16
+  ],
+  "287274": [
+   "Brahmapur",
+   2047,
+   16
+  ],
+  "287296": [
+   "Naharani",
+   2047,
+   16
+  ],
+  "287293": [
+   "Ghagara East",
+   2047,
+   16
+  ],
+  "287358": [
+   "Tharibari",
+   2047,
+   16
+  ],
+  "287292": [
+   "Ghagara West",
+   2047,
+   16
+  ],
+  "287295": [
+   "Kharani Jan",
+   2047,
+   16
+  ],
+  "287294": [
+   "Sonapur",
+   2047,
+   16
+  ],
+  "287317": [
+   "Kakilamaj Gaon",
+   2047,
+   16
+  ],
+  "287318": [
+   "Maina Pur",
+   2047,
+   16
+  ],
+  "287275": [
+   "Sapaguri",
+   2047,
+   16
+  ],
+  "287278": [
+   "Bonor Gaon",
+   2047,
+   16
+  ],
+  "287357": [
+   "Dhanpur",
+   2047,
+   16
+  ],
+  "287319": [
+   "Gajen Pathar",
+   2047,
+   16
+  ],
+  "287276": [
+   "Garobasti",
+   2047,
+   16
+  ],
+  "287287": [
+   "Garehaga",
+   2047,
+   16
+  ],
+  "287300": [
+   "Gopsar Guri",
+   2047,
+   16
+  ],
+  "287301": [
+   "Alu Para",
+   2047,
+   17
+  ],
+  "287302": [
+   "Bikram Pur",
+   2047,
+   17
+  ],
+  "287303": [
+   "Owguri",
+   2047,
+   17
+  ],
+  "287305": [
+   "Sessa Bardhita Miri",
+   2047,
+   17
+  ],
+  "287279": [
+   "Kokilajar",
+   2047,
+   17
+  ],
+  "287306": [
+   "Sessa Assamese",
+   2047,
+   17
+  ],
+  "287308": [
+   "Dafala Para",
+   2047,
+   17
+  ],
+  "287304": [
+   "Rangajan Missing Miri",
+   2047,
+   17
+  ],
+  "287375": [
+   "Barbari",
+   2047,
+   17
+  ],
+  "287374": [
+   "Digambari",
+   2047,
+   17
+  ],
+  "287307": [
+   "Kalmou Guri",
+   2047,
+   17
+  ],
+  "287368": [
+   "Dui Mukh",
+   2047,
+   17
+  ],
+  "287369": [
+   "Dimapur",
+   2047,
+   17
+  ],
+  "287370": [
+   "Khakanguri",
+   2047,
+   17
+  ],
+  "287371": [
+   "Salbari",
+   2047,
+   17
+  ],
+  "287372": [
+   "Daimauguri",
+   2047,
+   17
+  ],
+  "287373": [
+   "Alaripur",
+   2047,
+   17
+  ],
+  "287365": [
+   "Batha Bari",
+   2047,
+   17
+  ],
+  "287362": [
+   "Lakhipur",
+   2047,
+   17
+  ],
+  "287364": [
+   "Gorhe Haga",
+   2047,
+   17
+  ],
+  "287366": [
+   "Simaluguri",
+   2047,
+   17
+  ],
+  "287363": [
+   "Kadamguri",
+   2047,
+   17
+  ],
+  "287361": [
+   "Bijoypur",
+   2047,
+   17
+  ],
+  "287342": [
+   "Rajpur",
+   2047,
+   17
+  ],
+  "287339": [
+   "Bathoubari",
+   2047,
+   17
+  ],
+  "287338": [
+   "Mainapur",
+   2047,
+   17
+  ],
+  "287343": [
+   "Goroimari",
+   2047,
+   17
+  ],
+  "287360": [
+   "Bijoypur",
+   2047,
+   17
+  ],
+  "287359": [
+   "Gorhe Haga",
+   2047,
+   17
+  ],
+  "287337": [
+   "Jamuguri",
+   2047,
+   17
+  ],
+  "287336": [
+   "Jamuguri",
+   2047,
+   17
+  ],
+  "287334": [
+   "Amlaiguri",
+   2047,
+   17
+  ],
+  "287309": [
+   "Madhab Pur",
+   2047,
+   17
+  ],
+  "287340": [
+   "Syampur",
+   2047,
+   17
+  ],
+  "287326": [
+   "Nigam",
+   2047,
+   17
+  ],
+  "287310": [
+   "Balabari",
+   2047,
+   17
+  ],
+  "287377": [
+   "Kungari Garh",
+   2047,
+   17
+  ],
+  "287320": [
+   "Pratap Garh",
+   2047,
+   17
+  ],
+  "287325": [
+   "Ratan Pur",
+   2047,
+   17
+  ],
+  "287333": [
+   "Jamuguri",
+   2047,
+   17
+  ],
+  "287324": [
+   "Sonarijan",
+   2047,
+   17
+  ],
+  "287378": [
+   "Athaish Gharia",
+   2047,
+   17
+  ],
+  "287376": [
+   "Daimaguri",
+   2047,
+   17
+  ],
+  "287327": [
+   "Nigam Nd Line",
+   2047,
+   17
+  ],
+  "287328": [
+   "Nigam Rd Line",
+   2047,
+   17
+  ],
+  "287379": [
+   "Nacher Bari",
+   2047,
+   17
+  ],
+  "287321": [
+   "Sonajuli Gaon",
+   2047,
+   17
+  ],
+  "287284": [
+   "Sarfang Guri",
+   2047,
+   17
+  ],
+  "287285": [
+   "Gandabil",
+   2047,
+   17
+  ],
+  "287323": [
+   "Milon Pur Gaon",
+   2047,
+   17
+  ],
+  "287341": [
+   "Langdangpar Gaon",
+   2047,
+   17
+  ],
+  "287322": [
+   "Bijoypur",
+   2047,
+   17
+  ],
+  "287281": [
+   "Dharmapur",
+   2047,
+   17
+  ],
+  "287277": [
+   "Kokila Bazar",
+   2047,
+   16
+  ],
+  "287286": [
+   "Bandu Guri",
+   2047,
+   17
+  ],
+  "287329": [
+   "Nigam Last Line",
+   2047,
+   17
+  ],
+  "287332": [
+   "Bishnupur",
+   2047,
+   17
+  ],
+  "287283": [
+   "Damanpur",
+   2047,
+   17
+  ],
+  "287282": [
+   "Damanpur",
+   2047,
+   17
+  ],
+  "287288": [
+   "Doimaluguri",
+   2047,
+   17
+  ],
+  "287331": [
+   "Naren Guri",
+   2047,
+   17
+  ],
+  "287330": [
+   "Santipur",
+   2047,
+   17
+  ],
+  "287289": [
+   "Sesa Maj Dham",
+   2047,
+   17
+  ],
+  "287356": [
+   "Kakila Guri",
+   2047,
+   17
+  ],
+  "287290": [
+   "Dakhin Gopsarguri",
+   2047,
+   17
+  ],
+  "287311": [
+   "Jamuguri",
+   2047,
+   17
+  ],
+  "287335": [
+   "Simaluguri",
+   2047,
+   17
+  ],
+  "287348": [
+   "Rangajan",
+   2047,
+   16
+  ],
+  "287367": [
+   "Sessa Bali",
+   2047,
+   17
+  ],
+  "287151": [
+   "Naya Ghagra",
+   2047,
+   16
+  ],
+  "286822": [
+   "Bargang Rangagara T E",
+   2045,
+   13
+  ],
+  "286918": [
+   "Mugachang",
+   2045,
+   4
+  ],
+  "286911": [
+   "Dimapur",
+   2045,
+   4
+  ],
+  "286910": [
+   "Moinaguri F V",
+   2045,
+   4
+  ],
+  "286919": [
+   "Koyalajuli",
+   2045,
+   11
+  ],
+  "286915": [
+   "Sonajuli",
+   2045,
+   4
+  ],
+  "286914": [
+   "Milanpur",
+   2045,
+   4
+  ],
+  "286820": [
+   "Bargang Rangagara T E",
+   2045,
+   13
+  ],
+  "286821": [
+   "Bargang Rangagara T E",
+   2045,
+   13
+  ],
+  "286823": [
+   "Bargang Rangagara T E",
+   2045,
+   13
+  ],
+  "286832": [
+   "Bargang Rangagara T E",
+   2045,
+   6
+  ],
+  "286830": [
+   "Bargang Rangagara T E",
+   2045,
+   6
+  ],
+  "286829": [
+   "Bargang Rangagara T E",
+   2045,
+   6
+  ],
+  "286831": [
+   "Bargang Rangagara T E",
+   2045,
+   5
+  ],
+  "286827": [
+   "Bargang Rangara T E",
+   2045,
+   6
+  ],
+  "286824": [
+   "Bargang Rangagara T E",
+   2045,
+   13
+  ],
+  "286828": [
+   "Bargang Rangara T E",
+   2045,
+   13
+  ],
+  "286923": [
+   "Sonabil",
+   2045,
+   11
+  ],
+  "286924": [
+   "Ganeshbari",
+   2045,
+   4
+  ],
+  "286921": [
+   "Omarjan",
+   2045,
+   12
+  ],
+  "286913": [
+   "Rangajan",
+   2045,
+   11
+  ],
+  "286917": [
+   "Thaikirguri",
+   2045,
+   4
+  ]
+ },
+ "village_count_total": 841,
+ "village_count_assigned": 841
+}

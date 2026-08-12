@@ -1,0 +1,6043 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Bihar",
+  "district": "Madhubani",
+  "district_lgd": 206,
+  "observation_window": "2026-08-07T11:03Z to 2026-08-12T11:03Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2439,
+  "sm_surface_stddev": 0.022,
+  "sm_rootzone_mean": 0.2356,
+  "sm_rootzone_stddev": 0.0214,
+  "n_cells": 33,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 26.1365,
+    "lon": 86.4134,
+    "sm_surface": 0.2644,
+    "sm_rootzone": 0.288,
+    "n_villages_sharing_cell": 56
+   },
+   {
+    "cell_index": 1,
+    "lat": 26.1365,
+    "lon": 86.5123,
+    "sm_surface": 0.2726,
+    "sm_rootzone": 0.2968,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 2,
+    "lat": 26.2353,
+    "lon": 86.117,
+    "sm_surface": 0.2193,
+    "sm_rootzone": 0.2168,
+    "n_villages_sharing_cell": 56
+   },
+   {
+    "cell_index": 3,
+    "lat": 26.2353,
+    "lon": 86.2158,
+    "sm_surface": 0.2337,
+    "sm_rootzone": 0.2257,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 4,
+    "lat": 26.2353,
+    "lon": 86.3146,
+    "sm_surface": 0.252,
+    "sm_rootzone": 0.2442,
+    "n_villages_sharing_cell": 40
+   },
+   {
+    "cell_index": 5,
+    "lat": 26.2353,
+    "lon": 86.4134,
+    "sm_surface": 0.2566,
+    "sm_rootzone": 0.2526,
+    "n_villages_sharing_cell": 43
+   },
+   {
+    "cell_index": 6,
+    "lat": 26.2353,
+    "lon": 86.5123,
+    "sm_surface": 0.2577,
+    "sm_rootzone": 0.2466,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 7,
+    "lat": 26.3341,
+    "lon": 85.9194,
+    "sm_surface": 0.1922,
+    "sm_rootzone": 0.2016,
+    "n_villages_sharing_cell": 42
+   },
+   {
+    "cell_index": 8,
+    "lat": 26.3341,
+    "lon": 86.0182,
+    "sm_surface": 0.2066,
+    "sm_rootzone": 0.2079,
+    "n_villages_sharing_cell": 51
+   },
+   {
+    "cell_index": 9,
+    "lat": 26.3341,
+    "lon": 86.117,
+    "sm_surface": 0.2204,
+    "sm_rootzone": 0.2149,
+    "n_villages_sharing_cell": 33
+   },
+   {
+    "cell_index": 10,
+    "lat": 26.3341,
+    "lon": 86.2158,
+    "sm_surface": 0.2379,
+    "sm_rootzone": 0.2262,
+    "n_villages_sharing_cell": 48
+   },
+   {
+    "cell_index": 11,
+    "lat": 26.3341,
+    "lon": 86.3146,
+    "sm_surface": 0.2559,
+    "sm_rootzone": 0.2457,
+    "n_villages_sharing_cell": 43
+   },
+   {
+    "cell_index": 12,
+    "lat": 26.3341,
+    "lon": 86.4134,
+    "sm_surface": 0.2608,
+    "sm_rootzone": 0.2523,
+    "n_villages_sharing_cell": 39
+   },
+   {
+    "cell_index": 13,
+    "lat": 26.3341,
+    "lon": 86.5123,
+    "sm_surface": 0.261,
+    "sm_rootzone": 0.2439,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 14,
+    "lat": 26.4329,
+    "lon": 85.8206,
+    "sm_surface": 0.2118,
+    "sm_rootzone": 0.21,
+    "n_villages_sharing_cell": 62
+   },
+   {
+    "cell_index": 15,
+    "lat": 26.4329,
+    "lon": 85.9194,
+    "sm_surface": 0.2121,
+    "sm_rootzone": 0.212,
+    "n_villages_sharing_cell": 40
+   },
+   {
+    "cell_index": 16,
+    "lat": 26.4329,
+    "lon": 86.0182,
+    "sm_surface": 0.2124,
+    "sm_rootzone": 0.2113,
+    "n_villages_sharing_cell": 46
+   },
+   {
+    "cell_index": 17,
+    "lat": 26.4329,
+    "lon": 86.117,
+    "sm_surface": 0.2275,
+    "sm_rootzone": 0.2186,
+    "n_villages_sharing_cell": 43
+   },
+   {
+    "cell_index": 18,
+    "lat": 26.4329,
+    "lon": 86.2158,
+    "sm_surface": 0.2395,
+    "sm_rootzone": 0.2176,
+    "n_villages_sharing_cell": 40
+   },
+   {
+    "cell_index": 19,
+    "lat": 26.4329,
+    "lon": 86.3146,
+    "sm_surface": 0.2546,
+    "sm_rootzone": 0.2427,
+    "n_villages_sharing_cell": 39
+   },
+   {
+    "cell_index": 20,
+    "lat": 26.4329,
+    "lon": 86.4134,
+    "sm_surface": 0.2657,
+    "sm_rootzone": 0.2506,
+    "n_villages_sharing_cell": 29
+   },
+   {
+    "cell_index": 21,
+    "lat": 26.4329,
+    "lon": 86.5123,
+    "sm_surface": 0.2634,
+    "sm_rootzone": 0.2423,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 22,
+    "lat": 26.4329,
+    "lon": 86.6111,
+    "sm_surface": 0.2634,
+    "sm_rootzone": 0.2458,
+    "n_villages_sharing_cell": 37
+   },
+   {
+    "cell_index": 23,
+    "lat": 26.4329,
+    "lon": 86.7099,
+    "sm_surface": 0.2668,
+    "sm_rootzone": 0.2489,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 24,
+    "lat": 26.5317,
+    "lon": 85.9194,
+    "sm_surface": 0.2219,
+    "sm_rootzone": 0.2159,
+    "n_villages_sharing_cell": 51
+   },
+   {
+    "cell_index": 25,
+    "lat": 26.5317,
+    "lon": 86.0182,
+    "sm_surface": 0.2307,
+    "sm_rootzone": 0.2236,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 26,
+    "lat": 26.5317,
+    "lon": 86.117,
+    "sm_surface": 0.2412,
+    "sm_rootzone": 0.224,
+    "n_villages_sharing_cell": 21
+   },
+   {
+    "cell_index": 27,
+    "lat": 26.5317,
+    "lon": 86.2158,
+    "sm_surface": 0.252,
+    "sm_rootzone": 0.231,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 28,
+    "lat": 26.5317,
+    "lon": 86.3146,
+    "sm_surface": 0.2676,
+    "sm_rootzone": 0.2451,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 29,
+    "lat": 26.5317,
+    "lon": 86.4134,
+    "sm_surface": 0.2723,
+    "sm_rootzone": 0.26,
+    "n_villages_sharing_cell": 24
+   },
+   {
+    "cell_index": 30,
+    "lat": 26.5317,
+    "lon": 86.5123,
+    "sm_surface": 0.2728,
+    "sm_rootzone": 0.2546,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 31,
+    "lat": 26.6306,
+    "lon": 86.0182,
+    "sm_surface": 0.2371,
+    "sm_rootzone": 0.23,
+    "n_villages_sharing_cell": 33
+   },
+   {
+    "cell_index": 32,
+    "lat": 26.6306,
+    "lon": 86.117,
+    "sm_surface": 0.2439,
+    "sm_rootzone": 0.2288,
+    "n_villages_sharing_cell": 14
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2406,
+  "sm_surface_stddev": 0.0204,
+  "n_blocks": 21
+ },
+ "blocks": [
+  {
+   "block_name": "Andhratharhi",
+   "sdcode": 1096,
+   "n_villages": 48,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.2517,
+   "sm_surface_stddev": 0.0078
+  },
+  {
+   "block_name": "Babubarhi",
+   "sdcode": 1088,
+   "n_villages": 63,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.2549,
+   "sm_surface_stddev": 0.0093
+  },
+  {
+   "block_name": "Basopatti",
+   "sdcode": 1082,
+   "n_villages": 34,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.2345,
+   "sm_surface_stddev": 0.0049
+  },
+  {
+   "block_name": "Benipatti",
+   "sdcode": 1091,
+   "n_villages": 103,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.2128,
+   "sm_surface_stddev": 0.0038
+  },
+  {
+   "block_name": "Bisfi",
+   "sdcode": 1092,
+   "n_villages": 57,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.198,
+   "sm_surface_stddev": 0.009
+  },
+  {
+   "block_name": "Ghoghardiha",
+   "sdcode": 1098,
+   "n_villages": 50,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.2591,
+   "sm_surface_stddev": 0.0019
+  },
+  {
+   "block_name": "Harlakhi",
+   "sdcode": 1081,
+   "n_villages": 44,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.2296,
+   "sm_surface_stddev": 0.0074
+  },
+  {
+   "block_name": "Jainagar",
+   "sdcode": 1083,
+   "n_villages": 22,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.244,
+   "sm_surface_stddev": 0.0034
+  },
+  {
+   "block_name": "Jhanjharpur",
+   "sdcode": 1097,
+   "n_villages": 68,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.2459,
+   "sm_surface_stddev": 0.0102
+  },
+  {
+   "block_name": "Kaluahi",
+   "sdcode": 1090,
+   "n_villages": 20,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.2263,
+   "sm_surface_stddev": 0.0092
+  },
+  {
+   "block_name": "Khajauli",
+   "sdcode": 1089,
+   "n_villages": 32,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.237,
+   "sm_surface_stddev": 0.0082
+  },
+  {
+   "block_name": "Ladania",
+   "sdcode": 1084,
+   "n_villages": 28,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.2658,
+   "sm_surface_stddev": 0.0067
+  },
+  {
+   "block_name": "Lakhnaur",
+   "sdcode": 1099,
+   "n_villages": 44,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.2515,
+   "sm_surface_stddev": 0.006
+  },
+  {
+   "block_name": "Laukaha",
+   "sdcode": 1085,
+   "n_villages": 46,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.2698,
+   "sm_surface_stddev": 0.0038
+  },
+  {
+   "block_name": "Laukahi",
+   "sdcode": 1086,
+   "n_villages": 66,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.2642,
+   "sm_surface_stddev": 0.0025
+  },
+  {
+   "block_name": "Madhepur",
+   "sdcode": 1100,
+   "n_villages": 86,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.2634,
+   "sm_surface_stddev": 0.0048
+  },
+  {
+   "block_name": "Madhubani",
+   "sdcode": 1093,
+   "n_villages": 80,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.2105,
+   "sm_surface_stddev": 0.0065
+  },
+  {
+   "block_name": "Madhwapur",
+   "sdcode": 1080,
+   "n_villages": 43,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.2167,
+   "sm_surface_stddev": 0.005
+  },
+  {
+   "block_name": "Pandaul",
+   "sdcode": 1094,
+   "n_villages": 75,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.2227,
+   "sm_surface_stddev": 0.0068
+  },
+  {
+   "block_name": "Phulparas",
+   "sdcode": 1087,
+   "n_villages": 42,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.2626,
+   "sm_surface_stddev": 0.0023
+  },
+  {
+   "block_name": "Rajnagar",
+   "sdcode": 1095,
+   "n_villages": 64,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.2312,
+   "sm_surface_stddev": 0.0076
+  }
+ ],
+ "villages": {
+  "220198": [
+   "Barhmotar",
+   1089,
+   17
+  ],
+  "220282": [
+   "Agai",
+   1091,
+   14
+  ],
+  "220264": [
+   "Kachhara",
+   1091,
+   15
+  ],
+  "220384": [
+   "Arazi Parsauni",
+   1092,
+   15
+  ],
+  "220229": [
+   "Barhamotar",
+   1090,
+   26
+  ],
+  "220526": [
+   "Fatehpur Ekdiha",
+   1094,
+   2
+  ],
+  "220522": [
+   "Bhaur",
+   1094,
+   2
+  ],
+  "220417": [
+   "Jagat",
+   1093,
+   8
+  ],
+  "220457": [
+   "Ganeshpur",
+   1093,
+   8
+  ],
+  "220345": [
+   "Barmotar Lachchmipur",
+   1091,
+   16
+  ],
+  "220327": [
+   "Hibba",
+   1091,
+   16
+  ],
+  "220714": [
+   "Patti Itwa",
+   1097,
+   11
+  ],
+  "220752": [
+   "Ekhara",
+   1098,
+   12
+  ],
+  "220668": [
+   "Az Rakbe Maini",
+   1096,
+   12
+  ],
+  "219815": [
+   "Durgapatti",
+   1080,
+   24
+  ],
+  "220161": [
+   "Tola Agari",
+   1088,
+   28
+  ],
+  "220050": [
+   "Bolhar",
+   1086,
+   23
+  ],
+  "220057": [
+   "Burhbiko",
+   1086,
+   23
+  ],
+  "220019": [
+   "Anharban",
+   1085,
+   30
+  ],
+  "219993": [
+   "Hinguwa",
+   1085,
+   21
+  ],
+  "219999": [
+   "Pathrahi",
+   1085,
+   30
+  ],
+  "220366": [
+   "Gorhaul",
+   1092,
+   7
+  ],
+  "220364": [
+   "Marwa",
+   1092,
+   7
+  ],
+  "220397": [
+   "Chandarbana",
+   1092,
+   7
+  ],
+  "220400": [
+   "Inamat",
+   1092,
+   7
+  ],
+  "220370": [
+   "Raghauli",
+   1092,
+   7
+  ],
+  "220399": [
+   "Marhia",
+   1092,
+   7
+  ],
+  "220358": [
+   "Madhopur",
+   1092,
+   7
+  ],
+  "220373": [
+   "Singhia",
+   1092,
+   7
+  ],
+  "220423": [
+   "Gajwa Basauli",
+   1093,
+   7
+  ],
+  "220369": [
+   "Dudhail",
+   1092,
+   7
+  ],
+  "220371": [
+   "Usauth",
+   1092,
+   7
+  ],
+  "220386": [
+   "Nahar Rupauli",
+   1092,
+   7
+  ],
+  "220374": [
+   "Singhaso",
+   1092,
+   7
+  ],
+  "220375": [
+   "Chaparia",
+   1092,
+   7
+  ],
+  "220403": [
+   "Aunsi Babhangawan",
+   1092,
+   7
+  ],
+  "220355": [
+   "Jagban",
+   1092,
+   14
+  ],
+  "220363": [
+   "Balha",
+   1092,
+   7
+  ],
+  "220377": [
+   "Bisfi",
+   1092,
+   7
+  ],
+  "220359": [
+   "Sarsoti",
+   1092,
+   7
+  ],
+  "220398": [
+   "Bhagauti",
+   1092,
+   7
+  ],
+  "220376": [
+   "Nurchak",
+   1092,
+   7
+  ],
+  "220401": [
+   "Khairi Banka",
+   1092,
+   7
+  ],
+  "220378": [
+   "Bherwa",
+   1092,
+   7
+  ],
+  "220356": [
+   "Hiropatti",
+   1092,
+   14
+  ],
+  "220379": [
+   "Sakrari",
+   1092,
+   7
+  ],
+  "220361": [
+   "Damla",
+   1092,
+   7
+  ],
+  "220382": [
+   "Usrahi",
+   1092,
+   7
+  ],
+  "220402": [
+   "Dhepura",
+   1092,
+   7
+  ],
+  "220365": [
+   "Chahuta",
+   1092,
+   7
+  ],
+  "220362": [
+   "Baingra",
+   1092,
+   7
+  ],
+  "220381": [
+   "Patauna",
+   1092,
+   7
+  ],
+  "220407": [
+   "Salempur",
+   1092,
+   7
+  ],
+  "220357": [
+   "Janipur",
+   1092,
+   7
+  ],
+  "220380": [
+   "Parohi",
+   1092,
+   7
+  ],
+  "220367": [
+   "Jairampur",
+   1092,
+   7
+  ],
+  "220372": [
+   "Arazi Usauth",
+   1092,
+   7
+  ],
+  "220404": [
+   "Bhoj Paraul",
+   1092,
+   7
+  ],
+  "220368": [
+   "Sadullahpur",
+   1092,
+   7
+  ],
+  "220293": [
+   "Matrahari",
+   1091,
+   14
+  ],
+  "220277": [
+   "Agaropatti",
+   1091,
+   14
+  ],
+  "220278": [
+   "Makea",
+   1091,
+   14
+  ],
+  "220295": [
+   "Uren",
+   1091,
+   14
+  ],
+  "220308": [
+   "Bankata",
+   1091,
+   15
+  ],
+  "220307": [
+   "Kataia",
+   1091,
+   15
+  ],
+  "220312": [
+   "Erua",
+   1091,
+   15
+  ],
+  "220313": [
+   "Parkhauli Tikuli",
+   1091,
+   15
+  ],
+  "220315": [
+   "Dhagjara",
+   1091,
+   15
+  ],
+  "220390": [
+   "Bajraha",
+   1092,
+   15
+  ],
+  "220276": [
+   "Bishunpur",
+   1091,
+   14
+  ],
+  "220301": [
+   "Damaodarpur",
+   1091,
+   15
+  ],
+  "220286": [
+   "Bandolwa",
+   1091,
+   14
+  ],
+  "220283": [
+   "Bagwasa",
+   1091,
+   14
+  ],
+  "220297": [
+   "Najira",
+   1091,
+   14
+  ],
+  "220303": [
+   "Ganguli",
+   1091,
+   15
+  ],
+  "220274": [
+   "Madhopur",
+   1091,
+   14
+  ],
+  "220281": [
+   "Bhagwatipur",
+   1091,
+   14
+  ],
+  "220290": [
+   "Matrahari",
+   1091,
+   14
+  ],
+  "220304": [
+   "Balia",
+   1091,
+   15
+  ],
+  "220294": [
+   "Karhara",
+   1091,
+   14
+  ],
+  "220389": [
+   "Ajnauli",
+   1092,
+   15
+  ],
+  "220289": [
+   "Sonhauli",
+   1091,
+   14
+  ],
+  "220259": [
+   "Dhanauja",
+   1091,
+   15
+  ],
+  "220321": [
+   "Dumra",
+   1091,
+   15
+  ],
+  "220279": [
+   "Bishai Larugawan",
+   1091,
+   14
+  ],
+  "220280": [
+   "Larugawan",
+   1091,
+   14
+  ],
+  "220306": [
+   "Andhri",
+   1091,
+   15
+  ],
+  "220267": [
+   "Lorika",
+   1091,
+   14
+  ],
+  "219849": [
+   "Pakri",
+   1080,
+   14
+  ],
+  "220351": [
+   "Sibaul",
+   1092,
+   7
+  ],
+  "220317": [
+   "Chatra",
+   1091,
+   15
+  ],
+  "220296": [
+   "Ranipur",
+   1091,
+   14
+  ],
+  "220252": [
+   "Barantpur",
+   1091,
+   15
+  ],
+  "220391": [
+   "Genaur",
+   1092,
+   7
+  ],
+  "220292": [
+   "Arazi Basaitha",
+   1091,
+   14
+  ],
+  "220285": [
+   "Rampur",
+   1091,
+   14
+  ],
+  "220299": [
+   "Rajban",
+   1091,
+   14
+  ],
+  "220394": [
+   "Jafra",
+   1092,
+   15
+  ],
+  "220392": [
+   "Kerwar",
+   1092,
+   15
+  ],
+  "220284": [
+   "Shahpur",
+   1091,
+   14
+  ],
+  "220385": [
+   "Raghopur",
+   1092,
+   15
+  ],
+  "220300": [
+   "Pali",
+   1091,
+   14
+  ],
+  "220388": [
+   "Raghepura",
+   1092,
+   15
+  ],
+  "220387": [
+   "Sohans",
+   1092,
+   15
+  ],
+  "220288": [
+   "Shivnagar",
+   1091,
+   14
+  ],
+  "220348": [
+   "Bhaduli",
+   1091,
+   15
+  ],
+  "220263": [
+   "Arazi Jagat",
+   1091,
+   15
+  ],
+  "220311": [
+   "Parsauna",
+   1091,
+   15
+  ],
+  "220273": [
+   "Dhanukhi",
+   1091,
+   14
+  ],
+  "220309": [
+   "Behata",
+   1091,
+   15
+  ],
+  "220268": [
+   "Sohraul",
+   1091,
+   14
+  ],
+  "220360": [
+   "Tisi Narsam",
+   1092,
+   7
+  ],
+  "220353": [
+   "Bardaha",
+   1092,
+   14
+  ],
+  "220405": [
+   "Simri",
+   1092,
+   7
+  ],
+  "220352": [
+   "Rathos",
+   1092,
+   7
+  ],
+  "220261": [
+   "Uchaith",
+   1091,
+   15
+  ],
+  "220275": [
+   "Barri",
+   1091,
+   14
+  ],
+  "220251": [
+   "Mahamadpur",
+   1091,
+   15
+  ],
+  "220383": [
+   "Parsauni",
+   1092,
+   15
+  ],
+  "220270": [
+   "Chandpur Patti",
+   1091,
+   14
+  ],
+  "220269": [
+   "Chandpura",
+   1091,
+   14
+  ],
+  "220393": [
+   "Az Rakbe Jafra",
+   1092,
+   15
+  ],
+  "220302": [
+   "Ahpur",
+   1091,
+   15
+  ],
+  "220271": [
+   "Chandpura",
+   1091,
+   14
+  ],
+  "220265": [
+   "Betauna",
+   1091,
+   14
+  ],
+  "220262": [
+   "Jagat",
+   1091,
+   15
+  ],
+  "220260": [
+   "Arazi Uchaith",
+   1091,
+   15
+  ],
+  "220319": [
+   "Depura",
+   1091,
+   15
+  ],
+  "220266": [
+   "Samada",
+   1091,
+   14
+  ],
+  "220318": [
+   "Akuli",
+   1091,
+   15
+  ],
+  "220250": [
+   "Ladaut",
+   1091,
+   15
+  ],
+  "220320": [
+   "Barhampura",
+   1091,
+   15
+  ],
+  "219850": [
+   "Bishunpur",
+   1080,
+   14
+  ],
+  "220305": [
+   "Gendaul",
+   1091,
+   7
+  ],
+  "220291": [
+   "Basaitha",
+   1091,
+   14
+  ],
+  "220316": [
+   "Chanpura",
+   1091,
+   15
+  ],
+  "220310": [
+   "Benipatti",
+   1091,
+   15
+  ],
+  "220287": [
+   "Chholkara",
+   1091,
+   14
+  ],
+  "220272": [
+   "Chandpura",
+   1091,
+   14
+  ],
+  "220354": [
+   "Madhpur",
+   1092,
+   14
+  ],
+  "220298": [
+   "Meghban",
+   1091,
+   14
+  ],
+  "220492": [
+   "Narpatnagar",
+   1094,
+   2
+  ],
+  "220550": [
+   "Madhopur",
+   1094,
+   3
+  ],
+  "220551": [
+   "Isahpur",
+   1094,
+   2
+  ],
+  "220504": [
+   "Andah Manmohanpur",
+   1094,
+   2
+  ],
+  "220482": [
+   "Maksuda",
+   1093,
+   2
+  ],
+  "220496": [
+   "Bikrampur Balia",
+   1094,
+   2
+  ],
+  "220497": [
+   "Bahengra",
+   1094,
+   2
+  ],
+  "220494": [
+   "Mohanbariam",
+   1094,
+   2
+  ],
+  "220491": [
+   "Makrampur",
+   1094,
+   2
+  ],
+  "220495": [
+   "Sakuri",
+   1094,
+   2
+  ],
+  "220674": [
+   "Kharrak",
+   1097,
+   3
+  ],
+  "220553": [
+   "Gangauli",
+   1094,
+   2
+  ],
+  "220489": [
+   "Sagarpur",
+   1094,
+   2
+  ],
+  "220505": [
+   "Shubhankarpur",
+   1094,
+   2
+  ],
+  "220498": [
+   "Kalyanpur",
+   1094,
+   2
+  ],
+  "220510": [
+   "Andah Khajuri",
+   1094,
+   2
+  ],
+  "220506": [
+   "Shankarpur",
+   1094,
+   2
+  ],
+  "220499": [
+   "Bhawanipur",
+   1094,
+   2
+  ],
+  "220483": [
+   "Dahibhat Dih",
+   1093,
+   2
+  ],
+  "220554": [
+   "Sarso",
+   1094,
+   3
+  ],
+  "220476": [
+   "Kajiana",
+   1093,
+   2
+  ],
+  "220513": [
+   "Kalyanpur",
+   1094,
+   2
+  ],
+  "220481": [
+   "Lachhmipur",
+   1093,
+   2
+  ],
+  "220508": [
+   "Harpur",
+   1094,
+   2
+  ],
+  "220512": [
+   "Majhaul",
+   1094,
+   2
+  ],
+  "220490": [
+   "Ajodhya",
+   1094,
+   2
+  ],
+  "220511": [
+   "Andah Khajuri",
+   1094,
+   2
+  ],
+  "220517": [
+   "Arazi Rampur",
+   1094,
+   2
+  ],
+  "220516": [
+   "Arazi Bhaur",
+   1094,
+   2
+  ],
+  "220514": [
+   "Shekhjore",
+   1094,
+   2
+  ],
+  "220515": [
+   "Gurmha",
+   1094,
+   2
+  ],
+  "220500": [
+   "Arazi Bhawanipur",
+   1094,
+   2
+  ],
+  "220552": [
+   "Pahalbadh",
+   1094,
+   2
+  ],
+  "220493": [
+   "Kanakpur",
+   1094,
+   2
+  ],
+  "220502": [
+   "Baturc Pandaul",
+   1094,
+   2
+  ],
+  "220528": [
+   "Bishunpur Murliahi",
+   1094,
+   2
+  ],
+  "220507": [
+   "Shankarpur",
+   1094,
+   2
+  ],
+  "220518": [
+   "Shyampur",
+   1094,
+   2
+  ],
+  "220885": [
+   "Kharik",
+   1100,
+   0
+  ],
+  "220886": [
+   "Madhu Sagram",
+   1100,
+   0
+  ],
+  "220871": [
+   "Bhit Bhagwanpur",
+   1100,
+   0
+  ],
+  "220895": [
+   "Bakwa",
+   1100,
+   0
+  ],
+  "220894": [
+   "Parwalpur",
+   1100,
+   0
+  ],
+  "220893": [
+   "Balthi",
+   1100,
+   0
+  ],
+  "220896": [
+   "Bhargawan",
+   1100,
+   0
+  ],
+  "220875": [
+   "Daldal",
+   1100,
+   0
+  ],
+  "220890": [
+   "Sijhaul",
+   1100,
+   0
+  ],
+  "220872": [
+   "Hasauli Kaleanpur",
+   1100,
+   0
+  ],
+  "220888": [
+   "Bheja",
+   1100,
+   0
+  ],
+  "220892": [
+   "Parsauni",
+   1100,
+   0
+  ],
+  "220891": [
+   "Khajuri",
+   1100,
+   0
+  ],
+  "220876": [
+   "Madanpur",
+   1100,
+   0
+  ],
+  "220889": [
+   "Barsham",
+   1100,
+   0
+  ],
+  "220887": [
+   "Jagir Sagram",
+   1100,
+   0
+  ],
+  "220879": [
+   "Birpur Burh",
+   1100,
+   0
+  ],
+  "220878": [
+   "Bahera",
+   1100,
+   0
+  ],
+  "220882": [
+   "Nahri Jagarnathpur",
+   1100,
+   0
+  ],
+  "220864": [
+   "Betauna",
+   1100,
+   0
+  ],
+  "220881": [
+   "Ratwara",
+   1100,
+   0
+  ],
+  "220880": [
+   "Rohua",
+   1100,
+   0
+  ],
+  "220863": [
+   "Bhakrain",
+   1100,
+   0
+  ],
+  "220870": [
+   "Birpur",
+   1100,
+   0
+  ],
+  "220868": [
+   "Az Rakbe Sidhi Tajpur",
+   1100,
+   0
+  ],
+  "220869": [
+   "Banki",
+   1100,
+   0
+  ],
+  "220877": [
+   "Khor",
+   1100,
+   0
+  ],
+  "220873": [
+   "Az Rakbe Bhit Bhagwanpur",
+   1100,
+   0
+  ],
+  "220874": [
+   "Mahasingh Hasauli",
+   1100,
+   0
+  ],
+  "220858": [
+   "Tingri",
+   1100,
+   0
+  ],
+  "220856": [
+   "Nawada",
+   1100,
+   0
+  ],
+  "220854": [
+   "Sarauni",
+   1100,
+   0
+  ],
+  "220857": [
+   "Kapar Phora",
+   1100,
+   0
+  ],
+  "220830": [
+   "Balia",
+   1099,
+   4
+  ],
+  "220848": [
+   "Adit Dih",
+   1100,
+   4
+  ],
+  "220860": [
+   "Kurson",
+   1100,
+   0
+  ],
+  "220726": [
+   "Godhanpur",
+   1097,
+   4
+  ],
+  "220678": [
+   "Naruar",
+   1097,
+   3
+  ],
+  "220839": [
+   "Chapram",
+   1100,
+   5
+  ],
+  "220800": [
+   "Tamoria",
+   1099,
+   4
+  ],
+  "220847": [
+   "Sundar Birajit",
+   1100,
+   5
+  ],
+  "220799": [
+   "Ramauli",
+   1099,
+   4
+  ],
+  "220831": [
+   "Umri",
+   1099,
+   4
+  ],
+  "220829": [
+   "Lakhnaur Barmotar",
+   1099,
+   4
+  ],
+  "220828": [
+   "Kasiam",
+   1099,
+   4
+  ],
+  "220808": [
+   "Maibi",
+   1099,
+   4
+  ],
+  "220790": [
+   "Manmohan",
+   1099,
+   5
+  ],
+  "220810": [
+   "Siwaisinghpur",
+   1099,
+   4
+  ],
+  "220842": [
+   "Az Rakbe Desam",
+   1100,
+   5
+  ],
+  "220793": [
+   "Amarupi",
+   1099,
+   5
+  ],
+  "220867": [
+   "Parsad",
+   1100,
+   0
+  ],
+  "220862": [
+   "Chunni",
+   1100,
+   0
+  ],
+  "220865": [
+   "Chandradip",
+   1100,
+   0
+  ],
+  "220855": [
+   "Bhumpur",
+   1100,
+   0
+  ],
+  "220819": [
+   "Sohrai",
+   1099,
+   3
+  ],
+  "220832": [
+   "Laufa",
+   1099,
+   4
+  ],
+  "220823": [
+   "Sonarpatti",
+   1099,
+   4
+  ],
+  "220849": [
+   "Pachahi",
+   1100,
+   4
+  ],
+  "220851": [
+   "Sikaria",
+   1100,
+   5
+  ],
+  "220850": [
+   "Madhepur",
+   1100,
+   5
+  ],
+  "220821": [
+   "Daia Khaorwar",
+   1099,
+   4
+  ],
+  "220809": [
+   "Belauncha",
+   1099,
+   4
+  ],
+  "220846": [
+   "Bath",
+   1100,
+   5
+  ],
+  "220841": [
+   "Desam",
+   1100,
+   5
+  ],
+  "220675": [
+   "Lohna",
+   1097,
+   3
+  ],
+  "220859": [
+   "Rupauli",
+   1100,
+   0
+  ],
+  "220866": [
+   "Khajura",
+   1100,
+   0
+  ],
+  "220827": [
+   "Gunakarpur",
+   1099,
+   4
+  ],
+  "220795": [
+   "Nemua",
+   1099,
+   5
+  ],
+  "220818": [
+   "Madanpur",
+   1099,
+   3
+  ],
+  "220824": [
+   "Lakhnaur",
+   1099,
+   4
+  ],
+  "220861": [
+   "Pakhaul",
+   1100,
+   0
+  ],
+  "220822": [
+   "Gongapur",
+   1099,
+   4
+  ],
+  "220791": [
+   "Sonbarsa",
+   1099,
+   5
+  ],
+  "220792": [
+   "Bahera",
+   1099,
+   5
+  ],
+  "220797": [
+   "Baswa",
+   1099,
+   5
+  ],
+  "220838": [
+   "Az Rakbe Pauni",
+   1100,
+   5
+  ],
+  "220815": [
+   "Behat",
+   1099,
+   4
+  ],
+  "220807": [
+   "Kachhua",
+   1099,
+   4
+  ],
+  "220794": [
+   "Biharpur",
+   1099,
+   5
+  ],
+  "220840": [
+   "Shankarpur",
+   1100,
+   5
+  ],
+  "220812": [
+   "Dip",
+   1099,
+   4
+  ],
+  "220798": [
+   "Sirkharia",
+   1099,
+   5
+  ],
+  "220686": [
+   "Rupauli",
+   1097,
+   3
+  ],
+  "220853": [
+   "Mahisan",
+   1100,
+   5
+  ],
+  "220817": [
+   "Rutaul",
+   1099,
+   3
+  ],
+  "220676": [
+   "Sarbsima",
+   1097,
+   3
+  ],
+  "220816": [
+   "Kaithinia",
+   1099,
+   4
+  ],
+  "220796": [
+   "Bodai",
+   1099,
+   5
+  ],
+  "220682": [
+   "Arazi Bhawanipur",
+   1097,
+   3
+  ],
+  "220826": [
+   "Garha",
+   1099,
+   4
+  ],
+  "220683": [
+   "Kishunpur Barsam",
+   1097,
+   3
+  ],
+  "220845": [
+   "Semraha",
+   1100,
+   5
+  ],
+  "220820": [
+   "Kolahi",
+   1099,
+   3
+  ],
+  "220852": [
+   "Asam",
+   1100,
+   5
+  ],
+  "220844": [
+   "Gopalpatti",
+   1100,
+   5
+  ],
+  "220813": [
+   "Az Rakbe Dip",
+   1099,
+   4
+  ],
+  "220811": [
+   "Az Rakbe Siwaisinghpur",
+   1099,
+   4
+  ],
+  "220677": [
+   "Dubauli Khaira",
+   1097,
+   3
+  ],
+  "220833": [
+   "Pure",
+   1099,
+   4
+  ],
+  "220806": [
+   "Bijulipur",
+   1099,
+   4
+  ],
+  "220825": [
+   "Ankusi",
+   1099,
+   4
+  ],
+  "220814": [
+   "Raghonagar",
+   1099,
+   4
+  ],
+  "220465": [
+   "Samaul",
+   1093,
+   8
+  ],
+  "220472": [
+   "Az Rakbe Sankarpur",
+   1093,
+   8
+  ],
+  "220480": [
+   "Tarachandpur",
+   1093,
+   2
+  ],
+  "220473": [
+   "Sankarpur Gandhwar",
+   1093,
+   8
+  ],
+  "220475": [
+   "Gandhwar",
+   1093,
+   8
+  ],
+  "220478": [
+   "Mohiuddipur",
+   1093,
+   2
+  ],
+  "220471": [
+   "Sonaur",
+   1093,
+   8
+  ],
+  "220477": [
+   "Mominpur",
+   1093,
+   8
+  ],
+  "220545": [
+   "Dabhari",
+   1094,
+   3
+  ],
+  "220538": [
+   "Kamlabari",
+   1094,
+   9
+  ],
+  "220467": [
+   "Lakhanpatti",
+   1093,
+   8
+  ],
+  "220452": [
+   "Khanjipur",
+   1093,
+   8
+  ],
+  "220533": [
+   "Az Rakbe Nawhath",
+   1094,
+   9
+  ],
+  "220501": [
+   "Pandaul",
+   1094,
+   2
+  ],
+  "220459": [
+   "Keshopur",
+   1093,
+   8
+  ],
+  "220455": [
+   "Rajahan",
+   1093,
+   8
+  ],
+  "220427": [
+   "Malangia",
+   1093,
+   8
+  ],
+  "220548": [
+   "Rampur",
+   1094,
+   2
+  ],
+  "220557": [
+   "Nahar",
+   1094,
+   10
+  ],
+  "220547": [
+   "Sankorth",
+   1094,
+   3
+  ],
+  "220464": [
+   "Birsar",
+   1093,
+   8
+  ],
+  "220454": [
+   "Khajuri",
+   1093,
+   8
+  ],
+  "220527": [
+   "Pacharhi",
+   1094,
+   2
+  ],
+  "220558": [
+   "Bhagwatipur",
+   1094,
+   10
+  ],
+  "220420": [
+   "Ijrapatti Jagat",
+   1093,
+   8
+  ],
+  "220519": [
+   "Bagban",
+   1094,
+   2
+  ],
+  "220543": [
+   "Bihnagar",
+   1094,
+   10
+  ],
+  "220541": [
+   "Baraghoria",
+   1094,
+   10
+  ],
+  "220461": [
+   "Semuara",
+   1093,
+   8
+  ],
+  "220503": [
+   "Andah Manoharpur",
+   1094,
+   2
+  ],
+  "220549": [
+   "Lakshmipur",
+   1094,
+   2
+  ],
+  "220418": [
+   "Patti Jagat",
+   1093,
+   8
+  ],
+  "220525": [
+   "Belahi",
+   1094,
+   2
+  ],
+  "220479": [
+   "Bhagirathpur",
+   1093,
+   2
+  ],
+  "220521": [
+   "Bhaur",
+   1094,
+   2
+  ],
+  "220520": [
+   "Bhaur",
+   1094,
+   2
+  ],
+  "220468": [
+   "Nima",
+   1093,
+   8
+  ],
+  "220524": [
+   "Belahi",
+   1094,
+   2
+  ],
+  "220488": [
+   "Bhitthi",
+   1094,
+   9
+  ],
+  "220542": [
+   "Baluaha",
+   1094,
+   10
+  ],
+  "220600": [
+   "Pachdahi",
+   1095,
+   10
+  ],
+  "220466": [
+   "Sundarpur Bhitthi",
+   1093,
+   8
+  ],
+  "220462": [
+   "Dangar Bhitthi",
+   1093,
+   8
+  ],
+  "220458": [
+   "Fatehpur",
+   1093,
+   8
+  ],
+  "220539": [
+   "Udaypur Bitthwar",
+   1094,
+   9
+  ],
+  "220534": [
+   "Nawhath",
+   1094,
+   9
+  ],
+  "220537": [
+   "Bathne",
+   1094,
+   9
+  ],
+  "220536": [
+   "Ruchaul",
+   1094,
+   9
+  ],
+  "220601": [
+   "Nakati",
+   1095,
+   10
+  ],
+  "220426": [
+   "Ijra",
+   1093,
+   8
+  ],
+  "220453": [
+   "Basuara",
+   1093,
+   8
+  ],
+  "220421": [
+   "Ijirapatti Jagat",
+   1093,
+   8
+  ],
+  "220474": [
+   "Salha",
+   1093,
+   8
+  ],
+  "220544": [
+   "Shekhpur",
+   1094,
+   2
+  ],
+  "220463": [
+   "Balia Bijauli",
+   1093,
+   8
+  ],
+  "220535": [
+   "Khangaon",
+   1094,
+   9
+  ],
+  "220532": [
+   "Sripur Hati",
+   1094,
+   9
+  ],
+  "220428": [
+   "Dumri",
+   1093,
+   8
+  ],
+  "220584": [
+   "Rampatti",
+   1095,
+   9
+  ],
+  "220439": [
+   "Lachhminagar",
+   1093,
+   8
+  ],
+  "220424": [
+   "Basauli",
+   1093,
+   8
+  ],
+  "220416": [
+   "Kharauwa",
+   1093,
+   8
+  ],
+  "220579": [
+   "Ranti",
+   1095,
+   9
+  ],
+  "220581": [
+   "Rampura",
+   1095,
+   10
+  ],
+  "220438": [
+   "Bhachhi",
+   1093,
+   8
+  ],
+  "220449": [
+   "Bhavara",
+   1093,
+   9
+  ],
+  "220599": [
+   "Kunwar",
+   1095,
+   10
+  ],
+  "220415": [
+   "Kakraul",
+   1093,
+   8
+  ],
+  "249579": [
+   "Madhubani",
+   1093,
+   9
+  ],
+  "220588": [
+   "Raghopur Balat",
+   1095,
+   9
+  ],
+  "220578": [
+   "Pilakhwar",
+   1095,
+   9
+  ],
+  "220484": [
+   "Salempur",
+   1093,
+   9
+  ],
+  "220485": [
+   "Ale",
+   1093,
+   9
+  ],
+  "220556": [
+   "Biraul",
+   1094,
+   10
+  ],
+  "220456": [
+   "Kajiana",
+   1093,
+   8
+  ],
+  "220419": [
+   "Ijrapatti Jagat",
+   1093,
+   8
+  ],
+  "220487": [
+   "Mohanpur",
+   1094,
+   9
+  ],
+  "220429": [
+   "Harirampatti",
+   1093,
+   8
+  ],
+  "220583": [
+   "Parsa",
+   1095,
+   10
+  ],
+  "220587": [
+   "Mahinathpur",
+   1095,
+   9
+  ],
+  "220436": [
+   "Sapta",
+   1093,
+   8
+  ],
+  "220598": [
+   "Singiaun",
+   1095,
+   9
+  ],
+  "220523": [
+   "Gurmha",
+   1094,
+   2
+  ],
+  "220470": [
+   "Balia",
+   1093,
+   8
+  ],
+  "220530": [
+   "Dahibhat Narottam",
+   1094,
+   9
+  ],
+  "220529": [
+   "Dahibhat Madhopur",
+   1094,
+   2
+  ],
+  "220451": [
+   "Katai",
+   1093,
+   8
+  ],
+  "220586": [
+   "Raghubirchak",
+   1095,
+   9
+  ],
+  "220582": [
+   "Chaudhurana",
+   1095,
+   10
+  ],
+  "220580": [
+   "Koilakh",
+   1095,
+   10
+  ],
+  "220585": [
+   "Kaithahi",
+   1095,
+   9
+  ],
+  "220430": [
+   "Kokri",
+   1093,
+   8
+  ],
+  "220460": [
+   "Saidpur",
+   1093,
+   8
+  ],
+  "220531": [
+   "Ramkhetari",
+   1094,
+   9
+  ],
+  "220425": [
+   "Arazi Basauli",
+   1093,
+   8
+  ],
+  "220422": [
+   "Arazi Basauli",
+   1093,
+   8
+  ],
+  "220406": [
+   "Inamat",
+   1092,
+   8
+  ],
+  "220509": [
+   "Harpur",
+   1094,
+   2
+  ],
+  "220546": [
+   "Shankar Sarai",
+   1094,
+   2
+  ],
+  "220440": [
+   "Kamat Bhawanipur",
+   1093,
+   9
+  ],
+  "220450": [
+   "Bhakhrauli",
+   1093,
+   8
+  ],
+  "220469": [
+   "Belam",
+   1093,
+   8
+  ],
+  "220540": [
+   "Lachhmipur",
+   1094,
+   2
+  ],
+  "220559": [
+   "Bhagwatipur Inamat",
+   1094,
+   10
+  ],
+  "220334": [
+   "Dhanga",
+   1091,
+   16
+  ],
+  "220237": [
+   "Loha",
+   1090,
+   16
+  ],
+  "220567": [
+   "Madhubani Tol",
+   1095,
+   17
+  ],
+  "220618": [
+   "Kewan",
+   1095,
+   17
+  ],
+  "220346": [
+   "Arazi Anrer",
+   1091,
+   16
+  ],
+  "220339": [
+   "Bijalpura",
+   1091,
+   16
+  ],
+  "220568": [
+   "Meran",
+   1095,
+   17
+  ],
+  "220571": [
+   "Palikhurd",
+   1095,
+   17
+  ],
+  "220314": [
+   "Atrauli",
+   1091,
+   16
+  ],
+  "220236": [
+   "Subhankarpur",
+   1090,
+   16
+  ],
+  "220235": [
+   "Keota",
+   1090,
+   16
+  ],
+  "220342": [
+   "Pauna",
+   1091,
+   16
+  ],
+  "220445": [
+   "Kanail",
+   1093,
+   16
+  ],
+  "220613": [
+   "Lagadih",
+   1095,
+   18
+  ],
+  "220575": [
+   "Raghuni Dehat",
+   1095,
+   17
+  ],
+  "220349": [
+   "Baijalpur",
+   1091,
+   16
+  ],
+  "220431": [
+   "Rahika",
+   1093,
+   16
+  ],
+  "220595": [
+   "Chichri Buzurg",
+   1095,
+   18
+  ],
+  "220337": [
+   "Jhonjhi",
+   1091,
+   16
+  ],
+  "220332": [
+   "Paraul",
+   1091,
+   16
+  ],
+  "220395": [
+   "Mokadampur",
+   1092,
+   16
+  ],
+  "220412": [
+   "Sirampur",
+   1093,
+   16
+  ],
+  "220592": [
+   "Barhmotra",
+   1095,
+   9
+  ],
+  "220434": [
+   "Jagatpur",
+   1093,
+   8
+  ],
+  "220343": [
+   "Nagdah Balain",
+   1091,
+   16
+  ],
+  "220347": [
+   "Anrer",
+   1091,
+   16
+  ],
+  "220563": [
+   "Belhwar",
+   1095,
+   17
+  ],
+  "220576": [
+   "Az Rakbe Mangrauni",
+   1095,
+   9
+  ],
+  "220234": [
+   "Harpur",
+   1090,
+   17
+  ],
+  "220573": [
+   "Pariharpur",
+   1095,
+   17
+  ],
+  "220244": [
+   "Kaparia",
+   1090,
+   17
+  ],
+  "220350": [
+   "Kamrahi",
+   1091,
+   16
+  ],
+  "220447": [
+   "Srichand",
+   1093,
+   17
+  ],
+  "220590": [
+   "Nabtoli",
+   1095,
+   9
+  ],
+  "220433": [
+   "Saurath",
+   1093,
+   16
+  ],
+  "220245": [
+   "Dealpalo",
+   1090,
+   17
+  ],
+  "220414": [
+   "Kamalpur",
+   1093,
+   8
+  ],
+  "220408": [
+   "Chandar Senpur",
+   1093,
+   8
+  ],
+  "220413": [
+   "Hasanpur",
+   1093,
+   8
+  ],
+  "220409": [
+   "Dhelpurwa",
+   1093,
+   16
+  ],
+  "220441": [
+   "Jitwarpur",
+   1093,
+   17
+  ],
+  "220593": [
+   "Az Rakbe Simri",
+   1095,
+   17
+  ],
+  "220410": [
+   "Satlakha",
+   1093,
+   16
+  ],
+  "220574": [
+   "Kehunia",
+   1095,
+   17
+  ],
+  "220596": [
+   "Ghiwahi",
+   1095,
+   18
+  ],
+  "220396": [
+   "Belaunja",
+   1092,
+   16
+  ],
+  "220564": [
+   "Thika Keonta",
+   1095,
+   17
+  ],
+  "220446": [
+   "Nazirpur",
+   1093,
+   16
+  ],
+  "220569": [
+   "Gauri Meran",
+   1095,
+   17
+  ],
+  "220344": [
+   "Kusmaul",
+   1091,
+   16
+  ],
+  "220570": [
+   "Lala Pur",
+   1095,
+   17
+  ],
+  "220338": [
+   "Mureth",
+   1091,
+   16
+  ],
+  "220241": [
+   "Madhaipur",
+   1090,
+   17
+  ],
+  "220608": [
+   "Barhmotra",
+   1095,
+   10
+  ],
+  "220435": [
+   "Dhanuki Jagatpur",
+   1093,
+   8
+  ],
+  "220328": [
+   "Ektara",
+   1091,
+   16
+  ],
+  "220562": [
+   "Mangrauni",
+   1095,
+   9
+  ],
+  "220597": [
+   "Simri",
+   1095,
+   9
+  ],
+  "220612": [
+   "Majhuara",
+   1095,
+   18
+  ],
+  "220594": [
+   "Mirzapur",
+   1095,
+   17
+  ],
+  "220444": [
+   "Serma",
+   1093,
+   17
+  ],
+  "220238": [
+   "Belahi",
+   1090,
+   16
+  ],
+  "220566": [
+   "Andipatti",
+   1095,
+   17
+  ],
+  "220589": [
+   "Bheria Bishunpur",
+   1095,
+   9
+  ],
+  "220591": [
+   "Sonwari",
+   1095,
+   17
+  ],
+  "220411": [
+   "Tala Lak Sayar",
+   1093,
+   16
+  ],
+  "220432": [
+   "Pokhrauni",
+   1093,
+   16
+  ],
+  "220565": [
+   "Sipipatti",
+   1095,
+   17
+  ],
+  "220448": [
+   "Baharban",
+   1093,
+   17
+  ],
+  "220196": [
+   "Rasidpur",
+   1089,
+   17
+  ],
+  "220219": [
+   "Lachhmipur",
+   1089,
+   18
+  ],
+  "220619": [
+   "Patpara",
+   1095,
+   18
+  ],
+  "220200": [
+   "Kothia",
+   1089,
+   17
+  ],
+  "220325": [
+   "Naokarhi",
+   1091,
+   16
+  ],
+  "220203": [
+   "Thahar",
+   1089,
+   17
+  ],
+  "220199": [
+   "Beta Kakarghati",
+   1089,
+   17
+  ],
+  "220202": [
+   "Thengha",
+   1089,
+   17
+  ],
+  "220243": [
+   "Karpur",
+   1090,
+   17
+  ],
+  "220217": [
+   "Khajauli",
+   1089,
+   18
+  ],
+  "220201": [
+   "Darha",
+   1089,
+   17
+  ],
+  "220216": [
+   "Inarwa",
+   1089,
+   17
+  ],
+  "220204": [
+   "Sarabe",
+   1089,
+   17
+  ],
+  "220218": [
+   "Madna",
+   1089,
+   18
+  ],
+  "220333": [
+   "Parjuar",
+   1091,
+   16
+  ],
+  "220607": [
+   "Ladugaon",
+   1095,
+   10
+  ],
+  "220330": [
+   "Fakirana",
+   1091,
+   16
+  ],
+  "220437": [
+   "Sapta",
+   1093,
+   16
+  ],
+  "220442": [
+   "Bhoraha",
+   1093,
+   16
+  ],
+  "220443": [
+   "Ram Khetri",
+   1093,
+   16
+  ],
+  "220239": [
+   "Kumar Khat",
+   1090,
+   16
+  ],
+  "220240": [
+   "Dokahar",
+   1090,
+   17
+  ],
+  "220572": [
+   "Karahia",
+   1095,
+   17
+  ],
+  "220197": [
+   "Dhoram",
+   1089,
+   17
+  ],
+  "220326": [
+   "Az Rakbe Naokarhi",
+   1091,
+   16
+  ],
+  "220331": [
+   "Arazi Pandaul",
+   1091,
+   16
+  ],
+  "220242": [
+   "Kormauli Part In Khajauli",
+   1090,
+   17
+  ],
+  "220221": [
+   "Hariswara",
+   1089,
+   18
+  ],
+  "220220": [
+   "Akaspura",
+   1089,
+   18
+  ],
+  "220329": [
+   "Mahua",
+   1091,
+   16
+  ],
+  "220340": [
+   "Kapasia",
+   1091,
+   16
+  ],
+  "220341": [
+   "Mirzapur",
+   1091,
+   16
+  ],
+  "220617": [
+   "Chichrikanungoe",
+   1095,
+   18
+  ],
+  "220577": [
+   "Magarpatti",
+   1095,
+   9
+  ],
+  "220336": [
+   "Arazi Paraul",
+   1091,
+   16
+  ],
+  "220335": [
+   "Arazi Paraul",
+   1091,
+   16
+  ],
+  "220227": [
+   "Kormauli Part In Kaluahi",
+   1089,
+   17
+  ],
+  "220685": [
+   "Kishunpur Chhit",
+   1097,
+   3
+  ],
+  "220708": [
+   "Sameya",
+   1097,
+   3
+  ],
+  "220801": [
+   "Sonre",
+   1099,
+   5
+  ],
+  "220724": [
+   "Machhdhi",
+   1097,
+   4
+  ],
+  "220803": [
+   "Kachhwi",
+   1099,
+   4
+  ],
+  "220739": [
+   "Parmanandpur",
+   1097,
+   5
+  ],
+  "220804": [
+   "Berma",
+   1099,
+   4
+  ],
+  "220711": [
+   "Mahespura",
+   1097,
+   4
+  ],
+  "220723": [
+   "Simra",
+   1097,
+   4
+  ],
+  "220740": [
+   "Lawani",
+   1097,
+   4
+  ],
+  "220719": [
+   "Kanakpura",
+   1097,
+   11
+  ],
+  "220691": [
+   "Narayanpur",
+   1097,
+   10
+  ],
+  "249580": [
+   "Jhanjharpur",
+   1097,
+   4
+  ],
+  "220689": [
+   "Kothia Bharaul",
+   1097,
+   10
+  ],
+  "220717": [
+   "Rawarhi",
+   1097,
+   11
+  ],
+  "220731": [
+   "Raghunandanpur",
+   1097,
+   11
+  ],
+  "220732": [
+   "Kharaua",
+   1097,
+   11
+  ],
+  "220754": [
+   "Behrari",
+   1098,
+   5
+  ],
+  "220733": [
+   "Singdaha",
+   1097,
+   12
+  ],
+  "220756": [
+   "Az Rakbe Sudai",
+   1098,
+   12
+  ],
+  "220728": [
+   "Pipraulia",
+   1097,
+   11
+  ],
+  "220684": [
+   "Jamthar",
+   1097,
+   3
+  ],
+  "220687": [
+   "Mohanpur",
+   1097,
+   3
+  ],
+  "220655": [
+   "Mahrail",
+   1096,
+   11
+  ],
+  "220693": [
+   "Jhaua",
+   1097,
+   10
+  ],
+  "220703": [
+   "Imadpatti",
+   1097,
+   11
+  ],
+  "220700": [
+   "Khaira",
+   1097,
+   10
+  ],
+  "220802": [
+   "Bishunpatti",
+   1099,
+   5
+  ],
+  "220645": [
+   "Rakhwari",
+   1096,
+   11
+  ],
+  "220783": [
+   "Bishuharia",
+   1098,
+   5
+  ],
+  "220680": [
+   "Mahinathpur",
+   1097,
+   3
+  ],
+  "220681": [
+   "Bali",
+   1097,
+   3
+  ],
+  "220734": [
+   "Sohpur",
+   1097,
+   12
+  ],
+  "220735": [
+   "Parsa",
+   1097,
+   12
+  ],
+  "220698": [
+   "Santnagar",
+   1097,
+   10
+  ],
+  "220751": [
+   "Khopa",
+   1098,
+   12
+  ],
+  "220688": [
+   "Raiam",
+   1097,
+   3
+  ],
+  "220759": [
+   "Belmohan",
+   1098,
+   12
+  ],
+  "220673": [
+   "Alpura",
+   1096,
+   11
+  ],
+  "220692": [
+   "Nirbhapur",
+   1097,
+   10
+  ],
+  "220704": [
+   "Banaur",
+   1097,
+   10
+  ],
+  "220653": [
+   "Bhaduar",
+   1096,
+   11
+  ],
+  "220126": [
+   "Jagatpur",
+   1087,
+   12
+  ],
+  "220604": [
+   "Khatukharika",
+   1095,
+   10
+  ],
+  "220805": [
+   "Bhakhrauli",
+   1099,
+   4
+  ],
+  "220753": [
+   "Pipraulia",
+   1098,
+   5
+  ],
+  "220722": [
+   "Majhaura",
+   1097,
+   11
+  ],
+  "220755": [
+   "Kiritpur",
+   1098,
+   12
+  ],
+  "220782": [
+   "Kewatna",
+   1098,
+   5
+  ],
+  "220730": [
+   "Bistaul",
+   1097,
+   11
+  ],
+  "220712": [
+   "Dholaha",
+   1097,
+   11
+  ],
+  "220721": [
+   "Chanauraganj",
+   1097,
+   11
+  ],
+  "220690": [
+   "Ojhaul",
+   1097,
+   10
+  ],
+  "220716": [
+   "Chora Mahrail",
+   1097,
+   11
+  ],
+  "220560": [
+   "Haidarpur",
+   1094,
+   10
+  ],
+  "220713": [
+   "Mailchham",
+   1097,
+   11
+  ],
+  "220650": [
+   "Tilai",
+   1096,
+   10
+  ],
+  "220602": [
+   "Ratikar",
+   1095,
+   10
+  ],
+  "220715": [
+   "Tajpur",
+   1097,
+   11
+  ],
+  "220709": [
+   "Partapur",
+   1097,
+   3
+  ],
+  "220679": [
+   "Amraha Raiam",
+   1097,
+   3
+  ],
+  "220561": [
+   "Bijai",
+   1094,
+   10
+  ],
+  "220727": [
+   "Sangram",
+   1097,
+   11
+  ],
+  "220758": [
+   "Sudai Ratauli",
+   1098,
+   12
+  ],
+  "220654": [
+   "Harna",
+   1096,
+   11
+  ],
+  "220132": [
+   "Az Rakbe Mahindwar",
+   1087,
+   12
+  ],
+  "220705": [
+   "Motipur",
+   1097,
+   11
+  ],
+  "220750": [
+   "Konar",
+   1098,
+   12
+  ],
+  "220658": [
+   "Harri",
+   1096,
+   11
+  ],
+  "220701": [
+   "Khaira Shivottar",
+   1097,
+   10
+  ],
+  "220659": [
+   "Gandhraen",
+   1096,
+   11
+  ],
+  "220672": [
+   "Nanaur",
+   1096,
+   11
+  ],
+  "220129": [
+   "Baika",
+   1087,
+   12
+  ],
+  "220661": [
+   "Bhabham",
+   1096,
+   11
+  ],
+  "220749": [
+   "Nathopur",
+   1098,
+   12
+  ],
+  "220131": [
+   "Mahindwar",
+   1087,
+   11
+  ],
+  "220652": [
+   "Sujaul",
+   1096,
+   10
+  ],
+  "220694": [
+   "Chaupta",
+   1097,
+   10
+  ],
+  "220125": [
+   "Bachhauni",
+   1087,
+   12
+  ],
+  "220702": [
+   "Walipur",
+   1097,
+   11
+  ],
+  "220644": [
+   "Barsam",
+   1096,
+   11
+  ],
+  "220695": [
+   "Az Rakbe Chaupta",
+   1097,
+   10
+  ],
+  "220748": [
+   "Bishunpur",
+   1098,
+   12
+  ],
+  "220130": [
+   "Laksena",
+   1087,
+   12
+  ],
+  "220662": [
+   "Rudrapur",
+   1096,
+   11
+  ],
+  "220664": [
+   "Dumra Araji",
+   1096,
+   11
+  ],
+  "220124": [
+   "Dharamdiha",
+   1087,
+   12
+  ],
+  "220127": [
+   "Khargawan",
+   1087,
+   12
+  ],
+  "220670": [
+   "Jalsain",
+   1096,
+   11
+  ],
+  "220656": [
+   "Sisauni",
+   1096,
+   11
+  ],
+  "220555": [
+   "Salempur",
+   1094,
+   10
+  ],
+  "220697": [
+   "Shankarpur",
+   1097,
+   10
+  ],
+  "220699": [
+   "Ramkhetari",
+   1097,
+   10
+  ],
+  "220696": [
+   "Kako",
+   1097,
+   10
+  ],
+  "220671": [
+   "Madna",
+   1096,
+   11
+  ],
+  "220663": [
+   "Nabnagar",
+   1096,
+   11
+  ],
+  "220123": [
+   "Arazi Saini",
+   1087,
+   12
+  ],
+  "220486": [
+   "Madhubani CT",
+   1093,
+   9
+  ],
+  "220625": [
+   "Satghara CT",
+   1095,
+   17
+  ],
+  "220725": [
+   "Sukhet",
+   1097,
+   4
+  ],
+  "220643": [
+   "Dumra",
+   1096,
+   11
+  ],
+  "220710": [
+   "Mohna",
+   1097,
+   4
+  ],
+  "220720": [
+   "Pauram",
+   1097,
+   4
+  ],
+  "220707": [
+   "Balni Mehath",
+   1097,
+   3
+  ],
+  "220729": [
+   "Dhepura",
+   1097,
+   11
+  ],
+  "220737": [
+   "Sirkharia",
+   1097,
+   5
+  ],
+  "220757": [
+   "Az Rakbe Sudai",
+   1098,
+   12
+  ],
+  "220657": [
+   "Karnpur",
+   1096,
+   11
+  ],
+  "220660": [
+   "Gandhraen Barhmotar",
+   1096,
+   11
+  ],
+  "220603": [
+   "Mahuahi",
+   1095,
+   10
+  ],
+  "220651": [
+   "Mailam",
+   1096,
+   10
+  ],
+  "220738": [
+   "Dewa Lawani",
+   1097,
+   5
+  ],
+  "220736": [
+   "Az Rakbe Sirkharia",
+   1097,
+   12
+  ],
+  "220706": [
+   "Badsangahi",
+   1097,
+   10
+  ],
+  "220718": [
+   "Sindurpura",
+   1097,
+   11
+  ],
+  "220632": [
+   "Deohar",
+   1096,
+   18
+  ],
+  "220626": [
+   "Bithauni",
+   1096,
+   18
+  ],
+  "220623": [
+   "Sugauna",
+   1095,
+   18
+  ],
+  "220117": [
+   "Gohuma Bairia",
+   1087,
+   20
+  ],
+  "220633": [
+   "Gonauli",
+   1096,
+   19
+  ],
+  "220637": [
+   "Marukia",
+   1096,
+   19
+  ],
+  "220195": [
+   "Sarara",
+   1088,
+   20
+  ],
+  "220621": [
+   "Beraghat",
+   1095,
+   18
+  ],
+  "220182": [
+   "Jasrajpur",
+   1088,
+   19
+  ],
+  "220188": [
+   "Kulharia",
+   1088,
+   19
+  ],
+  "220620": [
+   "Ekma",
+   1095,
+   18
+  ],
+  "220121": [
+   "Amouja",
+   1087,
+   12
+  ],
+  "220137": [
+   "Bhatgawan",
+   1088,
+   18
+  ],
+  "220140": [
+   "Satghara",
+   1088,
+   18
+  ],
+  "220190": [
+   "Bardaha",
+   1088,
+   19
+  ],
+  "220631": [
+   "Bedauli",
+   1096,
+   18
+  ],
+  "220666": [
+   "Madna",
+   1096,
+   20
+  ],
+  "220614": [
+   "Bakuar",
+   1095,
+   18
+  ],
+  "220628": [
+   "Chapahi",
+   1096,
+   18
+  ],
+  "220615": [
+   "Thikaha",
+   1095,
+   18
+  ],
+  "220224": [
+   "Chandardih",
+   1089,
+   18
+  ],
+  "220193": [
+   "Jagarnathpur",
+   1088,
+   20
+  ],
+  "220173": [
+   "Dudahi",
+   1088,
+   19
+  ],
+  "220185": [
+   "Garhi",
+   1088,
+   19
+  ],
+  "220646": [
+   "Mangrauni",
+   1096,
+   19
+  ],
+  "220118": [
+   "Sisauni",
+   1087,
+   20
+  ],
+  "220168": [
+   "Ramnipatti",
+   1088,
+   19
+  ],
+  "220143": [
+   "Bela",
+   1088,
+   18
+  ],
+  "220171": [
+   "Sonpatahi",
+   1088,
+   19
+  ],
+  "220134": [
+   "Bagaul",
+   1088,
+   18
+  ],
+  "220163": [
+   "Khojpur",
+   1088,
+   19
+  ],
+  "220627": [
+   "Az Rakbe Chapahi",
+   1096,
+   18
+  ],
+  "220665": [
+   "Andhra Tharhi",
+   1096,
+   19
+  ],
+  "220144": [
+   "Tirhuta",
+   1088,
+   18
+  ],
+  "220186": [
+   "Barhara",
+   1088,
+   19
+  ],
+  "220091": [
+   "Bathnaha",
+   1087,
+   20
+  ],
+  "220167": [
+   "Baliraj Gadh",
+   1088,
+   19
+  ],
+  "220165": [
+   "Nabnagar",
+   1088,
+   19
+  ],
+  "220141": [
+   "Mathkhudar Khala",
+   1088,
+   18
+  ],
+  "220133": [
+   "Maheshwara",
+   1088,
+   18
+  ],
+  "220649": [
+   "Rajanpura",
+   1096,
+   10
+  ],
+  "220624": [
+   "Nizamat",
+   1095,
+   10
+  ],
+  "220669": [
+   "Maini",
+   1096,
+   12
+  ],
+  "220641": [
+   "Phulwaria",
+   1096,
+   11
+  ],
+  "220647": [
+   "Siwa",
+   1096,
+   11
+  ],
+  "220648": [
+   "Ghoghraria",
+   1096,
+   10
+  ],
+  "220122": [
+   "Saini",
+   1087,
+   12
+  ],
+  "220629": [
+   "Gangdwar",
+   1096,
+   10
+  ],
+  "220640": [
+   "Gaur Andrha",
+   1096,
+   19
+  ],
+  "220119": [
+   "Murbala",
+   1087,
+   20
+  ],
+  "220638": [
+   "Dhagjari",
+   1096,
+   19
+  ],
+  "220639": [
+   "Pastan",
+   1096,
+   19
+  ],
+  "220635": [
+   "Nikta",
+   1096,
+   19
+  ],
+  "220177": [
+   "Bikram Sher",
+   1088,
+   19
+  ],
+  "220094": [
+   "Mainaha",
+   1087,
+   20
+  ],
+  "220183": [
+   "Rahikpur",
+   1088,
+   19
+  ],
+  "220136": [
+   "Shyamsidhap",
+   1088,
+   18
+  ],
+  "220176": [
+   "Mahuahi",
+   1088,
+   19
+  ],
+  "220179": [
+   "Jabdi",
+   1088,
+   19
+  ],
+  "220609": [
+   "Barahra Dakhli",
+   1095,
+   10
+  ],
+  "220642": [
+   "Basua",
+   1096,
+   11
+  ],
+  "220610": [
+   "Barhara",
+   1095,
+   10
+  ],
+  "220611": [
+   "Barhara",
+   1095,
+   18
+  ],
+  "220667": [
+   "Jamaila",
+   1096,
+   11
+  ],
+  "220622": [
+   "Bidyanagar",
+   1095,
+   18
+  ],
+  "220636": [
+   "Singiaun",
+   1096,
+   19
+  ],
+  "220139": [
+   "Bairia",
+   1088,
+   18
+  ],
+  "220606": [
+   "Baht Simar",
+   1095,
+   10
+  ],
+  "220630": [
+   "Sihoria",
+   1096,
+   18
+  ],
+  "220616": [
+   "Koilpar",
+   1095,
+   18
+  ],
+  "220634": [
+   "Kosbagaur",
+   1096,
+   19
+  ],
+  "220181": [
+   "Misraulia",
+   1088,
+   19
+  ],
+  "220189": [
+   "Parsa",
+   1088,
+   19
+  ],
+  "220138": [
+   "Madhwapur",
+   1088,
+   18
+  ],
+  "220092": [
+   "Bharahi",
+   1087,
+   20
+  ],
+  "220135": [
+   "Ghonghaur",
+   1088,
+   18
+  ],
+  "220191": [
+   "Bardahi Barhara",
+   1088,
+   19
+  ],
+  "220142": [
+   "Murhadi",
+   1088,
+   18
+  ],
+  "220223": [
+   "Mahrajpur",
+   1089,
+   18
+  ],
+  "220192": [
+   "Basaha",
+   1088,
+   20
+  ],
+  "219988": [
+   "Siktiahi",
+   1085,
+   20
+  ],
+  "220156": [
+   "Barail",
+   1088,
+   20
+  ],
+  "220166": [
+   "Balirajpur",
+   1088,
+   19
+  ],
+  "220605": [
+   "Bidyanagar",
+   1095,
+   10
+  ],
+  "220120": [
+   "Toufir",
+   1087,
+   12
+  ],
+  "220178": [
+   "Dhamaura",
+   1088,
+   19
+  ],
+  "220093": [
+   "Bahraha",
+   1087,
+   20
+  ],
+  "220174": [
+   "Mafi Mahuahi",
+   1088,
+   19
+  ],
+  "220175": [
+   "Kamat Mahuahi",
+   1088,
+   19
+  ],
+  "220187": [
+   "Arazi Az Rakbe Barhara",
+   1088,
+   19
+  ],
+  "220194": [
+   "Sonpatahi",
+   1088,
+   20
+  ],
+  "220180": [
+   "Lohapipar",
+   1088,
+   19
+  ],
+  "220184": [
+   "Pachrukhi",
+   1088,
+   19
+  ],
+  "220172": [
+   "Barhi",
+   1088,
+   19
+  ],
+  "220157": [
+   "Mahatha Chauri",
+   1088,
+   20
+  ],
+  "220159": [
+   "Madan Dobh",
+   1088,
+   19
+  ],
+  "219826": [
+   "Marwat Sobrauli",
+   1080,
+   14
+  ],
+  "219816": [
+   "Hanuman Nagar",
+   1080,
+   24
+  ],
+  "220322": [
+   "Akaur",
+   1091,
+   24
+  ],
+  "219840": [
+   "Pakar Sam",
+   1080,
+   14
+  ],
+  "219891": [
+   "Kamtaul",
+   1081,
+   24
+  ],
+  "219843": [
+   "Patar",
+   1080,
+   14
+  ],
+  "219890": [
+   "Manoharpur",
+   1081,
+   24
+  ],
+  "219894": [
+   "Gangaur",
+   1081,
+   24
+  ],
+  "219876": [
+   "Kauaha Pahari",
+   1081,
+   24
+  ],
+  "219838": [
+   "Dumra",
+   1080,
+   14
+  ],
+  "219830": [
+   "Pihwara",
+   1080,
+   14
+  ],
+  "220249": [
+   "Manpaur",
+   1091,
+   24
+  ],
+  "219885": [
+   "Baingra",
+   1081,
+   24
+  ],
+  "219836": [
+   "Pokharauni",
+   1080,
+   14
+  ],
+  "219887": [
+   "Baurhar",
+   1081,
+   24
+  ],
+  "219837": [
+   "Pokharauni Birta",
+   1080,
+   14
+  ],
+  "219848": [
+   "Taraia",
+   1080,
+   14
+  ],
+  "219888": [
+   "Sonai",
+   1081,
+   24
+  ],
+  "220258": [
+   "Deuri",
+   1091,
+   15
+  ],
+  "219846": [
+   "Sujatpur",
+   1080,
+   14
+  ],
+  "219845": [
+   "Ekari",
+   1080,
+   14
+  ],
+  "219839": [
+   "Minti",
+   1080,
+   14
+  ],
+  "219841": [
+   "Awari",
+   1080,
+   14
+  ],
+  "219842": [
+   "Andauli",
+   1080,
+   14
+  ],
+  "219827": [
+   "Karahuan",
+   1080,
+   14
+  ],
+  "220248": [
+   "Kesuli",
+   1091,
+   24
+  ],
+  "219844": [
+   "Pirokhar",
+   1080,
+   14
+  ],
+  "219832": [
+   "Loma",
+   1080,
+   24
+  ],
+  "219831": [
+   "Utra",
+   1080,
+   24
+  ],
+  "219884": [
+   "Semhli",
+   1081,
+   24
+  ],
+  "219825": [
+   "Sobrauli",
+   1080,
+   14
+  ],
+  "219886": [
+   "Jiraul",
+   1081,
+   24
+  ],
+  "219824": [
+   "Akaha",
+   1080,
+   24
+  ],
+  "219883": [
+   "Khirhar",
+   1081,
+   24
+  ],
+  "219819": [
+   "Madhu Dih",
+   1080,
+   24
+  ],
+  "219820": [
+   "Bairwa",
+   1080,
+   24
+  ],
+  "219817": [
+   "Aura",
+   1080,
+   24
+  ],
+  "219882": [
+   "Jhitki",
+   1081,
+   24
+  ],
+  "219889": [
+   "Mangrahtia",
+   1081,
+   24
+  ],
+  "219821": [
+   "Mukhiapatti",
+   1080,
+   24
+  ],
+  "219808": [
+   "Raima",
+   1080,
+   24
+  ],
+  "219881": [
+   "Hisar",
+   1081,
+   24
+  ],
+  "219822": [
+   "Sahar",
+   1080,
+   24
+  ],
+  "219879": [
+   "Harswar",
+   1081,
+   24
+  ],
+  "219893": [
+   "Gopalpur",
+   1081,
+   24
+  ],
+  "219875": [
+   "Hurrahi",
+   1081,
+   24
+  ],
+  "219811": [
+   "Rampur",
+   1080,
+   24
+  ],
+  "219873": [
+   "Phulhar",
+   1081,
+   24
+  ],
+  "219828": [
+   "Awari Inamak",
+   1080,
+   14
+  ],
+  "219835": [
+   "Ratauli",
+   1080,
+   14
+  ],
+  "219858": [
+   "Mahadeopatti",
+   1081,
+   31
+  ],
+  "219856": [
+   "Naharnia",
+   1081,
+   31
+  ],
+  "220256": [
+   "Khutauna",
+   1091,
+   24
+  ],
+  "220254": [
+   "Adhwari",
+   1091,
+   24
+  ],
+  "219829": [
+   "Baingra",
+   1080,
+   14
+  ],
+  "219834": [
+   "Salempur",
+   1080,
+   24
+  ],
+  "219833": [
+   "Mahua",
+   1080,
+   24
+  ],
+  "219823": [
+   "Baswaria",
+   1080,
+   24
+  ],
+  "219921": [
+   "Kasera",
+   1082,
+   24
+  ],
+  "219880": [
+   "Pahra",
+   1081,
+   24
+  ],
+  "219892": [
+   "Kamtaul",
+   1081,
+   24
+  ],
+  "219812": [
+   "Parsa",
+   1080,
+   24
+  ],
+  "219810": [
+   "Madhwapur",
+   1080,
+   24
+  ],
+  "219872": [
+   "Pipraun",
+   1081,
+   24
+  ],
+  "219857": [
+   "Kasera",
+   1081,
+   31
+  ],
+  "220253": [
+   "Teoth",
+   1091,
+   24
+  ],
+  "220257": [
+   "Salha",
+   1091,
+   24
+  ],
+  "219818": [
+   "Balwa",
+   1080,
+   24
+  ],
+  "219874": [
+   "Beta Parsa",
+   1081,
+   24
+  ],
+  "219813": [
+   "Ram Nagar Kajra",
+   1080,
+   24
+  ],
+  "219809": [
+   "Rampur Birt",
+   1080,
+   24
+  ],
+  "219814": [
+   "Basuki Bihari",
+   1080,
+   24
+  ],
+  "219871": [
+   "Sothgaon",
+   1081,
+   31
+  ],
+  "219859": [
+   "Umgaon",
+   1081,
+   31
+  ],
+  "219847": [
+   "Badhauna",
+   1080,
+   14
+  ],
+  "220255": [
+   "Chak Bhedi",
+   1091,
+   24
+  ],
+  "219924": [
+   "Phent",
+   1082,
+   25
+  ],
+  "219912": [
+   "Selibeli",
+   1082,
+   26
+  ],
+  "220233": [
+   "Koluahi",
+   1090,
+   17
+  ],
+  "219913": [
+   "Arghawa",
+   1082,
+   25
+  ],
+  "219944": [
+   "Barhmotar",
+   1083,
+   26
+  ],
+  "219910": [
+   "Ghorbanki",
+   1082,
+   25
+  ],
+  "219945": [
+   "Korahia",
+   1083,
+   26
+  ],
+  "220247": [
+   "Kalikapur",
+   1090,
+   26
+  ],
+  "219928": [
+   "Belauna",
+   1082,
+   25
+  ],
+  "220214": [
+   "Maina",
+   1089,
+   27
+  ],
+  "220205": [
+   "Sater",
+   1089,
+   26
+  ],
+  "220246": [
+   "Palimohan",
+   1090,
+   17
+  ],
+  "219937": [
+   "Suriahi",
+   1083,
+   32
+  ],
+  "219942": [
+   "Jainagar",
+   1083,
+   26
+  ],
+  "220232": [
+   "Malmal",
+   1090,
+   25
+  ],
+  "219927": [
+   "Bhaiapatti",
+   1082,
+   25
+  ],
+  "220323": [
+   "Nagwas",
+   1091,
+   25
+  ],
+  "219920": [
+   "Chanan",
+   1082,
+   25
+  ],
+  "220213": [
+   "Suki",
+   1089,
+   27
+  ],
+  "220324": [
+   "Karhi",
+   1091,
+   16
+  ],
+  "220212": [
+   "Behta",
+   1089,
+   26
+  ],
+  "220211": [
+   "Datwar",
+   1089,
+   26
+  ],
+  "220210": [
+   "Hathiahi",
+   1089,
+   26
+  ],
+  "220230": [
+   "Pursaulia",
+   1090,
+   25
+  ],
+  "219922": [
+   "Siriapur",
+   1082,
+   25
+  ],
+  "219914": [
+   "Narkatia",
+   1082,
+   25
+  ],
+  "219919": [
+   "Damu",
+   1082,
+   25
+  ],
+  "219911": [
+   "Radha Kant",
+   1082,
+   26
+  ],
+  "219946": [
+   "Silra",
+   1083,
+   27
+  ],
+  "219878": [
+   "Sukhbasi",
+   1081,
+   25
+  ],
+  "219915": [
+   "Marhia",
+   1082,
+   25
+  ],
+  "219917": [
+   "Hathapur",
+   1082,
+   25
+  ],
+  "219939": [
+   "Chatar",
+   1083,
+   26
+  ],
+  "219941": [
+   "Kuar",
+   1083,
+   26
+  ],
+  "219943": [
+   "Dodwar",
+   1083,
+   26
+  ],
+  "219940": [
+   "Silanath Dulipatti",
+   1083,
+   26
+  ],
+  "219918": [
+   "Basopatti",
+   1082,
+   25
+  ],
+  "219908": [
+   "Kauaha",
+   1082,
+   31
+  ],
+  "219907": [
+   "Jaso",
+   1082,
+   31
+  ],
+  "219870": [
+   "Bituhar",
+   1081,
+   31
+  ],
+  "219868": [
+   "Balwaha",
+   1081,
+   31
+  ],
+  "219869": [
+   "Kalna",
+   1081,
+   31
+  ],
+  "219936": [
+   "Baira",
+   1083,
+   32
+  ],
+  "219867": [
+   "Kundalmaria",
+   1081,
+   31
+  ],
+  "219861": [
+   "Hatwaria",
+   1081,
+   31
+  ],
+  "219931": [
+   "Dhamia Patti",
+   1083,
+   32
+  ],
+  "219904": [
+   "Sirahi",
+   1082,
+   31
+  ],
+  "219865": [
+   "Suhpur",
+   1081,
+   31
+  ],
+  "219948": [
+   "Belhi",
+   1083,
+   32
+  ],
+  "219905": [
+   "Khataia",
+   1082,
+   31
+  ],
+  "219930": [
+   "Rajauli",
+   1083,
+   32
+  ],
+  "219903": [
+   "Simrarhi",
+   1082,
+   32
+  ],
+  "219934": [
+   "Bhadaur",
+   1083,
+   32
+  ],
+  "219933": [
+   "Usrahi Deodha",
+   1083,
+   32
+  ],
+  "219855": [
+   "Birta",
+   1081,
+   31
+  ],
+  "219900": [
+   "Chhitauni",
+   1082,
+   31
+  ],
+  "219899": [
+   "Jatulia",
+   1082,
+   31
+  ],
+  "219852": [
+   "Kaurna",
+   1081,
+   31
+  ],
+  "219851": [
+   "Kamlapatpatti",
+   1081,
+   31
+  ],
+  "219896": [
+   "Lauthwa",
+   1082,
+   31
+  ],
+  "219895": [
+   "Khauna",
+   1082,
+   31
+  ],
+  "220222": [
+   "Kanhauli",
+   1089,
+   18
+  ],
+  "220206": [
+   "Lachhmipur",
+   1089,
+   26
+  ],
+  "219926": [
+   "Barantpur",
+   1082,
+   25
+  ],
+  "220209": [
+   "Biraul",
+   1089,
+   26
+  ],
+  "219923": [
+   "Patauna",
+   1082,
+   25
+  ],
+  "220228": [
+   "Nararh Part In Khajauli",
+   1090,
+   26
+  ],
+  "219925": [
+   "Manmohan",
+   1082,
+   25
+  ],
+  "219877": [
+   "Sisauni",
+   1081,
+   25
+  ],
+  "219938": [
+   "Barhi",
+   1083,
+   26
+  ],
+  "219947": [
+   "Parwa",
+   1083,
+   27
+  ],
+  "219909": [
+   "Birpur",
+   1082,
+   31
+  ],
+  "219864": [
+   "Mangpatti",
+   1081,
+   31
+  ],
+  "219935": [
+   "Indarwa",
+   1083,
+   32
+  ],
+  "219863": [
+   "Mohanpur",
+   1081,
+   31
+  ],
+  "219932": [
+   "Parsa",
+   1083,
+   32
+  ],
+  "219866": [
+   "Rampur",
+   1081,
+   31
+  ],
+  "219929": [
+   "Garha",
+   1083,
+   32
+  ],
+  "219853": [
+   "Bisaul",
+   1081,
+   31
+  ],
+  "219897": [
+   "Majhaura",
+   1082,
+   31
+  ],
+  "219854": [
+   "Harlakhi",
+   1081,
+   31
+  ],
+  "219898": [
+   "Mahinathpur",
+   1082,
+   31
+  ],
+  "220215": [
+   "Maniarwa",
+   1089,
+   17
+  ],
+  "220231": [
+   "Kaziana",
+   1090,
+   25
+  ],
+  "220208": [
+   "Mahua Ekdara",
+   1089,
+   26
+  ],
+  "219906": [
+   "Mothaur",
+   1082,
+   31
+  ],
+  "219862": [
+   "Potgah",
+   1081,
+   31
+  ],
+  "219901": [
+   "Jonki",
+   1082,
+   32
+  ],
+  "249578": [
+   "Jainagar",
+   1083,
+   32
+  ],
+  "220207": [
+   "Nararh Part In Kaluahi",
+   1089,
+   26
+  ],
+  "219916": [
+   "Pachratan",
+   1082,
+   25
+  ],
+  "219860": [
+   "Dubepatti",
+   1081,
+   31
+  ],
+  "219902": [
+   "Motnaza",
+   1082,
+   32
+  ],
+  "220164": [
+   "Bhojpatti",
+   1088,
+   19
+  ],
+  "220150": [
+   "Tola Barhmotar",
+   1088,
+   28
+  ],
+  "220152": [
+   "Deora",
+   1088,
+   28
+  ],
+  "220225": [
+   "Chandar Gobraura",
+   1089,
+   27
+  ],
+  "219955": [
+   "Sipahgiri",
+   1084,
+   28
+  ],
+  "219958": [
+   "Bhutaha",
+   1084,
+   28
+  ],
+  "219980": [
+   "Birpur Barapatti Pindraun",
+   1085,
+   29
+  ],
+  "219950": [
+   "Dalokhar",
+   1084,
+   28
+  ],
+  "220151": [
+   "Hanumannagar",
+   1088,
+   27
+  ],
+  "219981": [
+   "Barmotar Rae Chanda",
+   1085,
+   29
+  ],
+  "219973": [
+   "Ekhari",
+   1084,
+   28
+  ],
+  "220226": [
+   "Bhakua",
+   1089,
+   27
+  ],
+  "220145": [
+   "Bausi",
+   1088,
+   28
+  ],
+  "219978": [
+   "Lalmunia Munhara",
+   1085,
+   29
+  ],
+  "219962": [
+   "Kamtaulia",
+   1084,
+   28
+  ],
+  "220158": [
+   "Jatahi",
+   1088,
+   20
+  ],
+  "220169": [
+   "Kharagbani",
+   1088,
+   19
+  ],
+  "220155": [
+   "Teghra",
+   1088,
+   29
+  ],
+  "220146": [
+   "Chhaurahi",
+   1088,
+   27
+  ],
+  "220170": [
+   "Pirhi",
+   1088,
+   28
+  ],
+  "220154": [
+   "Sonmati",
+   1088,
+   28
+  ],
+  "219956": [
+   "Nandrahi",
+   1084,
+   27
+  ],
+  "219975": [
+   "Pindraun",
+   1084,
+   29
+  ],
+  "219974": [
+   "Gajhara",
+   1084,
+   29
+  ],
+  "220147": [
+   "Bhatchaura",
+   1088,
+   27
+  ],
+  "219957": [
+   "Gidhwas",
+   1084,
+   28
+  ],
+  "219972": [
+   "Dharamban",
+   1084,
+   28
+  ],
+  "219953": [
+   "Sidhap Kalan",
+   1084,
+   27
+  ],
+  "219979": [
+   "Lataunha",
+   1085,
+   29
+  ],
+  "219959": [
+   "Khoja",
+   1084,
+   28
+  ],
+  "219964": [
+   "Chiknautwa",
+   1084,
+   28
+  ],
+  "219971": [
+   "Sidhapa",
+   1084,
+   28
+  ],
+  "219951": [
+   "Jogia",
+   1084,
+   27
+  ],
+  "219952": [
+   "Paduma",
+   1084,
+   27
+  ],
+  "219961": [
+   "Kumarkhad",
+   1084,
+   28
+  ],
+  "219966": [
+   "Mahtha",
+   1084,
+   28
+  ],
+  "220153": [
+   "Bela",
+   1088,
+   28
+  ],
+  "220149": [
+   "Bishunpur",
+   1088,
+   27
+  ],
+  "219977": [
+   "Pathrahi",
+   1084,
+   29
+  ],
+  "219976": [
+   "Barhmotra",
+   1084,
+   29
+  ],
+  "219954": [
+   "Mirzapur",
+   1084,
+   28
+  ],
+  "220162": [
+   "Tola Agari",
+   1088,
+   28
+  ],
+  "220148": [
+   "Baruwar",
+   1088,
+   27
+  ],
+  "219987": [
+   "Khutauna",
+   1085,
+   29
+  ],
+  "219970": [
+   "Belahi",
+   1084,
+   28
+  ],
+  "219960": [
+   "Bauraha",
+   1084,
+   27
+  ],
+  "219965": [
+   "Bishunpur",
+   1084,
+   28
+  ],
+  "219969": [
+   "Garha",
+   1084,
+   29
+  ],
+  "219968": [
+   "Piprahi",
+   1084,
+   29
+  ],
+  "219963": [
+   "Mahua",
+   1084,
+   28
+  ],
+  "219967": [
+   "Lachhminia",
+   1084,
+   28
+  ],
+  "219984": [
+   "Barmotar",
+   1085,
+   29
+  ],
+  "219949": [
+   "Pachhar",
+   1083,
+   27
+  ],
+  "220160": [
+   "Gosain Chauri",
+   1088,
+   28
+  ],
+  "219983": [
+   "Jhagaraua",
+   1085,
+   29
+  ],
+  "219982": [
+   "Rae Chanda",
+   1085,
+   29
+  ],
+  "220905": [
+   "Bagewa",
+   1100,
+   1
+  ],
+  "220903": [
+   "Mahsa",
+   1100,
+   0
+  ],
+  "220902": [
+   "Chhatauni",
+   1100,
+   0
+  ],
+  "220914": [
+   "Goiahi",
+   1100,
+   0
+  ],
+  "220897": [
+   "Tangraha",
+   1100,
+   0
+  ],
+  "220899": [
+   "Lilja",
+   1100,
+   0
+  ],
+  "220898": [
+   "Mani Mahpatia",
+   1100,
+   0
+  ],
+  "220901": [
+   "Mahpatia",
+   1100,
+   0
+  ],
+  "220900": [
+   "Parsauni",
+   1100,
+   0
+  ],
+  "220906": [
+   "Rampur",
+   1100,
+   1
+  ],
+  "220911": [
+   "Asurgarh",
+   1100,
+   1
+  ],
+  "220904": [
+   "Bhawanipur",
+   1100,
+   1
+  ],
+  "220883": [
+   "Karhara",
+   1100,
+   0
+  ],
+  "220778": [
+   "Nawabakhar",
+   1098,
+   6
+  ],
+  "220788": [
+   "Sahorwa",
+   1098,
+   6
+  ],
+  "220773": [
+   "Baranjhula",
+   1098,
+   6
+  ],
+  "220777": [
+   "Nighma",
+   1098,
+   5
+  ],
+  "220007": [
+   "Bauraha",
+   1085,
+   29
+  ],
+  "220884": [
+   "Doalakh",
+   1100,
+   0
+  ],
+  "220915": [
+   "Bhagta",
+   1100,
+   0
+  ],
+  "220913": [
+   "Basipatti",
+   1100,
+   1
+  ],
+  "220908": [
+   "Parriahi",
+   1100,
+   1
+  ],
+  "220910": [
+   "Gobargarha",
+   1100,
+   1
+  ],
+  "220912": [
+   "Garhgaon",
+   1100,
+   1
+  ],
+  "220916": [
+   "Dara",
+   1100,
+   0
+  ],
+  "220776": [
+   "Sarauti",
+   1098,
+   6
+  ],
+  "220843": [
+   "Tardiha",
+   1100,
+   5
+  ],
+  "220917": [
+   "Bela",
+   1100,
+   0
+  ],
+  "220835": [
+   "Matras",
+   1100,
+   5
+  ],
+  "220907": [
+   "Mainahi",
+   1100,
+   1
+  ],
+  "220918": [
+   "Harshankri",
+   1100,
+   0
+  ],
+  "220909": [
+   "Luchpani",
+   1100,
+   1
+  ],
+  "220786": [
+   "Biraul",
+   1098,
+   5
+  ],
+  "220774": [
+   "Amahi",
+   1098,
+   6
+  ],
+  "220775": [
+   "Deonathpatti",
+   1098,
+   6
+  ],
+  "220837": [
+   "Pauni",
+   1100,
+   5
+  ],
+  "220789": [
+   "Dhabghat",
+   1098,
+   5
+  ],
+  "220779": [
+   "Dhanpat Barhi",
+   1098,
+   6
+  ],
+  "220836": [
+   "Bishunpur",
+   1100,
+   5
+  ],
+  "220772": [
+   "Mainahi",
+   1098,
+   6
+  ],
+  "220834": [
+   "Kalikapur",
+   1100,
+   5
+  ],
+  "220771": [
+   "Harari",
+   1098,
+   6
+  ],
+  "220919": [
+   "Rampur",
+   1100,
+   0
+  ],
+  "220787": [
+   "Rajuahi",
+   1098,
+   5
+  ],
+  "220770": [
+   "Alola",
+   1098,
+   6
+  ],
+  "220780": [
+   "Hatni",
+   1098,
+   6
+  ],
+  "220763": [
+   "Tilat",
+   1098,
+   12
+  ],
+  "220768": [
+   "Baswari",
+   1098,
+   6
+  ],
+  "220769": [
+   "Pipra Kamalpur",
+   1098,
+   6
+  ],
+  "220784": [
+   "Chikna",
+   1098,
+   5
+  ],
+  "220070": [
+   "Bajuband",
+   1086,
+   22
+  ],
+  "220075": [
+   "Kharagpur",
+   1086,
+   22
+  ],
+  "220076": [
+   "Sakhua",
+   1086,
+   22
+  ],
+  "220109": [
+   "Dahapatti",
+   1087,
+   20
+  ],
+  "220083": [
+   "Kuriban",
+   1086,
+   21
+  ],
+  "220107": [
+   "Jhakhrahi",
+   1087,
+   21
+  ],
+  "220066": [
+   "Kaudihar Laukahi",
+   1086,
+   22
+  ],
+  "220112": [
+   "Harnath Patti",
+   1087,
+   21
+  ],
+  "220104": [
+   "Inamat",
+   1087,
+   21
+  ],
+  "220095": [
+   "Siswar",
+   1087,
+   20
+  ],
+  "220103": [
+   "Mahathour",
+   1087,
+   21
+  ],
+  "249581": [
+   "Ghoghardiha",
+   1098,
+   13
+  ],
+  "220781": [
+   "Pirojgarh",
+   1098,
+   5
+  ],
+  "220766": [
+   "Hulaspatti",
+   1098,
+   12
+  ],
+  "220116": [
+   "Sugapatti",
+   1087,
+   12
+  ],
+  "220089": [
+   "Bhutaha",
+   1086,
+   13
+  ],
+  "219991": [
+   "Ekhatha",
+   1085,
+   21
+  ],
+  "220035": [
+   "Sonbarsa",
+   1086,
+   21
+  ],
+  "220037": [
+   "Piprahi",
+   1086,
+   22
+  ],
+  "220090": [
+   "Bangawan",
+   1086,
+   13
+  ],
+  "220042": [
+   "Kaluahi",
+   1086,
+   22
+  ],
+  "220067": [
+   "Baruwar",
+   1086,
+   22
+  ],
+  "220036": [
+   "Sanpataha",
+   1086,
+   22
+  ],
+  "219990": [
+   "Bagha Kusmar",
+   1085,
+   20
+  ],
+  "220022": [
+   "Chatarbhuj",
+   1085,
+   21
+  ],
+  "220044": [
+   "Kariaut",
+   1086,
+   22
+  ],
+  "220031": [
+   "Mahadewa",
+   1086,
+   22
+  ],
+  "220762": [
+   "Tharbitia",
+   1098,
+   12
+  ],
+  "220761": [
+   "Kasirampatti",
+   1098,
+   12
+  ],
+  "220096": [
+   "Bairiahi",
+   1087,
+   13
+  ],
+  "220760": [
+   "Sangi",
+   1098,
+   12
+  ],
+  "220097": [
+   "Musharnia",
+   1087,
+   13
+  ],
+  "220110": [
+   "Balua",
+   1087,
+   20
+  ],
+  "220018": [
+   "Ekhatha",
+   1085,
+   20
+  ],
+  "220099": [
+   "Gurgawan",
+   1087,
+   13
+  ],
+  "220100": [
+   "Phulparas",
+   1087,
+   13
+  ],
+  "220077": [
+   "Hariraha",
+   1086,
+   22
+  ],
+  "220074": [
+   "Kusmahi",
+   1086,
+   22
+  ],
+  "220745": [
+   "Bathnaha",
+   1098,
+   13
+  ],
+  "220038": [
+   "Kakahia",
+   1086,
+   22
+  ],
+  "220128": [
+   "Sijaulia",
+   1087,
+   12
+  ],
+  "220088": [
+   "Labtoli",
+   1086,
+   13
+  ],
+  "220114": [
+   "Goriari",
+   1087,
+   12
+  ],
+  "220098": [
+   "Ramnagar",
+   1087,
+   13
+  ],
+  "220115": [
+   "Hariari",
+   1087,
+   12
+  ],
+  "220065": [
+   "Hardoarlaukaha",
+   1086,
+   22
+  ],
+  "220064": [
+   "Dhanchhiha",
+   1086,
+   22
+  ],
+  "220087": [
+   "Sananpatti",
+   1086,
+   13
+  ],
+  "220086": [
+   "Auraha",
+   1086,
+   13
+  ],
+  "220085": [
+   "Mahdewa",
+   1086,
+   13
+  ],
+  "220084": [
+   "Narahia",
+   1086,
+   13
+  ],
+  "220068": [
+   "Rajarampatti",
+   1086,
+   22
+  ],
+  "220111": [
+   "Gatipatti",
+   1087,
+   20
+  ],
+  "220072": [
+   "Jarauli",
+   1086,
+   22
+  ],
+  "220105": [
+   "Gangdhara",
+   1087,
+   21
+  ],
+  "220108": [
+   "Kala Patti",
+   1087,
+   20
+  ],
+  "220078": [
+   "Belahi Bhawanipur",
+   1086,
+   22
+  ],
+  "220071": [
+   "Matahi",
+   1086,
+   22
+  ],
+  "220073": [
+   "Harraha",
+   1086,
+   22
+  ],
+  "220024": [
+   "Tengrar",
+   1085,
+   21
+  ],
+  "220764": [
+   "Mahadewa",
+   1098,
+   12
+  ],
+  "220765": [
+   "Indarwa",
+   1098,
+   12
+  ],
+  "220741": [
+   "Lachhminia",
+   1098,
+   13
+  ],
+  "220744": [
+   "Parsa",
+   1098,
+   13
+  ],
+  "220039": [
+   "Chichorwa",
+   1086,
+   22
+  ],
+  "220746": [
+   "Barhampur",
+   1098,
+   13
+  ],
+  "220101": [
+   "Barhi",
+   1087,
+   13
+  ],
+  "220082": [
+   "Lachhmipur",
+   1086,
+   21
+  ],
+  "220767": [
+   "Barhampur",
+   1098,
+   13
+  ],
+  "220742": [
+   "Chhojrena",
+   1098,
+   13
+  ],
+  "220743": [
+   "Bhabtiahi",
+   1098,
+   13
+  ],
+  "220102": [
+   "Murli",
+   1087,
+   21
+  ],
+  "220113": [
+   "Dhanouja",
+   1087,
+   13
+  ],
+  "220081": [
+   "Mansapur",
+   1086,
+   21
+  ],
+  "220079": [
+   "Karharwa",
+   1086,
+   22
+  ],
+  "220080": [
+   "Kachnarwa",
+   1086,
+   22
+  ],
+  "220041": [
+   "Ladania",
+   1086,
+   22
+  ],
+  "220040": [
+   "Tharhi",
+   1086,
+   22
+  ],
+  "220045": [
+   "Makhnaha",
+   1086,
+   22
+  ],
+  "220015": [
+   "Durgipatti",
+   1085,
+   20
+  ],
+  "220016": [
+   "Hudra",
+   1085,
+   20
+  ],
+  "220034": [
+   "Jhauri",
+   1086,
+   21
+  ],
+  "220014": [
+   "Kalripatti",
+   1085,
+   20
+  ],
+  "220017": [
+   "Jhanjhpatti Asa",
+   1085,
+   21
+  ],
+  "220033": [
+   "Laukahi",
+   1086,
+   22
+  ],
+  "219992": [
+   "Parsahi Sirsia",
+   1085,
+   21
+  ],
+  "220747": [
+   "Balan Sher",
+   1098,
+   12
+  ],
+  "219989": [
+   "Prayagpur",
+   1085,
+   20
+  ],
+  "220043": [
+   "Pipraun",
+   1086,
+   22
+  ],
+  "220032": [
+   "Jamsar",
+   1086,
+   22
+  ],
+  "220785": [
+   "Bhirahar",
+   1098,
+   5
+  ],
+  "220106": [
+   "Gangdhara Barmotar",
+   1087,
+   21
+  ],
+  "220069": [
+   "Narahi",
+   1086,
+   22
+  ],
+  "220053": [
+   "Kulhadia",
+   1086,
+   23
+  ],
+  "220060": [
+   "Mahadeomath",
+   1086,
+   23
+  ],
+  "220051": [
+   "Chandarpatti",
+   1086,
+   23
+  ],
+  "220062": [
+   "Mahthour Got",
+   1086,
+   22
+  ],
+  "220061": [
+   "Gidrahi",
+   1086,
+   23
+  ],
+  "220055": [
+   "Bharphori",
+   1086,
+   23
+  ],
+  "220063": [
+   "Mahthoura",
+   1086,
+   22
+  ],
+  "220052": [
+   "Dharhara",
+   1086,
+   23
+  ],
+  "220058": [
+   "Narindarpur",
+   1086,
+   23
+  ],
+  "220054": [
+   "Jiroga",
+   1086,
+   23
+  ],
+  "220048": [
+   "Kukur Doura",
+   1086,
+   22
+  ],
+  "220056": [
+   "Neur",
+   1086,
+   23
+  ],
+  "220049": [
+   "Dakahi",
+   1086,
+   23
+  ],
+  "220047": [
+   "Bikramsher",
+   1086,
+   22
+  ],
+  "220046": [
+   "Andhramath",
+   1086,
+   22
+  ],
+  "220059": [
+   "Barmotar",
+   1086,
+   23
+  ],
+  "220006": [
+   "Urhwa",
+   1085,
+   29
+  ],
+  "219994": [
+   "Barmotar Bhajnaha",
+   1085,
+   30
+  ],
+  "220012": [
+   "Sihula",
+   1085,
+   20
+  ],
+  "220028": [
+   "Tharwahi",
+   1086,
+   30
+  ],
+  "219995": [
+   "Lachhmipur",
+   1085,
+   30
+  ],
+  "219985": [
+   "Barmotar",
+   1085,
+   29
+  ],
+  "220000": [
+   "Jhajhri",
+   1085,
+   30
+  ],
+  "220001": [
+   "Bhajnaha",
+   1085,
+   21
+  ],
+  "220030": [
+   "Nari",
+   1086,
+   22
+  ],
+  "220008": [
+   "Lahria",
+   1085,
+   29
+  ],
+  "220013": [
+   "Jhanjpatti Doman",
+   1085,
+   20
+  ],
+  "220029": [
+   "Tulsiahi",
+   1086,
+   22
+  ],
+  "220002": [
+   "Balampatti",
+   1085,
+   30
+  ],
+  "220023": [
+   "Barkor",
+   1085,
+   30
+  ],
+  "220003": [
+   "Basania",
+   1085,
+   30
+  ],
+  "220027": [
+   "Harbhanga",
+   1086,
+   30
+  ],
+  "220005": [
+   "Baghmaria",
+   1085,
+   29
+  ],
+  "219997": [
+   "Naraenpur",
+   1085,
+   30
+  ],
+  "220021": [
+   "Piprahi",
+   1085,
+   30
+  ],
+  "220010": [
+   "Urhwa",
+   1085,
+   29
+  ],
+  "220020": [
+   "Basdeopur",
+   1085,
+   30
+  ],
+  "220011": [
+   "Siswar",
+   1085,
+   29
+  ],
+  "220009": [
+   "Bela",
+   1085,
+   29
+  ],
+  "219998": [
+   "Majhaura",
+   1085,
+   30
+  ],
+  "220004": [
+   "Madhopur",
+   1085,
+   30
+  ],
+  "220026": [
+   "Atri",
+   1086,
+   30
+  ],
+  "219986": [
+   "Karmegh",
+   1085,
+   29
+  ],
+  "220025": [
+   "Singrahi",
+   1086,
+   21
+  ]
+ },
+ "village_count_total": 1115,
+ "village_count_assigned": 1115
+}

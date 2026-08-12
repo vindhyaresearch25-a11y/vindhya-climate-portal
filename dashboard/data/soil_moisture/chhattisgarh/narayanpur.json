@@ -1,0 +1,2442 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Chhattisgarh",
+  "district": "Narayanpur",
+  "district_lgd": 637,
+  "observation_window": "2026-08-07T11:05Z to 2026-08-12T11:05Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3497,
+  "sm_surface_stddev": 0.03,
+  "sm_rootzone_mean": 0.3533,
+  "sm_rootzone_stddev": 0.04,
+  "n_cells": 40,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 19.1206,
+    "lon": 80.9786,
+    "sm_surface": 0.3673,
+    "sm_rootzone": 0.3746,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 1,
+    "lat": 19.1206,
+    "lon": 81.1763,
+    "sm_surface": 0.3538,
+    "sm_rootzone": 0.3558,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 2,
+    "lat": 19.2195,
+    "lon": 80.781,
+    "sm_surface": 0.3711,
+    "sm_rootzone": 0.3825,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 3,
+    "lat": 19.2195,
+    "lon": 80.8798,
+    "sm_surface": 0.3707,
+    "sm_rootzone": 0.3817,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 4,
+    "lat": 19.2195,
+    "lon": 80.9786,
+    "sm_surface": 0.3688,
+    "sm_rootzone": 0.3793,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 5,
+    "lat": 19.2195,
+    "lon": 81.0774,
+    "sm_surface": 0.3666,
+    "sm_rootzone": 0.3753,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 6,
+    "lat": 19.2195,
+    "lon": 81.1763,
+    "sm_surface": 0.3574,
+    "sm_rootzone": 0.3607,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 7,
+    "lat": 19.2195,
+    "lon": 81.2751,
+    "sm_surface": 0.3481,
+    "sm_rootzone": 0.3471,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 8,
+    "lat": 19.3183,
+    "lon": 80.8798,
+    "sm_surface": 0.3671,
+    "sm_rootzone": 0.3763,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 9,
+    "lat": 19.3183,
+    "lon": 80.9786,
+    "sm_surface": 0.3655,
+    "sm_rootzone": 0.3742,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 10,
+    "lat": 19.3183,
+    "lon": 81.0774,
+    "sm_surface": 0.3646,
+    "sm_rootzone": 0.3721,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 11,
+    "lat": 19.3183,
+    "lon": 81.1763,
+    "sm_surface": 0.3527,
+    "sm_rootzone": 0.3545,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 12,
+    "lat": 19.4171,
+    "lon": 80.8798,
+    "sm_surface": 0.3723,
+    "sm_rootzone": 0.3832,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 13,
+    "lat": 19.4171,
+    "lon": 80.9786,
+    "sm_surface": 0.3724,
+    "sm_rootzone": 0.3828,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 14,
+    "lat": 19.4171,
+    "lon": 81.0774,
+    "sm_surface": 0.3619,
+    "sm_rootzone": 0.3689,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 15,
+    "lat": 19.4171,
+    "lon": 81.1763,
+    "sm_surface": 0.3521,
+    "sm_rootzone": 0.3565,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 16,
+    "lat": 19.4171,
+    "lon": 81.2751,
+    "sm_surface": 0.3361,
+    "sm_rootzone": 0.3337,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 17,
+    "lat": 19.4171,
+    "lon": 81.3739,
+    "sm_surface": 0.3211,
+    "sm_rootzone": 0.3135,
+    "n_villages_sharing_cell": 27
+   },
+   {
+    "cell_index": 18,
+    "lat": 19.5159,
+    "lon": 80.9786,
+    "sm_surface": 0.3691,
+    "sm_rootzone": 0.3784,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 19,
+    "lat": 19.5159,
+    "lon": 81.0774,
+    "sm_surface": 0.3614,
+    "sm_rootzone": 0.3687,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 20,
+    "lat": 19.5159,
+    "lon": 81.1763,
+    "sm_surface": 0.3459,
+    "sm_rootzone": 0.349,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 21,
+    "lat": 19.5159,
+    "lon": 81.2751,
+    "sm_surface": 0.3424,
+    "sm_rootzone": 0.344,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 22,
+    "lat": 19.5159,
+    "lon": 81.3739,
+    "sm_surface": 0.2738,
+    "sm_rootzone": 0.2512,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 23,
+    "lat": 19.6147,
+    "lon": 80.6822,
+    "sm_surface": 0.3723,
+    "sm_rootzone": 0.3841,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 24,
+    "lat": 19.6147,
+    "lon": 80.781,
+    "sm_surface": 0.3726,
+    "sm_rootzone": 0.3843,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 25,
+    "lat": 19.6147,
+    "lon": 80.8798,
+    "sm_surface": 0.373,
+    "sm_rootzone": 0.3848,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 26,
+    "lat": 19.6147,
+    "lon": 80.9786,
+    "sm_surface": 0.3701,
+    "sm_rootzone": 0.3814,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 27,
+    "lat": 19.6147,
+    "lon": 81.0774,
+    "sm_surface": 0.3587,
+    "sm_rootzone": 0.3667,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 28,
+    "lat": 19.6147,
+    "lon": 81.1763,
+    "sm_surface": 0.3455,
+    "sm_rootzone": 0.3494,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 29,
+    "lat": 19.6147,
+    "lon": 81.2751,
+    "sm_surface": 0.3255,
+    "sm_rootzone": 0.3217,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 30,
+    "lat": 19.6147,
+    "lon": 81.3739,
+    "sm_surface": 0.2697,
+    "sm_rootzone": 0.2469,
+    "n_villages_sharing_cell": 29
+   },
+   {
+    "cell_index": 31,
+    "lat": 19.7135,
+    "lon": 80.781,
+    "sm_surface": 0.3714,
+    "sm_rootzone": 0.3835,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 32,
+    "lat": 19.7135,
+    "lon": 80.8798,
+    "sm_surface": 0.3715,
+    "sm_rootzone": 0.3837,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 33,
+    "lat": 19.7135,
+    "lon": 80.9786,
+    "sm_surface": 0.3692,
+    "sm_rootzone": 0.381,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 34,
+    "lat": 19.7135,
+    "lon": 81.0774,
+    "sm_surface": 0.3556,
+    "sm_rootzone": 0.3645,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 35,
+    "lat": 19.7135,
+    "lon": 81.2751,
+    "sm_surface": 0.277,
+    "sm_rootzone": 0.2569,
+    "n_villages_sharing_cell": 42
+   },
+   {
+    "cell_index": 36,
+    "lat": 19.7135,
+    "lon": 81.3739,
+    "sm_surface": 0.2675,
+    "sm_rootzone": 0.2471,
+    "n_villages_sharing_cell": 25
+   },
+   {
+    "cell_index": 37,
+    "lat": 19.8123,
+    "lon": 80.8798,
+    "sm_surface": 0.3653,
+    "sm_rootzone": 0.377,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 38,
+    "lat": 19.8123,
+    "lon": 80.9786,
+    "sm_surface": 0.3055,
+    "sm_rootzone": 0.2924,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 39,
+    "lat": 19.9112,
+    "lon": 80.8798,
+    "sm_surface": 0.3566,
+    "sm_rootzone": 0.3643,
+    "n_villages_sharing_cell": 11
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3277,
+  "sm_surface_stddev": 0.0345,
+  "n_blocks": 2
+ },
+ "blocks": [
+  {
+   "block_name": "Narayanpur",
+   "sdcode": 3367,
+   "n_villages": 179,
+   "n_cells_spanned": 11,
+   "sm_surface_mean": 0.2932,
+   "sm_surface_stddev": 0.0282
+  },
+  {
+   "block_name": "Orchha",
+   "sdcode": 3368,
+   "n_villages": 239,
+   "n_cells_spanned": 33,
+   "sm_surface_mean": 0.3623,
+   "sm_surface_stddev": 0.0101
+  }
+ ],
+ "villages": {
+  "450028": [
+   "Pidiyakot",
+   3368,
+   1
+  ],
+  "449941": [
+   "Orchha",
+   3368,
+   11
+  ],
+  "449818": [
+   "Toyameta",
+   3367,
+   17
+  ],
+  "449712": [
+   "Bhurwal",
+   3367,
+   30
+  ],
+  "449729": [
+   "Chhote Farasgaon",
+   3367,
+   30
+  ],
+  "449924": [
+   "Wala",
+   3368,
+   12
+  ],
+  "449872": [
+   "Kurusnar Alias Belmari",
+   3368,
+   31
+  ],
+  "449824": [
+   "Maspur",
+   3368,
+   32
+  ],
+  "449788": [
+   "Chhotedongar",
+   3367,
+   17
+  ],
+  "449908": [
+   "Bakoor",
+   3368,
+   18
+  ],
+  "449874": [
+   "Palemeta",
+   3368,
+   33
+  ],
+  "450016": [
+   "Rekapal",
+   3368,
+   3
+  ],
+  "450031": [
+   "Alwada",
+   3368,
+   4
+  ],
+  "450026": [
+   "Tahkawada",
+   3368,
+   0
+  ],
+  "450023": [
+   "Edasmeta",
+   3368,
+   4
+  ],
+  "450025": [
+   "Lekwada",
+   3368,
+   0
+  ],
+  "450020": [
+   "Diwalur",
+   3368,
+   9
+  ],
+  "450022": [
+   "Gudekot",
+   3368,
+   9
+  ],
+  "450012": [
+   "Padmeta",
+   3368,
+   8
+  ],
+  "450024": [
+   "Komhu",
+   3368,
+   4
+  ],
+  "449990": [
+   "Gummarka",
+   3368,
+   13
+  ],
+  "449991": [
+   "Aadimpar",
+   3368,
+   13
+  ],
+  "449988": [
+   "Dhurbeda",
+   3368,
+   13
+  ],
+  "450021": [
+   "Boter",
+   3368,
+   4
+  ],
+  "450019": [
+   "Jatlur",
+   3368,
+   9
+  ],
+  "450017": [
+   "Murumwada",
+   3368,
+   3
+  ],
+  "450014": [
+   "Karangul",
+   3368,
+   3
+  ],
+  "450018": [
+   "Dodimarka",
+   3368,
+   8
+  ],
+  "450015": [
+   "Lanka",
+   3368,
+   2
+  ],
+  "449996": [
+   "Toyameta",
+   3368,
+   12
+  ],
+  "449999": [
+   "Gattakal",
+   3368,
+   12
+  ],
+  "450000": [
+   "Michbeda",
+   3368,
+   12
+  ],
+  "449997": [
+   "Dhobe",
+   3368,
+   12
+  ],
+  "449998": [
+   "Metabeda",
+   3368,
+   12
+  ],
+  "449989": [
+   "Khodpar",
+   3368,
+   13
+  ],
+  "449993": [
+   "Kohkodi",
+   3368,
+   13
+  ],
+  "449995": [
+   "Marbeda Matbeda",
+   3368,
+   12
+  ],
+  "450013": [
+   "Talawada",
+   3368,
+   3
+  ],
+  "449833": [
+   "Tekameta",
+   3368,
+   23
+  ],
+  "449830": [
+   "Pariadi",
+   3368,
+   31
+  ],
+  "449831": [
+   "Kodhur",
+   3368,
+   23
+  ],
+  "449834": [
+   "Palemeta",
+   3368,
+   23
+  ],
+  "449905": [
+   "Khodepar",
+   3368,
+   31
+  ],
+  "449913": [
+   "Nelangur",
+   3368,
+   18
+  ],
+  "449912": [
+   "Usebeda",
+   3368,
+   18
+  ],
+  "449969": [
+   "Kodnar",
+   3368,
+   14
+  ],
+  "449927": [
+   "Basing",
+   3368,
+   13
+  ],
+  "449987": [
+   "Irpanar",
+   3368,
+   13
+  ],
+  "449917": [
+   "Bayonar",
+   3368,
+   18
+  ],
+  "449968": [
+   "Dumnar",
+   3368,
+   18
+  ],
+  "449925": [
+   "Tuhanar",
+   3368,
+   18
+  ],
+  "449911": [
+   "Kasturmeta",
+   3368,
+   18
+  ],
+  "449907": [
+   "Osmarka",
+   3368,
+   18
+  ],
+  "449916": [
+   "Otedonda",
+   3368,
+   18
+  ],
+  "449915": [
+   "Dodage",
+   3368,
+   18
+  ],
+  "449910": [
+   "Padamkot",
+   3368,
+   18
+  ],
+  "449914": [
+   "Kutul",
+   3368,
+   18
+  ],
+  "449909": [
+   "Barungbhat",
+   3368,
+   18
+  ],
+  "449936": [
+   "Dhutakhar",
+   3368,
+   27
+  ],
+  "449835": [
+   "Kongali",
+   3368,
+   25
+  ],
+  "449864": [
+   "Guner",
+   3368,
+   26
+  ],
+  "449862": [
+   "Gadawahi",
+   3368,
+   26
+  ],
+  "449866": [
+   "Toke",
+   3368,
+   26
+  ],
+  "449865": [
+   "Kachchapal",
+   3368,
+   26
+  ],
+  "449832": [
+   "Odachapar",
+   3368,
+   25
+  ],
+  "449840": [
+   "Hikonar",
+   3368,
+   25
+  ],
+  "449839": [
+   "Ghamandi",
+   3368,
+   25
+  ],
+  "449857": [
+   "Markud",
+   3368,
+   32
+  ],
+  "449863": [
+   "Palahur",
+   3368,
+   25
+  ],
+  "449858": [
+   "Brehebeda",
+   3368,
+   33
+  ],
+  "449861": [
+   "Kanagaon",
+   3368,
+   26
+  ],
+  "449929": [
+   "Kohka Meta",
+   3368,
+   34
+  ],
+  "449928": [
+   "Becha",
+   3368,
+   33
+  ],
+  "449836": [
+   "Kumchal",
+   3368,
+   24
+  ],
+  "449878": [
+   "Wadapenda",
+   3368,
+   31
+  ],
+  "449923": [
+   "Gumiabeda",
+   3368,
+   31
+  ],
+  "449877": [
+   "Konje",
+   3368,
+   31
+  ],
+  "449885": [
+   "Mutenadi",
+   3368,
+   31
+  ],
+  "449906": [
+   "Musparsi",
+   3368,
+   31
+  ],
+  "449828": [
+   "Mangbeda",
+   3368,
+   31
+  ],
+  "449829": [
+   "Kakhoor",
+   3368,
+   31
+  ],
+  "449904": [
+   "Murhapadar",
+   3368,
+   31
+  ],
+  "449902": [
+   "Krohomeda",
+   3368,
+   31
+  ],
+  "449903": [
+   "Kodegaon",
+   3368,
+   31
+  ],
+  "449875": [
+   "Muyantele",
+   3368,
+   31
+  ],
+  "449884": [
+   "Bondum",
+   3368,
+   37
+  ],
+  "449822": [
+   "Chhindpur",
+   3368,
+   31
+  ],
+  "449869": [
+   "Binagunda",
+   3368,
+   37
+  ],
+  "449868": [
+   "Gudadapader Alias Koden",
+   3368,
+   31
+  ],
+  "449823": [
+   "Botor",
+   3368,
+   31
+  ],
+  "449867": [
+   "Hachekoti Mad",
+   3368,
+   39
+  ],
+  "449837": [
+   "Orchhapar",
+   3368,
+   39
+  ],
+  "449883": [
+   "Garbeda Alias Harimarka",
+   3368,
+   37
+  ],
+  "449880": [
+   "Garpa",
+   3368,
+   32
+  ],
+  "449876": [
+   "Tahkadond",
+   3368,
+   37
+  ],
+  "449853": [
+   "Jatawar",
+   3368,
+   32
+  ],
+  "449882": [
+   "Markabeda",
+   3368,
+   32
+  ],
+  "449881": [
+   "Ghuma",
+   3368,
+   32
+  ],
+  "449855": [
+   "Karkabeda",
+   3368,
+   32
+  ],
+  "449854": [
+   "Bogan",
+   3368,
+   32
+  ],
+  "449826": [
+   "Muttentoda",
+   3368,
+   33
+  ],
+  "449846": [
+   "Tumiradi",
+   3368,
+   38
+  ],
+  "449901": [
+   "Koramkodo",
+   3368,
+   32
+  ],
+  "449849": [
+   "Maspur",
+   3368,
+   33
+  ],
+  "449919": [
+   "Kodenar",
+   3368,
+   33
+  ],
+  "449918": [
+   "Orchha Korai",
+   3368,
+   33
+  ],
+  "449921": [
+   "Aalnar",
+   3368,
+   33
+  ],
+  "449850": [
+   "Balebeda Urf Palemeta",
+   3368,
+   33
+  ],
+  "449851": [
+   "Horadi",
+   3368,
+   32
+  ],
+  "449856": [
+   "Kader",
+   3368,
+   32
+  ],
+  "449852": [
+   "Hirangenar",
+   3368,
+   33
+  ],
+  "449848": [
+   "Tadobeda",
+   3368,
+   33
+  ],
+  "449922": [
+   "Ehnar",
+   3368,
+   33
+  ],
+  "449860": [
+   "Kundala",
+   3368,
+   34
+  ],
+  "449827": [
+   "Metanar Alias Nedonar",
+   3368,
+   33
+  ],
+  "449900": [
+   "Koraskodo",
+   3368,
+   32
+  ],
+  "449847": [
+   "Tudako",
+   3368,
+   32
+  ],
+  "449859": [
+   "Sargipal",
+   3368,
+   33
+  ],
+  "449879": [
+   "Palarhur",
+   3368,
+   31
+  ],
+  "449825": [
+   "Brehbeda",
+   3368,
+   38
+  ],
+  "449873": [
+   "Ranimarka",
+   3368,
+   37
+  ],
+  "449841": [
+   "Badebedkot",
+   3368,
+   39
+  ],
+  "449887": [
+   "Mursul Napa",
+   3368,
+   39
+  ],
+  "449891": [
+   "Gome",
+   3368,
+   39
+  ],
+  "449888": [
+   "Adnar",
+   3368,
+   39
+  ],
+  "449889": [
+   "Tadogunda",
+   3368,
+   39
+  ],
+  "449890": [
+   "Hamokal",
+   3368,
+   39
+  ],
+  "449895": [
+   "Kodonar",
+   3368,
+   37
+  ],
+  "449894": [
+   "Biruler",
+   3368,
+   37
+  ],
+  "449870": [
+   "Jharawar",
+   3368,
+   37
+  ],
+  "449838": [
+   "Orchhameta",
+   3368,
+   39
+  ],
+  "449842": [
+   "Godelmarka",
+   3368,
+   37
+  ],
+  "449871": [
+   "Pangud",
+   3368,
+   37
+  ],
+  "449844": [
+   "Gumchur",
+   3368,
+   37
+  ],
+  "449897": [
+   "Boranirpi",
+   3368,
+   37
+  ],
+  "449899": [
+   "Konge",
+   3368,
+   37
+  ],
+  "449892": [
+   "Malmeta",
+   3368,
+   37
+  ],
+  "449896": [
+   "Maspi",
+   3368,
+   37
+  ],
+  "449893": [
+   "Rawnadi",
+   3368,
+   39
+  ],
+  "449845": [
+   "Gumdadi",
+   3368,
+   37
+  ],
+  "449843": [
+   "Gandawar",
+   3368,
+   37
+  ],
+  "449898": [
+   "Dargarh",
+   3368,
+   37
+  ],
+  "999999": [
+   "Reserved Forest",
+   3367,
+   21
+  ],
+  "449886": [
+   "Chhotebade Kot Mar",
+   3368,
+   39
+  ],
+  "450032": [
+   "Duseli",
+   3368,
+   5
+  ],
+  "450030": [
+   "Kallaja",
+   3368,
+   5
+  ],
+  "450058": [
+   "Hitawada",
+   3368,
+   7
+  ],
+  "450053": [
+   "Toynar",
+   3368,
+   1
+  ],
+  "450055": [
+   "Tahakawada",
+   3368,
+   7
+  ],
+  "450057": [
+   "Handawada",
+   3368,
+   7
+  ],
+  "450052": [
+   "Chihukapal",
+   3368,
+   1
+  ],
+  "450036": [
+   "Hitul",
+   3368,
+   5
+  ],
+  "450033": [
+   "Biller",
+   3368,
+   5
+  ],
+  "450027": [
+   "Dunga",
+   3368,
+   1
+  ],
+  "450035": [
+   "Pochawada",
+   3368,
+   5
+  ],
+  "450051": [
+   "Hitul",
+   3368,
+   1
+  ],
+  "450037": [
+   "Hurrgunda",
+   3368,
+   5
+  ],
+  "450048": [
+   "Mohnar",
+   3368,
+   7
+  ],
+  "450054": [
+   "Paralnar",
+   3368,
+   7
+  ],
+  "450049": [
+   "Gawadi",
+   3368,
+   7
+  ],
+  "450056": [
+   "Kodokal",
+   3368,
+   7
+  ],
+  "449978": [
+   "Kudmel",
+   3368,
+   10
+  ],
+  "449976": [
+   "Harbel",
+   3368,
+   10
+  ],
+  "449980": [
+   "Kondakoti",
+   3368,
+   5
+  ],
+  "449977": [
+   "Aadermad",
+   3368,
+   10
+  ],
+  "450034": [
+   "Korowaya",
+   3368,
+   5
+  ],
+  "450038": [
+   "Thulthuli",
+   3368,
+   5
+  ],
+  "449942": [
+   "Gadadi",
+   3368,
+   11
+  ],
+  "450009": [
+   "Bade Tondabeda",
+   3368,
+   11
+  ],
+  "450010": [
+   "Jubgunda",
+   3368,
+   11
+  ],
+  "450029": [
+   "Ghot",
+   3368,
+   5
+  ],
+  "449979": [
+   "Dhondarbeda",
+   3368,
+   5
+  ],
+  "450041": [
+   "Rotad",
+   3368,
+   11
+  ],
+  "450043": [
+   "Modamwada",
+   3368,
+   6
+  ],
+  "449940": [
+   "Jubada",
+   3368,
+   11
+  ],
+  "450040": [
+   "Nedur",
+   3368,
+   6
+  ],
+  "450045": [
+   "Bettekal",
+   3368,
+   7
+  ],
+  "450047": [
+   "Mungandee",
+   3368,
+   11
+  ],
+  "450039": [
+   "Kuyen",
+   3368,
+   6
+  ],
+  "450050": [
+   "Korobenda",
+   3368,
+   7
+  ],
+  "449787": [
+   "Tekanar",
+   3367,
+   15
+  ],
+  "449791": [
+   "Hikpulla",
+   3367,
+   16
+  ],
+  "449793": [
+   "Jhorigaon",
+   3367,
+   15
+  ],
+  "449792": [
+   "Raynar",
+   3367,
+   15
+  ],
+  "450005": [
+   "Gomagal",
+   3368,
+   14
+  ],
+  "449992": [
+   "Farasbeda",
+   3368,
+   14
+  ],
+  "450007": [
+   "Kohkapar",
+   3368,
+   10
+  ],
+  "449939": [
+   "Markabeda",
+   3368,
+   11
+  ],
+  "449994": [
+   "Rengabeda",
+   3368,
+   15
+  ],
+  "449973": [
+   "Asnar",
+   3368,
+   14
+  ],
+  "449974": [
+   "Maksuli",
+   3368,
+   14
+  ],
+  "450006": [
+   "Chalcher",
+   3368,
+   14
+  ],
+  "450004": [
+   "Idnar",
+   3368,
+   15
+  ],
+  "450008": [
+   "Kodoli",
+   3368,
+   10
+  ],
+  "450011": [
+   "Chhote Tondabeda",
+   3368,
+   11
+  ],
+  "449975": [
+   "Mandali",
+   3368,
+   15
+  ],
+  "449786": [
+   "Dhanora",
+   3367,
+   16
+  ],
+  "450042": [
+   "Rekawaya",
+   3368,
+   7
+  ],
+  "450046": [
+   "Bhatbenda",
+   3368,
+   7
+  ],
+  "450044": [
+   "Tadnar",
+   3368,
+   7
+  ],
+  "449817": [
+   "Kawanar",
+   3367,
+   17
+  ],
+  "449809": [
+   "Madhonar",
+   3367,
+   17
+  ],
+  "449810": [
+   "Kachora",
+   3367,
+   17
+  ],
+  "449811": [
+   "Turusmeta",
+   3367,
+   17
+  ],
+  "449812": [
+   "Hodnar",
+   3367,
+   17
+  ],
+  "449783": [
+   "Jhara",
+   3367,
+   17
+  ],
+  "449790": [
+   "Guttapal",
+   3367,
+   17
+  ],
+  "449789": [
+   "Umargaon",
+   3367,
+   17
+  ],
+  "449797": [
+   "Chihra",
+   3367,
+   17
+  ],
+  "449794": [
+   "Gaurdand",
+   3367,
+   17
+  ],
+  "449795": [
+   "Chameli",
+   3367,
+   16
+  ],
+  "449785": [
+   "Madamnar",
+   3367,
+   16
+  ],
+  "449796": [
+   "Rotad",
+   3367,
+   17
+  ],
+  "449806": [
+   "Kodher",
+   3367,
+   17
+  ],
+  "449813": [
+   "Brehabeda",
+   3367,
+   17
+  ],
+  "449815": [
+   "Hurrewahi",
+   3367,
+   17
+  ],
+  "449807": [
+   "Banhker",
+   3367,
+   17
+  ],
+  "449802": [
+   "Tirkanar",
+   3367,
+   17
+  ],
+  "449803": [
+   "Kokpad",
+   3367,
+   17
+  ],
+  "449816": [
+   "Hitulwad",
+   3367,
+   17
+  ],
+  "449804": [
+   "Temrugaon",
+   3367,
+   17
+  ],
+  "449814": [
+   "Gardapal",
+   3367,
+   17
+  ],
+  "449805": [
+   "Padnar",
+   3367,
+   17
+  ],
+  "449808": [
+   "Kanhargaon",
+   3367,
+   17
+  ],
+  "449970": [
+   "Gurdai",
+   3368,
+   14
+  ],
+  "449937": [
+   "Dhoderbeda",
+   3368,
+   19
+  ],
+  "449951": [
+   "Tadohur",
+   3368,
+   19
+  ],
+  "449967": [
+   "Kodaliyar",
+   3368,
+   19
+  ],
+  "449966": [
+   "Guttakal",
+   3368,
+   19
+  ],
+  "450003": [
+   "Kostamarka",
+   3368,
+   14
+  ],
+  "449943": [
+   "Tadonar",
+   3368,
+   20
+  ],
+  "450002": [
+   "Kostadi",
+   3368,
+   19
+  ],
+  "449950": [
+   "Nirameta",
+   3368,
+   19
+  ],
+  "449952": [
+   "Mohandi",
+   3368,
+   19
+  ],
+  "449944": [
+   "Tadanar Markadabeda",
+   3368,
+   19
+  ],
+  "449971": [
+   "Gumter Alias Jaiger",
+   3368,
+   15
+  ],
+  "449949": [
+   "Kodkanar",
+   3368,
+   19
+  ],
+  "450001": [
+   "Nelnar",
+   3368,
+   20
+  ],
+  "449972": [
+   "Raynar Alias Matbeda",
+   3368,
+   15
+  ],
+  "449945": [
+   "Hikpad",
+   3368,
+   20
+  ],
+  "449779": [
+   "Brehebeda",
+   3367,
+   21
+  ],
+  "449984": [
+   "Acheli",
+   3368,
+   20
+  ],
+  "449986": [
+   "Kutulnar",
+   3368,
+   20
+  ],
+  "449985": [
+   "Kalmanar",
+   3368,
+   20
+  ],
+  "449735": [
+   "Borand",
+   3367,
+   29
+  ],
+  "449736": [
+   "Rengabeda",
+   3367,
+   28
+  ],
+  "449741": [
+   "Gotabenoor",
+   3367,
+   29
+  ],
+  "449742": [
+   "Gumiyapal",
+   3367,
+   29
+  ],
+  "449719": [
+   "Sitapal",
+   3367,
+   28
+  ],
+  "449938": [
+   "Mahkanar",
+   3368,
+   27
+  ],
+  "449931": [
+   "Gurmanjur",
+   3368,
+   27
+  ],
+  "449933": [
+   "Irakbhatti",
+   3368,
+   27
+  ],
+  "449932": [
+   "Hatlanar",
+   3368,
+   27
+  ],
+  "449935": [
+   "Jharawahi",
+   3368,
+   27
+  ],
+  "449964": [
+   "Hikmeta",
+   3368,
+   28
+  ],
+  "449946": [
+   "Nednar",
+   3368,
+   28
+  ],
+  "449934": [
+   "Irpanar",
+   3368,
+   27
+  ],
+  "449959": [
+   "Akabeda",
+   3368,
+   28
+  ],
+  "449982": [
+   "Kangali",
+   3368,
+   28
+  ],
+  "449983": [
+   "Karkanar",
+   3368,
+   28
+  ],
+  "449958": [
+   "Alwar Alias Gattakal",
+   3368,
+   28
+  ],
+  "449953": [
+   "Kodoli",
+   3368,
+   34
+  ],
+  "449955": [
+   "Kandadi",
+   3368,
+   28
+  ],
+  "449954": [
+   "Kurusnar Alais Khargao",
+   3368,
+   34
+  ],
+  "449962": [
+   "Kumnar",
+   3368,
+   28
+  ],
+  "449960": [
+   "Kodnar Alais Ghodagaon",
+   3368,
+   27
+  ],
+  "449956": [
+   "Jiwlapadar",
+   3368,
+   27
+  ],
+  "449930": [
+   "Gongla",
+   3368,
+   27
+  ],
+  "449947": [
+   "Okpad",
+   3368,
+   27
+  ],
+  "449948": [
+   "Harimarka",
+   3368,
+   27
+  ],
+  "449981": [
+   "Kotenar",
+   3368,
+   28
+  ],
+  "449961": [
+   "Nariya",
+   3368,
+   28
+  ],
+  "449965": [
+   "Kodolee",
+   3368,
+   28
+  ],
+  "449957": [
+   "Gumiyapal",
+   3368,
+   27
+  ],
+  "449963": [
+   "Kongudhur",
+   3368,
+   27
+  ],
+  "449730": [
+   "Bade Jamhari",
+   3367,
+   29
+  ],
+  "449723": [
+   "Kukdajhor",
+   3367,
+   28
+  ],
+  "449726": [
+   "Kochwahi",
+   3367,
+   29
+  ],
+  "449718": [
+   "Belgaon",
+   3367,
+   35
+  ],
+  "449680": [
+   "Bamhani",
+   3367,
+   35
+  ],
+  "449731": [
+   "Gotajamhari",
+   3367,
+   29
+  ],
+  "449798": [
+   "Kanera",
+   3367,
+   22
+  ],
+  "449774": [
+   "Parpa",
+   3367,
+   21
+  ],
+  "449776": [
+   "Badkanar",
+   3367,
+   21
+  ],
+  "449747": [
+   "Tadonar",
+   3367,
+   22
+  ],
+  "449746": [
+   "Dhuta",
+   3367,
+   29
+  ],
+  "449767": [
+   "Mahimagawadi",
+   3367,
+   22
+  ],
+  "449778": [
+   "Taragaon",
+   3367,
+   22
+  ],
+  "449777": [
+   "Kumharibada",
+   3367,
+   21
+  ],
+  "449780": [
+   "Badgaon",
+   3367,
+   22
+  ],
+  "449775": [
+   "Aatargaon",
+   3367,
+   22
+  ],
+  "449782": [
+   "Hirgai",
+   3367,
+   21
+  ],
+  "449781": [
+   "Bedma",
+   3367,
+   21
+  ],
+  "449784": [
+   "Rajpur",
+   3367,
+   16
+  ],
+  "449763": [
+   "Kondahur",
+   3367,
+   22
+  ],
+  "449801": [
+   "Madagada",
+   3367,
+   17
+  ],
+  "449800": [
+   "Sulenga",
+   3367,
+   17
+  ],
+  "449772": [
+   "Banspal",
+   3367,
+   22
+  ],
+  "449769": [
+   "Toynar",
+   3367,
+   22
+  ],
+  "449773": [
+   "Botha",
+   3367,
+   22
+  ],
+  "449766": [
+   "Pharasgaon",
+   3367,
+   22
+  ],
+  "449799": [
+   "Kumhari Chotta",
+   3367,
+   22
+  ],
+  "449771": [
+   "Palli",
+   3367,
+   22
+  ],
+  "449770": [
+   "Dudmi",
+   3367,
+   22
+  ],
+  "449764": [
+   "Kosalnar",
+   3367,
+   22
+  ],
+  "449765": [
+   "Kongera",
+   3367,
+   22
+  ],
+  "449768": [
+   "Dhodai",
+   3367,
+   22
+  ],
+  "449762": [
+   "Chhinari",
+   3367,
+   22
+  ],
+  "449727": [
+   "Bawadi",
+   3367,
+   29
+  ],
+  "449744": [
+   "Ekodi",
+   3367,
+   29
+  ],
+  "449745": [
+   "Kurusnar",
+   3367,
+   30
+  ],
+  "449743": [
+   "Paralbhat",
+   3367,
+   29
+  ],
+  "449732": [
+   "Malechur",
+   3367,
+   29
+  ],
+  "449738": [
+   "Kodoli",
+   3367,
+   30
+  ],
+  "449739": [
+   "Tirdul",
+   3367,
+   30
+  ],
+  "449740": [
+   "Hikohnar",
+   3367,
+   29
+  ],
+  "449733": [
+   "Karmari",
+   3367,
+   29
+  ],
+  "449737": [
+   "Gongla",
+   3367,
+   29
+  ],
+  "449722": [
+   "Kokodi",
+   3367,
+   29
+  ],
+  "449721": [
+   "Borgaon",
+   3367,
+   29
+  ],
+  "449692": [
+   "Naumunjmeta",
+   3367,
+   35
+  ],
+  "449693": [
+   "Timnar",
+   3367,
+   35
+  ],
+  "449720": [
+   "Markabeda",
+   3367,
+   36
+  ],
+  "449724": [
+   "Kapsi",
+   3367,
+   30
+  ],
+  "449725": [
+   "Aamgaon",
+   3367,
+   30
+  ],
+  "449701": [
+   "Seoni",
+   3367,
+   36
+  ],
+  "449755": [
+   "Mundpal",
+   3367,
+   30
+  ],
+  "449734": [
+   "Moraskodo",
+   3367,
+   30
+  ],
+  "449691": [
+   "Garawand",
+   3367,
+   35
+  ],
+  "449717": [
+   "Bagdongri",
+   3367,
+   35
+  ],
+  "449716": [
+   "Halamimunmeta",
+   3367,
+   29
+  ],
+  "449753": [
+   "Bedmakot",
+   3367,
+   30
+  ],
+  "449761": [
+   "Jhara",
+   3367,
+   30
+  ],
+  "449705": [
+   "Bagbeda",
+   3367,
+   36
+  ],
+  "449704": [
+   "Kudhargaon",
+   3367,
+   36
+  ],
+  "449703": [
+   "Gulumkodo",
+   3367,
+   36
+  ],
+  "449702": [
+   "Chandagaon",
+   3367,
+   36
+  ],
+  "449710": [
+   "Panigaon",
+   3367,
+   30
+  ],
+  "449711": [
+   "Sirpur",
+   3367,
+   30
+  ],
+  "449713": [
+   "Bhiragaon",
+   3367,
+   30
+  ],
+  "449759": [
+   "Aadpal",
+   3367,
+   30
+  ],
+  "449757": [
+   "Korenda",
+   3367,
+   30
+  ],
+  "449754": [
+   "Koliyari",
+   3367,
+   30
+  ],
+  "449756": [
+   "Dandwan",
+   3367,
+   30
+  ],
+  "449751": [
+   "Kadhagaon",
+   3367,
+   30
+  ],
+  "449758": [
+   "Kalepal",
+   3367,
+   30
+  ],
+  "449749": [
+   "Matla",
+   3367,
+   30
+  ],
+  "449728": [
+   "Mandoki",
+   3367,
+   30
+  ],
+  "449752": [
+   "Turtha",
+   3367,
+   30
+  ],
+  "449750": [
+   "Netanar",
+   3367,
+   30
+  ],
+  "449760": [
+   "Bagjhar",
+   3367,
+   30
+  ],
+  "449708": [
+   "Benoor",
+   3367,
+   36
+  ],
+  "449706": [
+   "Bhatpal",
+   3367,
+   30
+  ],
+  "449707": [
+   "Sonapal",
+   3367,
+   30
+  ],
+  "449748": [
+   "Edangpal",
+   3367,
+   30
+  ],
+  "449709": [
+   "Khargaon",
+   3367,
+   30
+  ],
+  "449926": [
+   "Murnar",
+   3368,
+   34
+  ],
+  "449920": [
+   "Kumnar",
+   3368,
+   34
+  ],
+  "449678": [
+   "Sonpur",
+   3367,
+   34
+  ],
+  "449821": [
+   "Anjrel",
+   3367,
+   35
+  ],
+  "449714": [
+   "Bakulwahi",
+   3367,
+   35
+  ],
+  "449819": [
+   "Temargoan",
+   3367,
+   35
+  ],
+  "449820": [
+   "Bharanda",
+   3367,
+   28
+  ],
+  "449663": [
+   "Kanera",
+   3367,
+   35
+  ],
+  "449668": [
+   "Telsi",
+   3367,
+   35
+  ],
+  "449671": [
+   "Binjlee",
+   3367,
+   35
+  ],
+  "449673": [
+   "Pusagaon",
+   3367,
+   35
+  ],
+  "449670": [
+   "Karalkha",
+   3367,
+   35
+  ],
+  "449669": [
+   "Guriya",
+   3367,
+   35
+  ],
+  "248064": [
+   "Narayanpur",
+   3367,
+   35
+  ],
+  "449655": [
+   "Paturbeda",
+   3367,
+   35
+  ],
+  "449679": [
+   "Mendadongari",
+   3367,
+   35
+  ],
+  "449666": [
+   "Khadakagaon",
+   3367,
+   35
+  ],
+  "449661": [
+   "Khodgaon",
+   3367,
+   35
+  ],
+  "449662": [
+   "Supgaon",
+   3367,
+   35
+  ],
+  "449665": [
+   "Khairabhat",
+   3367,
+   35
+  ],
+  "449677": [
+   "Brehbeda",
+   3367,
+   35
+  ],
+  "449658": [
+   "Mahka",
+   3367,
+   35
+  ],
+  "449676": [
+   "Sargipal",
+   3367,
+   35
+  ],
+  "449672": [
+   "Palki",
+   3367,
+   35
+  ],
+  "449667": [
+   "Karlapal",
+   3367,
+   35
+  ],
+  "449660": [
+   "Paralbhat",
+   3367,
+   35
+  ],
+  "449682": [
+   "Kasturwad",
+   3367,
+   36
+  ],
+  "449675": [
+   "Sulanga",
+   3367,
+   35
+  ],
+  "449656": [
+   "Dugabengal",
+   3367,
+   35
+  ],
+  "449659": [
+   "Chiprel",
+   3367,
+   35
+  ],
+  "449683": [
+   "Terdul",
+   3367,
+   35
+  ],
+  "449685": [
+   "Lalsuhnar",
+   3367,
+   36
+  ],
+  "449684": [
+   "Deogaon",
+   3367,
+   35
+  ],
+  "449689": [
+   "Brehbeda",
+   3367,
+   35
+  ],
+  "449690": [
+   "Kumhali",
+   3367,
+   35
+  ],
+  "449688": [
+   "Nelwad",
+   3367,
+   36
+  ],
+  "449700": [
+   "Gohda",
+   3367,
+   36
+  ],
+  "449696": [
+   "Malingnar",
+   3367,
+   36
+  ],
+  "449687": [
+   "Garhbengal",
+   3367,
+   35
+  ],
+  "449686": [
+   "Chhotesuhnar",
+   3367,
+   36
+  ],
+  "449674": [
+   "Mahka",
+   3367,
+   36
+  ],
+  "449681": [
+   "Garanji",
+   3367,
+   35
+  ],
+  "449653": [
+   "Khadaka Gaon",
+   3367,
+   36
+  ],
+  "449664": [
+   "Mardel",
+   3367,
+   35
+  ],
+  "449654": [
+   "Borpal",
+   3367,
+   35
+  ],
+  "449647": [
+   "Erko",
+   3367,
+   35
+  ],
+  "449648": [
+   "Edka",
+   3367,
+   35
+  ],
+  "449651": [
+   "Kanagaon",
+   3367,
+   35
+  ],
+  "449657": [
+   "Tadopal",
+   3367,
+   36
+  ],
+  "449652": [
+   "Aamasara",
+   3367,
+   36
+  ],
+  "449650": [
+   "Pungarpal",
+   3367,
+   36
+  ],
+  "449649": [
+   "Khudpai",
+   3367,
+   36
+  ],
+  "449715": [
+   "Khadakagaon",
+   3367,
+   36
+  ],
+  "449698": [
+   "Borawand",
+   3367,
+   36
+  ],
+  "449694": [
+   "Nayanar",
+   3367,
+   36
+  ],
+  "449695": [
+   "Kulanar",
+   3367,
+   36
+  ],
+  "449697": [
+   "Remawand",
+   3367,
+   36
+  ],
+  "449699": [
+   "Udidgaon",
+   3367,
+   36
+  ]
+ },
+ "village_count_total": 418,
+ "village_count_assigned": 418
+}

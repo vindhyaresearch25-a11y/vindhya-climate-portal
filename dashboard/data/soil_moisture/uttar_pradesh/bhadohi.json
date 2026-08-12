@@ -1,0 +1,6280 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Uttar Pradesh",
+  "district": "Bhadohi",
+  "district_lgd": 179,
+  "observation_window": "2026-08-07T11:30Z to 2026-08-12T11:30Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3439,
+  "sm_surface_stddev": 0.0094,
+  "sm_rootzone_mean": 0.3525,
+  "sm_rootzone_stddev": 0.0204,
+  "n_cells": 10,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 25.2472,
+    "lon": 82.362,
+    "sm_surface": 0.3557,
+    "sm_rootzone": 0.3705,
+    "n_villages_sharing_cell": 179
+   },
+   {
+    "cell_index": 1,
+    "lat": 25.2472,
+    "lon": 82.4609,
+    "sm_surface": 0.352,
+    "sm_rootzone": 0.3704,
+    "n_villages_sharing_cell": 100
+   },
+   {
+    "cell_index": 2,
+    "lat": 25.2472,
+    "lon": 82.5597,
+    "sm_surface": 0.3482,
+    "sm_rootzone": 0.3675,
+    "n_villages_sharing_cell": 120
+   },
+   {
+    "cell_index": 3,
+    "lat": 25.346,
+    "lon": 82.362,
+    "sm_surface": 0.3553,
+    "sm_rootzone": 0.3685,
+    "n_villages_sharing_cell": 112
+   },
+   {
+    "cell_index": 4,
+    "lat": 25.346,
+    "lon": 82.4609,
+    "sm_surface": 0.3476,
+    "sm_rootzone": 0.3653,
+    "n_villages_sharing_cell": 146
+   },
+   {
+    "cell_index": 5,
+    "lat": 25.346,
+    "lon": 82.5597,
+    "sm_surface": 0.3422,
+    "sm_rootzone": 0.3605,
+    "n_villages_sharing_cell": 132
+   },
+   {
+    "cell_index": 6,
+    "lat": 25.346,
+    "lon": 82.6585,
+    "sm_surface": 0.3361,
+    "sm_rootzone": 0.3545,
+    "n_villages_sharing_cell": 148
+   },
+   {
+    "cell_index": 7,
+    "lat": 25.4448,
+    "lon": 82.362,
+    "sm_surface": 0.3437,
+    "sm_rootzone": 0.3295,
+    "n_villages_sharing_cell": 112
+   },
+   {
+    "cell_index": 8,
+    "lat": 25.4448,
+    "lon": 82.4609,
+    "sm_surface": 0.3325,
+    "sm_rootzone": 0.3219,
+    "n_villages_sharing_cell": 123
+   },
+   {
+    "cell_index": 9,
+    "lat": 25.4448,
+    "lon": 82.5597,
+    "sm_surface": 0.326,
+    "sm_rootzone": 0.3159,
+    "n_villages_sharing_cell": 56
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3448,
+  "sm_surface_stddev": 0.0064,
+  "n_blocks": 3
+ },
+ "blocks": [
+  {
+   "block_name": "Aurai",
+   "sdcode": 999,
+   "n_villages": 362,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.3454,
+   "sm_surface_stddev": 0.0056
+  },
+  {
+   "block_name": "Bhadohi",
+   "sdcode": 997,
+   "n_villages": 407,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.3367,
+   "sm_surface_stddev": 0.0065
+  },
+  {
+   "block_name": "Gyanpur",
+   "sdcode": 998,
+   "n_villages": 459,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.3523,
+   "sm_surface_stddev": 0.0047
+  }
+ ],
+ "villages": {
+  "210941": [
+   "Chak Ghordaura",
+   999,
+   6
+  ],
+  "210796": [
+   "Mukund Patti",
+   999,
+   2
+  ],
+  "210935": [
+   "Nizampur",
+   999,
+   6
+  ],
+  "210020": [
+   "Marzad Patti",
+   997,
+   9
+  ],
+  "210123": [
+   "Gopal Patti",
+   997,
+   5
+  ],
+  "210979": [
+   "Itawa Tari",
+   999,
+   2
+  ],
+  "210803": [
+   "Banmalipur",
+   999,
+   2
+  ],
+  "210786": [
+   "Sultanpur",
+   999,
+   1
+  ],
+  "210897": [
+   "Matakipur",
+   999,
+   2
+  ],
+  "210854": [
+   "Bhaidpur",
+   999,
+   2
+  ],
+  "210889": [
+   "Bitthalpur",
+   999,
+   2
+  ],
+  "210793": [
+   "Aharpur",
+   999,
+   2
+  ],
+  "210799": [
+   "Sahasepur Nakku Patti",
+   999,
+   2
+  ],
+  "210787": [
+   "Chamrupatti N Khamaria",
+   999,
+   1
+  ],
+  "210795": [
+   "Daravpur",
+   999,
+   2
+  ],
+  "210853": [
+   "Mamid Patti",
+   999,
+   2
+  ],
+  "210784": [
+   "Dalpatpur",
+   999,
+   2
+  ],
+  "210800": [
+   "Kathari",
+   999,
+   2
+  ],
+  "210801": [
+   "Mahadeva",
+   999,
+   2
+  ],
+  "210785": [
+   "Ahimanpur",
+   999,
+   2
+  ],
+  "210887": [
+   "Barigaon",
+   999,
+   2
+  ],
+  "210791": [
+   "Bhawanath Patti",
+   999,
+   1
+  ],
+  "210802": [
+   "Nuraon",
+   999,
+   2
+  ],
+  "210797": [
+   "Umapur",
+   999,
+   2
+  ],
+  "210792": [
+   "Chawar N Khamaria",
+   999,
+   1
+  ],
+  "210898": [
+   "Manipari",
+   999,
+   2
+  ],
+  "210899": [
+   "Poore Gulab",
+   999,
+   2
+  ],
+  "249538": [
+   "Khamaria",
+   999,
+   2
+  ],
+  "210888": [
+   "Parsottampur",
+   999,
+   2
+  ],
+  "210790": [
+   "Khetalpur",
+   999,
+   1
+  ],
+  "210798": [
+   "Sahasepur Harchahar Patti",
+   999,
+   2
+  ],
+  "210885": [
+   "Kaiyarmau",
+   999,
+   2
+  ],
+  "210794": [
+   "Gauri",
+   999,
+   2
+  ],
+  "210828": [
+   "Mohammadpur",
+   999,
+   2
+  ],
+  "210859": [
+   "Rampur Lohra",
+   999,
+   5
+  ],
+  "210713": [
+   "Newada",
+   999,
+   1
+  ],
+  "210866": [
+   "Bhaishata",
+   999,
+   5
+  ],
+  "210878": [
+   "Basdeopur",
+   999,
+   2
+  ],
+  "210824": [
+   "Jathi",
+   999,
+   2
+  ],
+  "210852": [
+   "Jethupur",
+   999,
+   2
+  ],
+  "210863": [
+   "Lokmanpur",
+   999,
+   5
+  ],
+  "210818": [
+   "Arjun Patti",
+   999,
+   5
+  ],
+  "210861": [
+   "Bharatpur",
+   999,
+   5
+  ],
+  "210808": [
+   "Bhagha Gorai",
+   999,
+   2
+  ],
+  "210846": [
+   "Aurai",
+   999,
+   2
+  ],
+  "210857": [
+   "Jaddupur N Sayar",
+   999,
+   5
+  ],
+  "210807": [
+   "Trilokpur",
+   999,
+   2
+  ],
+  "210836": [
+   "Sundar Patti",
+   999,
+   2
+  ],
+  "210896": [
+   "Tiuri",
+   999,
+   2
+  ],
+  "210868": [
+   "Kakarahiya",
+   999,
+   5
+  ],
+  "210620": [
+   "Kaliya Urf Pure Daljhaman",
+   998,
+   4
+  ],
+  "210817": [
+   "Mahathua",
+   999,
+   5
+  ],
+  "210843": [
+   "Uprauth",
+   999,
+   2
+  ],
+  "210821": [
+   "Meerapur",
+   999,
+   5
+  ],
+  "210810": [
+   "Kashichak",
+   999,
+   2
+  ],
+  "210820": [
+   "Dhamahapur",
+   999,
+   5
+  ],
+  "210981": [
+   "Dwarikapur Tari",
+   999,
+   2
+  ],
+  "249539": [
+   "Ghosia Bazar",
+   999,
+   2
+  ],
+  "210816": [
+   "Akelwa",
+   999,
+   5
+  ],
+  "210873": [
+   "Rampur Bhinsahara",
+   999,
+   2
+  ],
+  "210882": [
+   "Dayalapur",
+   999,
+   2
+  ],
+  "210655": [
+   "Rajaipur Z Sayer",
+   999,
+   5
+  ],
+  "210829": [
+   "Garauli",
+   999,
+   2
+  ],
+  "210844": [
+   "Chak Bhawani",
+   999,
+   2
+  ],
+  "210827": [
+   "Chak Masood",
+   999,
+   2
+  ],
+  "210823": [
+   "Tulsipur N Mahadeva",
+   999,
+   5
+  ],
+  "210883": [
+   "Gambhirsinghpur",
+   999,
+   2
+  ],
+  "210838": [
+   "Chak Beera",
+   999,
+   2
+  ],
+  "210869": [
+   "Rauri",
+   999,
+   5
+  ],
+  "210814": [
+   "Tatarpur",
+   999,
+   4
+  ],
+  "210715": [
+   "Bhatpurwa Dee",
+   999,
+   1
+  ],
+  "210879": [
+   "Meraha",
+   999,
+   2
+  ],
+  "210856": [
+   "Sarauli Or Ramauli",
+   999,
+   5
+  ],
+  "210876": [
+   "Poore Nauhari",
+   999,
+   2
+  ],
+  "210841": [
+   "Chak Hardayal",
+   999,
+   2
+  ],
+  "210822": [
+   "Jagapur",
+   999,
+   5
+  ],
+  "210831": [
+   "Ghuripur",
+   999,
+   2
+  ],
+  "210865": [
+   "Davanpur",
+   999,
+   5
+  ],
+  "210871": [
+   "Balipur N Samadha",
+   999,
+   2
+  ],
+  "210835": [
+   "Ugapur",
+   999,
+   2
+  ],
+  "210806": [
+   "Chakdhundha",
+   999,
+   2
+  ],
+  "210976": [
+   "Dwarikapur Uparwar",
+   999,
+   2
+  ],
+  "210805": [
+   "Bhabhaura",
+   999,
+   2
+  ],
+  "210811": [
+   "Jairampur",
+   999,
+   2
+  ],
+  "210880": [
+   "Srirampur",
+   999,
+   2
+  ],
+  "210839": [
+   "Seur",
+   999,
+   2
+  ],
+  "210875": [
+   "Poore Misran",
+   999,
+   5
+  ],
+  "210834": [
+   "Kurauna",
+   999,
+   2
+  ],
+  "210864": [
+   "Talsamadha",
+   999,
+   2
+  ],
+  "210815": [
+   "Chakjurawan",
+   999,
+   5
+  ],
+  "210705": [
+   "Pipar Gaon",
+   999,
+   5
+  ],
+  "210809": [
+   "Madhosingh",
+   999,
+   2
+  ],
+  "210886": [
+   "Chak Jodhi",
+   999,
+   2
+  ],
+  "210833": [
+   "Harnarayanpur",
+   999,
+   5
+  ],
+  "210966": [
+   "Vikrampur Kala",
+   999,
+   2
+  ],
+  "210845": [
+   "Chak Bhaura",
+   999,
+   2
+  ],
+  "210860": [
+   "Poore Uchit",
+   999,
+   5
+  ],
+  "210825": [
+   "Ibrahimpur",
+   999,
+   5
+  ],
+  "210847": [
+   "Chaura",
+   999,
+   2
+  ],
+  "210851": [
+   "Bhanipur",
+   999,
+   2
+  ],
+  "210842": [
+   "Narathua",
+   999,
+   2
+  ],
+  "210877": [
+   "Sabraaliyas Raghunathpur",
+   999,
+   2
+  ],
+  "210714": [
+   "Bibipur",
+   999,
+   1
+  ],
+  "210716": [
+   "Balipur",
+   999,
+   1
+  ],
+  "210840": [
+   "Chintamanpur",
+   999,
+   2
+  ],
+  "210656": [
+   "Katehra",
+   999,
+   5
+  ],
+  "210862": [
+   "Dhudhav",
+   999,
+   5
+  ],
+  "210848": [
+   "Basawan Patti",
+   999,
+   2
+  ],
+  "210884": [
+   "Kothra",
+   999,
+   2
+  ],
+  "210867": [
+   "Poore Dharani",
+   999,
+   5
+  ],
+  "210819": [
+   "Hewatpur",
+   999,
+   5
+  ],
+  "210870": [
+   "Samadha Khas",
+   999,
+   5
+  ],
+  "210855": [
+   "Sayar",
+   999,
+   5
+  ],
+  "210837": [
+   "Nakatan Nakth Patti",
+   999,
+   2
+  ],
+  "210781": [
+   "Natawa",
+   999,
+   1
+  ],
+  "210832": [
+   "Chak Khanpur",
+   999,
+   2
+  ],
+  "210830": [
+   "Chak Rajaram",
+   999,
+   2
+  ],
+  "210850": [
+   "Darigai Patti",
+   999,
+   2
+  ],
+  "210849": [
+   "Dwarika Patti Or Dwarikapur",
+   999,
+   2
+  ],
+  "210891": [
+   "Hridayapur",
+   999,
+   2
+  ],
+  "210872": [
+   "Banpurwa N Samadha",
+   999,
+   2
+  ],
+  "210782": [
+   "Vanjari",
+   999,
+   2
+  ],
+  "210804": [
+   "Aurangabad",
+   999,
+   1
+  ],
+  "210783": [
+   "Lasmariya",
+   999,
+   2
+  ],
+  "210890": [
+   "Muktapur",
+   999,
+   2
+  ],
+  "210874": [
+   "Poore Risalsingh",
+   999,
+   2
+  ],
+  "210652": [
+   "Marchwar",
+   999,
+   5
+  ],
+  "210142": [
+   "Sultanpur",
+   997,
+   5
+  ],
+  "210140": [
+   "Saroi",
+   997,
+   5
+  ],
+  "210648": [
+   "Chak Haribans Pasiyan Khurd",
+   999,
+   5
+  ],
+  "210669": [
+   "Liladharpur",
+   999,
+   5
+  ],
+  "210651": [
+   "Sanbeiya",
+   999,
+   4
+  ],
+  "210672": [
+   "Khatalpur",
+   999,
+   5
+  ],
+  "210638": [
+   "Baswa Patti",
+   999,
+   5
+  ],
+  "210658": [
+   "Pachwal",
+   999,
+   5
+  ],
+  "210666": [
+   "Arjunpur",
+   999,
+   5
+  ],
+  "210653": [
+   "Mulupur",
+   999,
+   5
+  ],
+  "210667": [
+   "Sabalpur",
+   999,
+   5
+  ],
+  "210649": [
+   "Chak Haribans Pasiyan Kala",
+   999,
+   5
+  ],
+  "210674": [
+   "Tal Kudawa",
+   999,
+   5
+  ],
+  "210624": [
+   "Chaq Dharani",
+   999,
+   5
+  ],
+  "210625": [
+   "Gonda Kanehri",
+   999,
+   5
+  ],
+  "210642": [
+   "Ubhwa Mafi",
+   999,
+   5
+  ],
+  "210703": [
+   "Jagdari",
+   999,
+   5
+  ],
+  "210118": [
+   "Basantpur",
+   997,
+   5
+  ],
+  "210643": [
+   "Chak Holman",
+   999,
+   5
+  ],
+  "210637": [
+   "Tarapur",
+   999,
+   5
+  ],
+  "210636": [
+   "Chak Fakir Mafi",
+   999,
+   5
+  ],
+  "210139": [
+   "Pajapatipur",
+   997,
+   5
+  ],
+  "210141": [
+   "Jairampur Sir",
+   997,
+   5
+  ],
+  "210661": [
+   "Badhauna",
+   999,
+   5
+  ],
+  "210143": [
+   "Rampur Z Saroi",
+   997,
+   5
+  ],
+  "210137": [
+   "Bisunpur",
+   997,
+   5
+  ],
+  "210644": [
+   "Puray Mudiya",
+   999,
+   5
+  ],
+  "210133": [
+   "Chaubepur Sudhist",
+   997,
+   5
+  ],
+  "210148": [
+   "Musilahpur Or Musilatpur",
+   997,
+   5
+  ],
+  "210660": [
+   "Uchetha",
+   999,
+   5
+  ],
+  "210136": [
+   "Bhagtanpur Z Sarohi",
+   997,
+   5
+  ],
+  "210650": [
+   "Khemaipur",
+   999,
+   5
+  ],
+  "210670": [
+   "Bankat Z Lilapur",
+   999,
+   5
+  ],
+  "210858": [
+   "Bejavan",
+   999,
+   5
+  ],
+  "210647": [
+   "Jhigurpur Chak Vijai",
+   999,
+   5
+  ],
+  "210630": [
+   "Jogipur",
+   999,
+   5
+  ],
+  "210700": [
+   "Samhi Bhatani",
+   999,
+   4
+  ],
+  "210144": [
+   "Duladaspur",
+   997,
+   5
+  ],
+  "210646": [
+   "Chak Harbans Bhatan Kala",
+   999,
+   5
+  ],
+  "210659": [
+   "Ismaila",
+   999,
+   5
+  ],
+  "210657": [
+   "Misirpur",
+   999,
+   5
+  ],
+  "210663": [
+   "Kanehari",
+   999,
+   5
+  ],
+  "210665": [
+   "Bishapur",
+   999,
+   5
+  ],
+  "210664": [
+   "Bhalla",
+   999,
+   5
+  ],
+  "210132": [
+   "Bankat Z Saroi",
+   997,
+   5
+  ],
+  "210138": [
+   "Manikpur",
+   997,
+   5
+  ],
+  "210902": [
+   "Hussainipur",
+   999,
+   2
+  ],
+  "210135": [
+   "Hirday Patti",
+   997,
+   5
+  ],
+  "210704": [
+   "Daraudha",
+   999,
+   5
+  ],
+  "210619": [
+   "Alua",
+   998,
+   4
+  ],
+  "210668": [
+   "Badi",
+   999,
+   5
+  ],
+  "210639": [
+   "Sonbarsa",
+   999,
+   5
+  ],
+  "210632": [
+   "Daribpur",
+   999,
+   5
+  ],
+  "210701": [
+   "Promiya Khan",
+   999,
+   4
+  ],
+  "210641": [
+   "Chak Phurahi",
+   999,
+   5
+  ],
+  "210645": [
+   "Banpurwa",
+   999,
+   5
+  ],
+  "210654": [
+   "Jangala",
+   999,
+   5
+  ],
+  "210662": [
+   "Chak Bhawnigir",
+   999,
+   5
+  ],
+  "210631": [
+   "Bhagwanpur Kunahri",
+   999,
+   5
+  ],
+  "210673": [
+   "Dattipur",
+   999,
+   5
+  ],
+  "210671": [
+   "Bijala",
+   999,
+   5
+  ],
+  "210965": [
+   "Sultanpur N Bhagawanpur",
+   999,
+   2
+  ],
+  "210973": [
+   "Lallapur N Bhagawanpur",
+   999,
+   2
+  ],
+  "210971": [
+   "Patkhauli",
+   999,
+   2
+  ],
+  "210968": [
+   "Medanipur",
+   999,
+   2
+  ],
+  "210963": [
+   "Arazichawar",
+   999,
+   2
+  ],
+  "210969": [
+   "Dulhipur",
+   999,
+   2
+  ],
+  "210977": [
+   "Kolahalpur Uparwar",
+   999,
+   2
+  ],
+  "210964": [
+   "Chak Keshav Battfarosh",
+   999,
+   2
+  ],
+  "210972": [
+   "Dainiya",
+   999,
+   2
+  ],
+  "210967": [
+   "Tulsipur N Bhagawanpur",
+   999,
+   2
+  ],
+  "210959": [
+   "Bhagawanpur N Tulsipur",
+   999,
+   2
+  ],
+  "210901": [
+   "Paranapur",
+   999,
+   2
+  ],
+  "210961": [
+   "Sadauli",
+   999,
+   2
+  ],
+  "210980": [
+   "Kolahalpur Tari",
+   999,
+   2
+  ],
+  "210970": [
+   "Titrahi",
+   999,
+   2
+  ],
+  "210903": [
+   "Dukharanpur Urf Chakapur",
+   999,
+   2
+  ],
+  "210978": [
+   "Itawa Uparwar",
+   999,
+   2
+  ],
+  "210900": [
+   "Banauli",
+   999,
+   2
+  ],
+  "210975": [
+   "Chimilaha",
+   999,
+   2
+  ],
+  "210960": [
+   "Godasubas",
+   999,
+   2
+  ],
+  "210958": [
+   "Dukharanpur N Bhagawanpur",
+   999,
+   2
+  ],
+  "210974": [
+   "Bhutahiya",
+   999,
+   2
+  ],
+  "210947": [
+   "Chak Atharaha",
+   999,
+   6
+  ],
+  "210946": [
+   "Saraibabu",
+   999,
+   6
+  ],
+  "210942": [
+   "Narainpur",
+   999,
+   6
+  ],
+  "210098": [
+   "Manapur",
+   997,
+   6
+  ],
+  "210953": [
+   "Narottampur",
+   999,
+   6
+  ],
+  "210912": [
+   "Kanvipur",
+   999,
+   6
+  ],
+  "210954": [
+   "Poore Baidan",
+   999,
+   6
+  ],
+  "210692": [
+   "Gotaiya",
+   999,
+   6
+  ],
+  "210099": [
+   "Raghupur",
+   997,
+   6
+  ],
+  "210679": [
+   "Bhagtan Urf Dalaspur Or Dalapu",
+   999,
+   6
+  ],
+  "210683": [
+   "Gondapar",
+   999,
+   6
+  ],
+  "210697": [
+   "Saupur",
+   999,
+   6
+  ],
+  "210922": [
+   "Payagpur",
+   999,
+   2
+  ],
+  "210688": [
+   "Hurasi",
+   999,
+   6
+  ],
+  "210917": [
+   "Dhorhawa",
+   999,
+   6
+  ],
+  "210914": [
+   "Dixitpur",
+   999,
+   6
+  ],
+  "210119": [
+   "Nidiur",
+   997,
+   6
+  ],
+  "210682": [
+   "Bahutra Khurd",
+   999,
+   6
+  ],
+  "210159": [
+   "Gobindpur",
+   997,
+   6
+  ],
+  "210626": [
+   "Mukundipur",
+   999,
+   5
+  ],
+  "210676": [
+   "Bahutra Kala",
+   999,
+   6
+  ],
+  "210921": [
+   "Dehariya Jagadishpur",
+   999,
+   2
+  ],
+  "210675": [
+   "Chainsinghpur",
+   999,
+   6
+  ],
+  "210158": [
+   "Tikaitpur",
+   997,
+   6
+  ],
+  "210948": [
+   "Umaraha",
+   999,
+   6
+  ],
+  "210120": [
+   "Dubha",
+   997,
+   6
+  ],
+  "210955": [
+   "Lasamara",
+   999,
+   2
+  ],
+  "210686": [
+   "Bhairopur",
+   999,
+   6
+  ],
+  "210931": [
+   "Gora Thakurain",
+   999,
+   6
+  ],
+  "210111": [
+   "Latiya",
+   997,
+   6
+  ],
+  "210685": [
+   "Jiyanpur",
+   999,
+   6
+  ],
+  "210681": [
+   "Mamhar",
+   999,
+   6
+  ],
+  "210106": [
+   "Sankarpur",
+   997,
+   6
+  ],
+  "210628": [
+   "Chak Nanhu",
+   999,
+   6
+  ],
+  "210108": [
+   "Kapal Deeh",
+   997,
+   6
+  ],
+  "210924": [
+   "Chak Parasottampur Risalgir",
+   999,
+   2
+  ],
+  "210892": [
+   "Chakapur",
+   999,
+   2
+  ],
+  "210103": [
+   "Jolhapur",
+   997,
+   6
+  ],
+  "210104": [
+   "Gondamir Imamali",
+   997,
+   6
+  ],
+  "210894": [
+   "Kansapur Or Maharajganj",
+   999,
+   2
+  ],
+  "210121": [
+   "Hadha",
+   997,
+   6
+  ],
+  "210906": [
+   "Newad",
+   999,
+   6
+  ],
+  "210691": [
+   "Chatnipur",
+   999,
+   6
+  ],
+  "210949": [
+   "Trilokpur",
+   999,
+   6
+  ],
+  "210923": [
+   "Bhagatapur Urf Pure",
+   999,
+   2
+  ],
+  "210929": [
+   "Jhaua",
+   999,
+   6
+  ],
+  "210678": [
+   "Mansinghpur",
+   999,
+   6
+  ],
+  "210915": [
+   "Chakaura",
+   999,
+   6
+  ],
+  "210693": [
+   "Arjunpur",
+   999,
+   6
+  ],
+  "210074": [
+   "Chandaipur Or Chanaipur",
+   997,
+   6
+  ],
+  "210690": [
+   "Dhanwatiya",
+   999,
+   6
+  ],
+  "210156": [
+   "Kachhuwa Bojh",
+   997,
+   6
+  ],
+  "210920": [
+   "Bhatpurwa N Bejawa",
+   999,
+   2
+  ],
+  "210076": [
+   "Gouda Chamarhatta",
+   997,
+   6
+  ],
+  "210640": [
+   "Bhagwati Daspur",
+   999,
+   5
+  ],
+  "210113": [
+   "Surhan",
+   997,
+   6
+  ],
+  "210916": [
+   "Dighawat",
+   999,
+   6
+  ],
+  "210161": [
+   "Jagnathpur",
+   997,
+   6
+  ],
+  "210689": [
+   "Gopalpur",
+   999,
+   6
+  ],
+  "210911": [
+   "Khausa",
+   999,
+   6
+  ],
+  "210633": [
+   "Jawsanpur",
+   999,
+   6
+  ],
+  "210881": [
+   "Hathiya Dhel",
+   999,
+   2
+  ],
+  "210162": [
+   "Athgorwa",
+   997,
+   6
+  ],
+  "210904": [
+   "Udaikaranpur",
+   999,
+   6
+  ],
+  "210928": [
+   "Vikramapur N Jhaua",
+   999,
+   6
+  ],
+  "210925": [
+   "Bhawapur",
+   999,
+   2
+  ],
+  "210105": [
+   "Madho Singhpur",
+   997,
+   6
+  ],
+  "210913": [
+   "Jogibari",
+   999,
+   6
+  ],
+  "210694": [
+   "Rajputan Z Gohilon",
+   999,
+   6
+  ],
+  "210698": [
+   "Jiyapur",
+   999,
+   6
+  ],
+  "210677": [
+   "Ramipur",
+   999,
+   6
+  ],
+  "210910": [
+   "Faudipur",
+   999,
+   6
+  ],
+  "210950": [
+   "Leelapur",
+   999,
+   6
+  ],
+  "210927": [
+   "Sikandara",
+   999,
+   6
+  ],
+  "210157": [
+   "Hadhi Bari",
+   997,
+   6
+  ],
+  "210634": [
+   "Bagahi",
+   997,
+   6
+  ],
+  "210112": [
+   "Kandui",
+   997,
+   6
+  ],
+  "210951": [
+   "Theghipur",
+   999,
+   6
+  ],
+  "210934": [
+   "Dallupur",
+   999,
+   6
+  ],
+  "210962": [
+   "Basantapur",
+   999,
+   2
+  ],
+  "210926": [
+   "Banwaripur",
+   999,
+   2
+  ],
+  "210680": [
+   "Garulpur",
+   999,
+   6
+  ],
+  "210932": [
+   "Gora Thakur",
+   999,
+   6
+  ],
+  "210160": [
+   "Rampur Z Jaganthpur",
+   997,
+   6
+  ],
+  "210919": [
+   "Tulapur Ghatmapur Urf Tulapur",
+   999,
+   2
+  ],
+  "210110": [
+   "Darunha",
+   997,
+   6
+  ],
+  "210695": [
+   "Gohilaon",
+   999,
+   6
+  ],
+  "210952": [
+   "Choubeypur Kesav",
+   999,
+   6
+  ],
+  "210905": [
+   "Chaklala",
+   999,
+   6
+  ],
+  "210956": [
+   "Chhattapur",
+   999,
+   2
+  ],
+  "210100": [
+   "Dhanapur",
+   997,
+   6
+  ],
+  "210918": [
+   "Chakaura Kripal",
+   999,
+   6
+  ],
+  "210107": [
+   "Horila",
+   997,
+   6
+  ],
+  "210893": [
+   "Ghatamapur Urf Chakapur",
+   999,
+   2
+  ],
+  "210982": [
+   "Gird Baragaon CT",
+   999,
+   6
+  ],
+  "210696": [
+   "Rajaipur Z Gohlaw",
+   999,
+   6
+  ],
+  "210937": [
+   "Lallapur",
+   999,
+   6
+  ],
+  "210907": [
+   "Magauni",
+   999,
+   6
+  ],
+  "210908": [
+   "Ghamahapur",
+   999,
+   6
+  ],
+  "210930": [
+   "Pilkhini",
+   999,
+   6
+  ],
+  "210635": [
+   "Giriya",
+   999,
+   5
+  ],
+  "210687": [
+   "Barwa Khas",
+   999,
+   6
+  ],
+  "210075": [
+   "Narpatpur",
+   997,
+   6
+  ],
+  "210909": [
+   "Lakhanpur",
+   999,
+   6
+  ],
+  "210627": [
+   "Domanpoor",
+   999,
+   5
+  ],
+  "210109": [
+   "Chandi Gahana",
+   997,
+   6
+  ],
+  "210629": [
+   "Suwajag",
+   999,
+   5
+  ],
+  "210957": [
+   "Churauli",
+   999,
+   6
+  ],
+  "210933": [
+   "Rajjupur",
+   999,
+   6
+  ],
+  "210895": [
+   "Vikramapur N Chakapur",
+   999,
+   2
+  ],
+  "210936": [
+   "Kalutpur",
+   999,
+   6
+  ],
+  "210945": [
+   "Shivrampur",
+   999,
+   6
+  ],
+  "210938": [
+   "Saripur",
+   999,
+   6
+  ],
+  "210940": [
+   "Cherapur",
+   999,
+   6
+  ],
+  "210939": [
+   "Singhapur",
+   999,
+   6
+  ],
+  "210944": [
+   "Mahadevpur",
+   999,
+   6
+  ],
+  "210943": [
+   "Gariwanpur",
+   999,
+   6
+  ],
+  "210684": [
+   "Sarvat Rawani",
+   999,
+   6
+  ],
+  "210019": [
+   "Kakrahi Chauban",
+   997,
+   9
+  ],
+  "249535": [
+   "Bhadohi",
+   997,
+   9
+  ],
+  "210044": [
+   "Chaudharipur",
+   997,
+   5
+  ],
+  "210013": [
+   "Raghunathpur",
+   997,
+   9
+  ],
+  "210010": [
+   "Chak Serwan",
+   997,
+   9
+  ],
+  "209965": [
+   "Mudphokra Or Mudphora",
+   997,
+   9
+  ],
+  "209875": [
+   "Kanchanpur",
+   997,
+   8
+  ],
+  "209882": [
+   "Lagan Bari",
+   997,
+   9
+  ],
+  "210124": [
+   "Ramraipur",
+   997,
+   5
+  ],
+  "210024": [
+   "Noorpur",
+   997,
+   9
+  ],
+  "210059": [
+   "Kom",
+   997,
+   5
+  ],
+  "210122": [
+   "Rajpura",
+   997,
+   5
+  ],
+  "210037": [
+   "Mahbubpur",
+   997,
+   5
+  ],
+  "210134": [
+   "Ahara",
+   997,
+   5
+  ],
+  "209874": [
+   "Birbhadapur",
+   997,
+   8
+  ],
+  "210016": [
+   "Amrauna",
+   997,
+   9
+  ],
+  "209977": [
+   "Abhilouri",
+   997,
+   9
+  ],
+  "209978": [
+   "Kisunpur Tekari",
+   997,
+   9
+  ],
+  "210009": [
+   "Domanpur Chiwathiya",
+   997,
+   9
+  ],
+  "210039": [
+   "Jamunipur Badfaros",
+   997,
+   5
+  ],
+  "209980": [
+   "Nayanpur",
+   997,
+   9
+  ],
+  "210014": [
+   "Gonda Jamuna Jati",
+   997,
+   9
+  ],
+  "209971": [
+   "Ugai Ka Pura",
+   997,
+   8
+  ],
+  "209985": [
+   "Chak Hemraj",
+   997,
+   5
+  ],
+  "209876": [
+   "Kokal Mau",
+   997,
+   8
+  ],
+  "210023": [
+   "Jahidpur",
+   997,
+   9
+  ],
+  "209994": [
+   "Piyari",
+   997,
+   9
+  ],
+  "210115": [
+   "Palheya",
+   997,
+   5
+  ],
+  "210015": [
+   "Patharha",
+   997,
+   9
+  ],
+  "209982": [
+   "Dudwa Dharampuri",
+   997,
+   8
+  ],
+  "210026": [
+   "Mai",
+   997,
+   9
+  ],
+  "210011": [
+   "Mardanpur",
+   997,
+   9
+  ],
+  "210018": [
+   "Gulaura",
+   997,
+   9
+  ],
+  "210043": [
+   "Lakhanpur Urf Abhayanpur",
+   997,
+   5
+  ],
+  "210131": [
+   "Jairampur Khas",
+   997,
+   5
+  ],
+  "209878": [
+   "Chak Gosai",
+   997,
+   8
+  ],
+  "210128": [
+   "Kansraipur",
+   997,
+   5
+  ],
+  "210114": [
+   "Chak Bisram",
+   997,
+   5
+  ],
+  "209989": [
+   "Asti",
+   997,
+   9
+  ],
+  "210129": [
+   "Harirampur",
+   997,
+   5
+  ],
+  "209983": [
+   "Gurkhuliya",
+   997,
+   4
+  ],
+  "210003": [
+   "Himmatpur Bakuchiya",
+   997,
+   5
+  ],
+  "210025": [
+   "Chawar",
+   997,
+   9
+  ],
+  "210004": [
+   "Saraiya",
+   997,
+   5
+  ],
+  "209979": [
+   "Basawanpur",
+   997,
+   9
+  ],
+  "210127": [
+   "Raghopur",
+   997,
+   5
+  ],
+  "209881": [
+   "Baspura",
+   997,
+   9
+  ],
+  "209976": [
+   "Yakubpur",
+   997,
+   9
+  ],
+  "210033": [
+   "Newada Khurd",
+   997,
+   5
+  ],
+  "210005": [
+   "Serwa",
+   997,
+   9
+  ],
+  "210058": [
+   "Bhakuda",
+   997,
+   5
+  ],
+  "210041": [
+   "Jallapur",
+   997,
+   5
+  ],
+  "209998": [
+   "Phatupur Dargah",
+   997,
+   9
+  ],
+  "209990": [
+   "Pure Kisun Singh",
+   997,
+   9
+  ],
+  "210034": [
+   "Makdumpur",
+   997,
+   5
+  ],
+  "210027": [
+   "Raimalpur",
+   997,
+   9
+  ],
+  "210000": [
+   "Salimpur",
+   997,
+   9
+  ],
+  "209877": [
+   "Jagdishpur Brahmnal",
+   997,
+   9
+  ],
+  "209868": [
+   "Chaurapur Baidan",
+   997,
+   8
+  ],
+  "209996": [
+   "Raya",
+   997,
+   9
+  ],
+  "209975": [
+   "Eiyatee Or Iyaee",
+   997,
+   9
+  ],
+  "210021": [
+   "Shahababad",
+   997,
+   9
+  ],
+  "209997": [
+   "Mamdeopur",
+   997,
+   9
+  ],
+  "209867": [
+   "Kanspur",
+   997,
+   8
+  ],
+  "210147": [
+   "Pipris",
+   997,
+   5
+  ],
+  "209880": [
+   "Chak Baijnath",
+   997,
+   8
+  ],
+  "209974": [
+   "Manikpatti",
+   997,
+   9
+  ],
+  "209981": [
+   "Nawada Kala",
+   997,
+   9
+  ],
+  "209988": [
+   "Lal Murli Chak",
+   997,
+   9
+  ],
+  "210117": [
+   "Chak Sanath",
+   997,
+   5
+  ],
+  "210022": [
+   "Mathurapur",
+   997,
+   9
+  ],
+  "209992": [
+   "Durjanpur",
+   997,
+   9
+  ],
+  "209966": [
+   "Dara Patti",
+   997,
+   9
+  ],
+  "210040": [
+   "Rawara Paraspur",
+   997,
+   5
+  ],
+  "210032": [
+   "Dudawa Kukruthi",
+   997,
+   5
+  ],
+  "209991": [
+   "Bankat Z Pipari",
+   997,
+   9
+  ],
+  "210126": [
+   "Dhaskari",
+   997,
+   5
+  ],
+  "210125": [
+   "Rampur Dhaskari",
+   997,
+   5
+  ],
+  "210002": [
+   "Gangapur",
+   997,
+   5
+  ],
+  "209995": [
+   "Radai",
+   997,
+   9
+  ],
+  "210038": [
+   "Ahamadpur Phulwariya",
+   997,
+   5
+  ],
+  "209987": [
+   "Tulsi Chand",
+   997,
+   9
+  ],
+  "209984": [
+   "Naguwa",
+   997,
+   5
+  ],
+  "209869": [
+   "Harjupur",
+   997,
+   8
+  ],
+  "209964": [
+   "Bhanupur",
+   997,
+   8
+  ],
+  "210130": [
+   "Kusahara",
+   997,
+   5
+  ],
+  "210035": [
+   "Rudrapur",
+   997,
+   9
+  ],
+  "209999": [
+   "Jalalpur",
+   997,
+   9
+  ],
+  "210167": [
+   "Hariyawan CT",
+   997,
+   5
+  ],
+  "209993": [
+   "Paraspur Bejhawniya",
+   997,
+   9
+  ],
+  "210001": [
+   "Pakri Z Gangapur",
+   997,
+   5
+  ],
+  "210042": [
+   "Bhikharipur",
+   997,
+   5
+  ],
+  "209986": [
+   "Umari",
+   997,
+   9
+  ],
+  "210008": [
+   "Pargaspur",
+   997,
+   9
+  ],
+  "210007": [
+   "Serawli",
+   997,
+   9
+  ],
+  "249534": [
+   "Nai Bazar",
+   997,
+   9
+  ],
+  "210012": [
+   "Sikhadi",
+   997,
+   9
+  ],
+  "210047": [
+   "Sivdaspur",
+   997,
+   6
+  ],
+  "210048": [
+   "Araji Amani",
+   997,
+   6
+  ],
+  "210053": [
+   "Chaurinipur Patti",
+   997,
+   6
+  ],
+  "210067": [
+   "Jamua",
+   997,
+   6
+  ],
+  "210049": [
+   "Ramdeo Patti",
+   997,
+   6
+  ],
+  "210045": [
+   "Anangpur",
+   997,
+   6
+  ],
+  "210046": [
+   "Parsotampur Raveli",
+   997,
+   6
+  ],
+  "210080": [
+   "Majhilapur",
+   997,
+   6
+  ],
+  "210073": [
+   "Baraila",
+   997,
+   6
+  ],
+  "210089": [
+   "Asogapur",
+   997,
+   6
+  ],
+  "210077": [
+   "Jagdishpur Sujan",
+   997,
+   6
+  ],
+  "210065": [
+   "Chak Bhuidhar",
+   997,
+   6
+  ],
+  "210084": [
+   "Loh Chanda",
+   997,
+   6
+  ],
+  "210096": [
+   "Amawa Khurd",
+   997,
+   6
+  ],
+  "210050": [
+   "Raveli",
+   997,
+   6
+  ],
+  "210088": [
+   "Dattipurz Bahari",
+   997,
+   6
+  ],
+  "210078": [
+   "Arajidibui",
+   997,
+   6
+  ],
+  "210086": [
+   "Jadupur Z Bahri",
+   997,
+   6
+  ],
+  "210054": [
+   "Kolahd",
+   997,
+   6
+  ],
+  "210060": [
+   "Bhadarmanpur",
+   997,
+   5
+  ],
+  "210087": [
+   "Bahari",
+   997,
+   6
+  ],
+  "210063": [
+   "Madho Rampur",
+   997,
+   6
+  ],
+  "210057": [
+   "Manikpur",
+   997,
+   5
+  ],
+  "210102": [
+   "Lachhapur",
+   997,
+   6
+  ],
+  "210061": [
+   "Deeh Koiran",
+   997,
+   5
+  ],
+  "210101": [
+   "Kandhiya",
+   997,
+   6
+  ],
+  "210079": [
+   "Pachpatiya",
+   997,
+   6
+  ],
+  "210095": [
+   "Amawa Kala",
+   997,
+   6
+  ],
+  "210094": [
+   "Hari Chandanpur",
+   997,
+   6
+  ],
+  "210062": [
+   "Bankat Z Madho Rampur",
+   997,
+   5
+  ],
+  "210029": [
+   "Chhitiya Or Chhituna",
+   997,
+   6
+  ],
+  "210031": [
+   "Sewapur Or Senabarpura",
+   997,
+   5
+  ],
+  "210116": [
+   "Kantapur",
+   997,
+   6
+  ],
+  "210082": [
+   "Maihardo Patti",
+   997,
+   6
+  ],
+  "210066": [
+   "Chauri Khas",
+   997,
+   6
+  ],
+  "210092": [
+   "Chak Basawan",
+   997,
+   6
+  ],
+  "210085": [
+   "Bhulaipur",
+   997,
+   6
+  ],
+  "210071": [
+   "Bardha",
+   997,
+   6
+  ],
+  "210052": [
+   "Chauridanu Patti",
+   997,
+   6
+  ],
+  "210097": [
+   "Jhuri Sonbarsa",
+   997,
+   6
+  ],
+  "210055": [
+   "Parsotam Patti",
+   997,
+   6
+  ],
+  "210056": [
+   "Samalkot",
+   997,
+   6
+  ],
+  "210064": [
+   "Badamanpur",
+   997,
+   6
+  ],
+  "210093": [
+   "Chak Muglani",
+   997,
+   6
+  ],
+  "210091": [
+   "Bag Amani",
+   997,
+   6
+  ],
+  "210030": [
+   "Tilangra",
+   997,
+   9
+  ],
+  "210028": [
+   "Sonhar Mahua Patti",
+   997,
+   9
+  ],
+  "210083": [
+   "Chandapur",
+   997,
+   6
+  ],
+  "210051": [
+   "Ahopur",
+   997,
+   6
+  ],
+  "210090": [
+   "Parsottampur Z Bargaon",
+   997,
+   6
+  ],
+  "210072": [
+   "Gopalpur",
+   997,
+   6
+  ],
+  "210070": [
+   "Udhopur",
+   997,
+   6
+  ],
+  "210069": [
+   "Prem Rajpur",
+   997,
+   6
+  ],
+  "210068": [
+   "Parsipur",
+   997,
+   6
+  ],
+  "210081": [
+   "Rajputan Z Ravali",
+   997,
+   6
+  ],
+  "210006": [
+   "Sawalpur",
+   997,
+   9
+  ],
+  "210165": [
+   "Narharpur",
+   997,
+   6
+  ],
+  "209771": [
+   "Navtardud Bhojawa",
+   997,
+   7
+  ],
+  "210402": [
+   "Kulmanpur",
+   998,
+   3
+  ],
+  "210536": [
+   "Chaksada",
+   998,
+   0
+  ],
+  "210416": [
+   "Tateria",
+   998,
+   3
+  ],
+  "210779": [
+   "Gangapur Tari",
+   999,
+   1
+  ],
+  "210618": [
+   "Banaka Tari",
+   998,
+   1
+  ],
+  "210351": [
+   "Gopi Ganj",
+   998,
+   1
+  ],
+  "210359": [
+   "Chak Gangadhar Maphi",
+   998,
+   4
+  ],
+  "210826": [
+   "Bahadurpur",
+   999,
+   2
+  ],
+  "210036": [
+   "Pureshyam",
+   997,
+   5
+  ],
+  "210017": [
+   "Fatupur Amrauna",
+   997,
+   9
+  ],
+  "210501": [
+   "Bhabhauri Tari",
+   998,
+   0
+  ],
+  "210508": [
+   "Chakdulla",
+   998,
+   0
+  ],
+  "210491": [
+   "Bhatgavan Tari",
+   998,
+   0
+  ],
+  "210494": [
+   "Poore Purwa Tari",
+   998,
+   0
+  ],
+  "210477": [
+   "Itahara Tari",
+   998,
+   0
+  ],
+  "210502": [
+   "Kalik Mavaiya Tari",
+   998,
+   0
+  ],
+  "210543": [
+   "Gajadharpur Tari N Ojhapur",
+   998,
+   0
+  ],
+  "210498": [
+   "Atibalshah Tari",
+   998,
+   0
+  ],
+  "210548": [
+   "Mahmadpur Tari",
+   998,
+   0
+  ],
+  "210480": [
+   "Mavaiya Vara Goti Uparwar",
+   998,
+   0
+  ],
+  "210472": [
+   "Parsani Uparwar",
+   998,
+   0
+  ],
+  "210556": [
+   "Gopalpur Uparwar",
+   998,
+   0
+  ],
+  "210475": [
+   "Bhatgavan Uparwar",
+   998,
+   0
+  ],
+  "210554": [
+   "Badaripur Uparwar",
+   998,
+   0
+  ],
+  "210505": [
+   "Kalik Mavaiya Uparwar",
+   998,
+   0
+  ],
+  "210514": [
+   "Gajadharpur Uparwar",
+   998,
+   0
+  ],
+  "210466": [
+   "Khemapur N Diha Tari",
+   998,
+   0
+  ],
+  "210496": [
+   "Terhi Tari",
+   998,
+   0
+  ],
+  "210504": [
+   "Chhechhua Uparwar",
+   998,
+   0
+  ],
+  "210490": [
+   "Kundi Kala Uparwar",
+   998,
+   0
+  ],
+  "210482": [
+   "Lakhanpur Bhadran Uparwar",
+   998,
+   0
+  ],
+  "210492": [
+   "Kundi Kala Tari",
+   998,
+   0
+  ],
+  "210471": [
+   "Duguna Tari",
+   998,
+   0
+  ],
+  "210469": [
+   "Deegh Tari",
+   998,
+   0
+  ],
+  "210560": [
+   "Jagdishpur Tari",
+   998,
+   0
+  ],
+  "210558": [
+   "Danipatti Tari",
+   998,
+   0
+  ],
+  "210511": [
+   "Tulsi Kala Tari",
+   998,
+   0
+  ],
+  "210545": [
+   "Chatur Seva",
+   998,
+   0
+  ],
+  "210515": [
+   "Bhuri Uparwar",
+   998,
+   0
+  ],
+  "210506": [
+   "Dhan Tulsi Uparwar",
+   998,
+   0
+  ],
+  "210478": [
+   "Sajhara Tari",
+   998,
+   0
+  ],
+  "210557": [
+   "Danipatti Uparwar",
+   998,
+   0
+  ],
+  "210485": [
+   "Sherpur Uparwar",
+   998,
+   0
+  ],
+  "210483": [
+   "Mavaiyat Wansingh Uparwar",
+   998,
+   0
+  ],
+  "210500": [
+   "Lakhanpur Bhadraun Tari",
+   998,
+   0
+  ],
+  "210544": [
+   "Nagardah Tari",
+   998,
+   0
+  ],
+  "210507": [
+   "Dhan Tulsi Tari",
+   998,
+   0
+  ],
+  "210546": [
+   "Semradhh Uparwar",
+   998,
+   0
+  ],
+  "210513": [
+   "Hari Rampur Uparwar",
+   998,
+   0
+  ],
+  "210481": [
+   "Bhabhauri Uparwar",
+   998,
+   0
+  ],
+  "210559": [
+   "Gopalpur Tari",
+   998,
+   0
+  ],
+  "210499": [
+   "Mavaiya Than Singh Tari",
+   998,
+   0
+  ],
+  "210575": [
+   "Kedarpur Tari",
+   998,
+   0
+  ],
+  "210503": [
+   "Chhechhua Tari",
+   998,
+   0
+  ],
+  "210479": [
+   "Mavaiya Vara Goti Tari",
+   998,
+   0
+  ],
+  "210473": [
+   "Neknam Patti",
+   998,
+   0
+  ],
+  "210512": [
+   "Hari Rampur Tari",
+   998,
+   0
+  ],
+  "210551": [
+   "Purwa Uparwar",
+   998,
+   0
+  ],
+  "210487": [
+   "Bahupura Uparwar",
+   998,
+   0
+  ],
+  "210510": [
+   "Tulsi Kala Uparwar",
+   998,
+   0
+  ],
+  "210488": [
+   "Poore Purwa Uparwar",
+   998,
+   0
+  ],
+  "210561": [
+   "Badaripur Tari",
+   998,
+   0
+  ],
+  "210493": [
+   "Kundi Khurd Tari",
+   998,
+   0
+  ],
+  "210576": [
+   "Beraspur Tari",
+   998,
+   0
+  ],
+  "210461": [
+   "Chakia Tari",
+   998,
+   0
+  ],
+  "210495": [
+   "Bahapura Tari",
+   998,
+   0
+  ],
+  "210517": [
+   "Bhurra Tari",
+   998,
+   0
+  ],
+  "210553": [
+   "Ibrahimpur Uparwar",
+   998,
+   0
+  ],
+  "210467": [
+   "Khemapur N Dihuparwar",
+   998,
+   0
+  ],
+  "210552": [
+   "Ibrahimpur",
+   998,
+   0
+  ],
+  "210547": [
+   "Semaradh Tari",
+   998,
+   0
+  ],
+  "210537": [
+   "Nagardah Uparwar",
+   998,
+   0
+  ],
+  "210484": [
+   "Atibalshah Uparwar",
+   998,
+   0
+  ],
+  "210516": [
+   "N Itahara Gajadharpur Tari",
+   998,
+   0
+  ],
+  "210468": [
+   "Deeghuparwar",
+   998,
+   0
+  ],
+  "210567": [
+   "Inargaon",
+   998,
+   0
+  ],
+  "210470": [
+   "Duguna Uparwar",
+   998,
+   0
+  ],
+  "210509": [
+   "Marhachh Uparwar",
+   998,
+   0
+  ],
+  "210486": [
+   "Terhi Uparwar",
+   998,
+   0
+  ],
+  "210549": [
+   "Purwa Tari",
+   998,
+   0
+  ],
+  "210550": [
+   "Mahmadpur Uparwar",
+   998,
+   0
+  ],
+  "210555": [
+   "Jagdishpur Uparwar",
+   998,
+   0
+  ],
+  "210489": [
+   "Kundi Khurd Uparwar",
+   998,
+   0
+  ],
+  "210476": [
+   "Itahara Uparwar",
+   998,
+   0
+  ],
+  "210474": [
+   "Parasani Tari",
+   998,
+   0
+  ],
+  "210497": [
+   "Sherpur Tari",
+   998,
+   0
+  ],
+  "210463": [
+   "Arai Uparwar N Baripur",
+   998,
+   0
+  ],
+  "210465": [
+   "Arai Tari N Baripur",
+   998,
+   0
+  ],
+  "210459": [
+   "Bankat Uparwar N Barpur",
+   998,
+   0
+  ],
+  "210458": [
+   "Karvghiya Uparwar",
+   998,
+   0
+  ],
+  "210462": [
+   "Chakia Uparwar",
+   998,
+   0
+  ],
+  "210464": [
+   "Karbadhiya Tari",
+   998,
+   0
+  ],
+  "210460": [
+   "Bankar Tari N Baripur",
+   998,
+   0
+  ],
+  "210456": [
+   "Narepar Uparwar",
+   998,
+   0
+  ],
+  "210452": [
+   "Kuthawatari",
+   998,
+   0
+  ],
+  "210457": [
+   "Nanepar Tari",
+   998,
+   0
+  ],
+  "210222": [
+   "Chaura Kala",
+   998,
+   3
+  ],
+  "210386": [
+   "Bichhiya",
+   998,
+   3
+  ],
+  "210428": [
+   "Rajmala",
+   998,
+   3
+  ],
+  "210443": [
+   "Raiyapur",
+   998,
+   0
+  ],
+  "210385": [
+   "Siki Chaura",
+   998,
+   3
+  ],
+  "210398": [
+   "Baragaon",
+   998,
+   3
+  ],
+  "210235": [
+   "Raghurampur",
+   998,
+   3
+  ],
+  "210453": [
+   "Kurwauparwar",
+   998,
+   0
+  ],
+  "210528": [
+   "Surajbhanpur",
+   998,
+   0
+  ],
+  "210529": [
+   "Dhanai Patti",
+   998,
+   0
+  ],
+  "210403": [
+   "Mahuari",
+   998,
+   3
+  ],
+  "210424": [
+   "Godhana",
+   998,
+   3
+  ],
+  "210236": [
+   "Saravan",
+   998,
+   3
+  ],
+  "210390": [
+   "Belhua",
+   998,
+   3
+  ],
+  "210562": [
+   "Tikari",
+   998,
+   0
+  ],
+  "210442": [
+   "Khedopur N Koirauna",
+   998,
+   0
+  ],
+  "210531": [
+   "Arata",
+   998,
+   0
+  ],
+  "210418": [
+   "Sudhavai",
+   998,
+   3
+  ],
+  "210520": [
+   "Berwa Paharpur Uparwar",
+   998,
+   0
+  ],
+  "210439": [
+   "Vaja Patti",
+   998,
+   0
+  ],
+  "210450": [
+   "Golekkhara",
+   998,
+   0
+  ],
+  "210540": [
+   "Kalinjar Tari",
+   998,
+   0
+  ],
+  "210565": [
+   "Jogapur",
+   998,
+   0
+  ],
+  "210224": [
+   "Miya Ka Pura",
+   998,
+   3
+  ],
+  "210437": [
+   "Bankat N Koirauna",
+   998,
+   0
+  ],
+  "210419": [
+   "Manga Patti",
+   998,
+   3
+  ],
+  "210523": [
+   "Dasharam Patti",
+   998,
+   0
+  ],
+  "210433": [
+   "Ramkishunpur Basahi",
+   998,
+   3
+  ],
+  "210451": [
+   "Fulwariya Uparwar",
+   998,
+   0
+  ],
+  "210395": [
+   "Tribhuvan Baragaon",
+   998,
+   3
+  ],
+  "210435": [
+   "Jajpur",
+   998,
+   3
+  ],
+  "210519": [
+   "Gopalpur Uparwar",
+   998,
+   0
+  ],
+  "210569": [
+   "Vairi Veesa",
+   998,
+   0
+  ],
+  "210434": [
+   "Bhavapur N Baragaon",
+   998,
+   3
+  ],
+  "210219": [
+   "Kubi Haradi Patti",
+   998,
+   3
+  ],
+  "210240": [
+   "Ramaipur N Bankat",
+   998,
+   3
+  ],
+  "210566": [
+   "Raipatti N Suryabhanpur",
+   998,
+   0
+  ],
+  "210564": [
+   "Sonaicha",
+   998,
+   0
+  ],
+  "210431": [
+   "Judaupor N Suryabhanpur",
+   998,
+   0
+  ],
+  "210391": [
+   "Chak Premgiri",
+   998,
+   3
+  ],
+  "210532": [
+   "Shivrampur N Tulsipur",
+   998,
+   0
+  ],
+  "210218": [
+   "Sowari",
+   998,
+   3
+  ],
+  "210572": [
+   "Visambhar Patti",
+   998,
+   0
+  ],
+  "210392": [
+   "Kala Pur",
+   998,
+   3
+  ],
+  "210538": [
+   "Chak Musaha",
+   998,
+   0
+  ],
+  "210397": [
+   "Chak Jujhari",
+   998,
+   3
+  ],
+  "210436": [
+   "Kalika Nagar Koirauna",
+   998,
+   0
+  ],
+  "210417": [
+   "Naudhan",
+   998,
+   3
+  ],
+  "210420": [
+   "Uzmugaraha",
+   998,
+   3
+  ],
+  "210241": [
+   "Kalipur N Ramaipur",
+   998,
+   3
+  ],
+  "210530": [
+   "Tulsi Patti",
+   998,
+   0
+  ],
+  "210454": [
+   "Fulwariyatari",
+   998,
+   0
+  ],
+  "210573": [
+   "Beras Pur",
+   998,
+   0
+  ],
+  "210221": [
+   "Bhaura Kapura",
+   998,
+   3
+  ],
+  "210387": [
+   "Bankat Khas",
+   998,
+   3
+  ],
+  "210524": [
+   "Shivnath Patti",
+   998,
+   0
+  ],
+  "210535": [
+   "Ojhapur",
+   998,
+   0
+  ],
+  "210539": [
+   "Gajadharpur Uparwar N Ojhapur",
+   998,
+   0
+  ],
+  "210388": [
+   "Baraipur",
+   998,
+   3
+  ],
+  "210394": [
+   "Parasrampur Baragaon",
+   998,
+   3
+  ],
+  "210568": [
+   "Rasapatti",
+   998,
+   0
+  ],
+  "210570": [
+   "Jagapur",
+   998,
+   0
+  ],
+  "210571": [
+   "Ullanpur",
+   998,
+   0
+  ],
+  "210588": [
+   "Vidan Patti",
+   998,
+   0
+  ],
+  "210455": [
+   "Kansipatti Jagnadpatti",
+   998,
+   0
+  ],
+  "210215": [
+   "Mungari",
+   998,
+   3
+  ],
+  "210429": [
+   "Sadashiv Patti",
+   998,
+   0
+  ],
+  "210426": [
+   "Chandapur",
+   998,
+   0
+  ],
+  "210400": [
+   "Kalanua",
+   998,
+   3
+  ],
+  "210393": [
+   "Kanchanpur",
+   998,
+   3
+  ],
+  "210534": [
+   "Keshorampur",
+   998,
+   0
+  ],
+  "210399": [
+   "Balipur N Baragaon",
+   998,
+   3
+  ],
+  "210239": [
+   "Ramaipur N Kalipur",
+   998,
+   3
+  ],
+  "210518": [
+   "Kalinjara Uparwar",
+   998,
+   0
+  ],
+  "210432": [
+   "Shivsewak Patti",
+   998,
+   0
+  ],
+  "210438": [
+   "Bhikhipur N Koirauna",
+   998,
+   3
+  ],
+  "210444": [
+   "Tribhuwanpur N Koirauna",
+   998,
+   0
+  ],
+  "210422": [
+   "Khargapur",
+   998,
+   3
+  ],
+  "210541": [
+   "Gopalpur Tari",
+   998,
+   0
+  ],
+  "210533": [
+   "Vedmanpur",
+   998,
+   0
+  ],
+  "210389": [
+   "Poore Nagari",
+   998,
+   3
+  ],
+  "210563": [
+   "Birnai",
+   998,
+   0
+  ],
+  "210447": [
+   "Baripuruparwar",
+   998,
+   0
+  ],
+  "210423": [
+   "Manshahpur",
+   998,
+   3
+  ],
+  "210223": [
+   "Poore Vishwanath",
+   998,
+   3
+  ],
+  "210521": [
+   "Ramdaspur",
+   998,
+   0
+  ],
+  "210574": [
+   "Kedarpur Uparwar",
+   998,
+   0
+  ],
+  "210430": [
+   "Sewak Patti",
+   998,
+   0
+  ],
+  "210220": [
+   "Chak Prayag Das",
+   998,
+   3
+  ],
+  "210217": [
+   "Chaurhata",
+   998,
+   3
+  ],
+  "210446": [
+   "Madanpur",
+   998,
+   0
+  ],
+  "210440": [
+   "Chain Patti",
+   998,
+   0
+  ],
+  "210441": [
+   "Ganga Patti",
+   998,
+   0
+  ],
+  "210526": [
+   "Shekhpur Pindra Harula",
+   998,
+   0
+  ],
+  "210448": [
+   "Kewatahi",
+   998,
+   0
+  ],
+  "210396": [
+   "Bharatpur Baragaon",
+   998,
+   3
+  ],
+  "210421": [
+   "Kormaich",
+   998,
+   3
+  ],
+  "210427": [
+   "Darwasi",
+   998,
+   3
+  ],
+  "210445": [
+   "Pratap Shahpur",
+   998,
+   0
+  ],
+  "210404": [
+   "Sarai Jagadish",
+   998,
+   3
+  ],
+  "210449": [
+   "Majhagawan",
+   998,
+   3
+  ],
+  "210425": [
+   "Mailauna",
+   998,
+   3
+  ],
+  "210525": [
+   "Shekhpur Pindra Bhikhari",
+   998,
+   0
+  ],
+  "210522": [
+   "Marsara",
+   998,
+   0
+  ],
+  "210542": [
+   "Berwa Paharpur Tari",
+   998,
+   0
+  ],
+  "210527": [
+   "Shekhpur Pindra",
+   998,
+   0
+  ],
+  "210207": [
+   "Vigahiya",
+   998,
+   3
+  ],
+  "210206": [
+   "Chak Sarnath",
+   998,
+   3
+  ],
+  "210210": [
+   "Rohi",
+   998,
+   3
+  ],
+  "210230": [
+   "Bayawa",
+   998,
+   3
+  ],
+  "209921": [
+   "Shripur",
+   997,
+   7
+  ],
+  "210200": [
+   "Nigazpur",
+   998,
+   3
+  ],
+  "210203": [
+   "Rampur Keshi",
+   998,
+   7
+  ],
+  "209919": [
+   "Sarai Hola",
+   997,
+   7
+  ],
+  "210204": [
+   "Dasharathpur",
+   998,
+   3
+  ],
+  "210212": [
+   "Srikantpur",
+   998,
+   3
+  ],
+  "210225": [
+   "Sahasipur",
+   998,
+   3
+  ],
+  "209922": [
+   "Abholi",
+   997,
+   7
+  ],
+  "209795": [
+   "Masudhi",
+   997,
+   7
+  ],
+  "210232": [
+   "Halwal Shahpur",
+   998,
+   3
+  ],
+  "210211": [
+   "Mohanpur",
+   998,
+   3
+  ],
+  "210193": [
+   "Sagarpur",
+   998,
+   7
+  ],
+  "209913": [
+   "Hari Karanpur",
+   997,
+   7
+  ],
+  "210233": [
+   "Saripur",
+   998,
+   3
+  ],
+  "210195": [
+   "Banai",
+   998,
+   3
+  ],
+  "209927": [
+   "Gowali",
+   997,
+   7
+  ],
+  "209799": [
+   "Milkipur Z Nibi",
+   997,
+   7
+  ],
+  "210191": [
+   "Vijaypur",
+   998,
+   7
+  ],
+  "210174": [
+   "Newada Rohi",
+   998,
+   7
+  ],
+  "209916": [
+   "Temaj Sherpur",
+   997,
+   7
+  ],
+  "209794": [
+   "Birpur",
+   997,
+   7
+  ],
+  "209923": [
+   "Parsottampur Barigaon",
+   997,
+   7
+  ],
+  "210192": [
+   "Lokmanpur",
+   998,
+   7
+  ],
+  "210234": [
+   "Zianpur",
+   998,
+   3
+  ],
+  "210213": [
+   "Harihar Pursoni",
+   998,
+   3
+  ],
+  "210238": [
+   "Duhiya Bankat",
+   998,
+   3
+  ],
+  "210227": [
+   "Meenapur",
+   998,
+   3
+  ],
+  "210197": [
+   "Veerampur",
+   998,
+   3
+  ],
+  "209925": [
+   "Fattupur Or Brahmnan",
+   997,
+   7
+  ],
+  "210189": [
+   "Chak Gumani",
+   998,
+   7
+  ],
+  "210171": [
+   "Jagatpur",
+   998,
+   7
+  ],
+  "210214": [
+   "Poore Matuka",
+   998,
+   3
+  ],
+  "209926": [
+   "Adiyapur",
+   997,
+   7
+  ],
+  "209917": [
+   "Gaura Z Shripur",
+   997,
+   7
+  ],
+  "210196": [
+   "Ziapur",
+   998,
+   3
+  ],
+  "210205": [
+   "Pilkhuna",
+   998,
+   3
+  ],
+  "210202": [
+   "Asaman Patti",
+   998,
+   7
+  ],
+  "210231": [
+   "Tal Auri",
+   998,
+   3
+  ],
+  "210226": [
+   "Tulapur N Bagaon",
+   998,
+   3
+  ],
+  "210190": [
+   "Mau Ramshala",
+   998,
+   7
+  ],
+  "210173": [
+   "Nazarpur",
+   998,
+   7
+  ],
+  "209914": [
+   "Chakpurai",
+   997,
+   7
+  ],
+  "210228": [
+   "Kanti Rampur",
+   998,
+   3
+  ],
+  "209796": [
+   "Ghatampur Z Sherpur Or Ghatmap",
+   997,
+   7
+  ],
+  "209920": [
+   "Ananddeeh",
+   997,
+   7
+  ],
+  "209915": [
+   "Temaj Shripur",
+   997,
+   7
+  ],
+  "210209": [
+   "Poore Bhan",
+   998,
+   3
+  ],
+  "209918": [
+   "Ganga Rampur",
+   997,
+   7
+  ],
+  "209928": [
+   "Kharagsen Patti",
+   997,
+   7
+  ],
+  "210216": [
+   "Poore Keshi Jeet Diwan",
+   998,
+   3
+  ],
+  "210185": [
+   "Khanapur N Makanpur",
+   998,
+   7
+  ],
+  "210229": [
+   "Ainachh",
+   998,
+   3
+  ],
+  "210201": [
+   "Akorha",
+   998,
+   3
+  ],
+  "210172": [
+   "Bisauli Kripalpur",
+   998,
+   7
+  ],
+  "209924": [
+   "Gadaura",
+   997,
+   7
+  ],
+  "210208": [
+   "Poore Sarnath",
+   998,
+   3
+  ],
+  "210237": [
+   "Arazi Jait Patti",
+   998,
+   3
+  ],
+  "210168": [
+   "Kheokhar",
+   998,
+   7
+  ],
+  "209797": [
+   "Bori Bojh",
+   997,
+   7
+  ],
+  "210169": [
+   "Makanpur Rohi",
+   998,
+   7
+  ],
+  "209798": [
+   "Nibi",
+   997,
+   7
+  ],
+  "210194": [
+   "Sarai Ruddi",
+   998,
+   7
+  ],
+  "210771": [
+   "Gamahapur Tari",
+   999,
+   1
+  ],
+  "209768": [
+   "Chaklokai",
+   997,
+   7
+  ],
+  "209786": [
+   "Navalpur",
+   997,
+   7
+  ],
+  "209789": [
+   "Bhagirathipur",
+   997,
+   7
+  ],
+  "209792": [
+   "Misrainpur",
+   997,
+   7
+  ],
+  "209784": [
+   "Chak Kesri",
+   997,
+   7
+  ],
+  "209780": [
+   "Ram Nagar",
+   997,
+   7
+  ],
+  "209772": [
+   "Namak Sarnonari",
+   997,
+   7
+  ],
+  "209785": [
+   "Karanpur",
+   997,
+   7
+  ],
+  "209766": [
+   "Kathar Z Serpur",
+   997,
+   7
+  ],
+  "209800": [
+   "Kirtipur Z Abhia",
+   997,
+   7
+  ],
+  "209765": [
+   "Chak Gelha",
+   997,
+   7
+  ],
+  "209763": [
+   "Bhujani",
+   997,
+   7
+  ],
+  "209904": [
+   "Arjunpur",
+   997,
+   7
+  ],
+  "209774": [
+   "Tulsipur Z Sherpur",
+   997,
+   7
+  ],
+  "209788": [
+   "Rampur Harnam",
+   997,
+   7
+  ],
+  "209775": [
+   "Bachha Patti",
+   997,
+   7
+  ],
+  "209793": [
+   "Sherpur Gopalha",
+   997,
+   7
+  ],
+  "209773": [
+   "Chaksar Batia",
+   997,
+   7
+  ],
+  "209912": [
+   "Samra",
+   997,
+   7
+  ],
+  "209778": [
+   "Bhanipur",
+   997,
+   7
+  ],
+  "209776": [
+   "Dhanaupur Z Bachha Patti",
+   997,
+   7
+  ],
+  "209911": [
+   "Gopipur",
+   997,
+   7
+  ],
+  "209764": [
+   "Pandepur",
+   997,
+   7
+  ],
+  "209779": [
+   "Hardua",
+   997,
+   7
+  ],
+  "209762": [
+   "Bhanda",
+   997,
+   7
+  ],
+  "209770": [
+   "Kurhwa",
+   997,
+   7
+  ],
+  "209791": [
+   "Himmat Kapura",
+   997,
+   7
+  ],
+  "209787": [
+   "Manidih",
+   997,
+   7
+  ],
+  "209790": [
+   "Bhauthar",
+   997,
+   7
+  ],
+  "209783": [
+   "Tulapur",
+   997,
+   7
+  ],
+  "209782": [
+   "Kumbhapur",
+   997,
+   7
+  ],
+  "209767": [
+   "Kathar Z Pandepur",
+   997,
+   7
+  ],
+  "209769": [
+   "Payagpur",
+   997,
+   7
+  ],
+  "209781": [
+   "Sari Kansrai",
+   997,
+   7
+  ],
+  "209777": [
+   "Dayalpur",
+   997,
+   7
+  ],
+  "210766": [
+   "Bhawanipur Uparwar",
+   999,
+   1
+  ],
+  "210760": [
+   "Dubeypur Uparwar",
+   999,
+   1
+  ],
+  "210759": [
+   "Mulapur Uparwar",
+   999,
+   1
+  ],
+  "210761": [
+   "Basupur Uparwar",
+   999,
+   1
+  ],
+  "210762": [
+   "Misirpur Uparwar",
+   999,
+   1
+  ],
+  "210765": [
+   "Ghamahapur Uparwar",
+   999,
+   1
+  ],
+  "210616": [
+   "Amilaur Tari",
+   998,
+   0
+  ],
+  "210767": [
+   "Chak Rajaram",
+   999,
+   1
+  ],
+  "210756": [
+   "Varjikala Uparwar",
+   999,
+   1
+  ],
+  "210757": [
+   "Gangapur Uparwar",
+   999,
+   1
+  ],
+  "210733": [
+   "Chak Nandanvir",
+   999,
+   1
+  ],
+  "210732": [
+   "Domanpur",
+   999,
+   1
+  ],
+  "210752": [
+   "Banjari",
+   999,
+   1
+  ],
+  "210775": [
+   "Basupur Tari",
+   999,
+   1
+  ],
+  "210780": [
+   "Varzikala Tari",
+   999,
+   1
+  ],
+  "210777": [
+   "Mulapur Tari",
+   999,
+   1
+  ],
+  "210617": [
+   "Sanaka Uparwar",
+   998,
+   1
+  ],
+  "210735": [
+   "Chak Newaji",
+   999,
+   1
+  ],
+  "210747": [
+   "Chakmana",
+   999,
+   1
+  ],
+  "210753": [
+   "Chak Sukali",
+   999,
+   1
+  ],
+  "210778": [
+   "Varzipur Khurd Tari",
+   999,
+   1
+  ],
+  "210774": [
+   "Misirpur Tari",
+   999,
+   1
+  ],
+  "210769": [
+   "Jahagirabad Tari",
+   999,
+   1
+  ],
+  "210749": [
+   "Chak Niranjan",
+   999,
+   1
+  ],
+  "210763": [
+   "Derawa Uparwar",
+   999,
+   1
+  ],
+  "210758": [
+   "Vazikhurd Uparwar",
+   999,
+   1
+  ],
+  "210768": [
+   "Jahagirabad Uparwar",
+   999,
+   1
+  ],
+  "210755": [
+   "Chagaura",
+   999,
+   1
+  ],
+  "210773": [
+   "Derwa Tari",
+   999,
+   1
+  ],
+  "210764": [
+   "Pandeypur Uparwar",
+   999,
+   1
+  ],
+  "210776": [
+   "Dubeypur Tari",
+   999,
+   1
+  ],
+  "210772": [
+   "Pandeypur Tari",
+   999,
+   1
+  ],
+  "210770": [
+   "Bhawanipur Tari",
+   999,
+   1
+  ],
+  "210754": [
+   "Chavar N Derva",
+   999,
+   1
+  ],
+  "210788": [
+   "Bhatpurwa",
+   999,
+   1
+  ],
+  "210737": [
+   "Jagarnathpur",
+   999,
+   1
+  ],
+  "210731": [
+   "Bhavesh Patti",
+   999,
+   1
+  ],
+  "210789": [
+   "Naraur",
+   999,
+   1
+  ],
+  "210739": [
+   "Pure Rajai",
+   999,
+   1
+  ],
+  "210252": [
+   "Chak Sahaw",
+   998,
+   3
+  ],
+  "210328": [
+   "Chitaipur",
+   998,
+   4
+  ],
+  "210708": [
+   "Chakawa Ghanshyam",
+   999,
+   4
+  ],
+  "210246": [
+   "Poore Bahuriya",
+   998,
+   3
+  ],
+  "210578": [
+   "Kishun Deopur",
+   998,
+   3
+  ],
+  "210166": [
+   "Chak Dharni",
+   997,
+   4
+  ],
+  "210263": [
+   "Bhupat Patti",
+   998,
+   4
+  ],
+  "210594": [
+   "Ghana Patti",
+   998,
+   0
+  ],
+  "210306": [
+   "Milki",
+   998,
+   4
+  ],
+  "210609": [
+   "Suriya",
+   998,
+   0
+  ],
+  "210336": [
+   "Ghuripur",
+   998,
+   4
+  ],
+  "210357": [
+   "Chak Maniram",
+   998,
+   4
+  ],
+  "210591": [
+   "Kaulapur",
+   998,
+   0
+  ],
+  "210751": [
+   "Chak Vesahu",
+   999,
+   1
+  ],
+  "210310": [
+   "Chak Sundar",
+   998,
+   4
+  ],
+  "210383": [
+   "Chak Dallu",
+   998,
+   4
+  ],
+  "210343": [
+   "Chak Kalyan",
+   998,
+   4
+  ],
+  "210718": [
+   "Hariharpur Urf Shukulpur",
+   999,
+   1
+  ],
+  "210339": [
+   "Chaharpur",
+   998,
+   4
+  ],
+  "210745": [
+   "Pure Ramghulam",
+   999,
+   1
+  ],
+  "210342": [
+   "Holpur",
+   998,
+   3
+  ],
+  "210324": [
+   "Chhotupur",
+   998,
+   4
+  ],
+  "210290": [
+   "Bhusaula",
+   998,
+   4
+  ],
+  "210360": [
+   "Jaddupur",
+   998,
+   4
+  ],
+  "210154": [
+   "Maharbha",
+   997,
+   4
+  ],
+  "249536": [
+   "Gyanpur",
+   998,
+   4
+  ],
+  "210316": [
+   "Poore Roop Umariya",
+   998,
+   4
+  ],
+  "210323": [
+   "Girdharpur",
+   998,
+   4
+  ],
+  "210366": [
+   "Joharpur",
+   998,
+   1
+  ],
+  "210719": [
+   "Heera Chak",
+   999,
+   1
+  ],
+  "210340": [
+   "Gaharpur",
+   998,
+   4
+  ],
+  "210363": [
+   "Sarai Rajputani",
+   998,
+   4
+  ],
+  "210261": [
+   "Ghatampur",
+   998,
+   4
+  ],
+  "210709": [
+   "Kharhgpur",
+   999,
+   1
+  ],
+  "210605": [
+   "Biharojpur Uparwar",
+   998,
+   0
+  ],
+  "210748": [
+   "Chaksone",
+   999,
+   1
+  ],
+  "210371": [
+   "Dehariya Dayaram",
+   998,
+   1
+  ],
+  "210309": [
+   "Bindrapur",
+   998,
+   4
+  ],
+  "210303": [
+   "Chak Sridatt",
+   998,
+   4
+  ],
+  "210414": [
+   "Chak Mandhata",
+   998,
+   4
+  ],
+  "210378": [
+   "Dharaun",
+   998,
+   4
+  ],
+  "210283": [
+   "Chak Sikhari",
+   998,
+   4
+  ],
+  "210311": [
+   "Balapur Rohi",
+   998,
+   4
+  ],
+  "210812": [
+   "Mahadava",
+   999,
+   4
+  ],
+  "210329": [
+   "Vaida Khas",
+   998,
+   4
+  ],
+  "210382": [
+   "Bhidiura",
+   998,
+   4
+  ],
+  "210297": [
+   "Jot Brij Rama",
+   998,
+   4
+  ],
+  "210721": [
+   "Lalanagar",
+   999,
+   1
+  ],
+  "210599": [
+   "Sujatpur",
+   998,
+   0
+  ],
+  "210577": [
+   "Vihaspur",
+   998,
+   3
+  ],
+  "210740": [
+   "Madhorampur",
+   999,
+   1
+  ],
+  "210372": [
+   "Poore Raza",
+   998,
+   4
+  ],
+  "210720": [
+   "Ramapur",
+   999,
+   1
+  ],
+  "210331": [
+   "Jagapur",
+   998,
+   4
+  ],
+  "210608": [
+   "Gulauri Uparwar",
+   998,
+   0
+  ],
+  "210358": [
+   "Poore Gosai Das",
+   998,
+   4
+  ],
+  "210305": [
+   "Chak Hanuman",
+   998,
+   4
+  ],
+  "210409": [
+   "Khanapur",
+   998,
+   3
+  ],
+  "210245": [
+   "Nathaipur",
+   998,
+   3
+  ],
+  "210741": [
+   "Goppur",
+   999,
+   1
+  ],
+  "210612": [
+   "Awapur",
+   998,
+   0
+  ],
+  "210376": [
+   "Dadaraha",
+   998,
+   4
+  ],
+  "210738": [
+   "Khamhriya No Ii",
+   999,
+   1
+  ],
+  "210244": [
+   "Kasidaha",
+   998,
+   3
+  ],
+  "210596": [
+   "Jodhi Patti",
+   998,
+   0
+  ],
+  "210362": [
+   "Jolahapur",
+   998,
+   4
+  ],
+  "210585": [
+   "Chak Harnandan",
+   998,
+   0
+  ],
+  "210369": [
+   "Lohara Jot Manihara",
+   998,
+   1
+  ],
+  "210294": [
+   "Jot Ramdatt",
+   998,
+   4
+  ],
+  "210314": [
+   "Vijaipur N Umariya",
+   998,
+   4
+  ],
+  "210326": [
+   "Virahimpur",
+   998,
+   4
+  ],
+  "210579": [
+   "Bitthalpur",
+   998,
+   3
+  ],
+  "210334": [
+   "Poore Bahuriya",
+   998,
+   4
+  ],
+  "210262": [
+   "Hiai",
+   998,
+   4
+  ],
+  "210743": [
+   "Raipuri",
+   999,
+   1
+  ],
+  "210410": [
+   "Jangalpur",
+   998,
+   3
+  ],
+  "210345": [
+   "Dallupatti",
+   998,
+   3
+  ],
+  "210725": [
+   "Amva Mafi",
+   999,
+   1
+  ],
+  "210346": [
+   "Chak Parauna",
+   998,
+   0
+  ],
+  "210614": [
+   "Ghatampur",
+   999,
+   1
+  ],
+  "210380": [
+   "Bankat N Chhanaura",
+   998,
+   4
+  ],
+  "210727": [
+   "Ugrasenpur",
+   999,
+   1
+  ],
+  "210341": [
+   "Dhanapur",
+   998,
+   3
+  ],
+  "210595": [
+   "Gambhir Singh Patti",
+   998,
+   0
+  ],
+  "210726": [
+   "Sumer Patti",
+   999,
+   1
+  ],
+  "210251": [
+   "Chak Manohar",
+   998,
+   4
+  ],
+  "210615": [
+   "Amilaur Uparwar",
+   998,
+   1
+  ],
+  "210304": [
+   "Taktaiya Or Takraiya",
+   998,
+   4
+  ],
+  "210353": [
+   "Poore Dallu",
+   998,
+   1
+  ],
+  "210318": [
+   "Kashi Rampur",
+   998,
+   4
+  ],
+  "210354": [
+   "Poore Jhajhan",
+   998,
+   1
+  ],
+  "210312": [
+   "Parashurampur N Umarao",
+   998,
+   4
+  ],
+  "210406": [
+   "Tulapur Rohi",
+   998,
+   3
+  ],
+  "210355": [
+   "Poore Raghunath",
+   998,
+   1
+  ],
+  "210292": [
+   "Shivrampur",
+   998,
+   4
+  ],
+  "210153": [
+   "Chak Basuhi",
+   997,
+   4
+  ],
+  "210603": [
+   "Shivrampur",
+   998,
+   0
+  ],
+  "210723": [
+   "Chak Daphtarband",
+   999,
+   1
+  ],
+  "210601": [
+   "Tulsipur",
+   998,
+   0
+  ],
+  "210338": [
+   "Kathauta",
+   998,
+   4
+  ],
+  "210356": [
+   "Ramnagara",
+   998,
+   4
+  ],
+  "210606": [
+   "Biharojpur Tari",
+   998,
+   0
+  ],
+  "210332": [
+   "Anripur",
+   998,
+   4
+  ],
+  "210296": [
+   "Vedpur",
+   998,
+   4
+  ],
+  "210412": [
+   "Gandhi",
+   998,
+   3
+  ],
+  "210361": [
+   "Chakawa Chandel",
+   998,
+   4
+  ],
+  "210308": [
+   "Bhawa Singh Pur",
+   998,
+   4
+  ],
+  "210352": [
+   "Thanipur",
+   998,
+   1
+  ],
+  "249537": [
+   "Gopi Ganj",
+   999,
+   1
+  ],
+  "210264": [
+   "Dulhipur",
+   998,
+   4
+  ],
+  "210289": [
+   "Chak Ganesh",
+   998,
+   4
+  ],
+  "210611": [
+   "Tilanga",
+   998,
+   0
+  ],
+  "210707": [
+   "Mavaiya Hardo Patti",
+   999,
+   4
+  ],
+  "210411": [
+   "Balanpur",
+   998,
+   3
+  ],
+  "210610": [
+   "Shivpur N Tilanga",
+   998,
+   0
+  ],
+  "210320": [
+   "Gopipur",
+   998,
+   4
+  ],
+  "210367": [
+   "Poore Diwan",
+   998,
+   1
+  ],
+  "210600": [
+   "Jagdishpur Urf Kanthi Patti",
+   998,
+   0
+  ],
+  "210299": [
+   "Gyanpur",
+   998,
+   4
+  ],
+  "210722": [
+   "Parwatpur",
+   999,
+   1
+  ],
+  "210265": [
+   "Chatarshahpur",
+   998,
+   4
+  ],
+  "210373": [
+   "Ram Kapura",
+   998,
+   4
+  ],
+  "210315": [
+   "Poore Korariya",
+   998,
+   4
+  ],
+  "210370": [
+   "Saripur",
+   998,
+   1
+  ],
+  "210321": [
+   "Bhauri Tari",
+   998,
+   4
+  ],
+  "210348": [
+   "Joginaka",
+   998,
+   1
+  ],
+  "210298": [
+   "Chak Todar",
+   998,
+   4
+  ],
+  "210247": [
+   "Sansarapur",
+   998,
+   3
+  ],
+  "210613": [
+   "Nabhapur",
+   998,
+   0
+  ],
+  "210734": [
+   "Chandapur",
+   999,
+   1
+  ],
+  "210313": [
+   "Devajitpur",
+   998,
+   4
+  ],
+  "210744": [
+   "Pure Shambhu",
+   999,
+   1
+  ],
+  "210335": [
+   "Ramaipatti",
+   998,
+   4
+  ],
+  "210584": [
+   "Chak Vijai N Padauna",
+   998,
+   0
+  ],
+  "210300": [
+   "Lakhano",
+   998,
+   4
+  ],
+  "210350": [
+   "Poore Tika",
+   998,
+   1
+  ],
+  "210381": [
+   "Shripur Korh",
+   998,
+   4
+  ],
+  "210408": [
+   "Saraiya",
+   998,
+   3
+  ],
+  "210598": [
+   "Baikunth Patti Urf Dhanapur",
+   998,
+   0
+  ],
+  "210706": [
+   "Achhawar",
+   999,
+   4
+  ],
+  "210384": [
+   "Bhagwanpur Kala Khurd",
+   998,
+   4
+  ],
+  "210711": [
+   "Dabhaka",
+   999,
+   4
+  ],
+  "210746": [
+   "Rampur N Amilur",
+   999,
+   1
+  ],
+  "210583": [
+   "Chakdadu N Padauna",
+   998,
+   0
+  ],
+  "210250": [
+   "Hichchhanpur",
+   998,
+   3
+  ],
+  "210325": [
+   "Chak Loka",
+   998,
+   4
+  ],
+  "210586": [
+   "Chhatmi Khas",
+   998,
+   0
+  ],
+  "210330": [
+   "Babhanauti",
+   998,
+   4
+  ],
+  "210724": [
+   "Madhopur",
+   999,
+   1
+  ],
+  "209864": [
+   "Baghi",
+   997,
+   8
+  ],
+  "210295": [
+   "Jorai",
+   998,
+   4
+  ],
+  "210401": [
+   "Matukpur",
+   998,
+   3
+  ],
+  "210155": [
+   "Chandapur",
+   998,
+   4
+  ],
+  "210602": [
+   "Badhamana",
+   998,
+   0
+  ],
+  "210405": [
+   "Sagar Raipur",
+   998,
+   3
+  ],
+  "210243": [
+   "Karigaon",
+   998,
+   3
+  ],
+  "210607": [
+   "Gulauri Tari",
+   998,
+   0
+  ],
+  "210347": [
+   "Gerai",
+   998,
+   1
+  ],
+  "210581": [
+   "Arazi Chhatami",
+   998,
+   0
+  ],
+  "210365": [
+   "Sarai Misrani",
+   998,
+   4
+  ],
+  "210302": [
+   "Raipur",
+   998,
+   4
+  ],
+  "210592": [
+   "Gopi Patti",
+   998,
+   0
+  ],
+  "210364": [
+   "Baravapur Tiwaripur",
+   998,
+   4
+  ],
+  "210333": [
+   "Hariharpur N Vaida",
+   998,
+   4
+  ],
+  "210407": [
+   "Bhagwanpur Chauthar",
+   998,
+   3
+  ],
+  "210589": [
+   "Prayagdaspur",
+   998,
+   0
+  ],
+  "210729": [
+   "Almau",
+   999,
+   1
+  ],
+  "210327": [
+   "Balipur Dehat",
+   998,
+   4
+  ],
+  "210742": [
+   "Pure Pratap",
+   999,
+   1
+  ],
+  "210415": [
+   "Dhara Visambhar Patti",
+   998,
+   3
+  ],
+  "210622": [
+   "Jakhaon CT",
+   998,
+   4
+  ],
+  "210377": [
+   "Kansapur",
+   998,
+   4
+  ],
+  "210374": [
+   "Tezi Kapura",
+   998,
+   4
+  ],
+  "210349": [
+   "Poore Gulab",
+   998,
+   1
+  ],
+  "210587": [
+   "Jaganandan Patti",
+   998,
+   0
+  ],
+  "210317": [
+   "Umariya",
+   998,
+   4
+  ],
+  "210248": [
+   "Saripur Urf Umarpur",
+   998,
+   4
+  ],
+  "210337": [
+   "Sonkhari",
+   998,
+   4
+  ],
+  "210728": [
+   "Jurwapur",
+   999,
+   1
+  ],
+  "210582": [
+   "Madhopur N Dhonapur",
+   998,
+   1
+  ],
+  "210368": [
+   "Lohara Khas",
+   998,
+   1
+  ],
+  "210319": [
+   "Raghupur",
+   998,
+   4
+  ],
+  "210344": [
+   "Madanpur",
+   998,
+   3
+  ],
+  "210379": [
+   "Kasturipur",
+   998,
+   4
+  ],
+  "210590": [
+   "Jagdishpur Urf Chhatami",
+   998,
+   0
+  ],
+  "210413": [
+   "Khorabeer",
+   998,
+   3
+  ],
+  "210597": [
+   "Dodil Patti",
+   998,
+   0
+  ],
+  "210604": [
+   "Chak Bahattar",
+   998,
+   0
+  ],
+  "210249": [
+   "Chakar Khanpur",
+   998,
+   4
+  ],
+  "210580": [
+   "Kanthi Patti",
+   998,
+   0
+  ],
+  "210750": [
+   "Vishesarpur",
+   999,
+   1
+  ],
+  "210593": [
+   "Ghanshyampur",
+   998,
+   0
+  ],
+  "210163": [
+   "Sambairaj Putani",
+   998,
+   4
+  ],
+  "210375": [
+   "Bhuraki",
+   998,
+   4
+  ],
+  "210291": [
+   "Girdharpur",
+   998,
+   4
+  ],
+  "210301": [
+   "Ramkapura Chauthar",
+   998,
+   4
+  ],
+  "210293": [
+   "Keshopur Sarpataha",
+   998,
+   4
+  ],
+  "210164": [
+   "Balbhadarpur",
+   998,
+   4
+  ],
+  "210307": [
+   "Duhiya",
+   998,
+   4
+  ],
+  "210621": [
+   "Chak Kala Patti",
+   998,
+   4
+  ],
+  "210322": [
+   "Singhpur",
+   998,
+   4
+  ],
+  "210736": [
+   "Dewkali",
+   999,
+   1
+  ],
+  "210710": [
+   "Vishunpur",
+   999,
+   1
+  ],
+  "210813": [
+   "Chaksudama",
+   999,
+   4
+  ],
+  "210717": [
+   "Bandi Patti",
+   999,
+   1
+  ],
+  "210712": [
+   "Faudipur",
+   999,
+   4
+  ],
+  "210730": [
+   "Koilara",
+   999,
+   1
+  ],
+  "210699": [
+   "Katabana",
+   999,
+   4
+  ],
+  "210149": [
+   "Ajaypur",
+   997,
+   4
+  ],
+  "210702": [
+   "Baira Khas",
+   999,
+   4
+  ],
+  "210623": [
+   "Lachhiman Patti CT",
+   998,
+   4
+  ],
+  "209895": [
+   "Chak Harkesh",
+   997,
+   8
+  ],
+  "209954": [
+   "Chak Bhawanidas",
+   997,
+   8
+  ],
+  "210181": [
+   "Veer Bhadra Patti",
+   998,
+   7
+  ],
+  "210152": [
+   "Bira Patti",
+   997,
+   4
+  ],
+  "210259": [
+   "Chak Vedua",
+   998,
+   4
+  ],
+  "209953": [
+   "Chak Kisun Rai",
+   997,
+   8
+  ],
+  "209850": [
+   "Lali Pur",
+   997,
+   8
+  ],
+  "209893": [
+   "Danghar",
+   997,
+   8
+  ],
+  "209959": [
+   "Chak Newazi Z Kochhiya",
+   997,
+   8
+  ],
+  "210198": [
+   "Amilhara",
+   998,
+   3
+  ],
+  "209853": [
+   "Ghuripur",
+   997,
+   8
+  ],
+  "209846": [
+   "Singhpur",
+   997,
+   8
+  ],
+  "210242": [
+   "Vairi Parawa",
+   998,
+   3
+  ],
+  "209935": [
+   "Mahdepur",
+   997,
+   7
+  ],
+  "210272": [
+   "Kasiyapur",
+   998,
+   4
+  ],
+  "209940": [
+   "Danupur Patti Purab",
+   997,
+   7
+  ],
+  "209969": [
+   "Narottampur Urf Chamru Patti",
+   997,
+   8
+  ],
+  "209835": [
+   "Chakbansi Dhar",
+   997,
+   8
+  ],
+  "209943": [
+   "Paraupur",
+   997,
+   3
+  ],
+  "209851": [
+   "Bhat",
+   997,
+   8
+  ],
+  "210253": [
+   "Kusauli",
+   998,
+   3
+  ],
+  "210280": [
+   "Poore Gareriya",
+   998,
+   4
+  ],
+  "209812": [
+   "Kainda",
+   997,
+   8
+  ],
+  "210282": [
+   "Chak Mansingh",
+   998,
+   4
+  ],
+  "209951": [
+   "Sarai Chhatrashah",
+   997,
+   8
+  ],
+  "210186": [
+   "Asaipur",
+   998,
+   7
+  ],
+  "209944": [
+   "Bhawapur Or Thalapur",
+   997,
+   7
+  ],
+  "210286": [
+   "Gajdhara",
+   998,
+   4
+  ],
+  "210266": [
+   "Ghoraha",
+   998,
+   8
+  ],
+  "209968": [
+   "Chak Juirani",
+   997,
+   8
+  ],
+  "209909": [
+   "Sarai Bhav Singh",
+   997,
+   7
+  ],
+  "209973": [
+   "Chaturbhujpur",
+   997,
+   4
+  ],
+  "210278": [
+   "Bhagwas",
+   998,
+   4
+  ],
+  "209891": [
+   "Bhikari Rampur",
+   997,
+   8
+  ],
+  "209936": [
+   "Bhori",
+   997,
+   8
+  ],
+  "210188": [
+   "Dasawatpur",
+   998,
+   7
+  ],
+  "209848": [
+   "Chakia Urf Udai Ka Pura",
+   997,
+   8
+  ],
+  "210254": [
+   "Ganeshraypur",
+   998,
+   4
+  ],
+  "209901": [
+   "Jhigatepur",
+   997,
+   7
+  ],
+  "209857": [
+   "Chak Bhainsahia",
+   997,
+   8
+  ],
+  "210274": [
+   "Jagdishpur Visen",
+   998,
+   4
+  ],
+  "209950": [
+   "Makanpur",
+   997,
+   8
+  ],
+  "209972": [
+   "Jamunipur Athagawan",
+   997,
+   8
+  ],
+  "209939": [
+   "Duhiya Bhan",
+   997,
+   8
+  ],
+  "209897": [
+   "Kowapur",
+   997,
+   7
+  ],
+  "209957": [
+   "Kochhiya",
+   997,
+   8
+  ],
+  "210187": [
+   "Jodhapur N Ramchandrapur",
+   998,
+   7
+  ],
+  "209852": [
+   "Ramayanpur",
+   997,
+   8
+  ],
+  "210182": [
+   "Matethu",
+   998,
+   7
+  ],
+  "210273": [
+   "Chak Jura",
+   998,
+   4
+  ],
+  "209842": [
+   "Mangura",
+   997,
+   8
+  ],
+  "209844": [
+   "Kaundar",
+   997,
+   8
+  ],
+  "209930": [
+   "Kharagpur",
+   997,
+   8
+  ],
+  "210183": [
+   "Pratap Singh Patti",
+   998,
+   7
+  ],
+  "209906": [
+   "Patti Bejwa",
+   997,
+   7
+  ],
+  "209908": [
+   "Chhanaura",
+   997,
+   7
+  ],
+  "210176": [
+   "Kanakpur",
+   998,
+   7
+  ],
+  "209956": [
+   "Barhiyani",
+   997,
+   8
+  ],
+  "209858": [
+   "Chakdukharan",
+   997,
+   8
+  ],
+  "210281": [
+   "Jaisinghpur",
+   998,
+   4
+  ],
+  "210258": [
+   "Bhiriura",
+   998,
+   4
+  ],
+  "209861": [
+   "Kolhua Pande Pur",
+   997,
+   8
+  ],
+  "210257": [
+   "Udhopur",
+   998,
+   4
+  ],
+  "209902": [
+   "Bhatewra",
+   997,
+   7
+  ],
+  "210275": [
+   "Malhaiya",
+   998,
+   4
+  ],
+  "209942": [
+   "Mahasingh Patti",
+   997,
+   3
+  ],
+  "210269": [
+   "Chak Harhat Giri",
+   998,
+   8
+  ],
+  "209871": [
+   "Kariyaon",
+   997,
+   8
+  ],
+  "209843": [
+   "Thathara",
+   997,
+   8
+  ],
+  "209896": [
+   "Kisunapur",
+   997,
+   8
+  ],
+  "209884": [
+   "Mahuapur",
+   997,
+   8
+  ],
+  "209859": [
+   "Chak Khushal Z Baraicha",
+   997,
+   8
+  ],
+  "209963": [
+   "Chak Newazi Makanpur",
+   997,
+   8
+  ],
+  "210284": [
+   "Kawal",
+   998,
+   4
+  ],
+  "210271": [
+   "Balapur",
+   998,
+   8
+  ],
+  "209862": [
+   "Chak Dhura",
+   997,
+   8
+  ],
+  "209855": [
+   "Kirtipur Z Kariyaon",
+   997,
+   8
+  ],
+  "209890": [
+   "Chak Sewa",
+   997,
+   8
+  ],
+  "209946": [
+   "Anapur",
+   997,
+   3
+  ],
+  "209834": [
+   "Manshahpur",
+   997,
+   8
+  ],
+  "209903": [
+   "Ekauni",
+   997,
+   7
+  ],
+  "209888": [
+   "Bisunpur",
+   997,
+   8
+  ],
+  "209883": [
+   "Manapur Or Malepur",
+   997,
+   8
+  ],
+  "210170": [
+   "Vasupur",
+   998,
+   7
+  ],
+  "210199": [
+   "Nauvapur",
+   998,
+   3
+  ],
+  "209860": [
+   "Kasturi Pur",
+   997,
+   8
+  ],
+  "210270": [
+   "Vari",
+   998,
+   8
+  ],
+  "209832": [
+   "Bela",
+   997,
+   8
+  ],
+  "209933": [
+   "Mahjuda",
+   997,
+   8
+  ],
+  "210177": [
+   "Merhi",
+   998,
+   7
+  ],
+  "209958": [
+   "Chak Padri",
+   997,
+   8
+  ],
+  "209948": [
+   "Kalipur",
+   997,
+   4
+  ],
+  "209947": [
+   "Nagmalpur",
+   997,
+   4
+  ],
+  "209952": [
+   "Hari Patti Or Hirapatti",
+   997,
+   8
+  ],
+  "209932": [
+   "Chak Bhagwan",
+   997,
+   8
+  ],
+  "209813": [
+   "Chak Jagbadhan",
+   997,
+   8
+  ],
+  "209833": [
+   "Bhim Senpur",
+   997,
+   8
+  ],
+  "209894": [
+   "Chak Lahra",
+   997,
+   8
+  ],
+  "209849": [
+   "Bahariya",
+   997,
+   8
+  ],
+  "210184": [
+   "Danpur Patti West",
+   998,
+   7
+  ],
+  "209931": [
+   "Bahraichi",
+   997,
+   8
+  ],
+  "210256": [
+   "Adarupur",
+   998,
+   4
+  ],
+  "209889": [
+   "Baharaicha",
+   997,
+   8
+  ],
+  "210179": [
+   "Haripatti",
+   998,
+   7
+  ],
+  "209961": [
+   "Chak Baijoo",
+   997,
+   4
+  ],
+  "209949": [
+   "Bankat Z Hari Patti",
+   997,
+   8
+  ],
+  "209856": [
+   "Chak Kahuwa",
+   997,
+   8
+  ],
+  "209934": [
+   "Sanath Patti",
+   997,
+   8
+  ],
+  "210288": [
+   "Chak Kishundas",
+   998,
+   4
+  ],
+  "209929": [
+   "Gokul Patti",
+   997,
+   7
+  ],
+  "209955": [
+   "Balbhadarpur",
+   997,
+   8
+  ],
+  "209847": [
+   "Sanathpur",
+   997,
+   8
+  ],
+  "210175": [
+   "Bhikhamapur",
+   998,
+   7
+  ],
+  "249533": [
+   "Suriyawan",
+   997,
+   8
+  ],
+  "209938": [
+   "Shukulpur",
+   997,
+   8
+  ],
+  "209962": [
+   "Chak Kumar Jati",
+   997,
+   4
+  ],
+  "210276": [
+   "Chak Kishun Gir",
+   998,
+   4
+  ],
+  "209854": [
+   "Khemapur",
+   997,
+   8
+  ],
+  "209863": [
+   "Duhiya",
+   997,
+   8
+  ],
+  "210255": [
+   "Pali",
+   998,
+   4
+  ],
+  "210267": [
+   "Pakari Khurd N Mahatuda",
+   998,
+   8
+  ],
+  "209898": [
+   "Chhapariya",
+   997,
+   8
+  ],
+  "209960": [
+   "Tal Supaia",
+   997,
+   8
+  ],
+  "209885": [
+   "Deodaspur",
+   997,
+   8
+  ],
+  "210260": [
+   "Talsodra",
+   998,
+   4
+  ],
+  "209841": [
+   "Kador",
+   997,
+   8
+  ],
+  "209899": [
+   "Malepur",
+   997,
+   8
+  ],
+  "209866": [
+   "Pure Daya",
+   997,
+   8
+  ],
+  "209845": [
+   "Chhataripur",
+   997,
+   8
+  ],
+  "209900": [
+   "Kusura",
+   997,
+   8
+  ],
+  "209941": [
+   "Sadawpur",
+   997,
+   8
+  ],
+  "209886": [
+   "Chak Chandra",
+   997,
+   8
+  ],
+  "209937": [
+   "Pratap Singh Patti",
+   997,
+   8
+  ],
+  "210279": [
+   "Marzarawa",
+   998,
+   4
+  ],
+  "210287": [
+   "Chak Kaluti",
+   998,
+   4
+  ],
+  "210268": [
+   "Pakari Kala N Valapur",
+   998,
+   8
+  ],
+  "210151": [
+   "Chak Bamdeo",
+   997,
+   4
+  ],
+  "209828": [
+   "Chak Ram Ratan",
+   997,
+   8
+  ],
+  "210277": [
+   "Dasharathpur",
+   998,
+   4
+  ],
+  "209910": [
+   "Kapuripur",
+   997,
+   7
+  ],
+  "210180": [
+   "Govind Patti",
+   998,
+   7
+  ],
+  "210285": [
+   "Nanda Kapura",
+   998,
+   4
+  ],
+  "209907": [
+   "Bihiyapur",
+   997,
+   7
+  ],
+  "209887": [
+   "Badlikapura Or Badlipur",
+   997,
+   8
+  ],
+  "209892": [
+   "Chak Baidik",
+   997,
+   8
+  ],
+  "209945": [
+   "Ramchandrapur",
+   997,
+   3
+  ],
+  "210178": [
+   "Talodra",
+   998,
+   7
+  ],
+  "209873": [
+   "Kanthipur",
+   997,
+   8
+  ],
+  "210145": [
+   "Dhuripur",
+   997,
+   4
+  ],
+  "209967": [
+   "Siyarha",
+   997,
+   8
+  ],
+  "209970": [
+   "Nawtaradud Bardha",
+   997,
+   8
+  ],
+  "209870": [
+   "Tulsipur Z Kariyaon",
+   997,
+   8
+  ],
+  "209879": [
+   "Barmohani",
+   997,
+   8
+  ],
+  "210150": [
+   "Sanak Deeh",
+   997,
+   4
+  ],
+  "209872": [
+   "Jagetipur",
+   997,
+   8
+  ],
+  "209865": [
+   "Pure Dawan",
+   997,
+   8
+  ],
+  "210146": [
+   "Kuraiya",
+   997,
+   4
+  ],
+  "209819": [
+   "Bahuta Sardar",
+   997,
+   8
+  ],
+  "209808": [
+   "Goharwa",
+   997,
+   7
+  ],
+  "209836": [
+   "Chauguna",
+   997,
+   8
+  ],
+  "209804": [
+   "Pure Manohar",
+   997,
+   7
+  ],
+  "209816": [
+   "Sanda",
+   997,
+   8
+  ],
+  "209838": [
+   "Sujanpur",
+   997,
+   8
+  ],
+  "209825": [
+   "Chak Khushal",
+   997,
+   8
+  ],
+  "209827": [
+   "Bahuta Sujangir",
+   997,
+   8
+  ],
+  "209839": [
+   "Madhupatti",
+   997,
+   8
+  ],
+  "209826": [
+   "Chak Kushi",
+   997,
+   8
+  ],
+  "209821": [
+   "Hariharpur",
+   997,
+   8
+  ],
+  "209803": [
+   "Amiya",
+   997,
+   7
+  ],
+  "209809": [
+   "Tulapur Bahaduran",
+   997,
+   7
+  ],
+  "209831": [
+   "Awarana",
+   997,
+   8
+  ],
+  "209824": [
+   "Godama Or Godaya",
+   997,
+   8
+  ],
+  "209811": [
+   "Tezsinghpur",
+   997,
+   7
+  ],
+  "209801": [
+   "Chakjitrai",
+   997,
+   7
+  ],
+  "209807": [
+   "Nidiura",
+   997,
+   7
+  ],
+  "209823": [
+   "Bisahi",
+   997,
+   8
+  ],
+  "209829": [
+   "Chakteki",
+   997,
+   8
+  ],
+  "209837": [
+   "Gopipur",
+   997,
+   8
+  ],
+  "209810": [
+   "Chhatama",
+   997,
+   7
+  ],
+  "209815": [
+   "Pure Badal",
+   997,
+   8
+  ],
+  "209822": [
+   "Chak Banwari",
+   997,
+   8
+  ],
+  "209817": [
+   "Bisakapura",
+   997,
+   8
+  ],
+  "209818": [
+   "Balikapur",
+   997,
+   8
+  ],
+  "209806": [
+   "Haripur",
+   997,
+   7
+  ],
+  "209840": [
+   "Chakjanki",
+   997,
+   8
+  ],
+  "209905": [
+   "Kanti Rampur",
+   997,
+   7
+  ],
+  "209802": [
+   "Pure Khushal",
+   997,
+   7
+  ],
+  "209805": [
+   "Pure Dariaw",
+   997,
+   7
+  ],
+  "209820": [
+   "Bahuta Chakdahi",
+   997,
+   8
+  ],
+  "209814": [
+   "Mardanpur Shahpur",
+   997,
+   8
+  ],
+  "209830": [
+   "Chakhari",
+   997,
+   8
+  ]
+ },
+ "village_count_total": 1228,
+ "village_count_assigned": 1228
+}

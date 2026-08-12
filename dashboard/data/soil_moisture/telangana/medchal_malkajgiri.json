@@ -1,0 +1,724 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Telangana",
+  "district": "Medchal Malkajgiri",
+  "district_lgd": 700,
+  "observation_window": "2026-08-07T11:26Z to 2026-08-12T11:26Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2812,
+  "sm_surface_stddev": 0.0108,
+  "sm_rootzone_mean": 0.2785,
+  "sm_rootzone_stddev": 0.0094,
+  "n_cells": 8,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 17.4408,
+    "lon": 78.6071,
+    "sm_surface": 0.2679,
+    "sm_rootzone": 0.2726,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 1,
+    "lat": 17.4408,
+    "lon": 78.7059,
+    "sm_surface": 0.2638,
+    "sm_rootzone": 0.2689,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 2,
+    "lat": 17.5396,
+    "lon": 78.4094,
+    "sm_surface": 0.2891,
+    "sm_rootzone": 0.2889,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 3,
+    "lat": 17.5396,
+    "lon": 78.5083,
+    "sm_surface": 0.2817,
+    "sm_rootzone": 0.2794,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 4,
+    "lat": 17.5396,
+    "lon": 78.6071,
+    "sm_surface": 0.277,
+    "sm_rootzone": 0.2782,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 5,
+    "lat": 17.6384,
+    "lon": 78.4094,
+    "sm_surface": 0.2995,
+    "sm_rootzone": 0.2973,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 6,
+    "lat": 17.6384,
+    "lon": 78.5083,
+    "sm_surface": 0.287,
+    "sm_rootzone": 0.2729,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 7,
+    "lat": 17.6384,
+    "lon": 78.6071,
+    "sm_surface": 0.2837,
+    "sm_rootzone": 0.2696,
+    "n_villages_sharing_cell": 23
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.28,
+  "sm_surface_stddev": 0.0091,
+  "n_blocks": 8
+ },
+ "blocks": [
+  {
+   "block_name": "Balanagar",
+   "sdcode": 4517,
+   "n_villages": 1,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.2891,
+   "sm_surface_stddev": 0.0
+  },
+  {
+   "block_name": "Ghatkesar",
+   "sdcode": 4523,
+   "n_villages": 27,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.2664,
+   "sm_surface_stddev": 0.002
+  },
+  {
+   "block_name": "Keesara",
+   "sdcode": 4522,
+   "n_villages": 16,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.2731,
+   "sm_surface_stddev": 0.0052
+  },
+  {
+   "block_name": "Malkajgiri",
+   "sdcode": 4521,
+   "n_villages": 1,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.2817,
+   "sm_surface_stddev": 0.0
+  },
+  {
+   "block_name": "Medchal",
+   "sdcode": 4519,
+   "n_villages": 29,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.2889,
+   "sm_surface_stddev": 0.0062
+  },
+  {
+   "block_name": "Qutballapur",
+   "sdcode": 4518,
+   "n_villages": 13,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.2909,
+   "sm_surface_stddev": 0.0051
+  },
+  {
+   "block_name": "Shamirpet",
+   "sdcode": 4520,
+   "n_villages": 30,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.2819,
+   "sm_surface_stddev": 0.0028
+  },
+  {
+   "block_name": "Uppal",
+   "sdcode": 4524,
+   "n_villages": 1,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.2679,
+   "sm_surface_stddev": 0.0
+  }
+ ],
+ "villages": {
+  "574082": [
+   "Bandakunta",
+   4519,
+   5
+  ],
+  "574176": [
+   "Miyapur OG",
+   4523,
+   0
+  ],
+  "574177": [
+   "Parvatapur",
+   4523,
+   0
+  ],
+  "574072": [
+   "Kompally",
+   4518,
+   3
+  ],
+  "574155": [
+   "Padamatisaiguda",
+   4523,
+   1
+  ],
+  "574154": [
+   "Ismailkhanguda",
+   4523,
+   0
+  ],
+  "574069": [
+   "Shambipur",
+   4518,
+   2
+  ],
+  "574161": [
+   "Muthawalliguda",
+   4523,
+   0
+  ],
+  "574136": [
+   "Kesavapur",
+   4520,
+   4
+  ],
+  "574099": [
+   "Gundlapochampally",
+   4519,
+   3
+  ],
+  "574125": [
+   "Devaryamjal",
+   4520,
+   3
+  ],
+  "574127": [
+   "Anthaipally",
+   4520,
+   4
+  ],
+  "574142": [
+   "Keesara",
+   4522,
+   4
+  ],
+  "574141": [
+   "Yadgarpally West",
+   4522,
+   4
+  ],
+  "574123": [
+   "Mandaipally",
+   4520,
+   3
+  ],
+  "574126": [
+   "Thumkunta",
+   4520,
+   4
+  ],
+  "574124": [
+   "Pothaipally",
+   4520,
+   3
+  ],
+  "574140": [
+   "Yadgarpally East",
+   4522,
+   4
+  ],
+  "574139": [
+   "Narsampally",
+   4522,
+   4
+  ],
+  "574138": [
+   "Dharmaram",
+   4522,
+   4
+  ],
+  "574146": [
+   "Thimmaipally",
+   4522,
+   4
+  ],
+  "574145": [
+   "Cheeryal",
+   4522,
+   4
+  ],
+  "574165": [
+   "Kondapur",
+   4523,
+   1
+  ],
+  "574149": [
+   "Bogaram",
+   4522,
+   1
+  ],
+  "574147": [
+   "Haridaspally",
+   4522,
+   4
+  ],
+  "574143": [
+   "Keesara Daira",
+   4522,
+   1
+  ],
+  "574144": [
+   "Kundanpally",
+   4522,
+   4
+  ],
+  "574148": [
+   "Godumakunta",
+   4522,
+   0
+  ],
+  "574166": [
+   "Aushapur",
+   4523,
+   1
+  ],
+  "574156": [
+   "Yamnampet",
+   4523,
+   1
+  ],
+  "574167": [
+   "Ankushapur",
+   4523,
+   1
+  ],
+  "574153": [
+   "Pocharam",
+   4523,
+   0
+  ],
+  "574168": [
+   "Madharam",
+   4523,
+   1
+  ],
+  "574157": [
+   "Annojiguda",
+   4523,
+   0
+  ],
+  "251664": [
+   "Hyderabad",
+   4520,
+   4
+  ],
+  "574169": [
+   "Edulabad",
+   4523,
+   1
+  ],
+  "574163": [
+   "Korremul",
+   4523,
+   0
+  ],
+  "574160": [
+   "Kachwanisingaram",
+   4523,
+   0
+  ],
+  "574159": [
+   "Gulam Aliguda",
+   4523,
+   0
+  ],
+  "574162": [
+   "Prathapsingaram",
+   4523,
+   1
+  ],
+  "574100": [
+   "Khajiguda",
+   4519,
+   3
+  ],
+  "574158": [
+   "Majarguda",
+   4523,
+   0
+  ],
+  "574164": [
+   "Badesahebguda",
+   4523,
+   1
+  ],
+  "574173": [
+   "Peerzadiguda",
+   4523,
+   0
+  ],
+  "574175": [
+   "Narepally",
+   4523,
+   0
+  ],
+  "574085": [
+   "Maisireddypally",
+   4519,
+   5
+  ],
+  "574088": [
+   "Somaram",
+   4519,
+   6
+  ],
+  "574084": [
+   "Nuthankal",
+   4519,
+   5
+  ],
+  "574112": [
+   "Narayanpur",
+   4520,
+   7
+  ],
+  "574111": [
+   "Anantharam",
+   4520,
+   7
+  ],
+  "574089": [
+   "Ravlkole",
+   4519,
+   6
+  ],
+  "574109": [
+   "Turkapally",
+   4520,
+   7
+  ],
+  "574086": [
+   "Konaipally",
+   4519,
+   6
+  ],
+  "574087": [
+   "Yellampet",
+   4519,
+   6
+  ],
+  "574113": [
+   "Lakshmapur",
+   4520,
+   7
+  ],
+  "574090": [
+   "Yadaram",
+   4519,
+   7
+  ],
+  "574095": [
+   "Dabilpur",
+   4519,
+   6
+  ],
+  "574071": [
+   "Bachupally",
+   4518,
+   2
+  ],
+  "574137": [
+   "Jawaharnagar CT",
+   4520,
+   4
+  ],
+  "574150": [
+   "Nagaram CT",
+   4522,
+   0
+  ],
+  "574170": [
+   "Ghatkesar CT",
+   4523,
+   1
+  ],
+  "574171": [
+   "Boduppal CT",
+   4523,
+   0
+  ],
+  "574172": [
+   "Medipally",
+   4523,
+   0
+  ],
+  "574076": [
+   "Bowrampet OG",
+   4518,
+   2
+  ],
+  "574075": [
+   "Bahadurpally",
+   4518,
+   2
+  ],
+  "574078": [
+   "Nizampet OG",
+   4518,
+   2
+  ],
+  "574151": [
+   "Ahmedguda",
+   4522,
+   4
+  ],
+  "574152": [
+   "Rampally",
+   4522,
+   0
+  ],
+  "574174": [
+   "Chengicherla OG",
+   4523,
+   0
+  ],
+  "574077": [
+   "Mallampet OG",
+   4518,
+   2
+  ],
+  "573965": [
+   "Bibi Shaeb Maqta",
+   4523,
+   0
+  ],
+  "574079": [
+   "Doolapally",
+   4518,
+   2
+  ],
+  "574110": [
+   "Kolthur",
+   4520,
+   7
+  ],
+  "574081": [
+   "Srirangavaram",
+   4519,
+   5
+  ],
+  "574091": [
+   "Muraharipally",
+   4519,
+   7
+  ],
+  "574093": [
+   "Shahajadiguda",
+   4519,
+   6
+  ],
+  "574094": [
+   "Athwelli",
+   4519,
+   6
+  ],
+  "574114": [
+   "Mooduchintalaphally",
+   4520,
+   7
+  ],
+  "574083": [
+   "Bandamadaram",
+   4519,
+   5
+  ],
+  "574119": [
+   "Lalgadimalakpet",
+   4520,
+   7
+  ],
+  "574115": [
+   "Potharam",
+   4520,
+   7
+  ],
+  "574096": [
+   "Girmapur",
+   4519,
+   6
+  ],
+  "574092": [
+   "Akbarjapet",
+   4519,
+   7
+  ],
+  "574118": [
+   "Sampanbole",
+   4520,
+   7
+  ],
+  "574117": [
+   "Keshawaram",
+   4520,
+   7
+  ],
+  "574105": [
+   "Raj Bollaram",
+   4519,
+   6
+  ],
+  "574068": [
+   "Nagaloor",
+   4518,
+   5
+  ],
+  "574097": [
+   "Railapur",
+   4519,
+   5
+  ],
+  "574104": [
+   "Pudur",
+   4519,
+   6
+  ],
+  "574129": [
+   "Jaggamguda",
+   4520,
+   7
+  ],
+  "574106": [
+   "Ghanpur",
+   4519,
+   6
+  ],
+  "574120": [
+   "Aliabad",
+   4520,
+   7
+  ],
+  "574121": [
+   "Majeedpur",
+   4520,
+   7
+  ],
+  "574132": [
+   "Nagisettipally",
+   4520,
+   7
+  ],
+  "574098": [
+   "Gowdavelli",
+   4519,
+   6
+  ],
+  "574080": [
+   "Velgalkunta",
+   4519,
+   5
+  ],
+  "574133": [
+   "Uddemarry",
+   4520,
+   7
+  ],
+  "574131": [
+   "Adraspally",
+   4520,
+   7
+  ],
+  "574130": [
+   "Ponnal",
+   4520,
+   4
+  ],
+  "574128": [
+   "Bommaraspet",
+   4520,
+   4
+  ],
+  "574122": [
+   "Shamirpet",
+   4520,
+   7
+  ],
+  "574134": [
+   "Usharpally",
+   4520,
+   7
+  ],
+  "574107": [
+   "Gosaiguda",
+   4519,
+   6
+  ],
+  "574135": [
+   "Yakutpur",
+   4520,
+   7
+  ],
+  "574102": [
+   "Suthariguda",
+   4519,
+   6
+  ],
+  "574103": [
+   "Muneerabad",
+   4519,
+   3
+  ],
+  "574101": [
+   "Kandlakoya",
+   4519,
+   3
+  ],
+  "574116": [
+   "Lingapur",
+   4520,
+   7
+  ],
+  "574073": [
+   "Gagilapur OG",
+   4518,
+   5
+  ],
+  "574108": [
+   "Medchal CT",
+   4519,
+   6
+  ],
+  "574070": [
+   "Dundigal CT",
+   4518,
+   5
+  ],
+  "574074": [
+   "Dommara Pochampally",
+   4518,
+   2
+  ]
+ },
+ "village_count_total": 118,
+ "village_count_assigned": 118
+}

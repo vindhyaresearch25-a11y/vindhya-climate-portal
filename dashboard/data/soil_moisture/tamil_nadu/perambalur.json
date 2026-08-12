@@ -1,0 +1,984 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Tamil Nadu",
+  "district": "Perambalur",
+  "district_lgd": 581,
+  "observation_window": "2026-08-07T11:25Z to 2026-08-12T11:25Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.1856,
+  "sm_surface_stddev": 0.0355,
+  "sm_rootzone_mean": 0.2072,
+  "sm_rootzone_stddev": 0.0414,
+  "n_cells": 13,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 11.1167,
+    "lon": 78.7059,
+    "sm_surface": 0.2287,
+    "sm_rootzone": 0.2598,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 1,
+    "lat": 11.1167,
+    "lon": 78.8047,
+    "sm_surface": 0.23,
+    "sm_rootzone": 0.2596,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 2,
+    "lat": 11.1167,
+    "lon": 78.9035,
+    "sm_surface": 0.2315,
+    "sm_rootzone": 0.2627,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 3,
+    "lat": 11.1167,
+    "lon": 79.0023,
+    "sm_surface": 0.2301,
+    "sm_rootzone": 0.2614,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 4,
+    "lat": 11.2155,
+    "lon": 78.8047,
+    "sm_surface": 0.14,
+    "sm_rootzone": 0.1462,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 5,
+    "lat": 11.2155,
+    "lon": 78.9035,
+    "sm_surface": 0.1833,
+    "sm_rootzone": 0.199,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 6,
+    "lat": 11.2155,
+    "lon": 79.0023,
+    "sm_surface": 0.1882,
+    "sm_rootzone": 0.2033,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 7,
+    "lat": 11.3143,
+    "lon": 78.8047,
+    "sm_surface": 0.1373,
+    "sm_rootzone": 0.1477,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 8,
+    "lat": 11.3143,
+    "lon": 78.9035,
+    "sm_surface": 0.1805,
+    "sm_rootzone": 0.2001,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 9,
+    "lat": 11.3143,
+    "lon": 79.0023,
+    "sm_surface": 0.1825,
+    "sm_rootzone": 0.2013,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 10,
+    "lat": 11.3143,
+    "lon": 79.1012,
+    "sm_surface": 0.1823,
+    "sm_rootzone": 0.2016,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 11,
+    "lat": 11.4131,
+    "lon": 78.7059,
+    "sm_surface": 0.1236,
+    "sm_rootzone": 0.1505,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 12,
+    "lat": 11.4131,
+    "lon": 78.9035,
+    "sm_surface": 0.1746,
+    "sm_rootzone": 0.2001,
+    "n_villages_sharing_cell": 17
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.1698,
+  "sm_surface_stddev": 0.0227,
+  "n_blocks": 3
+ },
+ "blocks": [
+  {
+   "block_name": "Kunnam",
+   "sdcode": 5976,
+   "n_villages": 90,
+   "n_cells_spanned": 10,
+   "sm_surface_mean": 0.2018,
+   "sm_surface_stddev": 0.0235
+  },
+  {
+   "block_name": "Perambalur",
+   "sdcode": 5973,
+   "n_villages": 31,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.1516,
+   "sm_surface_stddev": 0.0232
+  },
+  {
+   "block_name": "Veppanthattai",
+   "sdcode": 5974,
+   "n_villages": 43,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.1559,
+   "sm_surface_stddev": 0.0235
+  }
+ ],
+ "villages": {
+  "636186": [
+   "Veppanthattai Extn R F",
+   5974,
+   7
+  ],
+  "636267": [
+   "Adhanur South",
+   5976,
+   3
+  ],
+  "636167": [
+   "Vengalam West",
+   5974,
+   7
+  ],
+  "636195": [
+   "Melapuliyur East",
+   5973,
+   7
+  ],
+  "636184": [
+   "Thondamandurai R F",
+   5974,
+   11
+  ],
+  "636185": [
+   "Veppanthattai R F",
+   5974,
+   7
+  ],
+  "636213": [
+   "Melapuliyur R F",
+   5973,
+   7
+  ],
+  "636211": [
+   "Esanai R F",
+   5973,
+   7
+  ],
+  "636215": [
+   "Ladapuram R F",
+   5973,
+   4
+  ],
+  "636302": [
+   "Soruvayalur R F",
+   5976,
+   4
+  ],
+  "636166": [
+   "Vengalam East",
+   5974,
+   7
+  ],
+  "636174": [
+   "Veppanthattai North",
+   5974,
+   7
+  ],
+  "636175": [
+   "Veppanthattai South",
+   5974,
+   7
+  ],
+  "636176": [
+   "Thondappadi",
+   5974,
+   7
+  ],
+  "636249": [
+   "Sithali East",
+   5976,
+   6
+  ],
+  "636250": [
+   "Sithali West",
+   5976,
+   8
+  ],
+  "636260": [
+   "Kadur South",
+   5976,
+   10
+  ],
+  "636259": [
+   "Kadur North",
+   5976,
+   10
+  ],
+  "636237": [
+   "Nannai West",
+   5976,
+   9
+  ],
+  "636223": [
+   "Athiyur South",
+   5976,
+   10
+  ],
+  "636229": [
+   "Kilamathur North",
+   5976,
+   10
+  ],
+  "636228": [
+   "Kilamathur South",
+   5976,
+   10
+  ],
+  "636283": [
+   "Puduammapalayam",
+   5976,
+   0
+  ],
+  "636282": [
+   "T Kalathur",
+   5976,
+   0
+  ],
+  "636285": [
+   "Thenur",
+   5976,
+   0
+  ],
+  "636284": [
+   "Kannapady",
+   5976,
+   0
+  ],
+  "636286": [
+   "Mavilingai",
+   5976,
+   0
+  ],
+  "636278": [
+   "Chettikulam",
+   5976,
+   1
+  ],
+  "636288": [
+   "Padalur West",
+   5976,
+   1
+  ],
+  "636277": [
+   "Nattaramangalam",
+   5976,
+   1
+  ],
+  "636289": [
+   "Padalur East",
+   5976,
+   1
+  ],
+  "636287": [
+   "Irur",
+   5976,
+   1
+  ],
+  "636290": [
+   "Thirani",
+   5976,
+   2
+  ],
+  "636291": [
+   "Aiyinapuram",
+   5976,
+   2
+  ],
+  "636274": [
+   "Karai East",
+   5976,
+   2
+  ],
+  "636292": [
+   "Kolakkanatham",
+   5976,
+   2
+  ],
+  "636293": [
+   "Kolathur West",
+   5976,
+   3
+  ],
+  "636294": [
+   "Kolathur East",
+   5976,
+   3
+  ],
+  "636301": [
+   "Sillakudi South",
+   5976,
+   3
+  ],
+  "636295": [
+   "Thimmur",
+   5976,
+   3
+  ],
+  "636300": [
+   "Sillakudi North",
+   5976,
+   3
+  ],
+  "636299": [
+   "Zamin Athur",
+   5976,
+   3
+  ],
+  "636298": [
+   "Nochikulam",
+   5976,
+   3
+  ],
+  "636297": [
+   "Bhujangarayanallur",
+   5976,
+   3
+  ],
+  "636296": [
+   "Gudalur",
+   5976,
+   3
+  ],
+  "636198": [
+   "Ladapuram East",
+   5973,
+   4
+  ],
+  "636168": [
+   "Thaluthalai",
+   5974,
+   11
+  ],
+  "636173": [
+   "Thondamandurai East",
+   5974,
+   7
+  ],
+  "252760": [
+   "Arumbavur Tp",
+   5974,
+   11
+  ],
+  "636171": [
+   "Malayappatti",
+   5974,
+   11
+  ],
+  "636172": [
+   "Thondamandurai West",
+   5974,
+   11
+  ],
+  "636208": [
+   "Kalarampatti",
+   5973,
+   4
+  ],
+  "636214": [
+   "Kalarampatti R F",
+   5973,
+   4
+  ],
+  "636207": [
+   "Ammapalayam",
+   5973,
+   4
+  ],
+  "636197": [
+   "Ladapuram West",
+   5973,
+   4
+  ],
+  "636196": [
+   "Melapuliyur West",
+   5973,
+   7
+  ],
+  "252761": [
+   "Kurumbalur Tp",
+   5973,
+   4
+  ],
+  "636210": [
+   "Bommanappady",
+   5973,
+   1
+  ],
+  "636209": [
+   "Chatramani",
+   5973,
+   4
+  ],
+  "636281": [
+   "Elandalapatti",
+   5976,
+   0
+  ],
+  "636280": [
+   "Nekkaselam",
+   5976,
+   0
+  ],
+  "636279": [
+   "Siruvayalur",
+   5976,
+   0
+  ],
+  "636183": [
+   "Poolambadi R F",
+   5974,
+   11
+  ],
+  "636304": [
+   "Elandalapatti R F",
+   5976,
+   0
+  ],
+  "636303": [
+   "Nekkaselam R F",
+   5976,
+   0
+  ],
+  "636170": [
+   "Udumbiam",
+   5974,
+   11
+  ],
+  "252759": [
+   "Poolambadi Tp",
+   5974,
+   11
+  ],
+  "636169": [
+   "Venganur",
+   5974,
+   11
+  ],
+  "636182": [
+   "Udumbiam R F",
+   5974,
+   11
+  ],
+  "636226": [
+   "Keelaperambalur",
+   5976,
+   10
+  ],
+  "636180": [
+   "Vallikandapuram",
+   5974,
+   8
+  ],
+  "636201": [
+   "Kalpadi South",
+   5973,
+   5
+  ],
+  "636160": [
+   "Peraiyur",
+   5974,
+   12
+  ],
+  "636161": [
+   "Eraiyur",
+   5974,
+   9
+  ],
+  "636162": [
+   "Thevaiyur North",
+   5974,
+   8
+  ],
+  "636163": [
+   "Mettupalayam North",
+   5974,
+   12
+  ],
+  "636164": [
+   "Neikuppai",
+   5974,
+   12
+  ],
+  "636165": [
+   "Venbavur",
+   5974,
+   7
+  ],
+  "636177": [
+   "Anukkur",
+   5974,
+   8
+  ],
+  "636181": [
+   "Brahmadesam",
+   5974,
+   8
+  ],
+  "636178": [
+   "Mettupalayam South",
+   5974,
+   8
+  ],
+  "636179": [
+   "Thevaiyur South",
+   5974,
+   8
+  ],
+  "636187": [
+   "Esanai",
+   5973,
+   7
+  ],
+  "636188": [
+   "Alangali",
+   5973,
+   7
+  ],
+  "636206": [
+   "Velur",
+   5973,
+   4
+  ],
+  "636205": [
+   "Pudunaduvalur",
+   5973,
+   4
+  ],
+  "636194": [
+   "Aranarai South",
+   5973,
+   4
+  ],
+  "636193": [
+   "Aranarai North",
+   5973,
+   7
+  ],
+  "636189": [
+   "Keelakkarai",
+   5973,
+   7
+  ],
+  "636192": [
+   "Perambalur",
+   5973,
+   7
+  ],
+  "252762": [
+   "Perambalur M",
+   5973,
+   4
+  ],
+  "636191": [
+   "Elambalur",
+   5973,
+   8
+  ],
+  "636190": [
+   "Sengunam",
+   5973,
+   8
+  ],
+  "636199": [
+   "Thoramangalam",
+   5973,
+   5
+  ],
+  "636204": [
+   "Nochiyam",
+   5973,
+   5
+  ],
+  "636203": [
+   "Siruvacher",
+   5973,
+   4
+  ],
+  "636200": [
+   "Kalpadi North",
+   5973,
+   5
+  ],
+  "636202": [
+   "Aiyilur",
+   5973,
+   5
+  ],
+  "636276": [
+   "Naranamangalam",
+   5976,
+   1
+  ],
+  "636275": [
+   "Karai West",
+   5976,
+   2
+  ],
+  "636273": [
+   "Varagupadi",
+   5976,
+   2
+  ],
+  "636272": [
+   "Sirukanpur West",
+   5976,
+   2
+  ],
+  "636271": [
+   "Sirukanpur East",
+   5976,
+   2
+  ],
+  "636270": [
+   "Sathanur",
+   5976,
+   3
+  ],
+  "636269": [
+   "Kottarai",
+   5976,
+   6
+  ],
+  "636266": [
+   "Koothur",
+   5976,
+   3
+  ],
+  "636264": [
+   "Alagiripalayam",
+   5976,
+   6
+  ],
+  "636265": [
+   "Thondappadi",
+   5976,
+   6
+  ],
+  "636268": [
+   "Adhanur North",
+   5976,
+   6
+  ],
+  "636252": [
+   "Perali South",
+   5976,
+   5
+  ],
+  "636251": [
+   "Perali North",
+   5976,
+   5
+  ],
+  "636263": [
+   "Melamathur",
+   5976,
+   6
+  ],
+  "636261": [
+   "Periavenmani East",
+   5976,
+   6
+  ],
+  "636262": [
+   "Periavenmani West",
+   5976,
+   6
+  ],
+  "636257": [
+   "Kolapady",
+   5976,
+   6
+  ],
+  "636254": [
+   "Periyammapalayam",
+   5976,
+   6
+  ],
+  "636253": [
+   "Odium",
+   5976,
+   6
+  ],
+  "636255": [
+   "Kunnam",
+   5976,
+   6
+  ],
+  "636234": [
+   "Keelapuliyur South",
+   5976,
+   8
+  ],
+  "636233": [
+   "Keelapuliyur North",
+   5976,
+   9
+  ],
+  "636232": [
+   "Sirumathur",
+   5976,
+   9
+  ],
+  "636247": [
+   "Elumur West",
+   5976,
+   9
+  ],
+  "636248": [
+   "Asur",
+   5976,
+   6
+  ],
+  "636245": [
+   "Malavarayanallur",
+   5976,
+   9
+  ],
+  "636256": [
+   "Varagur",
+   5976,
+   6
+  ],
+  "636246": [
+   "Elumur East",
+   5976,
+   9
+  ],
+  "636235": [
+   "Peramathur South",
+   5976,
+   9
+  ],
+  "636236": [
+   "Andi Kurumbur",
+   5976,
+   9
+  ],
+  "636244": [
+   "Paravai West",
+   5976,
+   9
+  ],
+  "636243": [
+   "Paravai East",
+   5976,
+   10
+  ],
+  "636258": [
+   "Puduvettagudi",
+   5976,
+   10
+  ],
+  "636242": [
+   "Thungapuram South",
+   5976,
+   10
+  ],
+  "636241": [
+   "Thungapuram North",
+   5976,
+   10
+  ],
+  "636240": [
+   "Olaippady East",
+   5976,
+   10
+  ],
+  "636239": [
+   "Olaippady West",
+   5976,
+   10
+  ],
+  "636238": [
+   "Nannai East",
+   5976,
+   10
+  ],
+  "636231": [
+   "Perumathur North",
+   5976,
+   9
+  ],
+  "636218": [
+   "Pennakonam North",
+   5976,
+   9
+  ],
+  "636217": [
+   "Pennakonam South",
+   5976,
+   9
+  ],
+  "636219": [
+   "Ogalur West",
+   5976,
+   9
+  ],
+  "636230": [
+   "Vadakalur",
+   5976,
+   10
+  ],
+  "636221": [
+   "Ogalur East",
+   5976,
+   10
+  ],
+  "636212": [
+   "Keelakkarai R F",
+   5973,
+   7
+  ],
+  "636225": [
+   "Vasistapuram",
+   5976,
+   10
+  ],
+  "636227": [
+   "Vayalapadi",
+   5976,
+   10
+  ],
+  "636224": [
+   "Agaram Sigoor",
+   5976,
+   10
+  ],
+  "636159": [
+   "Agaram",
+   5974,
+   12
+  ],
+  "636146": [
+   "Pillankulam",
+   5974,
+   12
+  ],
+  "636152": [
+   "Noothappur North",
+   5974,
+   12
+  ],
+  "636147": [
+   "Kaikalathur West",
+   5974,
+   12
+  ],
+  "636148": [
+   "Kaikalathur East",
+   5974,
+   12
+  ],
+  "636149": [
+   "Kariyanur",
+   5974,
+   12
+  ],
+  "636150": [
+   "Pasumbalur North",
+   5974,
+   12
+  ],
+  "636153": [
+   "Noothappur South",
+   5974,
+   12
+  ],
+  "636151": [
+   "Pasumbalur South",
+   5974,
+   12
+  ],
+  "636158": [
+   "Thiruvalandurai",
+   5974,
+   12
+  ],
+  "636156": [
+   "Pimbalur",
+   5974,
+   12
+  ],
+  "636155": [
+   "Pandagapady",
+   5974,
+   12
+  ],
+  "636154": [
+   "Periyavadagarai",
+   5974,
+   12
+  ],
+  "636157": [
+   "V Kalathur",
+   5974,
+   12
+  ],
+  "636216": [
+   "Thirumandurai",
+   5976,
+   9
+  ],
+  "252763": [
+   "Labbaikudikadu Tp",
+   5976,
+   9
+  ],
+  "636220": [
+   "Aduthurai",
+   5976,
+   10
+  ],
+  "636222": [
+   "Athiyur North",
+   5976,
+   10
+  ]
+ },
+ "village_count_total": 164,
+ "village_count_assigned": 164
+}

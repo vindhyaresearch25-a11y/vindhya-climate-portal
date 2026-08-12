@@ -1,0 +1,1293 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Nagaland",
+  "district": "Dimapur",
+  "district_lgd": 244,
+  "observation_window": "2026-08-07T11:19Z to 2026-08-12T11:19Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3393,
+  "sm_surface_stddev": 0.0387,
+  "sm_rootzone_mean": 0.3308,
+  "sm_rootzone_stddev": 0.0422,
+  "n_cells": 7,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 25.7412,
+    "lon": 93.6269,
+    "sm_surface": 0.2735,
+    "sm_rootzone": 0.2633,
+    "n_villages_sharing_cell": 24
+   },
+   {
+    "cell_index": 1,
+    "lat": 25.7412,
+    "lon": 93.7257,
+    "sm_surface": 0.3646,
+    "sm_rootzone": 0.3589,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 2,
+    "lat": 25.7412,
+    "lon": 93.8245,
+    "sm_surface": 0.3158,
+    "sm_rootzone": 0.303,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 3,
+    "lat": 25.7412,
+    "lon": 93.9234,
+    "sm_surface": 0.3777,
+    "sm_rootzone": 0.3733,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 4,
+    "lat": 25.84,
+    "lon": 93.7257,
+    "sm_surface": 0.3011,
+    "sm_rootzone": 0.2856,
+    "n_villages_sharing_cell": 51
+   },
+   {
+    "cell_index": 5,
+    "lat": 25.84,
+    "lon": 93.8245,
+    "sm_surface": 0.3681,
+    "sm_rootzone": 0.3625,
+    "n_villages_sharing_cell": 42
+   },
+   {
+    "cell_index": 6,
+    "lat": 25.84,
+    "lon": 93.9234,
+    "sm_surface": 0.3743,
+    "sm_rootzone": 0.3691,
+    "n_villages_sharing_cell": 84
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3419,
+  "sm_surface_stddev": 0.031,
+  "n_blocks": 7
+ },
+ "blocks": [
+  {
+   "block_name": "Chumukedima",
+   "sdcode": 1797,
+   "n_villages": 57,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.3247,
+   "sm_surface_stddev": 0.0316
+  },
+  {
+   "block_name": "Dhansiripar",
+   "sdcode": 1798,
+   "n_villages": 33,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.2983,
+   "sm_surface_stddev": 0.0406
+  },
+  {
+   "block_name": "Dimapur Sadar",
+   "sdcode": 1796,
+   "n_villages": 15,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.3011,
+   "sm_surface_stddev": 0.0
+  },
+  {
+   "block_name": "Kuhoboto",
+   "sdcode": 1794,
+   "n_villages": 24,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.3681,
+   "sm_surface_stddev": 0.0
+  },
+  {
+   "block_name": "Medziphema",
+   "sdcode": 1799,
+   "n_villages": 23,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3532,
+   "sm_surface_stddev": 0.03
+  },
+  {
+   "block_name": "Nihokhu",
+   "sdcode": 1795,
+   "n_villages": 11,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3737,
+   "sm_surface_stddev": 0.0018
+  },
+  {
+   "block_name": "Niuland",
+   "sdcode": 1792,
+   "n_villages": 72,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.3743,
+   "sm_surface_stddev": 0.0
+  }
+ ],
+ "villages": {
+  "267640": [
+   "Xekiye",
+   1794,
+   5
+  ],
+  "999999": [
+   "Data Partially Available",
+   1792,
+   6
+  ],
+  "267667": [
+   "Kuda CT",
+   1796,
+   4
+  ],
+  "267634": [
+   "Kuhuboto",
+   1794,
+   5
+  ],
+  "267747": [
+   "Kakiho Ur",
+   1798,
+   0
+  ],
+  "267764": [
+   "Khanakhuru",
+   1799,
+   2
+  ],
+  "267744": [
+   "Manglamukh",
+   1798,
+   0
+  ],
+  "267745": [
+   "Daniel",
+   1798,
+   0
+  ],
+  "267735": [
+   "Hazadisa",
+   1798,
+   0
+  ],
+  "267734": [
+   "Khekiho",
+   1798,
+   0
+  ],
+  "267731": [
+   "Ganesnagar",
+   1798,
+   0
+  ],
+  "267746": [
+   "Toshizu",
+   1798,
+   0
+  ],
+  "267715": [
+   "Seithekema A",
+   1797,
+   5
+  ],
+  "267716": [
+   "Seithekema Old",
+   1797,
+   5
+  ],
+  "267717": [
+   "Seithekema C",
+   1797,
+   5
+  ],
+  "267718": [
+   "Chumoukedima Vill",
+   1797,
+   2
+  ],
+  "267721": [
+   "K Hetoi",
+   1797,
+   1
+  ],
+  "267720": [
+   "Shokhuvi",
+   1797,
+   1
+  ],
+  "267711": [
+   "7Th Mile Model",
+   1797,
+   5
+  ],
+  "267712": [
+   "Tenyiphe I",
+   1797,
+   4
+  ],
+  "267713": [
+   "Tenyiphe Ii",
+   1797,
+   4
+  ],
+  "267714": [
+   "Tenyiphe Iii Virazouma",
+   1797,
+   4
+  ],
+  "267732": [
+   "Doyapur Vill",
+   1798,
+   0
+  ],
+  "267736": [
+   "Lothavi",
+   1798,
+   0
+  ],
+  "267751": [
+   "Shikavi",
+   1798,
+   0
+  ],
+  "267754": [
+   "Pukhaho Ur",
+   1798,
+   0
+  ],
+  "267755": [
+   "Shikato Ur",
+   1798,
+   0
+  ],
+  "267753": [
+   "K Xekiye",
+   1798,
+   0
+  ],
+  "267748": [
+   "Ghowoto",
+   1798,
+   0
+  ],
+  "267733": [
+   "Amaluma",
+   1798,
+   0
+  ],
+  "267743": [
+   "Zutovi",
+   1798,
+   1
+  ],
+  "267738": [
+   "Pimla",
+   1798,
+   0
+  ],
+  "267741": [
+   "Vihoto Ur",
+   1798,
+   1
+  ],
+  "267749": [
+   "Shikuto Ur",
+   1798,
+   1
+  ],
+  "267739": [
+   "Kiyevi B Khehoi Ur",
+   1798,
+   1
+  ],
+  "267756": [
+   "Kiyevi",
+   1798,
+   1
+  ],
+  "267730": [
+   "Razhaphe Basa",
+   1798,
+   0
+  ],
+  "267729": [
+   "Disagaphu",
+   1798,
+   1
+  ],
+  "267726": [
+   "Razhaphe",
+   1798,
+   0
+  ],
+  "267728": [
+   "Shitovi",
+   1798,
+   1
+  ],
+  "267725": [
+   "Dhansiripar Hq",
+   1798,
+   0
+  ],
+  "267724": [
+   "Dhansiripar Vill",
+   1798,
+   0
+  ],
+  "267727": [
+   "Kiyeto",
+   1798,
+   0
+  ],
+  "267759": [
+   "New Chumukedima",
+   1799,
+   2
+  ],
+  "267771": [
+   "Ruzaphema",
+   1799,
+   2
+  ],
+  "249721": [
+   "Chumukedima Town Council",
+   1797,
+   5
+  ],
+  "267719": [
+   "L Hetoi",
+   1797,
+   1
+  ],
+  "267760": [
+   "Khuokhidolong",
+   1799,
+   2
+  ],
+  "267763": [
+   "Khamkaria",
+   1799,
+   2
+  ],
+  "267769": [
+   "Molvom",
+   1799,
+   2
+  ],
+  "267770": [
+   "Bungsang",
+   1799,
+   2
+  ],
+  "267774": [
+   "Moava",
+   1799,
+   2
+  ],
+  "267777": [
+   "Tsuuma",
+   1799,
+   3
+  ],
+  "267776": [
+   "Hekheshe",
+   1799,
+   3
+  ],
+  "267775": [
+   "Zhuikhu A",
+   1799,
+   3
+  ],
+  "267773": [
+   "Khaibung",
+   1799,
+   3
+  ],
+  "267772": [
+   "Socunoma",
+   1799,
+   3
+  ],
+  "267761": [
+   "Medziphema",
+   1799,
+   3
+  ],
+  "267758": [
+   "Pherima Vill",
+   1799,
+   6
+  ],
+  "267768": [
+   "Seirhima",
+   1799,
+   3
+  ],
+  "267762": [
+   "Pherima",
+   1799,
+   3
+  ],
+  "267767": [
+   "Piphema New",
+   1799,
+   3
+  ],
+  "267765": [
+   "Piphema A",
+   1799,
+   3
+  ],
+  "267766": [
+   "Piphema Old",
+   1799,
+   3
+  ],
+  "253213": [
+   "Medziphema Town Council",
+   1799,
+   3
+  ],
+  "267665": [
+   "Dikoi",
+   1796,
+   4
+  ],
+  "267664": [
+   "Aoyimkum",
+   1796,
+   4
+  ],
+  "267663": [
+   "Senjum",
+   1796,
+   4
+  ],
+  "267658": [
+   "Kashiram Ao",
+   1796,
+   4
+  ],
+  "267657": [
+   "Kashiram",
+   1796,
+   4
+  ],
+  "267656": [
+   "Kacharigaon Phevima",
+   1796,
+   4
+  ],
+  "267659": [
+   "Industrial Vill Razhuphe",
+   1796,
+   4
+  ],
+  "267661": [
+   "Signal Angami",
+   1796,
+   4
+  ],
+  "267699": [
+   "Diezephe",
+   1797,
+   4
+  ],
+  "267697": [
+   "Bade",
+   1797,
+   4
+  ],
+  "267698": [
+   "Urra",
+   1797,
+   4
+  ],
+  "267700": [
+   "Khuovaru",
+   1797,
+   4
+  ],
+  "267706": [
+   "Vidima",
+   1797,
+   4
+  ],
+  "267666": [
+   "Sangtamtilla",
+   1796,
+   4
+  ],
+  "267662": [
+   "Thahekhu",
+   1796,
+   4
+  ],
+  "267669": [
+   "Aoyim",
+   1797,
+   5
+  ],
+  "267702": [
+   "Murise",
+   1797,
+   4
+  ],
+  "267696": [
+   "Tseithrongse",
+   1797,
+   4
+  ],
+  "267701": [
+   "Singrijan",
+   1797,
+   4
+  ],
+  "267703": [
+   "Sugarmill Area",
+   1797,
+   4
+  ],
+  "267704": [
+   "Sovima",
+   1797,
+   4
+  ],
+  "267708": [
+   "Sodzulhou",
+   1797,
+   4
+  ],
+  "267709": [
+   "7Th Mile Vill",
+   1797,
+   5
+  ],
+  "267707": [
+   "Khriezephe",
+   1797,
+   4
+  ],
+  "267710": [
+   "Seithekema New",
+   1797,
+   5
+  ],
+  "267705": [
+   "Naga United Vill",
+   1797,
+   5
+  ],
+  "267695": [
+   "5Th Mile Model",
+   1797,
+   4
+  ],
+  "267694": [
+   "Diphupar B",
+   1797,
+   4
+  ],
+  "267691": [
+   "J V Perhereilie",
+   1797,
+   4
+  ],
+  "267690": [
+   "Thilixu",
+   1797,
+   4
+  ],
+  "267693": [
+   "Chekiye",
+   1797,
+   4
+  ],
+  "267689": [
+   "Darogapathar",
+   1797,
+   4
+  ],
+  "267683": [
+   "Naharbari",
+   1797,
+   4
+  ],
+  "267692": [
+   "Kirha Ur",
+   1797,
+   4
+  ],
+  "267684": [
+   "Padampukhuri",
+   1797,
+   4
+  ],
+  "267688": [
+   "Aoyimti",
+   1797,
+   4
+  ],
+  "267686": [
+   "Eralibill",
+   1797,
+   5
+  ],
+  "267685": [
+   "Dubagaon",
+   1797,
+   5
+  ],
+  "267682": [
+   "Toluvi",
+   1797,
+   5
+  ],
+  "267681": [
+   "Puranabazar B",
+   1797,
+   4
+  ],
+  "267677": [
+   "Darogajan",
+   1797,
+   4
+  ],
+  "267673": [
+   "Khushiabill",
+   1797,
+   4
+  ],
+  "267679": [
+   "Zani",
+   1797,
+   4
+  ],
+  "267680": [
+   "Samaguri",
+   1797,
+   5
+  ],
+  "267687": [
+   "Ekrani Pathar",
+   1797,
+   5
+  ],
+  "267660": [
+   "Phaipijang",
+   1796,
+   4
+  ],
+  "267676": [
+   "Vipon",
+   1797,
+   4
+  ],
+  "267670": [
+   "Shozukhu",
+   1797,
+   5
+  ],
+  "249720": [
+   "Dimapur Municipal Council",
+   1796,
+   4
+  ],
+  "267674": [
+   "Bamunpukhuri B",
+   1797,
+   4
+  ],
+  "267671": [
+   "L Hotovi",
+   1797,
+   5
+  ],
+  "267675": [
+   "Bamunpukhuri A",
+   1797,
+   5
+  ],
+  "267560": [
+   "Shitoi",
+   1792,
+   6
+  ],
+  "267556": [
+   "Khaghaboto",
+   1792,
+   6
+  ],
+  "267557": [
+   "Hevishe",
+   1792,
+   6
+  ],
+  "267571": [
+   "Ghonivi",
+   1792,
+   6
+  ],
+  "267573": [
+   "Pishikhu",
+   1792,
+   6
+  ],
+  "267574": [
+   "Zukihe",
+   1792,
+   6
+  ],
+  "267631": [
+   "Ahozhe",
+   1794,
+   5
+  ],
+  "267630": [
+   "S Hotovi",
+   1794,
+   5
+  ],
+  "267635": [
+   "Ghokito",
+   1794,
+   5
+  ],
+  "267645": [
+   "Vihokhu",
+   1794,
+   5
+  ],
+  "267632": [
+   "Lotovi",
+   1794,
+   5
+  ],
+  "267623": [
+   "Tokugha",
+   1794,
+   5
+  ],
+  "267626": [
+   "Hukato",
+   1794,
+   5
+  ],
+  "267627": [
+   "Nizhevi",
+   1794,
+   5
+  ],
+  "267624": [
+   "Vikuho",
+   1794,
+   5
+  ],
+  "267629": [
+   "Pukhato",
+   1794,
+   5
+  ],
+  "267625": [
+   "Luzheto",
+   1794,
+   5
+  ],
+  "267646": [
+   "Hozhukhe",
+   1795,
+   6
+  ],
+  "267648": [
+   "Nikhekhu",
+   1795,
+   6
+  ],
+  "267649": [
+   "Nihokhu",
+   1795,
+   6
+  ],
+  "267652": [
+   "Khehoyi",
+   1795,
+   6
+  ],
+  "267757": [
+   "Tsiepama",
+   1799,
+   6
+  ],
+  "267569": [
+   "Xukiye",
+   1792,
+   6
+  ],
+  "267607": [
+   "Nizheto Ur",
+   1792,
+   6
+  ],
+  "267552": [
+   "Akito",
+   1792,
+   6
+  ],
+  "267572": [
+   "Lukuto",
+   1792,
+   6
+  ],
+  "267620": [
+   "Hevuxu",
+   1792,
+   6
+  ],
+  "267622": [
+   "Nitozu",
+   1792,
+   6
+  ],
+  "267613": [
+   "Aoyimchen",
+   1792,
+   6
+  ],
+  "267617": [
+   "Ngamjalan",
+   1792,
+   6
+  ],
+  "267559": [
+   "Vishiyi",
+   1792,
+   6
+  ],
+  "267566": [
+   "Sahoi",
+   1792,
+   6
+  ],
+  "267568": [
+   "Kiyelho",
+   1792,
+   6
+  ],
+  "267593": [
+   "Nikihe",
+   1792,
+   6
+  ],
+  "267611": [
+   "Husto",
+   1792,
+   6
+  ],
+  "267587": [
+   "R Hovishe",
+   1792,
+   6
+  ],
+  "267597": [
+   "Yetoho",
+   1792,
+   6
+  ],
+  "267612": [
+   "Pihekhu",
+   1792,
+   6
+  ],
+  "267605": [
+   "Mughavi",
+   1792,
+   6
+  ],
+  "267596": [
+   "Nguvihe",
+   1792,
+   6
+  ],
+  "267608": [
+   "Aghunaqa",
+   1792,
+   6
+  ],
+  "267577": [
+   "Kiyezhu B",
+   1792,
+   6
+  ],
+  "267576": [
+   "Kiyezhu A",
+   1792,
+   6
+  ],
+  "267609": [
+   "Kikheye",
+   1792,
+   6
+  ],
+  "267585": [
+   "Izhevi",
+   1792,
+   6
+  ],
+  "267584": [
+   "Khutovi",
+   1792,
+   6
+  ],
+  "267586": [
+   "Zutoi",
+   1792,
+   6
+  ],
+  "267594": [
+   "Jekishe",
+   1792,
+   6
+  ],
+  "267595": [
+   "Tokishe",
+   1792,
+   6
+  ],
+  "267606": [
+   "Hukhai",
+   1792,
+   6
+  ],
+  "267592": [
+   "Vikheto",
+   1792,
+   6
+  ],
+  "267554": [
+   "Henito",
+   1792,
+   6
+  ],
+  "267581": [
+   "Hetoi",
+   1792,
+   6
+  ],
+  "267580": [
+   "Yeveto",
+   1792,
+   6
+  ],
+  "267579": [
+   "Hakhezhe",
+   1792,
+   6
+  ],
+  "267578": [
+   "Heviqhe",
+   1792,
+   6
+  ],
+  "267583": [
+   "Kuhoxu",
+   1792,
+   6
+  ],
+  "267565": [
+   "Viyito",
+   1792,
+   6
+  ],
+  "267562": [
+   "Zuheshe",
+   1792,
+   6
+  ],
+  "267563": [
+   "Hezulho",
+   1792,
+   6
+  ],
+  "267555": [
+   "Hovukhu",
+   1792,
+   6
+  ],
+  "267570": [
+   "Hovishe",
+   1792,
+   6
+  ],
+  "267564": [
+   "Ghotovi",
+   1792,
+   6
+  ],
+  "267582": [
+   "Niuland",
+   1792,
+   6
+  ],
+  "267610": [
+   "Hozheto",
+   1792,
+   6
+  ],
+  "267604": [
+   "Tohoi",
+   1792,
+   6
+  ],
+  "267668": [
+   "Rangapahar CT",
+   1796,
+   4
+  ],
+  "267723": [
+   "Diphupar",
+   1797,
+   4
+  ],
+  "267722": [
+   "Purana Bazar B",
+   1797,
+   4
+  ],
+  "267752": [
+   "Ahoi Ur",
+   1798,
+   0
+  ],
+  "267742": [
+   "Phushito Ur",
+   1798,
+   1
+  ],
+  "267740": [
+   "Nihoi Ur",
+   1798,
+   1
+  ],
+  "267750": [
+   "A K Industrial Ur",
+   1798,
+   0
+  ],
+  "267654": [
+   "New Showuba",
+   1795,
+   5
+  ],
+  "267678": [
+   "Doshehe",
+   1797,
+   4
+  ],
+  "267672": [
+   "Domukhia",
+   1797,
+   4
+  ],
+  "267616": [
+   "Khehuto",
+   1792,
+   6
+  ],
+  "267561": [
+   "Phuhoto",
+   1792,
+   6
+  ],
+  "267602": [
+   "Shokhevi",
+   1792,
+   6
+  ],
+  "267601": [
+   "Zhexuche",
+   1792,
+   6
+  ],
+  "267641": [
+   "Khehokhu",
+   1794,
+   5
+  ],
+  "267642": [
+   "Nihoto",
+   1794,
+   5
+  ],
+  "267643": [
+   "Showuba Old",
+   1794,
+   5
+  ],
+  "267644": [
+   "Xelhoshe",
+   1794,
+   5
+  ],
+  "267638": [
+   "Khughovi",
+   1794,
+   5
+  ],
+  "267639": [
+   "Hoito",
+   1794,
+   5
+  ],
+  "267637": [
+   "Henivi",
+   1794,
+   5
+  ],
+  "267633": [
+   "Kughato Ur",
+   1794,
+   5
+  ],
+  "267636": [
+   "Suhoi",
+   1794,
+   5
+  ],
+  "267628": [
+   "Zuvukhu",
+   1794,
+   5
+  ],
+  "267647": [
+   "Sukhato",
+   1795,
+   6
+  ],
+  "267651": [
+   "Hokhezhe",
+   1795,
+   6
+  ],
+  "267650": [
+   "Toshiho",
+   1795,
+   6
+  ],
+  "267653": [
+   "Ghokuto",
+   1795,
+   6
+  ],
+  "267655": [
+   "S Hetoi",
+   1795,
+   6
+  ],
+  "267599": [
+   "Shiwoto",
+   1792,
+   6
+  ],
+  "267558": [
+   "Yehokhu",
+   1792,
+   6
+  ],
+  "267600": [
+   "Luhezhe",
+   1792,
+   6
+  ],
+  "267598": [
+   "L Vihoto",
+   1792,
+   6
+  ],
+  "267603": [
+   "Qhuhoi",
+   1792,
+   6
+  ],
+  "267614": [
+   "Ahoto",
+   1792,
+   6
+  ],
+  "267619": [
+   "Zaka Station",
+   1792,
+   6
+  ],
+  "267567": [
+   "Sunito",
+   1792,
+   6
+  ],
+  "267590": [
+   "Luhevi",
+   1792,
+   6
+  ],
+  "267591": [
+   "P Vihoto",
+   1792,
+   6
+  ],
+  "267615": [
+   "Nikikhe",
+   1792,
+   6
+  ],
+  "267618": [
+   "Homeland",
+   1792,
+   6
+  ],
+  "267621": [
+   "Ghosito",
+   1792,
+   6
+  ],
+  "267589": [
+   "Xukhuvi",
+   1792,
+   6
+  ],
+  "267588": [
+   "Tohokhu",
+   1792,
+   6
+  ],
+  "267553": [
+   "Hejeto",
+   1792,
+   6
+  ],
+  "267575": [
+   "Itovi",
+   1792,
+   6
+  ]
+ },
+ "village_count_total": 235,
+ "village_count_assigned": 235
+}

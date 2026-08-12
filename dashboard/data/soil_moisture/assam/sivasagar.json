@@ -1,0 +1,2868 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Assam",
+  "district": "Sivasagar",
+  "district_lgd": 300,
+  "observation_window": "2026-08-07T11:02Z to 2026-08-12T11:02Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.378,
+  "sm_surface_stddev": 0.0165,
+  "sm_rootzone_mean": 0.3576,
+  "sm_rootzone_stddev": 0.0269,
+  "n_cells": 15,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 26.7294,
+    "lon": 94.6151,
+    "sm_surface": 0.4104,
+    "sm_rootzone": 0.4273,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 1,
+    "lat": 26.8282,
+    "lon": 94.5162,
+    "sm_surface": 0.3511,
+    "sm_rootzone": 0.3236,
+    "n_villages_sharing_cell": 28
+   },
+   {
+    "cell_index": 2,
+    "lat": 26.8282,
+    "lon": 94.6151,
+    "sm_surface": 0.3658,
+    "sm_rootzone": 0.333,
+    "n_villages_sharing_cell": 44
+   },
+   {
+    "cell_index": 3,
+    "lat": 26.8282,
+    "lon": 94.7139,
+    "sm_surface": 0.3983,
+    "sm_rootzone": 0.3752,
+    "n_villages_sharing_cell": 28
+   },
+   {
+    "cell_index": 4,
+    "lat": 26.8282,
+    "lon": 94.8127,
+    "sm_surface": 0.3824,
+    "sm_rootzone": 0.3817,
+    "n_villages_sharing_cell": 36
+   },
+   {
+    "cell_index": 5,
+    "lat": 26.927,
+    "lon": 94.5162,
+    "sm_surface": 0.3772,
+    "sm_rootzone": 0.3602,
+    "n_villages_sharing_cell": 46
+   },
+   {
+    "cell_index": 6,
+    "lat": 26.927,
+    "lon": 94.6151,
+    "sm_surface": 0.3543,
+    "sm_rootzone": 0.3295,
+    "n_villages_sharing_cell": 38
+   },
+   {
+    "cell_index": 7,
+    "lat": 26.927,
+    "lon": 94.7139,
+    "sm_surface": 0.3646,
+    "sm_rootzone": 0.3344,
+    "n_villages_sharing_cell": 51
+   },
+   {
+    "cell_index": 8,
+    "lat": 27.0258,
+    "lon": 94.5162,
+    "sm_surface": 0.3839,
+    "sm_rootzone": 0.3653,
+    "n_villages_sharing_cell": 27
+   },
+   {
+    "cell_index": 9,
+    "lat": 27.0258,
+    "lon": 94.6151,
+    "sm_surface": 0.387,
+    "sm_rootzone": 0.367,
+    "n_villages_sharing_cell": 45
+   },
+   {
+    "cell_index": 10,
+    "lat": 27.0258,
+    "lon": 94.7139,
+    "sm_surface": 0.3612,
+    "sm_rootzone": 0.3307,
+    "n_villages_sharing_cell": 35
+   },
+   {
+    "cell_index": 11,
+    "lat": 27.0258,
+    "lon": 94.8127,
+    "sm_surface": 0.3647,
+    "sm_rootzone": 0.3302,
+    "n_villages_sharing_cell": 34
+   },
+   {
+    "cell_index": 12,
+    "lat": 27.1246,
+    "lon": 94.6151,
+    "sm_surface": 0.3864,
+    "sm_rootzone": 0.3672,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 13,
+    "lat": 27.1246,
+    "lon": 94.7139,
+    "sm_surface": 0.3944,
+    "sm_rootzone": 0.3723,
+    "n_villages_sharing_cell": 52
+   },
+   {
+    "cell_index": 14,
+    "lat": 27.2234,
+    "lon": 94.7139,
+    "sm_surface": 0.3878,
+    "sm_rootzone": 0.3666,
+    "n_villages_sharing_cell": 42
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3755,
+  "sm_surface_stddev": 0.0068,
+  "n_blocks": 4
+ },
+ "blocks": [
+  {
+   "block_name": "Amguri",
+   "sdcode": 2072,
+   "n_villages": 111,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.3645,
+   "sm_surface_stddev": 0.0159
+  },
+  {
+   "block_name": "Dimow",
+   "sdcode": 2070,
+   "n_villages": 162,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.3829,
+   "sm_surface_stddev": 0.0125
+  },
+  {
+   "block_name": "Nazira",
+   "sdcode": 2073,
+   "n_villages": 127,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.3772,
+   "sm_surface_stddev": 0.0142
+  },
+  {
+   "block_name": "Sibsagar",
+   "sdcode": 2071,
+   "n_villages": 139,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.3775,
+   "sm_surface_stddev": 0.011
+  }
+ ],
+ "villages": {
+  "292472": [
+   "Kalmow N C",
+   2070,
+   12
+  ],
+  "292443": [
+   "Nowpara",
+   2070,
+   14
+  ],
+  "292456": [
+   "Bordoloni N C",
+   2070,
+   12
+  ],
+  "292604": [
+   "Dibrual Chowdang",
+   2071,
+   1
+  ],
+  "292602": [
+   "Maj Nora",
+   2071,
+   5
+  ],
+  "292603": [
+   "Nora Knower Bailung",
+   2071,
+   5
+  ],
+  "292601": [
+   "Bhitarual Nora Gaon",
+   2071,
+   5
+  ],
+  "292600": [
+   "Mout Ghar Pholia",
+   2071,
+   5
+  ],
+  "292590": [
+   "Mout Ghar Pholia",
+   2071,
+   5
+  ],
+  "292599": [
+   "Khar Khori",
+   2071,
+   5
+  ],
+  "292589": [
+   "Tipomia",
+   2071,
+   5
+  ],
+  "292588": [
+   "Chintamoni Garh",
+   2071,
+   5
+  ],
+  "292580": [
+   "Cintamonigarh",
+   2071,
+   5
+  ],
+  "292583": [
+   "Rupahimukh Miri",
+   2071,
+   5
+  ],
+  "292581": [
+   "Motiori P G R",
+   2071,
+   5
+  ],
+  "292582": [
+   "Rupahimukh Miri",
+   2071,
+   5
+  ],
+  "292585": [
+   "Rupahimukh Kumar",
+   2071,
+   5
+  ],
+  "292593": [
+   "Telia Dunga",
+   2071,
+   8
+  ],
+  "292594": [
+   "Jan Miri Bor Gaon",
+   2071,
+   8
+  ],
+  "292596": [
+   "Bharalura",
+   2071,
+   8
+  ],
+  "292595": [
+   "Goyal Goyan",
+   2071,
+   8
+  ],
+  "292591": [
+   "Na Pam Bokajan",
+   2071,
+   5
+  ],
+  "292587": [
+   "Charai Duba",
+   2071,
+   5
+  ],
+  "292586": [
+   "Telia Dunga N C",
+   2071,
+   5
+  ],
+  "292592": [
+   "Maglo Pukhuri",
+   2071,
+   5
+  ],
+  "292597": [
+   "Na Katani Kalu Gaon",
+   2071,
+   8
+  ],
+  "292632": [
+   "Bhecheli Mari",
+   2071,
+   8
+  ],
+  "292633": [
+   "Gotonga Pathar",
+   2071,
+   8
+  ],
+  "292635": [
+   "Jagara Habi",
+   2071,
+   8
+  ],
+  "292613": [
+   "Kharadhara",
+   2071,
+   8
+  ],
+  "292614": [
+   "Dhane Khowa",
+   2071,
+   5
+  ],
+  "292584": [
+   "Ruapahijan Block",
+   2071,
+   8
+  ],
+  "292605": [
+   "Bamun Moran",
+   2071,
+   5
+  ],
+  "292606": [
+   "Jarabari Pam",
+   2071,
+   5
+  ],
+  "292720": [
+   "Kakoti",
+   2072,
+   5
+  ],
+  "292747": [
+   "Baruati",
+   2072,
+   5
+  ],
+  "292746": [
+   "Chaliha Kakoti",
+   2072,
+   5
+  ],
+  "292748": [
+   "Charingia",
+   2072,
+   5
+  ],
+  "292749": [
+   "Dulia Puranimelia",
+   2072,
+   1
+  ],
+  "292750": [
+   "Khatual",
+   2072,
+   1
+  ],
+  "292757": [
+   "Jaradhara",
+   2072,
+   1
+  ],
+  "292752": [
+   "Balamia Chawdang",
+   2072,
+   1
+  ],
+  "292754": [
+   "Lephera Chawdang",
+   2072,
+   1
+  ],
+  "292755": [
+   "Dhekial",
+   2072,
+   1
+  ],
+  "292753": [
+   "Ratanpuria",
+   2072,
+   1
+  ],
+  "292751": [
+   "Abhoipuria",
+   2072,
+   1
+  ],
+  "292756": [
+   "Mora Pukhuri",
+   2072,
+   1
+  ],
+  "292759": [
+   "Mantania",
+   2072,
+   1
+  ],
+  "292760": [
+   "Jehenia",
+   2072,
+   2
+  ],
+  "292758": [
+   "Tepor",
+   2072,
+   1
+  ],
+  "292743": [
+   "Telial",
+   2072,
+   5
+  ],
+  "292744": [
+   "Gajpuria",
+   2072,
+   5
+  ],
+  "292745": [
+   "Bogaguhain",
+   2072,
+   5
+  ],
+  "292740": [
+   "Garkakharia",
+   2072,
+   6
+  ],
+  "292742": [
+   "Guhain",
+   2072,
+   6
+  ],
+  "292741": [
+   "Namtial",
+   2072,
+   6
+  ],
+  "292739": [
+   "Chirakhunda",
+   2072,
+   6
+  ],
+  "292738": [
+   "Bharaluwa",
+   2072,
+   6
+  ],
+  "292762": [
+   "Belimukhia",
+   2072,
+   2
+  ],
+  "292764": [
+   "Khemdoi Pukhuri",
+   2072,
+   6
+  ],
+  "292734": [
+   "Namtial",
+   2072,
+   6
+  ],
+  "292733": [
+   "Lunpuria",
+   2072,
+   6
+  ],
+  "292735": [
+   "Kukura Chuwa",
+   2072,
+   6
+  ],
+  "292736": [
+   "Sensuwa",
+   2072,
+   6
+  ],
+  "292761": [
+   "Chamaguri",
+   2072,
+   2
+  ],
+  "292765": [
+   "Mout",
+   2072,
+   2
+  ],
+  "292766": [
+   "Khanikor",
+   2072,
+   2
+  ],
+  "292767": [
+   "Parbatia",
+   2072,
+   6
+  ],
+  "292768": [
+   "Ganak",
+   2072,
+   6
+  ],
+  "292769": [
+   "Abhoipuria",
+   2072,
+   7
+  ],
+  "292776": [
+   "Gadhuli Bazar Chawdang",
+   2072,
+   1
+  ],
+  "292775": [
+   "Sunuwal",
+   2072,
+   1
+  ],
+  "292773": [
+   "Deodhai",
+   2072,
+   1
+  ],
+  "292777": [
+   "Bhuyan Hat Nowboisa",
+   2072,
+   1
+  ],
+  "292779": [
+   "Raidongia",
+   2072,
+   1
+  ],
+  "249906": [
+   "Amguri",
+   2072,
+   1
+  ],
+  "292784": [
+   "Barbam Grant",
+   2072,
+   1
+  ],
+  "292778": [
+   "Bhuyan Gaon",
+   2072,
+   1
+  ],
+  "292774": [
+   "Khanikor",
+   2072,
+   1
+  ],
+  "292780": [
+   "Changmai Konwar",
+   2072,
+   1
+  ],
+  "292772": [
+   "Hatimuria Gharphalia",
+   2072,
+   1
+  ],
+  "292781": [
+   "Gharphalia Japihajia",
+   2072,
+   1
+  ],
+  "292771": [
+   "Uttar Gharphalia",
+   2072,
+   2
+  ],
+  "292770": [
+   "Lalimchiga Chapori",
+   2072,
+   2
+  ],
+  "292804": [
+   "Natun Changmai",
+   2072,
+   2
+  ],
+  "292803": [
+   "Mout",
+   2072,
+   2
+  ],
+  "292801": [
+   "Barsayak Dibrual",
+   2072,
+   2
+  ],
+  "292800": [
+   "Bosasayak Dibrual",
+   2072,
+   2
+  ],
+  "292798": [
+   "Kachari",
+   2072,
+   2
+  ],
+  "292796": [
+   "Sumdar",
+   2072,
+   2
+  ],
+  "292794": [
+   "Julagaon",
+   2072,
+   2
+  ],
+  "292795": [
+   "Perabhari",
+   2072,
+   2
+  ],
+  "292813": [
+   "Chariali",
+   2072,
+   2
+  ],
+  "292797": [
+   "Morankari",
+   2072,
+   2
+  ],
+  "292799": [
+   "Bailung",
+   2072,
+   2
+  ],
+  "292814": [
+   "Kumar",
+   2072,
+   2
+  ],
+  "292815": [
+   "Dhadumia",
+   2072,
+   2
+  ],
+  "292812": [
+   "Dhepor Mridongia",
+   2072,
+   2
+  ],
+  "292802": [
+   "Purani Changmai",
+   2072,
+   2
+  ],
+  "292810": [
+   "Gharphalia",
+   2072,
+   2
+  ],
+  "292805": [
+   "Kukura Chowanara",
+   2072,
+   2
+  ],
+  "292788": [
+   "Aboipuria Nara",
+   2072,
+   2
+  ],
+  "292782": [
+   "Baruah Pukhuri Chah",
+   2072,
+   1
+  ],
+  "292783": [
+   "Dulia Charal",
+   2072,
+   1
+  ],
+  "292785": [
+   "Miri Chutia",
+   2072,
+   1
+  ],
+  "292790": [
+   "Haluadang Grant",
+   2072,
+   0
+  ],
+  "292786": [
+   "Baghjan Grant",
+   2072,
+   1
+  ],
+  "292791": [
+   "Haluating Grant",
+   2072,
+   0
+  ],
+  "292792": [
+   "Amguri Grant",
+   2072,
+   0
+  ],
+  "292793": [
+   "Ladoigar Grant",
+   2072,
+   0
+  ],
+  "292787": [
+   "Baruah Pukhuri Baghjan Grant",
+   2072,
+   2
+  ],
+  "292789": [
+   "Jaradhara",
+   2072,
+   2
+  ],
+  "292825": [
+   "Ahu Grant",
+   2072,
+   0
+  ],
+  "292826": [
+   "Bandarjan Grant",
+   2072,
+   0
+  ],
+  "292807": [
+   "Bangali Gaon",
+   2072,
+   2
+  ],
+  "292806": [
+   "Burha Gaon",
+   2072,
+   2
+  ],
+  "292809": [
+   "Dum Gaon",
+   2072,
+   2
+  ],
+  "292811": [
+   "Senchoa",
+   2072,
+   2
+  ],
+  "292818": [
+   "Bolimara Karchua",
+   2072,
+   2
+  ],
+  "292808": [
+   "Tiphuk Chah Bagisha",
+   2072,
+   2
+  ],
+  "292819": [
+   "Namti Bangali Borgohain",
+   2072,
+   2
+  ],
+  "292816": [
+   "Dulia",
+   2072,
+   2
+  ],
+  "292817": [
+   "Lunpuria",
+   2072,
+   2
+  ],
+  "292823": [
+   "Deopani Bagisha",
+   2072,
+   2
+  ],
+  "292824": [
+   "Deopani Patta",
+   2072,
+   2
+  ],
+  "292821": [
+   "Namti Grant",
+   2072,
+   0
+  ],
+  "292820": [
+   "Borsila Grant",
+   2072,
+   0
+  ],
+  "292827": [
+   "Tiphuk Grant",
+   2072,
+   0
+  ],
+  "292895": [
+   "Jogi Sotokia",
+   2073,
+   6
+  ],
+  "292887": [
+   "Kowamora Athabari Grant",
+   2073,
+   6
+  ],
+  "292885": [
+   "Borakhowa",
+   2073,
+   7
+  ],
+  "292893": [
+   "Bor Gohain",
+   2073,
+   7
+  ],
+  "292892": [
+   "Maduri Gohain",
+   2073,
+   7
+  ],
+  "292883": [
+   "Bhakat Gaon",
+   2073,
+   7
+  ],
+  "292874": [
+   "Niz Nazira",
+   2073,
+   7
+  ],
+  "292886": [
+   "Maduri Chah Bagicha",
+   2073,
+   7
+  ],
+  "292884": [
+   "Kataki Bari",
+   2073,
+   7
+  ],
+  "292829": [
+   "Abhoypuria Gaon",
+   2073,
+   2
+  ],
+  "292830": [
+   "Chetia Katoni",
+   2073,
+   2
+  ],
+  "292831": [
+   "Hudupora",
+   2073,
+   3
+  ],
+  "292940": [
+   "Hatsoi Grant Ii",
+   2073,
+   3
+  ],
+  "292873": [
+   "Hatsoi Grant I",
+   2073,
+   3
+  ],
+  "292882": [
+   "Reboti Gaon",
+   2073,
+   7
+  ],
+  "292881": [
+   "Kopohua",
+   2073,
+   7
+  ],
+  "292871": [
+   "Hulang Katoni",
+   2073,
+   7
+  ],
+  "292877": [
+   "Joykhamdang Khat Gaon",
+   2073,
+   7
+  ],
+  "292833": [
+   "Missamora",
+   2073,
+   2
+  ],
+  "292834": [
+   "Namdongia",
+   2073,
+   2
+  ],
+  "292835": [
+   "Deopani Gohain",
+   2073,
+   2
+  ],
+  "292832": [
+   "Deogharia Duwarah",
+   2073,
+   3
+  ],
+  "292837": [
+   "Na Pam Baruoti",
+   2073,
+   3
+  ],
+  "292836": [
+   "Dolakakhoria Bam",
+   2073,
+   3
+  ],
+  "292838": [
+   "Chutia",
+   2073,
+   3
+  ],
+  "292841": [
+   "Atkhal Grant No I",
+   2073,
+   3
+  ],
+  "292848": [
+   "Gohain Gaon",
+   2073,
+   3
+  ],
+  "292840": [
+   "Atkhal Grant No Ii",
+   2073,
+   3
+  ],
+  "292842": [
+   "Smithpur Grant",
+   2073,
+   3
+  ],
+  "292952": [
+   "Geleki Reserve Forest",
+   2073,
+   3
+  ],
+  "292845": [
+   "Geleki Grant",
+   2073,
+   3
+  ],
+  "292822": [
+   "Deopani Grant",
+   2072,
+   2
+  ],
+  "292839": [
+   "Deopani Grant",
+   2073,
+   3
+  ],
+  "292843": [
+   "Hatigorh",
+   2073,
+   3
+  ],
+  "292763": [
+   "Namti Pathar",
+   2072,
+   6
+  ],
+  "292828": [
+   "Geleki Reserve Forest",
+   2073,
+   0
+  ],
+  "292737": [
+   "Ghurachuwa Kumar",
+   2072,
+   6
+  ],
+  "292872": [
+   "Bhabachuk Gaon",
+   2073,
+   7
+  ],
+  "292875": [
+   "Likson",
+   2073,
+   7
+  ],
+  "249907": [
+   "Nazira",
+   2073,
+   7
+  ],
+  "292898": [
+   "Bali Gaon",
+   2073,
+   7
+  ],
+  "292897": [
+   "Pohuchungi Deodhai",
+   2073,
+   7
+  ],
+  "253214": [
+   "Simaluguri",
+   2073,
+   7
+  ],
+  "292896": [
+   "Luthuri Gaon",
+   2073,
+   7
+  ],
+  "292899": [
+   "Bailung Gaon",
+   2073,
+   7
+  ],
+  "292901": [
+   "Soladhora",
+   2073,
+   7
+  ],
+  "292900": [
+   "Tipomia",
+   2073,
+   7
+  ],
+  "292902": [
+   "Bangmuria Konwar",
+   2073,
+   7
+  ],
+  "292903": [
+   "Chetia Handique",
+   2073,
+   7
+  ],
+  "292904": [
+   "Pator Gaon",
+   2073,
+   4
+  ],
+  "292846": [
+   "Geleki Jungle",
+   2073,
+   3
+  ],
+  "292920": [
+   "Belang Bari",
+   2073,
+   4
+  ],
+  "292917": [
+   "Mohan",
+   2073,
+   4
+  ],
+  "292918": [
+   "Nimaigorh Habi",
+   2073,
+   4
+  ],
+  "292942": [
+   "Lengibor Grant",
+   2073,
+   4
+  ],
+  "292944": [
+   "Bokupukhuri Habi",
+   2073,
+   4
+  ],
+  "292931": [
+   "Gohain",
+   2073,
+   4
+  ],
+  "292913": [
+   "Grant",
+   2073,
+   4
+  ],
+  "292911": [
+   "Grant",
+   2073,
+   4
+  ],
+  "292910": [
+   "Sontok Grant",
+   2073,
+   4
+  ],
+  "292912": [
+   "Adaboria Handique",
+   2073,
+   4
+  ],
+  "292914": [
+   "Na Gaon",
+   2073,
+   4
+  ],
+  "292876": [
+   "Chanbosa Handique",
+   2073,
+   7
+  ],
+  "292865": [
+   "Gohain Handique",
+   2073,
+   7
+  ],
+  "292870": [
+   "Mout Gaon",
+   2073,
+   7
+  ],
+  "292869": [
+   "Methon Chowa Gohain",
+   2073,
+   3
+  ],
+  "292868": [
+   "Hulal Kalita",
+   2073,
+   4
+  ],
+  "292907": [
+   "Bogdoi",
+   2073,
+   4
+  ],
+  "292905": [
+   "Miri Gaon",
+   2073,
+   4
+  ],
+  "292906": [
+   "Changdhora",
+   2073,
+   4
+  ],
+  "292908": [
+   "Garmur Miri",
+   2073,
+   4
+  ],
+  "292909": [
+   "Owguri Jan",
+   2073,
+   4
+  ],
+  "292861": [
+   "Borgohain",
+   2073,
+   4
+  ],
+  "292867": [
+   "Bamun Pukhuri Chah Bagicha",
+   2073,
+   4
+  ],
+  "292866": [
+   "Nirmolia Gaon",
+   2073,
+   4
+  ],
+  "292862": [
+   "Methonchowa Grant",
+   2073,
+   4
+  ],
+  "292863": [
+   "Phuloni Bari",
+   2073,
+   3
+  ],
+  "292864": [
+   "Halua Gaon",
+   2073,
+   3
+  ],
+  "292849": [
+   "Hatipoti Grant",
+   2073,
+   3
+  ],
+  "292858": [
+   "Methonchowa Gaon",
+   2073,
+   4
+  ],
+  "292854": [
+   "Rojabheta Lakhimijan Grant",
+   2073,
+   4
+  ],
+  "292860": [
+   "Rojabheta",
+   2073,
+   4
+  ],
+  "292859": [
+   "Bihubor Grant",
+   2073,
+   4
+  ],
+  "292857": [
+   "Handique",
+   2073,
+   4
+  ],
+  "292852": [
+   "Kachari",
+   2073,
+   3
+  ],
+  "292850": [
+   "Harkina Grant",
+   2073,
+   3
+  ],
+  "292851": [
+   "Asalabari Gaon",
+   2073,
+   3
+  ],
+  "292844": [
+   "Geleki Grant",
+   2073,
+   3
+  ],
+  "292856": [
+   "Adpuria",
+   2073,
+   3
+  ],
+  "292847": [
+   "Moran Gaon",
+   2073,
+   3
+  ],
+  "292853": [
+   "Lahon",
+   2073,
+   3
+  ],
+  "292855": [
+   "Rojabheta Grant",
+   2073,
+   3
+  ],
+  "292941": [
+   "Bakupukhuri Habi",
+   2073,
+   4
+  ],
+  "292938": [
+   "Changmai",
+   2073,
+   4
+  ],
+  "292922": [
+   "Khula Khowa Pothar",
+   2073,
+   4
+  ],
+  "292943": [
+   "Grant Lower Namsai",
+   2073,
+   4
+  ],
+  "292501": [
+   "Raichai",
+   2070,
+   13
+  ],
+  "292504": [
+   "Dehajan Habi",
+   2070,
+   13
+  ],
+  "292511": [
+   "Chandamonda Changmai",
+   2070,
+   13
+  ],
+  "292512": [
+   "Kathalbari",
+   2070,
+   13
+  ],
+  "292513": [
+   "Bhaluka Guri",
+   2070,
+   11
+  ],
+  "292503": [
+   "Bhekelai",
+   2070,
+   13
+  ],
+  "292502": [
+   "Konwar",
+   2070,
+   13
+  ],
+  "292507": [
+   "Ekarani Grant",
+   2070,
+   13
+  ],
+  "292521": [
+   "Loguwa Bari",
+   2070,
+   13
+  ],
+  "292522": [
+   "Kachari Pathar",
+   2070,
+   13
+  ],
+  "292523": [
+   "Dhundar Mukh",
+   2070,
+   13
+  ],
+  "292533": [
+   "Dhyan Pathar",
+   2070,
+   13
+  ],
+  "292532": [
+   "Jiyamari",
+   2070,
+   13
+  ],
+  "292474": [
+   "Dighali Pathar",
+   2070,
+   12
+  ],
+  "292531": [
+   "Palengi P G R",
+   2070,
+   12
+  ],
+  "292530": [
+   "Bokul Duba",
+   2070,
+   9
+  ],
+  "292529": [
+   "Charaguwa Gaon",
+   2070,
+   12
+  ],
+  "292524": [
+   "Chamorajan",
+   2070,
+   12
+  ],
+  "292528": [
+   "Charaguwa Grant",
+   2070,
+   12
+  ],
+  "292526": [
+   "Demowmukh Gohain",
+   2070,
+   12
+  ],
+  "292527": [
+   "Majumelia",
+   2070,
+   12
+  ],
+  "292505": [
+   "Demow Grant",
+   2070,
+   13
+  ],
+  "292515": [
+   "Khongia Grant",
+   2070,
+   13
+  ],
+  "292506": [
+   "Kaliyapani Grant",
+   2070,
+   13
+  ],
+  "292510": [
+   "Athabari Grant",
+   2070,
+   13
+  ],
+  "292548": [
+   "Barbam Block",
+   2070,
+   13
+  ],
+  "292514": [
+   "Kathal Guri Block",
+   2070,
+   11
+  ],
+  "292547": [
+   "Deroi Habi",
+   2070,
+   11
+  ],
+  "292549": [
+   "Amulaguri Bagisa",
+   2070,
+   11
+  ],
+  "292551": [
+   "Salaguri Bagisa",
+   2070,
+   11
+  ],
+  "292550": [
+   "Mahkhuti Grant",
+   2070,
+   11
+  ],
+  "292552": [
+   "Japishajia Deodhai",
+   2070,
+   11
+  ],
+  "292565": [
+   "Boreodhai",
+   2070,
+   11
+  ],
+  "292564": [
+   "Nakatani",
+   2070,
+   11
+  ],
+  "292566": [
+   "Hondique",
+   2070,
+   11
+  ],
+  "292577": [
+   "Farbandhia Kahar",
+   2070,
+   11
+  ],
+  "292579": [
+   "Pathalial Koibatta",
+   2070,
+   11
+  ],
+  "292578": [
+   "Jalukani Bill",
+   2070,
+   11
+  ],
+  "292573": [
+   "Nongala Mora",
+   2070,
+   11
+  ],
+  "292576": [
+   "Konwar",
+   2070,
+   11
+  ],
+  "292575": [
+   "Kukura Chowa",
+   2070,
+   11
+  ],
+  "292574": [
+   "Barapial",
+   2070,
+   11
+  ],
+  "292572": [
+   "Borbil",
+   2070,
+   10
+  ],
+  "292571": [
+   "Dihingia",
+   2070,
+   10
+  ],
+  "292570": [
+   "Jobalating",
+   2070,
+   11
+  ],
+  "292569": [
+   "Gohain Gaon",
+   2070,
+   11
+  ],
+  "292567": [
+   "Dimoru Guriya",
+   2070,
+   11
+  ],
+  "292560": [
+   "Khamun",
+   2070,
+   10
+  ],
+  "292542": [
+   "Desang Deroi Habi",
+   2070,
+   10
+  ],
+  "292537": [
+   "Koiborta Dalani",
+   2070,
+   10
+  ],
+  "292539": [
+   "Sorupalengi",
+   2070,
+   10
+  ],
+  "292538": [
+   "Haluwating",
+   2070,
+   10
+  ],
+  "292534": [
+   "Kesuwani",
+   2070,
+   13
+  ],
+  "292535": [
+   "Araltali",
+   2070,
+   13
+  ],
+  "292536": [
+   "Da Dhara Grant",
+   2070,
+   13
+  ],
+  "292509": [
+   "Bangali Gaon",
+   2070,
+   13
+  ],
+  "292520": [
+   "Rajmai Grant",
+   2070,
+   13
+  ],
+  "292517": [
+   "Chetia",
+   2070,
+   13
+  ],
+  "292518": [
+   "Hiloidari",
+   2070,
+   13
+  ],
+  "292516": [
+   "Mashoi",
+   2070,
+   13
+  ],
+  "292546": [
+   "Ketela Chowa",
+   2070,
+   11
+  ],
+  "292562": [
+   "Patia Gaon",
+   2070,
+   11
+  ],
+  "292554": [
+   "Charal Pathar",
+   2070,
+   11
+  ],
+  "292553": [
+   "Chandbecha",
+   2070,
+   11
+  ],
+  "292563": [
+   "Bhokat",
+   2070,
+   11
+  ],
+  "292555": [
+   "Deoriting Grant",
+   2070,
+   11
+  ],
+  "292556": [
+   "Fekelani Habi",
+   2070,
+   10
+  ],
+  "292545": [
+   "Barderoi",
+   2070,
+   10
+  ],
+  "292519": [
+   "Khorahat Grant",
+   2070,
+   10
+  ],
+  "292540": [
+   "Japisagiya Gaon",
+   2070,
+   10
+  ],
+  "292541": [
+   "Rajabari Bagisa",
+   2070,
+   10
+  ],
+  "292543": [
+   "Rajan Bagan",
+   2070,
+   10
+  ],
+  "292544": [
+   "Saru Deroi",
+   2070,
+   10
+  ],
+  "292557": [
+   "Khanikar",
+   2070,
+   10
+  ],
+  "292558": [
+   "Konwar",
+   2070,
+   10
+  ],
+  "292559": [
+   "Ekoratoli",
+   2070,
+   10
+  ],
+  "292469": [
+   "Debapur",
+   2070,
+   13
+  ],
+  "292470": [
+   "Rupapur",
+   2070,
+   13
+  ],
+  "292471": [
+   "Chigadubi",
+   2070,
+   13
+  ],
+  "249905": [
+   "Sibsagar",
+   2071,
+   9
+  ],
+  "292608": [
+   "Patura Chala",
+   2071,
+   5
+  ],
+  "292609": [
+   "Hati Ghuli",
+   2071,
+   5
+  ],
+  "292607": [
+   "Dighali Jan",
+   2071,
+   5
+  ],
+  "292610": [
+   "Khula Grazing",
+   2071,
+   5
+  ],
+  "292611": [
+   "Khula Grazing",
+   2071,
+   5
+  ],
+  "292636": [
+   "Cital Dubi",
+   2071,
+   8
+  ],
+  "292637": [
+   "Afala",
+   2071,
+   8
+  ],
+  "292657": [
+   "Ligri Bari N C",
+   2071,
+   8
+  ],
+  "292656": [
+   "Gar Bhanga",
+   2071,
+   8
+  ],
+  "292658": [
+   "Ali Chiga",
+   2071,
+   8
+  ],
+  "292659": [
+   "Bolama Miri",
+   2071,
+   12
+  ],
+  "292660": [
+   "Bolama Koiborta",
+   2071,
+   9
+  ],
+  "292661": [
+   "Ajar Guri",
+   2071,
+   9
+  ],
+  "292676": [
+   "Lepai",
+   2071,
+   9
+  ],
+  "292677": [
+   "Dighal Doriali",
+   2071,
+   9
+  ],
+  "292679": [
+   "Dimow Mukh",
+   2071,
+   9
+  ],
+  "292680": [
+   "Motha Dang",
+   2071,
+   9
+  ],
+  "292681": [
+   "Charul Kora",
+   2071,
+   9
+  ],
+  "292697": [
+   "Akhoi Phutia",
+   2071,
+   9
+  ],
+  "292717": [
+   "Konwar",
+   2071,
+   7
+  ],
+  "292716": [
+   "Kataki Kush",
+   2071,
+   10
+  ],
+  "292715": [
+   "Dimoral",
+   2071,
+   7
+  ],
+  "292714": [
+   "Kheluwa",
+   2071,
+   10
+  ],
+  "292713": [
+   "Mout Gaon",
+   2071,
+   10
+  ],
+  "292712": [
+   "Chengli Bari",
+   2071,
+   10
+  ],
+  "292705": [
+   "Chetia Koiboria",
+   2071,
+   10
+  ],
+  "292706": [
+   "Da Gaon",
+   2071,
+   10
+  ],
+  "292711": [
+   "Borpatra Gohain",
+   2071,
+   10
+  ],
+  "292710": [
+   "Gondhia",
+   2071,
+   10
+  ],
+  "292709": [
+   "Duwari Gaon",
+   2071,
+   10
+  ],
+  "292708": [
+   "Bhadhara",
+   2071,
+   10
+  ],
+  "292707": [
+   "Tamuli Phukhuri",
+   2071,
+   10
+  ],
+  "292702": [
+   "Nimai Jan",
+   2071,
+   10
+  ],
+  "292641": [
+   "Jagara Hati",
+   2071,
+   8
+  ],
+  "292655": [
+   "Ligri Bari",
+   2071,
+   8
+  ],
+  "292639": [
+   "Cheni Mora",
+   2071,
+   8
+  ],
+  "292675": [
+   "Longcai Habi",
+   2071,
+   9
+  ],
+  "292678": [
+   "Kopowting",
+   2071,
+   9
+  ],
+  "292674": [
+   "Bagal Habi",
+   2071,
+   9
+  ],
+  "292683": [
+   "Dhulia Habi",
+   2071,
+   9
+  ],
+  "292682": [
+   "Barhoiting",
+   2071,
+   9
+  ],
+  "292684": [
+   "Banmukh Dihingia",
+   2071,
+   9
+  ],
+  "292664": [
+   "Dhopaboria",
+   2071,
+   9
+  ],
+  "292673": [
+   "Patar Chetia",
+   2071,
+   9
+  ],
+  "292704": [
+   "Kotonipar",
+   2071,
+   10
+  ],
+  "292696": [
+   "Joyapar",
+   2071,
+   9
+  ],
+  "292698": [
+   "Kowamora Hondique",
+   2071,
+   9
+  ],
+  "292699": [
+   "Merbill",
+   2071,
+   10
+  ],
+  "292703": [
+   "Luthuri Chetia",
+   2071,
+   10
+  ],
+  "292700": [
+   "Changmai Gaon",
+   2071,
+   9
+  ],
+  "292695": [
+   "Gohain Gaon",
+   2071,
+   9
+  ],
+  "292694": [
+   "Nowjan",
+   2071,
+   9
+  ],
+  "292701": [
+   "Konwer Gaon",
+   2071,
+   10
+  ],
+  "292685": [
+   "Banmukh Chutia",
+   2071,
+   9
+  ],
+  "292671": [
+   "Kath Para",
+   2071,
+   9
+  ],
+  "292672": [
+   "Matok Gohain",
+   2071,
+   9
+  ],
+  "292670": [
+   "Mout Bari",
+   2071,
+   9
+  ],
+  "292665": [
+   "Sala Pathar",
+   2071,
+   9
+  ],
+  "292663": [
+   "Panbecha",
+   2071,
+   9
+  ],
+  "292662": [
+   "Tati Pathar",
+   2071,
+   9
+  ],
+  "292653": [
+   "Gara Kush",
+   2071,
+   9
+  ],
+  "292666": [
+   "Molia Bheta",
+   2071,
+   9
+  ],
+  "292651": [
+   "Nowjan",
+   2071,
+   8
+  ],
+  "292687": [
+   "Pachi Pathar",
+   2071,
+   9
+  ],
+  "292691": [
+   "Deoulia Khat",
+   2071,
+   9
+  ],
+  "292690": [
+   "Bailung Pathar",
+   2071,
+   9
+  ],
+  "292688": [
+   "Kamar Phodia",
+   2071,
+   9
+  ],
+  "292668": [
+   "Chaul Kora",
+   2071,
+   9
+  ],
+  "292650": [
+   "Kari Gaon",
+   2071,
+   9
+  ],
+  "292652": [
+   "Nowjan Block",
+   2071,
+   8
+  ],
+  "292640": [
+   "Dighali Habi",
+   2071,
+   8
+  ],
+  "292598": [
+   "Khuka Grazing",
+   2071,
+   5
+  ],
+  "292612": [
+   "Mitong Nakatani",
+   2071,
+   5
+  ],
+  "292642": [
+   "Gosh Kota",
+   2071,
+   8
+  ],
+  "292615": [
+   "Dicial Gaon",
+   2071,
+   5
+  ],
+  "292616": [
+   "Namdongia Bongali",
+   2071,
+   5
+  ],
+  "292646": [
+   "Phakum Kumar Phodia",
+   2071,
+   5
+  ],
+  "292645": [
+   "Sungia",
+   2071,
+   5
+  ],
+  "292644": [
+   "Sri Puria",
+   2071,
+   5
+  ],
+  "292643": [
+   "Boka Bill",
+   2071,
+   8
+  ],
+  "292647": [
+   "Koi Jan",
+   2071,
+   5
+  ],
+  "292617": [
+   "Pathalial",
+   2071,
+   5
+  ],
+  "292649": [
+   "Bolia Ghat",
+   2071,
+   5
+  ],
+  "292618": [
+   "Bhatiapara",
+   2071,
+   6
+  ],
+  "292619": [
+   "Bon Gaon",
+   2071,
+   6
+  ],
+  "292620": [
+   "Sensowa",
+   2071,
+   6
+  ],
+  "292621": [
+   "Lahingia",
+   2071,
+   6
+  ],
+  "292622": [
+   "Rupahi Bill",
+   2071,
+   6
+  ],
+  "292623": [
+   "Motha Dang",
+   2071,
+   9
+  ],
+  "292624": [
+   "Rupahi Pathar",
+   2071,
+   6
+  ],
+  "292626": [
+   "Jula Goan",
+   2071,
+   6
+  ],
+  "292625": [
+   "Dicial Dhulia Gaon",
+   2071,
+   6
+  ],
+  "292627": [
+   "Na Bhangia",
+   2071,
+   6
+  ],
+  "292629": [
+   "Meteka Pathar",
+   2071,
+   6
+  ],
+  "292631": [
+   "Haluwa Bhakot",
+   2071,
+   7
+  ],
+  "292630": [
+   "Kurula Kotia",
+   2071,
+   7
+  ],
+  "292628": [
+   "Sala Guria",
+   2071,
+   6
+  ],
+  "292689": [
+   "Arjun Guri",
+   2071,
+   9
+  ],
+  "292693": [
+   "Khata Pathar",
+   2071,
+   9
+  ],
+  "292731": [
+   "Bez Gaon",
+   2072,
+   6
+  ],
+  "292730": [
+   "Demow Pathar",
+   2072,
+   6
+  ],
+  "292727": [
+   "Joysagar",
+   2072,
+   6
+  ],
+  "292724": [
+   "Rudra Sagar",
+   2072,
+   6
+  ],
+  "292723": [
+   "Aila Mukh Habi",
+   2072,
+   6
+  ],
+  "292722": [
+   "Namdang Kumar",
+   2072,
+   5
+  ],
+  "292718": [
+   "Phukan Phadia",
+   2072,
+   5
+  ],
+  "292719": [
+   "Singi Bil",
+   2072,
+   5
+  ],
+  "292473": [
+   "Moridesang N C",
+   2070,
+   12
+  ],
+  "292525": [
+   "Fekalai Block",
+   2070,
+   12
+  ],
+  "292667": [
+   "Gohain Pathar",
+   2071,
+   9
+  ],
+  "292648": [
+   "Sesur Khowa",
+   2071,
+   8
+  ],
+  "292721": [
+   "Guhainkur",
+   2072,
+   5
+  ],
+  "292725": [
+   "Jerenga Habi",
+   2072,
+   6
+  ],
+  "292726": [
+   "Chetia Changmai",
+   2072,
+   6
+  ],
+  "292728": [
+   "Deolia Gayan",
+   2072,
+   6
+  ],
+  "292729": [
+   "Barpatra Dol Kalugaon",
+   2072,
+   6
+  ],
+  "292732": [
+   "Salaguri",
+   2072,
+   6
+  ],
+  "292936": [
+   "Hatimuria",
+   2073,
+   10
+  ],
+  "292937": [
+   "Khalua",
+   2073,
+   10
+  ],
+  "292939": [
+   "Singha Duwar Grant",
+   2073,
+   7
+  ],
+  "292915": [
+   "Upper Namchai",
+   2073,
+   7
+  ],
+  "292934": [
+   "Bailung Chetia",
+   2073,
+   7
+  ],
+  "292935": [
+   "Chetia",
+   2073,
+   7
+  ],
+  "292928": [
+   "Labang",
+   2073,
+   7
+  ],
+  "292930": [
+   "Dhakeri",
+   2073,
+   7
+  ],
+  "292927": [
+   "Lonkam Gohain",
+   2073,
+   7
+  ],
+  "292929": [
+   "Lutum",
+   2073,
+   7
+  ],
+  "292932": [
+   "Jathipotia",
+   2073,
+   7
+  ],
+  "292933": [
+   "Moiramora Handique",
+   2073,
+   7
+  ],
+  "292925": [
+   "Sunpora Gohain",
+   2073,
+   7
+  ],
+  "292926": [
+   "Kujibali Habi",
+   2073,
+   7
+  ],
+  "292924": [
+   "Sunpora Habi",
+   2073,
+   7
+  ],
+  "292890": [
+   "Bura Gohain",
+   2073,
+   7
+  ],
+  "292888": [
+   "Mothia Chiga Gohain",
+   2073,
+   7
+  ],
+  "292879": [
+   "Naw Holia Gaon",
+   2073,
+   7
+  ],
+  "292889": [
+   "Mechagorh Gohain",
+   2073,
+   7
+  ],
+  "292880": [
+   "Dihingia",
+   2073,
+   7
+  ],
+  "292894": [
+   "Amkotia Gohain",
+   2073,
+   6
+  ],
+  "292891": [
+   "Mola Gaon",
+   2073,
+   7
+  ],
+  "292878": [
+   "Na Mati Gaon",
+   2073,
+   7
+  ],
+  "292916": [
+   "Lahon Gaon",
+   2073,
+   4
+  ],
+  "292951": [
+   "Maibela Grant Elec Power Project",
+   2073,
+   11
+  ],
+  "292950": [
+   "Mathurapur Grant",
+   2073,
+   11
+  ],
+  "292948": [
+   "Bauli Pukhuri Habi",
+   2073,
+   11
+  ],
+  "292949": [
+   "Bokupukhuri Habi",
+   2073,
+   11
+  ],
+  "292947": [
+   "Bokupukhuri Habi",
+   2073,
+   11
+  ],
+  "292946": [
+   "Bokopukhuri Habi",
+   2073,
+   11
+  ],
+  "292945": [
+   "Bokupukhuri Habi",
+   2073,
+   4
+  ],
+  "292919": [
+   "Duwara Gaon",
+   2073,
+   4
+  ],
+  "292508": [
+   "Naharani Habi",
+   2070,
+   13
+  ],
+  "292561": [
+   "Borapial Habi",
+   2070,
+   11
+  ],
+  "292568": [
+   "Chutia Katani",
+   2070,
+   11
+  ],
+  "292634": [
+   "Phukan Phodia",
+   2071,
+   8
+  ],
+  "292654": [
+   "Loraputa",
+   2071,
+   8
+  ],
+  "292686": [
+   "Dui Ali Maz",
+   2071,
+   9
+  ],
+  "292692": [
+   "Namtiyal Pathar",
+   2071,
+   9
+  ],
+  "292669": [
+   "Sensuwa",
+   2071,
+   9
+  ],
+  "292923": [
+   "Gochai Kolakhat",
+   2073,
+   4
+  ],
+  "292921": [
+   "Bamun Bari",
+   2073,
+   4
+  ],
+  "292638": [
+   "Knower Pur P G R",
+   2071,
+   8
+  ],
+  "292441": [
+   "Dehing Kalghar",
+   2070,
+   14
+  ],
+  "292440": [
+   "Teteliguri",
+   2070,
+   14
+  ],
+  "292442": [
+   "Rangadaria",
+   2070,
+   14
+  ],
+  "292475": [
+   "Lachan",
+   2070,
+   14
+  ],
+  "292436": [
+   "Rajabari N C",
+   2070,
+   14
+  ],
+  "292439": [
+   "Khalihamari",
+   2070,
+   14
+  ],
+  "292437": [
+   "Rajabari",
+   2070,
+   14
+  ],
+  "292438": [
+   "Ghalghali",
+   2070,
+   14
+  ],
+  "292428": [
+   "Borpathar",
+   2070,
+   14
+  ],
+  "292425": [
+   "Dalapani",
+   2070,
+   12
+  ],
+  "292433": [
+   "Dhaibari",
+   2070,
+   14
+  ],
+  "292434": [
+   "Singiani",
+   2070,
+   14
+  ],
+  "292435": [
+   "Katiari",
+   2070,
+   14
+  ],
+  "292448": [
+   "Samuguri",
+   2070,
+   14
+  ],
+  "292447": [
+   "Khanajan",
+   2070,
+   14
+  ],
+  "292446": [
+   "Jamira",
+   2070,
+   14
+  ],
+  "292444": [
+   "Bahuabari",
+   2070,
+   14
+  ],
+  "292445": [
+   "Nemutangakur",
+   2070,
+   14
+  ],
+  "292449": [
+   "Ushapur",
+   2070,
+   14
+  ],
+  "292452": [
+   "Udaipur",
+   2070,
+   14
+  ],
+  "292429": [
+   "Gelapathar",
+   2070,
+   12
+  ],
+  "292430": [
+   "Tankak N C",
+   2070,
+   12
+  ],
+  "292431": [
+   "Dhundarbam N C",
+   2070,
+   12
+  ],
+  "292432": [
+   "Naharanibam",
+   2070,
+   12
+  ],
+  "292424": [
+   "Samukjan",
+   2070,
+   12
+  ],
+  "292422": [
+   "Milonkur",
+   2070,
+   12
+  ],
+  "292426": [
+   "Sapekhati Bam",
+   2070,
+   12
+  ],
+  "292455": [
+   "Sumaibil Block",
+   2070,
+   12
+  ],
+  "292454": [
+   "Borguri Block",
+   2070,
+   13
+  ],
+  "292453": [
+   "Udaipur",
+   2070,
+   13
+  ],
+  "292460": [
+   "Santipur",
+   2070,
+   13
+  ],
+  "292461": [
+   "Rudrakhabam",
+   2070,
+   13
+  ],
+  "292457": [
+   "Rupahibam",
+   2070,
+   13
+  ],
+  "292458": [
+   "Nabill",
+   2070,
+   13
+  ],
+  "292459": [
+   "Gohain Pathar",
+   2070,
+   13
+  ],
+  "292463": [
+   "Novojuwan",
+   2070,
+   13
+  ],
+  "292462": [
+   "Shatgharia",
+   2070,
+   13
+  ],
+  "292467": [
+   "Nahoranibam",
+   2070,
+   13
+  ],
+  "292466": [
+   "Lakhimi Pathar",
+   2070,
+   13
+  ],
+  "292464": [
+   "Aoraltoli",
+   2070,
+   13
+  ],
+  "292465": [
+   "Narayanpur",
+   2070,
+   13
+  ],
+  "292468": [
+   "Outala",
+   2070,
+   13
+  ],
+  "292427": [
+   "Ajarguri",
+   2070,
+   14
+  ],
+  "292423": [
+   "Kumargaon N C",
+   2070,
+   12
+  ],
+  "999999": [
+   "Panidihing R F",
+   2070,
+   14
+  ],
+  "292476": [
+   "Lai Bill",
+   2070,
+   14
+  ],
+  "292477": [
+   "Bhekuri Chapari",
+   2070,
+   14
+  ],
+  "292478": [
+   "Miripathar",
+   2070,
+   14
+  ],
+  "292479": [
+   "Ahom Pathar",
+   2070,
+   14
+  ],
+  "292481": [
+   "Garukhuti",
+   2070,
+   14
+  ],
+  "292480": [
+   "Bhatgaj",
+   2070,
+   14
+  ],
+  "292484": [
+   "Dihingia",
+   2070,
+   14
+  ],
+  "292485": [
+   "Dowarichiga",
+   2070,
+   14
+  ],
+  "292489": [
+   "Baputigarh",
+   2070,
+   14
+  ],
+  "292490": [
+   "Bogpara",
+   2070,
+   14
+  ],
+  "292491": [
+   "Dopani Pathar",
+   2070,
+   14
+  ],
+  "292494": [
+   "Deodubi",
+   2070,
+   13
+  ],
+  "292495": [
+   "Sukan Pukhuri",
+   2070,
+   13
+  ],
+  "292500": [
+   "Bagali Pathar",
+   2070,
+   13
+  ],
+  "292499": [
+   "Kenduguri",
+   2070,
+   13
+  ],
+  "292482": [
+   "Gohain Pukhuri",
+   2070,
+   14
+  ],
+  "292483": [
+   "Gohain Gaon",
+   2070,
+   14
+  ],
+  "292450": [
+   "Pahukhowa Doloni",
+   2070,
+   14
+  ],
+  "292486": [
+   "Nitai Pukhuri Gaon",
+   2070,
+   14
+  ],
+  "292487": [
+   "Paraliguri",
+   2070,
+   14
+  ],
+  "292488": [
+   "Garbhanga",
+   2070,
+   14
+  ],
+  "292492": [
+   "Bandarmari",
+   2070,
+   14
+  ],
+  "292493": [
+   "Nahatgaraimari",
+   2070,
+   13
+  ],
+  "292497": [
+   "Gamiri",
+   2070,
+   13
+  ],
+  "292496": [
+   "Chakala Pathar",
+   2070,
+   13
+  ],
+  "292451": [
+   "Nowjan Tongia",
+   2070,
+   14
+  ],
+  "292498": [
+   "Gelgeli",
+   2070,
+   13
+  ]
+ },
+ "village_count_total": 539,
+ "village_count_assigned": 539
+}

@@ -1,0 +1,2071 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Jammu & Kashmir",
+  "district": "Samba",
+  "district_lgd": 624,
+  "observation_window": "2026-08-07T11:10Z to 2026-08-12T11:10Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2704,
+  "sm_surface_stddev": 0.0352,
+  "sm_rootzone_mean": 0.2389,
+  "sm_rootzone_stddev": 0.048,
+  "n_cells": 9,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 32.4606,
+    "lon": 74.9509,
+    "sm_surface": 0.3259,
+    "sm_rootzone": 0.3148,
+    "n_villages_sharing_cell": 47
+   },
+   {
+    "cell_index": 1,
+    "lat": 32.4606,
+    "lon": 75.1486,
+    "sm_surface": 0.3155,
+    "sm_rootzone": 0.3034,
+    "n_villages_sharing_cell": 58
+   },
+   {
+    "cell_index": 2,
+    "lat": 32.5594,
+    "lon": 74.9509,
+    "sm_surface": 0.3169,
+    "sm_rootzone": 0.2994,
+    "n_villages_sharing_cell": 62
+   },
+   {
+    "cell_index": 3,
+    "lat": 32.5594,
+    "lon": 75.0498,
+    "sm_surface": 0.2525,
+    "sm_rootzone": 0.215,
+    "n_villages_sharing_cell": 62
+   },
+   {
+    "cell_index": 4,
+    "lat": 32.5594,
+    "lon": 75.1486,
+    "sm_surface": 0.2536,
+    "sm_rootzone": 0.2159,
+    "n_villages_sharing_cell": 50
+   },
+   {
+    "cell_index": 5,
+    "lat": 32.5594,
+    "lon": 75.2474,
+    "sm_surface": 0.2469,
+    "sm_rootzone": 0.2095,
+    "n_villages_sharing_cell": 35
+   },
+   {
+    "cell_index": 6,
+    "lat": 32.6583,
+    "lon": 74.9509,
+    "sm_surface": 0.2342,
+    "sm_rootzone": 0.1925,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 7,
+    "lat": 32.6583,
+    "lon": 75.0498,
+    "sm_surface": 0.2424,
+    "sm_rootzone": 0.1984,
+    "n_villages_sharing_cell": 27
+   },
+   {
+    "cell_index": 8,
+    "lat": 32.6583,
+    "lon": 75.1486,
+    "sm_surface": 0.2458,
+    "sm_rootzone": 0.2016,
+    "n_villages_sharing_cell": 25
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2805,
+  "sm_surface_stddev": 0.0271,
+  "n_blocks": 6
+ },
+ "blocks": [
+  {
+   "block_name": "Bari Brahamana",
+   "sdcode": 6720,
+   "n_villages": 29,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.2507,
+   "sm_surface_stddev": 0.0304
+  },
+  {
+   "block_name": "Ghagwal",
+   "sdcode": 6721,
+   "n_villages": 29,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.284,
+   "sm_surface_stddev": 0.0327
+  },
+  {
+   "block_name": "Rajpura",
+   "sdcode": 6719,
+   "n_villages": 34,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.3155,
+   "sm_surface_stddev": 0.0
+  },
+  {
+   "block_name": "Ramgarh",
+   "sdcode": 6724,
+   "n_villages": 104,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.316,
+   "sm_surface_stddev": 0.0188
+  },
+  {
+   "block_name": "Samba",
+   "sdcode": 82,
+   "n_villages": 147,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.2533,
+   "sm_surface_stddev": 0.0164
+  },
+  {
+   "block_name": "Vijaypur",
+   "sdcode": 6722,
+   "n_villages": 41,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.2637,
+   "sm_surface_stddev": 0.0266
+  }
+ ],
+ "villages": {
+  "6537": [
+   "Shekhu Pur",
+   6724,
+   0
+  ],
+  "6559": [
+   "Samdhu",
+   6724,
+   0
+  ],
+  "6535": [
+   "Lagwal",
+   6724,
+   0
+  ],
+  "6592": [
+   "Suchet Pur",
+   82,
+   1
+  ],
+  "6656": [
+   "Chachwal",
+   6719,
+   1
+  ],
+  "6554": [
+   "Chak Jasso",
+   6724,
+   0
+  ],
+  "6560": [
+   "Manhas Pur",
+   6724,
+   0
+  ],
+  "6575": [
+   "Nanga",
+   6724,
+   0
+  ],
+  "6577": [
+   "Majra",
+   6724,
+   0
+  ],
+  "6576": [
+   "Jagatpur",
+   6724,
+   0
+  ],
+  "6583": [
+   "Chak Abdulla",
+   6724,
+   0
+  ],
+  "6584": [
+   "Rajpur Labana",
+   6724,
+   0
+  ],
+  "6636": [
+   "Ragal",
+   6719,
+   1
+  ],
+  "6637": [
+   "Chak Feroza",
+   6719,
+   1
+  ],
+  "6638": [
+   "Paloora",
+   6719,
+   1
+  ],
+  "6654": [
+   "Chalayari Kalan",
+   6719,
+   1
+  ],
+  "6655": [
+   "Chalayari Khurd",
+   6719,
+   1
+  ],
+  "6653": [
+   "Sarthi Khurd",
+   6719,
+   1
+  ],
+  "6639": [
+   "Nadala",
+   6719,
+   1
+  ],
+  "6640": [
+   "Madhoon",
+   6719,
+   1
+  ],
+  "6642": [
+   "Chhan Parotian",
+   6719,
+   1
+  ],
+  "6628": [
+   "Kalwal",
+   6719,
+   1
+  ],
+  "6643": [
+   "Chak Lala",
+   6719,
+   1
+  ],
+  "6647": [
+   "Jarian",
+   6719,
+   1
+  ],
+  "6648": [
+   "Sajana",
+   6719,
+   1
+  ],
+  "6641": [
+   "Rajpura",
+   6719,
+   1
+  ],
+  "6652": [
+   "Sarthi Kalan",
+   6719,
+   1
+  ],
+  "6651": [
+   "Chak Desa Dolian Gujran",
+   6719,
+   1
+  ],
+  "6646": [
+   "Chak Bhagta",
+   6719,
+   1
+  ],
+  "6645": [
+   "Muthi Chahru",
+   6719,
+   1
+  ],
+  "6659": [
+   "Chak Sadha",
+   6719,
+   1
+  ],
+  "6649": [
+   "Sadwal",
+   6719,
+   1
+  ],
+  "6650": [
+   "Chak Dulma",
+   6719,
+   1
+  ],
+  "6658": [
+   "Mangu Chak",
+   6719,
+   1
+  ],
+  "6657": [
+   "Sayal",
+   6719,
+   1
+  ],
+  "6629": [
+   "Vijaypur",
+   6719,
+   1
+  ],
+  "6582": [
+   "Balar",
+   6724,
+   0
+  ],
+  "6581": [
+   "Chajwal",
+   6724,
+   0
+  ],
+  "6627": [
+   "Malani",
+   6719,
+   1
+  ],
+  "6644": [
+   "Panj Garain Sainian",
+   6719,
+   1
+  ],
+  "6626": [
+   "Chhan Dhanu",
+   6719,
+   1
+  ],
+  "6497": [
+   "Chak Nazar",
+   6724,
+   2
+  ],
+  "6496": [
+   "Khour Salarian",
+   6724,
+   2
+  ],
+  "6550": [
+   "Chak Deoli",
+   6724,
+   0
+  ],
+  "6548": [
+   "Chak Sajnoo",
+   6724,
+   0
+  ],
+  "6498": [
+   "Kotli Matkalian",
+   6724,
+   2
+  ],
+  "6499": [
+   "Chak Shama",
+   6724,
+   2
+  ],
+  "6546": [
+   "Pharri",
+   6724,
+   0
+  ],
+  "6549": [
+   "Jerda",
+   6724,
+   0
+  ],
+  "6547": [
+   "Chak Jawahar",
+   6724,
+   0
+  ],
+  "6553": [
+   "Chhani Fatwal",
+   6724,
+   0
+  ],
+  "6556": [
+   "Sri Partap Singh Pora",
+   6724,
+   0
+  ],
+  "6545": [
+   "Rakh Abtal",
+   6724,
+   0
+  ],
+  "6544": [
+   "Mahraj Pur",
+   6724,
+   2
+  ],
+  "6500": [
+   "Chak Heera",
+   6724,
+   2
+  ],
+  "6495": [
+   "Chak Chhatakan",
+   6724,
+   2
+  ],
+  "6493": [
+   "Rakh Jhang",
+   6724,
+   2
+  ],
+  "6494": [
+   "Partap Singh Pura",
+   6724,
+   2
+  ],
+  "6492": [
+   "Jhang",
+   6724,
+   2
+  ],
+  "6491": [
+   "Chak Gouran",
+   6724,
+   2
+  ],
+  "6421": [
+   "Dowal",
+   6724,
+   2
+  ],
+  "6420": [
+   "Raika Labana",
+   6724,
+   2
+  ],
+  "6419": [
+   "Raika Mahbooba",
+   6724,
+   2
+  ],
+  "6490": [
+   "Kalah",
+   6724,
+   2
+  ],
+  "6422": [
+   "Gho Rakwalan",
+   6724,
+   2
+  ],
+  "6501": [
+   "Rajpur Jattan",
+   6724,
+   2
+  ],
+  "6502": [
+   "Chak Balotrian",
+   6724,
+   2
+  ],
+  "6503": [
+   "Chak Salarian",
+   6724,
+   2
+  ],
+  "6489": [
+   "Swankha",
+   6724,
+   2
+  ],
+  "6504": [
+   "Radwan Kalan",
+   6724,
+   2
+  ],
+  "6541": [
+   "Mahal Kalandrian",
+   6724,
+   2
+  ],
+  "6542": [
+   "Mahalshan",
+   6724,
+   0
+  ],
+  "6543": [
+   "Jar Abtal",
+   6724,
+   0
+  ],
+  "6557": [
+   "Abtal",
+   6724,
+   0
+  ],
+  "6558": [
+   "Jagwal",
+   6724,
+   0
+  ],
+  "6561": [
+   "Kandral",
+   6724,
+   0
+  ],
+  "6562": [
+   "Chak Bakha Kani",
+   6724,
+   0
+  ],
+  "6564": [
+   "Chak Khokharan",
+   6724,
+   0
+  ],
+  "6565": [
+   "Dhoop Sari",
+   6724,
+   0
+  ],
+  "6574": [
+   "Nathwal",
+   6724,
+   0
+  ],
+  "6573": [
+   "Chak Bambo",
+   6724,
+   0
+  ],
+  "6566": [
+   "Mandlyal",
+   6724,
+   0
+  ],
+  "6571": [
+   "Dadyal",
+   6724,
+   0
+  ],
+  "6572": [
+   "Babral",
+   6724,
+   0
+  ],
+  "6569": [
+   "Palota",
+   6724,
+   0
+  ],
+  "6567": [
+   "Chak Rakwalan",
+   6724,
+   0
+  ],
+  "6568": [
+   "Chak Jhanda Singh",
+   6724,
+   0
+  ],
+  "6540": [
+   "Ramloo Brahmana",
+   6724,
+   2
+  ],
+  "6505": [
+   "Jar Radwan",
+   6724,
+   2
+  ],
+  "6506": [
+   "Ram Garh",
+   6724,
+   2
+  ],
+  "248203": [
+   "Municipal Committee Ramgarh",
+   6724,
+   2
+  ],
+  "6538": [
+   "Trindi Jamora",
+   6724,
+   2
+  ],
+  "6488": [
+   "Radwan Khurd",
+   6724,
+   2
+  ],
+  "6423": [
+   "Gho Brahmana",
+   6724,
+   2
+  ],
+  "6418": [
+   "Gho Manhasan",
+   6724,
+   2
+  ],
+  "6487": [
+   "Shahzad Pur",
+   6724,
+   2
+  ],
+  "6507": [
+   "Trindi Sangara",
+   6724,
+   2
+  ],
+  "6485": [
+   "Jar Sarwa",
+   6724,
+   2
+  ],
+  "6486": [
+   "Sarwa",
+   6724,
+   2
+  ],
+  "6424": [
+   "Rara",
+   6724,
+   2
+  ],
+  "6425": [
+   "Rari",
+   6724,
+   2
+  ],
+  "6417": [
+   "Dabuj Kaka",
+   6724,
+   2
+  ],
+  "6416": [
+   "Dabuj Shahzada",
+   6724,
+   2
+  ],
+  "6414": [
+   "Rakh Rara",
+   6724,
+   2
+  ],
+  "6551": [
+   "Narain Pur",
+   6724,
+   0
+  ],
+  "6552": [
+   "Chamalyal",
+   6724,
+   0
+  ],
+  "6555": [
+   "Chak Bamu",
+   6724,
+   0
+  ],
+  "6563": [
+   "Chak Alia",
+   6724,
+   0
+  ],
+  "6539": [
+   "Ramloo Rasorian",
+   6724,
+   2
+  ],
+  "6331": [
+   "Madhoon",
+   6722,
+   2
+  ],
+  "6330": [
+   "Keshan Pur",
+   6720,
+   2
+  ],
+  "6329": [
+   "Rakh Baroi",
+   6720,
+   2
+  ],
+  "6663": [
+   "Badhoi",
+   6720,
+   2
+  ],
+  "6664": [
+   "Gowal",
+   6720,
+   2
+  ],
+  "6328": [
+   "Palli",
+   6720,
+   6
+  ],
+  "6327": [
+   "Bassi Khurd",
+   6720,
+   6
+  ],
+  "6326": [
+   "Rakh Raj Pur",
+   6720,
+   6
+  ],
+  "6325": [
+   "Rajpur Kolar",
+   6720,
+   6
+  ],
+  "6672": [
+   "Birpur",
+   6720,
+   6
+  ],
+  "6324": [
+   "Kartholi",
+   6720,
+   6
+  ],
+  "248199": [
+   "Municipal Committee Bari Brahmana",
+   6720,
+   6
+  ],
+  "6661": [
+   "Meen Charkan",
+   6720,
+   6
+  ],
+  "6662": [
+   "Smail Pur",
+   6720,
+   6
+  ],
+  "6668": [
+   "Bari",
+   6720,
+   6
+  ],
+  "6667": [
+   "Patli",
+   6720,
+   6
+  ],
+  "6666": [
+   "Tarore",
+   6720,
+   6
+  ],
+  "6665": [
+   "Patti",
+   6720,
+   2
+  ],
+  "6332": [
+   "Bagla",
+   6722,
+   6
+  ],
+  "6427": [
+   "Chak Doulat",
+   6722,
+   2
+  ],
+  "6428": [
+   "Chumbian",
+   6722,
+   2
+  ],
+  "6484": [
+   "Karali Khurd",
+   6724,
+   2
+  ],
+  "6483": [
+   "Karali Kalan",
+   6724,
+   2
+  ],
+  "6508": [
+   "Kerian Wali",
+   6724,
+   2
+  ],
+  "6509": [
+   "Bandral",
+   6724,
+   2
+  ],
+  "6482": [
+   "Chak Bana",
+   6724,
+   2
+  ],
+  "6429": [
+   "Chak Baglan",
+   6722,
+   2
+  ],
+  "6426": [
+   "Gulwal",
+   6722,
+   2
+  ],
+  "6431": [
+   "Chak Salarian",
+   6724,
+   3
+  ],
+  "6511": [
+   "Pakhri",
+   6724,
+   2
+  ],
+  "6536": [
+   "Keso Manhasan",
+   6724,
+   0
+  ],
+  "6578": [
+   "Chak Paras",
+   6724,
+   0
+  ],
+  "6579": [
+   "Kamore",
+   6724,
+   0
+  ],
+  "6580": [
+   "Rangoor",
+   6724,
+   0
+  ],
+  "6534": [
+   "Barota",
+   6724,
+   3
+  ],
+  "6533": [
+   "Kajyal Kalan",
+   6724,
+   3
+  ],
+  "6532": [
+   "Bajawati",
+   6724,
+   3
+  ],
+  "6480": [
+   "Rattan Pur",
+   82,
+   3
+  ],
+  "6479": [
+   "Koulpur",
+   6724,
+   3
+  ],
+  "6481": [
+   "Khanpur",
+   6724,
+   3
+  ],
+  "6412": [
+   "Badali",
+   6722,
+   2
+  ],
+  "6430": [
+   "Rampur",
+   6722,
+   3
+  ],
+  "6415": [
+   "Najwal",
+   6724,
+   2
+  ],
+  "6413": [
+   "Kamala",
+   6724,
+   2
+  ],
+  "6669": [
+   "Badhori",
+   6720,
+   6
+  ],
+  "6333": [
+   "Pekhari",
+   6722,
+   2
+  ],
+  "6408": [
+   "Salmeri",
+   6722,
+   2
+  ],
+  "6334": [
+   "Nathwal",
+   6722,
+   6
+  ],
+  "6407": [
+   "Gupwal",
+   6722,
+   3
+  ],
+  "6409": [
+   "Thalori Gujran",
+   6722,
+   3
+  ],
+  "6411": [
+   "Chhani Manhasan",
+   6722,
+   3
+  ],
+  "6410": [
+   "Bajpur",
+   6722,
+   3
+  ],
+  "248201": [
+   "Municipal Committee Vijaypur",
+   6722,
+   3
+  ],
+  "6434": [
+   "Shri Partap Singh Pura",
+   6722,
+   3
+  ],
+  "6433": [
+   "Gagore",
+   6722,
+   3
+  ],
+  "6406": [
+   "Amwal",
+   6722,
+   3
+  ],
+  "6335": [
+   "Sangwali",
+   6722,
+   3
+  ],
+  "6336": [
+   "Budwal",
+   6722,
+   3
+  ],
+  "6337": [
+   "Rajinder Pura",
+   6722,
+   7
+  ],
+  "6404": [
+   "Rakh Barothion",
+   6722,
+   3
+  ],
+  "6432": [
+   "Gudwal",
+   6722,
+   3
+  ],
+  "6478": [
+   "Tarapur",
+   6722,
+   3
+  ],
+  "6435": [
+   "Chak Dewan Bheem Sain",
+   82,
+   3
+  ],
+  "6402": [
+   "Rakh Barotian",
+   6722,
+   3
+  ],
+  "6321": [
+   "Rakh Chirk",
+   6720,
+   7
+  ],
+  "6320": [
+   "Sangar",
+   6720,
+   7
+  ],
+  "6338": [
+   "Sadral",
+   6720,
+   7
+  ],
+  "6340": [
+   "Nagrota",
+   6720,
+   7
+  ],
+  "6403": [
+   "Bri Kamila",
+   6722,
+   3
+  ],
+  "6342": [
+   "Moutlian Khurd",
+   82,
+   7
+  ],
+  "6341": [
+   "Moutlian Kalan",
+   82,
+   7
+  ],
+  "6344": [
+   "Khirdi",
+   82,
+   7
+  ],
+  "6318": [
+   "Lovely",
+   82,
+   7
+  ],
+  "6339": [
+   "Anand Pur",
+   6720,
+   7
+  ],
+  "6319": [
+   "Parthyal",
+   82,
+   7
+  ],
+  "6343": [
+   "Bardan",
+   82,
+   7
+  ],
+  "6345": [
+   "Nangal",
+   82,
+   7
+  ],
+  "6348": [
+   "Teri",
+   82,
+   8
+  ],
+  "6347": [
+   "Patyari",
+   82,
+   8
+  ],
+  "6317": [
+   "Ghani Alna",
+   82,
+   7
+  ],
+  "6316": [
+   "Badla Brahamana",
+   82,
+   7
+  ],
+  "6315": [
+   "Badla Deonia",
+   82,
+   7
+  ],
+  "6314": [
+   "Rait",
+   82,
+   8
+  ],
+  "6346": [
+   "Sarna",
+   82,
+   7
+  ],
+  "6304": [
+   "Mohorgarh",
+   82,
+   7
+  ],
+  "6306": [
+   "Bupnair Garh",
+   82,
+   8
+  ],
+  "6308": [
+   "Jamora",
+   82,
+   8
+  ],
+  "6309": [
+   "Papad Brahmana",
+   82,
+   8
+  ],
+  "6307": [
+   "Gogar",
+   82,
+   8
+  ],
+  "6310": [
+   "Papad Avtara",
+   82,
+   8
+  ],
+  "6311": [
+   "Kali Nami",
+   82,
+   8
+  ],
+  "6313": [
+   "Sarain",
+   82,
+   8
+  ],
+  "6351": [
+   "Tund",
+   82,
+   8
+  ],
+  "6312": [
+   "Kali Purani",
+   82,
+   8
+  ],
+  "6354": [
+   "Bharathgarh",
+   82,
+   8
+  ],
+  "6355": [
+   "Jatah",
+   82,
+   8
+  ],
+  "6350": [
+   "Dhanath",
+   82,
+   8
+  ],
+  "6353": [
+   "Mulath",
+   82,
+   8
+  ],
+  "6352": [
+   "Dhorah",
+   82,
+   8
+  ],
+  "6394": [
+   "Gowal Choura",
+   82,
+   8
+  ],
+  "6389": [
+   "Satah",
+   82,
+   4
+  ],
+  "6387": [
+   "Kopri",
+   82,
+   8
+  ],
+  "6386": [
+   "Need",
+   82,
+   8
+  ],
+  "6385": [
+   "Taloor",
+   82,
+   4
+  ],
+  "6458": [
+   "Palai",
+   82,
+   4
+  ],
+  "6457": [
+   "Nanetar",
+   82,
+   4
+  ],
+  "6460": [
+   "Dabeka",
+   82,
+   4
+  ],
+  "6455": [
+   "Amli",
+   82,
+   4
+  ],
+  "6456": [
+   "Dhalout",
+   82,
+   4
+  ],
+  "6388": [
+   "Kaloha",
+   82,
+   4
+  ],
+  "6390": [
+   "Palath",
+   82,
+   4
+  ],
+  "6393": [
+   "Sah",
+   82,
+   4
+  ],
+  "6395": [
+   "Daruie",
+   82,
+   4
+  ],
+  "6392": [
+   "Balouri",
+   82,
+   4
+  ],
+  "6391": [
+   "Mananu",
+   82,
+   4
+  ],
+  "6444": [
+   "Daboh",
+   82,
+   4
+  ],
+  "6445": [
+   "Arazi Samba",
+   82,
+   4
+  ],
+  "6446": [
+   "Parel",
+   82,
+   4
+  ],
+  "6447": [
+   "Mandi Dansal",
+   82,
+   4
+  ],
+  "6448": [
+   "Beri",
+   82,
+   4
+  ],
+  "6443": [
+   "Bela Samba",
+   82,
+   4
+  ],
+  "6468": [
+   "Chak Manga Rakwal",
+   82,
+   4
+  ],
+  "6467": [
+   "Mandi Kehli",
+   82,
+   4
+  ],
+  "248202": [
+   "Municipal Council Samba",
+   82,
+   4
+  ],
+  "6465": [
+   "Mandi Ghorgalian",
+   82,
+   4
+  ],
+  "6449": [
+   "Kotera",
+   82,
+   4
+  ],
+  "6450": [
+   "Samlah",
+   82,
+   4
+  ],
+  "6451": [
+   "Ambala",
+   82,
+   4
+  ],
+  "6464": [
+   "Mandi Thalora",
+   82,
+   4
+  ],
+  "6463": [
+   "Mandi Garh",
+   82,
+   4
+  ],
+  "6462": [
+   "Mandi Paswalian",
+   82,
+   4
+  ],
+  "6454": [
+   "Panthi",
+   82,
+   4
+  ],
+  "6452": [
+   "Pangwal",
+   82,
+   4
+  ],
+  "6453": [
+   "Nehari",
+   82,
+   4
+  ],
+  "6397": [
+   "Chak Mehtab Singh",
+   6722,
+   3
+  ],
+  "6398": [
+   "Chak Medu Sadralian",
+   6722,
+   3
+  ],
+  "6401": [
+   "Daghore",
+   6722,
+   3
+  ],
+  "6399": [
+   "Chak Medu Basotra",
+   6722,
+   3
+  ],
+  "6438": [
+   "Bara",
+   6722,
+   3
+  ],
+  "6439": [
+   "Chak Chhiba Kalan",
+   6722,
+   3
+  ],
+  "6437": [
+   "Sujwan",
+   6722,
+   3
+  ],
+  "6436": [
+   "Chak Jawala Singh",
+   6722,
+   3
+  ],
+  "6475": [
+   "Chak Koor Singh",
+   82,
+   3
+  ],
+  "6474": [
+   "Chhajwal",
+   6722,
+   3
+  ],
+  "6473": [
+   "Supwal",
+   6722,
+   3
+  ],
+  "6441": [
+   "Badheri",
+   82,
+   3
+  ],
+  "6471": [
+   "Chak Nanak",
+   82,
+   3
+  ],
+  "6440": [
+   "Chak Chhiba Khurd",
+   6722,
+   3
+  ],
+  "6472": [
+   "Langath",
+   82,
+   3
+  ],
+  "6469": [
+   "Mandhera",
+   82,
+   3
+  ],
+  "6516": [
+   "Chak Manga Gujjar",
+   82,
+   4
+  ],
+  "6466": [
+   "Rakh Amb Talli",
+   82,
+   4
+  ],
+  "6517": [
+   "Karandi",
+   82,
+   4
+  ],
+  "6514": [
+   "Burj Sheru",
+   82,
+   3
+  ],
+  "6513": [
+   "Chak Dayala",
+   82,
+   3
+  ],
+  "6531": [
+   "Bain",
+   82,
+   3
+  ],
+  "6588": [
+   "Galhar",
+   82,
+   3
+  ],
+  "6590": [
+   "Chak Faqiria",
+   82,
+   3
+  ],
+  "6593": [
+   "Suchet Garh",
+   82,
+   1
+  ],
+  "6591": [
+   "Kanwala",
+   82,
+   3
+  ],
+  "6530": [
+   "Sordi",
+   82,
+   3
+  ],
+  "6594": [
+   "Rakh Kangwala",
+   82,
+   1
+  ],
+  "6595": [
+   "Jar Mutan",
+   82,
+   1
+  ],
+  "6596": [
+   "Sadoh",
+   82,
+   1
+  ],
+  "6525": [
+   "Chhani Jasso",
+   82,
+   1
+  ],
+  "6524": [
+   "Abtal Katlan",
+   82,
+   1
+  ],
+  "6529": [
+   "Pangdhor",
+   82,
+   3
+  ],
+  "6528": [
+   "Raipur",
+   82,
+   3
+  ],
+  "6527": [
+   "Kathlai",
+   82,
+   3
+  ],
+  "6515": [
+   "Manohar Gopala",
+   82,
+   3
+  ],
+  "6526": [
+   "Balode",
+   82,
+   4
+  ],
+  "6522": [
+   "Ramnagar",
+   82,
+   4
+  ],
+  "6523": [
+   "Khanwal",
+   82,
+   1
+  ],
+  "6613": [
+   "Gangeeth",
+   6721,
+   1
+  ],
+  "6614": [
+   "Kaink",
+   6721,
+   1
+  ],
+  "6612": [
+   "Patyari Katlan",
+   6721,
+   1
+  ],
+  "6617": [
+   "Muthi Khurd",
+   6721,
+   1
+  ],
+  "6618": [
+   "Naharan",
+   6721,
+   1
+  ],
+  "6570": [
+   "Rajwal",
+   6724,
+   0
+  ],
+  "6510": [
+   "Makho Mera",
+   6724,
+   2
+  ],
+  "6585": [
+   "Chak Parthyal",
+   6724,
+   0
+  ],
+  "6586": [
+   "Chak Parthyal Salarian",
+   6724,
+   3
+  ],
+  "6587": [
+   "Kajyal Khurd",
+   6724,
+   3
+  ],
+  "6512": [
+   "Chak Katlan",
+   82,
+   3
+  ],
+  "6405": [
+   "Thalori Brahmana",
+   6722,
+   3
+  ],
+  "6477": [
+   "Madhak",
+   82,
+   3
+  ],
+  "6349": [
+   "Jarmortan",
+   82,
+   8
+  ],
+  "6396": [
+   "Rakh Daruie",
+   82,
+   3
+  ],
+  "6400": [
+   "Chak Bathal",
+   6722,
+   3
+  ],
+  "6476": [
+   "Chak Ram Chand",
+   82,
+   3
+  ],
+  "6470": [
+   "Bela Manohar",
+   82,
+   3
+  ],
+  "6589": [
+   "Chak Harkha",
+   82,
+   3
+  ],
+  "6615": [
+   "Matoor",
+   6721,
+   1
+  ],
+  "6616": [
+   "Arangal",
+   6721,
+   1
+  ],
+  "6632": [
+   "Muthi Kalan",
+   6721,
+   1
+  ],
+  "6633": [
+   "Tareli",
+   6721,
+   1
+  ],
+  "6635": [
+   "Mawa",
+   6719,
+   1
+  ],
+  "6634": [
+   "Madwal",
+   6719,
+   1
+  ],
+  "6630": [
+   "Sanoora",
+   6719,
+   1
+  ],
+  "6621": [
+   "Mendhera",
+   6721,
+   1
+  ],
+  "6631": [
+   "Badyal",
+   6719,
+   1
+  ],
+  "6622": [
+   "Paloona",
+   6719,
+   1
+  ],
+  "6619": [
+   "Saghal",
+   6721,
+   1
+  ],
+  "6611": [
+   "Radial",
+   6721,
+   4
+  ],
+  "6620": [
+   "Rajli",
+   6721,
+   1
+  ],
+  "6623": [
+   "Chhan Malgran",
+   6721,
+   1
+  ],
+  "6521": [
+   "Rehian",
+   82,
+   4
+  ],
+  "6461": [
+   "Katli",
+   82,
+   4
+  ],
+  "6518": [
+   "Chak Girdhari",
+   82,
+   4
+  ],
+  "6520": [
+   "Sargwal",
+   82,
+   4
+  ],
+  "6519": [
+   "Chak Jangi",
+   82,
+   4
+  ],
+  "6610": [
+   "Suhanda",
+   6721,
+   4
+  ],
+  "6609": [
+   "Jatwal",
+   6721,
+   4
+  ],
+  "6608": [
+   "Balooni",
+   6721,
+   4
+  ],
+  "6606": [
+   "Chhan Kahana",
+   6721,
+   4
+  ],
+  "6607": [
+   "Sangwal",
+   6721,
+   4
+  ],
+  "6605": [
+   "Nonath",
+   6721,
+   4
+  ],
+  "6624": [
+   "Randwal",
+   6721,
+   1
+  ],
+  "6323": [
+   "Sumbli",
+   6720,
+   6
+  ],
+  "6322": [
+   "Khara Madana",
+   6720,
+   6
+  ],
+  "6297": [
+   "Katwalta",
+   6720,
+   7
+  ],
+  "6296": [
+   "Deon",
+   6720,
+   7
+  ],
+  "6299": [
+   "Talehar",
+   82,
+   7
+  ],
+  "6298": [
+   "Purmandal",
+   6720,
+   7
+  ],
+  "6300": [
+   "Paddal",
+   82,
+   7
+  ],
+  "6301": [
+   "Rajool",
+   82,
+   7
+  ],
+  "6303": [
+   "Kumi",
+   82,
+   7
+  ],
+  "6302": [
+   "Kathar Brahmana",
+   82,
+   7
+  ],
+  "6305": [
+   "Dher Garh",
+   82,
+   8
+  ],
+  "6295": [
+   "Channi Mansar",
+   82,
+   8
+  ],
+  "6671": [
+   "Gurha Slathian",
+   6722,
+   7
+  ],
+  "999999": [
+   "Not Available",
+   6724,
+   0
+  ],
+  "6357": [
+   "Reyour",
+   82,
+   8
+  ],
+  "6356": [
+   "Nund",
+   82,
+   8
+  ],
+  "6384": [
+   "Markoli",
+   82,
+   5
+  ],
+  "6358": [
+   "Karad",
+   82,
+   5
+  ],
+  "6359": [
+   "Peyoor",
+   82,
+   5
+  ],
+  "6361": [
+   "Bagoon",
+   82,
+   5
+  ],
+  "6360": [
+   "Kanair",
+   82,
+   5
+  ],
+  "6362": [
+   "Jeed",
+   82,
+   5
+  ],
+  "6363": [
+   "Beli",
+   82,
+   5
+  ],
+  "6364": [
+   "Sarla",
+   82,
+   5
+  ],
+  "6365": [
+   "Kauntha",
+   82,
+   5
+  ],
+  "6367": [
+   "Sodam",
+   82,
+   5
+  ],
+  "6368": [
+   "Sanoor",
+   82,
+   5
+  ],
+  "6369": [
+   "Beian",
+   82,
+   5
+  ],
+  "6370": [
+   "Khabal",
+   82,
+   5
+  ],
+  "6371": [
+   "Thandyal",
+   82,
+   5
+  ],
+  "6372": [
+   "Budhwana",
+   82,
+   5
+  ],
+  "6366": [
+   "Fougal",
+   82,
+   5
+  ],
+  "6374": [
+   "Samotha",
+   82,
+   5
+  ],
+  "6375": [
+   "Bathal",
+   82,
+   5
+  ],
+  "6373": [
+   "Goran",
+   82,
+   5
+  ],
+  "6381": [
+   "Doneian",
+   82,
+   5
+  ],
+  "6376": [
+   "Baletar",
+   82,
+   5
+  ],
+  "6598": [
+   "Ratwana",
+   6721,
+   5
+  ],
+  "6597": [
+   "Surara",
+   6721,
+   5
+  ],
+  "6382": [
+   "Patyari",
+   82,
+   5
+  ],
+  "6380": [
+   "Bhoran",
+   82,
+   5
+  ],
+  "6377": [
+   "Chandli",
+   82,
+   5
+  ],
+  "6379": [
+   "Paswal",
+   82,
+   5
+  ],
+  "6383": [
+   "Simbalana",
+   82,
+   5
+  ],
+  "6459": [
+   "Chanari",
+   82,
+   5
+  ],
+  "6378": [
+   "Jar Jareli",
+   82,
+   5
+  ],
+  "6604": [
+   "Jassath",
+   6721,
+   5
+  ],
+  "6599": [
+   "Tapyal",
+   6721,
+   5
+  ],
+  "6602": [
+   "Gurah Jattan",
+   6721,
+   1
+  ],
+  "6601": [
+   "Ghagwal",
+   6721,
+   5
+  ],
+  "6600": [
+   "Chhan Matloni",
+   6721,
+   5
+  ],
+  "6603": [
+   "Harsaath",
+   6721,
+   5
+  ],
+  "6625": [
+   "Raghu Chak",
+   6719,
+   1
+  ],
+  "6660": [
+   "Meen Sarkar",
+   6720,
+   6
+  ],
+  "6442": [
+   "Nandni",
+   82,
+   4
+  ],
+  "6670": [
+   "Chak Baghwana",
+   82,
+   3
+  ]
+ },
+ "village_count_total": 384,
+ "village_count_assigned": 384
+}

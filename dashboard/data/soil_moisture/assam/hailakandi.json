@@ -1,0 +1,1855 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Assam",
+  "district": "Hailakandi",
+  "district_lgd": 289,
+  "observation_window": "2026-08-07T11:01Z to 2026-08-12T11:01Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3564,
+  "sm_surface_stddev": 0.0583,
+  "sm_rootzone_mean": 0.3702,
+  "sm_rootzone_stddev": 0.0645,
+  "n_cells": 14,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 24.1602,
+    "lon": 92.4411,
+    "sm_surface": 0.3435,
+    "sm_rootzone": 0.3567,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 1,
+    "lat": 24.259,
+    "lon": 92.4411,
+    "sm_surface": 0.3519,
+    "sm_rootzone": 0.3653,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 2,
+    "lat": 24.259,
+    "lon": 92.5399,
+    "sm_surface": 0.3415,
+    "sm_rootzone": 0.3535,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 3,
+    "lat": 24.3578,
+    "lon": 92.5399,
+    "sm_surface": 0.3542,
+    "sm_rootzone": 0.3694,
+    "n_villages_sharing_cell": 37
+   },
+   {
+    "cell_index": 4,
+    "lat": 24.3578,
+    "lon": 92.6388,
+    "sm_surface": 0.3499,
+    "sm_rootzone": 0.3667,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 5,
+    "lat": 24.4566,
+    "lon": 92.5399,
+    "sm_surface": 0.2938,
+    "sm_rootzone": 0.3047,
+    "n_villages_sharing_cell": 45
+   },
+   {
+    "cell_index": 6,
+    "lat": 24.4566,
+    "lon": 92.6388,
+    "sm_surface": 0.2916,
+    "sm_rootzone": 0.2965,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 7,
+    "lat": 24.5554,
+    "lon": 92.5399,
+    "sm_surface": 0.2834,
+    "sm_rootzone": 0.3007,
+    "n_villages_sharing_cell": 31
+   },
+   {
+    "cell_index": 8,
+    "lat": 24.5554,
+    "lon": 92.6388,
+    "sm_surface": 0.2768,
+    "sm_rootzone": 0.269,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 9,
+    "lat": 24.5554,
+    "lon": 92.7376,
+    "sm_surface": 0.3477,
+    "sm_rootzone": 0.3613,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 10,
+    "lat": 24.6543,
+    "lon": 92.5399,
+    "sm_surface": 0.4341,
+    "sm_rootzone": 0.4486,
+    "n_villages_sharing_cell": 41
+   },
+   {
+    "cell_index": 11,
+    "lat": 24.6543,
+    "lon": 92.6388,
+    "sm_surface": 0.4473,
+    "sm_rootzone": 0.4754,
+    "n_villages_sharing_cell": 29
+   },
+   {
+    "cell_index": 12,
+    "lat": 24.7531,
+    "lon": 92.5399,
+    "sm_surface": 0.4428,
+    "sm_rootzone": 0.4716,
+    "n_villages_sharing_cell": 33
+   },
+   {
+    "cell_index": 13,
+    "lat": 24.7531,
+    "lon": 92.6388,
+    "sm_surface": 0.4304,
+    "sm_rootzone": 0.4432,
+    "n_villages_sharing_cell": 56
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3817,
+  "sm_surface_stddev": 0.0553,
+  "n_blocks": 4
+ },
+ "blocks": [
+  {
+   "block_name": "Algapur",
+   "sdcode": 2106,
+   "n_villages": 71,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.4335,
+   "sm_surface_stddev": 0.0054
+  },
+  {
+   "block_name": "Hailakandi",
+   "sdcode": 2107,
+   "n_villages": 64,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.4403,
+   "sm_surface_stddev": 0.0061
+  },
+  {
+   "block_name": "Katlichara",
+   "sdcode": 2109,
+   "n_villages": 113,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.3253,
+   "sm_surface_stddev": 0.0286
+  },
+  {
+   "block_name": "Lala",
+   "sdcode": 2108,
+   "n_villages": 89,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.3277,
+   "sm_surface_stddev": 0.0692
+  }
+ ],
+ "villages": {
+  "301162": [
+   "Dholai Molai Pt Ix",
+   2109,
+   5
+  ],
+  "999999": [
+   "Katakhal R F",
+   2109,
+   6
+  ],
+  "300986": [
+   "Barjurai",
+   2107,
+   12
+  ],
+  "300978": [
+   "H P C Township CT",
+   2106,
+   13
+  ],
+  "301228": [
+   "Duttapur",
+   2109,
+   2
+  ],
+  "301240": [
+   "Ramnathpur F V",
+   2109,
+   2
+  ],
+  "301123": [
+   "Nunai F V",
+   2108,
+   6
+  ],
+  "301122": [
+   "Dhalchera Tripura Punjee",
+   2108,
+   6
+  ],
+  "301157": [
+   "Rongpur Pt Viii",
+   2109,
+   5
+  ],
+  "301222": [
+   "Nandagram N C Pt Ii",
+   2109,
+   1
+  ],
+  "301226": [
+   "Jamira Ptiv",
+   2109,
+   2
+  ],
+  "301225": [
+   "Jamira Pt Iii",
+   2109,
+   2
+  ],
+  "301221": [
+   "Nandagram N C Pt I",
+   2109,
+   3
+  ],
+  "301220": [
+   "Katanala N C",
+   2109,
+   3
+  ],
+  "301208": [
+   "Dharapur N C",
+   2109,
+   3
+  ],
+  "301209": [
+   "Krishnapur N C",
+   2109,
+   3
+  ],
+  "301211": [
+   "Boldaboldi Pt Iii",
+   2109,
+   3
+  ],
+  "301210": [
+   "Kalyanpur N C",
+   2109,
+   3
+  ],
+  "301212": [
+   "Boldaboldi Pt Ii",
+   2109,
+   3
+  ],
+  "301218": [
+   "Jamira Pt Vi",
+   2109,
+   3
+  ],
+  "301223": [
+   "Jamira Pt Vii",
+   2109,
+   2
+  ],
+  "301224": [
+   "Jamira Pt Ii",
+   2109,
+   2
+  ],
+  "301219": [
+   "Jamira Pt V",
+   2109,
+   3
+  ],
+  "301213": [
+   "Boldaboldi Pt I",
+   2109,
+   3
+  ],
+  "301217": [
+   "Jamira Pt I",
+   2109,
+   3
+  ],
+  "301216": [
+   "Janira Bagan Bosti",
+   2109,
+   3
+  ],
+  "301214": [
+   "Palaicherra Pt Ii",
+   2109,
+   3
+  ],
+  "301227": [
+   "Jalnacherra Grant",
+   2109,
+   2
+  ],
+  "301215": [
+   "Palaicherra Pt I",
+   2109,
+   3
+  ],
+  "301205": [
+   "Sultani",
+   2109,
+   3
+  ],
+  "301206": [
+   "Sultanicherra T E",
+   2109,
+   3
+  ],
+  "301204": [
+   "Karichera",
+   2109,
+   3
+  ],
+  "301200": [
+   "Madhabpur",
+   2109,
+   3
+  ],
+  "301201": [
+   "Rampur",
+   2109,
+   3
+  ],
+  "301180": [
+   "Pratap Nagar",
+   2109,
+   3
+  ],
+  "301184": [
+   "Lochanpur",
+   2109,
+   3
+  ],
+  "301183": [
+   "Durgapur",
+   2109,
+   3
+  ],
+  "301188": [
+   "Alaicherra Pt Iv",
+   2109,
+   3
+  ],
+  "301202": [
+   "Alaicherra Pt Iii",
+   2109,
+   3
+  ],
+  "301182": [
+   "Nehal Chandpur",
+   2109,
+   3
+  ],
+  "301138": [
+   "Ahyalapur N C",
+   2109,
+   3
+  ],
+  "301137": [
+   "Ramsantipur",
+   2109,
+   3
+  ],
+  "301207": [
+   "Santipur N C",
+   2109,
+   5
+  ],
+  "301134": [
+   "Paglacherra N C",
+   2109,
+   3
+  ],
+  "301136": [
+   "Dhancherra N C",
+   2109,
+   5
+  ],
+  "301139": [
+   "Bhagabanpur",
+   2109,
+   3
+  ],
+  "301140": [
+   "Harishnagar Pt Iii",
+   2109,
+   5
+  ],
+  "301135": [
+   "Telecherra N C",
+   2109,
+   5
+  ],
+  "301141": [
+   "Bipincherra",
+   2109,
+   5
+  ],
+  "301142": [
+   "Harishnagar Pt Ii",
+   2109,
+   5
+  ],
+  "301143": [
+   "Harishnagar Pt I",
+   2109,
+   5
+  ],
+  "301133": [
+   "Kaliganj N C",
+   2109,
+   5
+  ],
+  "301145": [
+   "Araynapur",
+   2109,
+   5
+  ],
+  "301146": [
+   "Alexanderpur Grant",
+   2109,
+   5
+  ],
+  "301181": [
+   "Lalpani N C",
+   2109,
+   5
+  ],
+  "301179": [
+   "Maharpur",
+   2109,
+   5
+  ],
+  "301186": [
+   "Alaicherra Pt Vii",
+   2109,
+   3
+  ],
+  "301178": [
+   "Alaicherra Pt Ii",
+   2109,
+   5
+  ],
+  "301203": [
+   "Shyampur",
+   2109,
+   5
+  ],
+  "301187": [
+   "Alaicherra Pt V",
+   2109,
+   5
+  ],
+  "301199": [
+   "Dariaghat Grant",
+   2109,
+   3
+  ],
+  "301189": [
+   "Kukicherra Grant",
+   2109,
+   3
+  ],
+  "301177": [
+   "Alaicherra Pt I",
+   2109,
+   3
+  ],
+  "301190": [
+   "Baruncherra Pt I",
+   2109,
+   4
+  ],
+  "301173": [
+   "Baruncherra Pt Ii",
+   2109,
+   3
+  ],
+  "301174": [
+   "Dholai Molai Pt Viii",
+   2109,
+   5
+  ],
+  "301172": [
+   "Dholai Molai Pt Xii",
+   2109,
+   6
+  ],
+  "301176": [
+   "Dholai Molai Pt Vii T E",
+   2109,
+   5
+  ],
+  "301198": [
+   "Gendacherra",
+   2109,
+   5
+  ],
+  "301175": [
+   "Dholai Molai Pt Iii",
+   2109,
+   5
+  ],
+  "301171": [
+   "Dholai Molai Pt X",
+   2109,
+   5
+  ],
+  "301167": [
+   "Dholai Molai Pt V",
+   2109,
+   5
+  ],
+  "301170": [
+   "Dholai Molai Pt Xi",
+   2109,
+   5
+  ],
+  "301161": [
+   "Rupacherra Punjee",
+   2109,
+   6
+  ],
+  "301164": [
+   "Dholai Molai Pt Vi",
+   2109,
+   6
+  ],
+  "301169": [
+   "Dholai Molai Pt Iv",
+   2109,
+   5
+  ],
+  "301160": [
+   "Rupacherra Tea Garden",
+   2109,
+   6
+  ],
+  "301144": [
+   "Katlicherra Grant",
+   2109,
+   5
+  ],
+  "301168": [
+   "Dholai Molai Pt Ii",
+   2109,
+   5
+  ],
+  "301166": [
+   "Dholai Molai Pt I",
+   2109,
+   5
+  ],
+  "301147": [
+   "Rangabak Pt I",
+   2109,
+   5
+  ],
+  "301148": [
+   "Rangabak Pt Ii",
+   2109,
+   5
+  ],
+  "301165": [
+   "Rongpur Pt Iv",
+   2109,
+   5
+  ],
+  "301229": [
+   "Baruncherra F V",
+   2109,
+   4
+  ],
+  "301195": [
+   "Bhai Bonti",
+   2109,
+   4
+  ],
+  "301230": [
+   "Kukicherra F V",
+   2109,
+   4
+  ],
+  "301194": [
+   "Panch Pirar Mukam",
+   2109,
+   4
+  ],
+  "301191": [
+   "Raifalmara",
+   2109,
+   4
+  ],
+  "301231": [
+   "Kanchiwala F V",
+   2109,
+   4
+  ],
+  "301192": [
+   "Gollacherra",
+   2109,
+   4
+  ],
+  "301193": [
+   "Kachurthal",
+   2109,
+   4
+  ],
+  "301196": [
+   "Bagmara",
+   2109,
+   4
+  ],
+  "301197": [
+   "Bangla Vasha",
+   2109,
+   4
+  ],
+  "301232": [
+   "Jalnacherra F V",
+   2109,
+   3
+  ],
+  "301233": [
+   "Sahabmara F V",
+   2109,
+   3
+  ],
+  "301234": [
+   "Bathcherra F V",
+   2109,
+   2
+  ],
+  "301235": [
+   "Gutguti Pakuwa F V",
+   2109,
+   2
+  ],
+  "301236": [
+   "Bagcherra F V",
+   2109,
+   2
+  ],
+  "301238": [
+   "Garmura F V",
+   2109,
+   2
+  ],
+  "301237": [
+   "Damcherra F V",
+   2109,
+   2
+  ],
+  "301239": [
+   "Jakabpur F V",
+   2109,
+   2
+  ],
+  "301163": [
+   "Makengipur",
+   2109,
+   6
+  ],
+  "301149": [
+   "Digar Apin",
+   2109,
+   5
+  ],
+  "301185": [
+   "Alaicherra Pt Vi",
+   2109,
+   3
+  ],
+  "301035": [
+   "Bandukmara Grant",
+   2107,
+   11
+  ],
+  "301009": [
+   "Kanchanpur Pt Iii",
+   2107,
+   10
+  ],
+  "301010": [
+   "Kanchanpur Pt Ii",
+   2107,
+   10
+  ],
+  "301006": [
+   "Itorkandi Pt Ii",
+   2107,
+   10
+  ],
+  "301011": [
+   "Kanchanpur Pt I",
+   2107,
+   10
+  ],
+  "301005": [
+   "Narainpur Pt Iv",
+   2107,
+   10
+  ],
+  "301002": [
+   "Itorkandi Pt I",
+   2107,
+   10
+  ],
+  "301003": [
+   "Narainpur Pt Iii",
+   2107,
+   10
+  ],
+  "301004": [
+   "Narainpur Pt V",
+   2107,
+   10
+  ],
+  "301012": [
+   "Tupkhana",
+   2107,
+   10
+  ],
+  "301013": [
+   "Vichingcha Pt Ii",
+   2107,
+   10
+  ],
+  "249944": [
+   "Hailakandi",
+   2107,
+   10
+  ],
+  "301001": [
+   "Narainpur Pt Ii",
+   2107,
+   10
+  ],
+  "300993": [
+   "Narainpur Pt I",
+   2107,
+   10
+  ],
+  "300992": [
+   "Chandpur",
+   2107,
+   10
+  ],
+  "301008": [
+   "Kanchanpur Grant",
+   2107,
+   10
+  ],
+  "301007": [
+   "Itorkandi Grant",
+   2107,
+   10
+  ],
+  "301000": [
+   "Gangpar Dhonkar Pt Iv",
+   2107,
+   10
+  ],
+  "301014": [
+   "Rangauti Pt Ii",
+   2107,
+   10
+  ],
+  "300999": [
+   "Lakhirbond Pt Ii",
+   2107,
+   10
+  ],
+  "301018": [
+   "Chepti Brojapur",
+   2107,
+   11
+  ],
+  "301017": [
+   "Bilpar Dhumkar",
+   2107,
+   10
+  ],
+  "301016": [
+   "Rangauti Pt I",
+   2107,
+   10
+  ],
+  "301015": [
+   "Rangauti Pt Iii",
+   2107,
+   10
+  ],
+  "301030": [
+   "Paikan",
+   2107,
+   10
+  ],
+  "301029": [
+   "Brojapur Pt I",
+   2107,
+   11
+  ],
+  "301031": [
+   "Matijuri",
+   2107,
+   11
+  ],
+  "301028": [
+   "Brojapur Pt Ii",
+   2107,
+   11
+  ],
+  "301032": [
+   "Borhailakandi Pt Iii",
+   2107,
+   11
+  ],
+  "301038": [
+   "Bashdahar Pt I",
+   2107,
+   11
+  ],
+  "301039": [
+   "Rongpur",
+   2107,
+   11
+  ],
+  "301040": [
+   "Dakhin Sonapur Pt I",
+   2107,
+   11
+  ],
+  "301037": [
+   "Bashdahar Pt Ii",
+   2107,
+   11
+  ],
+  "301033": [
+   "Borhailakandi Pt Ii",
+   2107,
+   11
+  ],
+  "301026": [
+   "Bondukmara",
+   2107,
+   11
+  ],
+  "301027": [
+   "Bahadurpur Pt Ii",
+   2107,
+   11
+  ],
+  "301019": [
+   "Bahadurpur Pt I",
+   2107,
+   11
+  ],
+  "301023": [
+   "Bhajantipur Pt I",
+   2107,
+   11
+  ],
+  "301024": [
+   "Ratanpur Pt Ii",
+   2107,
+   11
+  ],
+  "301025": [
+   "Ratanpur Pt I",
+   2107,
+   11
+  ],
+  "301034": [
+   "Purbagool",
+   2107,
+   11
+  ],
+  "301036": [
+   "Borhailakandi Pt I",
+   2107,
+   11
+  ],
+  "301041": [
+   "Dakhin Sonapur Pt Ii",
+   2107,
+   11
+  ],
+  "301042": [
+   "Sudorshonpur Pt I",
+   2107,
+   11
+  ],
+  "301096": [
+   "Ramchandi N C",
+   2108,
+   7
+  ],
+  "301097": [
+   "Kulicherra N C",
+   2108,
+   7
+  ],
+  "301098": [
+   "Ramchandi Pt Iii",
+   2108,
+   7
+  ],
+  "301100": [
+   "Ramchandi Pt Ii",
+   2108,
+   7
+  ],
+  "301099": [
+   "Ramchandi Pt I",
+   2108,
+   7
+  ],
+  "301101": [
+   "Bangalpur",
+   2108,
+   7
+  ],
+  "301106": [
+   "Dakhin Jansbad Pt Ii",
+   2108,
+   7
+  ],
+  "301119": [
+   "Rongpur Pt Vi",
+   2108,
+   5
+  ],
+  "301118": [
+   "Rongpur Pt V",
+   2108,
+   7
+  ],
+  "301117": [
+   "Joykrishnapur",
+   2108,
+   7
+  ],
+  "301103": [
+   "Dakhinjansbad Pt I",
+   2108,
+   7
+  ],
+  "301092": [
+   "Kaiya Grant",
+   2108,
+   7
+  ],
+  "301102": [
+   "Tantoo",
+   2108,
+   7
+  ],
+  "301093": [
+   "Bangalpur Grant",
+   2108,
+   7
+  ],
+  "301094": [
+   "Joynagar",
+   2108,
+   7
+  ],
+  "301095": [
+   "Joynagar Punjee N C",
+   2108,
+   7
+  ],
+  "301055": [
+   "Bongalnagar Grant",
+   2108,
+   7
+  ],
+  "301071": [
+   "Aynakhal",
+   2108,
+   7
+  ],
+  "301072": [
+   "Behul",
+   2108,
+   7
+  ],
+  "301074": [
+   "Saidpur",
+   2108,
+   7
+  ],
+  "301073": [
+   "Bhabanipur",
+   2108,
+   7
+  ],
+  "301070": [
+   "Purbo Kitterbond Pt Ii",
+   2108,
+   7
+  ],
+  "301062": [
+   "Purbo Kitterbond Pt I",
+   2108,
+   7
+  ],
+  "301058": [
+   "Paschim Kitterbond Pt Ii",
+   2108,
+   7
+  ],
+  "301057": [
+   "Paschim Kitterbond Pt I",
+   2108,
+   7
+  ],
+  "301056": [
+   "Lakshinagar Pt Ii",
+   2108,
+   10
+  ],
+  "301054": [
+   "Lakshinagar Pt I",
+   2108,
+   10
+  ],
+  "301053": [
+   "Nischintapur Pt I",
+   2108,
+   10
+  ],
+  "301052": [
+   "Nischintapur Pt Ii",
+   2108,
+   10
+  ],
+  "301059": [
+   "Monachura Grant",
+   2108,
+   10
+  ],
+  "301060": [
+   "Nischintapur Pt Iii",
+   2108,
+   10
+  ],
+  "301061": [
+   "Rajyeswarpur Pt I",
+   2108,
+   10
+  ],
+  "301045": [
+   "Bowarghat Pt Ii",
+   2108,
+   10
+  ],
+  "301051": [
+   "Borbond Pt Ii",
+   2108,
+   10
+  ],
+  "301050": [
+   "Borbond Pt I",
+   2108,
+   10
+  ],
+  "301044": [
+   "Bowarghat Pt I",
+   2108,
+   10
+  ],
+  "301043": [
+   "Vichingcha Pt I",
+   2108,
+   10
+  ],
+  "301046": [
+   "Borbond Pt Iii",
+   2108,
+   10
+  ],
+  "301047": [
+   "Dudpur",
+   2108,
+   10
+  ],
+  "301048": [
+   "Chandrapur",
+   2108,
+   10
+  ],
+  "301049": [
+   "Kuchila Grant",
+   2108,
+   10
+  ],
+  "301065": [
+   "Nityanandapur Pt I",
+   2108,
+   11
+  ],
+  "301066": [
+   "Nimaichandpur Pt I",
+   2108,
+   11
+  ],
+  "301081": [
+   "Sudorshonpur Pt Ii",
+   2108,
+   11
+  ],
+  "301080": [
+   "Sudorshonpur Pt Iii",
+   2108,
+   11
+  ],
+  "301067": [
+   "Nimaichandpur Pt Ii",
+   2108,
+   11
+  ],
+  "301079": [
+   "Rajyeswarpur Pt Vi",
+   2108,
+   11
+  ],
+  "301083": [
+   "Gobil",
+   2108,
+   8
+  ],
+  "301082": [
+   "Kalachera Grant",
+   2108,
+   11
+  ],
+  "301064": [
+   "Nityanandapur Pt Ii",
+   2108,
+   11
+  ],
+  "301063": [
+   "Rajyeswarpur Pt Ii",
+   2108,
+   7
+  ],
+  "301068": [
+   "Rajyeswarpur Pt V",
+   2108,
+   8
+  ],
+  "301069": [
+   "Rajyeswarpur Pt Iii",
+   2108,
+   8
+  ],
+  "301075": [
+   "Chandrapur Pt Ii",
+   2108,
+   7
+  ],
+  "301076": [
+   "Chandrapur Pt I",
+   2108,
+   8
+  ],
+  "301077": [
+   "Rajyeswarpur Pt Iv",
+   2108,
+   8
+  ],
+  "301078": [
+   "Rajyeswarpur Pt Vii",
+   2108,
+   8
+  ],
+  "301086": [
+   "Rajyeswarpur Pt Viii",
+   2108,
+   8
+  ],
+  "301085": [
+   "Rajyeswarpur Pt Ix",
+   2108,
+   8
+  ],
+  "301084": [
+   "Gaglachera Grant",
+   2108,
+   8
+  ],
+  "301088": [
+   "Umednagar",
+   2108,
+   8
+  ],
+  "301087": [
+   "Uttarjashabad Pt Ii",
+   2108,
+   8
+  ],
+  "249945": [
+   "Lala",
+   2108,
+   8
+  ],
+  "301090": [
+   "Jalalpur",
+   2108,
+   7
+  ],
+  "301089": [
+   "Lala Pt I",
+   2108,
+   8
+  ],
+  "301105": [
+   "Niamatpur",
+   2108,
+   7
+  ],
+  "301104": [
+   "Sheralipur",
+   2108,
+   7
+  ],
+  "301107": [
+   "Abdullapur Pt I",
+   2108,
+   7
+  ],
+  "301091": [
+   "Dhanipur",
+   2108,
+   7
+  ],
+  "301109": [
+   "Bishnupur",
+   2108,
+   8
+  ],
+  "301108": [
+   "Sarbanandapur",
+   2108,
+   8
+  ],
+  "301115": [
+   "Abdullapur Pt Ii",
+   2108,
+   8
+  ],
+  "301120": [
+   "Mahamadpur Pt Ii",
+   2108,
+   6
+  ],
+  "301116": [
+   "Mahamadpur Pt I",
+   2108,
+   8
+  ],
+  "301114": [
+   "Nizvesnupur Pt I",
+   2108,
+   8
+  ],
+  "301110": [
+   "Nizvesnupur Pt Ii",
+   2108,
+   8
+  ],
+  "301111": [
+   "Uttarjasnabad Pt I",
+   2108,
+   8
+  ],
+  "301112": [
+   "Lalamukh Grant",
+   2108,
+   8
+  ],
+  "301113": [
+   "Lalachera Grant",
+   2108,
+   8
+  ],
+  "301121": [
+   "Nunaikhal Grant",
+   2108,
+   6
+  ],
+  "301125": [
+   "Lalachera F V",
+   2108,
+   8
+  ],
+  "301124": [
+   "Kacharital F V",
+   2108,
+   6
+  ],
+  "301126": [
+   "Bilaipur F V",
+   2108,
+   9
+  ],
+  "301130": [
+   "Mulapur N C",
+   2109,
+   5
+  ],
+  "301131": [
+   "Dinanathpur Pt Ii",
+   2109,
+   5
+  ],
+  "301132": [
+   "Dinanathpur Pt I",
+   2109,
+   5
+  ],
+  "301153": [
+   "Apin Pt Ii",
+   2109,
+   5
+  ],
+  "301152": [
+   "Apin Pt I",
+   2109,
+   5
+  ],
+  "301154": [
+   "Rongpur Pt I",
+   2109,
+   5
+  ],
+  "301155": [
+   "Rongpur Pt Ii",
+   2109,
+   5
+  ],
+  "301158": [
+   "Sahabad Pt Ii",
+   2109,
+   5
+  ],
+  "301159": [
+   "Sahabad Pt I",
+   2109,
+   5
+  ],
+  "301156": [
+   "Rongpur Pt Vii",
+   2109,
+   5
+  ],
+  "301150": [
+   "Rongpur Pt Iii",
+   2109,
+   5
+  ],
+  "301151": [
+   "Apin Grant Lata Kandi Grant",
+   2109,
+   5
+  ],
+  "301127": [
+   "Lalpani F V",
+   2108,
+   9
+  ],
+  "301128": [
+   "Borthal F V",
+   2108,
+   9
+  ],
+  "301129": [
+   "Dhalchera F V",
+   2108,
+   9
+  ],
+  "300915": [
+   "Kalinagar Pt I",
+   2106,
+   13
+  ],
+  "300961": [
+   "Bansbari Grant",
+   2106,
+   12
+  ],
+  "300962": [
+   "Bansbari Pt I",
+   2106,
+   12
+  ],
+  "300960": [
+   "Bansbari Pt Ii",
+   2106,
+   12
+  ],
+  "300963": [
+   "Bhatirkupa Pt I",
+   2106,
+   12
+  ],
+  "300972": [
+   "Matirgram",
+   2106,
+   12
+  ],
+  "300973": [
+   "Sayedbond Pt Ii",
+   2106,
+   12
+  ],
+  "300971": [
+   "Sayedbond Pt I",
+   2106,
+   12
+  ],
+  "300974": [
+   "Nitainagar Pt Ii",
+   2106,
+   13
+  ],
+  "300970": [
+   "Sayedbond Pt Iii",
+   2106,
+   13
+  ],
+  "300975": [
+   "Nitainagar Pt I",
+   2106,
+   13
+  ],
+  "300977": [
+   "Mohanpur Pt Ii",
+   2106,
+   13
+  ],
+  "300976": [
+   "Mohanpur Pt I",
+   2106,
+   13
+  ],
+  "300968": [
+   "Mohanpur Pt Vi",
+   2106,
+   13
+  ],
+  "300967": [
+   "Mohanpur Pt Iii",
+   2106,
+   13
+  ],
+  "300955": [
+   "Mohanpur Pt Iv",
+   2106,
+   13
+  ],
+  "300954": [
+   "Mohanpur Pt V",
+   2106,
+   13
+  ],
+  "300951": [
+   "Narainpur Pt I",
+   2106,
+   13
+  ],
+  "300952": [
+   "Narainpur Pt Ii",
+   2106,
+   13
+  ],
+  "300953": [
+   "Burni Brease Grant",
+   2106,
+   13
+  ],
+  "300939": [
+   "Narainpur Pt Iii",
+   2106,
+   13
+  ],
+  "300959": [
+   "Chandipur Pt Iv",
+   2106,
+   12
+  ],
+  "300966": [
+   "Algapur Pt Iii",
+   2106,
+   13
+  ],
+  "300958": [
+   "Algapur Pt I",
+   2106,
+   13
+  ],
+  "300964": [
+   "Bornagad",
+   2106,
+   12
+  ],
+  "300969": [
+   "Algapur Pt V",
+   2106,
+   13
+  ],
+  "300965": [
+   "Algapur Pt Iv",
+   2106,
+   13
+  ],
+  "300947": [
+   "Chandipur Pt Iii",
+   2106,
+   12
+  ],
+  "300948": [
+   "Kapnarpar",
+   2106,
+   13
+  ],
+  "300957": [
+   "Padmarpar",
+   2106,
+   13
+  ],
+  "300950": [
+   "Bakri Howar Pt Xii",
+   2106,
+   13
+  ],
+  "300943": [
+   "Bakri Howar Pt Xi",
+   2106,
+   13
+  ],
+  "300942": [
+   "Bakri Howar Pt X",
+   2106,
+   13
+  ],
+  "300941": [
+   "Kalinagar Pt Vii",
+   2106,
+   13
+  ],
+  "300935": [
+   "Bakri Howar Pt Ix",
+   2106,
+   13
+  ],
+  "300938": [
+   "Narainpur Pt Iv",
+   2106,
+   13
+  ],
+  "300937": [
+   "Kalinagar Pt Viii",
+   2106,
+   13
+  ],
+  "300940": [
+   "Kalinagar Pt Vi",
+   2106,
+   13
+  ],
+  "300936": [
+   "Kalinagar Pt V",
+   2106,
+   13
+  ],
+  "300934": [
+   "Bakri Howar Pt Viii",
+   2106,
+   13
+  ],
+  "300933": [
+   "Bakri Howar Pt V",
+   2106,
+   13
+  ],
+  "300926": [
+   "Bakri Howar Pt Vii",
+   2106,
+   13
+  ],
+  "300925": [
+   "Kalinagar Pt Iv",
+   2106,
+   13
+  ],
+  "300924": [
+   "Kalinagar Pt Iii",
+   2106,
+   13
+  ],
+  "300927": [
+   "Bakri Howar Pt Vi",
+   2106,
+   13
+  ],
+  "300928": [
+   "Bakri Howar Pt Iv",
+   2106,
+   13
+  ],
+  "300922": [
+   "Bakri Howar Pt Ii",
+   2106,
+   13
+  ],
+  "300923": [
+   "Bakri Howar Pt Iii",
+   2106,
+   13
+  ],
+  "300921": [
+   "Uttar Kanchanpur Pt Ii",
+   2106,
+   13
+  ],
+  "300920": [
+   "Dholidahar",
+   2106,
+   12
+  ],
+  "300929": [
+   "Chiparsangam Pt I",
+   2106,
+   12
+  ],
+  "300930": [
+   "Chandipur Pt I",
+   2106,
+   12
+  ],
+  "300931": [
+   "Chiparsangan Pt Ii",
+   2106,
+   13
+  ],
+  "300932": [
+   "Chiparsangan Pt Iii",
+   2106,
+   13
+  ],
+  "300949": [
+   "Nabin Sonapur",
+   2106,
+   13
+  ],
+  "300944": [
+   "Bhatisang Jurai",
+   2106,
+   13
+  ],
+  "300945": [
+   "Chandipur Pt Ii",
+   2106,
+   12
+  ],
+  "300946": [
+   "Chandipur Grant",
+   2106,
+   12
+  ],
+  "300919": [
+   "Dholidahar Grant",
+   2106,
+   12
+  ],
+  "300918": [
+   "Dakhin Badarpur",
+   2106,
+   12
+  ],
+  "300917": [
+   "Uttar Kanchanpur Pt I",
+   2106,
+   13
+  ],
+  "300910": [
+   "Uttarbadarpur",
+   2106,
+   12
+  ],
+  "300909": [
+   "Thandapur",
+   2106,
+   13
+  ],
+  "300911": [
+   "Badarpur Grant",
+   2106,
+   13
+  ],
+  "300912": [
+   "Panchgram",
+   2106,
+   13
+  ],
+  "300916": [
+   "Bakori Hawar Pt I",
+   2106,
+   13
+  ],
+  "300913": [
+   "Polaspur",
+   2106,
+   13
+  ],
+  "300914": [
+   "Kalinagar Pt Ii",
+   2106,
+   13
+  ],
+  "300990": [
+   "Chakchandpur",
+   2107,
+   10
+  ],
+  "300989": [
+   "Balikandi Grant",
+   2107,
+   12
+  ],
+  "300979": [
+   "Balikandi Pt I",
+   2107,
+   12
+  ],
+  "300980": [
+   "Balikandi Pt Ii",
+   2107,
+   12
+  ],
+  "300981": [
+   "Sibuttar",
+   2107,
+   12
+  ],
+  "300988": [
+   "Ujankupa Pt Ii",
+   2107,
+   12
+  ],
+  "300987": [
+   "Ujankupa Pt I",
+   2107,
+   12
+  ],
+  "300991": [
+   "Ujankupa Pt Iii",
+   2107,
+   12
+  ],
+  "300994": [
+   "Gangpar Dhonkar Pt Iii",
+   2107,
+   10
+  ],
+  "300983": [
+   "Bhatirkupa Pt Iii",
+   2107,
+   12
+  ],
+  "300982": [
+   "Bhatirkupa Pt Ii",
+   2107,
+   12
+  ],
+  "300984": [
+   "Boalipar Pt I",
+   2107,
+   12
+  ],
+  "300985": [
+   "Boalipar Pt Ii",
+   2107,
+   12
+  ],
+  "300995": [
+   "Lakhirbond Pt I",
+   2107,
+   12
+  ],
+  "300996": [
+   "Boalipar Pt Iii",
+   2107,
+   12
+  ],
+  "300998": [
+   "Bisnughar",
+   2107,
+   12
+  ],
+  "300997": [
+   "Nitainagar Pt Iii",
+   2107,
+   13
+  ],
+  "301020": [
+   "Purba Sonapur",
+   2107,
+   13
+  ],
+  "301021": [
+   "Bhajantipur Pt Ii",
+   2107,
+   13
+  ],
+  "301022": [
+   "Mohanpur Grant",
+   2106,
+   13
+  ],
+  "300956": [
+   "Algapur Pt Ii",
+   2106,
+   13
+  ]
+ },
+ "village_count_total": 337,
+ "village_count_assigned": 337
+}

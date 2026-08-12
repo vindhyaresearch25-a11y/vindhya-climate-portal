@@ -1,0 +1,9374 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Rajasthan",
+  "district": "Chittorgarh",
+  "district_lgd": 95,
+  "observation_window": "2026-08-07T11:23Z to 2026-08-12T11:23Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.1842,
+  "sm_surface_stddev": 0.0348,
+  "sm_rootzone_mean": 0.2168,
+  "sm_rootzone_stddev": 0.0267,
+  "n_cells": 70,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 24.259,
+    "lon": 74.4569,
+    "sm_surface": 0.3122,
+    "sm_rootzone": 0.3539,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 1,
+    "lat": 24.3578,
+    "lon": 74.358,
+    "sm_surface": 0.1451,
+    "sm_rootzone": 0.2091,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 2,
+    "lat": 24.3578,
+    "lon": 74.4569,
+    "sm_surface": 0.1448,
+    "sm_rootzone": 0.2126,
+    "n_villages_sharing_cell": 61
+   },
+   {
+    "cell_index": 3,
+    "lat": 24.4566,
+    "lon": 74.2592,
+    "sm_surface": 0.126,
+    "sm_rootzone": 0.1977,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 4,
+    "lat": 24.4566,
+    "lon": 74.358,
+    "sm_surface": 0.141,
+    "sm_rootzone": 0.2023,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 5,
+    "lat": 24.4566,
+    "lon": 74.4569,
+    "sm_surface": 0.1435,
+    "sm_rootzone": 0.2044,
+    "n_villages_sharing_cell": 37
+   },
+   {
+    "cell_index": 6,
+    "lat": 24.4566,
+    "lon": 74.5557,
+    "sm_surface": 0.1453,
+    "sm_rootzone": 0.2074,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 7,
+    "lat": 24.5554,
+    "lon": 74.358,
+    "sm_surface": 0.1442,
+    "sm_rootzone": 0.2002,
+    "n_villages_sharing_cell": 34
+   },
+   {
+    "cell_index": 8,
+    "lat": 24.5554,
+    "lon": 74.4569,
+    "sm_surface": 0.1433,
+    "sm_rootzone": 0.1994,
+    "n_villages_sharing_cell": 28
+   },
+   {
+    "cell_index": 9,
+    "lat": 24.5554,
+    "lon": 74.5557,
+    "sm_surface": 0.1463,
+    "sm_rootzone": 0.2023,
+    "n_villages_sharing_cell": 25
+   },
+   {
+    "cell_index": 10,
+    "lat": 24.5554,
+    "lon": 74.6545,
+    "sm_surface": 0.1542,
+    "sm_rootzone": 0.2054,
+    "n_villages_sharing_cell": 35
+   },
+   {
+    "cell_index": 11,
+    "lat": 24.6543,
+    "lon": 74.2592,
+    "sm_surface": 0.1308,
+    "sm_rootzone": 0.1926,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 12,
+    "lat": 24.6543,
+    "lon": 74.358,
+    "sm_surface": 0.1461,
+    "sm_rootzone": 0.1952,
+    "n_villages_sharing_cell": 29
+   },
+   {
+    "cell_index": 13,
+    "lat": 24.6543,
+    "lon": 74.4569,
+    "sm_surface": 0.1466,
+    "sm_rootzone": 0.1945,
+    "n_villages_sharing_cell": 42
+   },
+   {
+    "cell_index": 14,
+    "lat": 24.6543,
+    "lon": 74.5557,
+    "sm_surface": 0.1498,
+    "sm_rootzone": 0.1967,
+    "n_villages_sharing_cell": 32
+   },
+   {
+    "cell_index": 15,
+    "lat": 24.6543,
+    "lon": 74.6545,
+    "sm_surface": 0.1492,
+    "sm_rootzone": 0.197,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 16,
+    "lat": 24.6543,
+    "lon": 74.7533,
+    "sm_surface": 0.1279,
+    "sm_rootzone": 0.1932,
+    "n_villages_sharing_cell": 27
+   },
+   {
+    "cell_index": 17,
+    "lat": 24.6543,
+    "lon": 74.9509,
+    "sm_surface": 0.1713,
+    "sm_rootzone": 0.2209,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 18,
+    "lat": 24.7531,
+    "lon": 74.1604,
+    "sm_surface": 0.1561,
+    "sm_rootzone": 0.1983,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 19,
+    "lat": 24.7531,
+    "lon": 74.2592,
+    "sm_surface": 0.1652,
+    "sm_rootzone": 0.1952,
+    "n_villages_sharing_cell": 30
+   },
+   {
+    "cell_index": 20,
+    "lat": 24.7531,
+    "lon": 74.358,
+    "sm_surface": 0.1785,
+    "sm_rootzone": 0.1969,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 21,
+    "lat": 24.7531,
+    "lon": 74.4569,
+    "sm_surface": 0.178,
+    "sm_rootzone": 0.1972,
+    "n_villages_sharing_cell": 34
+   },
+   {
+    "cell_index": 22,
+    "lat": 24.7531,
+    "lon": 74.5557,
+    "sm_surface": 0.1726,
+    "sm_rootzone": 0.1978,
+    "n_villages_sharing_cell": 31
+   },
+   {
+    "cell_index": 23,
+    "lat": 24.7531,
+    "lon": 74.6545,
+    "sm_surface": 0.1654,
+    "sm_rootzone": 0.1975,
+    "n_villages_sharing_cell": 28
+   },
+   {
+    "cell_index": 24,
+    "lat": 24.7531,
+    "lon": 74.7533,
+    "sm_surface": 0.1807,
+    "sm_rootzone": 0.2232,
+    "n_villages_sharing_cell": 25
+   },
+   {
+    "cell_index": 25,
+    "lat": 24.7531,
+    "lon": 74.8521,
+    "sm_surface": 0.1856,
+    "sm_rootzone": 0.2216,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 26,
+    "lat": 24.7531,
+    "lon": 74.9509,
+    "sm_surface": 0.187,
+    "sm_rootzone": 0.2201,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 27,
+    "lat": 24.7531,
+    "lon": 75.2474,
+    "sm_surface": 0.2193,
+    "sm_rootzone": 0.2504,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 28,
+    "lat": 24.7531,
+    "lon": 75.3462,
+    "sm_surface": 0.2215,
+    "sm_rootzone": 0.2477,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 29,
+    "lat": 24.7531,
+    "lon": 75.445,
+    "sm_surface": 0.2262,
+    "sm_rootzone": 0.2506,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 30,
+    "lat": 24.7531,
+    "lon": 75.5438,
+    "sm_surface": 0.2314,
+    "sm_rootzone": 0.2543,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 31,
+    "lat": 24.7531,
+    "lon": 75.6426,
+    "sm_surface": 0.2465,
+    "sm_rootzone": 0.2642,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 32,
+    "lat": 24.8519,
+    "lon": 74.1604,
+    "sm_surface": 0.1715,
+    "sm_rootzone": 0.2018,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 33,
+    "lat": 24.8519,
+    "lon": 74.2592,
+    "sm_surface": 0.1779,
+    "sm_rootzone": 0.1986,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 34,
+    "lat": 24.8519,
+    "lon": 74.358,
+    "sm_surface": 0.1846,
+    "sm_rootzone": 0.1999,
+    "n_villages_sharing_cell": 37
+   },
+   {
+    "cell_index": 35,
+    "lat": 24.8519,
+    "lon": 74.4569,
+    "sm_surface": 0.1849,
+    "sm_rootzone": 0.2007,
+    "n_villages_sharing_cell": 28
+   },
+   {
+    "cell_index": 36,
+    "lat": 24.8519,
+    "lon": 74.5557,
+    "sm_surface": 0.1779,
+    "sm_rootzone": 0.1993,
+    "n_villages_sharing_cell": 35
+   },
+   {
+    "cell_index": 37,
+    "lat": 24.8519,
+    "lon": 74.6545,
+    "sm_surface": 0.1723,
+    "sm_rootzone": 0.1978,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 38,
+    "lat": 24.8519,
+    "lon": 74.7533,
+    "sm_surface": 0.1801,
+    "sm_rootzone": 0.2234,
+    "n_villages_sharing_cell": 42
+   },
+   {
+    "cell_index": 39,
+    "lat": 24.8519,
+    "lon": 75.0498,
+    "sm_surface": 0.2004,
+    "sm_rootzone": 0.2234,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 40,
+    "lat": 24.8519,
+    "lon": 75.445,
+    "sm_surface": 0.2261,
+    "sm_rootzone": 0.252,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 41,
+    "lat": 24.8519,
+    "lon": 75.5438,
+    "sm_surface": 0.2299,
+    "sm_rootzone": 0.2544,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 42,
+    "lat": 24.8519,
+    "lon": 75.6426,
+    "sm_surface": 0.2431,
+    "sm_rootzone": 0.2459,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 43,
+    "lat": 24.8519,
+    "lon": 75.7415,
+    "sm_surface": 0.2464,
+    "sm_rootzone": 0.248,
+    "n_villages_sharing_cell": 24
+   },
+   {
+    "cell_index": 44,
+    "lat": 24.9507,
+    "lon": 74.2592,
+    "sm_surface": 0.1835,
+    "sm_rootzone": 0.2009,
+    "n_villages_sharing_cell": 25
+   },
+   {
+    "cell_index": 45,
+    "lat": 24.9507,
+    "lon": 74.358,
+    "sm_surface": 0.1842,
+    "sm_rootzone": 0.201,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 46,
+    "lat": 24.9507,
+    "lon": 74.4569,
+    "sm_surface": 0.179,
+    "sm_rootzone": 0.1983,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 47,
+    "lat": 24.9507,
+    "lon": 74.5557,
+    "sm_surface": 0.1728,
+    "sm_rootzone": 0.1965,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 48,
+    "lat": 24.9507,
+    "lon": 74.6545,
+    "sm_surface": 0.1632,
+    "sm_rootzone": 0.1935,
+    "n_villages_sharing_cell": 25
+   },
+   {
+    "cell_index": 49,
+    "lat": 24.9507,
+    "lon": 74.7533,
+    "sm_surface": 0.1835,
+    "sm_rootzone": 0.2254,
+    "n_villages_sharing_cell": 34
+   },
+   {
+    "cell_index": 50,
+    "lat": 24.9507,
+    "lon": 74.9509,
+    "sm_surface": 0.1961,
+    "sm_rootzone": 0.228,
+    "n_villages_sharing_cell": 37
+   },
+   {
+    "cell_index": 51,
+    "lat": 24.9507,
+    "lon": 75.0498,
+    "sm_surface": 0.2064,
+    "sm_rootzone": 0.2284,
+    "n_villages_sharing_cell": 42
+   },
+   {
+    "cell_index": 52,
+    "lat": 24.9507,
+    "lon": 75.3462,
+    "sm_surface": 0.2318,
+    "sm_rootzone": 0.2368,
+    "n_villages_sharing_cell": 35
+   },
+   {
+    "cell_index": 53,
+    "lat": 24.9507,
+    "lon": 75.445,
+    "sm_surface": 0.2312,
+    "sm_rootzone": 0.2572,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 54,
+    "lat": 24.9507,
+    "lon": 75.5438,
+    "sm_surface": 0.238,
+    "sm_rootzone": 0.2617,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 55,
+    "lat": 24.9507,
+    "lon": 75.6426,
+    "sm_surface": 0.2456,
+    "sm_rootzone": 0.2481,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 56,
+    "lat": 25.0495,
+    "lon": 74.358,
+    "sm_surface": 0.1847,
+    "sm_rootzone": 0.2043,
+    "n_villages_sharing_cell": 29
+   },
+   {
+    "cell_index": 57,
+    "lat": 25.0495,
+    "lon": 74.4569,
+    "sm_surface": 0.1796,
+    "sm_rootzone": 0.2013,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 58,
+    "lat": 25.0495,
+    "lon": 74.5557,
+    "sm_surface": 0.1722,
+    "sm_rootzone": 0.1969,
+    "n_villages_sharing_cell": 28
+   },
+   {
+    "cell_index": 59,
+    "lat": 25.0495,
+    "lon": 74.6545,
+    "sm_surface": 0.1645,
+    "sm_rootzone": 0.1952,
+    "n_villages_sharing_cell": 36
+   },
+   {
+    "cell_index": 60,
+    "lat": 25.0495,
+    "lon": 74.7533,
+    "sm_surface": 0.1889,
+    "sm_rootzone": 0.228,
+    "n_villages_sharing_cell": 27
+   },
+   {
+    "cell_index": 61,
+    "lat": 25.0495,
+    "lon": 74.8521,
+    "sm_surface": 0.1944,
+    "sm_rootzone": 0.2282,
+    "n_villages_sharing_cell": 29
+   },
+   {
+    "cell_index": 62,
+    "lat": 25.0495,
+    "lon": 74.9509,
+    "sm_surface": 0.2044,
+    "sm_rootzone": 0.2336,
+    "n_villages_sharing_cell": 35
+   },
+   {
+    "cell_index": 63,
+    "lat": 25.0495,
+    "lon": 75.0498,
+    "sm_surface": 0.2113,
+    "sm_rootzone": 0.2323,
+    "n_villages_sharing_cell": 36
+   },
+   {
+    "cell_index": 64,
+    "lat": 25.0495,
+    "lon": 75.1486,
+    "sm_surface": 0.2186,
+    "sm_rootzone": 0.2327,
+    "n_villages_sharing_cell": 31
+   },
+   {
+    "cell_index": 65,
+    "lat": 25.1483,
+    "lon": 74.358,
+    "sm_surface": 0.1769,
+    "sm_rootzone": 0.1985,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 66,
+    "lat": 25.1483,
+    "lon": 74.4569,
+    "sm_surface": 0.1772,
+    "sm_rootzone": 0.2004,
+    "n_villages_sharing_cell": 25
+   },
+   {
+    "cell_index": 67,
+    "lat": 25.1483,
+    "lon": 74.6545,
+    "sm_surface": 0.1736,
+    "sm_rootzone": 0.2008,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 68,
+    "lat": 25.1483,
+    "lon": 74.7533,
+    "sm_surface": 0.1755,
+    "sm_rootzone": 0.201,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 69,
+    "lat": 25.1483,
+    "lon": 74.8521,
+    "sm_surface": 0.1789,
+    "sm_rootzone": 0.2039,
+    "n_villages_sharing_cell": 27
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.1749,
+  "sm_surface_stddev": 0.0243,
+  "n_blocks": 11
+ },
+ "blocks": [
+  {
+   "block_name": "Bari Sadri",
+   "sdcode": 664,
+   "n_villages": 156,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.1508,
+   "sm_surface_stddev": 0.0323
+  },
+  {
+   "block_name": "Begun",
+   "sdcode": 657,
+   "n_villages": 244,
+   "n_cells_spanned": 9,
+   "sm_surface_mean": 0.2021,
+   "sm_surface_stddev": 0.0113
+  },
+  {
+   "block_name": "Bhadesar",
+   "sdcode": 662,
+   "n_villages": 168,
+   "n_cells_spanned": 11,
+   "sm_surface_mean": 0.162,
+   "sm_surface_stddev": 0.0159
+  },
+  {
+   "block_name": "Bhopalsagar",
+   "sdcode": 6057,
+   "n_villages": 86,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.1685,
+   "sm_surface_stddev": 0.0136
+  },
+  {
+   "block_name": "Chittaurgarh",
+   "sdcode": 659,
+   "n_villages": 232,
+   "n_cells_spanned": 13,
+   "sm_surface_mean": 0.1776,
+   "sm_surface_stddev": 0.0072
+  },
+  {
+   "block_name": "Dungla",
+   "sdcode": 661,
+   "n_villages": 109,
+   "n_cells_spanned": 9,
+   "sm_surface_mean": 0.1397,
+   "sm_surface_stddev": 0.0074
+  },
+  {
+   "block_name": "Gangrar",
+   "sdcode": 656,
+   "n_villages": 132,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.1716,
+   "sm_surface_stddev": 0.0065
+  },
+  {
+   "block_name": "Kapasan",
+   "sdcode": 660,
+   "n_villages": 112,
+   "n_cells_spanned": 9,
+   "sm_surface_mean": 0.1806,
+   "sm_surface_stddev": 0.0061
+  },
+  {
+   "block_name": "Nimbahera",
+   "sdcode": 663,
+   "n_villages": 176,
+   "n_cells_spanned": 11,
+   "sm_surface_mean": 0.1576,
+   "sm_surface_stddev": 0.0188
+  },
+  {
+   "block_name": "Rashmi",
+   "sdcode": 655,
+   "n_villages": 94,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.1806,
+   "sm_surface_stddev": 0.0034
+  },
+  {
+   "block_name": "Rawatbhata",
+   "sdcode": 658,
+   "n_villages": 229,
+   "n_cells_spanned": 13,
+   "sm_surface_mean": 0.2326,
+   "sm_surface_stddev": 0.0085
+  }
+ ],
+ "villages": {
+  "100596": [
+   "Karanpura",
+   658,
+   43
+  ],
+  "100597": [
+   "Dhawad Khurd",
+   658,
+   43
+  ],
+  "100604": [
+   "Rooppura",
+   658,
+   31
+  ],
+  "100600": [
+   "Manya Kheri",
+   658,
+   43
+  ],
+  "100601": [
+   "Gilota",
+   658,
+   43
+  ],
+  "100603": [
+   "Shogarh",
+   658,
+   43
+  ],
+  "100607": [
+   "Vijaipur",
+   658,
+   43
+  ],
+  "100598": [
+   "Dhawad Kalan",
+   658,
+   43
+  ],
+  "100599": [
+   "Khati Khera",
+   658,
+   43
+  ],
+  "100610": [
+   "Rodi",
+   658,
+   31
+  ],
+  "100606": [
+   "Eklingpura",
+   658,
+   31
+  ],
+  "100608": [
+   "Dholai",
+   658,
+   43
+  ],
+  "100605": [
+   "Mohana",
+   658,
+   31
+  ],
+  "100591": [
+   "Bambori Khurd",
+   658,
+   43
+  ],
+  "100576": [
+   "Amarpura",
+   658,
+   43
+  ],
+  "100580": [
+   "Kelu Kheri",
+   658,
+   43
+  ],
+  "100577": [
+   "Khajupura",
+   658,
+   42
+  ],
+  "100581": [
+   "Bhagwatpura",
+   658,
+   43
+  ],
+  "100582": [
+   "Malpura",
+   658,
+   43
+  ],
+  "100594": [
+   "Jal Khera",
+   658,
+   43
+  ],
+  "100585": [
+   "Badodiya",
+   658,
+   43
+  ],
+  "100583": [
+   "Kotra",
+   658,
+   43
+  ],
+  "100590": [
+   "Menpur",
+   658,
+   43
+  ],
+  "100589": [
+   "Halsera",
+   658,
+   43
+  ],
+  "100584": [
+   "Bambori Kalan",
+   658,
+   43
+  ],
+  "100592": [
+   "Ladpur",
+   658,
+   43
+  ],
+  "100595": [
+   "Dhardi",
+   658,
+   43
+  ],
+  "100593": [
+   "Mohanpura",
+   658,
+   43
+  ],
+  "100588": [
+   "Bheempura",
+   658,
+   42
+  ],
+  "100587": [
+   "Ren Khera",
+   658,
+   42
+  ],
+  "100586": [
+   "Semaliya",
+   658,
+   42
+  ],
+  "100579": [
+   "Kishorpura",
+   658,
+   42
+  ],
+  "100578": [
+   "Bana Ka Khera",
+   658,
+   42
+  ],
+  "100574": [
+   "Jharjhani",
+   658,
+   55
+  ],
+  "100573": [
+   "Jalampura",
+   658,
+   55
+  ],
+  "100602": [
+   "Gopalpura",
+   658,
+   43
+  ],
+  "100575": [
+   "Naiyon Ki Talai",
+   658,
+   55
+  ],
+  "100572": [
+   "Manpura",
+   658,
+   55
+  ],
+  "100533": [
+   "Narayanpura",
+   658,
+   29
+  ],
+  "101131": [
+   "Semaliya Mal",
+   661,
+   7
+  ],
+  "101067": [
+   "Mohammad Ganj",
+   661,
+   11
+  ],
+  "101164": [
+   "Mahuri Khera",
+   661,
+   4
+  ],
+  "101644": [
+   "Khumji Ka Khera",
+   664,
+   1
+  ],
+  "101633": [
+   "Dhalawar",
+   664,
+   1
+  ],
+  "101104": [
+   "Norangabad Khurd",
+   661,
+   7
+  ],
+  "101387": [
+   "Tumba",
+   663,
+   16
+  ],
+  "101056": [
+   "Khera Kiran",
+   660,
+   19
+  ],
+  "101386": [
+   "Khara",
+   663,
+   16
+  ],
+  "101385": [
+   "Amarpura",
+   663,
+   16
+  ],
+  "100102": [
+   "Nayakhera",
+   656,
+   59
+  ],
+  "100223": [
+   "Boojra",
+   657,
+   62
+  ],
+  "100851": [
+   "Guner",
+   659,
+   38
+  ],
+  "100345": [
+   "Laxmiganj",
+   657,
+   51
+  ],
+  "100311": [
+   "Chhaliyon Ki Baithak",
+   657,
+   50
+  ],
+  "100297": [
+   "Kadmali",
+   657,
+   50
+  ],
+  "100502": [
+   "Barodia",
+   658,
+   27
+  ],
+  "100613": [
+   "Charmi",
+   658,
+   31
+  ],
+  "100483": [
+   "Haripura",
+   658,
+   52
+  ],
+  "101142": [
+   "Rawatpura",
+   661,
+   3
+  ],
+  "101138": [
+   "Hamer Singh Ji Ka Khera",
+   661,
+   3
+  ],
+  "101140": [
+   "Beeron Ka Khera",
+   661,
+   3
+  ],
+  "101141": [
+   "Bhanpa",
+   661,
+   3
+  ],
+  "101139": [
+   "Ghoronka Ka Khera",
+   661,
+   3
+  ],
+  "101137": [
+   "Ajeetpura",
+   661,
+   3
+  ],
+  "100397": [
+   "Bhatkhera Joona",
+   657,
+   51
+  ],
+  "101143": [
+   "Bhopji Ka Khera",
+   661,
+   3
+  ],
+  "101066": [
+   "Sataliyawas",
+   661,
+   11
+  ],
+  "101068": [
+   "Kareempura",
+   661,
+   11
+  ],
+  "101073": [
+   "Sameliya Mahadeo",
+   661,
+   11
+  ],
+  "101072": [
+   "Lothiyana",
+   661,
+   11
+  ],
+  "101075": [
+   "Jal Kheri",
+   661,
+   11
+  ],
+  "101077": [
+   "Nangawali",
+   661,
+   11
+  ],
+  "101076": [
+   "Sangariya",
+   661,
+   11
+  ],
+  "101095": [
+   "Titarda",
+   661,
+   11
+  ],
+  "101096": [
+   "Negadiya",
+   661,
+   11
+  ],
+  "101094": [
+   "Rodji Ka Khera",
+   661,
+   11
+  ],
+  "101099": [
+   "Idra",
+   661,
+   11
+  ],
+  "101093": [
+   "Rawatpura",
+   661,
+   11
+  ],
+  "101098": [
+   "Chhapri",
+   661,
+   11
+  ],
+  "101101": [
+   "Arned",
+   661,
+   7
+  ],
+  "101134": [
+   "Badwai",
+   661,
+   3
+  ],
+  "101130": [
+   "Devipura",
+   661,
+   7
+  ],
+  "101097": [
+   "Kishorji Ka Khera",
+   661,
+   11
+  ],
+  "101133": [
+   "Ummedpura",
+   661,
+   3
+  ],
+  "101132": [
+   "Bagpura",
+   661,
+   3
+  ],
+  "101144": [
+   "Kishan Kareri",
+   661,
+   3
+  ],
+  "101074": [
+   "Hariya Kheri",
+   661,
+   11
+  ],
+  "101100": [
+   "Kheta Khera",
+   661,
+   7
+  ],
+  "101033": [
+   "Kalyanpura",
+   6057,
+   11
+  ],
+  "101035": [
+   "Goojaron Ki Bhagal",
+   6057,
+   11
+  ],
+  "101034": [
+   "Balla Ki Bhagal",
+   6057,
+   18
+  ],
+  "101038": [
+   "Geelund",
+   6057,
+   11
+  ],
+  "101037": [
+   "Nandoli",
+   6057,
+   11
+  ],
+  "101036": [
+   "Chak B Tana",
+   6057,
+   11
+  ],
+  "101032": [
+   "Moonch Ki Bhagal",
+   6057,
+   18
+  ],
+  "101135": [
+   "Gurha",
+   661,
+   3
+  ],
+  "101136": [
+   "Lambi Choti",
+   661,
+   3
+  ],
+  "101102": [
+   "Laxmi Pura",
+   661,
+   7
+  ],
+  "101530": [
+   "Jangpura",
+   664,
+   8
+  ],
+  "101278": [
+   "Dhuwaliyon Ki Dhani",
+   662,
+   14
+  ],
+  "101592": [
+   "Keet Khera",
+   664,
+   2
+  ],
+  "101390": [
+   "Ahmadpura",
+   663,
+   16
+  ],
+  "101429": [
+   "Sanpaliya Kheri",
+   663,
+   10
+  ],
+  "101567": [
+   "Bhagwanpura",
+   664,
+   5
+  ],
+  "101559": [
+   "Katai",
+   664,
+   6
+  ],
+  "101561": [
+   "Shivpura",
+   664,
+   5
+  ],
+  "101643": [
+   "Shivpura",
+   664,
+   1
+  ],
+  "101642": [
+   "Rawatpura",
+   664,
+   2
+  ],
+  "101660": [
+   "Kalyan Pura",
+   664,
+   2
+  ],
+  "101630": [
+   "Kahara Jageer C",
+   664,
+   1
+  ],
+  "101631": [
+   "Khoriyon Ka Khera",
+   664,
+   1
+  ],
+  "101658": [
+   "Rooppura",
+   664,
+   2
+  ],
+  "101604": [
+   "Kheri Khurd",
+   664,
+   2
+  ],
+  "101657": [
+   "Kewalpura Jageer",
+   664,
+   2
+  ],
+  "101629": [
+   "Kahara Chak B",
+   664,
+   1
+  ],
+  "101659": [
+   "Maraodiya",
+   664,
+   2
+  ],
+  "101544": [
+   "Sangariya",
+   664,
+   5
+  ],
+  "101569": [
+   "Sarthala",
+   664,
+   5
+  ],
+  "101576": [
+   "Chandra Kheri",
+   664,
+   4
+  ],
+  "101575": [
+   "Sompur A",
+   664,
+   5
+  ],
+  "101574": [
+   "Sompur B",
+   664,
+   5
+  ],
+  "101560": [
+   "Madhopura",
+   664,
+   6
+  ],
+  "101577": [
+   "Bhurkiyan Kalan",
+   664,
+   5
+  ],
+  "101543": [
+   "Charanon Ka Khera",
+   664,
+   5
+  ],
+  "101568": [
+   "Achalpura",
+   664,
+   5
+  ],
+  "101558": [
+   "Raingpuriya",
+   664,
+   6
+  ],
+  "101564": [
+   "Keeratpura",
+   664,
+   5
+  ],
+  "101578": [
+   "Binayka",
+   664,
+   4
+  ],
+  "101570": [
+   "Ranawaton Ka Khera",
+   664,
+   5
+  ],
+  "101566": [
+   "Dalpura",
+   664,
+   5
+  ],
+  "101565": [
+   "Ambawali",
+   664,
+   5
+  ],
+  "101563": [
+   "Bagelon Ka Khera",
+   664,
+   5
+  ],
+  "101572": [
+   "Bhopatpura",
+   664,
+   5
+  ],
+  "101573": [
+   "Jarkhana",
+   664,
+   5
+  ],
+  "101579": [
+   "Deodan",
+   664,
+   5
+  ],
+  "101618": [
+   "Luhariya Khera",
+   664,
+   4
+  ],
+  "101580": [
+   "Charan Kheri",
+   664,
+   5
+  ],
+  "101581": [
+   "Nanga Kheri",
+   664,
+   5
+  ],
+  "101582": [
+   "Jaton Ka Khera",
+   664,
+   5
+  ],
+  "101617": [
+   "Phachar",
+   664,
+   2
+  ],
+  "101583": [
+   "Masab Ka Khera",
+   664,
+   2
+  ],
+  "101616": [
+   "Pandera",
+   664,
+   2
+  ],
+  "101599": [
+   "Garh Borundi",
+   664,
+   2
+  ],
+  "101608": [
+   "Lachhmipura",
+   664,
+   2
+  ],
+  "101607": [
+   "Karmadiya Khera",
+   664,
+   2
+  ],
+  "101593": [
+   "Rati Talai",
+   664,
+   2
+  ],
+  "101609": [
+   "Sardarpura",
+   664,
+   2
+  ],
+  "101621": [
+   "Jiya Kheri",
+   664,
+   1
+  ],
+  "101615": [
+   "Semaliya",
+   664,
+   2
+  ],
+  "101613": [
+   "Parbati",
+   664,
+   2
+  ],
+  "101606": [
+   "Sukhpura",
+   664,
+   2
+  ],
+  "101605": [
+   "Parsoli",
+   664,
+   2
+  ],
+  "101622": [
+   "Bhiyana",
+   664,
+   1
+  ],
+  "101610": [
+   "Makanpura",
+   664,
+   2
+  ],
+  "101620": [
+   "Andon Ka Khera",
+   664,
+   2
+  ],
+  "101612": [
+   "Manpura",
+   664,
+   2
+  ],
+  "101600": [
+   "Sangrampura",
+   664,
+   2
+  ],
+  "101654": [
+   "Shyampura",
+   664,
+   2
+  ],
+  "101623": [
+   "Mahoora",
+   664,
+   1
+  ],
+  "101611": [
+   "Ameerama",
+   664,
+   2
+  ],
+  "101603": [
+   "Kheri Kalan",
+   664,
+   2
+  ],
+  "101602": [
+   "Rathoron Ka Khera",
+   664,
+   2
+  ],
+  "101632": [
+   "Gadriyawas",
+   664,
+   1
+  ],
+  "101601": [
+   "Jaisinghpura",
+   664,
+   2
+  ],
+  "101625": [
+   "Manpura",
+   664,
+   1
+  ],
+  "101662": [
+   "Moonjwa",
+   664,
+   2
+  ],
+  "101663": [
+   "Dheekriya Kheri",
+   664,
+   2
+  ],
+  "101647": [
+   "Naya Khera",
+   664,
+   2
+  ],
+  "101661": [
+   "Mata Magri",
+   664,
+   2
+  ],
+  "101627": [
+   "Kahara Jageer A",
+   664,
+   1
+  ],
+  "101640": [
+   "Mukanpura",
+   664,
+   2
+  ],
+  "101656": [
+   "Jooni Barwal",
+   664,
+   2
+  ],
+  "101639": [
+   "Bansi",
+   664,
+   2
+  ],
+  "101648": [
+   "Rani Malya",
+   664,
+   2
+  ],
+  "101653": [
+   "Haripura",
+   664,
+   2
+  ],
+  "101652": [
+   "Eklingpura",
+   664,
+   2
+  ],
+  "101665": [
+   "Payri",
+   664,
+   2
+  ],
+  "101651": [
+   "Lachhmipura",
+   664,
+   2
+  ],
+  "101650": [
+   "Kali Bheet",
+   664,
+   2
+  ],
+  "101666": [
+   "Kesharpura",
+   664,
+   2
+  ],
+  "101556": [
+   "Wali Ka Khera at Bhabho Ka Khera",
+   664,
+   6
+  ],
+  "101571": [
+   "Khankhariya Ji Ka Khera",
+   664,
+   5
+  ],
+  "101586": [
+   "Poolamagra",
+   664,
+   2
+  ],
+  "101628": [
+   "Dayalpura",
+   664,
+   1
+  ],
+  "101585": [
+   "Gajan Devi",
+   664,
+   2
+  ],
+  "101645": [
+   "Badwal",
+   664,
+   2
+  ],
+  "101646": [
+   "Tegariyo Ka Phala",
+   664,
+   2
+  ],
+  "101649": [
+   "Kewalpura A",
+   664,
+   2
+  ],
+  "101664": [
+   "Pujan Ka Phalian",
+   664,
+   2
+  ],
+  "101638": [
+   "Dabela",
+   664,
+   0
+  ],
+  "101315": [
+   "Ameerpura",
+   662,
+   13
+  ],
+  "101668": [
+   "Lalpura",
+   664,
+   0
+  ],
+  "101667": [
+   "Khankhriya Kheri",
+   664,
+   0
+  ],
+  "101614": [
+   "Bhawanipura",
+   664,
+   2
+  ],
+  "101655": [
+   "Kewalpura B",
+   664,
+   2
+  ],
+  "101165": [
+   "Delwas",
+   661,
+   4
+  ],
+  "101166": [
+   "Durga Khera",
+   661,
+   4
+  ],
+  "101168": [
+   "Phalasiya",
+   661,
+   4
+  ],
+  "101127": [
+   "Norangabad Kalan",
+   661,
+   7
+  ],
+  "101167": [
+   "Katera",
+   661,
+   4
+  ],
+  "101169": [
+   "Jhanjhalwas",
+   661,
+   4
+  ],
+  "101160": [
+   "Gumanpura",
+   661,
+   4
+  ],
+  "101170": [
+   "Chhajvi",
+   661,
+   4
+  ],
+  "101162": [
+   "Bilot",
+   661,
+   4
+  ],
+  "101163": [
+   "Talawada",
+   661,
+   4
+  ],
+  "101161": [
+   "Bhurkiya Khurd",
+   661,
+   4
+  ],
+  "101641": [
+   "Chakmal",
+   664,
+   2
+  ],
+  "101562": [
+   "Shikarpura",
+   664,
+   5
+  ],
+  "248843": [
+   "Bari Sadri",
+   664,
+   5
+  ],
+  "101584": [
+   "Khera Gajan Devi",
+   664,
+   2
+  ],
+  "101549": [
+   "Kapariyo Ka Khera",
+   664,
+   5
+  ],
+  "101550": [
+   "Gopal Ji Ka Khera",
+   664,
+   5
+  ],
+  "101634": [
+   "Sabalpura",
+   664,
+   1
+  ],
+  "101636": [
+   "Payron Ka Khera",
+   664,
+   1
+  ],
+  "101637": [
+   "Tajela",
+   664,
+   0
+  ],
+  "101619": [
+   "Bohera",
+   664,
+   1
+  ],
+  "101174": [
+   "Sethwana",
+   661,
+   4
+  ],
+  "101624": [
+   "Utarwara",
+   664,
+   1
+  ],
+  "101626": [
+   "Khuman Singhji Ka Khera",
+   664,
+   1
+  ],
+  "101173": [
+   "Gurjaniya",
+   661,
+   4
+  ],
+  "101172": [
+   "Jalampura",
+   661,
+   4
+  ],
+  "101171": [
+   "Parana",
+   661,
+   4
+  ],
+  "101635": [
+   "Solankiyon Ka Khera",
+   664,
+   1
+  ],
+  "101555": [
+   "Chainpuriya",
+   664,
+   6
+  ],
+  "101557": [
+   "Chitoriya",
+   664,
+   6
+  ],
+  "101587": [
+   "Linkoda",
+   664,
+   5
+  ],
+  "101588": [
+   "Sultanpura",
+   664,
+   5
+  ],
+  "101590": [
+   "Semal Khera",
+   664,
+   2
+  ],
+  "101589": [
+   "Borkhera",
+   664,
+   5
+  ],
+  "101597": [
+   "Gundalpur",
+   664,
+   2
+  ],
+  "101595": [
+   "Chandpura",
+   664,
+   2
+  ],
+  "101596": [
+   "Sabalpura",
+   664,
+   2
+  ],
+  "101591": [
+   "Rughnath Pura",
+   664,
+   2
+  ],
+  "101594": [
+   "Rati Chandji Ka Khera",
+   664,
+   2
+  ],
+  "101598": [
+   "Borundi",
+   664,
+   2
+  ],
+  "101672": [
+   "Afron Ka Talab",
+   664,
+   2
+  ],
+  "101671": [
+   "Deeponka Talab",
+   664,
+   2
+  ],
+  "101669": [
+   "Forest Block",
+   664,
+   0
+  ],
+  "101374": [
+   "Shahbad",
+   663,
+   15
+  ],
+  "101670": [
+   "Kalakhet",
+   664,
+   0
+  ],
+  "101397": [
+   "Aheerpura",
+   663,
+   15
+  ],
+  "101394": [
+   "Bor Kheri",
+   663,
+   16
+  ],
+  "101372": [
+   "Mangrol",
+   663,
+   15
+  ],
+  "101365": [
+   "Dhanora",
+   663,
+   14
+  ],
+  "101364": [
+   "Palri",
+   663,
+   14
+  ],
+  "101366": [
+   "Maliya Kheri",
+   663,
+   14
+  ],
+  "101368": [
+   "Bansa",
+   663,
+   15
+  ],
+  "101404": [
+   "Phalwa",
+   663,
+   14
+  ],
+  "101405": [
+   "Lasrawan",
+   663,
+   14
+  ],
+  "101399": [
+   "Phachar Aheeran",
+   663,
+   15
+  ],
+  "101406": [
+   "Kanthariya",
+   663,
+   14
+  ],
+  "101373": [
+   "Sankhlon Ka Khera",
+   663,
+   15
+  ],
+  "101403": [
+   "Bhat Kotri",
+   663,
+   15
+  ],
+  "101400": [
+   "Peer Khera",
+   663,
+   15
+  ],
+  "101398": [
+   "Laxmipura",
+   663,
+   15
+  ],
+  "101428": [
+   "Sanpaliya",
+   663,
+   10
+  ],
+  "101453": [
+   "Mindana",
+   663,
+   9
+  ],
+  "101423": [
+   "Nardiya",
+   663,
+   10
+  ],
+  "101451": [
+   "Tatarmala",
+   663,
+   9
+  ],
+  "101443": [
+   "Kherabad",
+   663,
+   10
+  ],
+  "101478": [
+   "Dala at Kishanpura",
+   663,
+   10
+  ],
+  "101391": [
+   "Gothra",
+   663,
+   16
+  ],
+  "101395": [
+   "Baroli Ghata",
+   663,
+   16
+  ],
+  "101401": [
+   "Rasoolpur",
+   663,
+   15
+  ],
+  "101402": [
+   "Sangariya",
+   663,
+   15
+  ],
+  "101408": [
+   "Mandawali",
+   663,
+   14
+  ],
+  "101415": [
+   "Bora Kheri",
+   663,
+   15
+  ],
+  "101396": [
+   "Karthana",
+   663,
+   15
+  ],
+  "101409": [
+   "Changeri",
+   663,
+   14
+  ],
+  "101436": [
+   "Arniya Mali",
+   663,
+   16
+  ],
+  "101413": [
+   "Jawada",
+   663,
+   14
+  ],
+  "101414": [
+   "Badoli Madhosingh",
+   663,
+   15
+  ],
+  "101410": [
+   "Baori Khera",
+   663,
+   14
+  ],
+  "101437": [
+   "Barda",
+   663,
+   16
+  ],
+  "101435": [
+   "Segwa",
+   663,
+   16
+  ],
+  "101412": [
+   "Kachariya Kheri",
+   663,
+   14
+  ],
+  "101417": [
+   "Dheenwa",
+   663,
+   15
+  ],
+  "101434": [
+   "Kalyanpura",
+   663,
+   16
+  ],
+  "101416": [
+   "Sakariya",
+   663,
+   15
+  ],
+  "101433": [
+   "Peepaliya Kalan",
+   663,
+   16
+  ],
+  "101419": [
+   "Uncha",
+   663,
+   10
+  ],
+  "101432": [
+   "Sigri",
+   663,
+   16
+  ],
+  "101155": [
+   "Anandpura",
+   661,
+   7
+  ],
+  "101418": [
+   "Bhemli",
+   663,
+   10
+  ],
+  "101430": [
+   "Manda Gulfaroshan",
+   663,
+   10
+  ],
+  "101450": [
+   "Mandla Charan",
+   663,
+   9
+  ],
+  "101427": [
+   "Rani Khera",
+   663,
+   10
+  ],
+  "101439": [
+   "Jaliya",
+   663,
+   16
+  ],
+  "101421": [
+   "Veeriya Kheri",
+   663,
+   9
+  ],
+  "101441": [
+   "Akya",
+   663,
+   16
+  ],
+  "101431": [
+   "Chand Khera",
+   663,
+   10
+  ],
+  "101442": [
+   "Semaliya",
+   663,
+   10
+  ],
+  "101440": [
+   "Charliya Brahmanan",
+   663,
+   16
+  ],
+  "101424": [
+   "Bamaniya",
+   663,
+   10
+  ],
+  "101479": [
+   "Kamlahera",
+   663,
+   16
+  ],
+  "101447": [
+   "Sagwariya",
+   663,
+   10
+  ],
+  "101444": [
+   "Khera Jadeed",
+   663,
+   10
+  ],
+  "101475": [
+   "Kotri Kalan",
+   663,
+   16
+  ],
+  "101477": [
+   "Ahmadnagar",
+   663,
+   10
+  ],
+  "101407": [
+   "Jharsadri",
+   663,
+   14
+  ],
+  "101455": [
+   "Binota",
+   663,
+   9
+  ],
+  "101448": [
+   "Jamal Khera",
+   663,
+   10
+  ],
+  "101473": [
+   "Sarlai",
+   663,
+   10
+  ],
+  "101470": [
+   "Ghatera",
+   663,
+   10
+  ],
+  "101389": [
+   "Kanpura",
+   663,
+   16
+  ],
+  "101367": [
+   "Peepliya Gadiya",
+   663,
+   15
+  ],
+  "101411": [
+   "Dhoriya",
+   663,
+   14
+  ],
+  "101420": [
+   "Ranchhor Pura",
+   663,
+   9
+  ],
+  "101426": [
+   "Solatpura",
+   663,
+   10
+  ],
+  "101476": [
+   "Shobhawali",
+   663,
+   10
+  ],
+  "101459": [
+   "Benpuri Kalan",
+   663,
+   9
+  ],
+  "101471": [
+   "Kadmali",
+   663,
+   10
+  ],
+  "101454": [
+   "Bhagal",
+   663,
+   9
+  ],
+  "101466": [
+   "Narsingh Garh",
+   663,
+   10
+  ],
+  "101465": [
+   "Makan Pura",
+   663,
+   10
+  ],
+  "101461": [
+   "Sajanpur",
+   663,
+   10
+  ],
+  "101532": [
+   "Akyan",
+   664,
+   9
+  ],
+  "101529": [
+   "Khanpura",
+   664,
+   8
+  ],
+  "101540": [
+   "Bhatoli",
+   664,
+   5
+  ],
+  "101537": [
+   "Pindri",
+   664,
+   8
+  ],
+  "101539": [
+   "Kalandar Khera",
+   664,
+   5
+  ],
+  "101542": [
+   "Suthar Khera",
+   664,
+   5
+  ],
+  "101551": [
+   "Parliya",
+   664,
+   5
+  ],
+  "101518": [
+   "Karoli",
+   664,
+   8
+  ],
+  "101147": [
+   "Fateh Chikarda",
+   661,
+   4
+  ],
+  "101522": [
+   "Nikumbh",
+   664,
+   8
+  ],
+  "101523": [
+   "Unthel Khera",
+   664,
+   9
+  ],
+  "101519": [
+   "Punawali",
+   664,
+   8
+  ],
+  "101520": [
+   "Pinodara",
+   664,
+   8
+  ],
+  "101524": [
+   "Unthel",
+   664,
+   8
+  ],
+  "101521": [
+   "Aurwadiya",
+   664,
+   8
+  ],
+  "101525": [
+   "Bhanooja",
+   664,
+   8
+  ],
+  "101526": [
+   "Deori",
+   664,
+   8
+  ],
+  "101531": [
+   "Ratanpur",
+   664,
+   9
+  ],
+  "101527": [
+   "Jantai",
+   664,
+   8
+  ],
+  "101538": [
+   "Peend",
+   664,
+   8
+  ],
+  "101541": [
+   "Nandoli",
+   664,
+   8
+  ],
+  "101533": [
+   "Bhagal",
+   664,
+   9
+  ],
+  "101534": [
+   "Vankiya",
+   664,
+   9
+  ],
+  "101547": [
+   "Ummedpura",
+   664,
+   5
+  ],
+  "101548": [
+   "Khardeola",
+   664,
+   5
+  ],
+  "101546": [
+   "Tapariya Kheri",
+   664,
+   5
+  ],
+  "101552": [
+   "Samano Ka Khera",
+   664,
+   6
+  ],
+  "101545": [
+   "Kachoomra",
+   664,
+   5
+  ],
+  "101528": [
+   "Palakheri",
+   664,
+   8
+  ],
+  "101288": [
+   "Begamaniya",
+   662,
+   13
+  ],
+  "101267": [
+   "Dhanet",
+   662,
+   13
+  ],
+  "101304": [
+   "Karediya",
+   662,
+   13
+  ],
+  "101298": [
+   "Karoli",
+   662,
+   12
+  ],
+  "101307": [
+   "Shivpura",
+   662,
+   13
+  ],
+  "101305": [
+   "Sodawas",
+   662,
+   13
+  ],
+  "101302": [
+   "Manroop Ka Khera",
+   662,
+   13
+  ],
+  "101310": [
+   "Manji Ka Gurha",
+   662,
+   14
+  ],
+  "101224": [
+   "Khokhariya Kheri",
+   662,
+   12
+  ],
+  "101231": [
+   "Surajpura",
+   662,
+   12
+  ],
+  "101232": [
+   "Keshar Kheri",
+   662,
+   12
+  ],
+  "101263": [
+   "Kuretha",
+   662,
+   12
+  ],
+  "101262": [
+   "Maora",
+   662,
+   13
+  ],
+  "101225": [
+   "Napaniya",
+   662,
+   12
+  ],
+  "101261": [
+   "Akya",
+   662,
+   13
+  ],
+  "101269": [
+   "Potla Khurd",
+   662,
+   13
+  ],
+  "101233": [
+   "Amarpura",
+   662,
+   12
+  ],
+  "101273": [
+   "Bhadesar",
+   662,
+   13
+  ],
+  "101268": [
+   "Potla Kalan",
+   662,
+   13
+  ],
+  "101230": [
+   "Gopalpura",
+   662,
+   12
+  ],
+  "101226": [
+   "Chena Khera",
+   662,
+   12
+  ],
+  "101280": [
+   "Gulabji Ka Gurha",
+   662,
+   14
+  ],
+  "101287": [
+   "Ghati",
+   662,
+   13
+  ],
+  "101286": [
+   "Gadariyon Ki Dhani",
+   662,
+   13
+  ],
+  "101290": [
+   "Gopi Ka Khera",
+   662,
+   13
+  ],
+  "101282": [
+   "Bhalundi",
+   662,
+   14
+  ],
+  "101227": [
+   "Rakampura",
+   662,
+   12
+  ],
+  "101228": [
+   "Buddhpura",
+   662,
+   12
+  ],
+  "101289": [
+   "Chatra Ka Khera",
+   662,
+   13
+  ],
+  "101266": [
+   "Segwa",
+   662,
+   13
+  ],
+  "101292": [
+   "Charpotiya",
+   662,
+   13
+  ],
+  "101294": [
+   "Bhagal",
+   662,
+   13
+  ],
+  "101293": [
+   "Phalasiya",
+   662,
+   13
+  ],
+  "101265": [
+   "Geeda Khera",
+   662,
+   12
+  ],
+  "101295": [
+   "Charliya",
+   662,
+   13
+  ],
+  "101283": [
+   "Bhaonath Ki Kheri",
+   662,
+   14
+  ],
+  "101285": [
+   "Udpura",
+   662,
+   13
+  ],
+  "101306": [
+   "Jhadoli",
+   662,
+   13
+  ],
+  "101297": [
+   "Akola Kalan",
+   662,
+   13
+  ],
+  "101309": [
+   "Oda",
+   662,
+   14
+  ],
+  "101296": [
+   "Radai Khera",
+   662,
+   13
+  ],
+  "101303": [
+   "Suraj Garh",
+   662,
+   13
+  ],
+  "101311": [
+   "Asawara",
+   662,
+   13
+  ],
+  "101301": [
+   "Tarjela",
+   662,
+   13
+  ],
+  "101318": [
+   "Jogan Kheri",
+   662,
+   13
+  ],
+  "101342": [
+   "Khodeep",
+   662,
+   9
+  ],
+  "101322": [
+   "Gulji Ka Khera",
+   662,
+   8
+  ],
+  "101313": [
+   "Magarda",
+   662,
+   13
+  ],
+  "101299": [
+   "Akola Khurd",
+   662,
+   13
+  ],
+  "101312": [
+   "Daulat Pura",
+   662,
+   13
+  ],
+  "101300": [
+   "Fatehpura",
+   662,
+   13
+  ],
+  "101332": [
+   "Nanana",
+   662,
+   14
+  ],
+  "101330": [
+   "Tejpura",
+   662,
+   13
+  ],
+  "101335": [
+   "Durjanji Ka Khera",
+   662,
+   14
+  ],
+  "101316": [
+   "Barkhera",
+   662,
+   13
+  ],
+  "101314": [
+   "Shivpura",
+   662,
+   13
+  ],
+  "101326": [
+   "Gardana",
+   662,
+   13
+  ],
+  "101264": [
+   "Mandphiya",
+   662,
+   12
+  ],
+  "101229": [
+   "Mokhampura",
+   662,
+   12
+  ],
+  "101284": [
+   "Peepli Ka Gurha",
+   662,
+   14
+  ],
+  "101308": [
+   "Rebariyon Ki Dhani",
+   662,
+   14
+  ],
+  "101334": [
+   "Balnath Khera",
+   662,
+   14
+  ],
+  "101333": [
+   "Kering Khera",
+   662,
+   14
+  ],
+  "101336": [
+   "Dewal Kheri",
+   662,
+   14
+  ],
+  "101331": [
+   "Peepliya",
+   662,
+   14
+  ],
+  "101317": [
+   "Sadalkhera",
+   662,
+   13
+  ],
+  "101338": [
+   "Pagara",
+   662,
+   14
+  ],
+  "101325": [
+   "Choona Khera",
+   662,
+   13
+  ],
+  "101323": [
+   "Napawali",
+   662,
+   8
+  ],
+  "101324": [
+   "Mentron Ka Khera",
+   662,
+   8
+  ],
+  "101329": [
+   "Minana",
+   662,
+   8
+  ],
+  "101337": [
+   "Bhalot",
+   662,
+   14
+  ],
+  "101327": [
+   "Beelri",
+   662,
+   8
+  ],
+  "101319": [
+   "Somawas",
+   662,
+   8
+  ],
+  "101339": [
+   "Upreda",
+   662,
+   9
+  ],
+  "101328": [
+   "Malya Kheri",
+   662,
+   8
+  ],
+  "101340": [
+   "Wani",
+   662,
+   9
+  ],
+  "101321": [
+   "Hapa Kheri",
+   662,
+   8
+  ],
+  "101341": [
+   "Baman Kheri",
+   662,
+   9
+  ],
+  "101320": [
+   "Bheemlod",
+   662,
+   8
+  ],
+  "101151": [
+   "Semaliya Peela Khera",
+   661,
+   4
+  ],
+  "101158": [
+   "Talau",
+   661,
+   4
+  ],
+  "101157": [
+   "Ala Kheri",
+   661,
+   5
+  ],
+  "101146": [
+   "Surera",
+   661,
+   4
+  ],
+  "101078": [
+   "Chaktiya",
+   661,
+   12
+  ],
+  "101070": [
+   "Arniya",
+   661,
+   11
+  ],
+  "101071": [
+   "Sangesara",
+   661,
+   12
+  ],
+  "101080": [
+   "Rama Khera",
+   661,
+   12
+  ],
+  "101087": [
+   "Nangpura",
+   661,
+   12
+  ],
+  "101086": [
+   "Azampura",
+   661,
+   12
+  ],
+  "101090": [
+   "Bheela Khera",
+   661,
+   12
+  ],
+  "101092": [
+   "Mangalwar",
+   661,
+   7
+  ],
+  "101113": [
+   "Chikarda",
+   661,
+   13
+  ],
+  "101110": [
+   "Suja Khera",
+   661,
+   12
+  ],
+  "101089": [
+   "Morwan",
+   661,
+   12
+  ],
+  "101108": [
+   "Lakhmipura",
+   661,
+   7
+  ],
+  "101109": [
+   "Neemgaon",
+   661,
+   7
+  ],
+  "101107": [
+   "Daulaipura",
+   661,
+   7
+  ],
+  "101106": [
+   "Padampura",
+   661,
+   7
+  ],
+  "101105": [
+   "Mircha Kheri",
+   661,
+   7
+  ],
+  "101112": [
+   "Jetpura",
+   661,
+   7
+  ],
+  "101114": [
+   "Sarangpura",
+   661,
+   8
+  ],
+  "101121": [
+   "Nanga Khera",
+   661,
+   7
+  ],
+  "101120": [
+   "Bhatoli Bagariyan",
+   661,
+   7
+  ],
+  "101124": [
+   "Wazeerabad",
+   661,
+   7
+  ],
+  "101103": [
+   "Biloda",
+   661,
+   7
+  ],
+  "101115": [
+   "Nogawan",
+   661,
+   8
+  ],
+  "101118": [
+   "Parmeshwarpura",
+   661,
+   7
+  ],
+  "101119": [
+   "Deva Khera",
+   661,
+   7
+  ],
+  "101122": [
+   "Teela Khera",
+   661,
+   7
+  ],
+  "101123": [
+   "Daulatpura",
+   661,
+   7
+  ],
+  "101117": [
+   "Wazeerpura",
+   661,
+   7
+  ],
+  "101125": [
+   "Palod",
+   661,
+   7
+  ],
+  "101154": [
+   "Pirana",
+   661,
+   7
+  ],
+  "101126": [
+   "Deoli",
+   661,
+   7
+  ],
+  "101128": [
+   "Garawala",
+   661,
+   7
+  ],
+  "101148": [
+   "Doongla",
+   661,
+   7
+  ],
+  "101156": [
+   "Alod",
+   661,
+   8
+  ],
+  "101153": [
+   "Khera Aheeran",
+   661,
+   7
+  ],
+  "101152": [
+   "Mata Khera",
+   661,
+   7
+  ],
+  "101150": [
+   "Arthala",
+   661,
+   4
+  ],
+  "101145": [
+   "Nimodara",
+   661,
+   4
+  ],
+  "101159": [
+   "Phalodra",
+   661,
+   4
+  ],
+  "101082": [
+   "Ghora Khera",
+   661,
+   12
+  ],
+  "101081": [
+   "Nada Khera",
+   661,
+   12
+  ],
+  "101083": [
+   "Bhoot Khera",
+   661,
+   12
+  ],
+  "101088": [
+   "Pal Kheri",
+   661,
+   12
+  ],
+  "101085": [
+   "Bihari Pura",
+   661,
+   12
+  ],
+  "101084": [
+   "Bhatoli Goojran",
+   661,
+   12
+  ],
+  "101091": [
+   "Gadariyawas",
+   661,
+   7
+  ],
+  "101111": [
+   "Jhar Sadri",
+   661,
+   7
+  ],
+  "101116": [
+   "Malook Das Ki Kheri",
+   661,
+   8
+  ],
+  "101129": [
+   "Bhana Kheri",
+   661,
+   7
+  ],
+  "101281": [
+   "Guman Ji Ka Gurha",
+   662,
+   14
+  ],
+  "101079": [
+   "Nayakhera",
+   661,
+   12
+  ],
+  "248841": [
+   "Nimbahera",
+   663,
+   15
+  ],
+  "101460": [
+   "Vijaypura",
+   663,
+   9
+  ],
+  "101291": [
+   "Lachhmi Pura",
+   662,
+   13
+  ],
+  "101388": [
+   "Kuri Khera",
+   663,
+   16
+  ],
+  "101422": [
+   "Bahadurpura",
+   663,
+   9
+  ],
+  "101446": [
+   "Ameenpura",
+   663,
+   10
+  ],
+  "101449": [
+   "Bhanda Magra",
+   663,
+   10
+  ],
+  "101474": [
+   "Kotri Khurd",
+   663,
+   10
+  ],
+  "101445": [
+   "Khanra",
+   663,
+   10
+  ],
+  "101425": [
+   "Kalandar Garh",
+   663,
+   10
+  ],
+  "101452": [
+   "Indra Nagar",
+   663,
+   9
+  ],
+  "101149": [
+   "Karsana",
+   661,
+   4
+  ],
+  "101456": [
+   "Bhagwanpura",
+   663,
+   9
+  ],
+  "101458": [
+   "Benpuri Khurd",
+   663,
+   9
+  ],
+  "101457": [
+   "Kanpura",
+   663,
+   9
+  ],
+  "101462": [
+   "Barwara",
+   663,
+   9
+  ],
+  "101463": [
+   "Guda Khera",
+   663,
+   10
+  ],
+  "101553": [
+   "Luhariya",
+   664,
+   6
+  ],
+  "101536": [
+   "Khairmaliya",
+   664,
+   6
+  ],
+  "101535": [
+   "Seerod",
+   664,
+   9
+  ],
+  "101554": [
+   "Nalwai",
+   664,
+   6
+  ],
+  "101464": [
+   "Kishanpura",
+   663,
+   10
+  ],
+  "101472": [
+   "Marjeevi",
+   663,
+   10
+  ],
+  "101467": [
+   "Bari",
+   663,
+   10
+  ],
+  "101468": [
+   "Narsa Kheri",
+   663,
+   10
+  ],
+  "101469": [
+   "Malakpura",
+   663,
+   10
+  ],
+  "101480": [
+   "Chandpura",
+   663,
+   16
+  ],
+  "100474": [
+   "Kalyanpura",
+   658,
+   52
+  ],
+  "100254": [
+   "Tumba",
+   657,
+   63
+  ],
+  "100212": [
+   "Abhaypur",
+   657,
+   61
+  ],
+  "101483": [
+   "Eklingpura",
+   663,
+   25
+  ],
+  "101513": [
+   "Sarsi",
+   663,
+   17
+  ],
+  "101515": [
+   "Cholni",
+   663,
+   17
+  ],
+  "101496": [
+   "Loonkhanda",
+   663,
+   25
+  ],
+  "101392": [
+   "Rathanjana",
+   663,
+   16
+  ],
+  "101438": [
+   "Gadola",
+   663,
+   16
+  ],
+  "101499": [
+   "Patiyar",
+   663,
+   25
+  ],
+  "101514": [
+   "Mailana",
+   663,
+   17
+  ],
+  "101482": [
+   "Keli",
+   663,
+   16
+  ],
+  "101481": [
+   "Bangrera",
+   663,
+   16
+  ],
+  "101497": [
+   "Peelkheri",
+   663,
+   17
+  ],
+  "101393": [
+   "Madhya Kheri",
+   663,
+   16
+  ],
+  "101517": [
+   "Gunda Rel",
+   663,
+   17
+  ],
+  "100627": [
+   "Jheenkra",
+   658,
+   29
+  ],
+  "100316": [
+   "Soorpur",
+   657,
+   63
+  ],
+  "100532": [
+   "Ogadiya",
+   658,
+   40
+  ],
+  "101069": [
+   "Kumhar Khera",
+   661,
+   19
+  ],
+  "100950": [
+   "Jajron Ka Khera",
+   6057,
+   32
+  ],
+  "100962": [
+   "Rawtiya",
+   6057,
+   33
+  ],
+  "100952": [
+   "Kheri",
+   6057,
+   32
+  ],
+  "100953": [
+   "Sadipura",
+   6057,
+   32
+  ],
+  "100941": [
+   "Rama Khera",
+   6057,
+   33
+  ],
+  "101015": [
+   "Akola",
+   6057,
+   19
+  ],
+  "101013": [
+   "Gundli",
+   6057,
+   19
+  ],
+  "100889": [
+   "Kana Khera",
+   6057,
+   44
+  ],
+  "100892": [
+   "Mewada Colony",
+   660,
+   44
+  ],
+  "100949": [
+   "Bari",
+   6057,
+   32
+  ],
+  "100888": [
+   "Rooppura at Dhanna Khera",
+   6057,
+   44
+  ],
+  "100951": [
+   "Phalasiya",
+   6057,
+   32
+  ],
+  "100891": [
+   "Mewada",
+   660,
+   44
+  ],
+  "100948": [
+   "Usrol",
+   6057,
+   33
+  ],
+  "101011": [
+   "Hamerpura",
+   660,
+   19
+  ],
+  "101017": [
+   "Gurha",
+   6057,
+   19
+  ],
+  "101010": [
+   "Kanrookara",
+   660,
+   19
+  ],
+  "101025": [
+   "Amarpura",
+   6057,
+   18
+  ],
+  "101043": [
+   "Kanar Khera",
+   6057,
+   19
+  ],
+  "100947": [
+   "Shambhoo Pura",
+   6057,
+   33
+  ],
+  "100944": [
+   "Kalyanpura",
+   660,
+   33
+  ],
+  "100943": [
+   "Sardarpura",
+   6057,
+   33
+  ],
+  "100963": [
+   "Matuniya",
+   6057,
+   32
+  ],
+  "100974": [
+   "Jaitpura",
+   6057,
+   33
+  ],
+  "100954": [
+   "Kankarwa",
+   6057,
+   32
+  ],
+  "100942": [
+   "Balad",
+   6057,
+   33
+  ],
+  "100967": [
+   "Tanda",
+   6057,
+   33
+  ],
+  "100969": [
+   "Harmatiya",
+   6057,
+   33
+  ],
+  "100973": [
+   "Babrana",
+   6057,
+   33
+  ],
+  "100968": [
+   "Kherli",
+   6057,
+   33
+  ],
+  "100972": [
+   "Phalasiya",
+   6057,
+   33
+  ],
+  "100961": [
+   "Pari",
+   6057,
+   32
+  ],
+  "100975": [
+   "Danta",
+   660,
+   33
+  ],
+  "100958": [
+   "Patoliya",
+   6057,
+   18
+  ],
+  "100959": [
+   "Mund Katiya",
+   6057,
+   32
+  ],
+  "100956": [
+   "Ajan Khera",
+   6057,
+   18
+  ],
+  "101020": [
+   "Nilod",
+   6057,
+   18
+  ],
+  "100957": [
+   "Jawa",
+   6057,
+   18
+  ],
+  "101014": [
+   "Gundli Khera",
+   6057,
+   19
+  ],
+  "100945": [
+   "Mugana",
+   660,
+   33
+  ],
+  "100946": [
+   "Rayapuriya Khurd",
+   6057,
+   33
+  ],
+  "100965": [
+   "Bhoopal Sagar",
+   6057,
+   33
+  ],
+  "100970": [
+   "Bhoopal Nagar",
+   6057,
+   33
+  ],
+  "100960": [
+   "Baldiyon Ka Kera",
+   6057,
+   32
+  ],
+  "101019": [
+   "Chorwari",
+   6057,
+   18
+  ],
+  "101018": [
+   "Chokri",
+   6057,
+   18
+  ],
+  "101055": [
+   "Kiron Ka Khera",
+   660,
+   19
+  ],
+  "101022": [
+   "Babariya Khera",
+   6057,
+   18
+  ],
+  "101028": [
+   "Lalawas",
+   6057,
+   18
+  ],
+  "101027": [
+   "Murla",
+   6057,
+   18
+  ],
+  "101021": [
+   "Joyra",
+   6057,
+   18
+  ],
+  "101054": [
+   "Ranwon Ka Khera",
+   660,
+   19
+  ],
+  "101024": [
+   "Kanwarpura",
+   6057,
+   18
+  ],
+  "101026": [
+   "Dareeba",
+   6057,
+   18
+  ],
+  "101053": [
+   "Heeraji Ka Khera",
+   660,
+   19
+  ],
+  "101023": [
+   "Badwai",
+   6057,
+   18
+  ],
+  "101049": [
+   "Karjali",
+   660,
+   19
+  ],
+  "101047": [
+   "Suratpura",
+   660,
+   19
+  ],
+  "101042": [
+   "Dhanna Ki Bhagal",
+   6057,
+   19
+  ],
+  "101039": [
+   "Tana",
+   6057,
+   19
+  ],
+  "101050": [
+   "Goverdhanpura",
+   660,
+   19
+  ],
+  "101030": [
+   "Daulatpura",
+   6057,
+   18
+  ],
+  "101041": [
+   "Kabeerji Ki Bhagal",
+   6057,
+   19
+  ],
+  "101031": [
+   "Narji Ki Bhagal",
+   6057,
+   18
+  ],
+  "101040": [
+   "Nawalpura",
+   6057,
+   19
+  ],
+  "101012": [
+   "Hingwaniya",
+   6057,
+   19
+  ],
+  "101057": [
+   "Jeewa Khera",
+   660,
+   19
+  ],
+  "101045": [
+   "Chakura",
+   660,
+   19
+  ],
+  "101044": [
+   "Rayapuriya Kalan",
+   6057,
+   19
+  ],
+  "101046": [
+   "Chakuri",
+   6057,
+   19
+  ],
+  "101029": [
+   "Pemakhera",
+   6057,
+   18
+  ],
+  "101048": [
+   "Pitamber Puriya",
+   6057,
+   19
+  ],
+  "100966": [
+   "Bond at Bool",
+   6057,
+   33
+  ],
+  "100955": [
+   "Ranawaton Ki Sadari",
+   6057,
+   32
+  ],
+  "100971": [
+   "Shivwata",
+   6057,
+   33
+  ],
+  "100890": [
+   "Singhariya",
+   6057,
+   44
+  ],
+  "100964": [
+   "Chak Bhoopal Sagar",
+   6057,
+   32
+  ],
+  "101016": [
+   "Surta Khera",
+   6057,
+   19
+  ],
+  "99976": [
+   "Gopalpura Kalan",
+   655,
+   56
+  ],
+  "99977": [
+   "Gopalpura Khurd",
+   655,
+   56
+  ],
+  "100894": [
+   "Deoriya",
+   660,
+   44
+  ],
+  "100880": [
+   "Gulabpura",
+   6057,
+   44
+  ],
+  "100882": [
+   "Mali Khera",
+   6057,
+   44
+  ],
+  "100883": [
+   "Jashma",
+   6057,
+   44
+  ],
+  "100874": [
+   "Sejgariya",
+   6057,
+   44
+  ],
+  "100875": [
+   "Surajpura",
+   6057,
+   44
+  ],
+  "100873": [
+   "Anoppura",
+   6057,
+   44
+  ],
+  "100876": [
+   "Dhobi Khera",
+   660,
+   44
+  ],
+  "100872": [
+   "Dhani",
+   6057,
+   44
+  ],
+  "100877": [
+   "Dhamana",
+   660,
+   44
+  ],
+  "100879": [
+   "Sanwaliya Khera",
+   6057,
+   44
+  ],
+  "100885": [
+   "Goojariya Khera",
+   6057,
+   44
+  ],
+  "100884": [
+   "Gadriyawas",
+   6057,
+   44
+  ],
+  "100881": [
+   "Oron Ka Khera",
+   6057,
+   44
+  ],
+  "100886": [
+   "Loonera",
+   6057,
+   44
+  ],
+  "100887": [
+   "Deoron Ka Khera",
+   6057,
+   44
+  ],
+  "100878": [
+   "Karookariya",
+   660,
+   44
+  ],
+  "100869": [
+   "Chak Papariya",
+   6057,
+   32
+  ],
+  "100871": [
+   "Chauthpura",
+   6057,
+   44
+  ],
+  "100870": [
+   "Manohar Kheri",
+   6057,
+   44
+  ],
+  "101345": [
+   "Phachar Solanki",
+   663,
+   23
+  ],
+  "101355": [
+   "Satkhanda",
+   663,
+   23
+  ],
+  "101348": [
+   "Nawabpura",
+   663,
+   24
+  ],
+  "101347": [
+   "Sarthal",
+   663,
+   24
+  ],
+  "101362": [
+   "Sand",
+   663,
+   22
+  ],
+  "101360": [
+   "Shergarh",
+   663,
+   22
+  ],
+  "101346": [
+   "Unkhaliya",
+   663,
+   23
+  ],
+  "101350": [
+   "Tai",
+   663,
+   24
+  ],
+  "101361": [
+   "Payari",
+   663,
+   22
+  ],
+  "101353": [
+   "Rampura",
+   663,
+   23
+  ],
+  "101349": [
+   "Mohammadpura",
+   663,
+   24
+  ],
+  "101354": [
+   "Azampura",
+   663,
+   23
+  ],
+  "101371": [
+   "Bhawaliya",
+   663,
+   23
+  ],
+  "101359": [
+   "Karoonda",
+   663,
+   22
+  ],
+  "101352": [
+   "Teela Khera",
+   663,
+   23
+  ],
+  "101377": [
+   "Arniya Joshi",
+   663,
+   24
+  ],
+  "101358": [
+   "Charliya Gadia",
+   663,
+   23
+  ],
+  "101370": [
+   "Bhopali",
+   663,
+   23
+  ],
+  "101369": [
+   "Murliya",
+   663,
+   15
+  ],
+  "101384": [
+   "Phootwal",
+   663,
+   24
+  ],
+  "101376": [
+   "Motha",
+   663,
+   16
+  ],
+  "101375": [
+   "Ramgarh",
+   663,
+   15
+  ],
+  "101356": [
+   "Mahmood Ganj",
+   663,
+   23
+  ],
+  "101357": [
+   "Rawaliya",
+   663,
+   23
+  ],
+  "101351": [
+   "Bhoojiya Kheri",
+   663,
+   23
+  ],
+  "101379": [
+   "Pemandiya Khera",
+   663,
+   24
+  ],
+  "101378": [
+   "Kriparam Kheri",
+   663,
+   24
+  ],
+  "101192": [
+   "Delwas",
+   662,
+   21
+  ],
+  "101201": [
+   "Ganpat Ka Khera",
+   662,
+   22
+  ],
+  "101219": [
+   "Lohariya",
+   662,
+   20
+  ],
+  "101243": [
+   "Achalpura",
+   662,
+   21
+  ],
+  "101253": [
+   "Beawar",
+   662,
+   21
+  ],
+  "101221": [
+   "Lohana",
+   662,
+   19
+  ],
+  "101248": [
+   "Bheel Gatti",
+   662,
+   22
+  ],
+  "101223": [
+   "Ummedpura",
+   662,
+   20
+  ],
+  "101252": [
+   "Lader",
+   662,
+   21
+  ],
+  "101236": [
+   "Narbadiya",
+   662,
+   21
+  ],
+  "101177": [
+   "Manpura",
+   662,
+   35
+  ],
+  "101175": [
+   "Neel Ka Khera",
+   662,
+   35
+  ],
+  "101176": [
+   "Rewaliya Khurd",
+   662,
+   35
+  ],
+  "101178": [
+   "Rewaliya Kalan",
+   662,
+   35
+  ],
+  "101186": [
+   "Soniyana",
+   662,
+   35
+  ],
+  "101184": [
+   "Kanthariya",
+   662,
+   35
+  ],
+  "101183": [
+   "Roopa Kheri",
+   662,
+   35
+  ],
+  "101195": [
+   "Sagwariya",
+   662,
+   35
+  ],
+  "101198": [
+   "Panch Deola",
+   662,
+   36
+  ],
+  "101185": [
+   "Dautri",
+   662,
+   35
+  ],
+  "101187": [
+   "Sonarda",
+   662,
+   35
+  ],
+  "101197": [
+   "Sarlai",
+   662,
+   21
+  ],
+  "101190": [
+   "Peepli Gujaran",
+   662,
+   21
+  ],
+  "101202": [
+   "Sukhwara",
+   662,
+   22
+  ],
+  "101194": [
+   "Jaitpura Kalan",
+   662,
+   21
+  ],
+  "101213": [
+   "Kasya Khurd",
+   662,
+   20
+  ],
+  "101196": [
+   "Hoda",
+   662,
+   21
+  ],
+  "101212": [
+   "Kasya Kalan",
+   662,
+   20
+  ],
+  "101188": [
+   "Murliya",
+   662,
+   21
+  ],
+  "101207": [
+   "Hajya Kheri",
+   662,
+   21
+  ],
+  "101204": [
+   "Dharol",
+   662,
+   21
+  ],
+  "101193": [
+   "Jaitpura Khurd",
+   662,
+   21
+  ],
+  "101208": [
+   "Peepalwas",
+   662,
+   21
+  ],
+  "101211": [
+   "Leswa",
+   662,
+   20
+  ],
+  "101246": [
+   "Kannoj",
+   662,
+   22
+  ],
+  "101205": [
+   "Nahargarh",
+   662,
+   21
+  ],
+  "101209": [
+   "Parliya",
+   662,
+   21
+  ],
+  "101210": [
+   "Deva Khera",
+   662,
+   20
+  ],
+  "101217": [
+   "Surkhand",
+   662,
+   20
+  ],
+  "101244": [
+   "Antri",
+   662,
+   21
+  ],
+  "101239": [
+   "Madanpura",
+   662,
+   20
+  ],
+  "101220": [
+   "Koonthana",
+   662,
+   20
+  ],
+  "101206": [
+   "Bhootya Khurd",
+   662,
+   21
+  ],
+  "101241": [
+   "Bansen",
+   662,
+   21
+  ],
+  "101238": [
+   "Gurha",
+   662,
+   20
+  ],
+  "101215": [
+   "Bhadsora",
+   662,
+   20
+  ],
+  "101242": [
+   "Bhootya Kalan",
+   662,
+   21
+  ],
+  "101247": [
+   "Nawabpura",
+   662,
+   22
+  ],
+  "101240": [
+   "Nardhari",
+   662,
+   21
+  ],
+  "101237": [
+   "Bagund",
+   662,
+   20
+  ],
+  "101234": [
+   "Sohan Khera",
+   662,
+   20
+  ],
+  "101256": [
+   "Gantheri",
+   662,
+   21
+  ],
+  "101251": [
+   "Dheerji Ka Khera",
+   662,
+   21
+  ],
+  "101258": [
+   "Deora Peepli",
+   662,
+   21
+  ],
+  "101250": [
+   "Kannojiya",
+   662,
+   22
+  ],
+  "101235": [
+   "Daulatpura",
+   662,
+   20
+  ],
+  "101254": [
+   "Arnoda",
+   662,
+   21
+  ],
+  "101260": [
+   "Surajpura",
+   662,
+   21
+  ],
+  "101255": [
+   "Chanpa Kheri",
+   662,
+   21
+  ],
+  "101272": [
+   "Amarpura",
+   662,
+   21
+  ],
+  "101279": [
+   "Sankhlon Ki Dhani",
+   662,
+   22
+  ],
+  "101259": [
+   "Koshithal",
+   662,
+   21
+  ],
+  "101271": [
+   "Ganga Gurha",
+   662,
+   21
+  ],
+  "101274": [
+   "Agoriya",
+   662,
+   22
+  ],
+  "101275": [
+   "Kaharon Ki Dhani",
+   662,
+   22
+  ],
+  "101277": [
+   "Badli Ki Dhani",
+   662,
+   14
+  ],
+  "101189": [
+   "Shivdan Pura",
+   662,
+   21
+  ],
+  "101200": [
+   "Hasmat Ganj",
+   662,
+   22
+  ],
+  "101191": [
+   "Jawan Pura",
+   662,
+   21
+  ],
+  "101179": [
+   "Bannath Pura",
+   662,
+   35
+  ],
+  "101180": [
+   "Daulat Pura",
+   662,
+   35
+  ],
+  "101182": [
+   "Hazoor Pura",
+   662,
+   36
+  ],
+  "101199": [
+   "Wazeer Ganj",
+   662,
+   36
+  ],
+  "101214": [
+   "Mokham Pura",
+   662,
+   20
+  ],
+  "101216": [
+   "Gadariya Was",
+   662,
+   20
+  ],
+  "101245": [
+   "Hati Pura",
+   662,
+   22
+  ],
+  "101218": [
+   "Jorawar Pura",
+   662,
+   20
+  ],
+  "101257": [
+   "Lachami Pura",
+   662,
+   21
+  ],
+  "100730": [
+   "Galiyamal",
+   659,
+   49
+  ],
+  "101222": [
+   "Kesharpura",
+   662,
+   19
+  ],
+  "101249": [
+   "Kesar Pura",
+   662,
+   22
+  ],
+  "101276": [
+   "Baliyon Ki Dhani",
+   662,
+   22
+  ],
+  "101270": [
+   "Jeeta Was",
+   662,
+   13
+  ],
+  "100670": [
+   "Ganesh Pura",
+   659,
+   37
+  ],
+  "100667": [
+   "Dhanet Khurd",
+   659,
+   36
+  ],
+  "100753": [
+   "Bari Ka Khera",
+   659,
+   49
+  ],
+  "100761": [
+   "Eral",
+   659,
+   37
+  ],
+  "100773": [
+   "Bojunda",
+   659,
+   36
+  ],
+  "100839": [
+   "Hansla",
+   659,
+   38
+  ],
+  "100782": [
+   "Satpura",
+   659,
+   36
+  ],
+  "100788": [
+   "Parliya",
+   659,
+   36
+  ],
+  "100655": [
+   "Rama Khera",
+   659,
+   47
+  ],
+  "100666": [
+   "Kashmor",
+   659,
+   47
+  ],
+  "100672": [
+   "Bodiyana",
+   659,
+   48
+  ],
+  "100656": [
+   "Rojra",
+   659,
+   47
+  ],
+  "100731": [
+   "Kanwarji Ka Khera",
+   659,
+   49
+  ],
+  "100669": [
+   "Narpat Ki Kheri",
+   659,
+   47
+  ],
+  "100659": [
+   "Netawal Maharaj",
+   659,
+   35
+  ],
+  "100657": [
+   "Tumbariya",
+   659,
+   46
+  ],
+  "100679": [
+   "Semalpura",
+   659,
+   48
+  ],
+  "100678": [
+   "Seerdi",
+   659,
+   48
+  ],
+  "100680": [
+   "Manpura",
+   659,
+   48
+  ],
+  "100658": [
+   "Sajjanpura",
+   659,
+   35
+  ],
+  "100665": [
+   "Odoond",
+   659,
+   36
+  ],
+  "100752": [
+   "Aambaberi",
+   659,
+   49
+  ],
+  "100664": [
+   "Lakha Ka Khera",
+   659,
+   36
+  ],
+  "100751": [
+   "Barkhera",
+   659,
+   49
+  ],
+  "100668": [
+   "Dhanet Kalan",
+   659,
+   36
+  ],
+  "100759": [
+   "Surajpol",
+   659,
+   37
+  ],
+  "100681": [
+   "Bhairoosingh Ka Khera",
+   659,
+   37
+  ],
+  "100777": [
+   "Pavatiya",
+   659,
+   36
+  ],
+  "100671": [
+   "Dagla Ka Khera",
+   659,
+   37
+  ],
+  "100660": [
+   "Panchli",
+   659,
+   35
+  ],
+  "100662": [
+   "Gadri Khera",
+   659,
+   35
+  ],
+  "100750": [
+   "Sadi",
+   659,
+   38
+  ],
+  "100779": [
+   "Gadariyawas",
+   659,
+   36
+  ],
+  "100758": [
+   "Dhadhan",
+   659,
+   37
+  ],
+  "100663": [
+   "Rampuriya",
+   659,
+   36
+  ],
+  "100661": [
+   "Bejnathiya",
+   659,
+   35
+  ],
+  "100982": [
+   "Bhagwanpura",
+   660,
+   34
+  ],
+  "100774": [
+   "Lalji Ka Khera",
+   659,
+   36
+  ],
+  "100802": [
+   "Jogni",
+   659,
+   22
+  ],
+  "100824": [
+   "Mayra",
+   659,
+   23
+  ],
+  "100820": [
+   "Shambhoopura",
+   659,
+   23
+  ],
+  "100790": [
+   "Deori",
+   659,
+   36
+  ],
+  "100794": [
+   "Sahnawa",
+   659,
+   36
+  ],
+  "100828": [
+   "Bhatiyon Ka Khera",
+   659,
+   23
+  ],
+  "100816": [
+   "Medi Ka Amrana",
+   659,
+   23
+  ],
+  "100808": [
+   "Dhani",
+   659,
+   22
+  ],
+  "100801": [
+   "Jetpura",
+   659,
+   22
+  ],
+  "100757": [
+   "Pachundal",
+   659,
+   38
+  ],
+  "100775": [
+   "Barada",
+   659,
+   36
+  ],
+  "100756": [
+   "Bhadi Khera",
+   659,
+   38
+  ],
+  "100791": [
+   "Ghaghsa",
+   659,
+   36
+  ],
+  "100778": [
+   "Ghosunda",
+   659,
+   36
+  ],
+  "100841": [
+   "Lakha Ka Khera",
+   659,
+   38
+  ],
+  "100760": [
+   "Beerghas",
+   659,
+   37
+  ],
+  "100836": [
+   "Netawalgarh Pachhli",
+   659,
+   37
+  ],
+  "100840": [
+   "Achalpura",
+   659,
+   38
+  ],
+  "100792": [
+   "Thukrawa",
+   659,
+   36
+  ],
+  "100780": [
+   "Bharliya Khera",
+   659,
+   36
+  ],
+  "100838": [
+   "Rughnathpura",
+   659,
+   38
+  ],
+  "100762": [
+   "Rajpuriya",
+   659,
+   37
+  ],
+  "100764": [
+   "Chittauri",
+   659,
+   37
+  ],
+  "100772": [
+   "Segawa",
+   659,
+   36
+  ],
+  "100754": [
+   "Abhaypur",
+   659,
+   38
+  ],
+  "100776": [
+   "Mishron Ki Peepali",
+   659,
+   36
+  ],
+  "100755": [
+   "Bheem Puriya",
+   659,
+   38
+  ],
+  "100781": [
+   "Kanthariya Chauhanon Ka",
+   659,
+   36
+  ],
+  "100835": [
+   "Keljarka Khera",
+   659,
+   38
+  ],
+  "100765": [
+   "Ochhari",
+   659,
+   37
+  ],
+  "100793": [
+   "Reethola",
+   659,
+   36
+  ],
+  "100786": [
+   "Roop Pura",
+   659,
+   36
+  ],
+  "100785": [
+   "Badar Ka Khera",
+   659,
+   36
+  ],
+  "100763": [
+   "Khardi Baori",
+   659,
+   37
+  ],
+  "100768": [
+   "Ordi",
+   659,
+   37
+  ],
+  "100826": [
+   "Ghatiyawali",
+   659,
+   37
+  ],
+  "100769": [
+   "Jalampura",
+   659,
+   37
+  ],
+  "100796": [
+   "Chothpura",
+   659,
+   36
+  ],
+  "100767": [
+   "Khor",
+   659,
+   37
+  ],
+  "100834": [
+   "Gadhwara",
+   659,
+   38
+  ],
+  "100799": [
+   "Jeetawal",
+   659,
+   36
+  ],
+  "100798": [
+   "Pachtoli",
+   659,
+   36
+  ],
+  "100827": [
+   "Gilund",
+   659,
+   24
+  ],
+  "100770": [
+   "Biloda",
+   659,
+   37
+  ],
+  "100833": [
+   "Siyalkund",
+   659,
+   38
+  ],
+  "100821": [
+   "Arniya Panth",
+   659,
+   23
+  ],
+  "100805": [
+   "Rughnath Pura",
+   659,
+   22
+  ],
+  "100822": [
+   "Theekariya",
+   659,
+   23
+  ],
+  "100800": [
+   "Chiksi",
+   659,
+   22
+  ],
+  "100825": [
+   "Mataji Ki Ordi",
+   659,
+   23
+  ],
+  "100807": [
+   "Patniya",
+   659,
+   22
+  ],
+  "100804": [
+   "Khera Bansati",
+   659,
+   22
+  ],
+  "100819": [
+   "Phalasiya",
+   659,
+   23
+  ],
+  "100831": [
+   "Modji Ka Khera",
+   659,
+   24
+  ],
+  "100803": [
+   "Bansati",
+   659,
+   22
+  ],
+  "100823": [
+   "Bamniya",
+   659,
+   23
+  ],
+  "100818": [
+   "Kesharpura",
+   659,
+   23
+  ],
+  "100830": [
+   "Dharana",
+   659,
+   24
+  ],
+  "100817": [
+   "Samri",
+   659,
+   23
+  ],
+  "100789": [
+   "Fatehgarh",
+   659,
+   36
+  ],
+  "100814": [
+   "Bad Ka Amrana",
+   659,
+   23
+  ],
+  "100815": [
+   "Neem Ka Amrana",
+   659,
+   22
+  ],
+  "100810": [
+   "Jorawarsingh Ka Khera",
+   659,
+   22
+  ],
+  "100809": [
+   "Rel Ka Amrana",
+   659,
+   22
+  ],
+  "100813": [
+   "Naya Khera",
+   659,
+   23
+  ],
+  "100812": [
+   "Seendwari",
+   659,
+   23
+  ],
+  "100784": [
+   "Gangaji Ka Khera",
+   659,
+   35
+  ],
+  "100795": [
+   "Jafarpura",
+   659,
+   36
+  ],
+  "100766": [
+   "Khericharnan",
+   659,
+   37
+  ],
+  "100771": [
+   "Semaliya",
+   659,
+   37
+  ],
+  "100797": [
+   "Beelora",
+   659,
+   36
+  ],
+  "100832": [
+   "Barodiya",
+   659,
+   38
+  ],
+  "100806": [
+   "Meenon Ka Kanthariya",
+   659,
+   36
+  ],
+  "100811": [
+   "Amar Pura",
+   659,
+   22
+  ],
+  "100919": [
+   "Dolji Ka Khera",
+   660,
+   46
+  ],
+  "100939": [
+   "Kishaniyakheri",
+   660,
+   33
+  ],
+  "100992": [
+   "Tarmawon Ka Khera",
+   660,
+   34
+  ],
+  "100940": [
+   "Sandiyarda",
+   660,
+   33
+  ],
+  "100933": [
+   "Khatya Kheri",
+   660,
+   34
+  ],
+  "100986": [
+   "Nariya",
+   660,
+   34
+  ],
+  "100783": [
+   "Shivsingh Ka Khera",
+   659,
+   35
+  ],
+  "100893": [
+   "Binoda Khera",
+   660,
+   44
+  ],
+  "100898": [
+   "Keshar Kheri",
+   660,
+   45
+  ],
+  "100924": [
+   "Parsa Khera",
+   660,
+   45
+  ],
+  "100925": [
+   "Rajpura",
+   660,
+   45
+  ],
+  "100920": [
+   "Mataji Ka Khera",
+   660,
+   46
+  ],
+  "100929": [
+   "Kacholiya",
+   660,
+   45
+  ],
+  "100935": [
+   "Pawatiya",
+   660,
+   34
+  ],
+  "100926": [
+   "Pandoli",
+   660,
+   34
+  ],
+  "100918": [
+   "Moda Khera",
+   660,
+   35
+  ],
+  "100932": [
+   "Ren Ka Khera",
+   660,
+   34
+  ],
+  "101000": [
+   "Ramthali",
+   660,
+   34
+  ],
+  "100988": [
+   "Surajpura",
+   660,
+   35
+  ],
+  "100934": [
+   "Kachhiya Kheri",
+   660,
+   34
+  ],
+  "100989": [
+   "Jeetiya",
+   660,
+   35
+  ],
+  "100937": [
+   "Randiyardi",
+   660,
+   34
+  ],
+  "100991": [
+   "Fatehpura",
+   660,
+   35
+  ],
+  "100985": [
+   "Jelwalon Ka Khera",
+   660,
+   34
+  ],
+  "100987": [
+   "Kalyanpura",
+   660,
+   34
+  ],
+  "100984": [
+   "Arniya",
+   660,
+   34
+  ],
+  "100938": [
+   "Tara Kheri",
+   660,
+   34
+  ],
+  "100936": [
+   "Dama Khera",
+   660,
+   34
+  ],
+  "101002": [
+   "Hathiyana",
+   660,
+   34
+  ],
+  "100990": [
+   "Jalampura",
+   660,
+   35
+  ],
+  "101003": [
+   "Roodri",
+   660,
+   34
+  ],
+  "100981": [
+   "Roopa Kheri",
+   660,
+   34
+  ],
+  "100993": [
+   "Godiyana",
+   660,
+   34
+  ],
+  "100978": [
+   "Kolpura",
+   660,
+   34
+  ],
+  "101004": [
+   "Shambhoopura",
+   660,
+   34
+  ],
+  "100980": [
+   "Joonakeer Khera",
+   660,
+   34
+  ],
+  "101001": [
+   "Ali",
+   660,
+   34
+  ],
+  "100977": [
+   "Roliya",
+   660,
+   34
+  ],
+  "100995": [
+   "Surpur",
+   660,
+   35
+  ],
+  "101006": [
+   "Gumanpura",
+   660,
+   34
+  ],
+  "101005": [
+   "Uchnar Khurd",
+   660,
+   34
+  ],
+  "100976": [
+   "Jakar Khera",
+   660,
+   34
+  ],
+  "100999": [
+   "Undayala",
+   660,
+   35
+  ],
+  "100996": [
+   "Surpuri",
+   660,
+   35
+  ],
+  "101009": [
+   "Ummedpura",
+   660,
+   34
+  ],
+  "101008": [
+   "Rughnathpura",
+   660,
+   34
+  ],
+  "101007": [
+   "Jawanpura",
+   660,
+   34
+  ],
+  "100997": [
+   "Khanji Ka Khera",
+   660,
+   21
+  ],
+  "100998": [
+   "Jaipura",
+   660,
+   20
+  ],
+  "100917": [
+   "Chhapari",
+   660,
+   46
+  ],
+  "100931": [
+   "Balarada",
+   660,
+   34
+  ],
+  "100928": [
+   "Govind Pura",
+   660,
+   34
+  ],
+  "100927": [
+   "Ranchhor Pura",
+   660,
+   34
+  ],
+  "100983": [
+   "Hapha Kheri",
+   660,
+   34
+  ],
+  "101062": [
+   "Umand",
+   660,
+   20
+  ],
+  "101063": [
+   "Teja Khera",
+   660,
+   20
+  ],
+  "101059": [
+   "Dantoli",
+   660,
+   20
+  ],
+  "101064": [
+   "Nathi Ka Khera",
+   660,
+   20
+  ],
+  "101060": [
+   "Bheemkhand",
+   660,
+   20
+  ],
+  "101052": [
+   "Ghaslon Ka Khera",
+   660,
+   19
+  ],
+  "101061": [
+   "Peepal Kheri",
+   660,
+   20
+  ],
+  "101065": [
+   "Uchnar Kalan",
+   660,
+   20
+  ],
+  "101058": [
+   "Theparion Ka Khera",
+   660,
+   19
+  ],
+  "100979": [
+   "Talab Panchmoja",
+   660,
+   34
+  ],
+  "101343": [
+   "Hasanpura",
+   663,
+   23
+  ],
+  "248839": [
+   "Chittaurgarh",
+   659,
+   37
+  ],
+  "100787": [
+   "Hapawas",
+   659,
+   36
+  ],
+  "248840": [
+   "Kapasan",
+   660,
+   34
+  ],
+  "100682": [
+   "Mango Dara",
+   659,
+   49
+  ],
+  "101051": [
+   "Viroli",
+   660,
+   20
+  ],
+  "101363": [
+   "Alsigarh",
+   663,
+   14
+  ],
+  "101203": [
+   "Ibrahim Ganj",
+   662,
+   22
+  ],
+  "101181": [
+   "Mohammad Pura",
+   662,
+   35
+  ],
+  "100837": [
+   "Chatar Bhuj Ka Khera",
+   659,
+   38
+  ],
+  "100829": [
+   "Khera Gilund",
+   659,
+   24
+  ],
+  "100930": [
+   "Indrapura",
+   660,
+   45
+  ],
+  "100994": [
+   "Rampuriya",
+   660,
+   34
+  ],
+  "101344": [
+   "Nazeerpura",
+   663,
+   23
+  ],
+  "99975": [
+   "Pahooni",
+   655,
+   65
+  ],
+  "99991": [
+   "Jalampura",
+   655,
+   66
+  ],
+  "99989": [
+   "Gokalpura",
+   655,
+   66
+  ],
+  "99983": [
+   "Karas",
+   655,
+   65
+  ],
+  "99988": [
+   "Marmi",
+   655,
+   57
+  ],
+  "100001": [
+   "Keeron Ka Khera",
+   655,
+   56
+  ],
+  "99996": [
+   "Lasadiya Khurd",
+   655,
+   57
+  ],
+  "99995": [
+   "Rood",
+   655,
+   57
+  ],
+  "99961": [
+   "Indanpura",
+   655,
+   66
+  ],
+  "100000": [
+   "Rashmi",
+   655,
+   56
+  ],
+  "100010": [
+   "Parmeshwar Pura",
+   655,
+   56
+  ],
+  "100027": [
+   "Kareethara",
+   655,
+   57
+  ],
+  "99943": [
+   "Rewara",
+   655,
+   65
+  ],
+  "99942": [
+   "Balwantpura",
+   655,
+   65
+  ],
+  "99966": [
+   "Pahoona",
+   655,
+   66
+  ],
+  "99953": [
+   "Uncha",
+   655,
+   66
+  ],
+  "99945": [
+   "Rooppura",
+   655,
+   66
+  ],
+  "99959": [
+   "Lookdi",
+   655,
+   66
+  ],
+  "99944": [
+   "Karjiya",
+   655,
+   65
+  ],
+  "99962": [
+   "Bhalotan Ki Kheri",
+   655,
+   66
+  ],
+  "99971": [
+   "Manyas",
+   655,
+   65
+  ],
+  "99973": [
+   "Devipura B",
+   655,
+   65
+  ],
+  "99963": [
+   "Darba",
+   655,
+   66
+  ],
+  "99969": [
+   "Lalpura",
+   655,
+   66
+  ],
+  "99985": [
+   "Somi",
+   655,
+   56
+  ],
+  "100026": [
+   "Chatawati",
+   655,
+   46
+  ],
+  "99964": [
+   "Bawlas",
+   655,
+   57
+  ],
+  "99993": [
+   "Ratna Ka Khera",
+   655,
+   57
+  ],
+  "99982": [
+   "Uttampura",
+   655,
+   56
+  ],
+  "99987": [
+   "Muroli",
+   655,
+   57
+  ],
+  "99986": [
+   "Upreda",
+   655,
+   56
+  ],
+  "100017": [
+   "Ganeshpura",
+   655,
+   45
+  ],
+  "99994": [
+   "Jagpura",
+   655,
+   57
+  ],
+  "99980": [
+   "Arni",
+   655,
+   56
+  ],
+  "99997": [
+   "Jadana",
+   655,
+   57
+  ],
+  "100002": [
+   "Gegpura",
+   655,
+   56
+  ],
+  "99998": [
+   "Panna Khera",
+   655,
+   56
+  ],
+  "100014": [
+   "Nangpura",
+   655,
+   45
+  ],
+  "100003": [
+   "Depura",
+   655,
+   56
+  ],
+  "99999": [
+   "Puthwadia",
+   655,
+   56
+  ],
+  "99978": [
+   "Gurjaniya",
+   655,
+   56
+  ],
+  "100031": [
+   "Narayanpura",
+   655,
+   57
+  ],
+  "100029": [
+   "Raipuriya",
+   655,
+   57
+  ],
+  "100034": [
+   "Bhat Kheri",
+   655,
+   57
+  ],
+  "100028": [
+   "Bheemgarh",
+   655,
+   57
+  ],
+  "100005": [
+   "Gandraf",
+   655,
+   56
+  ],
+  "100030": [
+   "Pavli",
+   655,
+   57
+  ],
+  "100006": [
+   "Bhoplai",
+   655,
+   56
+  ],
+  "100004": [
+   "Harnathpura",
+   655,
+   56
+  ],
+  "100009": [
+   "Nawalpura",
+   655,
+   56
+  ],
+  "100033": [
+   "Dhangaliya Khera",
+   655,
+   57
+  ],
+  "100032": [
+   "Baroo",
+   655,
+   57
+  ],
+  "100025": [
+   "Jawanpura",
+   655,
+   56
+  ],
+  "100011": [
+   "Somarwalon Ka Khera",
+   655,
+   45
+  ],
+  "100124": [
+   "Rada Ki Balad",
+   656,
+   60
+  ],
+  "100020": [
+   "Adana",
+   655,
+   56
+  ],
+  "100012": [
+   "Kanpura",
+   655,
+   45
+  ],
+  "100019": [
+   "Haripura",
+   655,
+   45
+  ],
+  "100015": [
+   "Dindoli",
+   655,
+   56
+  ],
+  "100035": [
+   "Dolatpura",
+   655,
+   46
+  ],
+  "100018": [
+   "Chittauriya",
+   655,
+   45
+  ],
+  "100016": [
+   "Chamanpura",
+   655,
+   45
+  ],
+  "99960": [
+   "Ganeshpura",
+   655,
+   66
+  ],
+  "99974": [
+   "Gudaliya",
+   655,
+   65
+  ],
+  "99965": [
+   "Mirchiya Kheri",
+   655,
+   66
+  ],
+  "99970": [
+   "Sankhli",
+   655,
+   57
+  ],
+  "99992": [
+   "Punawta",
+   655,
+   57
+  ],
+  "99984": [
+   "Bakhatawar Pura",
+   655,
+   56
+  ],
+  "100013": [
+   "Devpuriya",
+   655,
+   45
+  ],
+  "100024": [
+   "Jawaharpura",
+   655,
+   56
+  ],
+  "100648": [
+   "Rolahera",
+   659,
+   48
+  ],
+  "100650": [
+   "Pandoli",
+   659,
+   47
+  ],
+  "100649": [
+   "Daulatpura",
+   659,
+   47
+  ],
+  "100022": [
+   "Rughnathpura",
+   655,
+   56
+  ],
+  "100729": [
+   "Mayra",
+   659,
+   49
+  ],
+  "100651": [
+   "Mandaldeh",
+   659,
+   47
+  ],
+  "100674": [
+   "Jai",
+   659,
+   48
+  ],
+  "100675": [
+   "Surjana",
+   659,
+   48
+  ],
+  "100694": [
+   "Songaron Ki Kheri",
+   659,
+   60
+  ],
+  "100691": [
+   "Baldarkha",
+   659,
+   49
+  ],
+  "100703": [
+   "Peepaliya Khurd",
+   659,
+   60
+  ],
+  "100697": [
+   "Bhoocharton Ki Kheri",
+   659,
+   60
+  ],
+  "100701": [
+   "Lachhmipura",
+   659,
+   60
+  ],
+  "100696": [
+   "Negadiya Khurd",
+   659,
+   60
+  ],
+  "100695": [
+   "Negadiya Kalan",
+   659,
+   60
+  ],
+  "100699": [
+   "Biharipura",
+   659,
+   60
+  ],
+  "100692": [
+   "Sangrampura",
+   659,
+   49
+  ],
+  "100647": [
+   "Kasara Kheri",
+   659,
+   47
+  ],
+  "100688": [
+   "Biliya",
+   659,
+   48
+  ],
+  "100645": [
+   "Amoliya",
+   659,
+   48
+  ],
+  "100687": [
+   "Dhordiya",
+   659,
+   48
+  ],
+  "100644": [
+   "Barodiya",
+   659,
+   47
+  ],
+  "100640": [
+   "Kathodia",
+   659,
+   47
+  ],
+  "100684": [
+   "Bheelya Khera",
+   659,
+   48
+  ],
+  "100641": [
+   "Seerodi",
+   659,
+   47
+  ],
+  "100646": [
+   "Chogawari",
+   659,
+   48
+  ],
+  "100638": [
+   "Lachhmipura",
+   659,
+   46
+  ],
+  "100639": [
+   "Gopalpura",
+   659,
+   47
+  ],
+  "100643": [
+   "Paroli",
+   659,
+   47
+  ],
+  "100642": [
+   "Shivsingh Ka Khera",
+   659,
+   47
+  ],
+  "100134": [
+   "Mansingh Ji Ka Khera",
+   656,
+   59
+  ],
+  "100652": [
+   "Purohiton Ka Sanwata",
+   659,
+   47
+  ],
+  "100653": [
+   "Narela",
+   659,
+   46
+  ],
+  "100654": [
+   "Sisodiyon Ka Sanwata",
+   659,
+   47
+  ],
+  "100673": [
+   "Bherda",
+   659,
+   48
+  ],
+  "100676": [
+   "Achhora",
+   659,
+   48
+  ],
+  "100677": [
+   "Damdama",
+   659,
+   48
+  ],
+  "100083": [
+   "Ganeshpura",
+   656,
+   58
+  ],
+  "100099": [
+   "Dadiya",
+   656,
+   59
+  ],
+  "100693": [
+   "Ghosondi",
+   659,
+   60
+  ],
+  "100690": [
+   "Anwal Hera",
+   659,
+   49
+  ],
+  "100683": [
+   "Ekling Pura",
+   659,
+   49
+  ],
+  "100100": [
+   "Jeewanayak Ka Khera",
+   656,
+   59
+  ],
+  "100044": [
+   "Soniyana",
+   656,
+   67
+  ],
+  "100046": [
+   "Rooppura at Mal Ka Khera",
+   656,
+   67
+  ],
+  "100036": [
+   "Kasedi",
+   656,
+   58
+  ],
+  "100043": [
+   "Danta Ka Khera",
+   656,
+   67
+  ],
+  "100072": [
+   "Nangpura at Rathoron Ka Khera",
+   656,
+   67
+  ],
+  "100067": [
+   "Mandpiya",
+   656,
+   68
+  ],
+  "100066": [
+   "Bhanpi",
+   656,
+   68
+  ],
+  "100068": [
+   "Badliya",
+   656,
+   67
+  ],
+  "100039": [
+   "Moti Bukan Ka Khera",
+   656,
+   67
+  ],
+  "100042": [
+   "Naksanpura",
+   656,
+   67
+  ],
+  "100112": [
+   "Kherli",
+   656,
+   68
+  ],
+  "100096": [
+   "Jalki Ka Khera",
+   656,
+   58
+  ],
+  "100127": [
+   "Semliya",
+   656,
+   59
+  ],
+  "100128": [
+   "Chongawari",
+   656,
+   59
+  ],
+  "100137": [
+   "Modsingh Ki Chawki",
+   656,
+   59
+  ],
+  "100136": [
+   "Laxmansingh Ji Ka Khera",
+   656,
+   59
+  ],
+  "100140": [
+   "Bhatkhera",
+   656,
+   59
+  ],
+  "100144": [
+   "Sokriya",
+   656,
+   58
+  ],
+  "100164": [
+   "Ajolion Ka Khera",
+   656,
+   48
+  ],
+  "100040": [
+   "Bhuwanipura",
+   656,
+   67
+  ],
+  "100080": [
+   "Deoda",
+   656,
+   58
+  ],
+  "100111": [
+   "Jityas",
+   656,
+   67
+  ],
+  "100113": [
+   "Akodiya",
+   656,
+   68
+  ],
+  "100084": [
+   "Boodh",
+   656,
+   58
+  ],
+  "100114": [
+   "Phaganiya",
+   656,
+   68
+  ],
+  "100078": [
+   "Bindoliya",
+   656,
+   58
+  ],
+  "100108": [
+   "Kunwaliya",
+   656,
+   60
+  ],
+  "100077": [
+   "Nimbahera",
+   656,
+   59
+  ],
+  "100110": [
+   "Lala Ka Khera",
+   656,
+   59
+  ],
+  "100081": [
+   "Jaisinghpura",
+   656,
+   58
+  ],
+  "100076": [
+   "Jojron Ka Khera",
+   656,
+   59
+  ],
+  "100109": [
+   "Lakhan Ka Khera",
+   656,
+   59
+  ],
+  "100082": [
+   "Garwarsingh Ka Khera",
+   656,
+   58
+  ],
+  "100101": [
+   "Mokhampura",
+   656,
+   59
+  ],
+  "100154": [
+   "Kanti",
+   656,
+   58
+  ],
+  "100151": [
+   "Bhatwara Khurd",
+   656,
+   47
+  ],
+  "100158": [
+   "Geniya",
+   656,
+   48
+  ],
+  "100160": [
+   "Salera",
+   656,
+   48
+  ],
+  "100156": [
+   "Taleri",
+   656,
+   47
+  ],
+  "100165": [
+   "Pootholi",
+   656,
+   48
+  ],
+  "100125": [
+   "Saran",
+   656,
+   60
+  ],
+  "100104": [
+   "Lalas",
+   656,
+   59
+  ],
+  "100091": [
+   "Sudri",
+   656,
+   58
+  ],
+  "100123": [
+   "Salariya",
+   656,
+   60
+  ],
+  "100075": [
+   "Mewasa",
+   656,
+   59
+  ],
+  "100086": [
+   "Ranawaton Ka Khera",
+   656,
+   58
+  ],
+  "100089": [
+   "Eklingpura",
+   656,
+   58
+  ],
+  "100097": [
+   "Gangrar",
+   656,
+   59
+  ],
+  "100090": [
+   "Kuratiya",
+   656,
+   58
+  ],
+  "100088": [
+   "Indora",
+   656,
+   58
+  ],
+  "100103": [
+   "Gowaliya",
+   656,
+   59
+  ],
+  "100093": [
+   "Bakhtpura",
+   656,
+   58
+  ],
+  "100098": [
+   "Sadapura",
+   656,
+   59
+  ],
+  "100095": [
+   "Amarpura",
+   656,
+   58
+  ],
+  "100130": [
+   "Moorliya",
+   656,
+   59
+  ],
+  "100131": [
+   "Dhuwaliya",
+   656,
+   59
+  ],
+  "100132": [
+   "Nolagadri Ka Khera",
+   656,
+   59
+  ],
+  "100126": [
+   "Khuntiya",
+   656,
+   60
+  ],
+  "100146": [
+   "Karediya",
+   656,
+   58
+  ],
+  "100143": [
+   "Era",
+   656,
+   58
+  ],
+  "100148": [
+   "Singola",
+   656,
+   58
+  ],
+  "100145": [
+   "Gurjaniya",
+   656,
+   58
+  ],
+  "100129": [
+   "Jodhsingh Ka Khera",
+   656,
+   59
+  ],
+  "100141": [
+   "Dhoda",
+   656,
+   59
+  ],
+  "100149": [
+   "Kachnariya",
+   656,
+   58
+  ],
+  "100150": [
+   "Banina",
+   656,
+   57
+  ],
+  "100142": [
+   "Lambiya",
+   656,
+   58
+  ],
+  "100147": [
+   "Sankaron Ka Khera",
+   656,
+   58
+  ],
+  "100139": [
+   "Laxmipura",
+   656,
+   59
+  ],
+  "100135": [
+   "Det",
+   656,
+   59
+  ],
+  "100162": [
+   "Suwaniya",
+   656,
+   59
+  ],
+  "100152": [
+   "Bhatwara Kalan",
+   656,
+   47
+  ],
+  "100161": [
+   "Bhawanipura",
+   656,
+   48
+  ],
+  "100155": [
+   "Borda",
+   656,
+   47
+  ],
+  "100153": [
+   "Nathi Ka Khera",
+   656,
+   47
+  ],
+  "100159": [
+   "Ladupura",
+   656,
+   48
+  ],
+  "100163": [
+   "Meri Khera",
+   656,
+   48
+  ],
+  "100037": [
+   "Undawa",
+   656,
+   67
+  ],
+  "100038": [
+   "Nagon Ka Khera",
+   656,
+   67
+  ],
+  "100069": [
+   "Trestha",
+   656,
+   67
+  ],
+  "100041": [
+   "Gulabpura",
+   656,
+   67
+  ],
+  "100121": [
+   "Tumbadiya",
+   656,
+   60
+  ],
+  "100073": [
+   "Shambhupura at Kala Ka Khera",
+   656,
+   59
+  ],
+  "100122": [
+   "Lalooduda Ka Khera at Sultanpura",
+   656,
+   60
+  ],
+  "100079": [
+   "Raipuria",
+   656,
+   58
+  ],
+  "100074": [
+   "Suratsingh Ji Ka Khera",
+   656,
+   59
+  ],
+  "100085": [
+   "Hamerpura",
+   656,
+   58
+  ],
+  "100105": [
+   "Mansingh Ji Ka Khera",
+   656,
+   59
+  ],
+  "100106": [
+   "Neemari Khera",
+   656,
+   59
+  ],
+  "100087": [
+   "Kharkhanda",
+   656,
+   57
+  ],
+  "100107": [
+   "Peepalya Kalan",
+   656,
+   59
+  ],
+  "100094": [
+   "Mokhamsingh Ji Ka Khera",
+   656,
+   58
+  ],
+  "100138": [
+   "Amragadri Khera",
+   656,
+   59
+  ],
+  "99972": [
+   "Devipura",
+   655,
+   65
+  ],
+  "100166": [
+   "Monga Ka Khera",
+   656,
+   48
+  ],
+  "100906": [
+   "Turkiya Kalan",
+   660,
+   45
+  ],
+  "100911": [
+   "Banakiya Kalan",
+   660,
+   46
+  ],
+  "100907": [
+   "Langach",
+   660,
+   46
+  ],
+  "100909": [
+   "Saropa",
+   660,
+   46
+  ],
+  "100901": [
+   "Lakha Ka Khera",
+   660,
+   45
+  ],
+  "100903": [
+   "Turkiya Khurd",
+   660,
+   45
+  ],
+  "100912": [
+   "Bhanwarkiya",
+   660,
+   46
+  ],
+  "100895": [
+   "Dowani",
+   660,
+   45
+  ],
+  "100913": [
+   "Kharolon Ki Jhunpariya",
+   660,
+   46
+  ],
+  "100905": [
+   "Hingoriya",
+   660,
+   46
+  ],
+  "100900": [
+   "Babariya Khera",
+   660,
+   45
+  ],
+  "100868": [
+   "Sawa CT",
+   659,
+   22
+  ],
+  "100904": [
+   "Moti Khera",
+   660,
+   45
+  ],
+  "100914": [
+   "Singhpur",
+   660,
+   46
+  ],
+  "100902": [
+   "Chatarbhujpura",
+   660,
+   45
+  ],
+  "100908": [
+   "Jaisinghpura",
+   660,
+   46
+  ],
+  "100896": [
+   "Tasvariya",
+   660,
+   45
+  ],
+  "100923": [
+   "Nimbahera",
+   660,
+   45
+  ],
+  "100922": [
+   "Benipuriya",
+   660,
+   45
+  ],
+  "100916": [
+   "Samrathpura",
+   660,
+   46
+  ],
+  "100921": [
+   "Kankariya",
+   660,
+   46
+  ],
+  "100897": [
+   "Chaukha Khera",
+   660,
+   45
+  ],
+  "100910": [
+   "Kodiya Kheri",
+   660,
+   46
+  ],
+  "100915": [
+   "Banakiyakhurd",
+   660,
+   46
+  ],
+  "99990": [
+   "Hamerpura",
+   655,
+   66
+  ],
+  "100157": [
+   "Bolo Ka Sanwata",
+   656,
+   47
+  ],
+  "100070": [
+   "Jawasiya",
+   656,
+   67
+  ],
+  "100092": [
+   "Solankion Ka Khera",
+   656,
+   58
+  ],
+  "100899": [
+   "Bhatton Ka Bamniya",
+   660,
+   45
+  ],
+  "100133": [
+   "Kishanpura",
+   656,
+   59
+  ],
+  "100071": [
+   "Mataji Ka Khera",
+   656,
+   59
+  ],
+  "99981": [
+   "Bhopalpura",
+   655,
+   56
+  ],
+  "100007": [
+   "Sanwalpura",
+   655,
+   56
+  ],
+  "100008": [
+   "Achalpura",
+   655,
+   56
+  ],
+  "100023": [
+   "Chak Adana No B",
+   655,
+   56
+  ],
+  "100021": [
+   "Chak Adana No A",
+   655,
+   45
+  ],
+  "100686": [
+   "Gurjar Khera",
+   659,
+   48
+  ],
+  "100685": [
+   "Nagri",
+   659,
+   48
+  ],
+  "99968": [
+   "Nandpura",
+   655,
+   66
+  ],
+  "99979": [
+   "Matrikundiya",
+   655,
+   56
+  ],
+  "100689": [
+   "Shivpura",
+   656,
+   59
+  ],
+  "99946": [
+   "Lasadiya Kalan",
+   655,
+   65
+  ],
+  "99949": [
+   "Bassi",
+   655,
+   66
+  ],
+  "99955": [
+   "Meda Kheri",
+   655,
+   66
+  ],
+  "99956": [
+   "Newariya",
+   655,
+   66
+  ],
+  "99950": [
+   "Rampuriya",
+   655,
+   66
+  ],
+  "100054": [
+   "Moon Ka Khera",
+   656,
+   68
+  ],
+  "99954": [
+   "Sihana",
+   655,
+   66
+  ],
+  "99951": [
+   "Heera Kheri",
+   655,
+   66
+  ],
+  "99952": [
+   "Ratan Kheri",
+   655,
+   66
+  ],
+  "99948": [
+   "Devpuri",
+   655,
+   65
+  ],
+  "99957": [
+   "Soliya",
+   655,
+   66
+  ],
+  "99958": [
+   "Mandpiya Mataji Ka",
+   655,
+   66
+  ],
+  "100050": [
+   "Lalsinghji Ka Khera",
+   656,
+   68
+  ],
+  "100051": [
+   "Kojoonda",
+   656,
+   68
+  ],
+  "100057": [
+   "Amarpura",
+   656,
+   68
+  ],
+  "100058": [
+   "Bandanwara",
+   656,
+   68
+  ],
+  "100047": [
+   "Shadi",
+   656,
+   67
+  ],
+  "100056": [
+   "Kartiyas",
+   656,
+   68
+  ],
+  "100048": [
+   "Naya Talab",
+   656,
+   67
+  ],
+  "100053": [
+   "Motliyas",
+   656,
+   67
+  ],
+  "100045": [
+   "Gejra",
+   656,
+   67
+  ],
+  "100055": [
+   "Chandanpura",
+   656,
+   68
+  ],
+  "100052": [
+   "Bhatkhera",
+   656,
+   68
+  ],
+  "100049": [
+   "Mehtab Singhji Ka Khera",
+   656,
+   67
+  ],
+  "99947": [
+   "Shambhupura",
+   655,
+   66
+  ],
+  "99967": [
+   "Ganeshpura",
+   655,
+   66
+  ],
+  "100859": [
+   "Nalda",
+   659,
+   38
+  ],
+  "101490": [
+   "Deeppura",
+   663,
+   25
+  ],
+  "101488": [
+   "Garhwara",
+   663,
+   25
+  ],
+  "101487": [
+   "Pangarh",
+   663,
+   25
+  ],
+  "101491": [
+   "Ghatatop",
+   663,
+   25
+  ],
+  "101492": [
+   "Manohar Kheri",
+   663,
+   25
+  ],
+  "101505": [
+   "Ajota",
+   663,
+   26
+  ],
+  "101504": [
+   "Laxmipura",
+   663,
+   26
+  ],
+  "101503": [
+   "Mardpura",
+   663,
+   26
+  ],
+  "101498": [
+   "Kanera",
+   663,
+   25
+  ],
+  "101507": [
+   "Dhareshwar",
+   663,
+   26
+  ],
+  "101383": [
+   "Arnoda",
+   663,
+   24
+  ],
+  "101380": [
+   "Mewasa",
+   663,
+   24
+  ],
+  "101494": [
+   "Bangera Ghata",
+   663,
+   25
+  ],
+  "101493": [
+   "Gujar Kheri",
+   663,
+   25
+  ],
+  "101486": [
+   "Barawali",
+   663,
+   25
+  ],
+  "101508": [
+   "Shrinagar",
+   663,
+   26
+  ],
+  "101509": [
+   "Rawaliya",
+   663,
+   26
+  ],
+  "101381": [
+   "Charliya",
+   663,
+   24
+  ],
+  "101501": [
+   "Semaliya",
+   663,
+   26
+  ],
+  "101485": [
+   "Kochwa",
+   663,
+   25
+  ],
+  "101511": [
+   "Shripura",
+   663,
+   26
+  ],
+  "101510": [
+   "Benipuriya",
+   663,
+   26
+  ],
+  "101512": [
+   "Deopuriya",
+   663,
+   26
+  ],
+  "101495": [
+   "Bhuwaniya Kheri",
+   663,
+   25
+  ],
+  "101484": [
+   "Anoppura",
+   663,
+   25
+  ],
+  "101502": [
+   "Bhawaliya",
+   663,
+   26
+  ],
+  "101516": [
+   "Nimboda",
+   663,
+   26
+  ],
+  "100356": [
+   "Randola",
+   657,
+   50
+  ],
+  "100400": [
+   "Borakundi",
+   657,
+   39
+  ],
+  "100353": [
+   "Charchha",
+   657,
+   50
+  ],
+  "100361": [
+   "Bagpura",
+   657,
+   50
+  ],
+  "100401": [
+   "Kulatiya Nai",
+   657,
+   51
+  ],
+  "100408": [
+   "Sarli Ka Khera",
+   657,
+   39
+  ],
+  "100355": [
+   "Peepalda",
+   657,
+   50
+  ],
+  "100405": [
+   "Jandolya",
+   657,
+   39
+  ],
+  "100406": [
+   "Chekli",
+   657,
+   39
+  ],
+  "100409": [
+   "Samron Ka Lewa",
+   657,
+   39
+  ],
+  "100403": [
+   "Dediya",
+   657,
+   39
+  ],
+  "100404": [
+   "Fatehpur at Jhunjala Magri",
+   657,
+   39
+  ],
+  "100407": [
+   "Dhawrakuri",
+   657,
+   51
+  ],
+  "100402": [
+   "Dharamdas Ji Ka Khera",
+   657,
+   39
+  ],
+  "100369": [
+   "Kulatiya Jooni",
+   657,
+   51
+  ],
+  "100748": [
+   "Undri",
+   659,
+   38
+  ],
+  "100738": [
+   "Jawasiya",
+   659,
+   49
+  ],
+  "100735": [
+   "Madhupuriya",
+   659,
+   49
+  ],
+  "100734": [
+   "Godi",
+   659,
+   49
+  ],
+  "100741": [
+   "Bijaipur",
+   659,
+   38
+  ],
+  "100749": [
+   "Gopalpura",
+   659,
+   38
+  ],
+  "100861": [
+   "Hathi Ka Gurha",
+   659,
+   24
+  ],
+  "100864": [
+   "Barsingh Ka Gurha",
+   659,
+   24
+  ],
+  "100867": [
+   "Bihari Pura",
+   659,
+   24
+  ],
+  "100863": [
+   "Kanpura",
+   659,
+   24
+  ],
+  "100862": [
+   "Pema Ka Khera",
+   659,
+   24
+  ],
+  "100744": [
+   "Rasya Magri",
+   659,
+   38
+  ],
+  "100742": [
+   "Dhangliya Khera",
+   659,
+   38
+  ],
+  "100745": [
+   "Dolatpura",
+   659,
+   38
+  ],
+  "100842": [
+   "Paler",
+   659,
+   38
+  ],
+  "100746": [
+   "Kotri",
+   659,
+   38
+  ],
+  "100733": [
+   "Bhadanon Ka Khera",
+   659,
+   49
+  ],
+  "100739": [
+   "Bhupat Pura",
+   659,
+   49
+  ],
+  "100850": [
+   "Bagatpura at Karma Ka Khera",
+   659,
+   38
+  ],
+  "100849": [
+   "Bharkiya",
+   659,
+   38
+  ],
+  "100847": [
+   "Bageriya",
+   659,
+   38
+  ],
+  "100848": [
+   "Kalyanpura",
+   659,
+   38
+  ],
+  "100846": [
+   "Semaliya",
+   659,
+   38
+  ],
+  "100843": [
+   "Sankal Khera",
+   659,
+   38
+  ],
+  "100844": [
+   "Kesharpura",
+   659,
+   38
+  ],
+  "100853": [
+   "Rawat Ka Talab",
+   659,
+   38
+  ],
+  "100855": [
+   "Palchha",
+   659,
+   38
+  ],
+  "100858": [
+   "Chamanpura",
+   659,
+   38
+  ],
+  "100860": [
+   "Chainpuriya",
+   659,
+   24
+  ],
+  "100866": [
+   "Sankera",
+   659,
+   24
+  ],
+  "100865": [
+   "Udpura",
+   659,
+   24
+  ],
+  "100845": [
+   "Manak Pura",
+   659,
+   38
+  ],
+  "100854": [
+   "Amar Pura",
+   659,
+   38
+  ],
+  "100740": [
+   "Kherach",
+   659,
+   38
+  ],
+  "100852": [
+   "Mahupuriya",
+   659,
+   38
+  ],
+  "101489": [
+   "Bordi",
+   663,
+   25
+  ],
+  "100357": [
+   "Udpuriya",
+   657,
+   50
+  ],
+  "100354": [
+   "Ramniwas",
+   657,
+   50
+  ],
+  "100857": [
+   "Suratpura",
+   659,
+   38
+  ],
+  "100856": [
+   "Mokhampura",
+   659,
+   24
+  ],
+  "101500": [
+   "Pratappura",
+   663,
+   26
+  ],
+  "101382": [
+   "Ganeshpura",
+   663,
+   24
+  ],
+  "100747": [
+   "Kushalpura",
+   659,
+   38
+  ],
+  "100743": [
+   "Kheta Khera",
+   659,
+   38
+  ],
+  "101506": [
+   "Heeraji Ka Khera",
+   663,
+   26
+  ],
+  "100259": [
+   "Haripura",
+   657,
+   63
+  ],
+  "100177": [
+   "Chomu",
+   657,
+   69
+  ],
+  "100198": [
+   "Itawa",
+   657,
+   61
+  ],
+  "100195": [
+   "Rajgarh",
+   657,
+   61
+  ],
+  "100194": [
+   "Nathawaton Ka Khera",
+   657,
+   61
+  ],
+  "100237": [
+   "Nandwai",
+   657,
+   62
+  ],
+  "100334": [
+   "Utthen Kalan",
+   657,
+   64
+  ],
+  "100342": [
+   "Madhopur",
+   657,
+   51
+  ],
+  "100378": [
+   "Kalabar",
+   657,
+   51
+  ],
+  "100255": [
+   "Neemoda",
+   657,
+   63
+  ],
+  "100245": [
+   "Gurha",
+   657,
+   62
+  ],
+  "100327": [
+   "Dharla",
+   657,
+   64
+  ],
+  "100202": [
+   "Raipuriya",
+   657,
+   61
+  ],
+  "100281": [
+   "Bhanwariya Khurd",
+   657,
+   63
+  ],
+  "100231": [
+   "Basotha",
+   657,
+   62
+  ],
+  "100260": [
+   "Anandpura",
+   657,
+   63
+  ],
+  "100294": [
+   "Amalda",
+   657,
+   50
+  ],
+  "100381": [
+   "Jaisinghpura",
+   657,
+   64
+  ],
+  "100389": [
+   "Chechi",
+   657,
+   51
+  ],
+  "100346": [
+   "Bande Ka Ramnagar",
+   657,
+   51
+  ],
+  "100180": [
+   "Chawandiya",
+   657,
+   68
+  ],
+  "100179": [
+   "Leerdi",
+   657,
+   69
+  ],
+  "100174": [
+   "Kitiyas",
+   657,
+   69
+  ],
+  "100230": [
+   "Nal",
+   657,
+   62
+  ],
+  "100278": [
+   "Bassi Fatehpur",
+   657,
+   63
+  ],
+  "100252": [
+   "Kishanpura",
+   657,
+   62
+  ],
+  "100329": [
+   "Menal",
+   657,
+   64
+  ],
+  "100253": [
+   "Jharol",
+   657,
+   63
+  ],
+  "100205": [
+   "Sultanpura",
+   657,
+   61
+  ],
+  "100338": [
+   "Gulana",
+   657,
+   64
+  ],
+  "100214": [
+   "Rampuriya",
+   657,
+   61
+  ],
+  "100235": [
+   "Ghatabao",
+   657,
+   50
+  ],
+  "100213": [
+   "Salariya",
+   657,
+   61
+  ],
+  "100312": [
+   "Parawas",
+   657,
+   50
+  ],
+  "100365": [
+   "Haripura",
+   657,
+   51
+  ],
+  "100347": [
+   "Meghpura",
+   657,
+   50
+  ],
+  "100372": [
+   "Khardi",
+   657,
+   51
+  ],
+  "100190": [
+   "Sangrampura",
+   657,
+   69
+  ],
+  "100176": [
+   "Kanwarpura",
+   657,
+   69
+  ],
+  "999999": [
+   "Not Available",
+   659,
+   38
+  ],
+  "100192": [
+   "Parsoli",
+   657,
+   69
+  ],
+  "100226": [
+   "Kishangarh",
+   657,
+   69
+  ],
+  "100225": [
+   "Deolachh",
+   657,
+   69
+  ],
+  "100189": [
+   "Barniyas",
+   657,
+   69
+  ],
+  "100229": [
+   "Bichhor",
+   657,
+   62
+  ],
+  "100191": [
+   "Haron Ka Khera",
+   657,
+   69
+  ],
+  "100181": [
+   "Akoriya",
+   657,
+   69
+  ],
+  "100249": [
+   "Hardeopura",
+   657,
+   63
+  ],
+  "100185": [
+   "Dugar",
+   657,
+   69
+  ],
+  "100186": [
+   "Daulatpur",
+   657,
+   69
+  ],
+  "100188": [
+   "Hamepur",
+   657,
+   69
+  ],
+  "100193": [
+   "Harpura",
+   657,
+   69
+  ],
+  "100187": [
+   "Makhanpura",
+   657,
+   69
+  ],
+  "100224": [
+   "Pohpura",
+   657,
+   62
+  ],
+  "100183": [
+   "Rooppura",
+   657,
+   69
+  ],
+  "100251": [
+   "Amartiya",
+   657,
+   63
+  ],
+  "100221": [
+   "Kerpura",
+   657,
+   62
+  ],
+  "100182": [
+   "Luhariya",
+   657,
+   68
+  ],
+  "100266": [
+   "Andariyon Ki Jhonpariyan",
+   657,
+   63
+  ],
+  "100270": [
+   "Banda",
+   657,
+   64
+  ],
+  "100271": [
+   "Samariya Khurd",
+   657,
+   64
+  ],
+  "100184": [
+   "Rughnathpura",
+   657,
+   69
+  ],
+  "100222": [
+   "Laxmipura",
+   657,
+   62
+  ],
+  "100248": [
+   "Kanakpura",
+   657,
+   62
+  ],
+  "100267": [
+   "Gorlan",
+   657,
+   63
+  ],
+  "100247": [
+   "Gopalpura",
+   657,
+   62
+  ],
+  "100269": [
+   "Suratpura",
+   657,
+   63
+  ],
+  "100280": [
+   "Marna",
+   657,
+   63
+  ],
+  "100218": [
+   "Amarpura",
+   657,
+   62
+  ],
+  "100264": [
+   "Suwaniya",
+   657,
+   63
+  ],
+  "100250": [
+   "Chawandiya",
+   657,
+   62
+  ],
+  "100199": [
+   "Sahara",
+   657,
+   61
+  ],
+  "100246": [
+   "Kheri",
+   657,
+   62
+  ],
+  "100219": [
+   "Fatehpura",
+   657,
+   62
+  ],
+  "100217": [
+   "Nahargarh",
+   657,
+   61
+  ],
+  "100272": [
+   "Bari Ka Khera",
+   657,
+   64
+  ],
+  "100197": [
+   "Ratanpura",
+   657,
+   61
+  ],
+  "100531": [
+   "Dhuniya",
+   658,
+   40
+  ],
+  "100263": [
+   "Meghniwas",
+   657,
+   63
+  ],
+  "100261": [
+   "Katunda",
+   657,
+   63
+  ],
+  "100256": [
+   "Tejpur",
+   657,
+   62
+  ],
+  "100275": [
+   "Sadalpur",
+   657,
+   64
+  ],
+  "100204": [
+   "Takhatpura",
+   657,
+   61
+  ],
+  "100203": [
+   "Jodhpuriya",
+   657,
+   61
+  ],
+  "100207": [
+   "Dekri Khera",
+   657,
+   61
+  ],
+  "100274": [
+   "Teekhi Ka Khera",
+   657,
+   64
+  ],
+  "100276": [
+   "Chanda Kheri",
+   657,
+   64
+  ],
+  "100258": [
+   "Ramnagar at Rojtalai",
+   657,
+   62
+  ],
+  "100216": [
+   "Mahesara",
+   657,
+   61
+  ],
+  "100516": [
+   "Jagliya Rundi",
+   658,
+   28
+  ],
+  "100282": [
+   "Shrinagar",
+   657,
+   63
+  ],
+  "100330": [
+   "Rawarda",
+   657,
+   64
+  ],
+  "100201": [
+   "Haripura",
+   657,
+   61
+  ],
+  "100244": [
+   "Bhawanipura",
+   657,
+   62
+  ],
+  "100240": [
+   "Deori",
+   657,
+   62
+  ],
+  "100208": [
+   "Gopalpura",
+   657,
+   61
+  ],
+  "100515": [
+   "Bakhari",
+   658,
+   28
+  ],
+  "100239": [
+   "Muroli",
+   657,
+   62
+  ],
+  "100283": [
+   "Thukrai",
+   657,
+   63
+  ],
+  "100243": [
+   "Banora",
+   657,
+   62
+  ],
+  "100238": [
+   "Shivpura",
+   657,
+   62
+  ],
+  "100326": [
+   "Palka",
+   657,
+   64
+  ],
+  "100241": [
+   "Madhopur",
+   657,
+   62
+  ],
+  "100242": [
+   "Narsinghpura",
+   657,
+   62
+  ],
+  "100284": [
+   "Palanpur",
+   657,
+   63
+  ],
+  "100332": [
+   "Rayta",
+   657,
+   64
+  ],
+  "100289": [
+   "Gunta",
+   657,
+   62
+  ],
+  "100325": [
+   "Shadi",
+   657,
+   64
+  ],
+  "100286": [
+   "Khermaliya",
+   657,
+   63
+  ],
+  "100285": [
+   "Peepli Khera",
+   657,
+   63
+  ],
+  "100290": [
+   "Jainagar",
+   657,
+   62
+  ],
+  "100319": [
+   "Pachhunda",
+   657,
+   63
+  ],
+  "100336": [
+   "Parkhiya Khera",
+   657,
+   64
+  ],
+  "100291": [
+   "Sonagar",
+   657,
+   62
+  ],
+  "100322": [
+   "Marawada",
+   657,
+   63
+  ],
+  "100383": [
+   "Singhpur",
+   657,
+   64
+  ],
+  "100320": [
+   "Ganeshpura",
+   657,
+   63
+  ],
+  "100318": [
+   "Kishorpura",
+   657,
+   63
+  ],
+  "100382": [
+   "Turkari",
+   657,
+   64
+  ],
+  "100323": [
+   "Anwalhera",
+   657,
+   63
+  ],
+  "100333": [
+   "Utthen Khurd",
+   657,
+   64
+  ],
+  "100317": [
+   "Gangapur",
+   657,
+   63
+  ],
+  "100337": [
+   "Rayti",
+   657,
+   64
+  ],
+  "100234": [
+   "Naliya",
+   657,
+   50
+  ],
+  "100293": [
+   "Mandawari",
+   657,
+   50
+  ],
+  "100236": [
+   "Umar Ka Khal",
+   657,
+   62
+  ],
+  "100536": [
+   "Neem Ka Khera",
+   658,
+   29
+  ],
+  "100215": [
+   "Amjhariya",
+   657,
+   61
+  ],
+  "100172": [
+   "Malikhera",
+   657,
+   69
+  ],
+  "100227": [
+   "Makhangunj",
+   657,
+   62
+  ],
+  "100178": [
+   "Muriliya",
+   657,
+   69
+  ],
+  "100265": [
+   "Nathooram Ji Ka Khera",
+   657,
+   63
+  ],
+  "100268": [
+   "Naya Gaon Chauhanon Ka",
+   657,
+   64
+  ],
+  "100279": [
+   "Bhanwariya Kalan",
+   657,
+   63
+  ],
+  "100273": [
+   "Samariyan Kalan",
+   657,
+   64
+  ],
+  "100206": [
+   "Chanpuriya",
+   657,
+   61
+  ],
+  "100200": [
+   "Torniya",
+   657,
+   61
+  ],
+  "100277": [
+   "Ramnagar at Tara Peepli",
+   657,
+   63
+  ],
+  "100233": [
+   "Umar Thoona",
+   657,
+   62
+  ],
+  "100211": [
+   "Patkhurd",
+   657,
+   61
+  ],
+  "100292": [
+   "Chanchpur",
+   657,
+   62
+  ],
+  "100315": [
+   "Chainsingh Ji Ka Rajpura",
+   657,
+   63
+  ],
+  "100301": [
+   "Kheri Anoppura",
+   657,
+   50
+  ],
+  "100339": [
+   "Dhanora",
+   657,
+   51
+  ],
+  "100340": [
+   "Bagpachhli Kheri",
+   657,
+   51
+  ],
+  "100380": [
+   "Bamanhera",
+   657,
+   64
+  ],
+  "100295": [
+   "Jalampura",
+   657,
+   50
+  ],
+  "100307": [
+   "Fatehpur",
+   657,
+   50
+  ],
+  "100314": [
+   "Pratappura",
+   657,
+   51
+  ],
+  "100341": [
+   "Bhagwanpura",
+   657,
+   51
+  ],
+  "100387": [
+   "Hanutiya",
+   657,
+   64
+  ],
+  "100379": [
+   "Govindpura",
+   657,
+   51
+  ],
+  "100350": [
+   "Haripura",
+   657,
+   50
+  ],
+  "100374": [
+   "Sudarshanpura",
+   657,
+   51
+  ],
+  "100343": [
+   "Daulatpura",
+   657,
+   51
+  ],
+  "100386": [
+   "Amarpura",
+   657,
+   64
+  ],
+  "100310": [
+   "Bheelon Ki Baithak",
+   657,
+   50
+  ],
+  "100344": [
+   "Gopalpura",
+   657,
+   51
+  ],
+  "100366": [
+   "Rajgarh",
+   657,
+   51
+  ],
+  "100388": [
+   "Rampuriya",
+   657,
+   51
+  ],
+  "100376": [
+   "Kalyanpura",
+   657,
+   51
+  ],
+  "100377": [
+   "Badanpura",
+   657,
+   51
+  ],
+  "100373": [
+   "Semaliya",
+   657,
+   51
+  ],
+  "100299": [
+   "Bhachardi",
+   657,
+   50
+  ],
+  "100364": [
+   "Bandan Ka Rajpura",
+   657,
+   51
+  ],
+  "100360": [
+   "Dorai",
+   657,
+   50
+  ],
+  "100306": [
+   "Jawadiya Joona",
+   657,
+   50
+  ],
+  "100391": [
+   "Khalda",
+   657,
+   51
+  ],
+  "100375": [
+   "Karundiya",
+   657,
+   51
+  ],
+  "100393": [
+   "Bhatkhera Naya",
+   657,
+   51
+  ],
+  "100367": [
+   "Gandeliya",
+   657,
+   51
+  ],
+  "100358": [
+   "Jetpura",
+   657,
+   50
+  ],
+  "100359": [
+   "Ladpura",
+   657,
+   50
+  ],
+  "100368": [
+   "Garhwara",
+   657,
+   51
+  ],
+  "100396": [
+   "Dobiyan",
+   657,
+   51
+  ],
+  "100362": [
+   "Jalsagar",
+   657,
+   50
+  ],
+  "100352": [
+   "Amba",
+   657,
+   50
+  ],
+  "100398": [
+   "Dhamancha",
+   657,
+   51
+  ],
+  "100399": [
+   "Jhonpariya",
+   657,
+   51
+  ],
+  "100370": [
+   "Anoppura",
+   657,
+   51
+  ],
+  "100385": [
+   "Bor Baori",
+   657,
+   64
+  ],
+  "100313": [
+   "Jodhapatel Ki Kheri",
+   657,
+   51
+  ],
+  "100390": [
+   "Naya Gaon",
+   657,
+   51
+  ],
+  "100298": [
+   "Jawadiyanaya",
+   657,
+   50
+  ],
+  "100371": [
+   "Dhabai Ji Ka Khera",
+   657,
+   51
+  ],
+  "100220": [
+   "Mandawari",
+   657,
+   62
+  ],
+  "100210": [
+   "Pat Kalan",
+   657,
+   61
+  ],
+  "100302": [
+   "Amba",
+   657,
+   50
+  ],
+  "100304": [
+   "Delwalgarh",
+   657,
+   61
+  ],
+  "100717": [
+   "Amlee Ka Khera",
+   659,
+   49
+  ],
+  "100718": [
+   "Jetpura",
+   659,
+   49
+  ],
+  "100721": [
+   "Baori Khera",
+   659,
+   49
+  ],
+  "100710": [
+   "Meghpura",
+   659,
+   61
+  ],
+  "100712": [
+   "Kewariya",
+   659,
+   61
+  ],
+  "100713": [
+   "Mewasa",
+   659,
+   61
+  ],
+  "100705": [
+   "Sokya",
+   659,
+   60
+  ],
+  "100704": [
+   "Duwawa",
+   659,
+   60
+  ],
+  "100621": [
+   "Kethoola",
+   658,
+   30
+  ],
+  "100707": [
+   "Suwawa",
+   659,
+   60
+  ],
+  "100702": [
+   "Chhapiya Kheri",
+   659,
+   60
+  ],
+  "100700": [
+   "Songar",
+   659,
+   60
+  ],
+  "100708": [
+   "Jaisinghpura",
+   659,
+   60
+  ],
+  "100709": [
+   "Siyaliya",
+   659,
+   60
+  ],
+  "100716": [
+   "Phusariya",
+   659,
+   49
+  ],
+  "100698": [
+   "Bassi",
+   659,
+   60
+  ],
+  "100711": [
+   "Palka",
+   659,
+   60
+  ],
+  "100714": [
+   "Bobla Kalan",
+   659,
+   49
+  ],
+  "100715": [
+   "Suratsingh Ka Khera",
+   659,
+   49
+  ],
+  "100723": [
+   "Bhoongariya",
+   659,
+   49
+  ],
+  "100724": [
+   "Bobla Khurd",
+   659,
+   49
+  ],
+  "100722": [
+   "Banda at Ganeshpura",
+   659,
+   49
+  ],
+  "100719": [
+   "Garol",
+   659,
+   49
+  ],
+  "100728": [
+   "Pal Ka Khera",
+   659,
+   49
+  ],
+  "100720": [
+   "Rajpuriya",
+   659,
+   49
+  ],
+  "100737": [
+   "Deo Doongi",
+   659,
+   49
+  ],
+  "100736": [
+   "Gorsiya",
+   659,
+   49
+  ],
+  "100706": [
+   "Dahee Khera",
+   659,
+   60
+  ],
+  "100727": [
+   "Pal",
+   659,
+   49
+  ],
+  "100726": [
+   "Keljer",
+   659,
+   49
+  ],
+  "100120": [
+   "Sandiya",
+   656,
+   60
+  ],
+  "100065": [
+   "Sadas",
+   656,
+   68
+  ],
+  "100257": [
+   "Kuratiya",
+   657,
+   62
+  ],
+  "100116": [
+   "Dhantol",
+   656,
+   68
+  ],
+  "100115": [
+   "Dhunwaliya",
+   656,
+   68
+  ],
+  "100117": [
+   "Dholi",
+   656,
+   68
+  ],
+  "100119": [
+   "Chatra Ka Khera",
+   656,
+   60
+  ],
+  "100725": [
+   "Manpuriya",
+   659,
+   49
+  ],
+  "100064": [
+   "Surajniyas",
+   656,
+   68
+  ],
+  "100287": [
+   "Salera",
+   657,
+   63
+  ],
+  "248837": [
+   "Begun",
+   657,
+   51
+  ],
+  "100118": [
+   "Roopa Khera",
+   656,
+   68
+  ],
+  "100331": [
+   "Gopalpura",
+   657,
+   64
+  ],
+  "100384": [
+   "Saroopji Ki Kheri",
+   657,
+   64
+  ],
+  "100392": [
+   "Sarlasiya",
+   657,
+   51
+  ],
+  "100395": [
+   "Galyabaori",
+   657,
+   51
+  ],
+  "100394": [
+   "Kanthariya",
+   657,
+   51
+  ],
+  "100228": [
+   "Shambhoopura",
+   657,
+   62
+  ],
+  "100209": [
+   "Kundaliya",
+   657,
+   61
+  ],
+  "100296": [
+   "Anoppura",
+   657,
+   50
+  ],
+  "100348": [
+   "Mankeshwar",
+   657,
+   50
+  ],
+  "100335": [
+   "Deoriya",
+   657,
+   64
+  ],
+  "100324": [
+   "Karanpuriya",
+   657,
+   64
+  ],
+  "100232": [
+   "Ulloopura",
+   657,
+   61
+  ],
+  "100303": [
+   "Taleti",
+   657,
+   50
+  ],
+  "100300": [
+   "Pandooriya",
+   657,
+   50
+  ],
+  "100363": [
+   "Brijpura",
+   657,
+   51
+  ],
+  "100309": [
+   "Phalatol",
+   657,
+   50
+  ],
+  "100305": [
+   "Semlader",
+   657,
+   50
+  ],
+  "100349": [
+   "Khumawas",
+   657,
+   50
+  ],
+  "100351": [
+   "Mahupura",
+   657,
+   50
+  ],
+  "100732": [
+   "Arjunpura",
+   659,
+   49
+  ],
+  "100196": [
+   "Rajpura",
+   657,
+   61
+  ],
+  "100262": [
+   "Balwantnagar",
+   657,
+   63
+  ],
+  "100328": [
+   "Umar",
+   657,
+   64
+  ],
+  "100175": [
+   "Sagji Ka Khera",
+   657,
+   69
+  ],
+  "100321": [
+   "Rooppura",
+   657,
+   63
+  ],
+  "100288": [
+   "Palana Ka Ramnagar",
+   657,
+   63
+  ],
+  "100308": [
+   "Neeladeh",
+   657,
+   50
+  ],
+  "100488": [
+   "Parlai Khurd",
+   658,
+   27
+  ],
+  "100496": [
+   "Hamerganj",
+   658,
+   27
+  ],
+  "100492": [
+   "Tolon Ka Luhariya",
+   658,
+   27
+  ],
+  "100490": [
+   "Bhanda Kuri",
+   658,
+   27
+  ],
+  "100499": [
+   "Laxmipura",
+   658,
+   27
+  ],
+  "100491": [
+   "Gujaron Ki Morvan",
+   658,
+   27
+  ],
+  "100498": [
+   "Jawada",
+   658,
+   27
+  ],
+  "100497": [
+   "Semliya",
+   658,
+   27
+  ],
+  "100493": [
+   "Kewaron Ka Luhariya",
+   658,
+   27
+  ],
+  "100494": [
+   "Daulpura",
+   658,
+   27
+  ],
+  "100620": [
+   "Kanti",
+   658,
+   30
+  ],
+  "100501": [
+   "Neemoda",
+   658,
+   27
+  ],
+  "100505": [
+   "Mal Khera",
+   658,
+   27
+  ],
+  "100495": [
+   "Hadon Ki Morvan",
+   658,
+   27
+  ],
+  "100500": [
+   "Kharama",
+   658,
+   27
+  ],
+  "100619": [
+   "Dotara",
+   658,
+   30
+  ],
+  "100636": [
+   "Kanwarpura",
+   658,
+   28
+  ],
+  "100624": [
+   "Kua Khera",
+   658,
+   29
+  ],
+  "100629": [
+   "Muwada",
+   658,
+   29
+  ],
+  "100625": [
+   "Chittauriya",
+   658,
+   30
+  ],
+  "100628": [
+   "Govindpura",
+   658,
+   29
+  ],
+  "100626": [
+   "Nayagaon",
+   658,
+   29
+  ],
+  "100631": [
+   "Anwalhera",
+   658,
+   29
+  ],
+  "100634": [
+   "Baori Khera",
+   658,
+   28
+  ],
+  "100637": [
+   "Deopura",
+   658,
+   28
+  ],
+  "100504": [
+   "Menpura",
+   658,
+   28
+  ],
+  "100506": [
+   "Balkundi Kalan",
+   658,
+   28
+  ],
+  "100508": [
+   "Arniya",
+   658,
+   28
+  ],
+  "100507": [
+   "Balkundi Khurd",
+   658,
+   28
+  ],
+  "100514": [
+   "Dareeba",
+   658,
+   28
+  ],
+  "100517": [
+   "Prempura",
+   658,
+   29
+  ],
+  "100618": [
+   "Peepalda",
+   658,
+   30
+  ],
+  "100612": [
+   "Barkhera",
+   658,
+   30
+  ],
+  "100570": [
+   "Thamlao",
+   658,
+   42
+  ],
+  "100571": [
+   "Deeppura",
+   658,
+   55
+  ],
+  "100465": [
+   "Umarcha",
+   658,
+   52
+  ],
+  "100622": [
+   "Rampuriya",
+   658,
+   30
+  ],
+  "100549": [
+   "Padajhar Khurd",
+   658,
+   54
+  ],
+  "100552": [
+   "Ganga Ka Khera",
+   658,
+   41
+  ],
+  "100462": [
+   "Mandesara",
+   658,
+   53
+  ],
+  "100556": [
+   "Lasana",
+   658,
+   41
+  ],
+  "100460": [
+   "Hatholi",
+   658,
+   54
+  ],
+  "100461": [
+   "Ratanpura",
+   658,
+   41
+  ],
+  "100518": [
+   "Talar",
+   658,
+   29
+  ],
+  "100548": [
+   "Chenpua",
+   658,
+   41
+  ],
+  "100512": [
+   "Kharnai",
+   658,
+   28
+  ],
+  "100489": [
+   "Bassi",
+   658,
+   27
+  ],
+  "100509": [
+   "Amarpura",
+   658,
+   28
+  ],
+  "100510": [
+   "Baghpura",
+   658,
+   28
+  ],
+  "100511": [
+   "Gurha Khera",
+   658,
+   28
+  ],
+  "100513": [
+   "Balaganj",
+   658,
+   28
+  ],
+  "100534": [
+   "Udpuriya",
+   658,
+   29
+  ],
+  "100521": [
+   "Neemri",
+   658,
+   28
+  ],
+  "100463": [
+   "Khal Gaon",
+   658,
+   40
+  ],
+  "100541": [
+   "Doodi Talai",
+   658,
+   40
+  ],
+  "100528": [
+   "Phootpal",
+   658,
+   40
+  ],
+  "100529": [
+   "Arena Kalan",
+   658,
+   40
+  ],
+  "100547": [
+   "Paral Banda",
+   658,
+   41
+  ],
+  "100557": [
+   "Jhoojhala",
+   658,
+   41
+  ],
+  "100546": [
+   "Kushalgarh",
+   658,
+   41
+  ],
+  "100545": [
+   "Khera Veeran",
+   658,
+   40
+  ],
+  "100544": [
+   "Nali",
+   658,
+   41
+  ],
+  "100558": [
+   "Baheliya",
+   658,
+   41
+  ],
+  "100519": [
+   "Malgarh",
+   658,
+   29
+  ],
+  "100527": [
+   "Kolpura",
+   658,
+   40
+  ],
+  "100526": [
+   "Ajpura",
+   658,
+   40
+  ],
+  "100524": [
+   "Rawatpura",
+   658,
+   40
+  ],
+  "100523": [
+   "Kripapur",
+   658,
+   40
+  ],
+  "100522": [
+   "Agra",
+   658,
+   40
+  ],
+  "100530": [
+   "Rajpura",
+   658,
+   40
+  ],
+  "100464": [
+   "Dhangadmau Khurd",
+   658,
+   53
+  ],
+  "100623": [
+   "Latoor",
+   658,
+   29
+  ],
+  "100632": [
+   "Doongariya",
+   658,
+   29
+  ],
+  "100630": [
+   "Peepal Kheri",
+   658,
+   29
+  ],
+  "100633": [
+   "Meghpura",
+   658,
+   28
+  ],
+  "100503": [
+   "Khangarpura",
+   658,
+   28
+  ],
+  "100635": [
+   "Kherat",
+   658,
+   28
+  ],
+  "100538": [
+   "Arniya",
+   658,
+   29
+  ],
+  "100560": [
+   "Manoli",
+   658,
+   41
+  ],
+  "100563": [
+   "Thah Ka Khera",
+   658,
+   30
+  ],
+  "100562": [
+   "Mordi",
+   658,
+   30
+  ],
+  "100535": [
+   "Rooppura",
+   658,
+   29
+  ],
+  "100540": [
+   "Anandpura",
+   658,
+   29
+  ],
+  "100537": [
+   "Motipura",
+   658,
+   29
+  ],
+  "100539": [
+   "Amlat",
+   658,
+   29
+  ],
+  "100614": [
+   "Banda",
+   658,
+   30
+  ],
+  "100564": [
+   "Goyat",
+   658,
+   30
+  ],
+  "100615": [
+   "Arniya",
+   658,
+   30
+  ],
+  "100617": [
+   "Chakbaori",
+   658,
+   30
+  ],
+  "100616": [
+   "Keharpura",
+   658,
+   30
+  ],
+  "100565": [
+   "Antaraliya",
+   658,
+   41
+  ],
+  "100609": [
+   "Matasara",
+   658,
+   31
+  ],
+  "100611": [
+   "Kanwarpura",
+   658,
+   31
+  ],
+  "100568": [
+   "Raipur",
+   658,
+   42
+  ],
+  "100567": [
+   "Dabarwas",
+   658,
+   42
+  ],
+  "100569": [
+   "Kherli",
+   658,
+   42
+  ],
+  "100553": [
+   "Sarangpura",
+   658,
+   41
+  ],
+  "100550": [
+   "Kundaliya",
+   658,
+   41
+  ],
+  "100554": [
+   "Todon Ka Khera",
+   658,
+   41
+  ],
+  "100551": [
+   "Emti",
+   658,
+   41
+  ],
+  "100520": [
+   "Jaswantpura",
+   658,
+   28
+  ],
+  "100555": [
+   "Barwan",
+   658,
+   41
+  ],
+  "100543": [
+   "Ganeshpura",
+   658,
+   40
+  ],
+  "100542": [
+   "Arena Khurd",
+   658,
+   40
+  ],
+  "100561": [
+   "Ratoli",
+   658,
+   41
+  ],
+  "100559": [
+   "Kesha Ka Khera",
+   658,
+   41
+  ],
+  "100566": [
+   "Chhatarpura",
+   658,
+   41
+  ],
+  "100525": [
+   "Bargaon",
+   658,
+   40
+  ],
+  "100485": [
+   "Ghati",
+   658,
+   52
+  ],
+  "100486": [
+   "Sangwa",
+   658,
+   52
+  ],
+  "100478": [
+   "Girdiya",
+   658,
+   52
+  ],
+  "100484": [
+   "Jamboo Kuri",
+   658,
+   52
+  ],
+  "100475": [
+   "Sanga Ki Badi",
+   658,
+   52
+  ],
+  "100473": [
+   "Ganeshpura",
+   658,
+   52
+  ],
+  "100470": [
+   "Borda",
+   658,
+   52
+  ],
+  "100472": [
+   "Ramnagar",
+   658,
+   52
+  ],
+  "100471": [
+   "Shambhoopura",
+   658,
+   52
+  ],
+  "100467": [
+   "Jai Nagar",
+   658,
+   52
+  ],
+  "100466": [
+   "Nagpura",
+   658,
+   52
+  ],
+  "100487": [
+   "Khordiya",
+   658,
+   52
+  ],
+  "100476": [
+   "Jalampura",
+   658,
+   52
+  ],
+  "100477": [
+   "Kajodiya",
+   658,
+   52
+  ],
+  "100439": [
+   "Hajipur",
+   658,
+   54
+  ],
+  "100442": [
+   "Jaora Khurd",
+   658,
+   55
+  ],
+  "100450": [
+   "Deopuriya",
+   658,
+   54
+  ],
+  "100434": [
+   "Bhainsrorgarh",
+   658,
+   54
+  ],
+  "100438": [
+   "Balapura",
+   658,
+   55
+  ],
+  "100440": [
+   "Jagpura",
+   658,
+   54
+  ],
+  "248838": [
+   "Rawatbhata",
+   658,
+   54
+  ],
+  "100451": [
+   "Mahupura",
+   658,
+   54
+  ],
+  "100449": [
+   "Saneeta",
+   658,
+   54
+  ],
+  "100447": [
+   "Kacholiya",
+   658,
+   54
+  ],
+  "100441": [
+   "Jaora Kalan",
+   658,
+   55
+  ],
+  "100445": [
+   "Baroliya",
+   658,
+   55
+  ],
+  "100443": [
+   "Jhalar Baori",
+   658,
+   55
+  ],
+  "100444": [
+   "Sankhalon Ka Dhundha",
+   658,
+   55
+  ],
+  "100448": [
+   "Neem Ka Khera",
+   658,
+   54
+  ],
+  "100428": [
+   "Shripura",
+   658,
+   53
+  ],
+  "100430": [
+   "Bhoonjar Khurd",
+   658,
+   53
+  ],
+  "100431": [
+   "Nasera",
+   658,
+   53
+  ],
+  "100433": [
+   "Amba",
+   658,
+   54
+  ],
+  "100427": [
+   "Lothiyana",
+   658,
+   53
+  ],
+  "100436": [
+   "Madaar Chok",
+   658,
+   54
+  ],
+  "100435": [
+   "Gopalpura",
+   658,
+   54
+  ],
+  "100457": [
+   "Bakhtpura",
+   658,
+   54
+  ],
+  "100459": [
+   "Luhariya",
+   658,
+   53
+  ],
+  "100458": [
+   "Suthala",
+   658,
+   53
+  ],
+  "100454": [
+   "Udpuria",
+   658,
+   54
+  ],
+  "100455": [
+   "Bhawanipura",
+   658,
+   54
+  ],
+  "100453": [
+   "Mortooka",
+   658,
+   54
+  ],
+  "100452": [
+   "Beer Kala Khet",
+   658,
+   54
+  ],
+  "100418": [
+   "Shambhoo Nath Ji Ka Khera",
+   658,
+   52
+  ],
+  "100420": [
+   "Gorakiya",
+   658,
+   52
+  ],
+  "100422": [
+   "Dhagadmau Kalan",
+   658,
+   53
+  ],
+  "100416": [
+   "Pratappura",
+   658,
+   52
+  ],
+  "100410": [
+   "Peepalda",
+   658,
+   52
+  ],
+  "100411": [
+   "Takarda",
+   658,
+   52
+  ],
+  "100419": [
+   "Nahargarh",
+   658,
+   52
+  ],
+  "100414": [
+   "Borao",
+   658,
+   52
+  ],
+  "100412": [
+   "Kesharpura",
+   658,
+   52
+  ],
+  "100413": [
+   "Tamboliya",
+   658,
+   52
+  ],
+  "100415": [
+   "Khema Ka Khera",
+   658,
+   52
+  ],
+  "100426": [
+   "Khumanganj",
+   658,
+   53
+  ],
+  "100425": [
+   "Bhoonjar Kalan",
+   658,
+   53
+  ],
+  "100423": [
+   "Sukhpura",
+   658,
+   53
+  ],
+  "100437": [
+   "Koriya Khal",
+   658,
+   54
+  ],
+  "100432": [
+   "Khalgaon",
+   658,
+   53
+  ],
+  "100429": [
+   "Peerpura",
+   658,
+   53
+  ],
+  "100456": [
+   "Shyampura",
+   658,
+   54
+  ],
+  "100417": [
+   "Kishanpuriya",
+   658,
+   52
+  ],
+  "100421": [
+   "Laxmi Khera",
+   658,
+   52
+  ],
+  "100424": [
+   "Naya Gaon",
+   658,
+   53
+  ],
+  "100446": [
+   "Teendwa",
+   658,
+   54
+  ],
+  "100482": [
+   "Balechhan",
+   658,
+   52
+  ],
+  "100481": [
+   "Meghniwas",
+   658,
+   52
+  ],
+  "100480": [
+   "Dhamniya",
+   658,
+   52
+  ],
+  "100479": [
+   "Beena Ka Khera",
+   658,
+   52
+  ],
+  "100468": [
+   "Gopalpura",
+   658,
+   52
+  ],
+  "100469": [
+   "Kalyanpura",
+   658,
+   52
+  ],
+  "100173": [
+   "Chosla",
+   657,
+   69
+  ],
+  "100170": [
+   "Bara Khera",
+   657,
+   69
+  ],
+  "100169": [
+   "Chhota Khera",
+   657,
+   69
+  ],
+  "100168": [
+   "Saran",
+   657,
+   69
+  ],
+  "100171": [
+   "Motipura",
+   657,
+   69
+  ],
+  "100167": [
+   "Kara Kara",
+   657,
+   69
+  ],
+  "100060": [
+   "Phalodi",
+   656,
+   68
+  ],
+  "100059": [
+   "Rughnathpura",
+   656,
+   68
+  ],
+  "100062": [
+   "Rajyas",
+   656,
+   68
+  ],
+  "100063": [
+   "Leerdi Khera",
+   656,
+   68
+  ],
+  "100061": [
+   "Jawalion Ka Khera",
+   656,
+   68
+  ]
+ },
+ "village_count_total": 1738,
+ "village_count_assigned": 1738
+}

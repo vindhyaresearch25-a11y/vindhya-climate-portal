@@ -1,0 +1,2016 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "West Bengal",
+  "district": "Alipurduar",
+  "district_lgd": 664,
+  "observation_window": "2026-08-07T11:31Z to 2026-08-12T11:31Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3759,
+  "sm_surface_stddev": 0.0379,
+  "sm_rootzone_mean": 0.3498,
+  "sm_rootzone_stddev": 0.0892,
+  "n_cells": 24,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 26.4329,
+    "lon": 89.5755,
+    "sm_surface": 0.3931,
+    "sm_rootzone": 0.3976,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 1,
+    "lat": 26.5317,
+    "lon": 89.1802,
+    "sm_surface": 0.3929,
+    "sm_rootzone": 0.394,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 2,
+    "lat": 26.5317,
+    "lon": 89.2791,
+    "sm_surface": 0.3929,
+    "sm_rootzone": 0.4046,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 3,
+    "lat": 26.5317,
+    "lon": 89.3779,
+    "sm_surface": 0.387,
+    "sm_rootzone": 0.3881,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 4,
+    "lat": 26.5317,
+    "lon": 89.4767,
+    "sm_surface": 0.3875,
+    "sm_rootzone": 0.3885,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 5,
+    "lat": 26.5317,
+    "lon": 89.5755,
+    "sm_surface": 0.3862,
+    "sm_rootzone": 0.3875,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 6,
+    "lat": 26.5317,
+    "lon": 89.6743,
+    "sm_surface": 0.3919,
+    "sm_rootzone": 0.3962,
+    "n_villages_sharing_cell": 35
+   },
+   {
+    "cell_index": 7,
+    "lat": 26.5317,
+    "lon": 89.7731,
+    "sm_surface": 0.3928,
+    "sm_rootzone": 0.3988,
+    "n_villages_sharing_cell": 27
+   },
+   {
+    "cell_index": 8,
+    "lat": 26.6306,
+    "lon": 89.0814,
+    "sm_surface": 0.387,
+    "sm_rootzone": 0.3838,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 9,
+    "lat": 26.6306,
+    "lon": 89.1802,
+    "sm_surface": 0.3892,
+    "sm_rootzone": 0.388,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 10,
+    "lat": 26.6306,
+    "lon": 89.2791,
+    "sm_surface": 0.3893,
+    "sm_rootzone": 0.3867,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 11,
+    "lat": 26.6306,
+    "lon": 89.3779,
+    "sm_surface": 0.3861,
+    "sm_rootzone": 0.3834,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 12,
+    "lat": 26.6306,
+    "lon": 89.4767,
+    "sm_surface": 0.3881,
+    "sm_rootzone": 0.3887,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 13,
+    "lat": 26.6306,
+    "lon": 89.5755,
+    "sm_surface": 0.3868,
+    "sm_rootzone": 0.3888,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 14,
+    "lat": 26.6306,
+    "lon": 89.6743,
+    "sm_surface": 0.397,
+    "sm_rootzone": 0.3982,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 15,
+    "lat": 26.6306,
+    "lon": 89.7731,
+    "sm_surface": 0.3933,
+    "sm_rootzone": 0.399,
+    "n_villages_sharing_cell": 21
+   },
+   {
+    "cell_index": 16,
+    "lat": 26.7294,
+    "lon": 89.0814,
+    "sm_surface": 0.3837,
+    "sm_rootzone": 0.378,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 17,
+    "lat": 26.7294,
+    "lon": 89.1802,
+    "sm_surface": 0.3099,
+    "sm_rootzone": 0.1763,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 18,
+    "lat": 26.7294,
+    "lon": 89.2791,
+    "sm_surface": 0.3151,
+    "sm_rootzone": 0.1876,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 19,
+    "lat": 26.7294,
+    "lon": 89.3779,
+    "sm_surface": 0.3067,
+    "sm_rootzone": 0.1769,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 20,
+    "lat": 26.7294,
+    "lon": 89.4767,
+    "sm_surface": 0.308,
+    "sm_rootzone": 0.1802,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 21,
+    "lat": 26.7294,
+    "lon": 89.5755,
+    "sm_surface": 0.309,
+    "sm_rootzone": 0.1812,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 22,
+    "lat": 26.7294,
+    "lon": 89.6743,
+    "sm_surface": 0.4709,
+    "sm_rootzone": 0.4818,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 23,
+    "lat": 26.8282,
+    "lon": 89.3779,
+    "sm_surface": 0.3777,
+    "sm_rootzone": 0.3602,
+    "n_villages_sharing_cell": 8
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3762,
+  "sm_surface_stddev": 0.0223,
+  "n_blocks": 6
+ },
+ "blocks": [
+  {
+   "block_name": "Alipurduar - I",
+   "sdcode": 2173,
+   "n_villages": 52,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.3886,
+   "sm_surface_stddev": 0.0024
+  },
+  {
+   "block_name": "Alipurduar - II",
+   "sdcode": 2174,
+   "n_villages": 81,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.3916,
+   "sm_surface_stddev": 0.0031
+  },
+  {
+   "block_name": "Falakata",
+   "sdcode": 2175,
+   "n_villages": 64,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.39,
+   "sm_surface_stddev": 0.0025
+  },
+  {
+   "block_name": "Kalchini",
+   "sdcode": 2171,
+   "n_villages": 45,
+   "n_cells_spanned": 9,
+   "sm_surface_mean": 0.3469,
+   "sm_surface_stddev": 0.0383
+  },
+  {
+   "block_name": "Kumargram",
+   "sdcode": 2172,
+   "n_villages": 56,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.3973,
+   "sm_surface_stddev": 0.0175
+  },
+  {
+   "block_name": "Madarihat",
+   "sdcode": 2170,
+   "n_villages": 50,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.3431,
+   "sm_surface_stddev": 0.0364
+  }
+ ],
+ "villages": {
+  "307233": [
+   "Dakshin Sonapur",
+   2173,
+   3
+  ],
+  "307234": [
+   "Pachkal Guri",
+   2173,
+   3
+  ],
+  "307260": [
+   "Chaprarpar",
+   2174,
+   0
+  ],
+  "307259": [
+   "Chengpara",
+   2174,
+   0
+  ],
+  "307268": [
+   "Chalnipak",
+   2174,
+   0
+  ],
+  "307167": [
+   "Telipara",
+   2172,
+   7
+  ],
+  "307275": [
+   "Karipara",
+   2174,
+   0
+  ],
+  "307168": [
+   "Paschim Chak Chaka",
+   2172,
+   7
+  ],
+  "307270": [
+   "Purba Barachouki",
+   2174,
+   0
+  ],
+  "307164": [
+   "Dakhin Narathali",
+   2172,
+   7
+  ],
+  "307292": [
+   "Saudpara",
+   2174,
+   0
+  ],
+  "307300": [
+   "Thanupara",
+   2174,
+   0
+  ],
+  "307274": [
+   "Bindipara",
+   2174,
+   0
+  ],
+  "307333": [
+   "Madhya Parokata",
+   2174,
+   6
+  ],
+  "307301": [
+   "Paschim Khalishamari",
+   2174,
+   6
+  ],
+  "307334": [
+   "Purba Khalishamari",
+   2174,
+   6
+  ],
+  "307273": [
+   "Karjjipara",
+   2174,
+   0
+  ],
+  "307267": [
+   "Chandijhar",
+   2174,
+   0
+  ],
+  "307293": [
+   "Uttar Bhatibari",
+   2174,
+   0
+  ],
+  "307165": [
+   "Madhya Kamakhyaguri",
+   2172,
+   6
+  ],
+  "307269": [
+   "Paschim Barachouki",
+   2174,
+   0
+  ],
+  "307335": [
+   "Dakshin Parokata",
+   2174,
+   6
+  ],
+  "307299": [
+   "Uttar Chikliguri",
+   2174,
+   0
+  ],
+  "307166": [
+   "Dakhin Kamakhyaguri",
+   2172,
+   6
+  ],
+  "307295": [
+   "Kumarijan",
+   2174,
+   0
+  ],
+  "307298": [
+   "Purba Chikliguri",
+   2174,
+   0
+  ],
+  "307294": [
+   "Chilurghat",
+   2174,
+   0
+  ],
+  "307336": [
+   "Brajerkuthi",
+   2174,
+   6
+  ],
+  "307272": [
+   "Bhatibari",
+   2174,
+   0
+  ],
+  "307296": [
+   "Paschim Chikliguri",
+   2174,
+   0
+  ],
+  "307297": [
+   "Chikliguri",
+   2174,
+   0
+  ],
+  "307271": [
+   "Boragari",
+   2174,
+   0
+  ],
+  "307200": [
+   "Bhalka",
+   2172,
+   7
+  ],
+  "307199": [
+   "Purbba Chakchaka",
+   2172,
+   7
+  ],
+  "307201": [
+   "Pakriguri",
+   2172,
+   7
+  ],
+  "307202": [
+   "Baruipara",
+   2172,
+   7
+  ],
+  "307203": [
+   "Majher Dabri",
+   2172,
+   7
+  ],
+  "307338": [
+   "Sobhaganj CT",
+   2174,
+   0
+  ],
+  "307206": [
+   "Uttar Kamakhyaguri CT",
+   2172,
+   6
+  ],
+  "307205": [
+   "Dakhin Rampur CT",
+   2172,
+   7
+  ],
+  "307352": [
+   "Pramode Nagar",
+   2175,
+   8
+  ],
+  "307062": [
+   "Dimdima Tea Garden",
+   2170,
+   16
+  ],
+  "307339": [
+   "Narasingpur",
+   2175,
+   8
+  ],
+  "307344": [
+   "Dalmoney Tea Garden",
+   2175,
+   8
+  ],
+  "307340": [
+   "Mechhua Dhurabala Bathan",
+   2175,
+   8
+  ],
+  "307342": [
+   "Ethelbari Tea Garden",
+   2175,
+   8
+  ],
+  "307343": [
+   "Chengmaritari",
+   2175,
+   8
+  ],
+  "307341": [
+   "Deomali",
+   2175,
+   8
+  ],
+  "307346": [
+   "Sishabari Sarugaon",
+   2175,
+   8
+  ],
+  "307348": [
+   "Dhanirampur",
+   2175,
+   8
+  ],
+  "307347": [
+   "Khagenhat",
+   2175,
+   8
+  ],
+  "307350": [
+   "Sarugaon Tea Garden",
+   2175,
+   8
+  ],
+  "307351": [
+   "Malsagaon",
+   2175,
+   8
+  ],
+  "307349": [
+   "Ghatpar Sarugram",
+   2175,
+   8
+  ],
+  "307061": [
+   "Dangapara",
+   2170,
+   16
+  ],
+  "307057": [
+   "Riti Forest",
+   2170,
+   16
+  ],
+  "307058": [
+   "Dheklapara Tea Garden",
+   2170,
+   16
+  ],
+  "307059": [
+   "Sarugaon",
+   2170,
+   16
+  ],
+  "307060": [
+   "Rahimpur Tea Garden",
+   2170,
+   16
+  ],
+  "307056": [
+   "Nepania",
+   2170,
+   16
+  ],
+  "307065": [
+   "Jaybirpara Tea Garden",
+   2170,
+   16
+  ],
+  "307142": [
+   "Atiabari Tea Garden",
+   2171,
+   12
+  ],
+  "307073": [
+   "Ramjhora Tea Garden",
+   2170,
+   17
+  ],
+  "307399": [
+   "Jagijhora Barabak CT",
+   2175,
+   16
+  ],
+  "307104": [
+   "Sisha Jumrha CT",
+   2170,
+   16
+  ],
+  "307219": [
+   "Sidhabari",
+   2173,
+   2
+  ],
+  "307207": [
+   "Torsa Forest",
+   2173,
+   2
+  ],
+  "307362": [
+   "Guabar Nagar",
+   2175,
+   8
+  ],
+  "307391": [
+   "Lachhmandabri",
+   2175,
+   2
+  ],
+  "307382": [
+   "Satpukuria",
+   2175,
+   1
+  ],
+  "307379": [
+   "Nabanagar",
+   2175,
+   1
+  ],
+  "307361": [
+   "Kathalbari",
+   2175,
+   1
+  ],
+  "307383": [
+   "Mairadanga",
+   2175,
+   1
+  ],
+  "307378": [
+   "Beltali Bhandani",
+   2175,
+   1
+  ],
+  "307213": [
+   "Salkumarhat",
+   2173,
+   2
+  ],
+  "307360": [
+   "Dalimpur",
+   2175,
+   1
+  ],
+  "307380": [
+   "Harinathpur",
+   2175,
+   1
+  ],
+  "307381": [
+   "Jogendrapur",
+   2175,
+   1
+  ],
+  "307212": [
+   "Kalaberia",
+   2173,
+   2
+  ],
+  "307220": [
+   "Suripara",
+   2173,
+   2
+  ],
+  "307392": [
+   "Kunjanagar",
+   2175,
+   2
+  ],
+  "307221": [
+   "Salkumar Forest",
+   2173,
+   2
+  ],
+  "307353": [
+   "Gokulnagar",
+   2175,
+   1
+  ],
+  "307359": [
+   "Kshirarkot",
+   2175,
+   1
+  ],
+  "307183": [
+   "Sankos Tea Garden",
+   2172,
+   15
+  ],
+  "307211": [
+   "Jogendranagar",
+   2173,
+   2
+  ],
+  "307358": [
+   "Baganbari",
+   2175,
+   1
+  ],
+  "307354": [
+   "Balasundar",
+   2175,
+   1
+  ],
+  "307393": [
+   "Chuakhola",
+   2175,
+   1
+  ],
+  "307395": [
+   "Kadambini Tea Garden",
+   2175,
+   2
+  ],
+  "307222": [
+   "Sirubari",
+   2173,
+   2
+  ],
+  "307355": [
+   "Jaychandpur",
+   2175,
+   1
+  ],
+  "307356": [
+   "Bhutnir Ghat",
+   2175,
+   1
+  ],
+  "307396": [
+   "Bangshidharpur",
+   2175,
+   2
+  ],
+  "307394": [
+   "Dakshin Parangarpar",
+   2175,
+   1
+  ],
+  "307398": [
+   "Kalipur",
+   2175,
+   2
+  ],
+  "307209": [
+   "Mejbil",
+   2173,
+   2
+  ],
+  "307210": [
+   "Paschim Khatalbari",
+   2173,
+   2
+  ],
+  "307223": [
+   "Purba Kathalbari",
+   2173,
+   2
+  ],
+  "307357": [
+   "Baradoba",
+   2175,
+   1
+  ],
+  "307397": [
+   "Raichenga",
+   2175,
+   2
+  ],
+  "307208": [
+   "Parpatla Khawa",
+   2173,
+   2
+  ],
+  "307369": [
+   "Karaibari",
+   2175,
+   9
+  ],
+  "307076": [
+   "Uttar Sisubari",
+   2170,
+   17
+  ],
+  "307368": [
+   "Dalgaon",
+   2175,
+   9
+  ],
+  "307367": [
+   "Dalgaon Tea Garden",
+   2175,
+   9
+  ],
+  "307216": [
+   "Jaldapara",
+   2173,
+   10
+  ],
+  "307370": [
+   "Uttar Deogaon",
+   2175,
+   9
+  ],
+  "307345": [
+   "Dalgaon Forest",
+   2175,
+   8
+  ],
+  "307371": [
+   "Purbba Deogaon",
+   2175,
+   9
+  ],
+  "307366": [
+   "Tasti Tea Garden",
+   2175,
+   9
+  ],
+  "307094": [
+   "Uttar Rangali Baznar",
+   2170,
+   17
+  ],
+  "307374": [
+   "Dhulagaon",
+   2175,
+   9
+  ],
+  "307386": [
+   "Paschim Salkumar",
+   2175,
+   9
+  ],
+  "307387": [
+   "Umacharanpur",
+   2175,
+   10
+  ],
+  "307373": [
+   "Madhya Deogaon",
+   2175,
+   9
+  ],
+  "307077": [
+   "Dakshin Sisubari",
+   2170,
+   9
+  ],
+  "307388": [
+   "Khauchandpara",
+   2175,
+   10
+  ],
+  "307365": [
+   "Bengkandi",
+   2175,
+   9
+  ],
+  "307143": [
+   "Rajabhat Tea Garden",
+   2171,
+   12
+  ],
+  "307372": [
+   "Dakshin Deogaon",
+   2175,
+   9
+  ],
+  "307375": [
+   "Paschim Deogaon",
+   2175,
+   9
+  ],
+  "307095": [
+   "Pashchim Khayerbari",
+   2170,
+   17
+  ],
+  "307217": [
+   "Nutanpara",
+   2173,
+   10
+  ],
+  "307363": [
+   "Hedayet Nagar",
+   2175,
+   9
+  ],
+  "307364": [
+   "Alinagar",
+   2175,
+   8
+  ],
+  "307376": [
+   "Jhar Beltali",
+   2175,
+   9
+  ],
+  "307385": [
+   "Chhota Salkumar",
+   2175,
+   9
+  ],
+  "307215": [
+   "Prodhanpara",
+   2173,
+   10
+  ],
+  "307390": [
+   "Sibnathpur",
+   2175,
+   10
+  ],
+  "307377": [
+   "Purbba Jhar Beltali",
+   2175,
+   9
+  ],
+  "307100": [
+   "Madhya Madarihat",
+   2170,
+   10
+  ],
+  "307384": [
+   "Talukertari",
+   2175,
+   9
+  ],
+  "307214": [
+   "Munshipara",
+   2173,
+   10
+  ],
+  "307098": [
+   "Madhya Chhekamari",
+   2170,
+   18
+  ],
+  "307101": [
+   "Paschim Madarihat",
+   2170,
+   10
+  ],
+  "307096": [
+   "Islamabad",
+   2170,
+   9
+  ],
+  "307097": [
+   "Khairbari Forest",
+   2170,
+   9
+  ],
+  "307102": [
+   "Dakshin Madarihat",
+   2170,
+   10
+  ],
+  "307103": [
+   "Purba Madarihat",
+   2170,
+   10
+  ],
+  "307080": [
+   "Madhya Rangali Bazar",
+   2170,
+   17
+  ],
+  "307079": [
+   "Dakshin Khairbari",
+   2170,
+   9
+  ],
+  "307078": [
+   "Dakshin Rangali Baznar",
+   2170,
+   9
+  ],
+  "307081": [
+   "Chapaguri",
+   2170,
+   17
+  ],
+  "307389": [
+   "Badaitari",
+   2175,
+   10
+  ],
+  "307144": [
+   "Buxa Forest Raja Bhatkhawa",
+   2171,
+   12
+  ],
+  "307138": [
+   "Kalchini Tea Garden",
+   2171,
+   20
+  ],
+  "307112": [
+   "Satali Mandalpara",
+   2171,
+   19
+  ],
+  "307110": [
+   "Madhya Satali",
+   2171,
+   19
+  ],
+  "307139": [
+   "Gangutia Tea Garden",
+   2171,
+   20
+  ],
+  "307140": [
+   "Dima Tea Garden",
+   2171,
+   12
+  ],
+  "307130": [
+   "Purba Satali",
+   2171,
+   11
+  ],
+  "307111": [
+   "Paschim Satali",
+   2171,
+   11
+  ],
+  "307218": [
+   "Dakshin Barajhar Forest",
+   2173,
+   11
+  ],
+  "307141": [
+   "Bhatkhawa Tea Garden",
+   2171,
+   12
+  ],
+  "307123": [
+   "Dakshin Satali",
+   2171,
+   11
+  ],
+  "307124": [
+   "Satali Nakadala",
+   2171,
+   11
+  ],
+  "307129": [
+   "Dakshin Latabari",
+   2171,
+   11
+  ],
+  "307125": [
+   "Uttar Mandabari",
+   2171,
+   11
+  ],
+  "307128": [
+   "Nimti Domohani",
+   2171,
+   12
+  ],
+  "307262": [
+   "Purbba Majherdabri Tea Garden",
+   2174,
+   5
+  ],
+  "307126": [
+   "Dakshin Mandabari",
+   2171,
+   11
+  ],
+  "307127": [
+   "Nimtijhora Tea Garden",
+   2171,
+   4
+  ],
+  "307153": [
+   "Chunia Jhora Tea Garden",
+   2172,
+   14
+  ],
+  "307244": [
+   "Uttar Paitkapara",
+   2173,
+   3
+  ],
+  "307242": [
+   "Uttar Chakoakheti",
+   2173,
+   3
+  ],
+  "307245": [
+   "Paitkapara Tea Garden",
+   2173,
+   4
+  ],
+  "307246": [
+   "Foskadanga",
+   2173,
+   4
+  ],
+  "307252": [
+   "Bariguri",
+   2173,
+   4
+  ],
+  "307247": [
+   "Satkodali",
+   2173,
+   4
+  ],
+  "307243": [
+   "Madhya Paitkapara",
+   2173,
+   3
+  ],
+  "307230": [
+   "Kumarpara",
+   2173,
+   3
+  ],
+  "307229": [
+   "Uttar Simlabari",
+   2173,
+   3
+  ],
+  "307228": [
+   "Paschim Simlabari",
+   2173,
+   3
+  ],
+  "307253": [
+   "Paschim Majherdabri Tea Garden",
+   2173,
+   4
+  ],
+  "307231": [
+   "Mathura Tea Garden",
+   2173,
+   3
+  ],
+  "307241": [
+   "Naothoartari",
+   2173,
+   3
+  ],
+  "307239": [
+   "Dakshin Paitkapara",
+   2173,
+   4
+  ],
+  "307248": [
+   "Banchukamari",
+   2173,
+   4
+  ],
+  "307227": [
+   "Purba Simlabari",
+   2173,
+   3
+  ],
+  "307119": [
+   "Tosra Tea Garden",
+   2171,
+   23
+  ],
+  "307224": [
+   "Patlakhawa",
+   2173,
+   3
+  ],
+  "307249": [
+   "Chapatali",
+   2173,
+   4
+  ],
+  "307236": [
+   "Uttar Kansingram",
+   2173,
+   3
+  ],
+  "307226": [
+   "Dakshin Chakoakheti",
+   2173,
+   3
+  ],
+  "307251": [
+   "Ghagra P",
+   2173,
+   4
+  ],
+  "307240": [
+   "Paschim Salbari",
+   2173,
+   4
+  ],
+  "307238": [
+   "Pukuritola",
+   2173,
+   4
+  ],
+  "307132": [
+   "Bhutri Forest",
+   2171,
+   19
+  ],
+  "307250": [
+   "Pararpar",
+   2173,
+   4
+  ],
+  "307225": [
+   "Silbarihat",
+   2173,
+   3
+  ],
+  "307232": [
+   "Uttar Sonapur",
+   2173,
+   3
+  ],
+  "307261": [
+   "Dakshin Majherdabri",
+   2174,
+   5
+  ],
+  "307090": [
+   "Purba Khairbari",
+   2170,
+   18
+  ],
+  "307237": [
+   "Taparikhata",
+   2173,
+   4
+  ],
+  "249958": [
+   "Alipurduar",
+   2174,
+   5
+  ],
+  "307235": [
+   "Dakshin Kansingram",
+   2173,
+   3
+  ],
+  "307106": [
+   "Uttar Barajhar Forest",
+   2171,
+   18
+  ],
+  "307120": [
+   "Gopimohan Tea Garden",
+   2171,
+   23
+  ],
+  "307122": [
+   "Gabaur Bachhra Forest",
+   2171,
+   19
+  ],
+  "307131": [
+   "Rangamati Tea Garden",
+   2171,
+   23
+  ],
+  "307121": [
+   "Chhota Jaygaon",
+   2171,
+   23
+  ],
+  "307145": [
+   "Buxa Hill Forest",
+   2171,
+   21
+  ],
+  "307118": [
+   "Dalsingpara Tea Garden",
+   2171,
+   23
+  ],
+  "307116": [
+   "Beech Tea Garden",
+   2171,
+   19
+  ],
+  "307133": [
+   "Radharani Tea Garden",
+   2171,
+   20
+  ],
+  "307117": [
+   "Bharnobari Tea Garden",
+   2171,
+   19
+  ],
+  "307134": [
+   "Chuapara Tea Garden",
+   2171,
+   20
+  ],
+  "307115": [
+   "Malangi Tea Garden",
+   2171,
+   19
+  ],
+  "307135": [
+   "Chuapara",
+   2171,
+   19
+  ],
+  "307136": [
+   "Mechpara Tea Garden",
+   2171,
+   19
+  ],
+  "307114": [
+   "Satali Tea Garden",
+   2171,
+   19
+  ],
+  "307113": [
+   "Madhu Tea Garden",
+   2171,
+   19
+  ],
+  "307107": [
+   "Parmalangi",
+   2171,
+   18
+  ],
+  "307137": [
+   "Bhatpara Tea Garden",
+   2171,
+   20
+  ],
+  "307084": [
+   "Hantupara Tea Garden",
+   2170,
+   18
+  ],
+  "307109": [
+   "Saudamini Tea Garden",
+   2171,
+   19
+  ],
+  "307108": [
+   "Nilpara Forest",
+   2171,
+   19
+  ],
+  "307087": [
+   "Totopara",
+   2170,
+   23
+  ],
+  "307086": [
+   "Titi Forest",
+   2170,
+   18
+  ],
+  "307089": [
+   "Holapara Forest",
+   2170,
+   18
+  ],
+  "307088": [
+   "Ballalguri",
+   2170,
+   18
+  ],
+  "307093": [
+   "Mujnai Tea Garden",
+   2170,
+   18
+  ],
+  "307091": [
+   "Uttar Khairbari",
+   2170,
+   18
+  ],
+  "307092": [
+   "Madhya Khairbari",
+   2170,
+   18
+  ],
+  "307085": [
+   "Garganda Tea Garden",
+   2170,
+   18
+  ],
+  "307099": [
+   "Uttar Chhekamari",
+   2170,
+   18
+  ],
+  "307083": [
+   "Dumchipara Tea Garden",
+   2170,
+   17
+  ],
+  "307082": [
+   "Dumchi Forest",
+   2170,
+   17
+  ],
+  "307071": [
+   "Gopalpur Tea Garden",
+   2170,
+   17
+  ],
+  "307072": [
+   "Dumchi Tea Garden",
+   2170,
+   17
+  ],
+  "307067": [
+   "Garochera Bandapani",
+   2170,
+   17
+  ],
+  "307074": [
+   "Lankapara Tea Garden",
+   2170,
+   17
+  ],
+  "307068": [
+   "Makrapara Tea Garden",
+   2170,
+   17
+  ],
+  "307075": [
+   "Lankapara Hat",
+   2170,
+   18
+  ],
+  "307066": [
+   "Bandapani Tea Garden",
+   2170,
+   16
+  ],
+  "307069": [
+   "Dalmore Tea Garden",
+   2170,
+   17
+  ],
+  "307070": [
+   "Hoasinbad Tea Garden",
+   2170,
+   17
+  ],
+  "307064": [
+   "Nangdala Tea Garden",
+   2170,
+   16
+  ],
+  "307063": [
+   "Birpara Tea Garden",
+   2170,
+   17
+  ],
+  "307284": [
+   "Uttar Shibkata",
+   2174,
+   6
+  ],
+  "307304": [
+   "Kadampur",
+   2174,
+   6
+  ],
+  "307312": [
+   "Dangi",
+   2174,
+   14
+  ],
+  "307310": [
+   "Sambalpur",
+   2174,
+   6
+  ],
+  "307309": [
+   "Purba Jitpur",
+   2174,
+   6
+  ],
+  "307159": [
+   "Tuturi Tea Garden",
+   2172,
+   15
+  ],
+  "307307": [
+   "Baniadabri",
+   2174,
+   6
+  ],
+  "307308": [
+   "Jaypur",
+   2174,
+   6
+  ],
+  "307306": [
+   "Baniagaon",
+   2174,
+   6
+  ],
+  "307285": [
+   "Shrinathpur Tea Garden",
+   2174,
+   6
+  ],
+  "307283": [
+   "Uttar Dhalkar",
+   2174,
+   5
+  ],
+  "307263": [
+   "Uttar Panialguri",
+   2174,
+   5
+  ],
+  "307281": [
+   "Dakshin Dhalkar",
+   2174,
+   5
+  ],
+  "307282": [
+   "Dakshin Shibkata",
+   2174,
+   5
+  ],
+  "307286": [
+   "Madhya Shibkata",
+   2174,
+   5
+  ],
+  "307287": [
+   "Pukhuria",
+   2174,
+   6
+  ],
+  "307264": [
+   "Dakshin Panialguri",
+   2174,
+   5
+  ],
+  "307280": [
+   "Bhasadabri",
+   2174,
+   5
+  ],
+  "307288": [
+   "Jashodanga",
+   2174,
+   5
+  ],
+  "307303": [
+   "Taleswarguri",
+   2174,
+   6
+  ],
+  "307265": [
+   "Uttar Majherdabri",
+   2174,
+   5
+  ],
+  "307279": [
+   "Putimari",
+   2174,
+   5
+  ],
+  "307290": [
+   "Uttar Majid Khana",
+   2174,
+   6
+  ],
+  "307302": [
+   "Paschim Chepani",
+   2174,
+   6
+  ],
+  "307276": [
+   "Khatpara",
+   2174,
+   5
+  ],
+  "307289": [
+   "Tatpara",
+   2174,
+   5
+  ],
+  "307278": [
+   "Kayakhata",
+   2174,
+   5
+  ],
+  "307277": [
+   "Salsalabari",
+   2174,
+   0
+  ],
+  "307266": [
+   "Bhelukdabri",
+   2174,
+   5
+  ],
+  "307291": [
+   "Dakshin Majid Khana",
+   2174,
+   0
+  ],
+  "307311": [
+   "Garokhuta",
+   2174,
+   6
+  ],
+  "307323": [
+   "Kohinur Tea Garden",
+   2174,
+   6
+  ],
+  "307321": [
+   "Dhaola Jhora Tea Garden",
+   2174,
+   6
+  ],
+  "307174": [
+   "Narakhata",
+   2172,
+   7
+  ],
+  "307322": [
+   "Uttar Chakirbas",
+   2174,
+   6
+  ],
+  "307324": [
+   "Mahakalguri",
+   2174,
+   6
+  ],
+  "307173": [
+   "Uttar Narathali",
+   2172,
+   7
+  ],
+  "307325": [
+   "Dakshin Mahakalguri",
+   2174,
+   6
+  ],
+  "307154": [
+   "Kartika Tea Garden",
+   2172,
+   14
+  ],
+  "307326": [
+   "Bara Chakibas",
+   2174,
+   6
+  ],
+  "307172": [
+   "Narathali",
+   2172,
+   7
+  ],
+  "307305": [
+   "Patotola",
+   2174,
+   6
+  ],
+  "307171": [
+   "Chuota Daldali",
+   2172,
+   7
+  ],
+  "307327": [
+   "Chhota Chakirbas",
+   2174,
+   6
+  ],
+  "307329": [
+   "Bakla",
+   2174,
+   6
+  ],
+  "307162": [
+   "Madhya Narathali",
+   2172,
+   7
+  ],
+  "307169": [
+   "Purbba Narathali",
+   2172,
+   7
+  ],
+  "307328": [
+   "Chhipra",
+   2174,
+   6
+  ],
+  "307330": [
+   "Chepani",
+   2174,
+   6
+  ],
+  "307332": [
+   "Uttar Parokata",
+   2174,
+   6
+  ],
+  "307161": [
+   "Raydak Forest",
+   2172,
+   15
+  ],
+  "307156": [
+   "Jayanti Tea Garden",
+   2172,
+   22
+  ],
+  "307331": [
+   "Purba Chepani",
+   2174,
+   6
+  ],
+  "307163": [
+   "Paschim Narathali",
+   2172,
+   7
+  ],
+  "307157": [
+   "Turturi Khanda",
+   2172,
+   15
+  ],
+  "307152": [
+   "Phaskhawa Tea Garden",
+   2172,
+   22
+  ],
+  "307158": [
+   "Jayanti Tea Garden Ii",
+   2172,
+   15
+  ],
+  "307155": [
+   "Rahimabad Tea Garden",
+   2172,
+   14
+  ],
+  "307316": [
+   "Nurpur",
+   2174,
+   14
+  ],
+  "307160": [
+   "Raydak Tea Garden",
+   2172,
+   15
+  ],
+  "307317": [
+   "Turturi",
+   2174,
+   14
+  ],
+  "307318": [
+   "Dhalajhora",
+   2174,
+   14
+  ],
+  "307315": [
+   "Damsibad",
+   2174,
+   14
+  ],
+  "307182": [
+   "Kumargram Tea Garden",
+   2172,
+   15
+  ],
+  "307313": [
+   "Panbari",
+   2174,
+   14
+  ],
+  "307314": [
+   "Simlabari",
+   2174,
+   14
+  ],
+  "307319": [
+   "Uttar Rampur",
+   2174,
+   15
+  ],
+  "307320": [
+   "Loknathpur",
+   2174,
+   14
+  ],
+  "307181": [
+   "Dhumpara Forest",
+   2172,
+   15
+  ],
+  "307180": [
+   "New Lands Tea Garden",
+   2172,
+   15
+  ],
+  "307185": [
+   "Pukharigaon",
+   2172,
+   15
+  ],
+  "307179": [
+   "Amarpur",
+   2172,
+   15
+  ],
+  "307178": [
+   "Jaydedpur",
+   2172,
+   15
+  ],
+  "307186": [
+   "Kumargram",
+   2172,
+   15
+  ],
+  "307187": [
+   "Madhya Haldibari",
+   2172,
+   15
+  ],
+  "307177": [
+   "Dhantali",
+   2172,
+   15
+  ],
+  "307196": [
+   "Bhalka Forest",
+   2172,
+   7
+  ],
+  "307176": [
+   "Lalchandpur",
+   2172,
+   15
+  ],
+  "307188": [
+   "Dakshin Haldibari",
+   2172,
+   15
+  ],
+  "307189": [
+   "Paglarhat",
+   2172,
+   15
+  ],
+  "307190": [
+   "Chengmari",
+   2172,
+   15
+  ],
+  "307175": [
+   "Paschim Chengmari",
+   2172,
+   7
+  ],
+  "307191": [
+   "Dakshin Chengmari",
+   2172,
+   7
+  ],
+  "307192": [
+   "Hemaguri",
+   2172,
+   7
+  ],
+  "307170": [
+   "Gachaimari",
+   2172,
+   7
+  ],
+  "307193": [
+   "Bara Daldal",
+   2172,
+   7
+  ],
+  "307194": [
+   "Ghaksapara",
+   2172,
+   7
+  ],
+  "307195": [
+   "Radhanagar",
+   2172,
+   7
+  ],
+  "307197": [
+   "Purbba Salbari",
+   2172,
+   7
+  ],
+  "307198": [
+   "Barabisa",
+   2172,
+   7
+  ],
+  "307402": [
+   "Falakata CT",
+   2175,
+   1
+  ],
+  "307151": [
+   "Sachapho Forest",
+   2172,
+   22
+  ],
+  "307401": [
+   "Parangarpar CT",
+   2175,
+   1
+  ],
+  "307400": [
+   "Jateshwar CT",
+   2175,
+   9
+  ],
+  "307105": [
+   "Uttar Madarihat CT",
+   2170,
+   18
+  ],
+  "307150": [
+   "Uttar Latabari CT",
+   2171,
+   11
+  ],
+  "307254": [
+   "Paschim Jitpur CT",
+   2173,
+   4
+  ],
+  "307255": [
+   "Chechakhata CT",
+   2173,
+   5
+  ],
+  "307256": [
+   "Alipurduar Rly Jnc CT",
+   2173,
+   5
+  ],
+  "307257": [
+   "Bholar Dabri CT",
+   2173,
+   5
+  ],
+  "307258": [
+   "Birpara CT",
+   2173,
+   4
+  ],
+  "307147": [
+   "Jaygaon CT",
+   2171,
+   23
+  ],
+  "307148": [
+   "Mechiabasti CT",
+   2171,
+   23
+  ],
+  "307149": [
+   "Uttar Satali CT",
+   2171,
+   19
+  ],
+  "307337": [
+   "Samuktola CT",
+   2174,
+   6
+  ],
+  "307204": [
+   "Laskarpara CT",
+   2172,
+   7
+  ],
+  "307146": [
+   "Buxa Forest Panbari Khanda",
+   2171,
+   13
+  ],
+  "307184": [
+   "Uttar Haldibari",
+   2172,
+   15
+  ]
+ },
+ "village_count_total": 348,
+ "village_count_assigned": 348
+}

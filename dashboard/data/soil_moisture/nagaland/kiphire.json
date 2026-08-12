@@ -1,0 +1,694 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Nagaland",
+  "district": "Kiphire",
+  "district_lgd": 614,
+  "observation_window": "2026-08-07T11:19Z to 2026-08-12T11:19Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3758,
+  "sm_surface_stddev": 0.0186,
+  "sm_rootzone_mean": 0.3903,
+  "sm_rootzone_stddev": 0.0249,
+  "n_cells": 13,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 25.6424,
+    "lon": 94.9115,
+    "sm_surface": 0.3459,
+    "sm_rootzone": 0.3512,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 1,
+    "lat": 25.7412,
+    "lon": 94.7139,
+    "sm_surface": 0.3888,
+    "sm_rootzone": 0.4082,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 2,
+    "lat": 25.7412,
+    "lon": 94.9115,
+    "sm_surface": 0.3789,
+    "sm_rootzone": 0.3981,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 3,
+    "lat": 25.7412,
+    "lon": 95.0103,
+    "sm_surface": 0.354,
+    "sm_rootzone": 0.3624,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 4,
+    "lat": 25.84,
+    "lon": 94.6151,
+    "sm_surface": 0.3391,
+    "sm_rootzone": 0.3358,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 5,
+    "lat": 25.84,
+    "lon": 94.7139,
+    "sm_surface": 0.3928,
+    "sm_rootzone": 0.4098,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 6,
+    "lat": 25.84,
+    "lon": 94.8127,
+    "sm_surface": 0.3791,
+    "sm_rootzone": 0.3974,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 7,
+    "lat": 25.84,
+    "lon": 94.9115,
+    "sm_surface": 0.3808,
+    "sm_rootzone": 0.3996,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 8,
+    "lat": 25.84,
+    "lon": 95.0103,
+    "sm_surface": 0.3617,
+    "sm_rootzone": 0.3734,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 9,
+    "lat": 25.9389,
+    "lon": 94.6151,
+    "sm_surface": 0.3939,
+    "sm_rootzone": 0.4103,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 10,
+    "lat": 25.9389,
+    "lon": 94.7139,
+    "sm_surface": 0.3942,
+    "sm_rootzone": 0.4124,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 11,
+    "lat": 25.9389,
+    "lon": 94.8127,
+    "sm_surface": 0.3948,
+    "sm_rootzone": 0.4145,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 12,
+    "lat": 25.9389,
+    "lon": 94.9115,
+    "sm_surface": 0.3812,
+    "sm_rootzone": 0.4011,
+    "n_villages_sharing_cell": 5
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3836,
+  "sm_surface_stddev": 0.0079,
+  "n_blocks": 8
+ },
+ "blocks": [
+  {
+   "block_name": "Amahator",
+   "sdcode": 1836,
+   "n_villages": 13,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3943,
+   "sm_surface_stddev": 0.0003
+  },
+  {
+   "block_name": "Khongsa",
+   "sdcode": 1842,
+   "n_villages": 9,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.3708,
+   "sm_surface_stddev": 0.0102
+  },
+  {
+   "block_name": "Kiphire Sadar",
+   "sdcode": 1837,
+   "n_villages": 11,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3919,
+   "sm_surface_stddev": 0.006
+  },
+  {
+   "block_name": "Kiusam",
+   "sdcode": 1838,
+   "n_villages": 9,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3789,
+   "sm_surface_stddev": 0.0061
+  },
+  {
+   "block_name": "Longmatra",
+   "sdcode": 1840,
+   "n_villages": 13,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3824,
+   "sm_surface_stddev": 0.005
+  },
+  {
+   "block_name": "Pungro",
+   "sdcode": 1841,
+   "n_villages": 20,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.3744,
+   "sm_surface_stddev": 0.012
+  },
+  {
+   "block_name": "Seyochung",
+   "sdcode": 1835,
+   "n_villages": 16,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3871,
+   "sm_surface_stddev": 0.0182
+  },
+  {
+   "block_name": "Sitimi",
+   "sdcode": 1839,
+   "n_villages": 14,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.389,
+   "sm_surface_stddev": 0.0138
+  }
+ ],
+ "villages": {
+  "268150": [
+   "Tsulothe Gref Camp",
+   1840,
+   6
+  ],
+  "268099": [
+   "Longya Comp",
+   1835,
+   4
+  ],
+  "268155": [
+   "New Longmatra",
+   1840,
+   1
+  ],
+  "268178": [
+   "Penkim",
+   1842,
+   7
+  ],
+  "268176": [
+   "Salomi",
+   1842,
+   7
+  ],
+  "268154": [
+   "Ngromi",
+   1840,
+   1
+  ],
+  "268153": [
+   "Longmatra",
+   1840,
+   5
+  ],
+  "268151": [
+   "Longmatra Hq",
+   1840,
+   1
+  ],
+  "268149": [
+   "Tethezu",
+   1840,
+   6
+  ],
+  "268152": [
+   "Tsungaki Camp",
+   1840,
+   6
+  ],
+  "268156": [
+   "Pungren",
+   1840,
+   6
+  ],
+  "268175": [
+   "Hakumti",
+   1841,
+   0
+  ],
+  "268174": [
+   "Lofukhong",
+   1841,
+   0
+  ],
+  "268173": [
+   "Khongka",
+   1841,
+   0
+  ],
+  "268172": [
+   "Mutingkhong",
+   1841,
+   2
+  ],
+  "268171": [
+   "Mimi",
+   1841,
+   2
+  ],
+  "268170": [
+   "Khongjiri",
+   1841,
+   2
+  ],
+  "268169": [
+   "Longkhimong",
+   1841,
+   2
+  ],
+  "268168": [
+   "Moya",
+   1841,
+   2
+  ],
+  "268167": [
+   "Lhep Compound",
+   1841,
+   6
+  ],
+  "268166": [
+   "New Vongti",
+   1841,
+   6
+  ],
+  "268165": [
+   "Vongti",
+   1841,
+   6
+  ],
+  "268164": [
+   "Pungro Hq",
+   1841,
+   6
+  ],
+  "268177": [
+   "Khongsa Hq",
+   1842,
+   2
+  ],
+  "268098": [
+   "Yingphir",
+   1835,
+   9
+  ],
+  "268102": [
+   "Thangthur",
+   1835,
+   4
+  ],
+  "268097": [
+   "Old Monger",
+   1835,
+   9
+  ],
+  "268100": [
+   "Seyochung Vill",
+   1835,
+   9
+  ],
+  "268096": [
+   "New Monger",
+   1835,
+   9
+  ],
+  "268101": [
+   "Tsunger",
+   1835,
+   10
+  ],
+  "268094": [
+   "Seyochung Hq",
+   1835,
+   9
+  ],
+  "268138": [
+   "Shishimi",
+   1839,
+   4
+  ],
+  "268137": [
+   "Sitimi Vill",
+   1839,
+   5
+  ],
+  "268139": [
+   "Sitimi Hq",
+   1839,
+   5
+  ],
+  "268143": [
+   "Nikiye",
+   1839,
+   5
+  ],
+  "268134": [
+   "Thazuvi",
+   1839,
+   5
+  ],
+  "268144": [
+   "Xuvishe",
+   1839,
+   5
+  ],
+  "268133": [
+   "Yangsekyu",
+   1839,
+   5
+  ],
+  "268136": [
+   "Natsami",
+   1839,
+   5
+  ],
+  "268141": [
+   "Nitoi",
+   1839,
+   5
+  ],
+  "268132": [
+   "Langzanger",
+   1839,
+   5
+  ],
+  "268093": [
+   "Yangzitong",
+   1835,
+   9
+  ],
+  "268092": [
+   "Lukhami",
+   1835,
+   9
+  ],
+  "268090": [
+   "Shothumi B",
+   1835,
+   10
+  ],
+  "268091": [
+   "Phisami",
+   1835,
+   10
+  ],
+  "268107": [
+   "Kisetong",
+   1836,
+   10
+  ],
+  "268105": [
+   "Kichang S Comp",
+   1836,
+   10
+  ],
+  "268104": [
+   "Huronger",
+   1836,
+   10
+  ],
+  "268095": [
+   "Seyochung Town Ghs Camp",
+   1835,
+   9
+  ],
+  "268088": [
+   "Phisami S Comp",
+   1835,
+   10
+  ],
+  "268089": [
+   "Shothumi A",
+   1835,
+   10
+  ],
+  "268114": [
+   "Keor",
+   1836,
+   10
+  ],
+  "268113": [
+   "Changchor",
+   1836,
+   10
+  ],
+  "268111": [
+   "Amahator Vill",
+   1836,
+   10
+  ],
+  "268112": [
+   "Amahator Hq",
+   1836,
+   10
+  ],
+  "268109": [
+   "Risethsi Old",
+   1836,
+   10
+  ],
+  "268108": [
+   "Risethsi New",
+   1836,
+   10
+  ],
+  "268110": [
+   "Inshikiur",
+   1836,
+   11
+  ],
+  "268103": [
+   "Hutanger",
+   1836,
+   11
+  ],
+  "268106": [
+   "Purrur",
+   1836,
+   11
+  ],
+  "268115": [
+   "Anatongre",
+   1837,
+   11
+  ],
+  "268118": [
+   "Tsar Farm",
+   1837,
+   11
+  ],
+  "268119": [
+   "Phelungre",
+   1837,
+   11
+  ],
+  "268120": [
+   "Singrep",
+   1837,
+   11
+  ],
+  "268121": [
+   "Langkok",
+   1837,
+   10
+  ],
+  "268123": [
+   "Kiphire Vill",
+   1837,
+   6
+  ],
+  "253202": [
+   "Kiphire Town Council",
+   1837,
+   6
+  ],
+  "268122": [
+   "Longthonger",
+   1837,
+   11
+  ],
+  "268125": [
+   "Sangkhumti",
+   1838,
+   12
+  ],
+  "268124": [
+   "Metonger",
+   1838,
+   12
+  ],
+  "268129": [
+   "Longtsunger",
+   1838,
+   7
+  ],
+  "268130": [
+   "Pokphur",
+   1838,
+   7
+  ],
+  "268128": [
+   "Kiusam Hq",
+   1838,
+   12
+  ],
+  "268127": [
+   "Kiusam Vill",
+   1838,
+   12
+  ],
+  "268126": [
+   "Chikiponger",
+   1838,
+   12
+  ],
+  "268142": [
+   "Honito",
+   1839,
+   5
+  ],
+  "268146": [
+   "Samphur",
+   1840,
+   6
+  ],
+  "268147": [
+   "Tetheyu",
+   1840,
+   6
+  ],
+  "268162": [
+   "Pungro Vill",
+   1841,
+   6
+  ],
+  "268160": [
+   "Tekivong",
+   1841,
+   7
+  ],
+  "268158": [
+   "Chomi",
+   1841,
+   6
+  ],
+  "268157": [
+   "Zimkiur",
+   1841,
+   6
+  ],
+  "268159": [
+   "Zaonger",
+   1841,
+   7
+  ],
+  "268161": [
+   "Iponger",
+   1841,
+   7
+  ],
+  "268163": [
+   "Luthur",
+   1841,
+   7
+  ],
+  "268116": [
+   "Anatongre Gref",
+   1837,
+   11
+  ],
+  "268179": [
+   "Fakim",
+   1842,
+   8
+  ],
+  "268180": [
+   "Vongtsowong",
+   1842,
+   8
+  ],
+  "268181": [
+   "Tsundang",
+   1842,
+   8
+  ],
+  "268182": [
+   "Thanamir",
+   1842,
+   2
+  ],
+  "268131": [
+   "Sangtsung",
+   1838,
+   8
+  ],
+  "999999": [
+   "Data Partially Available",
+   1842,
+   3
+  ],
+  "268183": [
+   "Khong",
+   1842,
+   2
+  ],
+  "268140": [
+   "Kiyezhe",
+   1839,
+   5
+  ],
+  "268117": [
+   "Nuts┬ü Ur",
+   1837,
+   11
+  ],
+  "268135": [
+   "Chehozu Ur",
+   1839,
+   5
+  ],
+  "268148": [
+   "Tsongphong",
+   1840,
+   6
+  ],
+  "268145": [
+   "Santsoze",
+   1840,
+   6
+  ]
+ },
+ "village_count_total": 105,
+ "village_count_assigned": 105
+}

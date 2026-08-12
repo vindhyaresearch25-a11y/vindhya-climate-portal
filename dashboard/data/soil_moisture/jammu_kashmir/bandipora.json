@@ -1,0 +1,938 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Jammu & Kashmir",
+  "district": "Bandipora",
+  "district_lgd": 623,
+  "observation_window": "2026-08-07T11:10Z to 2026-08-12T11:10Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2138,
+  "sm_surface_stddev": 0.0397,
+  "sm_rootzone_mean": 0.2547,
+  "sm_rootzone_stddev": 0.0345,
+  "n_cells": 27,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 34.2393,
+    "lon": 74.5557,
+    "sm_surface": 0.1744,
+    "sm_rootzone": 0.228,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 1,
+    "lat": 34.2393,
+    "lon": 74.6545,
+    "sm_surface": 0.1855,
+    "sm_rootzone": 0.2366,
+    "n_villages_sharing_cell": 32
+   },
+   {
+    "cell_index": 2,
+    "lat": 34.3381,
+    "lon": 74.5557,
+    "sm_surface": 0.1656,
+    "sm_rootzone": 0.2191,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 3,
+    "lat": 34.3381,
+    "lon": 74.6545,
+    "sm_surface": 0.1762,
+    "sm_rootzone": 0.2289,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 4,
+    "lat": 34.3381,
+    "lon": 74.7533,
+    "sm_surface": 0.1848,
+    "sm_rootzone": 0.2249,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 5,
+    "lat": 34.4369,
+    "lon": 74.5557,
+    "sm_surface": 0.164,
+    "sm_rootzone": 0.2143,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 6,
+    "lat": 34.4369,
+    "lon": 74.6545,
+    "sm_surface": 0.1729,
+    "sm_rootzone": 0.2193,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 7,
+    "lat": 34.4369,
+    "lon": 74.7533,
+    "sm_surface": 0.1927,
+    "sm_rootzone": 0.2254,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 8,
+    "lat": 34.4369,
+    "lon": 74.8521,
+    "sm_surface": 0.2019,
+    "sm_rootzone": 0.2414,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 9,
+    "lat": 34.4369,
+    "lon": 75.0498,
+    "sm_surface": 0.2425,
+    "sm_rootzone": 0.2743,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 10,
+    "lat": 34.4369,
+    "lon": 75.1486,
+    "sm_surface": 0.2512,
+    "sm_rootzone": 0.2812,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 11,
+    "lat": 34.4369,
+    "lon": 75.2474,
+    "sm_surface": 0.2564,
+    "sm_rootzone": 0.2876,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 12,
+    "lat": 34.5357,
+    "lon": 74.5557,
+    "sm_surface": 0.1637,
+    "sm_rootzone": 0.2133,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 13,
+    "lat": 34.5357,
+    "lon": 74.6545,
+    "sm_surface": 0.1696,
+    "sm_rootzone": 0.2195,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 14,
+    "lat": 34.5357,
+    "lon": 74.7533,
+    "sm_surface": 0.1912,
+    "sm_rootzone": 0.2291,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 15,
+    "lat": 34.5357,
+    "lon": 74.8521,
+    "sm_surface": 0.2087,
+    "sm_rootzone": 0.2473,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 16,
+    "lat": 34.5357,
+    "lon": 74.9509,
+    "sm_surface": 0.2259,
+    "sm_rootzone": 0.2586,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 17,
+    "lat": 34.5357,
+    "lon": 75.0498,
+    "sm_surface": 0.2528,
+    "sm_rootzone": 0.2859,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 18,
+    "lat": 34.5357,
+    "lon": 75.1486,
+    "sm_surface": 0.25,
+    "sm_rootzone": 0.278,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 19,
+    "lat": 34.5357,
+    "lon": 75.2474,
+    "sm_surface": 0.28,
+    "sm_rootzone": 0.3134,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 20,
+    "lat": 34.5357,
+    "lon": 75.3462,
+    "sm_surface": 0.2749,
+    "sm_rootzone": 0.3144,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 21,
+    "lat": 34.6345,
+    "lon": 74.6545,
+    "sm_surface": 0.1718,
+    "sm_rootzone": 0.2187,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 22,
+    "lat": 34.6345,
+    "lon": 74.7533,
+    "sm_surface": 0.1942,
+    "sm_rootzone": 0.2389,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 23,
+    "lat": 34.6345,
+    "lon": 74.8521,
+    "sm_surface": 0.2256,
+    "sm_rootzone": 0.2625,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 24,
+    "lat": 34.6345,
+    "lon": 74.9509,
+    "sm_surface": 0.259,
+    "sm_rootzone": 0.2967,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 25,
+    "lat": 34.6345,
+    "lon": 75.0498,
+    "sm_surface": 0.2568,
+    "sm_rootzone": 0.2946,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 26,
+    "lat": 34.6345,
+    "lon": 75.1486,
+    "sm_surface": 0.2814,
+    "sm_rootzone": 0.3252,
+    "n_villages_sharing_cell": 0
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.1905,
+  "sm_surface_stddev": 0.0278,
+  "n_blocks": 7
+ },
+ "blocks": [
+  {
+   "block_name": "Ajas",
+   "sdcode": 6810,
+   "n_villages": 2,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.1762,
+   "sm_surface_stddev": 0.0
+  },
+  {
+   "block_name": "Aloosa",
+   "sdcode": 6809,
+   "n_villages": 6,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.164,
+   "sm_surface_stddev": 0.0
+  },
+  {
+   "block_name": "Bandipora",
+   "sdcode": 41,
+   "n_villages": 37,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.1789,
+   "sm_surface_stddev": 0.0098
+  },
+  {
+   "block_name": "Gurez",
+   "sdcode": 40,
+   "n_villages": 9,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.1987,
+   "sm_surface_stddev": 0.016
+  },
+  {
+   "block_name": "Hajin",
+   "sdcode": 6811,
+   "n_villages": 24,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.177,
+   "sm_surface_stddev": 0.0056
+  },
+  {
+   "block_name": "Sonawari",
+   "sdcode": 42,
+   "n_villages": 29,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.1844,
+   "sm_surface_stddev": 0.0034
+  },
+  {
+   "block_name": "Tulail",
+   "sdcode": 6812,
+   "n_villages": 19,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.2544,
+   "sm_surface_stddev": 0.0036
+  }
+ ],
+ "villages": {
+  "2815": [
+   "Wahid Pora",
+   42,
+   1
+  ],
+  "2812": [
+   "Sarai Dangarpora",
+   42,
+   1
+  ],
+  "2777": [
+   "Ajas",
+   6810,
+   3
+  ],
+  "2778": [
+   "Gundi Saderkote",
+   6811,
+   3
+  ],
+  "2796": [
+   "Chewa",
+   42,
+   1
+  ],
+  "2773": [
+   "Shah Gund",
+   6811,
+   0
+  ],
+  "2774": [
+   "Rakh I Hajin",
+   6811,
+   3
+  ],
+  "2780": [
+   "Chandergeern",
+   6811,
+   1
+  ],
+  "2794": [
+   "Asham",
+   42,
+   1
+  ],
+  "2795": [
+   "Zoonipora",
+   6811,
+   1
+  ],
+  "248147": [
+   "Municipal Committee Hajin",
+   6811,
+   3
+  ],
+  "2781": [
+   "Kosumbagh",
+   6811,
+   1
+  ],
+  "2782": [
+   "Baharabad",
+   6811,
+   1
+  ],
+  "2783": [
+   "Vijipara",
+   6811,
+   1
+  ],
+  "2784": [
+   "Gundi Boon",
+   6811,
+   0
+  ],
+  "2792": [
+   "Gund I Ramzan",
+   6811,
+   1
+  ],
+  "2793": [
+   "Gulshan Pora Markundal",
+   42,
+   1
+  ],
+  "2785": [
+   "Gundi Jahangir",
+   6811,
+   0
+  ],
+  "2786": [
+   "Gund I Balkh",
+   6811,
+   0
+  ],
+  "2787": [
+   "Naidkhai",
+   6811,
+   0
+  ],
+  "2788": [
+   "Watal Hanji",
+   6811,
+   0
+  ],
+  "2797": [
+   "Hilalabad",
+   42,
+   1
+  ],
+  "2791": [
+   "Poshwari",
+   6811,
+   0
+  ],
+  "2789": [
+   "Kani Pora",
+   6811,
+   0
+  ],
+  "2790": [
+   "Tangpora",
+   6811,
+   0
+  ],
+  "248148": [
+   "Municipal Committee Sumbal",
+   42,
+   1
+  ],
+  "2803": [
+   "Zal Pora",
+   42,
+   0
+  ],
+  "2802": [
+   "Nowgam",
+   42,
+   1
+  ],
+  "2801": [
+   "Gund I Nowgam",
+   42,
+   1
+  ],
+  "2800": [
+   "Rakh Shilvat",
+   42,
+   1
+  ],
+  "2804": [
+   "Rakh Sultan Pora",
+   42,
+   0
+  ],
+  "2805": [
+   "Gaad Khud",
+   42,
+   0
+  ],
+  "2806": [
+   "Najin",
+   42,
+   1
+  ],
+  "2810": [
+   "Odina",
+   42,
+   1
+  ],
+  "2807": [
+   "Ganastan",
+   42,
+   1
+  ],
+  "2809": [
+   "Trigam",
+   42,
+   1
+  ],
+  "2811": [
+   "Malik Pora",
+   42,
+   1
+  ],
+  "2798": [
+   "Shilvat",
+   42,
+   1
+  ],
+  "2799": [
+   "Shadi Pora",
+   42,
+   1
+  ],
+  "2808": [
+   "Gund I Khalil",
+   42,
+   1
+  ],
+  "2818": [
+   "Hajin",
+   42,
+   1
+  ],
+  "2813": [
+   "Nisbal Ghat",
+   42,
+   1
+  ],
+  "2819": [
+   "Gundi Jahangir Ghat",
+   42,
+   1
+  ],
+  "2820": [
+   "Sumbal Inderkote",
+   42,
+   1
+  ],
+  "2817": [
+   "Chander Gair Ghat",
+   42,
+   1
+  ],
+  "2816": [
+   "Siri Hari Gund Ghat",
+   42,
+   1
+  ],
+  "2814": [
+   "Shilvat Ghat",
+   42,
+   1
+  ],
+  "2779": [
+   "Rakhi Malgam",
+   6811,
+   3
+  ],
+  "2821": [
+   "Forest Block",
+   42,
+   1
+  ],
+  "2769": [
+   "Forest Block",
+   41,
+   7
+  ],
+  "2728": [
+   "Chandaji",
+   41,
+   13
+  ],
+  "2733": [
+   "Bhutto",
+   41,
+   7
+  ],
+  "2734": [
+   "Shamthan",
+   41,
+   7
+  ],
+  "2749": [
+   "Kehnoosa",
+   6809,
+   5
+  ],
+  "2748": [
+   "Ashtangoo",
+   6809,
+   5
+  ],
+  "2747": [
+   "Aloosa",
+   6809,
+   5
+  ],
+  "2746": [
+   "Malangam",
+   6809,
+   5
+  ],
+  "2745": [
+   "Quil Muqam",
+   6809,
+   5
+  ],
+  "2744": [
+   "Mangnipora",
+   6809,
+   5
+  ],
+  "2750": [
+   "Qazipora Putushai",
+   41,
+   5
+  ],
+  "2743": [
+   "Onagam",
+   41,
+   6
+  ],
+  "2742": [
+   "Panjigam",
+   41,
+   6
+  ],
+  "2751": [
+   "Dachigam",
+   41,
+   6
+  ],
+  "2741": [
+   "Lawaypora",
+   41,
+   6
+  ],
+  "2740": [
+   "Khayar",
+   41,
+   6
+  ],
+  "2739": [
+   "Mantrigam",
+   41,
+   6
+  ],
+  "2729": [
+   "Bonakoot",
+   41,
+   13
+  ],
+  "2735": [
+   "Kharpora",
+   41,
+   6
+  ],
+  "2730": [
+   "Athwatoo",
+   41,
+   14
+  ],
+  "2736": [
+   "Chak Reshipora",
+   41,
+   6
+  ],
+  "2738": [
+   "Soner Wani",
+   41,
+   6
+  ],
+  "2737": [
+   "Ahemshreif",
+   41,
+   6
+  ],
+  "248146": [
+   "Municipal Council Bandipora",
+   41,
+   6
+  ],
+  "2752": [
+   "Konan Baba Gund",
+   41,
+   6
+  ],
+  "2760": [
+   "Gundi Qasier",
+   41,
+   6
+  ],
+  "2755": [
+   "Chuntimulla",
+   41,
+   7
+  ],
+  "2762": [
+   "Lowdara",
+   41,
+   6
+  ],
+  "2763": [
+   "Nadihal",
+   41,
+   3
+  ],
+  "2764": [
+   "Gund Dachina",
+   41,
+   3
+  ],
+  "2765": [
+   "Brar",
+   41,
+   3
+  ],
+  "2766": [
+   "Chittibanday",
+   41,
+   4
+  ],
+  "2767": [
+   "Aragam",
+   41,
+   4
+  ],
+  "2761": [
+   "Gamroo",
+   41,
+   6
+  ],
+  "2753": [
+   "Arin Dard Pora",
+   41,
+   6
+  ],
+  "2759": [
+   "Chak Arsala Khan",
+   41,
+   6
+  ],
+  "2758": [
+   "Gundipora Rampora",
+   41,
+   6
+  ],
+  "2757": [
+   "Takiya Ahmad Shah",
+   41,
+   6
+  ],
+  "2754": [
+   "Sumlarshokbaba",
+   41,
+   7
+  ],
+  "2776": [
+   "S K Payeen",
+   6810,
+   3
+  ],
+  "2775": [
+   "Sadunara",
+   6811,
+   3
+  ],
+  "2772": [
+   "Sari Hari Karan Gund",
+   6811,
+   2
+  ],
+  "2771": [
+   "Madwan",
+   6811,
+   3
+  ],
+  "2770": [
+   "Gund I Prang",
+   6811,
+   3
+  ],
+  "2700": [
+   "Gulshanpora",
+   40,
+   21
+  ],
+  "2701": [
+   "Kanzalwan Nail",
+   40,
+   22
+  ],
+  "2702": [
+   "Koragbal",
+   40,
+   22
+  ],
+  "2731": [
+   "Weven",
+   41,
+   14
+  ],
+  "2768": [
+   "Garoora",
+   41,
+   4
+  ],
+  "2756": [
+   "Kudara",
+   41,
+   7
+  ],
+  "2703": [
+   "Mastan Khopri",
+   40,
+   22
+  ],
+  "2704": [
+   "Dawar",
+   40,
+   22
+  ],
+  "2707": [
+   "Markoot",
+   40,
+   23
+  ],
+  "2705": [
+   "Badwan",
+   40,
+   22
+  ],
+  "2706": [
+   "Khandiyal",
+   40,
+   22
+  ],
+  "2722": [
+   "Hussangam",
+   6812,
+   18
+  ],
+  "2723": [
+   "Malangam",
+   6812,
+   18
+  ],
+  "2724": [
+   "Baduaab",
+   6812,
+   18
+  ],
+  "2725": [
+   "Gujran",
+   6812,
+   18
+  ],
+  "2726": [
+   "Abdullian",
+   6812,
+   18
+  ],
+  "2709": [
+   "Kilshay Payeen",
+   6812,
+   24
+  ],
+  "2711": [
+   "Zedgey",
+   6812,
+   24
+  ],
+  "2710": [
+   "Barnaie",
+   6812,
+   24
+  ],
+  "2713": [
+   "Puranatulail",
+   6812,
+   24
+  ],
+  "2712": [
+   "Dengithal",
+   6812,
+   24
+  ],
+  "2714": [
+   "Jurnial",
+   6812,
+   24
+  ],
+  "2715": [
+   "Manz Gund",
+   6812,
+   25
+  ],
+  "2716": [
+   "Neeru",
+   6812,
+   25
+  ],
+  "2718": [
+   "Budugam",
+   6812,
+   17
+  ],
+  "2719": [
+   "Saradaab",
+   6812,
+   17
+  ],
+  "2717": [
+   "Wazirthal",
+   6812,
+   17
+  ],
+  "2720": [
+   "Buglinder",
+   6812,
+   17
+  ],
+  "2721": [
+   "Gund Gul Sheikh",
+   6812,
+   17
+  ],
+  "2732": [
+   "Labkachal",
+   41,
+   15
+  ],
+  "999999": [
+   "Wular Lake",
+   6811,
+   2
+  ],
+  "2708": [
+   "Shah Pora Achoora Churwan",
+   40,
+   23
+  ],
+  "2727": [
+   "Forest Block",
+   6812,
+   17
+  ]
+ },
+ "village_count_total": 126,
+ "village_count_assigned": 126
+}

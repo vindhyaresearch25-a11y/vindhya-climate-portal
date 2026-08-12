@@ -1,0 +1,856 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Tripura",
+  "district": "South Tripura",
+  "district_lgd": 271,
+  "observation_window": "2026-08-07T11:26Z to 2026-08-12T11:26Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2816,
+  "sm_surface_stddev": 0.0227,
+  "sm_rootzone_mean": 0.2741,
+  "sm_rootzone_stddev": 0.0255,
+  "n_cells": 12,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 23.0732,
+    "lon": 91.5518,
+    "sm_surface": 0.2768,
+    "sm_rootzone": 0.2611,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 1,
+    "lat": 23.0732,
+    "lon": 91.6506,
+    "sm_surface": 0.3091,
+    "sm_rootzone": 0.3055,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 2,
+    "lat": 23.0732,
+    "lon": 91.7494,
+    "sm_surface": 0.3125,
+    "sm_rootzone": 0.3077,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 3,
+    "lat": 23.172,
+    "lon": 91.3542,
+    "sm_surface": 0.2791,
+    "sm_rootzone": 0.2679,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 4,
+    "lat": 23.172,
+    "lon": 91.5518,
+    "sm_surface": 0.3041,
+    "sm_rootzone": 0.3009,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 5,
+    "lat": 23.172,
+    "lon": 91.6506,
+    "sm_surface": 0.3065,
+    "sm_rootzone": 0.3049,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 6,
+    "lat": 23.2709,
+    "lon": 91.3542,
+    "sm_surface": 0.2655,
+    "sm_rootzone": 0.2553,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 7,
+    "lat": 23.2709,
+    "lon": 91.453,
+    "sm_surface": 0.2685,
+    "sm_rootzone": 0.2578,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 8,
+    "lat": 23.2709,
+    "lon": 91.5518,
+    "sm_surface": 0.2558,
+    "sm_rootzone": 0.2479,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 9,
+    "lat": 23.2709,
+    "lon": 91.6506,
+    "sm_surface": 0.2997,
+    "sm_rootzone": 0.2956,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 10,
+    "lat": 23.3697,
+    "lon": 91.453,
+    "sm_surface": 0.2537,
+    "sm_rootzone": 0.245,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 11,
+    "lat": 23.3697,
+    "lon": 91.5518,
+    "sm_surface": 0.2479,
+    "sm_rootzone": 0.2399,
+    "n_villages_sharing_cell": 9
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2857,
+  "sm_surface_stddev": 0.0144,
+  "n_blocks": 3
+ },
+ "blocks": [
+  {
+   "block_name": "Belonia",
+   "sdcode": 6687,
+   "n_villages": 49,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.2769,
+   "sm_surface_stddev": 0.0165
+  },
+  {
+   "block_name": "Sabroom",
+   "sdcode": 6688,
+   "n_villages": 52,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.306,
+   "sm_surface_stddev": 0.0108
+  },
+  {
+   "block_name": "Santirbazar",
+   "sdcode": 6683,
+   "n_villages": 39,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.2742,
+   "sm_surface_stddev": 0.0251
+  }
+ ],
+ "villages": {
+  "272261": [
+   "Siddhinagar",
+   6687,
+   3
+  ],
+  "272403": [
+   "Goachand",
+   6688,
+   1
+  ],
+  "272400": [
+   "Tekka R F Part",
+   6688,
+   0
+  ],
+  "272283": [
+   "Dakshin Bharatchandranagar",
+   6687,
+   7
+  ],
+  "272326": [
+   "Muhuripur R F",
+   6683,
+   8
+  ],
+  "272260": [
+   "Paschim Anandapur",
+   6687,
+   3
+  ],
+  "272259": [
+   "Radhanagar",
+   6687,
+   3
+  ],
+  "272258": [
+   "Dakshin Krishnapur",
+   6687,
+   3
+  ],
+  "272257": [
+   "Uttar Krishnapur",
+   6687,
+   6
+  ],
+  "272256": [
+   "Rangamura",
+   6687,
+   6
+  ],
+  "272398": [
+   "Bhuratali",
+   6688,
+   1
+  ],
+  "272266": [
+   "Uttar Srirampur",
+   6687,
+   3
+  ],
+  "272264": [
+   "Baraiya",
+   6687,
+   3
+  ],
+  "272263": [
+   "Tebaria",
+   6687,
+   3
+  ],
+  "272265": [
+   "Dakshin Srirampur",
+   6687,
+   3
+  ],
+  "272262": [
+   "Bhairabnagar",
+   6687,
+   3
+  ],
+  "272301": [
+   "Abhaynagar",
+   6687,
+   0
+  ],
+  "272300": [
+   "Krishnanagar",
+   6687,
+   0
+  ],
+  "272299": [
+   "Haripur",
+   6687,
+   0
+  ],
+  "272416": [
+   "Doulbari Part",
+   6688,
+   2
+  ],
+  "249799": [
+   "Sabroom Np",
+   6688,
+   2
+  ],
+  "272419": [
+   "Paschim Sabroom Part",
+   6688,
+   2
+  ],
+  "272418": [
+   "Purba Jalefa Part",
+   6688,
+   2
+  ],
+  "272417": [
+   "Paschim Jalefa Part",
+   6688,
+   1
+  ],
+  "272415": [
+   "Bijoynagar",
+   6688,
+   1
+  ],
+  "272405": [
+   "Harina",
+   6688,
+   1
+  ],
+  "272402": [
+   "Magurchhara",
+   6688,
+   1
+  ],
+  "272396": [
+   "Sindukpathar",
+   6688,
+   1
+  ],
+  "272411": [
+   "Srinagar",
+   6688,
+   0
+  ],
+  "272408": [
+   "Madhabnagar",
+   6688,
+   0
+  ],
+  "272409": [
+   "Rajnagar",
+   6688,
+   0
+  ],
+  "272410": [
+   "Krishnanagar",
+   6688,
+   0
+  ],
+  "272412": [
+   "Amlighat",
+   6688,
+   0
+  ],
+  "272397": [
+   "Dakshin Kalapania",
+   6688,
+   1
+  ],
+  "272413": [
+   "Harbatali",
+   6688,
+   1
+  ],
+  "272407": [
+   "Tekka Tulsi R F",
+   6688,
+   1
+  ],
+  "272395": [
+   "Uttar Kalapania",
+   6688,
+   1
+  ],
+  "272406": [
+   "Betaga R F",
+   6688,
+   1
+  ],
+  "272404": [
+   "Chalitachhara",
+   6688,
+   1
+  ],
+  "272401": [
+   "Manubazar",
+   6688,
+   1
+  ],
+  "272399": [
+   "Fulchhari",
+   6688,
+   1
+  ],
+  "272389": [
+   "Magrum",
+   6688,
+   2
+  ],
+  "272386": [
+   "Rajdharpur",
+   6688,
+   2
+  ],
+  "272383": [
+   "Baishnabpur",
+   6688,
+   2
+  ],
+  "272384": [
+   "Dakshin Sabroom",
+   6688,
+   2
+  ],
+  "272385": [
+   "Purba Sabroom",
+   6688,
+   2
+  ],
+  "272379": [
+   "Paschim Ludhua",
+   6688,
+   2
+  ],
+  "272370": [
+   "Bishnupur",
+   6688,
+   2
+  ],
+  "272382": [
+   "Aliamara",
+   6688,
+   2
+  ],
+  "272381": [
+   "Dakshin Bejoypur",
+   6688,
+   2
+  ],
+  "272380": [
+   "Purba Ludhua",
+   6688,
+   2
+  ],
+  "272376": [
+   "Rupaichhari",
+   6688,
+   1
+  ],
+  "272377": [
+   "Sonaichhari",
+   6688,
+   2
+  ],
+  "272378": [
+   "Chatakchhari",
+   6688,
+   2
+  ],
+  "272373": [
+   "Dakshin Manu Bankul",
+   6688,
+   1
+  ],
+  "272371": [
+   "Uttar Bejoypur",
+   6688,
+   2
+  ],
+  "272375": [
+   "Gaurifa",
+   6688,
+   1
+  ],
+  "272374": [
+   "Kathalchhari",
+   6688,
+   1
+  ],
+  "272268": [
+   "Purba Anandapur",
+   6687,
+   3
+  ],
+  "272414": [
+   "Brajendranagar",
+   6688,
+   1
+  ],
+  "272269": [
+   "Bardos",
+   6687,
+   6
+  ],
+  "272267": [
+   "Kamalpur",
+   6687,
+   3
+  ],
+  "272362": [
+   "Uttar Taichhama",
+   6688,
+   5
+  ],
+  "272270": [
+   "Prakashnagar",
+   6687,
+   6
+  ],
+  "272272": [
+   "Rajnagar",
+   6687,
+   6
+  ],
+  "272273": [
+   "Joychandrapur",
+   6687,
+   6
+  ],
+  "272274": [
+   "Barapathari",
+   6687,
+   6
+  ],
+  "272278": [
+   "Paikhola",
+   6687,
+   10
+  ],
+  "272277": [
+   "Kashari R F",
+   6687,
+   10
+  ],
+  "272285": [
+   "Kalabaria",
+   6687,
+   7
+  ],
+  "272279": [
+   "Chittamara",
+   6687,
+   7
+  ],
+  "272275": [
+   "Paschim Peporiakhola",
+   6687,
+   10
+  ],
+  "272276": [
+   "Purba Peporiakhola",
+   6687,
+   10
+  ],
+  "272282": [
+   "Ishanchandranagar",
+   6687,
+   7
+  ],
+  "272281": [
+   "Laxmipur",
+   6687,
+   7
+  ],
+  "272280": [
+   "Uttar Bharatchandranagar",
+   6687,
+   7
+  ],
+  "272284": [
+   "Madhya Bharatchandranagar",
+   6687,
+   7
+  ],
+  "272291": [
+   "Shibpur",
+   6687,
+   4
+  ],
+  "249798": [
+   "Belonia Np",
+   6687,
+   7
+  ],
+  "272334": [
+   "Paschim Muhuripur",
+   6683,
+   4
+  ],
+  "272333": [
+   "Purba Muhuripur",
+   6683,
+   8
+  ],
+  "272324": [
+   "Paschim Charakbai",
+   6683,
+   8
+  ],
+  "272318": [
+   "Laogang Part",
+   6683,
+   8
+  ],
+  "272313": [
+   "Paschim Kathalia Part",
+   6683,
+   11
+  ],
+  "272317": [
+   "Chhaigharia",
+   6687,
+   8
+  ],
+  "272315": [
+   "Santirbazar Part",
+   6683,
+   8
+  ],
+  "272292": [
+   "Tuigamari",
+   6687,
+   4
+  ],
+  "272316": [
+   "Gardang",
+   6683,
+   8
+  ],
+  "272312": [
+   "Paschim Manu",
+   6683,
+   11
+  ],
+  "272311": [
+   "Rajapur",
+   6683,
+   10
+  ],
+  "272294": [
+   "Bashpadua Part",
+   6687,
+   4
+  ],
+  "272302": [
+   "Tekka R F Part",
+   6687,
+   4
+  ],
+  "272298": [
+   "Hrishyamukh",
+   6687,
+   4
+  ],
+  "272297": [
+   "Debipur",
+   6687,
+   4
+  ],
+  "272296": [
+   "Champaknagar",
+   6687,
+   4
+  ],
+  "272295": [
+   "Matai",
+   6687,
+   4
+  ],
+  "272293": [
+   "Dakshin Sonaichhari",
+   6687,
+   4
+  ],
+  "272288": [
+   "Ratanpur",
+   6687,
+   8
+  ],
+  "272289": [
+   "Tekka Tulshi R F",
+   6687,
+   4
+  ],
+  "272290": [
+   "Manirampur",
+   6687,
+   4
+  ],
+  "272287": [
+   "Uttar Sonaichhari",
+   6687,
+   8
+  ],
+  "272286": [
+   "Sarasima Part",
+   6687,
+   7
+  ],
+  "272338": [
+   "Abhangachhara",
+   6683,
+   5
+  ],
+  "272340": [
+   "Tairumachhara",
+   6683,
+   5
+  ],
+  "272271": [
+   "Trishna Reserve Forest",
+   6687,
+   6
+  ],
+  "272341": [
+   "Baramura Deotamura R F",
+   6683,
+   9
+  ],
+  "272336": [
+   "Dakshin Hichachhara",
+   6683,
+   4
+  ],
+  "272335": [
+   "Paschim Pillak",
+   6683,
+   4
+  ],
+  "272337": [
+   "Madhya Pillak",
+   6683,
+   5
+  ],
+  "272339": [
+   "Purba Pillak",
+   6683,
+   5
+  ],
+  "272330": [
+   "Birendranagar",
+   6683,
+   9
+  ],
+  "272331": [
+   "Uttar Hichachhara",
+   6683,
+   9
+  ],
+  "272329": [
+   "Dakshin Barapathary",
+   6683,
+   9
+  ],
+  "272328": [
+   "Uttar Barapathary",
+   6683,
+   9
+  ],
+  "272319": [
+   "Radhakishore Ganj Part",
+   6683,
+   8
+  ],
+  "272327": [
+   "Kalasi",
+   6683,
+   9
+  ],
+  "272321": [
+   "Raibari",
+   6683,
+   9
+  ],
+  "272332": [
+   "Jolaibari",
+   6683,
+   5
+  ],
+  "272325": [
+   "Purba Charakbai",
+   6683,
+   8
+  ],
+  "272322": [
+   "Laxmichhara",
+   6683,
+   9
+  ],
+  "272323": [
+   "Baikhora",
+   6683,
+   8
+  ],
+  "272320": [
+   "Kalalaogang",
+   6683,
+   9
+  ],
+  "272314": [
+   "Bagafa Part",
+   6683,
+   11
+  ],
+  "272363": [
+   "Bagmara",
+   6688,
+   5
+  ],
+  "272394": [
+   "Dakshin Taichhama",
+   6688,
+   5
+  ],
+  "272393": [
+   "Taikumbachhara",
+   6688,
+   5
+  ],
+  "272392": [
+   "Sakhbari",
+   6688,
+   5
+  ],
+  "272391": [
+   "Gardhang",
+   6688,
+   5
+  ],
+  "272372": [
+   "Uttar Manu Bankul",
+   6688,
+   5
+  ],
+  "272361": [
+   "Chalita Bankul",
+   6688,
+   5
+  ],
+  "272390": [
+   "Gaganchandra Para",
+   6688,
+   4
+  ],
+  "801528": [
+   "Santir Bazar Np",
+   6683,
+   8
+  ],
+  "272310": [
+   "Paschim Patichhari",
+   6683,
+   10
+  ],
+  "272307": [
+   "Purba Kathalia",
+   6683,
+   11
+  ],
+  "272306": [
+   "Uttar Debipur",
+   6683,
+   11
+  ],
+  "272308": [
+   "Purba Manu",
+   6683,
+   11
+  ],
+  "272305": [
+   "Dakshin Takmachhara",
+   6683,
+   11
+  ],
+  "272304": [
+   "Uttar Takmachhara",
+   6683,
+   11
+  ],
+  "272309": [
+   "Birchandranagar",
+   6683,
+   11
+  ],
+  "272303": [
+   "Purba Patichhari",
+   6683,
+   10
+  ]
+ },
+ "village_count_total": 140,
+ "village_count_assigned": 140
+}

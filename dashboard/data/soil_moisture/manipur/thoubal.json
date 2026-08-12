@@ -1,0 +1,454 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Manipur",
+  "district": "Thoubal",
+  "district_lgd": 259,
+  "observation_window": "2026-08-07T11:18Z to 2026-08-12T11:18Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3281,
+  "sm_surface_stddev": 0.014,
+  "sm_rootzone_mean": 0.3329,
+  "sm_rootzone_stddev": 0.0173,
+  "n_cells": 4,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 24.5554,
+    "lon": 93.9234,
+    "sm_surface": 0.317,
+    "sm_rootzone": 0.3196,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 1,
+    "lat": 24.5554,
+    "lon": 94.0222,
+    "sm_surface": 0.3406,
+    "sm_rootzone": 0.3472,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 2,
+    "lat": 24.5554,
+    "lon": 94.121,
+    "sm_surface": 0.3116,
+    "sm_rootzone": 0.3121,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 3,
+    "lat": 24.6543,
+    "lon": 94.0222,
+    "sm_surface": 0.3434,
+    "sm_rootzone": 0.3525,
+    "n_villages_sharing_cell": 40
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3348,
+  "sm_surface_stddev": 0.0025,
+  "n_blocks": 2
+ },
+ "blocks": [
+  {
+   "block_name": "Lilong",
+   "sdcode": 1876,
+   "n_villages": 19,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3323,
+   "sm_surface_stddev": 0.013
+  },
+  {
+   "block_name": "Thoubal",
+   "sdcode": 1877,
+   "n_villages": 55,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.3374,
+   "sm_surface_stddev": 0.0112
+  }
+ ],
+ "villages": {
+  "269940": [
+   "Nepra Company",
+   1877,
+   3
+  ],
+  "269980": [
+   "Purnaheitupokpi",
+   1877,
+   1
+  ],
+  "269920": [
+   "Irong Thokchom",
+   1876,
+   0
+  ],
+  "269921": [
+   "Thoudam",
+   1876,
+   0
+  ],
+  "269933": [
+   "Chaobok",
+   1876,
+   3
+  ],
+  "269924": [
+   "Hangool",
+   1876,
+   0
+  ],
+  "269923": [
+   "Hayel",
+   1876,
+   0
+  ],
+  "269917": [
+   "Uchiwa",
+   1876,
+   0
+  ],
+  "269918": [
+   "Maibam Konjil",
+   1876,
+   0
+  ],
+  "269919": [
+   "Irong Chesaba",
+   1876,
+   0
+  ],
+  "269922": [
+   "Leisangthem",
+   1876,
+   0
+  ],
+  "269925": [
+   "Khekman",
+   1876,
+   3
+  ],
+  "269926": [
+   "Moijing",
+   1876,
+   3
+  ],
+  "269927": [
+   "Nungei",
+   1876,
+   3
+  ],
+  "269930": [
+   "Laiphrakpam",
+   1876,
+   3
+  ],
+  "269929": [
+   "Oinam",
+   1876,
+   3
+  ],
+  "269928": [
+   "Atoukhong",
+   1876,
+   3
+  ],
+  "269945": [
+   "Papal",
+   1877,
+   1
+  ],
+  "269953": [
+   "Yaithibi Khunou",
+   1877,
+   1
+  ],
+  "269951": [
+   "Tekcham",
+   1877,
+   1
+  ],
+  "269950": [
+   "Sapam",
+   1877,
+   1
+  ],
+  "269959": [
+   "Chingtham",
+   1877,
+   1
+  ],
+  "269958": [
+   "Khongjom",
+   1877,
+   1
+  ],
+  "269952": [
+   "Cherapur",
+   1877,
+   3
+  ],
+  "269932": [
+   "Lilong Pt",
+   1876,
+   3
+  ],
+  "269931": [
+   "Haoreibi",
+   1876,
+   3
+  ],
+  "269986": [
+   "Kang Samaram",
+   1877,
+   1
+  ],
+  "269948": [
+   "Lamding",
+   1877,
+   1
+  ],
+  "269946": [
+   "Sangaiyumpham",
+   1877,
+   1
+  ],
+  "269947": [
+   "Tentha",
+   1877,
+   1
+  ],
+  "269944": [
+   "Khangabok",
+   1877,
+   1
+  ],
+  "269938": [
+   "Thoubal Khunou",
+   1877,
+   3
+  ],
+  "269969": [
+   "Wangkhem",
+   1877,
+   3
+  ],
+  "269941": [
+   "Charangpat Maklang",
+   1877,
+   3
+  ],
+  "269939": [
+   "Hayel Labuk",
+   1877,
+   3
+  ],
+  "269975": [
+   "Wangbal",
+   1877,
+   3
+  ],
+  "269973": [
+   "Poirou Tangkhul",
+   1877,
+   3
+  ],
+  "269977": [
+   "Kairembikhok",
+   1877,
+   3
+  ],
+  "801488": [
+   "Samurou Np",
+   1876,
+   3
+  ],
+  "801479": [
+   "Thoubal Mci",
+   1877,
+   3
+  ],
+  "801478": [
+   "Wangjing Np",
+   1877,
+   1
+  ],
+  "999999": [
+   "Ikop Pat",
+   1877,
+   0
+  ],
+  "269968": [
+   "Charangpat Mamang",
+   1877,
+   3
+  ],
+  "269949": [
+   "Wangjing",
+   1877,
+   1
+  ],
+  "269954": [
+   "Langathel",
+   1877,
+   1
+  ],
+  "269955": [
+   "Phundrei",
+   1877,
+   1
+  ],
+  "269983": [
+   "Chingdompok",
+   1877,
+   2
+  ],
+  "269972": [
+   "Ingourok",
+   1877,
+   2
+  ],
+  "269970": [
+   "Pechi",
+   1877,
+   3
+  ],
+  "269982": [
+   "Heirok Part Ii Pt",
+   1877,
+   2
+  ],
+  "269981": [
+   "Heirok Part I Pt",
+   1877,
+   2
+  ],
+  "269978": [
+   "Kangthokchao",
+   1877,
+   2
+  ],
+  "269979": [
+   "Kangyambem",
+   1877,
+   3
+  ],
+  "269963": [
+   "Ningel",
+   1877,
+   3
+  ],
+  "269971": [
+   "Khoirom",
+   1877,
+   3
+  ],
+  "269965": [
+   "Kakmayai",
+   1877,
+   3
+  ],
+  "269942": [
+   "Bengi",
+   1877,
+   3
+  ],
+  "269943": [
+   "Icham Kunou",
+   1877,
+   3
+  ],
+  "269974": [
+   "Thokchom",
+   1877,
+   3
+  ],
+  "269966": [
+   "Lourembam",
+   1877,
+   3
+  ],
+  "269967": [
+   "Langmeithel",
+   1877,
+   3
+  ],
+  "269976": [
+   "Uyal",
+   1877,
+   3
+  ],
+  "269985": [
+   "Saram Tangkhul",
+   1877,
+   3
+  ],
+  "269957": [
+   "Langol",
+   1877,
+   2
+  ],
+  "269956": [
+   "Lamlong",
+   1877,
+   2
+  ],
+  "269984": [
+   "Kangdabi",
+   1877,
+   1
+  ],
+  "801477": [
+   "Heirok Np",
+   1877,
+   2
+  ],
+  "801481": [
+   "Yairipok Np",
+   1877,
+   3
+  ],
+  "801480": [
+   "Sikhong Sekmai Np",
+   1877,
+   3
+  ],
+  "801476": [
+   "Lilong Thoubal Np Plus Og",
+   1876,
+   3
+  ],
+  "269961": [
+   "Phanjangkhong",
+   1877,
+   3
+  ],
+  "269962": [
+   "Chandrakhong",
+   1877,
+   3
+  ],
+  "269964": [
+   "Leirongthel",
+   1877,
+   3
+  ],
+  "269960": [
+   "Bumpa Khullen",
+   1877,
+   3
+  ]
+ },
+ "village_count_total": 74,
+ "village_count_assigned": 74
+}

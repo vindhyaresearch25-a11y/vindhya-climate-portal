@@ -1,0 +1,890 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Manipur",
+  "district": "Senapati",
+  "district_lgd": 257,
+  "observation_window": "2026-08-07T11:18Z to 2026-08-12T11:18Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3648,
+  "sm_surface_stddev": 0.0242,
+  "sm_rootzone_mean": 0.3676,
+  "sm_rootzone_stddev": 0.0331,
+  "n_cells": 15,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 25.2472,
+    "lon": 94.0222,
+    "sm_surface": 0.3381,
+    "sm_rootzone": 0.326,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 1,
+    "lat": 25.2472,
+    "lon": 94.121,
+    "sm_surface": 0.3357,
+    "sm_rootzone": 0.3252,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 2,
+    "lat": 25.2472,
+    "lon": 94.2198,
+    "sm_surface": 0.3905,
+    "sm_rootzone": 0.3994,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 3,
+    "lat": 25.346,
+    "lon": 94.0222,
+    "sm_surface": 0.3864,
+    "sm_rootzone": 0.397,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 4,
+    "lat": 25.346,
+    "lon": 94.121,
+    "sm_surface": 0.3879,
+    "sm_rootzone": 0.3941,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 5,
+    "lat": 25.346,
+    "lon": 94.2198,
+    "sm_surface": 0.3365,
+    "sm_rootzone": 0.3323,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 6,
+    "lat": 25.346,
+    "lon": 94.3186,
+    "sm_surface": 0.3952,
+    "sm_rootzone": 0.4113,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 7,
+    "lat": 25.4448,
+    "lon": 93.9234,
+    "sm_surface": 0.3648,
+    "sm_rootzone": 0.3704,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 8,
+    "lat": 25.4448,
+    "lon": 94.0222,
+    "sm_surface": 0.3887,
+    "sm_rootzone": 0.4003,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 9,
+    "lat": 25.4448,
+    "lon": 94.121,
+    "sm_surface": 0.3422,
+    "sm_rootzone": 0.3382,
+    "n_villages_sharing_cell": 25
+   },
+   {
+    "cell_index": 10,
+    "lat": 25.4448,
+    "lon": 94.2198,
+    "sm_surface": 0.3445,
+    "sm_rootzone": 0.3341,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 11,
+    "lat": 25.4448,
+    "lon": 94.3186,
+    "sm_surface": 0.3972,
+    "sm_rootzone": 0.4136,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 12,
+    "lat": 25.5436,
+    "lon": 93.8245,
+    "sm_surface": 0.3653,
+    "sm_rootzone": 0.3703,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 13,
+    "lat": 25.5436,
+    "lon": 93.9234,
+    "sm_surface": 0.3697,
+    "sm_rootzone": 0.3774,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 14,
+    "lat": 25.5436,
+    "lon": 94.0222,
+    "sm_surface": 0.3294,
+    "sm_rootzone": 0.3247,
+    "n_villages_sharing_cell": 1
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3675,
+  "sm_surface_stddev": 0.0087,
+  "n_blocks": 3
+ },
+ "blocks": [
+  {
+   "block_name": "Mao Maram",
+   "sdcode": 1858,
+   "n_villages": 95,
+   "n_cells_spanned": 12,
+   "sm_surface_mean": 0.356,
+   "sm_surface_stddev": 0.0198
+  },
+  {
+   "block_name": "Paomata",
+   "sdcode": 1859,
+   "n_villages": 21,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3771,
+   "sm_surface_stddev": 0.0256
+  },
+  {
+   "block_name": "Purul",
+   "sdcode": 1860,
+   "n_villages": 28,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.3694,
+   "sm_surface_stddev": 0.0286
+  }
+ ],
+ "villages": {
+  "999999": [
+   "Data Partially Available",
+   1859,
+   11
+  ],
+  "268493": [
+   "Changsang",
+   1858,
+   2
+  ],
+  "268494": [
+   "Leisangphung",
+   1858,
+   2
+  ],
+  "268431": [
+   "Taphou Phyamai",
+   1858,
+   0
+  ],
+  "268437": [
+   "Makhrelui",
+   1858,
+   0
+  ],
+  "268436": [
+   "Ikailongdi",
+   1858,
+   0
+  ],
+  "268435": [
+   "Rikhumai Taphou",
+   1858,
+   0
+  ],
+  "268467": [
+   "Takeimei",
+   1858,
+   0
+  ],
+  "268425": [
+   "Maram Khunou",
+   1858,
+   0
+  ],
+  "268432": [
+   "Taphou Oneame",
+   1858,
+   0
+  ],
+  "268433": [
+   "Taphou Pudunamei",
+   1858,
+   0
+  ],
+  "268434": [
+   "Taphou Ngaihang",
+   1858,
+   0
+  ],
+  "268424": [
+   "Emesiiphro",
+   1858,
+   0
+  ],
+  "268429": [
+   "Makeng Cheijinba Katomei",
+   1858,
+   0
+  ],
+  "268427": [
+   "Katomei Makeng",
+   1858,
+   0
+  ],
+  "268430": [
+   "Taphou Naga",
+   1858,
+   0
+  ],
+  "268428": [
+   "Katomei Centre",
+   1858,
+   0
+  ],
+  "268426": [
+   "Katomei",
+   1858,
+   0
+  ],
+  "268438": [
+   "Senapati",
+   1858,
+   0
+  ],
+  "268440": [
+   "Khabung Karong",
+   1858,
+   0
+  ],
+  "268441": [
+   "Kathikho",
+   1858,
+   0
+  ],
+  "268492": [
+   "Phoibung Kuki",
+   1858,
+   3
+  ],
+  "268491": [
+   "Bollen Kuki",
+   1858,
+   3
+  ],
+  "268402": [
+   "Tamphung",
+   1858,
+   12
+  ],
+  "268403": [
+   "Chakha",
+   1858,
+   7
+  ],
+  "268404": [
+   "Khangjang",
+   1858,
+   7
+  ],
+  "268405": [
+   "Thuyen",
+   1858,
+   13
+  ],
+  "268406": [
+   "Yangkhunou",
+   1858,
+   13
+  ],
+  "268407": [
+   "Bedramei",
+   1858,
+   13
+  ],
+  "268408": [
+   "Zenamci",
+   1858,
+   13
+  ],
+  "268409": [
+   "Zenamyi",
+   1858,
+   13
+  ],
+  "268414": [
+   "Willong Khullen",
+   1858,
+   7
+  ],
+  "268411": [
+   "Kenelu",
+   1858,
+   13
+  ],
+  "268412": [
+   "Kamalong",
+   1858,
+   13
+  ],
+  "268410": [
+   "Yangkhullen",
+   1858,
+   13
+  ],
+  "268413": [
+   "Willong Khunou",
+   1858,
+   7
+  ],
+  "268416": [
+   "Sangkunglung",
+   1858,
+   7
+  ],
+  "268415": [
+   "Shang Khumei",
+   1858,
+   7
+  ],
+  "268418": [
+   "Oklong",
+   1858,
+   8
+  ],
+  "268417": [
+   "Rajamei",
+   1858,
+   7
+  ],
+  "268419": [
+   "Oklong Maryam",
+   1858,
+   8
+  ],
+  "268420": [
+   "Oklong Khunou",
+   1858,
+   3
+  ],
+  "268421": [
+   "Kanem",
+   1858,
+   7
+  ],
+  "268422": [
+   "Makulongdi",
+   1858,
+   7
+  ],
+  "268490": [
+   "Nsebekie",
+   1858,
+   13
+  ],
+  "268460": [
+   "Pungdunglung",
+   1858,
+   7
+  ],
+  "268471": [
+   "New Magaimai",
+   1858,
+   8
+  ],
+  "268423": [
+   "Sadim Naga Emesho Sadim",
+   1858,
+   3
+  ],
+  "268452": [
+   "Puni Pfosemai",
+   1858,
+   4
+  ],
+  "268449": [
+   "Mao Marafii",
+   1858,
+   4
+  ],
+  "268485": [
+   "Khabung",
+   1858,
+   4
+  ],
+  "268439": [
+   "Mao Karong",
+   1858,
+   0
+  ],
+  "268489": [
+   "Ngatan",
+   1858,
+   1
+  ],
+  "268486": [
+   "Sorbung",
+   1858,
+   1
+  ],
+  "268455": [
+   "Toklung",
+   1858,
+   1
+  ],
+  "268487": [
+   "Khamsom",
+   1858,
+   1
+  ],
+  "268488": [
+   "Tingsong",
+   1858,
+   2
+  ],
+  "268518": [
+   "Purul Rosofii",
+   1860,
+   5
+  ],
+  "268519": [
+   "Purul Atongba",
+   1860,
+   5
+  ],
+  "268520": [
+   "Purul Akutpa",
+   1860,
+   5
+  ],
+  "268521": [
+   "Shirong",
+   1860,
+   6
+  ],
+  "268524": [
+   "Kodom Khavii",
+   1860,
+   6
+  ],
+  "268528": [
+   "Ngari Raidolumai",
+   1860,
+   6
+  ],
+  "268529": [
+   "Ngari Khullen",
+   1860,
+   6
+  ],
+  "268530": [
+   "Ngari Lishang",
+   1860,
+   6
+  ],
+  "268531": [
+   "Thiwa",
+   1860,
+   6
+  ],
+  "268532": [
+   "Thiwa Songdo",
+   1860,
+   6
+  ],
+  "268533": [
+   "Khongdei Khuman",
+   1860,
+   5
+  ],
+  "268534": [
+   "Khongdei Shimphung",
+   1860,
+   5
+  ],
+  "268535": [
+   "Khongdei Ngawar",
+   1860,
+   2
+  ],
+  "268536": [
+   "Ngamju",
+   1860,
+   2
+  ],
+  "268537": [
+   "Oinam",
+   1860,
+   5
+  ],
+  "268538": [
+   "Thingba Khullen",
+   1860,
+   5
+  ],
+  "268539": [
+   "Thingba Khunou",
+   1860,
+   2
+  ],
+  "268540": [
+   "Keiye",
+   1860,
+   4
+  ],
+  "268541": [
+   "Raafii",
+   1860,
+   5
+  ],
+  "268542": [
+   "Kapao",
+   1860,
+   1
+  ],
+  "268495": [
+   "Washangphung",
+   1858,
+   2
+  ],
+  "268516": [
+   "Koide Makha",
+   1860,
+   5
+  ],
+  "268465": [
+   "Chowainamei Khullen",
+   1858,
+   9
+  ],
+  "268459": [
+   "Mao Pundung",
+   1858,
+   9
+  ],
+  "268453": [
+   "Emefiithumai",
+   1858,
+   14
+  ],
+  "268466": [
+   "Chowainamei Khunou",
+   1858,
+   9
+  ],
+  "268478": [
+   "Pudunamei",
+   1858,
+   9
+  ],
+  "268476": [
+   "Rabunamei",
+   1858,
+   9
+  ],
+  "268477": [
+   "Punanamei",
+   1858,
+   9
+  ],
+  "268475": [
+   "Namgailong Rongmei",
+   1858,
+   10
+  ],
+  "268474": [
+   "Kayinu",
+   1858,
+   10
+  ],
+  "268472": [
+   "Song Song",
+   1858,
+   9
+  ],
+  "268479": [
+   "Chowainu",
+   1858,
+   10
+  ],
+  "268473": [
+   "Kalinamei",
+   1858,
+   10
+  ],
+  "268470": [
+   "Phikomai",
+   1858,
+   9
+  ],
+  "268482": [
+   "Shajouba",
+   1858,
+   9
+  ],
+  "268483": [
+   "Makhel",
+   1858,
+   9
+  ],
+  "268480": [
+   "Robve Solephe",
+   1858,
+   10
+  ],
+  "268481": [
+   "Tobumei",
+   1858,
+   10
+  ],
+  "268469": [
+   "Tadubi",
+   1858,
+   9
+  ],
+  "268468": [
+   "Chakumei",
+   1858,
+   9
+  ],
+  "268450": [
+   "Khriidziiphi",
+   1858,
+   9
+  ],
+  "268484": [
+   "Keibi",
+   1858,
+   9
+  ],
+  "268464": [
+   "New Makhan",
+   1858,
+   9
+  ],
+  "268463": [
+   "Makhan Lovadziingho",
+   1858,
+   9
+  ],
+  "268458": [
+   "Makhan Khuman",
+   1858,
+   9
+  ],
+  "268461": [
+   "Makhan Khullen",
+   1858,
+   9
+  ],
+  "268442": [
+   "Maram Mathak Sagei",
+   1858,
+   9
+  ],
+  "268462": [
+   "Makhan Centre",
+   1858,
+   9
+  ],
+  "268443": [
+   "Maram Khulakpa Sagei",
+   1858,
+   9
+  ],
+  "268444": [
+   "Maram Makha Sagei",
+   1858,
+   9
+  ],
+  "268448": [
+   "Lairoching",
+   1858,
+   4
+  ],
+  "268447": [
+   "Maram Sagonbam",
+   1858,
+   9
+  ],
+  "268446": [
+   "Maram Centre",
+   1858,
+   9
+  ],
+  "268445": [
+   "Maram Kavanam",
+   1858,
+   9
+  ],
+  "268457": [
+   "Maram Bazar",
+   1858,
+   4
+  ],
+  "268454": [
+   "New Maram",
+   1858,
+   4
+  ],
+  "268451": [
+   "Khongnem",
+   1858,
+   4
+  ],
+  "268456": [
+   "Maram Ramlung",
+   1858,
+   4
+  ],
+  "268515": [
+   "Maiba",
+   1859,
+   10
+  ],
+  "268509": [
+   "Tungam Afii",
+   1859,
+   10
+  ],
+  "268512": [
+   "Khaikho",
+   1859,
+   10
+  ],
+  "268510": [
+   "Saranamei",
+   1859,
+   10
+  ],
+  "268507": [
+   "Tungam Makhufii",
+   1859,
+   10
+  ],
+  "268506": [
+   "Paomata Centre",
+   1859,
+   10
+  ],
+  "268511": [
+   "Rakhutao",
+   1859,
+   10
+  ],
+  "268508": [
+   "Tungam Khullen",
+   1859,
+   10
+  ],
+  "268517": [
+   "Koide Mathak",
+   1860,
+   5
+  ],
+  "268514": [
+   "Phuba Thapham",
+   1859,
+   11
+  ],
+  "268513": [
+   "Phuba Khuman",
+   1859,
+   11
+  ],
+  "268505": [
+   "Tungjoy",
+   1859,
+   11
+  ],
+  "268504": [
+   "Tungjoy Rikhubumai",
+   1859,
+   11
+  ],
+  "268502": [
+   "Liyai Khunou",
+   1859,
+   11
+  ],
+  "268503": [
+   "Liyai Khullen",
+   1859,
+   11
+  ],
+  "268500": [
+   "Chingmei Khunou",
+   1859,
+   11
+  ],
+  "268501": [
+   "Chingmei Khullen",
+   1859,
+   11
+  ],
+  "268497": [
+   "New Laii",
+   1859,
+   11
+  ],
+  "268499": [
+   "Katafiimei",
+   1859,
+   11
+  ],
+  "268498": [
+   "Laii",
+   1859,
+   11
+  ],
+  "268496": [
+   "Laii Sarafii",
+   1859,
+   11
+  ],
+  "268522": [
+   "Lakhamei",
+   1860,
+   6
+  ],
+  "268523": [
+   "Kodom Khullen",
+   1860,
+   6
+  ],
+  "268525": [
+   "Phaibung Khullen",
+   1860,
+   11
+  ],
+  "268526": [
+   "Phaibung Khunou",
+   1860,
+   11
+  ],
+  "268527": [
+   "Lower Phaibung",
+   1860,
+   6
+  ]
+ },
+ "village_count_total": 144,
+ "village_count_assigned": 144
+}

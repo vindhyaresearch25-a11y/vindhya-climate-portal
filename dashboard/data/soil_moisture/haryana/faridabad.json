@@ -1,0 +1,868 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Haryana",
+  "district": "Faridabad",
+  "district_lgd": 60,
+  "observation_window": "2026-08-07T11:08Z to 2026-08-12T11:08Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3121,
+  "sm_surface_stddev": 0.0044,
+  "sm_rootzone_mean": 0.2814,
+  "sm_rootzone_stddev": 0.0049,
+  "n_cells": 7,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 28.2116,
+    "lon": 77.4213,
+    "sm_surface": 0.3159,
+    "sm_rootzone": 0.2842,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 1,
+    "lat": 28.3104,
+    "lon": 77.2237,
+    "sm_surface": 0.3179,
+    "sm_rootzone": 0.2889,
+    "n_villages_sharing_cell": 27
+   },
+   {
+    "cell_index": 2,
+    "lat": 28.3104,
+    "lon": 77.3225,
+    "sm_surface": 0.311,
+    "sm_rootzone": 0.2846,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 3,
+    "lat": 28.3104,
+    "lon": 77.4213,
+    "sm_surface": 0.3109,
+    "sm_rootzone": 0.28,
+    "n_villages_sharing_cell": 39
+   },
+   {
+    "cell_index": 4,
+    "lat": 28.4092,
+    "lon": 77.2237,
+    "sm_surface": 0.3161,
+    "sm_rootzone": 0.2817,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 5,
+    "lat": 28.4092,
+    "lon": 77.3225,
+    "sm_surface": 0.3061,
+    "sm_rootzone": 0.2774,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 6,
+    "lat": 28.4092,
+    "lon": 77.4213,
+    "sm_surface": 0.3066,
+    "sm_rootzone": 0.2728,
+    "n_villages_sharing_cell": 40
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3111,
+  "sm_surface_stddev": 0.0014,
+  "n_blocks": 2
+ },
+ "blocks": [
+  {
+   "block_name": "Ballabgarh",
+   "sdcode": 426,
+   "n_villages": 85,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.3125,
+   "sm_surface_stddev": 0.0032
+  },
+  {
+   "block_name": "Faridabad",
+   "sdcode": 425,
+   "n_villages": 67,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.3097,
+   "sm_surface_stddev": 0.0049
+  }
+ ],
+ "villages": {
+  "63525": [
+   "Nawada Tigaon",
+   426,
+   3
+  ],
+  "63548": [
+   "Chandpur",
+   426,
+   3
+  ],
+  "63531": [
+   "Badrola",
+   426,
+   3
+  ],
+  "63470": [
+   "Rajpur Kalan",
+   425,
+   6
+  ],
+  "63580": [
+   "Aterna",
+   426,
+   0
+  ],
+  "63532": [
+   "Bahadurpur",
+   426,
+   3
+  ],
+  "63566": [
+   "Phophunda",
+   426,
+   3
+  ],
+  "63496": [
+   "Badoli",
+   425,
+   5
+  ],
+  "63536": [
+   "Alipur",
+   426,
+   6
+  ],
+  "63533": [
+   "Mandhawali",
+   426,
+   6
+  ],
+  "63497": [
+   "Mortzapur",
+   425,
+   5
+  ],
+  "63534": [
+   "Lehdola",
+   426,
+   3
+  ],
+  "63535": [
+   "Bhainsrawali",
+   426,
+   3
+  ],
+  "63524": [
+   "Mujeri",
+   426,
+   2
+  ],
+  "63499": [
+   "Sarurpur",
+   426,
+   1
+  ],
+  "63526": [
+   "Bukharpur",
+   426,
+   3
+  ],
+  "63522": [
+   "Chandawali",
+   426,
+   2
+  ],
+  "63530": [
+   "Pahladpur Majra Badrola",
+   426,
+   3
+  ],
+  "63529": [
+   "Kurali",
+   426,
+   3
+  ],
+  "63523": [
+   "Machhgarh",
+   426,
+   3
+  ],
+  "63511": [
+   "Bhanakpur",
+   426,
+   1
+  ],
+  "63500": [
+   "Samaypur",
+   426,
+   1
+  ],
+  "63528": [
+   "Junehera",
+   426,
+   3
+  ],
+  "63502": [
+   "Ferozepur Kalan",
+   426,
+   1
+  ],
+  "63527": [
+   "Dayalpur",
+   426,
+   3
+  ],
+  "63503": [
+   "Zakopur",
+   426,
+   1
+  ],
+  "63501": [
+   "Karnera",
+   426,
+   1
+  ],
+  "63520": [
+   "Malerna",
+   426,
+   2
+  ],
+  "63512": [
+   "Khandawali",
+   426,
+   2
+  ],
+  "63578": [
+   "Ahmadpur",
+   426,
+   0
+  ],
+  "63521": [
+   "Shahupura",
+   426,
+   2
+  ],
+  "63568": [
+   "Sotai",
+   426,
+   2
+  ],
+  "63514": [
+   "Kail Gaon",
+   426,
+   2
+  ],
+  "63507": [
+   "Sikrona",
+   426,
+   1
+  ],
+  "63517": [
+   "Jajru",
+   426,
+   2
+  ],
+  "63564": [
+   "Atali",
+   426,
+   3
+  ],
+  "63519": [
+   "Sunper",
+   426,
+   2
+  ],
+  "63565": [
+   "Garkhera",
+   426,
+   3
+  ],
+  "63513": [
+   "Nagla Jogian",
+   426,
+   2
+  ],
+  "63518": [
+   "Sagarpur",
+   426,
+   2
+  ],
+  "63567": [
+   "Bahbalpur",
+   426,
+   3
+  ],
+  "63569": [
+   "Shahpur Kalan",
+   426,
+   2
+  ],
+  "63515": [
+   "Sahapur Khurd",
+   426,
+   2
+  ],
+  "63510": [
+   "Harphala",
+   426,
+   1
+  ],
+  "63457": [
+   "Riwazpur",
+   425,
+   5
+  ],
+  "63516": [
+   "Sikri",
+   426,
+   2
+  ],
+  "63575": [
+   "Panehra Khurd",
+   426,
+   3
+  ],
+  "63573": [
+   "Ladoli",
+   426,
+   3
+  ],
+  "63576": [
+   "Narhawali",
+   426,
+   3
+  ],
+  "63570": [
+   "Deeg",
+   426,
+   2
+  ],
+  "63574": [
+   "Panehra Kalan",
+   426,
+   0
+  ],
+  "63577": [
+   "Naryala",
+   426,
+   0
+  ],
+  "63579": [
+   "Hirapur",
+   426,
+   0
+  ],
+  "63466": [
+   "Mouzabad",
+   425,
+   6
+  ],
+  "63464": [
+   "Mahavatpur",
+   425,
+   6
+  ],
+  "63467": [
+   "Bhaskola",
+   425,
+   6
+  ],
+  "63468": [
+   "Dungarpur",
+   425,
+   6
+  ],
+  "63455": [
+   "Badshahpur",
+   425,
+   5
+  ],
+  "63456": [
+   "Tikawali",
+   425,
+   5
+  ],
+  "63469": [
+   "Shikargah",
+   425,
+   6
+  ],
+  "63459": [
+   "Dhadar",
+   425,
+   6
+  ],
+  "63454": [
+   "Palwali",
+   425,
+   5
+  ],
+  "63458": [
+   "Bhupani",
+   425,
+   6
+  ],
+  "63471": [
+   "Kanwara",
+   425,
+   6
+  ],
+  "63472": [
+   "Nacholi",
+   425,
+   6
+  ],
+  "63453": [
+   "Kheri Kalan",
+   425,
+   5
+  ],
+  "63433": [
+   "Pali",
+   425,
+   4
+  ],
+  "63475": [
+   "Phulera",
+   425,
+   6
+  ],
+  "63434": [
+   "Gothra Mohbatabad",
+   425,
+   4
+  ],
+  "63474": [
+   "Sahrawak",
+   425,
+   6
+  ],
+  "63481": [
+   "Tajpur",
+   425,
+   6
+  ],
+  "63473": [
+   "Badarpur Said",
+   425,
+   6
+  ],
+  "63480": [
+   "Sidhola",
+   425,
+   6
+  ],
+  "63452": [
+   "Bhatola",
+   425,
+   5
+  ],
+  "63482": [
+   "Jasana",
+   425,
+   6
+  ],
+  "63489": [
+   "Kheri Khurd",
+   425,
+   6
+  ],
+  "63483": [
+   "Dehkola",
+   425,
+   6
+  ],
+  "63488": [
+   "Tajupur",
+   425,
+   6
+  ],
+  "63484": [
+   "Kabulpur Patti Parwarish",
+   425,
+   6
+  ],
+  "63494": [
+   "Faridpur",
+   425,
+   6
+  ],
+  "63487": [
+   "Fattupura",
+   425,
+   6
+  ],
+  "63486": [
+   "Shahbad",
+   425,
+   6
+  ],
+  "63490": [
+   "Sadpura",
+   425,
+   6
+  ],
+  "63485": [
+   "Mahmoodpur",
+   425,
+   6
+  ],
+  "63495": [
+   "Fajjupur",
+   425,
+   5
+  ],
+  "63491": [
+   "Bhuapur",
+   425,
+   6
+  ],
+  "63448": [
+   "Selakhari",
+   425,
+   4
+  ],
+  "63493": [
+   "Neemka",
+   425,
+   3
+  ],
+  "63505": [
+   "Auli",
+   426,
+   1
+  ],
+  "63492": [
+   "Tigaon",
+   425,
+   3
+  ],
+  "63449": [
+   "Pakhal",
+   425,
+   4
+  ],
+  "63447": [
+   "Pawta",
+   425,
+   1
+  ],
+  "63451": [
+   "Kheri Gujran",
+   425,
+   1
+  ],
+  "63450": [
+   "Nekpur",
+   425,
+   1
+  ],
+  "63441": [
+   "Dhouj",
+   425,
+   1
+  ],
+  "63446": [
+   "Qureshipur",
+   425,
+   1
+  ],
+  "63444": [
+   "Fatehpur Tagga",
+   425,
+   1
+  ],
+  "63445": [
+   "Madalpur",
+   425,
+   1
+  ],
+  "63439": [
+   "Alampur",
+   425,
+   1
+  ],
+  "63440": [
+   "Tikri Khera",
+   425,
+   1
+  ],
+  "63438": [
+   "Sirohi",
+   425,
+   1
+  ],
+  "63572": [
+   "Fatehpur Biloch",
+   426,
+   0
+  ],
+  "63571": [
+   "Deeg",
+   426,
+   0
+  ],
+  "63504": [
+   "Bijopur",
+   426,
+   1
+  ],
+  "63506": [
+   "Ladhiyapur",
+   426,
+   1
+  ],
+  "63508": [
+   "Kabulpur Bangar",
+   426,
+   1
+  ],
+  "63435": [
+   "Mangar",
+   425,
+   4
+  ],
+  "63436": [
+   "Kot",
+   425,
+   1
+  ],
+  "63509": [
+   "Mohla",
+   426,
+   1
+  ],
+  "63581": [
+   "Jawan",
+   426,
+   0
+  ],
+  "63437": [
+   "Khori Jamalpur",
+   425,
+   1
+  ],
+  "63442": [
+   "Dhauj",
+   425,
+   1
+  ],
+  "63465": [
+   "Chakmazai",
+   425,
+   6
+  ],
+  "63443": [
+   "Alawalpur",
+   425,
+   1
+  ],
+  "63583": [
+   "Piala CT",
+   426,
+   2
+  ],
+  "800436": [
+   "Faridabad",
+   425,
+   5
+  ],
+  "63461": [
+   "Dadsiya",
+   425,
+   5
+  ],
+  "63462": [
+   "Kirawali",
+   425,
+   6
+  ],
+  "63463": [
+   "Lalpur",
+   425,
+   6
+  ],
+  "63460": [
+   "Sherpur Khadar",
+   425,
+   6
+  ],
+  "63498": [
+   "Tilpat CT",
+   425,
+   5
+  ],
+  "63558": [
+   "Bhikuka",
+   426,
+   3
+  ],
+  "63561": [
+   "Mohiapur",
+   426,
+   0
+  ],
+  "63582": [
+   "Mohna",
+   426,
+   0
+  ],
+  "63547": [
+   "Nangla Majra Chandpur",
+   426,
+   3
+  ],
+  "63550": [
+   "Shahjahanpur",
+   426,
+   3
+  ],
+  "63549": [
+   "Immamudinpur",
+   426,
+   3
+  ],
+  "63551": [
+   "Faizupur Khadar",
+   426,
+   3
+  ],
+  "63552": [
+   "Arwa",
+   426,
+   3
+  ],
+  "63553": [
+   "Mothuka",
+   426,
+   3
+  ],
+  "63555": [
+   "Latifpur",
+   426,
+   3
+  ],
+  "63554": [
+   "Sahupura",
+   426,
+   3
+  ],
+  "63556": [
+   "Dulahpur Alias Parasrampur",
+   426,
+   3
+  ],
+  "63557": [
+   "Makanpur",
+   426,
+   3
+  ],
+  "63563": [
+   "Mojpur",
+   426,
+   3
+  ],
+  "63559": [
+   "Jalalpur Majra Chainsa",
+   426,
+   0
+  ],
+  "63560": [
+   "Walipur",
+   426,
+   0
+  ],
+  "63562": [
+   "Chhainsa",
+   426,
+   0
+  ],
+  "63540": [
+   "Akbarpur",
+   426,
+   6
+  ],
+  "63541": [
+   "Mozza Mabad Majra Sekhpur",
+   426,
+   6
+  ],
+  "63539": [
+   "Gharora",
+   426,
+   3
+  ],
+  "63542": [
+   "Manjhawali",
+   426,
+   6
+  ],
+  "63537": [
+   "Raipur Kalan",
+   426,
+   6
+  ],
+  "63543": [
+   "Shekhpur",
+   426,
+   3
+  ],
+  "63545": [
+   "Ghurasan",
+   426,
+   3
+  ],
+  "63546": [
+   "Dalelgarh",
+   426,
+   3
+  ],
+  "63538": [
+   "Nangla Majra Jafalpur",
+   426,
+   3
+  ],
+  "63476": [
+   "Tilori Khadar",
+   425,
+   6
+  ],
+  "63477": [
+   "Amipur",
+   425,
+   6
+  ],
+  "63479": [
+   "Kabulpur Patti Mahtab",
+   425,
+   6
+  ],
+  "63478": [
+   "Chirsi",
+   425,
+   6
+  ],
+  "63544": [
+   "Garhi Bagampur",
+   426,
+   3
+  ]
+ },
+ "village_count_total": 152,
+ "village_count_assigned": 152
+}

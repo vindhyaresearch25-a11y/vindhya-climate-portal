@@ -1,0 +1,980 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Kerala",
+  "district": "Malappuram",
+  "district_lgd": 562,
+  "observation_window": "2026-08-07T11:13Z to 2026-08-12T11:13Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.4193,
+  "sm_surface_stddev": 0.043,
+  "sm_rootzone_mean": 0.4261,
+  "sm_rootzone_stddev": 0.0648,
+  "n_cells": 31,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 10.7214,
+    "lon": 76.0379,
+    "sm_surface": 0.4432,
+    "sm_rootzone": 0.4608,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 1,
+    "lat": 10.8202,
+    "lon": 75.9391,
+    "sm_surface": 0.3166,
+    "sm_rootzone": 0.2821,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 2,
+    "lat": 10.919,
+    "lon": 75.9391,
+    "sm_surface": 0.3195,
+    "sm_rootzone": 0.2873,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 3,
+    "lat": 10.919,
+    "lon": 76.0379,
+    "sm_surface": 0.4456,
+    "sm_rootzone": 0.4629,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 4,
+    "lat": 10.919,
+    "lon": 76.1367,
+    "sm_surface": 0.4444,
+    "sm_rootzone": 0.462,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 5,
+    "lat": 10.919,
+    "lon": 76.2355,
+    "sm_surface": 0.4466,
+    "sm_rootzone": 0.4636,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 6,
+    "lat": 11.0178,
+    "lon": 75.9391,
+    "sm_surface": 0.3238,
+    "sm_rootzone": 0.2933,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 7,
+    "lat": 11.0178,
+    "lon": 76.0379,
+    "sm_surface": 0.4453,
+    "sm_rootzone": 0.463,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 8,
+    "lat": 11.0178,
+    "lon": 76.1367,
+    "sm_surface": 0.4477,
+    "sm_rootzone": 0.4644,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 9,
+    "lat": 11.0178,
+    "lon": 76.2355,
+    "sm_surface": 0.449,
+    "sm_rootzone": 0.4651,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 10,
+    "lat": 11.1167,
+    "lon": 75.8403,
+    "sm_surface": 0.3417,
+    "sm_rootzone": 0.2495,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 11,
+    "lat": 11.1167,
+    "lon": 75.9391,
+    "sm_surface": 0.3264,
+    "sm_rootzone": 0.2965,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 12,
+    "lat": 11.1167,
+    "lon": 76.0379,
+    "sm_surface": 0.4468,
+    "sm_rootzone": 0.4641,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 13,
+    "lat": 11.1167,
+    "lon": 76.1367,
+    "sm_surface": 0.4489,
+    "sm_rootzone": 0.4652,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 14,
+    "lat": 11.1167,
+    "lon": 76.2355,
+    "sm_surface": 0.45,
+    "sm_rootzone": 0.4657,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 15,
+    "lat": 11.1167,
+    "lon": 76.3343,
+    "sm_surface": 0.449,
+    "sm_rootzone": 0.465,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 16,
+    "lat": 11.2155,
+    "lon": 75.9391,
+    "sm_surface": 0.4467,
+    "sm_rootzone": 0.4638,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 17,
+    "lat": 11.2155,
+    "lon": 76.0379,
+    "sm_surface": 0.446,
+    "sm_rootzone": 0.4559,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 18,
+    "lat": 11.2155,
+    "lon": 76.1367,
+    "sm_surface": 0.4474,
+    "sm_rootzone": 0.4573,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 19,
+    "lat": 11.2155,
+    "lon": 76.2355,
+    "sm_surface": 0.4481,
+    "sm_rootzone": 0.4644,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 20,
+    "lat": 11.2155,
+    "lon": 76.3343,
+    "sm_surface": 0.4462,
+    "sm_rootzone": 0.4629,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 21,
+    "lat": 11.2155,
+    "lon": 76.4332,
+    "sm_surface": 0.4245,
+    "sm_rootzone": 0.4409,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 22,
+    "lat": 11.3143,
+    "lon": 76.1367,
+    "sm_surface": 0.4259,
+    "sm_rootzone": 0.4441,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 23,
+    "lat": 11.3143,
+    "lon": 76.2355,
+    "sm_surface": 0.4241,
+    "sm_rootzone": 0.4419,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 24,
+    "lat": 11.3143,
+    "lon": 76.3343,
+    "sm_surface": 0.4389,
+    "sm_rootzone": 0.4584,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 25,
+    "lat": 11.3143,
+    "lon": 76.4332,
+    "sm_surface": 0.416,
+    "sm_rootzone": 0.434,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 26,
+    "lat": 11.3143,
+    "lon": 76.532,
+    "sm_surface": 0.403,
+    "sm_rootzone": 0.4179,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 27,
+    "lat": 11.4131,
+    "lon": 76.1367,
+    "sm_surface": 0.4227,
+    "sm_rootzone": 0.4402,
+    "n_villages_sharing_cell": 0
+   },
+   {
+    "cell_index": 28,
+    "lat": 11.4131,
+    "lon": 76.2355,
+    "sm_surface": 0.4237,
+    "sm_rootzone": 0.4406,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 29,
+    "lat": 11.4131,
+    "lon": 76.3343,
+    "sm_surface": 0.4218,
+    "sm_rootzone": 0.4392,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 30,
+    "lat": 11.5119,
+    "lon": 76.2355,
+    "sm_surface": 0.419,
+    "sm_rootzone": 0.4362,
+    "n_villages_sharing_cell": 0
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.4087,
+  "sm_surface_stddev": 0.0342,
+  "n_blocks": 7
+ },
+ "blocks": [
+  {
+   "block_name": "Ernad",
+   "sdcode": 5641,
+   "n_villages": 19,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.4466,
+   "sm_surface_stddev": 0.0051
+  },
+  {
+   "block_name": "Kondotty",
+   "sdcode": 5941,
+   "n_villages": 12,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.4078,
+   "sm_surface_stddev": 0.055
+  },
+  {
+   "block_name": "Nilambur",
+   "sdcode": 5642,
+   "n_villages": 19,
+   "n_cells_spanned": 9,
+   "sm_surface_mean": 0.4373,
+   "sm_surface_stddev": 0.0125
+  },
+  {
+   "block_name": "Perinthalmanna",
+   "sdcode": 5643,
+   "n_villages": 23,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.4474,
+   "sm_surface_stddev": 0.0014
+  },
+  {
+   "block_name": "Ponnani",
+   "sdcode": 5646,
+   "n_villages": 10,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3926,
+   "sm_surface_stddev": 0.062
+  },
+  {
+   "block_name": "Tirur",
+   "sdcode": 5644,
+   "n_villages": 29,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.3762,
+   "sm_surface_stddev": 0.0624
+  },
+  {
+   "block_name": "Tirurangadi",
+   "sdcode": 5645,
+   "n_villages": 16,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.3528,
+   "sm_surface_stddev": 0.045
+  }
+ ],
+ "villages": {
+  "627537": [
+   "Kuttippuram CT",
+   5644,
+   3
+  ],
+  "627528": [
+   "Perumanna CT",
+   5644,
+   6
+  ],
+  "627473": [
+   "Chungathara",
+   5642,
+   28
+  ],
+  "627504": [
+   "Anamangad",
+   5643,
+   5
+  ],
+  "627447": [
+   "Areekode",
+   5641,
+   17
+  ],
+  "627561": [
+   "Nannamukku",
+   5646,
+   0
+  ],
+  "627513": [
+   "Ozhur",
+   5644,
+   6
+  ],
+  "627521": [
+   "Athavanad",
+   5644,
+   3
+  ],
+  "627540": [
+   "Parappanangadi",
+   5645,
+   10
+  ],
+  "627519": [
+   "Melmuri",
+   5644,
+   3
+  ],
+  "627523": [
+   "Ananthavoor",
+   5644,
+   3
+  ],
+  "627525": [
+   "Purathur",
+   5644,
+   1
+  ],
+  "627457": [
+   "Pookkottur",
+   5641,
+   12
+  ],
+  "627524": [
+   "Vettom",
+   5644,
+   2
+  ],
+  "252173": [
+   "Ponnani",
+   5646,
+   1
+  ],
+  "627559": [
+   "Veliyankode",
+   5646,
+   0
+  ],
+  "627558": [
+   "Vattamkulam",
+   5646,
+   0
+  ],
+  "627557": [
+   "Tavanur",
+   5646,
+   1
+  ],
+  "627526": [
+   "Mangalam",
+   5644,
+   1
+  ],
+  "627560": [
+   "Perumpadappa",
+   5646,
+   0
+  ],
+  "252172": [
+   "Tirur",
+   5644,
+   2
+  ],
+  "627522": [
+   "Kurumbathur",
+   5644,
+   3
+  ],
+  "627515": [
+   "Valavannur",
+   5644,
+   2
+  ],
+  "627516": [
+   "Kalpakancheri",
+   5644,
+   3
+  ],
+  "627517": [
+   "Marakkara",
+   5644,
+   3
+  ],
+  "627536": [
+   "Naduvattom CT",
+   5644,
+   3
+  ],
+  "627533": [
+   "Talakkad CT",
+   5644,
+   2
+  ],
+  "627532": [
+   "Kattipparuthi CT",
+   5644,
+   3
+  ],
+  "627565": [
+   "Marancheri CT",
+   5646,
+   1
+  ],
+  "627563": [
+   "Edappal CT",
+   5646,
+   0
+  ],
+  "627562": [
+   "Kalady CT",
+   5646,
+   1
+  ],
+  "627534": [
+   "Triprangode CT",
+   5644,
+   1
+  ],
+  "627535": [
+   "Thirunavaya CT",
+   5644,
+   2
+  ],
+  "627564": [
+   "Alamcode CT",
+   5646,
+   0
+  ],
+  "627555": [
+   "Nannambra CT",
+   5645,
+   6
+  ],
+  "627556": [
+   "Thennala CT",
+   5645,
+   6
+  ],
+  "627550": [
+   "Parappur CT",
+   5645,
+   7
+  ],
+  "627545": [
+   "Moonniyur CT",
+   5645,
+   11
+  ],
+  "627518": [
+   "Ponmala",
+   5644,
+   7
+  ],
+  "627554": [
+   "Neduva CT",
+   5645,
+   10
+  ],
+  "627551": [
+   "Vengara CT",
+   5645,
+   6
+  ],
+  "627531": [
+   "Cheriyamundam CT",
+   5644,
+   2
+  ],
+  "627529": [
+   "Ponmundam CT",
+   5644,
+   2
+  ],
+  "627455": [
+   "Nediyiruppu",
+   5941,
+   11
+  ],
+  "627510": [
+   "Kodur CT",
+   5643,
+   7
+  ],
+  "627553": [
+   "Tirurangadi CT",
+   5645,
+   6
+  ],
+  "627547": [
+   "Kannamangalam CT",
+   5645,
+   11
+  ],
+  "627543": [
+   "Thenhippalam CT",
+   5645,
+   10
+  ],
+  "627546": [
+   "Peruvallur CT",
+   5645,
+   11
+  ],
+  "627539": [
+   "Vallikkunnu",
+   5645,
+   10
+  ],
+  "627456": [
+   "Morayur",
+   5941,
+   12
+  ],
+  "627520": [
+   "Edayoor",
+   5644,
+   4
+  ],
+  "252170": [
+   "Malappuram",
+   5641,
+   7
+  ],
+  "627512": [
+   "Tanur",
+   5644,
+   6
+  ],
+  "627511": [
+   "Pariyapuram",
+   5644,
+   6
+  ],
+  "627514": [
+   "Niramaruthur",
+   5644,
+   2
+  ],
+  "627490": [
+   "Melattur",
+   5643,
+   9
+  ],
+  "627505": [
+   "Elamkulam",
+   5643,
+   5
+  ],
+  "627464": [
+   "Pandikkad",
+   5641,
+   14
+  ],
+  "627492": [
+   "Nenmini",
+   5643,
+   9
+  ],
+  "627498": [
+   "Angadippuram",
+   5643,
+   5
+  ],
+  "252171": [
+   "Perinthalmanna",
+   5643,
+   5
+  ],
+  "627461": [
+   "Pandalur",
+   5641,
+   13
+  ],
+  "627496": [
+   "Puzhakkattiri",
+   5643,
+   8
+  ],
+  "627497": [
+   "Valambur",
+   5643,
+   9
+  ],
+  "627500": [
+   "Vettathur",
+   5643,
+   9
+  ],
+  "627493": [
+   "Mankada",
+   5643,
+   8
+  ],
+  "627491": [
+   "Keezhattur",
+   5643,
+   9
+  ],
+  "627502": [
+   "Thazhekode",
+   5643,
+   5
+  ],
+  "627495": [
+   "Kuruva",
+   5643,
+   8
+  ],
+  "627494": [
+   "Vadakkangara",
+   5643,
+   8
+  ],
+  "252169": [
+   "Manjeri",
+   5641,
+   13
+  ],
+  "627462": [
+   "Vettikkattiri",
+   5641,
+   14
+  ],
+  "627463": [
+   "Chembrasseri",
+   5641,
+   14
+  ],
+  "627485": [
+   "Thuvvur",
+   5642,
+   15
+  ],
+  "627489": [
+   "Edappatta",
+   5643,
+   15
+  ],
+  "627503": [
+   "Aliparamba",
+   5643,
+   5
+  ],
+  "627506": [
+   "Pulamanthole",
+   5643,
+   5
+  ],
+  "627507": [
+   "Kuruvambalam",
+   5643,
+   4
+  ],
+  "627508": [
+   "Moorkkanad",
+   5643,
+   4
+  ],
+  "627499": [
+   "Kariavattom",
+   5643,
+   9
+  ],
+  "627501": [
+   "Arakkuparamba",
+   5643,
+   9
+  ],
+  "627487": [
+   "Karuvarakundu",
+   5642,
+   15
+  ],
+  "627468": [
+   "Kondotty CT",
+   5941,
+   11
+  ],
+  "627452": [
+   "Kavanoor",
+   5641,
+   17
+  ],
+  "627445": [
+   "Pulikkal",
+   5941,
+   16
+  ],
+  "627458": [
+   "Pulpatta",
+   5641,
+   12
+  ],
+  "627446": [
+   "Cheekkode",
+   5941,
+   16
+  ],
+  "627453": [
+   "Kuzhimanna",
+   5941,
+   17
+  ],
+  "627454": [
+   "Muthuvallur",
+   5941,
+   17
+  ],
+  "627444": [
+   "Vazhakkad",
+   5941,
+   16
+  ],
+  "627448": [
+   "Urangattiri",
+   5641,
+   17
+  ],
+  "627449": [
+   "Perakamanna",
+   5641,
+   18
+  ],
+  "627459": [
+   "Trikkalangode",
+   5641,
+   13
+  ],
+  "627450": [
+   "Edavanna",
+   5641,
+   18
+  ],
+  "627479": [
+   "Thiruvali",
+   5642,
+   19
+  ],
+  "627481": [
+   "Wandoor",
+   5642,
+   19
+  ],
+  "627460": [
+   "Elankur",
+   5641,
+   13
+  ],
+  "627451": [
+   "Karakunnu",
+   5641,
+   18
+  ],
+  "627483": [
+   "Kalikavu",
+   5642,
+   20
+  ],
+  "627484": [
+   "Vellayur",
+   5642,
+   20
+  ],
+  "627478": [
+   "Mambad",
+   5642,
+   19
+  ],
+  "627480": [
+   "Porur",
+   5642,
+   14
+  ],
+  "627470": [
+   "Pullipadam",
+   5642,
+   22
+  ],
+  "627477": [
+   "Karulai",
+   5642,
+   25
+  ],
+  "627471": [
+   "Akampadam",
+   5642,
+   22
+  ],
+  "627474": [
+   "Edakkara",
+   5642,
+   29
+  ],
+  "627482": [
+   "Chokkad",
+   5642,
+   20
+  ],
+  "627486": [
+   "Kerala Estate",
+   5642,
+   15
+  ],
+  "627476": [
+   "Amarambalam",
+   5642,
+   20
+  ],
+  "627443": [
+   "Vettilappara",
+   5641,
+   22
+  ],
+  "627475": [
+   "Vazhikkadavu",
+   5642,
+   29
+  ],
+  "627472": [
+   "Kurumbilangode",
+   5642,
+   28
+  ],
+  "627530": [
+   "Tanalur CT",
+   5644,
+   2
+  ],
+  "627549": [
+   "Othukkungal CT",
+   5645,
+   7
+  ],
+  "627548": [
+   "Urakam CT",
+   5645,
+   7
+  ],
+  "627527": [
+   "Kottakkal CT",
+   5644,
+   7
+  ],
+  "627542": [
+   "Pallikal CT",
+   5941,
+   11
+  ],
+  "627552": [
+   "Abdu Rahiman Nagar CT",
+   5645,
+   11
+  ],
+  "627544": [
+   "Ariyallur CT",
+   5645,
+   10
+  ],
+  "627538": [
+   "Irimbiliyam CT",
+   5644,
+   4
+  ],
+  "627509": [
+   "Koottilangadi CT",
+   5643,
+   8
+  ],
+  "627469": [
+   "Anakkayam",
+   5641,
+   13
+  ],
+  "627466": [
+   "Vazhayur CT",
+   5941,
+   16
+  ],
+  "627465": [
+   "Kizhuparamba CT",
+   5641,
+   17
+  ],
+  "627467": [
+   "Cherukavu CT",
+   5941,
+   16
+  ],
+  "627541": [
+   "Chelambra CT",
+   5941,
+   10
+  ],
+  "627488": [
+   "Nilambur CT",
+   5642,
+   23
+  ]
+ },
+ "village_count_total": 128,
+ "village_count_assigned": 128
+}

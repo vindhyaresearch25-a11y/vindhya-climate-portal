@@ -1,0 +1,505 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Tripura",
+  "district": "Unakoti",
+  "district_lgd": 655,
+  "observation_window": "2026-08-07T11:27Z to 2026-08-12T11:27Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3174,
+  "sm_surface_stddev": 0.0277,
+  "sm_rootzone_mean": 0.3315,
+  "sm_rootzone_stddev": 0.0305,
+  "n_cells": 6,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 24.1602,
+    "lon": 91.9471,
+    "sm_surface": 0.3526,
+    "sm_rootzone": 0.3702,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 1,
+    "lat": 24.1602,
+    "lon": 92.0459,
+    "sm_surface": 0.2962,
+    "sm_rootzone": 0.3061,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 2,
+    "lat": 24.1602,
+    "lon": 92.1447,
+    "sm_surface": 0.2873,
+    "sm_rootzone": 0.2968,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 3,
+    "lat": 24.259,
+    "lon": 91.9471,
+    "sm_surface": 0.3578,
+    "sm_rootzone": 0.3744,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 4,
+    "lat": 24.259,
+    "lon": 92.0459,
+    "sm_surface": 0.2985,
+    "sm_rootzone": 0.3116,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 5,
+    "lat": 24.3578,
+    "lon": 92.0459,
+    "sm_surface": 0.3118,
+    "sm_rootzone": 0.3297,
+    "n_villages_sharing_cell": 17
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.314,
+  "sm_surface_stddev": 0.007,
+  "n_blocks": 2
+ },
+ "blocks": [
+  {
+   "block_name": "Kailashahar",
+   "sdcode": 6682,
+   "n_villages": 39,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.321,
+   "sm_surface_stddev": 0.0237
+  },
+  {
+   "block_name": "Kumarghat",
+   "sdcode": 6694,
+   "n_villages": 42,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.3071,
+   "sm_surface_stddev": 0.0258
+  }
+ ],
+ "villages": {
+  "272587": [
+   "Debasthal",
+   6682,
+   5
+  ],
+  "272589": [
+   "Guldharpur",
+   6682,
+   5
+  ],
+  "272590": [
+   "Gournagar",
+   6682,
+   4
+  ],
+  "272692": [
+   "Kumarghat Part",
+   6694,
+   1
+  ],
+  "272601": [
+   "Samaruhala R F",
+   6694,
+   0
+  ],
+  "272600": [
+   "Golakpur",
+   6682,
+   3
+  ],
+  "272602": [
+   "Dhanbilash",
+   6682,
+   3
+  ],
+  "272603": [
+   "Fultali",
+   6682,
+   3
+  ],
+  "272697": [
+   "Saidachhara",
+   6694,
+   0
+  ],
+  "272702": [
+   "Dudhpur",
+   6694,
+   1
+  ],
+  "272701": [
+   "Masauli",
+   6694,
+   0
+  ],
+  "272700": [
+   "Paschim Kanchanbari",
+   6694,
+   0
+  ],
+  "272704": [
+   "Purba Kanchanbari",
+   6694,
+   1
+  ],
+  "272695": [
+   "Purba Ratachhara",
+   6694,
+   1
+  ],
+  "272693": [
+   "Gakulnagar",
+   6694,
+   1
+  ],
+  "272694": [
+   "Ganganagar",
+   6694,
+   0
+  ],
+  "272688": [
+   "Jagannathpur",
+   6694,
+   4
+  ],
+  "272687": [
+   "Krishnanagar",
+   6694,
+   1
+  ],
+  "272686": [
+   "Radhanagar",
+   6694,
+   0
+  ],
+  "272685": [
+   "Rajkandi",
+   6694,
+   0
+  ],
+  "272696": [
+   "Paschim Ratachhara",
+   6694,
+   0
+  ],
+  "272699": [
+   "Laljuri",
+   6694,
+   0
+  ],
+  "272698": [
+   "Dengdung",
+   6694,
+   0
+  ],
+  "272683": [
+   "Dakshin Machmara",
+   6694,
+   2
+  ],
+  "272679": [
+   "Deo Reserve Forest",
+   6694,
+   1
+  ],
+  "272690": [
+   "Dakshin Unakuti R F",
+   6694,
+   1
+  ],
+  "272689": [
+   "Natingchhara",
+   6694,
+   4
+  ],
+  "272705": [
+   "Pabiachhara Part",
+   6694,
+   1
+  ],
+  "272706": [
+   "Deo Reserve Forest Part",
+   6694,
+   1
+  ],
+  "272703": [
+   "Betchhara",
+   6694,
+   1
+  ],
+  "272691": [
+   "Sonaimuri",
+   6694,
+   1
+  ],
+  "272668": [
+   "Paschim Andharchhara",
+   6694,
+   4
+  ],
+  "272669": [
+   "Purba Andharchhara",
+   6694,
+   4
+  ],
+  "272670": [
+   "Lakshmanchhara",
+   6694,
+   2
+  ],
+  "272671": [
+   "Nabinchhara",
+   6694,
+   2
+  ],
+  "272684": [
+   "Rabiraipara",
+   6694,
+   2
+  ],
+  "272682": [
+   "Dewanbari",
+   6694,
+   2
+  ],
+  "272676": [
+   "Baghaichhara",
+   6694,
+   2
+  ],
+  "272674": [
+   "Laljuri Part",
+   6694,
+   2
+  ],
+  "272673": [
+   "Birchandranagar",
+   6694,
+   2
+  ],
+  "272675": [
+   "Karaichhara",
+   6694,
+   2
+  ],
+  "272672": [
+   "Pencharthal",
+   6694,
+   2
+  ],
+  "272677": [
+   "Nalkata",
+   6694,
+   2
+  ],
+  "272681": [
+   "Uttar Machmara",
+   6694,
+   2
+  ],
+  "272678": [
+   "Dhanichhara",
+   6694,
+   2
+  ],
+  "272680": [
+   "Deo Reserve Forest Part",
+   6694,
+   1
+  ],
+  "272592": [
+   "Chhantail",
+   6682,
+   4
+  ],
+  "272611": [
+   "Dhatuchhara",
+   6682,
+   4
+  ],
+  "272609": [
+   "Sonamukhi",
+   6682,
+   4
+  ],
+  "272608": [
+   "Bhagaban Nagar",
+   6682,
+   4
+  ],
+  "272586": [
+   "Deorachhara",
+   6682,
+   5
+  ],
+  "272574": [
+   "Latiapur",
+   6682,
+   5
+  ],
+  "272578": [
+   "Hirachhara",
+   6682,
+   5
+  ],
+  "272577": [
+   "Irani",
+   6682,
+   5
+  ],
+  "272576": [
+   "Khowrabil",
+   6682,
+   5
+  ],
+  "272580": [
+   "Tilagaon",
+   6682,
+   5
+  ],
+  "272584": [
+   "Srinathpur",
+   6682,
+   5
+  ],
+  "272579": [
+   "Dhaliarkandi",
+   6682,
+   5
+  ],
+  "272583": [
+   "Jubarajnagar",
+   6682,
+   5
+  ],
+  "272585": [
+   "Ichabpur",
+   6682,
+   5
+  ],
+  "272588": [
+   "Pakhirbada",
+   6682,
+   5
+  ],
+  "272581": [
+   "Laxmipur",
+   6682,
+   5
+  ],
+  "272582": [
+   "Kanakpur",
+   6682,
+   5
+  ],
+  "272595": [
+   "Samrurpar",
+   6682,
+   3
+  ],
+  "272599": [
+   "Halaichhara",
+   6682,
+   3
+  ],
+  "272598": [
+   "Rangrung",
+   6682,
+   3
+  ],
+  "272596": [
+   "Murtichhara",
+   6682,
+   3
+  ],
+  "272597": [
+   "Manu Valley",
+   6682,
+   3
+  ],
+  "272594": [
+   "Chandipur",
+   6682,
+   3
+  ],
+  "272593": [
+   "Srirampur",
+   6682,
+   3
+  ],
+  "249804": [
+   "Kailasahar Np",
+   6682,
+   5
+  ],
+  "272607": [
+   "Kaulikura",
+   6682,
+   4
+  ],
+  "272591": [
+   "Kamarangabari",
+   6682,
+   4
+  ],
+  "272610": [
+   "Jalai",
+   6682,
+   4
+  ],
+  "272606": [
+   "Bilashpur",
+   6682,
+   4
+  ],
+  "272604": [
+   "Jarultali",
+   6682,
+   3
+  ],
+  "272605": [
+   "Birchandranagar",
+   6682,
+   4
+  ],
+  "272575": [
+   "Rangauti",
+   6682,
+   5
+  ],
+  "272707": [
+   "Fatikroy CT",
+   6694,
+   1
+  ],
+  "801535": [
+   "Kumarghat Np",
+   6694,
+   1
+  ],
+  "272612": [
+   "Uttar Unakuti R F",
+   6682,
+   4
+  ]
+ },
+ "village_count_total": 81,
+ "village_count_assigned": 81
+}

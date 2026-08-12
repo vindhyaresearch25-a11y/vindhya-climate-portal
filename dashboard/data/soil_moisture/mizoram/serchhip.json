@@ -1,0 +1,384 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Mizoram",
+  "district": "Serchhip",
+  "district_lgd": 268,
+  "observation_window": "2026-08-07T11:19Z to 2026-08-12T11:19Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3962,
+  "sm_surface_stddev": 0.0065,
+  "sm_rootzone_mean": 0.4074,
+  "sm_rootzone_stddev": 0.0119,
+  "n_cells": 14,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 23.0732,
+    "lon": 93.1328,
+    "sm_surface": 0.3965,
+    "sm_rootzone": 0.4128,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 1,
+    "lat": 23.172,
+    "lon": 92.9352,
+    "sm_surface": 0.3976,
+    "sm_rootzone": 0.4138,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 2,
+    "lat": 23.172,
+    "lon": 93.034,
+    "sm_surface": 0.4004,
+    "sm_rootzone": 0.4174,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 3,
+    "lat": 23.172,
+    "lon": 93.1328,
+    "sm_surface": 0.3984,
+    "sm_rootzone": 0.3868,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 4,
+    "lat": 23.2709,
+    "lon": 92.7376,
+    "sm_surface": 0.3736,
+    "sm_rootzone": 0.3911,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 5,
+    "lat": 23.2709,
+    "lon": 92.8364,
+    "sm_surface": 0.3965,
+    "sm_rootzone": 0.4138,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 6,
+    "lat": 23.2709,
+    "lon": 92.9352,
+    "sm_surface": 0.3971,
+    "sm_rootzone": 0.4137,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 7,
+    "lat": 23.3697,
+    "lon": 92.8364,
+    "sm_surface": 0.3974,
+    "sm_rootzone": 0.3884,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 8,
+    "lat": 23.3697,
+    "lon": 92.9352,
+    "sm_surface": 0.3988,
+    "sm_rootzone": 0.4163,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 9,
+    "lat": 23.3697,
+    "lon": 93.034,
+    "sm_surface": 0.4,
+    "sm_rootzone": 0.417,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 10,
+    "lat": 23.4685,
+    "lon": 92.8364,
+    "sm_surface": 0.398,
+    "sm_rootzone": 0.3893,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 11,
+    "lat": 23.4685,
+    "lon": 92.9352,
+    "sm_surface": 0.3991,
+    "sm_rootzone": 0.4165,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 12,
+    "lat": 23.4685,
+    "lon": 93.034,
+    "sm_surface": 0.3996,
+    "sm_rootzone": 0.4167,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 13,
+    "lat": 23.5673,
+    "lon": 92.8364,
+    "sm_surface": 0.3932,
+    "sm_rootzone": 0.4101,
+    "n_villages_sharing_cell": 3
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3967,
+  "sm_surface_stddev": 0.0024,
+  "n_blocks": 2
+ },
+ "blocks": [
+  {
+   "block_name": "East Lungdar",
+   "sdcode": 1911,
+   "n_villages": 17,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.399,
+   "sm_surface_stddev": 0.0015
+  },
+  {
+   "block_name": "Serchhip",
+   "sdcode": 1910,
+   "n_villages": 28,
+   "n_cells_spanned": 11,
+   "sm_surface_mean": 0.3943,
+   "sm_surface_stddev": 0.0086
+  }
+ ],
+ "villages": {
+  "271417": [
+   "Lungkawlh",
+   1911,
+   0
+  ],
+  "271418": [
+   "Maicham",
+   1911,
+   0
+  ],
+  "271416": [
+   "Leilet N V",
+   1911,
+   2
+  ],
+  "271409": [
+   "Tuichang",
+   1911,
+   6
+  ],
+  "271408": [
+   "Piler",
+   1911,
+   6
+  ],
+  "271407": [
+   "Khawlailung",
+   1911,
+   2
+  ],
+  "271406": [
+   "Chekawn",
+   1911,
+   2
+  ],
+  "271410": [
+   "Sialsir",
+   1911,
+   1
+  ],
+  "271411": [
+   "Lungchhuan",
+   1911,
+   2
+  ],
+  "271405": [
+   "Mualcheng",
+   1911,
+   2
+  ],
+  "999999": [
+   "Data Partially Available",
+   1910,
+   8
+  ],
+  "271404": [
+   "East Lungdar",
+   1911,
+   2
+  ],
+  "271412": [
+   "Bawktlang",
+   1911,
+   2
+  ],
+  "271413": [
+   "Leng",
+   1911,
+   3
+  ],
+  "271414": [
+   "Sailulak",
+   1911,
+   3
+  ],
+  "271402": [
+   "Neihloh",
+   1910,
+   4
+  ],
+  "271401": [
+   "Buangpui",
+   1910,
+   4
+  ],
+  "271400": [
+   "Bungtlang",
+   1910,
+   1
+  ],
+  "271399": [
+   "Keitum",
+   1910,
+   6
+  ],
+  "271396": [
+   "Hriangtlang",
+   1910,
+   6
+  ],
+  "271397": [
+   "Vanchengte",
+   1910,
+   8
+  ],
+  "271394": [
+   "Thinglian Serchhip",
+   1910,
+   8
+  ],
+  "271395": [
+   "Hmunzawl",
+   1910,
+   6
+  ],
+  "271403": [
+   "Vanchengpui",
+   1910,
+   4
+  ],
+  "271415": [
+   "Puallawi",
+   1911,
+   3
+  ],
+  "271398": [
+   "Bawngchawm",
+   1910,
+   5
+  ],
+  "249777": [
+   "Thenzawl",
+   1910,
+   4
+  ],
+  "249776": [
+   "Serchhip",
+   1910,
+   7
+  ],
+  "249778": [
+   "N Vanlaiphai",
+   1911,
+   2
+  ],
+  "271391": [
+   "Sialhau",
+   1910,
+   8
+  ],
+  "271390": [
+   "Thentlang",
+   1910,
+   11
+  ],
+  "271379": [
+   "Khumtung",
+   1910,
+   13
+  ],
+  "271382": [
+   "Chhuanthar Tlangnuam",
+   1910,
+   13
+  ],
+  "271381": [
+   "Chanin",
+   1910,
+   13
+  ],
+  "271384": [
+   "Hmawngkawn",
+   1910,
+   10
+  ],
+  "271383": [
+   "Buhkangkawn",
+   1910,
+   10
+  ],
+  "271386": [
+   "Chhingchhip",
+   1910,
+   10
+  ],
+  "271385": [
+   "N Chawilung",
+   1910,
+   10
+  ],
+  "271393": [
+   "Ngentiang",
+   1910,
+   9
+  ],
+  "271392": [
+   "Lungpho",
+   1910,
+   9
+  ],
+  "271387": [
+   "Khawbel",
+   1910,
+   11
+  ],
+  "271388": [
+   "Hmuntha",
+   1910,
+   11
+  ],
+  "271380": [
+   "Hualtu",
+   1910,
+   11
+  ],
+  "271389": [
+   "Rullam",
+   1910,
+   12
+  ]
+ },
+ "village_count_total": 45,
+ "village_count_assigned": 45
+}

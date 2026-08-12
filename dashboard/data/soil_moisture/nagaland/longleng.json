@@ -1,0 +1,363 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Nagaland",
+  "district": "Longleng",
+  "district_lgd": 615,
+  "observation_window": "2026-08-07T11:19Z to 2026-08-12T11:19Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3987,
+  "sm_surface_stddev": 0.0151,
+  "sm_rootzone_mean": 0.412,
+  "sm_rootzone_stddev": 0.0186,
+  "n_cells": 4,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 26.4329,
+    "lon": 94.8127,
+    "sm_surface": 0.399,
+    "sm_rootzone": 0.4179,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 1,
+    "lat": 26.5317,
+    "lon": 94.7139,
+    "sm_surface": 0.402,
+    "sm_rootzone": 0.4199,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 2,
+    "lat": 26.5317,
+    "lon": 94.8127,
+    "sm_surface": 0.3756,
+    "sm_rootzone": 0.3807,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 3,
+    "lat": 26.7294,
+    "lon": 94.8127,
+    "sm_surface": 0.418,
+    "sm_rootzone": 0.4294,
+    "n_villages_sharing_cell": 14
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3985,
+  "sm_surface_stddev": 0.0154,
+  "n_blocks": 5
+ },
+ "blocks": [
+  {
+   "block_name": "Longleng",
+   "sdcode": 1833,
+   "n_villages": 16,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3895,
+   "sm_surface_stddev": 0.0123
+  },
+  {
+   "block_name": "Namsang",
+   "sdcode": 1831,
+   "n_villages": 10,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.418,
+   "sm_surface_stddev": 0.0
+  },
+  {
+   "block_name": "Sakshi",
+   "sdcode": 1834,
+   "n_villages": 11,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3969,
+   "sm_surface_stddev": 0.0067
+  },
+  {
+   "block_name": "Tamlu",
+   "sdcode": 1830,
+   "n_villages": 6,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.4127,
+   "sm_surface_stddev": 0.0075
+  },
+  {
+   "block_name": "Yongnyah",
+   "sdcode": 1832,
+   "n_villages": 12,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.3756,
+   "sm_surface_stddev": 0.0
+  }
+ ],
+ "villages": {
+  "999999": [
+   "Data Partially Available",
+   1831,
+   3
+  ],
+  "268073": [
+   "Mongtikong",
+   1833,
+   0
+  ],
+  "268075": [
+   "Hukpang",
+   1833,
+   0
+  ],
+  "268074": [
+   "Namching S Comp Ur",
+   1833,
+   0
+  ],
+  "268077": [
+   "Pongching",
+   1833,
+   0
+  ],
+  "268087": [
+   "Auching",
+   1834,
+   0
+  ],
+  "268086": [
+   "Sakshi Village",
+   1834,
+   0
+  ],
+  "268085": [
+   "Yimchong",
+   1834,
+   0
+  ],
+  "268084": [
+   "Sakshi Hq Ur",
+   1834,
+   0
+  ],
+  "268083": [
+   "Yangching",
+   1834,
+   0
+  ],
+  "268082": [
+   "Yongphang S Comp Ur",
+   1834,
+   0
+  ],
+  "268081": [
+   "Yongphang",
+   1834,
+   0
+  ],
+  "268042": [
+   "Kangching",
+   1830,
+   1
+  ],
+  "268041": [
+   "Tamlu Village",
+   1830,
+   3
+  ],
+  "268039": [
+   "Tamlu Hq",
+   1830,
+   3
+  ],
+  "268060": [
+   "Yotan S Comp Ur",
+   1832,
+   2
+  ],
+  "268053": [
+   "Tangha",
+   1832,
+   2
+  ],
+  "268058": [
+   "Yongnyah Village",
+   1832,
+   2
+  ],
+  "268056": [
+   "Yongnyah Hq Ur",
+   1832,
+   2
+  ],
+  "268061": [
+   "Yongshei",
+   1832,
+   2
+  ],
+  "268063": [
+   "Yongam",
+   1832,
+   2
+  ],
+  "268059": [
+   "Nian",
+   1832,
+   2
+  ],
+  "268067": [
+   "Alayung",
+   1833,
+   1
+  ],
+  "268066": [
+   "Yaongyimchen",
+   1833,
+   1
+  ],
+  "268065": [
+   "Yachem",
+   1833,
+   1
+  ],
+  "268064": [
+   "Noksosang",
+   1833,
+   1
+  ],
+  "268070": [
+   "Orangkong",
+   1833,
+   2
+  ],
+  "268069": [
+   "Dungkhao",
+   1833,
+   2
+  ],
+  "268068": [
+   "Bhumnyu Mongnyu",
+   1833,
+   2
+  ],
+  "268072": [
+   "Oushok Ur",
+   1833,
+   2
+  ],
+  "253201": [
+   "Longleng Town Council",
+   1833,
+   2
+  ],
+  "268079": [
+   "Hongnyu",
+   1834,
+   0
+  ],
+  "268078": [
+   "Pongo",
+   1834,
+   2
+  ],
+  "268044": [
+   "Shetap",
+   1831,
+   3
+  ],
+  "268047": [
+   "Namhaching",
+   1831,
+   3
+  ],
+  "268045": [
+   "Ladaigarh",
+   1831,
+   3
+  ],
+  "268046": [
+   "Yonglok",
+   1831,
+   3
+  ],
+  "268050": [
+   "Shemnyuching",
+   1831,
+   3
+  ],
+  "268048": [
+   "Ngetchungshing",
+   1831,
+   3
+  ],
+  "268051": [
+   "Bura Namsang",
+   1831,
+   3
+  ],
+  "268052": [
+   "Konsong S Comp Ur",
+   1831,
+   3
+  ],
+  "268076": [
+   "Lingtak Ur",
+   1833,
+   0
+  ],
+  "268080": [
+   "Mungkhu Ur",
+   1834,
+   0
+  ],
+  "268043": [
+   "Netnyuching",
+   1830,
+   1
+  ],
+  "268040": [
+   "Ametchong Ur",
+   1830,
+   3
+  ],
+  "268054": [
+   "Amosen Ur",
+   1832,
+   2
+  ],
+  "268055": [
+   "Chingong Ur",
+   1832,
+   2
+  ],
+  "268057": [
+   "Shamshangching Ur",
+   1832,
+   2
+  ],
+  "268062": [
+   "Yungja Ur",
+   1832,
+   2
+  ],
+  "268071": [
+   "Hamlikhong Ur",
+   1833,
+   2
+  ],
+  "268049": [
+   "Aboiche Ur",
+   1831,
+   3
+  ]
+ },
+ "village_count_total": 55,
+ "village_count_assigned": 55
+}

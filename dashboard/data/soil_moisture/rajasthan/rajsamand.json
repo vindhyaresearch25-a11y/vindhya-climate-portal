@@ -1,0 +1,5760 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Rajasthan",
+  "district": "Rajsamand",
+  "district_lgd": 112,
+  "observation_window": "2026-08-07T11:23Z to 2026-08-12T11:23Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.1498,
+  "sm_surface_stddev": 0.0175,
+  "sm_rootzone_mean": 0.1934,
+  "sm_rootzone_stddev": 0.011,
+  "n_cells": 42,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 24.7531,
+    "lon": 73.6663,
+    "sm_surface": 0.1701,
+    "sm_rootzone": 0.224,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 1,
+    "lat": 24.7531,
+    "lon": 73.7652,
+    "sm_surface": 0.1628,
+    "sm_rootzone": 0.1963,
+    "n_villages_sharing_cell": 25
+   },
+   {
+    "cell_index": 2,
+    "lat": 24.8519,
+    "lon": 73.7652,
+    "sm_surface": 0.1615,
+    "sm_rootzone": 0.1992,
+    "n_villages_sharing_cell": 39
+   },
+   {
+    "cell_index": 3,
+    "lat": 24.9507,
+    "lon": 73.5675,
+    "sm_surface": 0.1577,
+    "sm_rootzone": 0.1849,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 4,
+    "lat": 24.9507,
+    "lon": 73.6663,
+    "sm_surface": 0.1569,
+    "sm_rootzone": 0.1971,
+    "n_villages_sharing_cell": 30
+   },
+   {
+    "cell_index": 5,
+    "lat": 24.9507,
+    "lon": 73.7652,
+    "sm_surface": 0.1553,
+    "sm_rootzone": 0.1984,
+    "n_villages_sharing_cell": 30
+   },
+   {
+    "cell_index": 6,
+    "lat": 24.9507,
+    "lon": 73.864,
+    "sm_surface": 0.1545,
+    "sm_rootzone": 0.1973,
+    "n_villages_sharing_cell": 54
+   },
+   {
+    "cell_index": 7,
+    "lat": 24.9507,
+    "lon": 73.9628,
+    "sm_surface": 0.1543,
+    "sm_rootzone": 0.1973,
+    "n_villages_sharing_cell": 37
+   },
+   {
+    "cell_index": 8,
+    "lat": 24.9507,
+    "lon": 74.0616,
+    "sm_surface": 0.1668,
+    "sm_rootzone": 0.2007,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 9,
+    "lat": 24.9507,
+    "lon": 74.1604,
+    "sm_surface": 0.1764,
+    "sm_rootzone": 0.2025,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 10,
+    "lat": 25.0495,
+    "lon": 73.5675,
+    "sm_surface": 0.1426,
+    "sm_rootzone": 0.1804,
+    "n_villages_sharing_cell": 27
+   },
+   {
+    "cell_index": 11,
+    "lat": 25.0495,
+    "lon": 73.6663,
+    "sm_surface": 0.1449,
+    "sm_rootzone": 0.1822,
+    "n_villages_sharing_cell": 36
+   },
+   {
+    "cell_index": 12,
+    "lat": 25.0495,
+    "lon": 73.7652,
+    "sm_surface": 0.1585,
+    "sm_rootzone": 0.1967,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 13,
+    "lat": 25.0495,
+    "lon": 73.864,
+    "sm_surface": 0.1567,
+    "sm_rootzone": 0.1968,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 14,
+    "lat": 25.0495,
+    "lon": 73.9628,
+    "sm_surface": 0.1626,
+    "sm_rootzone": 0.1974,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 15,
+    "lat": 25.0495,
+    "lon": 74.0616,
+    "sm_surface": 0.1724,
+    "sm_rootzone": 0.1992,
+    "n_villages_sharing_cell": 21
+   },
+   {
+    "cell_index": 16,
+    "lat": 25.0495,
+    "lon": 74.1604,
+    "sm_surface": 0.1783,
+    "sm_rootzone": 0.1991,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 17,
+    "lat": 25.0495,
+    "lon": 74.2592,
+    "sm_surface": 0.1822,
+    "sm_rootzone": 0.2037,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 18,
+    "lat": 25.1483,
+    "lon": 73.5675,
+    "sm_surface": 0.1243,
+    "sm_rootzone": 0.1707,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 19,
+    "lat": 25.1483,
+    "lon": 73.6663,
+    "sm_surface": 0.1347,
+    "sm_rootzone": 0.1776,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 20,
+    "lat": 25.1483,
+    "lon": 73.7652,
+    "sm_surface": 0.1541,
+    "sm_rootzone": 0.1958,
+    "n_villages_sharing_cell": 25
+   },
+   {
+    "cell_index": 21,
+    "lat": 25.1483,
+    "lon": 73.864,
+    "sm_surface": 0.1613,
+    "sm_rootzone": 0.1992,
+    "n_villages_sharing_cell": 30
+   },
+   {
+    "cell_index": 22,
+    "lat": 25.1483,
+    "lon": 73.9628,
+    "sm_surface": 0.1593,
+    "sm_rootzone": 0.1964,
+    "n_villages_sharing_cell": 32
+   },
+   {
+    "cell_index": 23,
+    "lat": 25.2472,
+    "lon": 73.6663,
+    "sm_surface": 0.1227,
+    "sm_rootzone": 0.175,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 24,
+    "lat": 25.2472,
+    "lon": 73.7652,
+    "sm_surface": 0.137,
+    "sm_rootzone": 0.1798,
+    "n_villages_sharing_cell": 28
+   },
+   {
+    "cell_index": 25,
+    "lat": 25.2472,
+    "lon": 73.864,
+    "sm_surface": 0.1558,
+    "sm_rootzone": 0.1982,
+    "n_villages_sharing_cell": 33
+   },
+   {
+    "cell_index": 26,
+    "lat": 25.2472,
+    "lon": 73.9628,
+    "sm_surface": 0.1574,
+    "sm_rootzone": 0.1975,
+    "n_villages_sharing_cell": 53
+   },
+   {
+    "cell_index": 27,
+    "lat": 25.346,
+    "lon": 73.7652,
+    "sm_surface": 0.1229,
+    "sm_rootzone": 0.1781,
+    "n_villages_sharing_cell": 24
+   },
+   {
+    "cell_index": 28,
+    "lat": 25.346,
+    "lon": 73.864,
+    "sm_surface": 0.1456,
+    "sm_rootzone": 0.1946,
+    "n_villages_sharing_cell": 25
+   },
+   {
+    "cell_index": 29,
+    "lat": 25.346,
+    "lon": 73.9628,
+    "sm_surface": 0.1483,
+    "sm_rootzone": 0.1966,
+    "n_villages_sharing_cell": 38
+   },
+   {
+    "cell_index": 30,
+    "lat": 25.4448,
+    "lon": 73.7652,
+    "sm_surface": 0.1099,
+    "sm_rootzone": 0.1707,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 31,
+    "lat": 25.4448,
+    "lon": 73.864,
+    "sm_surface": 0.1227,
+    "sm_rootzone": 0.1823,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 32,
+    "lat": 25.4448,
+    "lon": 73.9628,
+    "sm_surface": 0.1392,
+    "sm_rootzone": 0.199,
+    "n_villages_sharing_cell": 47
+   },
+   {
+    "cell_index": 33,
+    "lat": 25.5436,
+    "lon": 73.864,
+    "sm_surface": 0.1173,
+    "sm_rootzone": 0.1735,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 34,
+    "lat": 25.5436,
+    "lon": 73.9628,
+    "sm_surface": 0.1349,
+    "sm_rootzone": 0.1967,
+    "n_villages_sharing_cell": 25
+   },
+   {
+    "cell_index": 35,
+    "lat": 25.5436,
+    "lon": 74.0616,
+    "sm_surface": 0.1311,
+    "sm_rootzone": 0.1986,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 36,
+    "lat": 25.6424,
+    "lon": 73.864,
+    "sm_surface": 0.1274,
+    "sm_rootzone": 0.1912,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 37,
+    "lat": 25.6424,
+    "lon": 73.9628,
+    "sm_surface": 0.1314,
+    "sm_rootzone": 0.1825,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 38,
+    "lat": 25.6424,
+    "lon": 74.0616,
+    "sm_surface": 0.1541,
+    "sm_rootzone": 0.2025,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 39,
+    "lat": 25.7412,
+    "lon": 74.0616,
+    "sm_surface": 0.1615,
+    "sm_rootzone": 0.2039,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 40,
+    "lat": 25.7412,
+    "lon": 74.1604,
+    "sm_surface": 0.1611,
+    "sm_rootzone": 0.2027,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 41,
+    "lat": 25.84,
+    "lon": 74.1604,
+    "sm_surface": 0.1651,
+    "sm_rootzone": 0.206,
+    "n_villages_sharing_cell": 47
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.1532,
+  "sm_surface_stddev": 0.0112,
+  "n_blocks": 11
+ },
+ "blocks": [
+  {
+   "block_name": "Amet",
+   "sdcode": 641,
+   "n_villages": 154,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.1527,
+   "sm_surface_stddev": 0.007
+  },
+  {
+   "block_name": "Bhim",
+   "sdcode": 639,
+   "n_villages": 142,
+   "n_cells_spanned": 12,
+   "sm_surface_mean": 0.1474,
+   "sm_surface_stddev": 0.019
+  },
+  {
+   "block_name": "Delwara",
+   "sdcode": 6935,
+   "n_villages": 65,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.1639,
+   "sm_surface_stddev": 0.0033
+  },
+  {
+   "block_name": "Deogarh",
+   "sdcode": 640,
+   "n_villages": 136,
+   "n_cells_spanned": 10,
+   "sm_surface_mean": 0.1373,
+   "sm_surface_stddev": 0.01
+  },
+  {
+   "block_name": "Garhbor",
+   "sdcode": 6392,
+   "n_villages": 85,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.1345,
+   "sm_surface_stddev": 0.0113
+  },
+  {
+   "block_name": "Khamnor",
+   "sdcode": 6393,
+   "n_villages": 58,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.1562,
+   "sm_surface_stddev": 0.0046
+  },
+  {
+   "block_name": "Kumbhalgarh",
+   "sdcode": 642,
+   "n_villages": 82,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.1441,
+   "sm_surface_stddev": 0.0089
+  },
+  {
+   "block_name": "Kuwaria",
+   "sdcode": 6928,
+   "n_villages": 57,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.1633,
+   "sm_surface_stddev": 0.0061
+  },
+  {
+   "block_name": "Nathdwara",
+   "sdcode": 645,
+   "n_villages": 94,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.1547,
+   "sm_surface_stddev": 0.0018
+  },
+  {
+   "block_name": "Railmagra",
+   "sdcode": 644,
+   "n_villages": 89,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.1733,
+   "sm_surface_stddev": 0.0062
+  },
+  {
+   "block_name": "Rajsamand",
+   "sdcode": 643,
+   "n_villages": 98,
+   "n_cells_spanned": 10,
+   "sm_surface_mean": 0.1574,
+   "sm_surface_stddev": 0.0031
+  }
+ ],
+ "villages": {
+  "96496": [
+   "Dhawala Kalan",
+   639,
+   37
+  ],
+  "96452": [
+   "Amner",
+   639,
+   40
+  ],
+  "96464": [
+   "Dansariya",
+   639,
+   39
+  ],
+  "96454": [
+   "Kaladeh",
+   639,
+   40
+  ],
+  "96453": [
+   "Bheel Khera",
+   639,
+   40
+  ],
+  "96445": [
+   "Daheriya",
+   639,
+   40
+  ],
+  "96446": [
+   "Sameliya",
+   639,
+   40
+  ],
+  "96435": [
+   "Bali",
+   639,
+   39
+  ],
+  "96437": [
+   "Jalpa",
+   639,
+   41
+  ],
+  "96442": [
+   "Naloi Lalpura",
+   639,
+   41
+  ],
+  "96443": [
+   "Ghata",
+   639,
+   40
+  ],
+  "96448": [
+   "Ajeetgarh",
+   639,
+   40
+  ],
+  "96450": [
+   "Togi",
+   639,
+   39
+  ],
+  "96449": [
+   "Teebana",
+   639,
+   40
+  ],
+  "96451": [
+   "Nandawat",
+   639,
+   39
+  ],
+  "96444": [
+   "Teetri",
+   639,
+   40
+  ],
+  "96447": [
+   "Palra",
+   639,
+   40
+  ],
+  "96456": [
+   "Dhoti",
+   639,
+   39
+  ],
+  "96467": [
+   "Sadaran",
+   639,
+   39
+  ],
+  "96466": [
+   "Sunar Kuri",
+   639,
+   39
+  ],
+  "96468": [
+   "Kookar Khera",
+   639,
+   39
+  ],
+  "96471": [
+   "Bichhudra",
+   639,
+   38
+  ],
+  "96472": [
+   "Dapta",
+   639,
+   37
+  ],
+  "96488": [
+   "Chattarpura",
+   639,
+   36
+  ],
+  "96469": [
+   "Kaletara",
+   639,
+   38
+  ],
+  "96478": [
+   "Barar",
+   639,
+   37
+  ],
+  "96480": [
+   "Padmela",
+   639,
+   37
+  ],
+  "96491": [
+   "Kachhbali",
+   639,
+   36
+  ],
+  "96481": [
+   "Hamela Ki Ber",
+   639,
+   37
+  ],
+  "96474": [
+   "Kushalpura",
+   639,
+   38
+  ],
+  "96485": [
+   "Nabri",
+   639,
+   37
+  ],
+  "96475": [
+   "Dhorela",
+   639,
+   37
+  ],
+  "96503": [
+   "Thoriya",
+   639,
+   36
+  ],
+  "96502": [
+   "Kathar",
+   639,
+   36
+  ],
+  "96501": [
+   "Dhawala Khurd",
+   639,
+   36
+  ],
+  "96497": [
+   "Jhootara",
+   639,
+   37
+  ],
+  "96559": [
+   "Malak Maliya",
+   640,
+   38
+  ],
+  "96555": [
+   "Kakrod",
+   640,
+   38
+  ],
+  "96500": [
+   "Telra",
+   639,
+   36
+  ],
+  "96486": [
+   "Lakha Gurha",
+   639,
+   37
+  ],
+  "96482": [
+   "Kahari",
+   639,
+   37
+  ],
+  "96483": [
+   "Theekarwas Khurd",
+   639,
+   37
+  ],
+  "96484": [
+   "Theekarwas Kalan",
+   639,
+   37
+  ],
+  "96550": [
+   "Undawasan",
+   640,
+   38
+  ],
+  "96551": [
+   "Arjungarh",
+   640,
+   38
+  ],
+  "96537": [
+   "Asan",
+   640,
+   37
+  ],
+  "96542": [
+   "Suratpura",
+   640,
+   38
+  ],
+  "96545": [
+   "Sohangarh",
+   640,
+   38
+  ],
+  "96552": [
+   "Kharniya",
+   640,
+   38
+  ],
+  "96544": [
+   "Chak Kalagun",
+   640,
+   38
+  ],
+  "96553": [
+   "Khuma Khera",
+   640,
+   38
+  ],
+  "96543": [
+   "Kalagun",
+   640,
+   38
+  ],
+  "96539": [
+   "Shakkargarh",
+   640,
+   37
+  ],
+  "96540": [
+   "Laxmipura",
+   640,
+   38
+  ],
+  "96541": [
+   "Rughnathpura",
+   640,
+   38
+  ],
+  "96556": [
+   "Malkot",
+   640,
+   38
+  ],
+  "96581": [
+   "Sangawas A",
+   640,
+   37
+  ],
+  "96470": [
+   "Chak Hirat",
+   639,
+   38
+  ],
+  "96439": [
+   "Miyala Khet",
+   639,
+   41
+  ],
+  "96455": [
+   "Samburiya",
+   639,
+   40
+  ],
+  "96465": [
+   "Pavtiya",
+   639,
+   39
+  ],
+  "96463": [
+   "Peladol",
+   639,
+   39
+  ],
+  "96462": [
+   "Nedi",
+   639,
+   39
+  ],
+  "96461": [
+   "Kundal Ki Guaar",
+   639,
+   39
+  ],
+  "96459": [
+   "Balato Ki Gawar",
+   639,
+   39
+  ],
+  "96458": [
+   "Doongaji Ka Gaon",
+   639,
+   39
+  ],
+  "96457": [
+   "Godaji Ka Gaon",
+   639,
+   39
+  ],
+  "96479": [
+   "Ota",
+   639,
+   37
+  ],
+  "96473": [
+   "Mayla Khet",
+   639,
+   37
+  ],
+  "96476": [
+   "Atholiya",
+   639,
+   37
+  ],
+  "96477": [
+   "Devraj Nagar",
+   639,
+   37
+  ],
+  "96495": [
+   "Udpura",
+   639,
+   37
+  ],
+  "96505": [
+   "Weir",
+   639,
+   36
+  ],
+  "96494": [
+   "Mediya",
+   639,
+   37
+  ],
+  "96492": [
+   "Talai",
+   639,
+   36
+  ],
+  "96493": [
+   "Payari",
+   639,
+   36
+  ],
+  "96489": [
+   "Dhak Ka Chora",
+   639,
+   37
+  ],
+  "96490": [
+   "Rohida",
+   639,
+   36
+  ],
+  "96487": [
+   "Mandawar",
+   639,
+   37
+  ],
+  "96504": [
+   "Dunga Gurha",
+   639,
+   36
+  ],
+  "96436": [
+   "Laxman Garh Adawala",
+   639,
+   39
+  ],
+  "96441": [
+   "Darra",
+   639,
+   41
+  ],
+  "96546": [
+   "Tal",
+   640,
+   38
+  ],
+  "96547": [
+   "Pili Ka Chora",
+   640,
+   38
+  ],
+  "96549": [
+   "Sirola",
+   640,
+   38
+  ],
+  "96548": [
+   "Sirodniya",
+   640,
+   38
+  ],
+  "96554": [
+   "Pusalon Ka Khera",
+   640,
+   38
+  ],
+  "96538": [
+   "Miyala",
+   640,
+   37
+  ],
+  "96536": [
+   "Khera",
+   640,
+   37
+  ],
+  "96580": [
+   "Sangawas B",
+   640,
+   37
+  ],
+  "96432": [
+   "Kookra",
+   639,
+   41
+  ],
+  "96430": [
+   "Lasariya",
+   639,
+   41
+  ],
+  "96424": [
+   "Doongarkhera",
+   639,
+   41
+  ],
+  "96422": [
+   "Kheta Khera",
+   639,
+   41
+  ],
+  "96423": [
+   "Bhartawa",
+   639,
+   41
+  ],
+  "96425": [
+   "Saroth",
+   639,
+   41
+  ],
+  "96421": [
+   "Badni",
+   639,
+   41
+  ],
+  "96420": [
+   "Shyopura Ass",
+   639,
+   41
+  ],
+  "96428": [
+   "Biliyawas",
+   639,
+   41
+  ],
+  "96427": [
+   "Rajwa",
+   639,
+   41
+  ],
+  "96433": [
+   "Barla Chora",
+   639,
+   41
+  ],
+  "96440": [
+   "Baron Ki Rel",
+   639,
+   41
+  ],
+  "96434": [
+   "Karkara",
+   639,
+   41
+  ],
+  "96415": [
+   "Jaita Khera",
+   639,
+   41
+  ],
+  "96413": [
+   "Phatta Khera",
+   639,
+   41
+  ],
+  "96414": [
+   "Akhegarh",
+   639,
+   41
+  ],
+  "96407": [
+   "Laget Khera",
+   639,
+   41
+  ],
+  "96429": [
+   "Uprla Karkala",
+   639,
+   41
+  ],
+  "96426": [
+   "Nayagaon Saroth",
+   639,
+   41
+  ],
+  "96431": [
+   "Mohariya",
+   639,
+   41
+  ],
+  "96535": [
+   "Bhim CT",
+   639,
+   39
+  ],
+  "96404": [
+   "Bhopal Garh",
+   639,
+   41
+  ],
+  "96394": [
+   "Sadabhoj Ka Badiya",
+   639,
+   41
+  ],
+  "96395": [
+   "Borwa",
+   639,
+   41
+  ],
+  "96396": [
+   "Rajor",
+   639,
+   41
+  ],
+  "96403": [
+   "Kesarpura",
+   639,
+   41
+  ],
+  "96406": [
+   "Hathoon",
+   639,
+   41
+  ],
+  "96397": [
+   "Mana Nangla",
+   639,
+   41
+  ],
+  "96399": [
+   "Kheri Ka Khera",
+   639,
+   41
+  ],
+  "96398": [
+   "Jaitpura",
+   639,
+   41
+  ],
+  "96402": [
+   "Umar Baori",
+   639,
+   41
+  ],
+  "96401": [
+   "Swajna Chainpura",
+   639,
+   41
+  ],
+  "96409": [
+   "Shekhawas",
+   639,
+   41
+  ],
+  "96400": [
+   "Deo Khera",
+   639,
+   41
+  ],
+  "96410": [
+   "Nayagaon",
+   639,
+   41
+  ],
+  "96417": [
+   "Bar",
+   639,
+   41
+  ],
+  "96416": [
+   "Jainagar",
+   639,
+   41
+  ],
+  "96418": [
+   "Amarpura",
+   639,
+   41
+  ],
+  "96419": [
+   "Kaniya Khera",
+   639,
+   41
+  ],
+  "96411": [
+   "Bariya Heera",
+   639,
+   41
+  ],
+  "96412": [
+   "Jasawant Pura",
+   639,
+   41
+  ],
+  "96408": [
+   "Peepli Ka Wadiya",
+   639,
+   41
+  ],
+  "97427": [
+   "Munjela",
+   6935,
+   1
+  ],
+  "97234": [
+   "Sirohi Ki Bhagal",
+   6393,
+   11
+  ],
+  "96575": [
+   "Send Ka Khera",
+   640,
+   34
+  ],
+  "96622": [
+   "Kawas Ka Gurha",
+   640,
+   32
+  ],
+  "96460": [
+   "Kalaliya",
+   639,
+   39
+  ],
+  "96438": [
+   "Thaneta",
+   639,
+   41
+  ],
+  "96405": [
+   "Hathoon Garh",
+   639,
+   41
+  ],
+  "97367": [
+   "Sarsuniya",
+   6393,
+   5
+  ],
+  "97265": [
+   "Fatehpur",
+   6393,
+   3
+  ],
+  "97266": [
+   "Kama",
+   6393,
+   4
+  ],
+  "97264": [
+   "Charnon Ki Madar",
+   6393,
+   3
+  ],
+  "97267": [
+   "Sar Ki Bhagal",
+   6393,
+   4
+  ],
+  "97268": [
+   "Khera Ki Bhagal",
+   6393,
+   4
+  ],
+  "248820": [
+   "Nathdwara",
+   645,
+   6
+  ],
+  "96990": [
+   "Parmaron Ka Bhagal",
+   642,
+   3
+  ],
+  "97353": [
+   "Khokha Dhani",
+   645,
+   6
+  ],
+  "97400": [
+   "Negdiya",
+   6935,
+   2
+  ],
+  "97413": [
+   "Ushan",
+   6935,
+   0
+  ],
+  "97412": [
+   "Kunda",
+   6935,
+   0
+  ],
+  "97414": [
+   "Raya",
+   6935,
+   0
+  ],
+  "97411": [
+   "Chhapra",
+   6935,
+   0
+  ],
+  "97444": [
+   "Bapra",
+   6935,
+   1
+  ],
+  "97409": [
+   "Barawa",
+   6935,
+   0
+  ],
+  "97418": [
+   "Shivsingh Ka Guda",
+   6935,
+   0
+  ],
+  "97419": [
+   "Nedach",
+   6935,
+   0
+  ],
+  "97410": [
+   "Ghodach",
+   6935,
+   0
+  ],
+  "97420": [
+   "Khetpal Ka Guda",
+   6935,
+   0
+  ],
+  "97415": [
+   "Ghati Ka Math",
+   6935,
+   0
+  ],
+  "97417": [
+   "Joona Guda",
+   6935,
+   0
+  ],
+  "97392": [
+   "Bajunda",
+   6935,
+   2
+  ],
+  "97391": [
+   "Jhar Sadri",
+   6935,
+   2
+  ],
+  "97399": [
+   "Shishvi",
+   6935,
+   2
+  ],
+  "97390": [
+   "Deoron Ka Guda",
+   6935,
+   2
+  ],
+  "97395": [
+   "Sodawas",
+   6935,
+   2
+  ],
+  "97393": [
+   "Shishvi Ki Dhani",
+   6935,
+   2
+  ],
+  "97394": [
+   "Rampuriya",
+   6935,
+   2
+  ],
+  "97447": [
+   "Bilawas",
+   6935,
+   1
+  ],
+  "97445": [
+   "Kotri Ka Dhana",
+   6935,
+   1
+  ],
+  "97446": [
+   "Beran",
+   6935,
+   1
+  ],
+  "97440": [
+   "Siyol",
+   6935,
+   1
+  ],
+  "97438": [
+   "Kaliwas",
+   6935,
+   1
+  ],
+  "97439": [
+   "Tantela",
+   6935,
+   1
+  ],
+  "97441": [
+   "Leelera",
+   6935,
+   1
+  ],
+  "97443": [
+   "Shikarwari",
+   6935,
+   1
+  ],
+  "97442": [
+   "Barwa",
+   6935,
+   1
+  ],
+  "97432": [
+   "Majera",
+   6935,
+   1
+  ],
+  "97431": [
+   "Bilota",
+   6935,
+   1
+  ],
+  "97430": [
+   "Karmathon Ka Dhana",
+   6935,
+   1
+  ],
+  "97407": [
+   "Semal",
+   6935,
+   2
+  ],
+  "97406": [
+   "Kag Madarda",
+   6935,
+   2
+  ],
+  "97405": [
+   "Mandak Ka Guda",
+   6935,
+   2
+  ],
+  "97423": [
+   "Kolar",
+   6935,
+   0
+  ],
+  "97436": [
+   "Gamethon Ka Nohara",
+   6935,
+   1
+  ],
+  "97437": [
+   "Damawari",
+   6935,
+   1
+  ],
+  "97404": [
+   "Dhana",
+   6935,
+   2
+  ],
+  "97402": [
+   "Peepalwas",
+   6935,
+   2
+  ],
+  "97401": [
+   "Kesooli",
+   6935,
+   2
+  ],
+  "97416": [
+   "Bhoomaliyon Ka Guda",
+   6935,
+   0
+  ],
+  "97422": [
+   "Bor Ka Kua",
+   6935,
+   0
+  ],
+  "97421": [
+   "Dadmi",
+   6935,
+   2
+  ],
+  "97435": [
+   "Kamli Ka Gurha",
+   6935,
+   1
+  ],
+  "97424": [
+   "Barwaliya",
+   6935,
+   1
+  ],
+  "97426": [
+   "Shyamji Ka Gurha",
+   6935,
+   1
+  ],
+  "97433": [
+   "Songariya",
+   6935,
+   1
+  ],
+  "97434": [
+   "Rainiya",
+   6935,
+   1
+  ],
+  "97397": [
+   "Loleron Ka Guda",
+   6935,
+   2
+  ],
+  "97396": [
+   "Rathunjana",
+   6935,
+   1
+  ],
+  "97398": [
+   "Siliyon Ka Guda",
+   6935,
+   2
+  ],
+  "97429": [
+   "Jeepon Ka Rahanth",
+   6935,
+   1
+  ],
+  "97428": [
+   "Gudli",
+   6935,
+   1
+  ],
+  "97425": [
+   "Gorela",
+   6935,
+   2
+  ],
+  "97408": [
+   "Seem Ki Bhagal",
+   6935,
+   2
+  ],
+  "97376": [
+   "Rebariyon Ki Dhani",
+   6393,
+   2
+  ],
+  "97388": [
+   "Karoli",
+   6935,
+   2
+  ],
+  "97387": [
+   "Karoli Ki Dhani",
+   6935,
+   2
+  ],
+  "97389": [
+   "Dabiyon Ka Guda",
+   6935,
+   2
+  ],
+  "97292": [
+   "Bagol",
+   645,
+   5
+  ],
+  "97293": [
+   "Paneriyon Ki Madri",
+   645,
+   5
+  ],
+  "97276": [
+   "Parawal",
+   645,
+   5
+  ],
+  "97366": [
+   "Chandniya",
+   6393,
+   2
+  ],
+  "97381": [
+   "Roopji Ka Guda",
+   6393,
+   2
+  ],
+  "97364": [
+   "Tantol",
+   6393,
+   5
+  ],
+  "97361": [
+   "Upli Odan",
+   645,
+   2
+  ],
+  "97365": [
+   "Bhiyaz",
+   6393,
+   2
+  ],
+  "97383": [
+   "Maal Ka Guda",
+   6393,
+   2
+  ],
+  "97382": [
+   "Pasuniya",
+   6393,
+   2
+  ],
+  "97363": [
+   "Joshiyon Ki Madri",
+   645,
+   5
+  ],
+  "97362": [
+   "Nichli Odan",
+   645,
+   2
+  ],
+  "97384": [
+   "Rabcha",
+   6935,
+   2
+  ],
+  "97385": [
+   "Lal Madri",
+   6935,
+   2
+  ],
+  "97386": [
+   "Ranawaton Ka Gura",
+   6935,
+   2
+  ],
+  "97269": [
+   "Saloda",
+   6393,
+   4
+  ],
+  "97372": [
+   "Sirohi Ki Bhagal",
+   6393,
+   4
+  ],
+  "97377": [
+   "Balicha",
+   6393,
+   2
+  ],
+  "97375": [
+   "Kharwaron Ki Dhani",
+   6393,
+   4
+  ],
+  "97374": [
+   "Angor Ki Bhagal",
+   6393,
+   4
+  ],
+  "97373": [
+   "Sagroon",
+   6393,
+   4
+  ],
+  "97371": [
+   "Dabun",
+   6393,
+   4
+  ],
+  "97379": [
+   "Unwas",
+   6393,
+   2
+  ],
+  "97380": [
+   "Kuriya Wara",
+   6393,
+   2
+  ],
+  "97378": [
+   "Warni Ki Bhagal",
+   6393,
+   2
+  ],
+  "97273": [
+   "Kheri",
+   6393,
+   5
+  ],
+  "97370": [
+   "Khamnor",
+   6393,
+   5
+  ],
+  "97368": [
+   "Soiki Bhagal",
+   6393,
+   5
+  ],
+  "97369": [
+   "Gurjargarh",
+   6393,
+   2
+  ],
+  "97403": [
+   "Papamal",
+   6935,
+   2
+  ],
+  "97255": [
+   "Talayon Ka Bhilwara",
+   6393,
+   4
+  ],
+  "96908": [
+   "Qila Kumbhalgarh",
+   642,
+   18
+  ],
+  "96954": [
+   "Hameerpal",
+   642,
+   10
+  ],
+  "96937": [
+   "Moyna",
+   642,
+   11
+  ],
+  "96918": [
+   "Kelwara",
+   642,
+   10
+  ],
+  "96938": [
+   "Bareend",
+   642,
+   11
+  ],
+  "96940": [
+   "Bargaon",
+   642,
+   11
+  ],
+  "96928": [
+   "Bhawani Ki Bhagal",
+   642,
+   11
+  ],
+  "96906": [
+   "Majhera",
+   642,
+   19
+  ],
+  "96975": [
+   "Usar",
+   642,
+   3
+  ],
+  "96962": [
+   "Antri",
+   642,
+   10
+  ],
+  "96946": [
+   "Dhooni Ki Bhagal",
+   642,
+   11
+  ],
+  "96945": [
+   "Madrechon Ka Gurha",
+   642,
+   11
+  ],
+  "96948": [
+   "Keetawaton Ki Bhagal",
+   642,
+   11
+  ],
+  "96964": [
+   "Kodar",
+   642,
+   10
+  ],
+  "96910": [
+   "Kotra",
+   642,
+   18
+  ],
+  "96925": [
+   "Nathela",
+   6392,
+   19
+  ],
+  "96909": [
+   "Aret Ki Bhagal",
+   642,
+   18
+  ],
+  "96911": [
+   "Kalthana",
+   642,
+   18
+  ],
+  "96913": [
+   "Udawar",
+   642,
+   18
+  ],
+  "96924": [
+   "Pawana",
+   6392,
+   19
+  ],
+  "96926": [
+   "Thoriya",
+   642,
+   20
+  ],
+  "96922": [
+   "Oladar",
+   642,
+   19
+  ],
+  "96912": [
+   "Bardara",
+   642,
+   10
+  ],
+  "96914": [
+   "Kamora",
+   642,
+   18
+  ],
+  "96917": [
+   "Beer Ki Bhagal",
+   642,
+   18
+  ],
+  "96915": [
+   "Sinya",
+   642,
+   10
+  ],
+  "96953": [
+   "Gamri",
+   642,
+   10
+  ],
+  "96916": [
+   "Kariya",
+   642,
+   10
+  ],
+  "96921": [
+   "Balwas",
+   642,
+   19
+  ],
+  "96920": [
+   "Kheran",
+   642,
+   11
+  ],
+  "96939": [
+   "Kherliya",
+   642,
+   11
+  ],
+  "96929": [
+   "Bardaya",
+   642,
+   11
+  ],
+  "96919": [
+   "Melawari",
+   642,
+   11
+  ],
+  "96930": [
+   "Shishodiyon Ka Gurha",
+   642,
+   11
+  ],
+  "96936": [
+   "Chatraji Ka Gurha",
+   642,
+   11
+  ],
+  "96952": [
+   "Taladari",
+   642,
+   10
+  ],
+  "96935": [
+   "Dab Kuriya",
+   642,
+   11
+  ],
+  "96931": [
+   "Gowal",
+   642,
+   12
+  ],
+  "96934": [
+   "Jhitriya",
+   642,
+   11
+  ],
+  "96932": [
+   "Koyal",
+   642,
+   11
+  ],
+  "96942": [
+   "Morcha",
+   642,
+   11
+  ],
+  "96941": [
+   "Chauhanon Ka Gurha",
+   642,
+   11
+  ],
+  "96933": [
+   "Ganga Gurha",
+   642,
+   11
+  ],
+  "96943": [
+   "Peechhoron Ki Bhagal",
+   642,
+   11
+  ],
+  "96966": [
+   "Gamri Ki Nal",
+   642,
+   10
+  ],
+  "96944": [
+   "Kaleenjar",
+   642,
+   11
+  ],
+  "96947": [
+   "Bargula",
+   642,
+   11
+  ],
+  "96950": [
+   "Ballon Ka Gurha",
+   642,
+   11
+  ],
+  "96949": [
+   "Mamadeo Ki Bhagal",
+   642,
+   11
+  ],
+  "96955": [
+   "Chamboa Sarjela",
+   642,
+   10
+  ],
+  "97275": [
+   "Molela",
+   6393,
+   5
+  ],
+  "97261": [
+   "Rachhoti",
+   6393,
+   4
+  ],
+  "97262": [
+   "Karai",
+   6393,
+   3
+  ],
+  "96992": [
+   "Sangath Khurd",
+   643,
+   12
+  ],
+  "97242": [
+   "Sayon Ka Khera",
+   645,
+   11
+  ],
+  "97233": [
+   "Sogri Ki Bhagal",
+   6393,
+   11
+  ],
+  "97239": [
+   "Talawon Ki Bhagal",
+   6393,
+   11
+  ],
+  "97243": [
+   "Chikalwas",
+   645,
+   12
+  ],
+  "97241": [
+   "Marka",
+   645,
+   11
+  ],
+  "97236": [
+   "Gaon Guda",
+   6393,
+   11
+  ],
+  "97285": [
+   "Kunthwa",
+   645,
+   5
+  ],
+  "97248": [
+   "Dadwal",
+   645,
+   4
+  ],
+  "97283": [
+   "Atatiya",
+   645,
+   5
+  ],
+  "97249": [
+   "Madrecho Ka Guda",
+   6393,
+   4
+  ],
+  "97297": [
+   "Gunjol",
+   645,
+   6
+  ],
+  "97295": [
+   "Kalan Kheri Patiya",
+   645,
+   6
+  ],
+  "97257": [
+   "Ratnawaton Ki Bhagal",
+   6393,
+   4
+  ],
+  "97281": [
+   "Atatiya Majra Kandoi",
+   645,
+   5
+  ],
+  "97251": [
+   "Bhainsa Kamed",
+   6393,
+   4
+  ],
+  "97244": [
+   "Mokela",
+   645,
+   5
+  ],
+  "97284": [
+   "Rawon Ki Gudli",
+   645,
+   5
+  ],
+  "97245": [
+   "Shishoda Kalan",
+   645,
+   5
+  ],
+  "97282": [
+   "Shishoda Khurd",
+   645,
+   5
+  ],
+  "97247": [
+   "Dhindhagarh",
+   645,
+   4
+  ],
+  "97246": [
+   "Satlewa",
+   645,
+   5
+  ],
+  "97258": [
+   "Kadon Ka Gurha",
+   6393,
+   4
+  ],
+  "97260": [
+   "Bara Bhanuja",
+   6393,
+   4
+  ],
+  "97263": [
+   "Machind",
+   6393,
+   3
+  ],
+  "97302": [
+   "Karjiya",
+   645,
+   6
+  ],
+  "97298": [
+   "Umarda Talai",
+   645,
+   6
+  ],
+  "97296": [
+   "Kalan Kheri Khara",
+   645,
+   6
+  ],
+  "97053": [
+   "Gugleta",
+   643,
+   20
+  ],
+  "97084": [
+   "Poothol",
+   643,
+   12
+  ],
+  "97103": [
+   "Nandora",
+   643,
+   6
+  ],
+  "97049": [
+   "Atma",
+   643,
+   20
+  ],
+  "97048": [
+   "Jhanjhar",
+   643,
+   20
+  ],
+  "97007": [
+   "Talai",
+   643,
+   20
+  ],
+  "97050": [
+   "Sapol",
+   643,
+   20
+  ],
+  "97047": [
+   "Dhani",
+   643,
+   20
+  ],
+  "97042": [
+   "Mokhampura",
+   643,
+   21
+  ],
+  "97045": [
+   "Nijharna",
+   643,
+   21
+  ],
+  "97054": [
+   "Morwar",
+   643,
+   12
+  ],
+  "97043": [
+   "Boraj Ka Khera",
+   643,
+   21
+  ],
+  "97086": [
+   "Bhundan",
+   643,
+   12
+  ],
+  "97044": [
+   "Boraj",
+   643,
+   13
+  ],
+  "97099": [
+   "Dowar",
+   643,
+   12
+  ],
+  "97087": [
+   "Bagota",
+   643,
+   12
+  ],
+  "97055": [
+   "Kharandiya",
+   643,
+   13
+  ],
+  "97085": [
+   "Piplantri Khurd",
+   643,
+   12
+  ],
+  "97056": [
+   "Madri Gowaliya",
+   643,
+   13
+  ],
+  "97082": [
+   "Mundol",
+   643,
+   13
+  ],
+  "97091": [
+   "Banshawaliyon Ka Gurha",
+   643,
+   12
+  ],
+  "97093": [
+   "Tarot",
+   643,
+   12
+  ],
+  "97094": [
+   "Sakroda",
+   643,
+   12
+  ],
+  "97083": [
+   "Dipty Khera",
+   643,
+   13
+  ],
+  "97092": [
+   "Punawali",
+   643,
+   12
+  ],
+  "97080": [
+   "Dipty",
+   643,
+   13
+  ],
+  "97079": [
+   "Sundarcha",
+   643,
+   13
+  ],
+  "97078": [
+   "Tunkara Khurd",
+   643,
+   13
+  ],
+  "97098": [
+   "Kada Ka Talab",
+   643,
+   12
+  ],
+  "97096": [
+   "Dhanwal",
+   643,
+   12
+  ],
+  "97077": [
+   "Deothari",
+   643,
+   13
+  ],
+  "97100": [
+   "Pharara",
+   643,
+   5
+  ],
+  "97104": [
+   "Badarda",
+   643,
+   6
+  ],
+  "97088": [
+   "Bida Ki Bhagal",
+   643,
+   12
+  ],
+  "97097": [
+   "Kandeo Ka Gurha",
+   643,
+   12
+  ],
+  "97101": [
+   "Chintaman Ka Madara",
+   643,
+   5
+  ],
+  "97102": [
+   "Maja",
+   643,
+   6
+  ],
+  "97301": [
+   "Kala Kheri Badlawali",
+   645,
+   6
+  ],
+  "96927": [
+   "Gajpur",
+   642,
+   19
+  ],
+  "97046": [
+   "Omthi",
+   643,
+   20
+  ],
+  "97051": [
+   "Peepalantri Kalan",
+   643,
+   20
+  ],
+  "97095": [
+   "Baghsinghji Ka Nada",
+   643,
+   12
+  ],
+  "97006": [
+   "Pipalya",
+   643,
+   20
+  ],
+  "97052": [
+   "Aarna",
+   643,
+   20
+  ],
+  "97090": [
+   "Sahgath Kalan",
+   643,
+   12
+  ],
+  "97089": [
+   "Damala",
+   643,
+   12
+  ],
+  "96963": [
+   "Dowas",
+   642,
+   10
+  ],
+  "96957": [
+   "Sandookon Ka Gurha",
+   642,
+   10
+  ],
+  "96956": [
+   "Uthron Ki Bhagal",
+   642,
+   10
+  ],
+  "96974": [
+   "Koda Kara",
+   642,
+   10
+  ],
+  "96965": [
+   "Kakarwa",
+   642,
+   10
+  ],
+  "96979": [
+   "Ora",
+   642,
+   10
+  ],
+  "96958": [
+   "Jetaran",
+   642,
+   10
+  ],
+  "96960": [
+   "Delwariya",
+   642,
+   10
+  ],
+  "96959": [
+   "Peepana",
+   642,
+   10
+  ],
+  "96961": [
+   "Baran",
+   642,
+   10
+  ],
+  "96980": [
+   "Keshar",
+   642,
+   3
+  ],
+  "96978": [
+   "Kanooja",
+   642,
+   10
+  ],
+  "96987": [
+   "Bawada",
+   642,
+   3
+  ],
+  "96986": [
+   "Kucholi",
+   642,
+   3
+  ],
+  "96982": [
+   "Uplawas",
+   642,
+   3
+  ],
+  "96981": [
+   "Deoron Ki Bhagal",
+   642,
+   3
+  ],
+  "96989": [
+   "Banokra",
+   642,
+   3
+  ],
+  "96985": [
+   "Pansun",
+   642,
+   3
+  ],
+  "96984": [
+   "Jarpha",
+   642,
+   3
+  ],
+  "96988": [
+   "Lakhmawaton Ka Gurha",
+   642,
+   3
+  ],
+  "96977": [
+   "Manchra",
+   642,
+   3
+  ],
+  "96951": [
+   "Dhoran",
+   642,
+   11
+  ],
+  "96967": [
+   "Dang Ka Was",
+   642,
+   10
+  ],
+  "96969": [
+   "Sameecha",
+   642,
+   11
+  ],
+  "96968": [
+   "Devi Ka Was",
+   642,
+   10
+  ],
+  "96973": [
+   "Atdoomba",
+   642,
+   10
+  ],
+  "96970": [
+   "Maifawation Ka Was",
+   642,
+   11
+  ],
+  "96983": [
+   "Peepla",
+   642,
+   3
+  ],
+  "96971": [
+   "Halai Ki Bhagal",
+   642,
+   10
+  ],
+  "96972": [
+   "Ramawaton Ki Bhagal",
+   642,
+   10
+  ],
+  "96976": [
+   "Chaptelon Ki Bhagal",
+   642,
+   3
+  ],
+  "97299": [
+   "Kalan Kheri Veeran",
+   645,
+   6
+  ],
+  "97256": [
+   "Saptaliya Ka Bhilwara",
+   6393,
+   4
+  ],
+  "97235": [
+   "Rankar Ka Bhilwara",
+   6393,
+   11
+  ],
+  "97240": [
+   "Haridas Ji Ka Guda",
+   6393,
+   4
+  ],
+  "97238": [
+   "Sarwadiyon Ki Bhagal",
+   6393,
+   11
+  ],
+  "97237": [
+   "Jhalon Ki Madar",
+   6393,
+   11
+  ],
+  "97250": [
+   "Bamaniya Weir",
+   6393,
+   4
+  ],
+  "97287": [
+   "Gudla",
+   645,
+   5
+  ],
+  "97288": [
+   "Uthadon Ki Bhagal",
+   645,
+   5
+  ],
+  "97286": [
+   "Surat Singh Ji Ki Bhagal",
+   645,
+   5
+  ],
+  "97289": [
+   "Borana Ka Gurah",
+   645,
+   5
+  ],
+  "97290": [
+   "Dhanyla",
+   645,
+   5
+  ],
+  "97291": [
+   "Kotela",
+   645,
+   5
+  ],
+  "97294": [
+   "Kooncholi",
+   645,
+   5
+  ],
+  "97259": [
+   "Chhota Bhanuja",
+   6393,
+   4
+  ],
+  "97254": [
+   "Mokhara",
+   6393,
+   4
+  ],
+  "97252": [
+   "Koshiwara",
+   6393,
+   4
+  ],
+  "97271": [
+   "Sema",
+   6393,
+   4
+  ],
+  "97277": [
+   "Kherliya",
+   645,
+   5
+  ],
+  "97280": [
+   "Rebariyon Ki Dhani",
+   6393,
+   5
+  ],
+  "97278": [
+   "Badi Ballon Ki Bhagal",
+   6393,
+   5
+  ],
+  "97272": [
+   "Malida",
+   6393,
+   4
+  ],
+  "97279": [
+   "Usarwas",
+   6393,
+   4
+  ],
+  "97253": [
+   "Sadula",
+   6393,
+   4
+  ],
+  "97274": [
+   "Udawaton Ki Bhagal",
+   6393,
+   4
+  ],
+  "97270": [
+   "Dhanwara",
+   6393,
+   4
+  ],
+  "97448": [
+   "Delwara CT",
+   6935,
+   1
+  ],
+  "97133": [
+   "Kelwa CT",
+   643,
+   21
+  ],
+  "96694": [
+   "Hakyawas",
+   641,
+   28
+  ],
+  "96677": [
+   "Gowal",
+   641,
+   28
+  ],
+  "96673": [
+   "Deoron Ka Gurha",
+   641,
+   27
+  ],
+  "96675": [
+   "Jawaliya",
+   641,
+   28
+  ],
+  "96674": [
+   "Nawalsingh Ka Khera",
+   641,
+   27
+  ],
+  "96531": [
+   "Moothiya",
+   639,
+   27
+  ],
+  "96533": [
+   "Kala Guman",
+   639,
+   25
+  ],
+  "96532": [
+   "Gurha Chat",
+   639,
+   25
+  ],
+  "96534": [
+   "Minkiyawas",
+   639,
+   25
+  ],
+  "96991": [
+   "Deviyon Ka Merda",
+   643,
+   25
+  ],
+  "96678": [
+   "Shobhag Pura",
+   641,
+   28
+  ],
+  "96676": [
+   "Bhairoodas Ji Ka Khera",
+   641,
+   28
+  ],
+  "96899": [
+   "Kardon Ka Gurha",
+   6392,
+   19
+  ],
+  "96509": [
+   "Kheema Gurha",
+   639,
+   33
+  ],
+  "96515": [
+   "Baghana",
+   639,
+   33
+  ],
+  "96527": [
+   "Pipreloo",
+   639,
+   30
+  ],
+  "96526": [
+   "Chhapli",
+   639,
+   31
+  ],
+  "96525": [
+   "Dawer",
+   639,
+   31
+  ],
+  "96528": [
+   "Khera Jassa",
+   639,
+   30
+  ],
+  "96529": [
+   "Jhoothiya",
+   639,
+   27
+  ],
+  "96530": [
+   "Gurha Kesha",
+   639,
+   27
+  ],
+  "96507": [
+   "Beeram Gurha",
+   639,
+   33
+  ],
+  "96508": [
+   "Peetha Gurha",
+   639,
+   33
+  ],
+  "96654": [
+   "Tapalon Ka Khera",
+   640,
+   28
+  ],
+  "96880": [
+   "Kharnota",
+   6392,
+   25
+  ],
+  "96874": [
+   "Mawelon Ka Gurha",
+   6392,
+   24
+  ],
+  "96870": [
+   "Hataji Ka Gurha",
+   6392,
+   23
+  ],
+  "96876": [
+   "Tadawara Gujran",
+   6392,
+   24
+  ],
+  "96864": [
+   "Bagunda",
+   6392,
+   23
+  ],
+  "96860": [
+   "Dhanayka",
+   6392,
+   24
+  ],
+  "96855": [
+   "Ayatri",
+   6392,
+   24
+  ],
+  "96862": [
+   "Borar",
+   6392,
+   23
+  ],
+  "96865": [
+   "Upla Ghatra",
+   6392,
+   23
+  ],
+  "96859": [
+   "Bamaniya",
+   6392,
+   24
+  ],
+  "96838": [
+   "Amartiya",
+   6392,
+   24
+  ],
+  "96856": [
+   "Neemri",
+   6392,
+   24
+  ],
+  "96871": [
+   "Garhbor",
+   6392,
+   23
+  ],
+  "96840": [
+   "Janawad",
+   6392,
+   24
+  ],
+  "96651": [
+   "Mada Ki Bassi",
+   640,
+   27
+  ],
+  "96650": [
+   "Nardas Ka Gurha",
+   640,
+   28
+  ],
+  "96653": [
+   "Halela",
+   640,
+   27
+  ],
+  "96649": [
+   "Dodiya Khera",
+   640,
+   28
+  ],
+  "96652": [
+   "Darada",
+   640,
+   27
+  ],
+  "96824": [
+   "Umarwas",
+   6392,
+   27
+  ],
+  "96846": [
+   "Koyla",
+   6392,
+   27
+  ],
+  "96847": [
+   "Sewantri",
+   6392,
+   23
+  ],
+  "96828": [
+   "Asan Bansa",
+   6392,
+   27
+  ],
+  "96829": [
+   "Bansa",
+   6392,
+   27
+  ],
+  "96830": [
+   "Bori",
+   6392,
+   27
+  ],
+  "96831": [
+   "Choondawaton Ka Khera",
+   6392,
+   27
+  ],
+  "96845": [
+   "Khera",
+   6392,
+   27
+  ],
+  "96832": [
+   "Kitela",
+   6392,
+   27
+  ],
+  "96843": [
+   "Thoriyawas",
+   6392,
+   27
+  ],
+  "96849": [
+   "Jamboo Ka Talab",
+   6392,
+   23
+  ],
+  "96833": [
+   "Kakariya",
+   6392,
+   27
+  ],
+  "96844": [
+   "Saras Ka Gurha",
+   6392,
+   27
+  ],
+  "96850": [
+   "Puthiya",
+   6392,
+   23
+  ],
+  "96835": [
+   "Tadawara Solankiyan",
+   6392,
+   24
+  ],
+  "96854": [
+   "Lor",
+   6392,
+   24
+  ],
+  "96841": [
+   "Soniyana",
+   6392,
+   24
+  ],
+  "96836": [
+   "Jawaliya",
+   6392,
+   28
+  ],
+  "96852": [
+   "Sathiya",
+   6392,
+   24
+  ],
+  "96839": [
+   "Gudliya",
+   6392,
+   24
+  ],
+  "96863": [
+   "Kachhar",
+   6392,
+   23
+  ],
+  "96866": [
+   "Neechla Ghatra",
+   6392,
+   23
+  ],
+  "96873": [
+   "Dhodiwas",
+   6392,
+   24
+  ],
+  "96879": [
+   "Joj",
+   6392,
+   25
+  ],
+  "96875": [
+   "Khakhon Ka Gurha",
+   6392,
+   24
+  ],
+  "96868": [
+   "Borda Ki Bhagal",
+   6392,
+   23
+  ],
+  "96878": [
+   "Dhaneen",
+   6392,
+   24
+  ],
+  "96898": [
+   "Morana",
+   6392,
+   24
+  ],
+  "96885": [
+   "Amliyar",
+   6392,
+   24
+  ],
+  "96907": [
+   "Gawar",
+   642,
+   18
+  ],
+  "96881": [
+   "Gitoriya",
+   6392,
+   25
+  ],
+  "96877": [
+   "Lewo Ka Talab",
+   6392,
+   24
+  ],
+  "96901": [
+   "Chadana Ki Bhagal",
+   6392,
+   23
+  ],
+  "96883": [
+   "Amli Ka Gurha",
+   6392,
+   25
+  ],
+  "96900": [
+   "Mewariya",
+   6392,
+   23
+  ],
+  "96897": [
+   "Chechiyon Ka Gurha",
+   6392,
+   24
+  ],
+  "96882": [
+   "Jawariya",
+   6392,
+   25
+  ],
+  "96886": [
+   "Mojawaton Ka Gurha",
+   6392,
+   24
+  ],
+  "96896": [
+   "Rod Ka Gurha",
+   6392,
+   20
+  ],
+  "96895": [
+   "Ovri Ka Valra",
+   6392,
+   20
+  ],
+  "96902": [
+   "Nathaji Ka Gurha",
+   6392,
+   19
+  ],
+  "96893": [
+   "Soonkhar",
+   6392,
+   20
+  ],
+  "96888": [
+   "Baniya Tukra",
+   6392,
+   20
+  ],
+  "96905": [
+   "Thurawar",
+   6392,
+   19
+  ],
+  "96903": [
+   "Beera Ki Bhagal",
+   6392,
+   19
+  ],
+  "96894": [
+   "Antaliya",
+   6392,
+   20
+  ],
+  "96923": [
+   "Reechher",
+   6392,
+   19
+  ],
+  "96904": [
+   "Dhola Ki Or",
+   6392,
+   19
+  ],
+  "96892": [
+   "Joor",
+   6392,
+   20
+  ],
+  "96889": [
+   "Kunwariya",
+   6392,
+   20
+  ],
+  "96891": [
+   "Rati Talai",
+   6392,
+   20
+  ],
+  "96890": [
+   "Jardaya",
+   6392,
+   20
+  ],
+  "96851": [
+   "Kikathoriya Ki Bhagal",
+   6392,
+   23
+  ],
+  "96834": [
+   "Kharni Khera",
+   6392,
+   27
+  ],
+  "96858": [
+   "Doongar Ji Ka Gurha",
+   6392,
+   24
+  ],
+  "96827": [
+   "Khara Asan",
+   6392,
+   27
+  ],
+  "97003": [
+   "Kanawada",
+   643,
+   20
+  ],
+  "96848": [
+   "Roop Nagar",
+   6392,
+   23
+  ],
+  "96867": [
+   "Manawation Ka Gurha",
+   6392,
+   23
+  ],
+  "96857": [
+   "Jassaji Ka Gurha",
+   6392,
+   24
+  ],
+  "96869": [
+   "Jheel Wara",
+   6392,
+   23
+  ],
+  "96884": [
+   "Mansingh Ji Ka Gurha",
+   6392,
+   24
+  ],
+  "96887": [
+   "Mohan Ram Ji Ka Gurha",
+   6392,
+   20
+  ],
+  "97001": [
+   "Miyari",
+   643,
+   21
+  ],
+  "96996": [
+   "Parasli",
+   643,
+   20
+  ],
+  "96995": [
+   "Keringji Ka Khera",
+   643,
+   25
+  ],
+  "96994": [
+   "Arwara",
+   643,
+   21
+  ],
+  "96997": [
+   "Mandawara",
+   643,
+   20
+  ],
+  "96998": [
+   "Daulatpura",
+   643,
+   21
+  ],
+  "96999": [
+   "Bamantukra",
+   643,
+   21
+  ],
+  "97004": [
+   "Podawali",
+   643,
+   20
+  ],
+  "97005": [
+   "Sardul",
+   643,
+   21
+  ],
+  "97008": [
+   "Deopura",
+   643,
+   21
+  ],
+  "97002": [
+   "Madri Devsthan",
+   643,
+   21
+  ],
+  "96842": [
+   "Dheeloria",
+   6392,
+   27
+  ],
+  "96519": [
+   "Kanawas",
+   639,
+   31
+  ],
+  "96825": [
+   "Mawa Ka Gurha",
+   6392,
+   27
+  ],
+  "96826": [
+   "Teja Ka Gurha",
+   6392,
+   27
+  ],
+  "96837": [
+   "Lambori",
+   6392,
+   24
+  ],
+  "96853": [
+   "Devaji Ki Bhagal",
+   6392,
+   24
+  ],
+  "96861": [
+   "Dhanayka Ki Bhagal",
+   6392,
+   24
+  ],
+  "96872": [
+   "Bhopji Ki Bhagal",
+   6392,
+   24
+  ],
+  "96648": [
+   "Surji Ka Khera",
+   640,
+   28
+  ],
+  "97355": [
+   "Sarooppura",
+   645,
+   6
+  ],
+  "97358": [
+   "Rampuriya",
+   645,
+   6
+  ],
+  "97339": [
+   "Saalor",
+   645,
+   7
+  ],
+  "97331": [
+   "Kheri",
+   645,
+   7
+  ],
+  "97352": [
+   "Modwa",
+   645,
+   6
+  ],
+  "97348": [
+   "Jagela",
+   645,
+   6
+  ],
+  "97329": [
+   "Utharda",
+   645,
+   6
+  ],
+  "97330": [
+   "Chaliya",
+   645,
+   7
+  ],
+  "97351": [
+   "Kothariya Chak B",
+   645,
+   6
+  ],
+  "97229": [
+   "Gawaradi",
+   644,
+   8
+  ],
+  "97225": [
+   "Peepawas",
+   644,
+   9
+  ],
+  "97217": [
+   "Charana",
+   644,
+   8
+  ],
+  "97216": [
+   "Chhdanga Khera",
+   644,
+   8
+  ],
+  "97214": [
+   "Jagatsingh Ji Ka Khera",
+   644,
+   8
+  ],
+  "97215": [
+   "Dhaneriya",
+   644,
+   8
+  ],
+  "97231": [
+   "Chawandiya",
+   644,
+   9
+  ],
+  "97218": [
+   "Ladpacha",
+   644,
+   8
+  ],
+  "97230": [
+   "Chhapri",
+   644,
+   8
+  ],
+  "97359": [
+   "Gopakua",
+   645,
+   6
+  ],
+  "97227": [
+   "Mataji Ka Khera",
+   644,
+   9
+  ],
+  "97226": [
+   "Katiya Khera",
+   644,
+   9
+  ],
+  "97213": [
+   "Khatookra",
+   644,
+   8
+  ],
+  "97212": [
+   "Dheeli",
+   644,
+   7
+  ],
+  "97328": [
+   "Dharm Talai",
+   645,
+   6
+  ],
+  "97343": [
+   "Mandiyana",
+   645,
+   7
+  ],
+  "97341": [
+   "Mallakheri",
+   645,
+   7
+  ],
+  "97340": [
+   "Mogana",
+   645,
+   7
+  ],
+  "97333": [
+   "Takadiyon Ka Gurha",
+   645,
+   7
+  ],
+  "97338": [
+   "Baroliyon Ka Khera",
+   645,
+   7
+  ],
+  "97335": [
+   "Akodra",
+   645,
+   7
+  ],
+  "97336": [
+   "Halawas",
+   645,
+   7
+  ],
+  "97337": [
+   "Roopa Wali",
+   645,
+   7
+  ],
+  "97345": [
+   "Kajyawas",
+   645,
+   6
+  ],
+  "97354": [
+   "Ulpuramagra Pachhla",
+   645,
+   6
+  ],
+  "97346": [
+   "Adgela",
+   645,
+   6
+  ],
+  "97344": [
+   "Patalpura",
+   645,
+   6
+  ],
+  "97342": [
+   "Depur",
+   645,
+   6
+  ],
+  "97356": [
+   "Uthnol",
+   645,
+   6
+  ],
+  "97347": [
+   "Sardar Pura",
+   645,
+   6
+  ],
+  "97360": [
+   "Dingela",
+   645,
+   6
+  ],
+  "97357": [
+   "Jetela",
+   645,
+   6
+  ],
+  "97175": [
+   "Gamerpura",
+   644,
+   8
+  ],
+  "97316": [
+   "Doodpura",
+   645,
+   6
+  ],
+  "96814": [
+   "Sakroda",
+   641,
+   22
+  ],
+  "97320": [
+   "Nenpuriya",
+   645,
+   7
+  ],
+  "97308": [
+   "Suratpura",
+   645,
+   6
+  ],
+  "97312": [
+   "Khedana",
+   645,
+   6
+  ],
+  "97318": [
+   "Namana",
+   645,
+   6
+  ],
+  "97313": [
+   "Rakamgarh",
+   645,
+   6
+  ],
+  "97349": [
+   "Dhani Rebariyan",
+   645,
+   6
+  ],
+  "97321": [
+   "Bankon Ka Gura",
+   645,
+   7
+  ],
+  "97311": [
+   "Kesarpura",
+   645,
+   6
+  ],
+  "97310": [
+   "Khema Khera",
+   645,
+   6
+  ],
+  "97040": [
+   "Bagundara",
+   6928,
+   21
+  ],
+  "97319": [
+   "Kumariya Khera",
+   645,
+   7
+  ],
+  "97309": [
+   "Kheri Veeran",
+   645,
+   6
+  ],
+  "97315": [
+   "Sharah Magri",
+   645,
+   6
+  ],
+  "97305": [
+   "Bansra",
+   645,
+   6
+  ],
+  "97322": [
+   "Phulpura",
+   645,
+   7
+  ],
+  "97303": [
+   "Chenpuriya",
+   645,
+   6
+  ],
+  "97304": [
+   "Bandinal",
+   645,
+   6
+  ],
+  "97325": [
+   "Kiyawas",
+   645,
+   7
+  ],
+  "97300": [
+   "Badlawala",
+   645,
+   6
+  ],
+  "97323": [
+   "Bijnol",
+   645,
+   7
+  ],
+  "97326": [
+   "Kochli",
+   645,
+   6
+  ],
+  "97334": [
+   "Pakhand",
+   645,
+   7
+  ],
+  "97327": [
+   "Jeewa Khera",
+   645,
+   6
+  ],
+  "97332": [
+   "Lachhipura",
+   645,
+   7
+  ],
+  "97314": [
+   "Bamanhera",
+   645,
+   6
+  ],
+  "97317": [
+   "Ulpura Nadiwala",
+   645,
+   6
+  ],
+  "97350": [
+   "Kothariya Chak A",
+   645,
+   6
+  ],
+  "97158": [
+   "Jeetawas",
+   644,
+   16
+  ],
+  "97162": [
+   "Mau",
+   644,
+   15
+  ],
+  "97206": [
+   "Sarwariya Kheri",
+   644,
+   8
+  ],
+  "97156": [
+   "Bethumbi",
+   644,
+   16
+  ],
+  "97187": [
+   "Gangas",
+   644,
+   17
+  ],
+  "97166": [
+   "Bhoorwara",
+   644,
+   15
+  ],
+  "97188": [
+   "Jawasiya",
+   644,
+   17
+  ],
+  "97033": [
+   "Sadara",
+   6928,
+   22
+  ],
+  "97151": [
+   "Joonda Ki Kheri",
+   644,
+   16
+  ],
+  "97143": [
+   "Kuraj",
+   644,
+   15
+  ],
+  "97147": [
+   "Lapsya",
+   6928,
+   16
+  ],
+  "97144": [
+   "Khandel",
+   6928,
+   15
+  ],
+  "97148": [
+   "Rampuriya",
+   6928,
+   16
+  ],
+  "97023": [
+   "Kunwariya",
+   6928,
+   15
+  ],
+  "97063": [
+   "Madra",
+   6928,
+   14
+  ],
+  "97060": [
+   "Roon Rajsamand B",
+   6928,
+   13
+  ],
+  "97071": [
+   "Bhana",
+   6928,
+   13
+  ],
+  "97064": [
+   "Doom Khera",
+   6928,
+   14
+  ],
+  "97124": [
+   "Nakli",
+   643,
+   7
+  ],
+  "97145": [
+   "Bakhatpura",
+   6928,
+   15
+  ],
+  "97149": [
+   "Dolatpura",
+   6928,
+   16
+  ],
+  "97153": [
+   "Joonda",
+   644,
+   16
+  ],
+  "97140": [
+   "Mali Khera",
+   644,
+   15
+  ],
+  "97154": [
+   "Mataji Ka Khera",
+   644,
+   16
+  ],
+  "97138": [
+   "Pema Khera",
+   644,
+   15
+  ],
+  "97137": [
+   "Megha Khera",
+   6928,
+   15
+  ],
+  "97136": [
+   "Peepali Aheeran",
+   6928,
+   15
+  ],
+  "97139": [
+   "Gogathala",
+   644,
+   15
+  ],
+  "97155": [
+   "Ganeshpura",
+   644,
+   16
+  ],
+  "97184": [
+   "Panotiya",
+   644,
+   16
+  ],
+  "97160": [
+   "Morra",
+   644,
+   15
+  ],
+  "97161": [
+   "Madara",
+   644,
+   15
+  ],
+  "97185": [
+   "Karma Kheri",
+   644,
+   16
+  ],
+  "97159": [
+   "Jeewa Khera",
+   644,
+   16
+  ],
+  "97168": [
+   "Ora",
+   644,
+   14
+  ],
+  "97186": [
+   "Jagpura",
+   644,
+   17
+  ],
+  "97179": [
+   "Railmagra",
+   644,
+   8
+  ],
+  "97169": [
+   "Ardakiya",
+   644,
+   15
+  ],
+  "97183": [
+   "Pachhmata",
+   644,
+   16
+  ],
+  "97181": [
+   "Sindesar Kalan",
+   644,
+   16
+  ],
+  "97180": [
+   "Lathiya Kheri",
+   644,
+   16
+  ],
+  "97170": [
+   "Bhama Khera",
+   644,
+   8
+  ],
+  "97177": [
+   "Meniya",
+   644,
+   8
+  ],
+  "97171": [
+   "Phoonkiya",
+   644,
+   8
+  ],
+  "97198": [
+   "Ganeshpura",
+   644,
+   9
+  ],
+  "97192": [
+   "Gilund",
+   644,
+   17
+  ],
+  "97172": [
+   "Peepali Dodiyan",
+   644,
+   7
+  ],
+  "97202": [
+   "Shivpura",
+   644,
+   9
+  ],
+  "97201": [
+   "Amarpura",
+   644,
+   9
+  ],
+  "97176": [
+   "Karoliya",
+   644,
+   8
+  ],
+  "97173": [
+   "Turkya Kheri",
+   644,
+   8
+  ],
+  "97221": [
+   "Sunariya Khera",
+   644,
+   9
+  ],
+  "97146": [
+   "Tara Khera",
+   6928,
+   16
+  ],
+  "97135": [
+   "Prempura",
+   6928,
+   15
+  ],
+  "97157": [
+   "Bamniya Kalan",
+   644,
+   16
+  ],
+  "97163": [
+   "Sakarawas",
+   644,
+   15
+  ],
+  "97165": [
+   "Chokri",
+   644,
+   15
+  ],
+  "97178": [
+   "Sadri",
+   644,
+   8
+  ],
+  "97203": [
+   "Makanpuriya",
+   644,
+   9
+  ],
+  "97013": [
+   "Basani",
+   6928,
+   22
+  ],
+  "97012": [
+   "Deoron Ka Khera",
+   6928,
+   21
+  ],
+  "97011": [
+   "Ummedpura",
+   643,
+   21
+  ],
+  "97034": [
+   "Khatamala",
+   6928,
+   21
+  ],
+  "97016": [
+   "Akodiyon Ka Khera",
+   6928,
+   22
+  ],
+  "97041": [
+   "Kishanpura",
+   643,
+   21
+  ],
+  "97031": [
+   "Karanpuriya",
+   6928,
+   22
+  ],
+  "97030": [
+   "Deori Khera",
+   6928,
+   22
+  ],
+  "97029": [
+   "Duliyana",
+   6928,
+   22
+  ],
+  "97037": [
+   "Parwat Kheri",
+   6928,
+   21
+  ],
+  "97036": [
+   "Tasol",
+   6928,
+   21
+  ],
+  "97021": [
+   "Padampura",
+   6928,
+   22
+  ],
+  "97017": [
+   "Gadariyawas",
+   6928,
+   22
+  ],
+  "97038": [
+   "Pasoond",
+   643,
+   21
+  ],
+  "97032": [
+   "Vanai",
+   6928,
+   22
+  ],
+  "97028": [
+   "Khema Khera",
+   6928,
+   22
+  ],
+  "97035": [
+   "Dhanji Ka Khera",
+   6928,
+   21
+  ],
+  "97205": [
+   "Mali Khera",
+   644,
+   9
+  ],
+  "97062": [
+   "Mandawar",
+   6928,
+   21
+  ],
+  "97061": [
+   "Chhapar Kheri",
+   6928,
+   21
+  ],
+  "97018": [
+   "Khati Khera",
+   6928,
+   22
+  ],
+  "97027": [
+   "Rupa Khera",
+   6928,
+   22
+  ],
+  "97065": [
+   "Mahasatiyon Ki Madri",
+   6928,
+   14
+  ],
+  "97111": [
+   "Nandoli",
+   643,
+   14
+  ],
+  "97108": [
+   "Shankarpura",
+   643,
+   6
+  ],
+  "97110": [
+   "Bhat Khera",
+   643,
+   7
+  ],
+  "97119": [
+   "Rajyawas",
+   643,
+   7
+  ],
+  "97026": [
+   "Rawon Ka Khera",
+   6928,
+   14
+  ],
+  "97059": [
+   "Roon Rajsamand A",
+   643,
+   13
+  ],
+  "97057": [
+   "Sardul Khera",
+   643,
+   13
+  ],
+  "97070": [
+   "Bagdola",
+   6928,
+   14
+  ],
+  "97025": [
+   "Khakhliya Khera",
+   6928,
+   14
+  ],
+  "97081": [
+   "Bhagwanda Khurd",
+   643,
+   13
+  ],
+  "97072": [
+   "Lawana",
+   6928,
+   13
+  ],
+  "97068": [
+   "Bhawa",
+   6928,
+   14
+  ],
+  "97066": [
+   "Ghati",
+   6928,
+   14
+  ],
+  "97073": [
+   "Bhagawanda Kalan",
+   6928,
+   13
+  ],
+  "97207": [
+   "Shoupura",
+   644,
+   8
+  ],
+  "97067": [
+   "Soniyana",
+   6928,
+   14
+  ],
+  "97024": [
+   "Lalpur",
+   6928,
+   15
+  ],
+  "97075": [
+   "Baghpura",
+   6928,
+   14
+  ],
+  "97074": [
+   "Bansol",
+   6928,
+   13
+  ],
+  "97069": [
+   "Tarsingara",
+   6928,
+   14
+  ],
+  "97114": [
+   "Pratappura",
+   6928,
+   14
+  ],
+  "97115": [
+   "Pandolai",
+   643,
+   14
+  ],
+  "97116": [
+   "Pipali Acharyan",
+   6928,
+   14
+  ],
+  "97118": [
+   "Barliya",
+   6928,
+   14
+  ],
+  "97112": [
+   "Mohi",
+   643,
+   14
+  ],
+  "97107": [
+   "Piparada",
+   643,
+   6
+  ],
+  "97076": [
+   "Kerot",
+   643,
+   14
+  ],
+  "97109": [
+   "Nogawan",
+   643,
+   7
+  ],
+  "97122": [
+   "Bhatoli",
+   643,
+   7
+  ],
+  "97121": [
+   "Amloi",
+   643,
+   7
+  ],
+  "97132": [
+   "Tejpura",
+   643,
+   8
+  ],
+  "97131": [
+   "Deogaon",
+   643,
+   7
+  ],
+  "97130": [
+   "Jodhpuriya",
+   643,
+   7
+  ],
+  "97106": [
+   "Tejpuriya",
+   643,
+   6
+  ],
+  "97125": [
+   "Mengatiya Kalan",
+   643,
+   7
+  ],
+  "97105": [
+   "Dewana",
+   643,
+   6
+  ],
+  "97127": [
+   "Sathana",
+   643,
+   7
+  ],
+  "97126": [
+   "Mengatiya Khurd",
+   643,
+   7
+  ],
+  "97022": [
+   "Phiyawari",
+   6928,
+   15
+  ],
+  "97120": [
+   "Fatah Nagar",
+   643,
+   7
+  ],
+  "97123": [
+   "Fatahnagar Ka Khera",
+   643,
+   7
+  ],
+  "97164": [
+   "Mokhampura",
+   644,
+   15
+  ],
+  "97129": [
+   "Fatahpura",
+   643,
+   7
+  ],
+  "97307": [
+   "Khuman Pura",
+   645,
+   6
+  ],
+  "248818": [
+   "Rajsamand",
+   643,
+   13
+  ],
+  "97128": [
+   "Peethawas",
+   643,
+   7
+  ],
+  "97199": [
+   "Sanwaliya Khera",
+   644,
+   9
+  ],
+  "97200": [
+   "Bagatpura",
+   644,
+   9
+  ],
+  "97197": [
+   "Khar Bamaniya",
+   644,
+   9
+  ],
+  "97193": [
+   "Lakhmipura",
+   644,
+   17
+  ],
+  "97194": [
+   "Damodarpura",
+   644,
+   17
+  ],
+  "97196": [
+   "Soniyana",
+   644,
+   16
+  ],
+  "97195": [
+   "Chhtri Khera",
+   644,
+   17
+  ],
+  "97191": [
+   "Kolpura",
+   644,
+   17
+  ],
+  "97232": [
+   "Dariba",
+   644,
+   9
+  ],
+  "97190": [
+   "Kundiya",
+   644,
+   17
+  ],
+  "97222": [
+   "Kabra",
+   644,
+   9
+  ],
+  "97223": [
+   "Kotrii",
+   644,
+   9
+  ],
+  "97224": [
+   "Udalpura",
+   644,
+   9
+  ],
+  "97204": [
+   "Sindesarkhurd",
+   644,
+   9
+  ],
+  "97219": [
+   "Mahenduriya",
+   644,
+   8
+  ],
+  "97208": [
+   "Laxmipura",
+   644,
+   8
+  ],
+  "97211": [
+   "Sansera",
+   644,
+   8
+  ],
+  "97220": [
+   "Rajpura",
+   644,
+   9
+  ],
+  "97228": [
+   "Anjana",
+   644,
+   8
+  ],
+  "97182": [
+   "Chanpa Kheri",
+   644,
+   16
+  ],
+  "97174": [
+   "Banediya",
+   644,
+   8
+  ],
+  "97209": [
+   "Bharai",
+   644,
+   8
+  ],
+  "97210": [
+   "Chhdanga Kheri",
+   644,
+   8
+  ],
+  "97142": [
+   "Kanakhera",
+   644,
+   16
+  ],
+  "97141": [
+   "Mandapiya Ka Khera",
+   644,
+   15
+  ],
+  "97167": [
+   "Narayan Ganj",
+   644,
+   14
+  ],
+  "97058": [
+   "Morchana",
+   643,
+   13
+  ],
+  "97113": [
+   "Karni Nagar",
+   643,
+   14
+  ],
+  "97117": [
+   "Keshav Nagar",
+   6928,
+   14
+  ],
+  "97039": [
+   "Kiranpur",
+   643,
+   21
+  ],
+  "97324": [
+   "Sanga Ka Khera",
+   645,
+   7
+  ],
+  "97019": [
+   "Nathuwas",
+   6928,
+   22
+  ],
+  "97306": [
+   "Shyampura",
+   645,
+   6
+  ],
+  "97150": [
+   "Kishanpuriya",
+   644,
+   16
+  ],
+  "97152": [
+   "Chak Joonda",
+   644,
+   16
+  ],
+  "97020": [
+   "Govaliya",
+   6928,
+   22
+  ],
+  "97134": [
+   "Emri CT",
+   643,
+   14
+  ],
+  "999999": [
+   "Pond Lake",
+   6928,
+   13
+  ],
+  "96766": [
+   "Rajpura",
+   641,
+   26
+  ],
+  "97189": [
+   "Sanwalpura",
+   644,
+   17
+  ],
+  "96749": [
+   "Saprao Ka Gurha",
+   641,
+   25
+  ],
+  "96518": [
+   "Naganto Ki Guaar",
+   639,
+   31
+  ],
+  "96520": [
+   "Kheema Khera",
+   639,
+   31
+  ],
+  "96697": [
+   "Asan",
+   641,
+   28
+  ],
+  "96741": [
+   "Dhakaniyawas",
+   641,
+   25
+  ],
+  "96727": [
+   "Jeelola",
+   641,
+   29
+  ],
+  "96758": [
+   "Bholi Khera",
+   641,
+   26
+  ],
+  "96698": [
+   "Phalasiya",
+   641,
+   25
+  ],
+  "96739": [
+   "Gadrola",
+   641,
+   25
+  ],
+  "96680": [
+   "Chaukri",
+   641,
+   28
+  ],
+  "96679": [
+   "Degana",
+   641,
+   28
+  ],
+  "96721": [
+   "Rachheti Ki Dhani",
+   641,
+   29
+  ],
+  "96707": [
+   "Rachheti Ka Khera",
+   641,
+   29
+  ],
+  "96748": [
+   "Lot Ka Gurha",
+   641,
+   25
+  ],
+  "96752": [
+   "Agariya",
+   641,
+   26
+  ],
+  "96747": [
+   "Aidana",
+   641,
+   25
+  ],
+  "96764": [
+   "Golera Kuwa",
+   641,
+   26
+  ],
+  "96767": [
+   "Hawala",
+   641,
+   26
+  ],
+  "96744": [
+   "Merda Khalsa",
+   641,
+   25
+  ],
+  "96705": [
+   "Makarda",
+   641,
+   29
+  ],
+  "96706": [
+   "Doodaliya",
+   641,
+   29
+  ],
+  "96692": [
+   "Dewaji Ka Gurha",
+   641,
+   28
+  ],
+  "96691": [
+   "Narooji Ka Gurha",
+   641,
+   28
+  ],
+  "96722": [
+   "Sakarda",
+   641,
+   29
+  ],
+  "96701": [
+   "Akya",
+   641,
+   29
+  ],
+  "96690": [
+   "Dhelana",
+   641,
+   28
+  ],
+  "96702": [
+   "Lalji Ka Khera",
+   641,
+   29
+  ],
+  "96703": [
+   "Mundkosiya",
+   641,
+   29
+  ],
+  "96693": [
+   "Kemri",
+   641,
+   28
+  ],
+  "96728": [
+   "Barjal",
+   641,
+   29
+  ],
+  "96724": [
+   "Dekwara",
+   641,
+   29
+  ],
+  "96695": [
+   "Dherdon Ka Gurha",
+   641,
+   25
+  ],
+  "96729": [
+   "Bhopji Ka Khera",
+   641,
+   29
+  ],
+  "96696": [
+   "Champa Ka Gurha",
+   641,
+   25
+  ],
+  "96761": [
+   "Jaswantpura",
+   641,
+   26
+  ],
+  "96759": [
+   "Varniya",
+   641,
+   26
+  ],
+  "96760": [
+   "Bheel Magra",
+   641,
+   26
+  ],
+  "96754": [
+   "Sardarpura",
+   641,
+   26
+  ],
+  "96734": [
+   "Kanji Ka Khera",
+   641,
+   26
+  ],
+  "96778": [
+   "Jetpura",
+   641,
+   22
+  ],
+  "96801": [
+   "Jhor",
+   641,
+   26
+  ],
+  "96805": [
+   "Karatwas",
+   641,
+   26
+  ],
+  "96786": [
+   "Panotiya",
+   641,
+   22
+  ],
+  "96776": [
+   "Sumadiya",
+   641,
+   21
+  ],
+  "96785": [
+   "Dhanoli",
+   641,
+   22
+  ],
+  "96804": [
+   "Galwa",
+   641,
+   22
+  ],
+  "96816": [
+   "Lodhiyana",
+   641,
+   22
+  ],
+  "96784": [
+   "Mali Khera",
+   641,
+   22
+  ],
+  "96777": [
+   "Sirodi",
+   641,
+   21
+  ],
+  "96735": [
+   "Tanwan",
+   641,
+   26
+  ],
+  "96762": [
+   "Fatehpuriya",
+   641,
+   26
+  ],
+  "96783": [
+   "Seganwas",
+   641,
+   26
+  ],
+  "96745": [
+   "Googli",
+   641,
+   25
+  ],
+  "96779": [
+   "Agalgaon",
+   641,
+   21
+  ],
+  "96809": [
+   "Dewariya",
+   641,
+   26
+  ],
+  "96811": [
+   "Amartiya",
+   641,
+   26
+  ],
+  "96757": [
+   "Ghosundi",
+   641,
+   26
+  ],
+  "96738": [
+   "Chatraji Ka Gurha",
+   641,
+   25
+  ],
+  "96736": [
+   "Kotri",
+   641,
+   26
+  ],
+  "96763": [
+   "Bhadla",
+   641,
+   26
+  ],
+  "96756": [
+   "Bhagwanpura",
+   641,
+   26
+  ],
+  "96750": [
+   "Banda",
+   641,
+   25
+  ],
+  "96751": [
+   "Jawanji Ka Khera",
+   641,
+   25
+  ],
+  "96769": [
+   "Chatarpura",
+   641,
+   26
+  ],
+  "96765": [
+   "Kalesariya",
+   641,
+   26
+  ],
+  "96772": [
+   "Parbati",
+   641,
+   26
+  ],
+  "96793": [
+   "Rawon Ka Khera",
+   641,
+   26
+  ],
+  "96794": [
+   "Sarniya Khera",
+   641,
+   26
+  ],
+  "96796": [
+   "Dhanakpura",
+   641,
+   26
+  ],
+  "96799": [
+   "Ulpura",
+   641,
+   26
+  ],
+  "96792": [
+   "Arniya",
+   641,
+   26
+  ],
+  "96770": [
+   "Dingrol",
+   641,
+   26
+  ],
+  "96773": [
+   "Bhakroda",
+   641,
+   25
+  ],
+  "96771": [
+   "Udawaton Ka Khera",
+   641,
+   26
+  ],
+  "96790": [
+   "Gadariyawas",
+   641,
+   26
+  ],
+  "96797": [
+   "Moorda",
+   641,
+   26
+  ],
+  "96789": [
+   "Bhopa Ki Bhagal",
+   641,
+   26
+  ],
+  "96807": [
+   "Doonga Ka Khera",
+   641,
+   26
+  ],
+  "96780": [
+   "Dowada",
+   641,
+   26
+  ],
+  "96791": [
+   "Gopalpura",
+   641,
+   26
+  ],
+  "96775": [
+   "Siyana",
+   641,
+   21
+  ],
+  "96803": [
+   "Budhpura",
+   641,
+   26
+  ],
+  "96787": [
+   "Bukarda",
+   641,
+   26
+  ],
+  "96810": [
+   "Kishanpura",
+   641,
+   26
+  ],
+  "96788": [
+   "Teekardi",
+   641,
+   26
+  ],
+  "96800": [
+   "Rakampura",
+   641,
+   22
+  ],
+  "96817": [
+   "Kalamaton Ka Khera",
+   641,
+   22
+  ],
+  "96812": [
+   "Simal",
+   641,
+   22
+  ],
+  "96819": [
+   "Deoli",
+   641,
+   22
+  ],
+  "96813": [
+   "Jatiya Khera",
+   641,
+   22
+  ],
+  "96818": [
+   "Kabri",
+   641,
+   22
+  ],
+  "96820": [
+   "Bagpura",
+   641,
+   22
+  ],
+  "96689": [
+   "Sela Gurha",
+   641,
+   28
+  ],
+  "96688": [
+   "Khara",
+   641,
+   29
+  ],
+  "96700": [
+   "Kaji Gurha Khurd",
+   641,
+   29
+  ],
+  "96699": [
+   "Kaji Gurha Kalan",
+   641,
+   29
+  ],
+  "96704": [
+   "Ballon Ka Khera",
+   641,
+   29
+  ],
+  "96730": [
+   "Liki",
+   641,
+   29
+  ],
+  "96731": [
+   "Ganga Guda",
+   641,
+   29
+  ],
+  "96732": [
+   "Bhopal Pura",
+   641,
+   26
+  ],
+  "96755": [
+   "Kishan Puriya",
+   641,
+   26
+  ],
+  "96733": [
+   "Salampura",
+   641,
+   26
+  ],
+  "96743": [
+   "Gajsingh Ji Ki Bhagal",
+   641,
+   25
+  ],
+  "96795": [
+   "Olanakhera",
+   641,
+   26
+  ],
+  "96768": [
+   "Modardon Ka Khera",
+   641,
+   26
+  ],
+  "96808": [
+   "Veerwas",
+   641,
+   26
+  ],
+  "96806": [
+   "Shambhoo Pura",
+   641,
+   26
+  ],
+  "96671": [
+   "Guniya",
+   641,
+   28
+  ],
+  "96665": [
+   "Kameri",
+   640,
+   29
+  ],
+  "97000": [
+   "Raghunathpura",
+   643,
+   21
+  ],
+  "96667": [
+   "Mad",
+   640,
+   29
+  ],
+  "96666": [
+   "Dala Ka Khera",
+   640,
+   29
+  ],
+  "96668": [
+   "Dudaliya",
+   640,
+   29
+  ],
+  "96669": [
+   "Dantra",
+   640,
+   29
+  ],
+  "96672": [
+   "Jarsa",
+   641,
+   28
+  ],
+  "96663": [
+   "Malaji Ka Gurha",
+   640,
+   29
+  ],
+  "97014": [
+   "Binol",
+   6928,
+   22
+  ],
+  "96821": [
+   "Dabla",
+   641,
+   25
+  ],
+  "96822": [
+   "Kheton Ki Bhagal",
+   641,
+   25
+  ],
+  "96993": [
+   "Karera",
+   643,
+   25
+  ],
+  "97009": [
+   "Bhundal",
+   643,
+   21
+  ],
+  "97010": [
+   "Dhanyala",
+   643,
+   21
+  ],
+  "97015": [
+   "Jodhpura",
+   6928,
+   22
+  ],
+  "248817": [
+   "Amet",
+   641,
+   29
+  ],
+  "96723": [
+   "Bhamron Ka Wadiya",
+   641,
+   29
+  ],
+  "96726": [
+   "Sablon Ka Khera",
+   641,
+   29
+  ],
+  "96725": [
+   "Laxmipura",
+   641,
+   29
+  ],
+  "96798": [
+   "Gadariyawas",
+   641,
+   26
+  ],
+  "96802": [
+   "Gowaliya",
+   641,
+   26
+  ],
+  "96815": [
+   "Lodhiyana Ka Bada",
+   641,
+   22
+  ],
+  "96781": [
+   "Khediya",
+   641,
+   26
+  ],
+  "96782": [
+   "Pipaliya",
+   641,
+   22
+  ],
+  "96746": [
+   "Odagujran",
+   641,
+   25
+  ],
+  "96774": [
+   "Khatikon Ki Bhagal",
+   641,
+   25
+  ],
+  "96753": [
+   "Agariya Ka Bada",
+   641,
+   26
+  ],
+  "96740": [
+   "Beekawas",
+   641,
+   25
+  ],
+  "96742": [
+   "Soda Ki Bhagal",
+   641,
+   25
+  ],
+  "96737": [
+   "Bala Chanch Ka Gurha",
+   641,
+   25
+  ],
+  "96713": [
+   "Chawand Khera",
+   641,
+   32
+  ],
+  "96716": [
+   "Kola Ka Khera",
+   641,
+   32
+  ],
+  "96715": [
+   "Sarewari",
+   641,
+   32
+  ],
+  "96717": [
+   "Seftiya",
+   641,
+   32
+  ],
+  "96681": [
+   "Nanana",
+   641,
+   28
+  ],
+  "96714": [
+   "Patiya Khera",
+   641,
+   32
+  ],
+  "96712": [
+   "Didwana",
+   641,
+   32
+  ],
+  "96683": [
+   "Tanka",
+   641,
+   28
+  ],
+  "96718": [
+   "Nabariya",
+   641,
+   32
+  ],
+  "96685": [
+   "Asan Koteshwari",
+   641,
+   29
+  ],
+  "96720": [
+   "Baniya Khera",
+   641,
+   32
+  ],
+  "96684": [
+   "Teekad",
+   641,
+   28
+  ],
+  "96710": [
+   "Manakdeh",
+   641,
+   29
+  ],
+  "96687": [
+   "Pabrana",
+   641,
+   29
+  ],
+  "96709": [
+   "Kishenpura",
+   641,
+   29
+  ],
+  "96708": [
+   "Rachheti",
+   641,
+   29
+  ],
+  "96608": [
+   "Bhachardiya",
+   640,
+   32
+  ],
+  "96612": [
+   "Anoppura",
+   640,
+   32
+  ],
+  "96607": [
+   "Teli Khera",
+   640,
+   35
+  ],
+  "96609": [
+   "Kanwera",
+   640,
+   32
+  ],
+  "96621": [
+   "Bharatsingh Ka Gurha",
+   640,
+   32
+  ],
+  "96617": [
+   "Rughnathpura",
+   640,
+   32
+  ],
+  "96719": [
+   "Kulanchi",
+   641,
+   32
+  ],
+  "96711": [
+   "Gumanji Ka Gurha",
+   641,
+   32
+  ],
+  "96686": [
+   "Dhukal Khera",
+   641,
+   29
+  ],
+  "96682": [
+   "Khakhar Mala",
+   641,
+   28
+  ],
+  "96506": [
+   "Peepali Nagar",
+   639,
+   33
+  ],
+  "96560": [
+   "Isarmand",
+   640,
+   35
+  ],
+  "96582": [
+   "Kundeli",
+   640,
+   34
+  ],
+  "96566": [
+   "Jhankara",
+   640,
+   35
+  ],
+  "96592": [
+   "Hira Ki Bassi B",
+   640,
+   33
+  ],
+  "96670": [
+   "Kishan Pura",
+   640,
+   33
+  ],
+  "96602": [
+   "Hira Khera",
+   640,
+   34
+  ],
+  "96603": [
+   "Bheru Khera",
+   640,
+   34
+  ],
+  "96593": [
+   "Swadari A",
+   640,
+   31
+  ],
+  "96498": [
+   "Baggar",
+   639,
+   34
+  ],
+  "96511": [
+   "Chaita",
+   639,
+   33
+  ],
+  "96510": [
+   "Antali",
+   639,
+   33
+  ],
+  "96512": [
+   "Kaniyana",
+   639,
+   33
+  ],
+  "96514": [
+   "Mota Gura",
+   639,
+   33
+  ],
+  "96516": [
+   "Bhera Gurha",
+   639,
+   33
+  ],
+  "96521": [
+   "Chandela Ki Guaar",
+   639,
+   31
+  ],
+  "96517": [
+   "Barjal",
+   639,
+   31
+  ],
+  "96524": [
+   "Bansabari",
+   639,
+   31
+  ],
+  "96578": [
+   "Rashmi",
+   640,
+   34
+  ],
+  "96561": [
+   "Lasani",
+   640,
+   34
+  ],
+  "96588": [
+   "Kamla Rural",
+   640,
+   33
+  ],
+  "96579": [
+   "Panta Ki Anti",
+   640,
+   34
+  ],
+  "96589": [
+   "Vijaipura Rural",
+   640,
+   33
+  ],
+  "96577": [
+   "Kalalon Ki Anti",
+   640,
+   34
+  ],
+  "96584": [
+   "Sangrampura",
+   640,
+   34
+  ],
+  "96583": [
+   "Shopuri",
+   640,
+   34
+  ],
+  "96567": [
+   "Chawalarel Ka Khera",
+   640,
+   35
+  ],
+  "96576": [
+   "Ghati",
+   640,
+   34
+  ],
+  "96590": [
+   "Cheta Asan Rural",
+   640,
+   33
+  ],
+  "96562": [
+   "Deopura",
+   640,
+   35
+  ],
+  "96564": [
+   "Puniyana",
+   640,
+   35
+  ],
+  "96565": [
+   "Malji Ka Khera",
+   640,
+   35
+  ],
+  "96563": [
+   "Kunwariya",
+   640,
+   35
+  ],
+  "96572": [
+   "Maliyon Ka Was",
+   640,
+   35
+  ],
+  "96598": [
+   "Daulpura",
+   640,
+   34
+  ],
+  "96600": [
+   "Anjna",
+   640,
+   34
+  ],
+  "96573": [
+   "Madariya",
+   640,
+   34
+  ],
+  "96601": [
+   "Jema Khera",
+   640,
+   34
+  ],
+  "96599": [
+   "Pharaliya",
+   640,
+   34
+  ],
+  "96571": [
+   "Neemjhar",
+   640,
+   35
+  ],
+  "96637": [
+   "Bagatpura B",
+   640,
+   32
+  ],
+  "96568": [
+   "Kalesariya",
+   640,
+   35
+  ],
+  "96596": [
+   "Pitampura",
+   640,
+   34
+  ],
+  "96595": [
+   "Jogela",
+   640,
+   34
+  ],
+  "96569": [
+   "Khakharda",
+   640,
+   35
+  ],
+  "96597": [
+   "Teekhi",
+   640,
+   34
+  ],
+  "96570": [
+   "Vena Ka Khera",
+   640,
+   35
+  ],
+  "96594": [
+   "Bhundwas",
+   640,
+   32
+  ],
+  "96604": [
+   "Bilakhi",
+   640,
+   34
+  ],
+  "96614": [
+   "Mandawara",
+   640,
+   32
+  ],
+  "96655": [
+   "Beeyana",
+   640,
+   28
+  ],
+  "96613": [
+   "Saliyon Ka Khera",
+   640,
+   32
+  ],
+  "96606": [
+   "Barwalon Ka Khera",
+   640,
+   35
+  ],
+  "96610": [
+   "Bagha Ka Khera",
+   640,
+   32
+  ],
+  "96611": [
+   "Lalji Ka Khera",
+   640,
+   32
+  ],
+  "96616": [
+   "Charda",
+   640,
+   32
+  ],
+  "96620": [
+   "Beer Deogarh",
+   640,
+   32
+  ],
+  "96643": [
+   "Tegi",
+   640,
+   31
+  ],
+  "96657": [
+   "Kuanthal",
+   640,
+   31
+  ],
+  "96624": [
+   "Kotra",
+   640,
+   32
+  ],
+  "96618": [
+   "Dolaji Ka Khera",
+   640,
+   32
+  ],
+  "96619": [
+   "Samarnaka",
+   640,
+   32
+  ],
+  "96626": [
+   "Kundwa",
+   640,
+   32
+  ],
+  "96638": [
+   "Sansariya",
+   640,
+   32
+  ],
+  "96641": [
+   "Solankiyon Ka Gurha",
+   640,
+   31
+  ],
+  "96623": [
+   "Nandwa",
+   640,
+   32
+  ],
+  "96644": [
+   "Suliya",
+   640,
+   31
+  ],
+  "96640": [
+   "Jeeran",
+   640,
+   32
+  ],
+  "96639": [
+   "Moyna",
+   640,
+   32
+  ],
+  "96645": [
+   "Chundi",
+   640,
+   31
+  ],
+  "96627": [
+   "Amba Khera",
+   640,
+   32
+  ],
+  "96647": [
+   "Ratna Ka Gurha",
+   640,
+   31
+  ],
+  "96632": [
+   "Bhurwara",
+   640,
+   32
+  ],
+  "96631": [
+   "Dangdi",
+   640,
+   32
+  ],
+  "96636": [
+   "Bagatpura A",
+   640,
+   32
+  ],
+  "96628": [
+   "Pardi",
+   640,
+   32
+  ],
+  "96646": [
+   "Tokra",
+   640,
+   31
+  ],
+  "96635": [
+   "Modiya Khera",
+   640,
+   32
+  ],
+  "96634": [
+   "Narana",
+   640,
+   32
+  ],
+  "96658": [
+   "Kerpura",
+   640,
+   32
+  ],
+  "96656": [
+   "Peetha Ka Khera",
+   640,
+   32
+  ],
+  "96630": [
+   "Paniya",
+   640,
+   32
+  ],
+  "96659": [
+   "Ran",
+   640,
+   32
+  ],
+  "96660": [
+   "Panri",
+   640,
+   29
+  ],
+  "96664": [
+   "Deoriya",
+   640,
+   29
+  ],
+  "96662": [
+   "Jawarji Ka Khera",
+   640,
+   29
+  ],
+  "96629": [
+   "Banjariya",
+   640,
+   32
+  ],
+  "96586": [
+   "Kitoka Wadiya",
+   640,
+   33
+  ],
+  "96585": [
+   "Phukiyathar",
+   640,
+   34
+  ],
+  "96591": [
+   "Hira Ki Bassi A",
+   640,
+   33
+  ],
+  "96605": [
+   "Hadwa Ka Was",
+   640,
+   35
+  ],
+  "96642": [
+   "Swadari B",
+   640,
+   31
+  ],
+  "96625": [
+   "Bujhra",
+   640,
+   32
+  ],
+  "96633": [
+   "Mahasingh Ji Ka Khera",
+   640,
+   32
+  ],
+  "96661": [
+   "Mata Ka Gaon",
+   640,
+   29
+  ],
+  "248816": [
+   "Deogarh",
+   640,
+   34
+  ],
+  "96574": [
+   "Kurachon Ka Khera",
+   640,
+   34
+  ],
+  "96558": [
+   "Vaniya Hatri",
+   640,
+   35
+  ],
+  "96615": [
+   "Verawas",
+   640,
+   32
+  ],
+  "96499": [
+   "Kalighati",
+   639,
+   34
+  ],
+  "96523": [
+   "Dhana",
+   639,
+   31
+  ],
+  "96522": [
+   "Dungawas",
+   639,
+   31
+  ],
+  "96557": [
+   "Vadiya",
+   640,
+   35
+  ],
+  "96587": [
+   "Havala",
+   640,
+   33
+  ],
+  "96513": [
+   "Dabjar",
+   639,
+   33
+  ],
+  "96823": [
+   "Sardargarh CT",
+   641,
+   26
+  ]
+ },
+ "village_count_total": 1060,
+ "village_count_assigned": 1060
+}

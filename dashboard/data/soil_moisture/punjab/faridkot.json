@@ -1,0 +1,1036 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Punjab",
+  "district": "Faridkot",
+  "district_lgd": 29,
+  "observation_window": "2026-08-07T11:21Z to 2026-08-12T11:21Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2033,
+  "sm_surface_stddev": 0.0143,
+  "sm_rootzone_mean": 0.1944,
+  "sm_rootzone_stddev": 0.0051,
+  "n_cells": 13,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 30.3855,
+    "lon": 74.8521,
+    "sm_surface": 0.2253,
+    "sm_rootzone": 0.2025,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 1,
+    "lat": 30.3855,
+    "lon": 74.9509,
+    "sm_surface": 0.2258,
+    "sm_rootzone": 0.2006,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 2,
+    "lat": 30.4843,
+    "lon": 74.8521,
+    "sm_surface": 0.2213,
+    "sm_rootzone": 0.2006,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 3,
+    "lat": 30.4843,
+    "lon": 74.9509,
+    "sm_surface": 0.2205,
+    "sm_rootzone": 0.1978,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 4,
+    "lat": 30.5831,
+    "lon": 74.7533,
+    "sm_surface": 0.2035,
+    "sm_rootzone": 0.1963,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 5,
+    "lat": 30.5831,
+    "lon": 74.8521,
+    "sm_surface": 0.2054,
+    "sm_rootzone": 0.1917,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 6,
+    "lat": 30.682,
+    "lon": 74.5557,
+    "sm_surface": 0.1911,
+    "sm_rootzone": 0.196,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 7,
+    "lat": 30.682,
+    "lon": 74.6545,
+    "sm_surface": 0.192,
+    "sm_rootzone": 0.195,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 8,
+    "lat": 30.682,
+    "lon": 74.7533,
+    "sm_surface": 0.1944,
+    "sm_rootzone": 0.1892,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 9,
+    "lat": 30.682,
+    "lon": 74.8521,
+    "sm_surface": 0.198,
+    "sm_rootzone": 0.1874,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 10,
+    "lat": 30.7808,
+    "lon": 74.5557,
+    "sm_surface": 0.1876,
+    "sm_rootzone": 0.1934,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 11,
+    "lat": 30.7808,
+    "lon": 74.6545,
+    "sm_surface": 0.1873,
+    "sm_rootzone": 0.1915,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 12,
+    "lat": 30.7808,
+    "lon": 74.7533,
+    "sm_surface": 0.1905,
+    "sm_rootzone": 0.1853,
+    "n_villages_sharing_cell": 10
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2087,
+  "sm_surface_stddev": 0.0137,
+  "n_blocks": 2
+ },
+ "blocks": [
+  {
+   "block_name": "Faridkot",
+   "sdcode": 242,
+   "n_villages": 133,
+   "n_cells_spanned": 10,
+   "sm_surface_mean": 0.195,
+   "sm_surface_stddev": 0.0069
+  },
+  {
+   "block_name": "Jaitu",
+   "sdcode": 243,
+   "n_villages": 43,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.2224,
+   "sm_surface_stddev": 0.0022
+  }
+ ],
+ "villages": {
+  "248362": [
+   "Jaitu",
+   243,
+   2
+  ],
+  "35476": [
+   "Phide Khurd",
+   242,
+   4
+  ],
+  "35479": [
+   "Chak Shama",
+   242,
+   4
+  ],
+  "35478": [
+   "Phide Kalan",
+   242,
+   4
+  ],
+  "35466": [
+   "Khara",
+   242,
+   4
+  ],
+  "35477": [
+   "Chak Kalyan",
+   242,
+   4
+  ],
+  "35468": [
+   "Wander Jatana",
+   242,
+   4
+  ],
+  "35484": [
+   "Sango Romana",
+   242,
+   4
+  ],
+  "35465": [
+   "Maur",
+   242,
+   4
+  ],
+  "35502": [
+   "Ahel",
+   242,
+   6
+  ],
+  "35501": [
+   "Chak Seman",
+   242,
+   6
+  ],
+  "35503": [
+   "Deep Singhwala",
+   242,
+   10
+  ],
+  "35505": [
+   "Saideke",
+   242,
+   10
+  ],
+  "35499": [
+   "Pindi Balochan",
+   242,
+   6
+  ],
+  "35504": [
+   "Chak Deep Singhwala",
+   242,
+   10
+  ],
+  "35500": [
+   "Kanlanwali",
+   242,
+   6
+  ],
+  "35545": [
+   "Golewala",
+   242,
+   12
+  ],
+  "35512": [
+   "Buttar",
+   242,
+   10
+  ],
+  "35489": [
+   "Chet Singhwala",
+   242,
+   7
+  ],
+  "35552": [
+   "Rajowala",
+   242,
+   12
+  ],
+  "35553": [
+   "Pipli",
+   242,
+   8
+  ],
+  "35483": [
+   "Dana Romana",
+   242,
+   7
+  ],
+  "35520": [
+   "Sadhuwala",
+   242,
+   7
+  ],
+  "35526": [
+   "Mehmuana",
+   242,
+   7
+  ],
+  "35509": [
+   "Sadiq",
+   242,
+   6
+  ],
+  "35482": [
+   "Hariewala",
+   242,
+   7
+  ],
+  "35530": [
+   "Arayanwala Kalan",
+   242,
+   11
+  ],
+  "35533": [
+   "Simrewala",
+   242,
+   11
+  ],
+  "35474": [
+   "Dhimanwali",
+   242,
+   4
+  ],
+  "35497": [
+   "Virewala Kalan",
+   242,
+   6
+  ],
+  "35544": [
+   "Beguwala",
+   242,
+   11
+  ],
+  "35517": [
+   "Chanian",
+   242,
+   10
+  ],
+  "35485": [
+   "Rattirori",
+   242,
+   4
+  ],
+  "35473": [
+   "Machaki Mal Singh",
+   242,
+   4
+  ],
+  "35491": [
+   "Dhab Sher Singhwala",
+   242,
+   7
+  ],
+  "35508": [
+   "Sangatpura",
+   242,
+   6
+  ],
+  "35506": [
+   "Jhok Sarkari",
+   242,
+   10
+  ],
+  "35486": [
+   "Kamiana",
+   242,
+   8
+  ],
+  "35513": [
+   "Arayanwala Khurd",
+   242,
+   10
+  ],
+  "35507": [
+   "Kauni",
+   242,
+   10
+  ],
+  "35490": [
+   "Sher Singhwala",
+   242,
+   7
+  ],
+  "35528": [
+   "Machaki Khurd",
+   242,
+   7
+  ],
+  "35538": [
+   "Pakhi Khurd",
+   242,
+   11
+  ],
+  "35515": [
+   "Mumara",
+   242,
+   10
+  ],
+  "35521": [
+   "Jandwala",
+   242,
+   7
+  ],
+  "35516": [
+   "Chak Sahu",
+   242,
+   11
+  ],
+  "35543": [
+   "Nathe Wala",
+   242,
+   11
+  ],
+  "35518": [
+   "Dod",
+   242,
+   10
+  ],
+  "35532": [
+   "Ghugiana",
+   242,
+   11
+  ],
+  "35495": [
+   "Ghuduwala",
+   242,
+   6
+  ],
+  "35492": [
+   "Bhilewala",
+   242,
+   6
+  ],
+  "35487": [
+   "Qila Nau",
+   242,
+   7
+  ],
+  "35511": [
+   "Sangrahur",
+   242,
+   10
+  ],
+  "35514": [
+   "Gujjar",
+   242,
+   10
+  ],
+  "35525": [
+   "Middo Man",
+   242,
+   7
+  ],
+  "35551": [
+   "Hadialiana",
+   242,
+   12
+  ],
+  "35529": [
+   "Faridkot",
+   242,
+   7
+  ],
+  "35531": [
+   "Burj Masta",
+   242,
+   7
+  ],
+  "248360": [
+   "Faridkot",
+   242,
+   8
+  ],
+  "35481": [
+   "Daggo Romana",
+   242,
+   4
+  ],
+  "35510": [
+   "Rupianwali",
+   242,
+   6
+  ],
+  "35519": [
+   "Janerian",
+   242,
+   10
+  ],
+  "35493": [
+   "Mani Singhwala",
+   242,
+   6
+  ],
+  "35527": [
+   "Machaki Kalan",
+   242,
+   7
+  ],
+  "35524": [
+   "Jhotiwala",
+   242,
+   7
+  ],
+  "35488": [
+   "Sukhanwala",
+   242,
+   7
+  ],
+  "35494": [
+   "Kingra",
+   242,
+   6
+  ],
+  "35498": [
+   "Madahar",
+   242,
+   6
+  ],
+  "35522": [
+   "Dhilwan Khurd",
+   242,
+   11
+  ],
+  "35496": [
+   "Bhag Singhwala",
+   242,
+   6
+  ],
+  "35539": [
+   "Dalewala",
+   242,
+   11
+  ],
+  "35523": [
+   "Chak Nehra",
+   242,
+   11
+  ],
+  "35480": [
+   "Chak Daggoromana",
+   242,
+   4
+  ],
+  "35475": [
+   "Chak Dhimanwali",
+   242,
+   4
+  ],
+  "35534": [
+   "Bir Ghugiana",
+   242,
+   11
+  ],
+  "35594": [
+   "Burj Jawahar Singhwala",
+   243,
+   3
+  ],
+  "35611": [
+   "Khachran",
+   243,
+   0
+  ],
+  "35592": [
+   "Burj Harika",
+   243,
+   3
+  ],
+  "35462": [
+   "Hari Nau",
+   242,
+   2
+  ],
+  "35607": [
+   "Rori Kapura",
+   243,
+   2
+  ],
+  "35589": [
+   "Dhilwan Kalan",
+   242,
+   5
+  ],
+  "35615": [
+   "Ramgarh",
+   243,
+   0
+  ],
+  "35600": [
+   "Gurusar",
+   243,
+   2
+  ],
+  "35598": [
+   "Behbal Khurd",
+   243,
+   3
+  ],
+  "35604": [
+   "Matta",
+   243,
+   2
+  ],
+  "35619": [
+   "Fatehgarh",
+   243,
+   1
+  ],
+  "35631": [
+   "Romana Ajit Singh",
+   243,
+   1
+  ],
+  "35590": [
+   "Sibbian",
+   242,
+   5
+  ],
+  "35467": [
+   "Wara Daraka",
+   242,
+   4
+  ],
+  "35629": [
+   "Gobindgarh",
+   243,
+   1
+  ],
+  "35593": [
+   "Bargari",
+   243,
+   3
+  ],
+  "35464": [
+   "Thara",
+   242,
+   4
+  ],
+  "35630": [
+   "Wara Bhaika",
+   243,
+   1
+  ],
+  "35626": [
+   "Bajakhana",
+   243,
+   3
+  ],
+  "35623": [
+   "Lambwali",
+   243,
+   3
+  ],
+  "35632": [
+   "Ghanian",
+   243,
+   1
+  ],
+  "35624": [
+   "Dod",
+   243,
+   3
+  ],
+  "35596": [
+   "Jhakharwala",
+   243,
+   3
+  ],
+  "35609": [
+   "Surghuri",
+   243,
+   2
+  ],
+  "35622": [
+   "Sedha Singhwala",
+   243,
+   3
+  ],
+  "248361": [
+   "Kot Kapura",
+   242,
+   5
+  ],
+  "35618": [
+   "Chand Bhan",
+   243,
+   1
+  ],
+  "35628": [
+   "Okandwala",
+   243,
+   1
+  ],
+  "35613": [
+   "Karirwali",
+   243,
+   0
+  ],
+  "35601": [
+   "Sarawan",
+   243,
+   2
+  ],
+  "35597": [
+   "Ran Singhwala",
+   243,
+   3
+  ],
+  "35606": [
+   "Ramuwala",
+   243,
+   2
+  ],
+  "35614": [
+   "Chaina",
+   243,
+   0
+  ],
+  "35612": [
+   "Ramiana",
+   243,
+   0
+  ],
+  "35595": [
+   "Gondara",
+   243,
+   3
+  ],
+  "35610": [
+   "Madhak",
+   243,
+   2
+  ],
+  "35617": [
+   "Gumti Khurd",
+   243,
+   0
+  ],
+  "35627": [
+   "Rauwala",
+   243,
+   3
+  ],
+  "35608": [
+   "Kasam Bhatti",
+   243,
+   2
+  ],
+  "35602": [
+   "Romana Albel Singh",
+   243,
+   2
+  ],
+  "35603": [
+   "Dhaipai",
+   243,
+   2
+  ],
+  "35625": [
+   "Malla",
+   243,
+   3
+  ],
+  "35605": [
+   "Ajit Gill",
+   243,
+   2
+  ],
+  "35463": [
+   "Koharwala",
+   242,
+   4
+  ],
+  "35616": [
+   "Bish Nandi",
+   243,
+   0
+  ],
+  "35620": [
+   "Jaitu",
+   243,
+   2
+  ],
+  "35621": [
+   "Dal Singhwala",
+   243,
+   3
+  ],
+  "35461": [
+   "Bhairon Ki Bhatti",
+   242,
+   2
+  ],
+  "35599": [
+   "Behbal Kalan",
+   243,
+   3
+  ],
+  "35575": [
+   "Nangal",
+   242,
+   9
+  ],
+  "35579": [
+   "Nathal Wala",
+   242,
+   9
+  ],
+  "35586": [
+   "Jeonwala",
+   242,
+   9
+  ],
+  "35588": [
+   "Panjgrain Kalan",
+   242,
+   5
+  ],
+  "35577": [
+   "Bir Chahal",
+   242,
+   9
+  ],
+  "35582": [
+   "Kot Kapura",
+   242,
+   5
+  ],
+  "35561": [
+   "Chand Baja",
+   242,
+   9
+  ],
+  "35581": [
+   "Sandhwan",
+   242,
+   4
+  ],
+  "35587": [
+   "Ghaniewala",
+   242,
+   5
+  ],
+  "35583": [
+   "Deviwala",
+   242,
+   5
+  ],
+  "35565": [
+   "Tehna",
+   242,
+   8
+  ],
+  "35568": [
+   "Dhudi",
+   242,
+   9
+  ],
+  "35569": [
+   "Chak Dhudi",
+   242,
+   9
+  ],
+  "35556": [
+   "Pakhi Kalan",
+   242,
+   12
+  ],
+  "35559": [
+   "Moranwali",
+   242,
+   9
+  ],
+  "35550": [
+   "Mallewala",
+   242,
+   12
+  ],
+  "35560": [
+   "Ghumiara",
+   242,
+   9
+  ],
+  "35574": [
+   "Sirsari",
+   242,
+   9
+  ],
+  "35562": [
+   "Misriwala",
+   242,
+   9
+  ],
+  "35558": [
+   "Bhagthala Kalan",
+   242,
+   12
+  ],
+  "35576": [
+   "Chambeli",
+   242,
+   9
+  ],
+  "35571": [
+   "Dhulkot",
+   242,
+   9
+  ],
+  "35572": [
+   "Kot Sukhia",
+   242,
+   9
+  ],
+  "35471": [
+   "Naraingarh",
+   242,
+   4
+  ],
+  "35470": [
+   "Jalaleana",
+   242,
+   4
+  ],
+  "35472": [
+   "Virewala Khurd",
+   242,
+   4
+  ],
+  "35564": [
+   "Pakka",
+   242,
+   8
+  ],
+  "35567": [
+   "Bhana",
+   242,
+   9
+  ],
+  "35566": [
+   "Chahal",
+   242,
+   9
+  ],
+  "35573": [
+   "Bagiana",
+   242,
+   9
+  ],
+  "35580": [
+   "Bir Sikhanwala",
+   242,
+   5
+  ],
+  "35578": [
+   "Sikhanwala",
+   242,
+   9
+  ],
+  "35549": [
+   "Pehluwala",
+   242,
+   12
+  ],
+  "35469": [
+   "Dawareana",
+   242,
+   4
+  ],
+  "35557": [
+   "Bhagthala Khurd",
+   242,
+   12
+  ],
+  "35570": [
+   "Mandwala",
+   242,
+   9
+  ],
+  "35554": [
+   "Bir Bholuwala",
+   242,
+   8
+  ],
+  "35563": [
+   "Kaler",
+   242,
+   9
+  ],
+  "35584": [
+   "Aulakh",
+   242,
+   9
+  ],
+  "35555": [
+   "Bholuwala",
+   242,
+   8
+  ],
+  "35585": [
+   "Chak Bhuria",
+   242,
+   9
+  ],
+  "35633": [
+   "Kothe Lal Premi",
+   243,
+   2
+  ],
+  "35591": [
+   "Houses and Rice Shellers",
+   242,
+   8
+  ],
+  "35542": [
+   "Khilchi",
+   242,
+   11
+  ],
+  "35541": [
+   "Jhariwala",
+   242,
+   11
+  ],
+  "35540": [
+   "Ghoniwala",
+   242,
+   11
+  ],
+  "35537": [
+   "Sadhanwala",
+   242,
+   11
+  ],
+  "35547": [
+   "Kabalwala",
+   242,
+   12
+  ],
+  "35536": [
+   "Chugewala",
+   242,
+   11
+  ],
+  "35546": [
+   "Chak Kalatola",
+   242,
+   11
+  ],
+  "35535": [
+   "Chak Bodla",
+   242,
+   11
+  ],
+  "35548": [
+   "Hassan Bhatti",
+   242,
+   12
+  ]
+ },
+ "village_count_total": 176,
+ "village_count_assigned": 176
+}

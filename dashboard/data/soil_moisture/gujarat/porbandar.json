@@ -1,0 +1,1173 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Gujarat",
+  "district": "Porbandar",
+  "district_lgd": 456,
+  "observation_window": "2026-08-07T11:07Z to 2026-08-12T11:07Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.1799,
+  "sm_surface_stddev": 0.0481,
+  "sm_rootzone_mean": 0.2385,
+  "sm_rootzone_stddev": 0.0695,
+  "n_cells": 21,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 21.3934,
+    "lon": 69.9114,
+    "sm_surface": 0.1203,
+    "sm_rootzone": 0.1083,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 1,
+    "lat": 21.4922,
+    "lon": 69.8126,
+    "sm_surface": 0.1145,
+    "sm_rootzone": 0.0899,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 2,
+    "lat": 21.4922,
+    "lon": 69.9114,
+    "sm_surface": 0.1118,
+    "sm_rootzone": 0.1003,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 3,
+    "lat": 21.591,
+    "lon": 69.7138,
+    "sm_surface": 0.1775,
+    "sm_rootzone": 0.2465,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 4,
+    "lat": 21.591,
+    "lon": 69.8126,
+    "sm_surface": 0.1964,
+    "sm_rootzone": 0.2626,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 5,
+    "lat": 21.591,
+    "lon": 69.9114,
+    "sm_surface": 0.2106,
+    "sm_rootzone": 0.2725,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 6,
+    "lat": 21.591,
+    "lon": 70.0102,
+    "sm_surface": 0.217,
+    "sm_rootzone": 0.2814,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 7,
+    "lat": 21.6898,
+    "lon": 69.6149,
+    "sm_surface": 0.1595,
+    "sm_rootzone": 0.2439,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 8,
+    "lat": 21.6898,
+    "lon": 69.7138,
+    "sm_surface": 0.2104,
+    "sm_rootzone": 0.2942,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 9,
+    "lat": 21.6898,
+    "lon": 69.8126,
+    "sm_surface": 0.1921,
+    "sm_rootzone": 0.2649,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 10,
+    "lat": 21.6898,
+    "lon": 69.9114,
+    "sm_surface": 0.2531,
+    "sm_rootzone": 0.3092,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 11,
+    "lat": 21.6898,
+    "lon": 70.0102,
+    "sm_surface": 0.2553,
+    "sm_rootzone": 0.32,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 12,
+    "lat": 21.6898,
+    "lon": 70.109,
+    "sm_surface": 0.2241,
+    "sm_rootzone": 0.2929,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 13,
+    "lat": 21.7886,
+    "lon": 69.4173,
+    "sm_surface": 0.1028,
+    "sm_rootzone": 0.1624,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 14,
+    "lat": 21.7886,
+    "lon": 69.5161,
+    "sm_surface": 0.1042,
+    "sm_rootzone": 0.1667,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 15,
+    "lat": 21.7886,
+    "lon": 69.6149,
+    "sm_surface": 0.1904,
+    "sm_rootzone": 0.2658,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 16,
+    "lat": 21.7886,
+    "lon": 69.7138,
+    "sm_surface": 0.1936,
+    "sm_rootzone": 0.282,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 17,
+    "lat": 21.7886,
+    "lon": 69.8126,
+    "sm_surface": 0.187,
+    "sm_rootzone": 0.2653,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 18,
+    "lat": 21.7886,
+    "lon": 70.0102,
+    "sm_surface": 0.2531,
+    "sm_rootzone": 0.3204,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 19,
+    "lat": 21.8875,
+    "lon": 69.5161,
+    "sm_surface": 0.1527,
+    "sm_rootzone": 0.2231,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 20,
+    "lat": 21.8875,
+    "lon": 69.6149,
+    "sm_surface": 0.151,
+    "sm_rootzone": 0.2366,
+    "n_villages_sharing_cell": 10
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.1804,
+  "sm_surface_stddev": 0.024,
+  "n_blocks": 3
+ },
+ "blocks": [
+  {
+   "block_name": "Kutiyana",
+   "sdcode": 3824,
+   "n_villages": 48,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.1962,
+   "sm_surface_stddev": 0.0583
+  },
+  {
+   "block_name": "Porbandar",
+   "sdcode": 3822,
+   "n_villages": 77,
+   "n_cells_spanned": 12,
+   "sm_surface_mean": 0.1465,
+   "sm_surface_stddev": 0.0331
+  },
+  {
+   "block_name": "Ranavav",
+   "sdcode": 3823,
+   "n_villages": 64,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.1986,
+   "sm_surface_stddev": 0.0147
+  }
+ ],
+ "villages": {
+  "514292": [
+   "Umrivala Nes",
+   3823,
+   16
+  ],
+  "514274": [
+   "Vijfadiya Nes",
+   3823,
+   16
+  ],
+  "514237": [
+   "Chingariya",
+   3822,
+   0
+  ],
+  "514282": [
+   "Khodiyar Nes",
+   3823,
+   16
+  ],
+  "514225": [
+   "Gosa",
+   3822,
+   1
+  ],
+  "514224": [
+   "Rajpar",
+   3822,
+   1
+  ],
+  "514226": [
+   "Chikasa",
+   3822,
+   1
+  ],
+  "514229": [
+   "Navi Bandar",
+   3822,
+   1
+  ],
+  "514238": [
+   "Pata",
+   3822,
+   0
+  ],
+  "514239": [
+   "Madhavpur",
+   3822,
+   0
+  ],
+  "514339": [
+   "Dharsan",
+   3824,
+   2
+  ],
+  "514338": [
+   "Gadhvana",
+   3824,
+   2
+  ],
+  "514341": [
+   "Jamra",
+   3824,
+   2
+  ],
+  "514344": [
+   "Revadra",
+   3824,
+   2
+  ],
+  "514342": [
+   "Mahiyari",
+   3824,
+   2
+  ],
+  "514343": [
+   "Tarkhai",
+   3824,
+   2
+  ],
+  "514348": [
+   "Kadegi",
+   3824,
+   2
+  ],
+  "514350": [
+   "Amipur",
+   3824,
+   0
+  ],
+  "514340": [
+   "Kansabad",
+   3824,
+   2
+  ],
+  "514227": [
+   "Bhad",
+   3822,
+   1
+  ],
+  "514223": [
+   "Mitrala",
+   3822,
+   1
+  ],
+  "514228": [
+   "Garej",
+   3822,
+   2
+  ],
+  "514230": [
+   "Ratiya",
+   3822,
+   1
+  ],
+  "514232": [
+   "Balej",
+   3822,
+   0
+  ],
+  "514231": [
+   "Untada",
+   3822,
+   0
+  ],
+  "514233": [
+   "Kadachh",
+   3822,
+   0
+  ],
+  "514234": [
+   "Mocha",
+   3822,
+   0
+  ],
+  "514236": [
+   "Mander",
+   3822,
+   0
+  ],
+  "514235": [
+   "Gorsar",
+   3822,
+   0
+  ],
+  "514349": [
+   "Mota Ghed",
+   3824,
+   0
+  ],
+  "514346": [
+   "Junej",
+   3824,
+   2
+  ],
+  "514347": [
+   "Farer",
+   3824,
+   2
+  ],
+  "514345": [
+   "Bhadula",
+   3824,
+   2
+  ],
+  "514210": [
+   "Bakharla",
+   3822,
+   15
+  ],
+  "514211": [
+   "Boricha",
+   3822,
+   16
+  ],
+  "514208": [
+   "Rinavada",
+   3822,
+   15
+  ],
+  "514204": [
+   "Baradiya",
+   3822,
+   14
+  ],
+  "514207": [
+   "Shrinagar",
+   3822,
+   14
+  ],
+  "514209": [
+   "Simani",
+   3822,
+   15
+  ],
+  "514205": [
+   "Ratdi",
+   3822,
+   14
+  ],
+  "514213": [
+   "Degam",
+   3822,
+   7
+  ],
+  "514212": [
+   "Pandavadar",
+   3822,
+   7
+  ],
+  "514206": [
+   "Kantela",
+   3822,
+   14
+  ],
+  "514214": [
+   "Kuchhdi",
+   3822,
+   7
+  ],
+  "514216": [
+   "Kolikhada",
+   3822,
+   7
+  ],
+  "514217": [
+   "Ratanpar",
+   3822,
+   3
+  ],
+  "514218": [
+   "Oddar",
+   3822,
+   3
+  ],
+  "514220": [
+   "Keshod Lushala",
+   3822,
+   4
+  ],
+  "514219": [
+   "Tukda Gosa",
+   3822,
+   3
+  ],
+  "514215": [
+   "Zaver Part",
+   3822,
+   7
+  ],
+  "514299": [
+   "Kharavira Nes",
+   3823,
+   16
+  ],
+  "514297": [
+   "Kothavaro Nes",
+   3823,
+   16
+  ],
+  "514302": [
+   "Dhoria Nes",
+   3823,
+   8
+  ],
+  "514247": [
+   "Ramgadh",
+   3823,
+   9
+  ],
+  "514245": [
+   "Khambhala",
+   3823,
+   17
+  ],
+  "514293": [
+   "Dhuna Nes",
+   3823,
+   16
+  ],
+  "514298": [
+   "Dataniya Nes",
+   3823,
+   16
+  ],
+  "514254": [
+   "Bhod",
+   3823,
+   9
+  ],
+  "514246": [
+   "Dharampur",
+   3823,
+   8
+  ],
+  "514255": [
+   "Pipaliya",
+   3823,
+   8
+  ],
+  "514256": [
+   "Digvijaygadh",
+   3823,
+   8
+  ],
+  "514257": [
+   "Virpur",
+   3823,
+   8
+  ],
+  "514263": [
+   "Mokar",
+   3823,
+   3
+  ],
+  "514300": [
+   "Shermlanki Khunano Nes",
+   3823,
+   16
+  ],
+  "514301": [
+   "Kharavira Khunano Nes",
+   3823,
+   8
+  ],
+  "251141": [
+   "Ranavav",
+   3823,
+   8
+  ],
+  "251138": [
+   "Porbandar Chhaya",
+   3822,
+   7
+  ],
+  "514173": [
+   "Sodhana",
+   3822,
+   20
+  ],
+  "514175": [
+   "Sisli",
+   3822,
+   19
+  ],
+  "514174": [
+   "Shingda",
+   3822,
+   19
+  ],
+  "514180": [
+   "Fatana",
+   3822,
+   19
+  ],
+  "514192": [
+   "Tukda Miyani",
+   3822,
+   13
+  ],
+  "514176": [
+   "Miyani",
+   3822,
+   13
+  ],
+  "514178": [
+   "Vadala",
+   3822,
+   13
+  ],
+  "514181": [
+   "Majivana",
+   3822,
+   20
+  ],
+  "514179": [
+   "Ambarama",
+   3822,
+   19
+  ],
+  "514190": [
+   "Modhvada",
+   3822,
+   14
+  ],
+  "514189": [
+   "Kindar Kheda",
+   3822,
+   14
+  ],
+  "514195": [
+   "Keshav",
+   3822,
+   14
+  ],
+  "514177": [
+   "Bhavpara",
+   3822,
+   13
+  ],
+  "514191": [
+   "Sukhpur",
+   3822,
+   14
+  ],
+  "514193": [
+   "Visavada",
+   3822,
+   13
+  ],
+  "514203": [
+   "Bharvada",
+   3822,
+   15
+  ],
+  "514194": [
+   "Palkhada",
+   3822,
+   14
+  ],
+  "514200": [
+   "Godhana",
+   3822,
+   15
+  ],
+  "514182": [
+   "Kunvadar",
+   3822,
+   20
+  ],
+  "514185": [
+   "Nagka",
+   3822,
+   15
+  ],
+  "514188": [
+   "Khambhodar",
+   3822,
+   15
+  ],
+  "514187": [
+   "Natvarnagar",
+   3822,
+   15
+  ],
+  "514240": [
+   "Sinhjhar Nes",
+   3822,
+   16
+  ],
+  "514186": [
+   "Bavalvav",
+   3822,
+   15
+  ],
+  "514198": [
+   "Khistri",
+   3822,
+   15
+  ],
+  "514197": [
+   "Vachhoda",
+   3822,
+   15
+  ],
+  "514196": [
+   "Bagvadar",
+   3822,
+   15
+  ],
+  "514199": [
+   "Vinjhrana",
+   3822,
+   15
+  ],
+  "514201": [
+   "Katvana",
+   3822,
+   15
+  ],
+  "514202": [
+   "Beran",
+   3822,
+   15
+  ],
+  "514296": [
+   "Bedawada Nes",
+   3823,
+   16
+  ],
+  "514273": [
+   "Malek Nes",
+   3823,
+   16
+  ],
+  "514275": [
+   "Gandiyavad Nes",
+   3823,
+   16
+  ],
+  "514278": [
+   "Sajanwada Nes",
+   3823,
+   17
+  ],
+  "514280": [
+   "Kathiyo Nes",
+   3823,
+   17
+  ],
+  "514279": [
+   "Krushnay Nes",
+   3823,
+   17
+  ],
+  "514281": [
+   "Chhapravala Nes",
+   3823,
+   16
+  ],
+  "514242": [
+   "Ashiyapat",
+   3823,
+   17
+  ],
+  "514243": [
+   "Hanumangadh",
+   3823,
+   17
+  ],
+  "514284": [
+   "Boriavala Nes",
+   3823,
+   16
+  ],
+  "514288": [
+   "Ranava Nes",
+   3823,
+   16
+  ],
+  "514244": [
+   "Bileshwar",
+   3823,
+   17
+  ],
+  "514286": [
+   "Jarera Nes",
+   3823,
+   17
+  ],
+  "514287": [
+   "Shermalki Nes",
+   3823,
+   16
+  ],
+  "514291": [
+   "Morivirda Nes",
+   3823,
+   16
+  ],
+  "514290": [
+   "Dhorivav Nes",
+   3823,
+   16
+  ],
+  "514295": [
+   "Dhraphadiya Nes",
+   3823,
+   16
+  ],
+  "514294": [
+   "Anti Nes",
+   3823,
+   16
+  ],
+  "514285": [
+   "Karval Nes",
+   3823,
+   16
+  ],
+  "514283": [
+   "Fulzar Nes",
+   3823,
+   16
+  ],
+  "514289": [
+   "Satvira Nes",
+   3823,
+   16
+  ],
+  "514276": [
+   "Munjvaro Nes",
+   3823,
+   17
+  ],
+  "514270": [
+   "Khakhravala Nes",
+   3823,
+   16
+  ],
+  "514272": [
+   "Ajmapat Nes",
+   3823,
+   17
+  ],
+  "514271": [
+   "Bhukhbara Nes",
+   3823,
+   16
+  ],
+  "514277": [
+   "Fataltem Nes",
+   3823,
+   17
+  ],
+  "514168": [
+   "Advana",
+   3822,
+   20
+  ],
+  "514172": [
+   "Bhomiyavadar",
+   3822,
+   20
+  ],
+  "514183": [
+   "Morana",
+   3822,
+   20
+  ],
+  "514184": [
+   "Paravada",
+   3822,
+   20
+  ],
+  "514309": [
+   "Amar",
+   3824,
+   10
+  ],
+  "514321": [
+   "Khunpur",
+   3824,
+   11
+  ],
+  "514312": [
+   "Hamadpara",
+   3824,
+   11
+  ],
+  "514310": [
+   "Bavlavadar",
+   3824,
+   10
+  ],
+  "514322": [
+   "Teri",
+   3824,
+   11
+  ],
+  "514304": [
+   "Devda",
+   3824,
+   10
+  ],
+  "514307": [
+   "Dhruvala",
+   3824,
+   11
+  ],
+  "514308": [
+   "Ishvariya",
+   3824,
+   10
+  ],
+  "514311": [
+   "Mahobatpara",
+   3824,
+   11
+  ],
+  "514313": [
+   "Helabeli",
+   3824,
+   11
+  ],
+  "514323": [
+   "Choliyana",
+   3824,
+   10
+  ],
+  "514324": [
+   "Baloch",
+   3824,
+   5
+  ],
+  "514328": [
+   "Mandva",
+   3824,
+   6
+  ],
+  "514325": [
+   "Mal",
+   3824,
+   5
+  ],
+  "514330": [
+   "Kotda",
+   3824,
+   5
+  ],
+  "514329": [
+   "Katwana",
+   3824,
+   6
+  ],
+  "514331": [
+   "Pasvari",
+   3824,
+   5
+  ],
+  "514334": [
+   "Segras",
+   3824,
+   5
+  ],
+  "514335": [
+   "Chhatrava",
+   3824,
+   2
+  ],
+  "514336": [
+   "Bhogsar",
+   3824,
+   2
+  ],
+  "514221": [
+   "Erada",
+   3822,
+   4
+  ],
+  "514222": [
+   "Delodar",
+   3822,
+   1
+  ],
+  "514248": [
+   "Bordi",
+   3823,
+   9
+  ],
+  "514250": [
+   "Khirsara",
+   3823,
+   9
+  ],
+  "514249": [
+   "Dolatgadh",
+   3823,
+   9
+  ],
+  "514265": [
+   "Kerala",
+   3823,
+   4
+  ],
+  "514267": [
+   "Bhoddar",
+   3823,
+   5
+  ],
+  "514251": [
+   "Daiyar",
+   3823,
+   10
+  ],
+  "514253": [
+   "Aniyari",
+   3823,
+   9
+  ],
+  "514268": [
+   "Mahira",
+   3823,
+   5
+  ],
+  "514269": [
+   "Nerana",
+   3823,
+   5
+  ],
+  "514252": [
+   "Valotra",
+   3823,
+   10
+  ],
+  "514258": [
+   "Vadwala Rana",
+   3823,
+   9
+  ],
+  "514259": [
+   "Kandorna Rana",
+   3823,
+   10
+  ],
+  "514260": [
+   "Khijdad",
+   3823,
+   5
+  ],
+  "514262": [
+   "Bapodar",
+   3823,
+   4
+  ],
+  "514261": [
+   "Thoyana",
+   3823,
+   5
+  ],
+  "514266": [
+   "Jambu",
+   3823,
+   5
+  ],
+  "514264": [
+   "Padardi",
+   3823,
+   4
+  ],
+  "251142": [
+   "Kutiyana",
+   3824,
+   6
+  ],
+  "514333": [
+   "Moddar",
+   3824,
+   6
+  ],
+  "514337": [
+   "Kavalka",
+   3824,
+   6
+  ],
+  "514314": [
+   "Sindhpur",
+   3824,
+   11
+  ],
+  "514317": [
+   "Daduka",
+   3824,
+   12
+  ],
+  "514319": [
+   "Roghada",
+   3824,
+   12
+  ],
+  "514318": [
+   "Bildi",
+   3824,
+   12
+  ],
+  "514315": [
+   "Malanka",
+   3824,
+   12
+  ],
+  "514320": [
+   "Gokaran",
+   3824,
+   11
+  ],
+  "514327": [
+   "Thepda",
+   3824,
+   6
+  ],
+  "514332": [
+   "Kantol",
+   3824,
+   6
+  ],
+  "802523": [
+   "Chhaya M",
+   3822,
+   7
+  ],
+  "514241": [
+   "Khapat CT",
+   3822,
+   7
+  ],
+  "514303": [
+   "Amardad CT",
+   3823,
+   8
+  ],
+  "999999": [
+   "R F",
+   3823,
+   9
+  ],
+  "514316": [
+   "Vadala",
+   3824,
+   12
+  ],
+  "514326": [
+   "Chauta",
+   3824,
+   6
+  ],
+  "514306": [
+   "Khageshri",
+   3824,
+   18
+  ],
+  "514305": [
+   "Ramnagar",
+   3824,
+   10
+  ],
+  "514167": [
+   "Bhetkadi",
+   3822,
+   19
+  ],
+  "514170": [
+   "Rojivada",
+   3822,
+   20
+  ],
+  "514169": [
+   "Simar",
+   3822,
+   20
+  ],
+  "514171": [
+   "Ishvariya",
+   3822,
+   20
+  ]
+ },
+ "village_count_total": 189,
+ "village_count_assigned": 189
+}

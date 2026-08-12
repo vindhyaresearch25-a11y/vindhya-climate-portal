@@ -1,0 +1,4461 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Himachal Pradesh",
+  "district": "Una",
+  "district_lgd": 26,
+  "observation_window": "2026-08-07T11:09Z to 2026-08-12T11:09Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2274,
+  "sm_surface_stddev": 0.017,
+  "sm_rootzone_mean": 0.2155,
+  "sm_rootzone_stddev": 0.0186,
+  "n_cells": 15,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 31.3737,
+    "lon": 76.2355,
+    "sm_surface": 0.2013,
+    "sm_rootzone": 0.1886,
+    "n_villages_sharing_cell": 42
+   },
+   {
+    "cell_index": 1,
+    "lat": 31.3737,
+    "lon": 76.3343,
+    "sm_surface": 0.2137,
+    "sm_rootzone": 0.189,
+    "n_villages_sharing_cell": 38
+   },
+   {
+    "cell_index": 2,
+    "lat": 31.4725,
+    "lon": 76.1367,
+    "sm_surface": 0.1983,
+    "sm_rootzone": 0.2108,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 3,
+    "lat": 31.4725,
+    "lon": 76.2355,
+    "sm_surface": 0.2253,
+    "sm_rootzone": 0.2079,
+    "n_villages_sharing_cell": 35
+   },
+   {
+    "cell_index": 4,
+    "lat": 31.4725,
+    "lon": 76.3343,
+    "sm_surface": 0.2157,
+    "sm_rootzone": 0.1907,
+    "n_villages_sharing_cell": 53
+   },
+   {
+    "cell_index": 5,
+    "lat": 31.4725,
+    "lon": 76.4332,
+    "sm_surface": 0.2089,
+    "sm_rootzone": 0.2131,
+    "n_villages_sharing_cell": 52
+   },
+   {
+    "cell_index": 6,
+    "lat": 31.5713,
+    "lon": 76.1367,
+    "sm_surface": 0.2215,
+    "sm_rootzone": 0.2017,
+    "n_villages_sharing_cell": 30
+   },
+   {
+    "cell_index": 7,
+    "lat": 31.5713,
+    "lon": 76.2355,
+    "sm_surface": 0.235,
+    "sm_rootzone": 0.2171,
+    "n_villages_sharing_cell": 57
+   },
+   {
+    "cell_index": 8,
+    "lat": 31.5713,
+    "lon": 76.3343,
+    "sm_surface": 0.2369,
+    "sm_rootzone": 0.234,
+    "n_villages_sharing_cell": 126
+   },
+   {
+    "cell_index": 9,
+    "lat": 31.6701,
+    "lon": 76.0379,
+    "sm_surface": 0.2268,
+    "sm_rootzone": 0.2322,
+    "n_villages_sharing_cell": 36
+   },
+   {
+    "cell_index": 10,
+    "lat": 31.6701,
+    "lon": 76.1367,
+    "sm_surface": 0.2405,
+    "sm_rootzone": 0.217,
+    "n_villages_sharing_cell": 72
+   },
+   {
+    "cell_index": 11,
+    "lat": 31.6701,
+    "lon": 76.2355,
+    "sm_surface": 0.2472,
+    "sm_rootzone": 0.2282,
+    "n_villages_sharing_cell": 80
+   },
+   {
+    "cell_index": 12,
+    "lat": 31.6701,
+    "lon": 76.3343,
+    "sm_surface": 0.2512,
+    "sm_rootzone": 0.2448,
+    "n_villages_sharing_cell": 95
+   },
+   {
+    "cell_index": 13,
+    "lat": 31.7689,
+    "lon": 76.0379,
+    "sm_surface": 0.2331,
+    "sm_rootzone": 0.2072,
+    "n_villages_sharing_cell": 71
+   },
+   {
+    "cell_index": 14,
+    "lat": 31.7689,
+    "lon": 76.1367,
+    "sm_surface": 0.2559,
+    "sm_rootzone": 0.2495,
+    "n_villages_sharing_cell": 50
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2293,
+  "sm_surface_stddev": 0.0145,
+  "n_blocks": 5
+ },
+ "blocks": [
+  {
+   "block_name": "Amb",
+   "sdcode": 148,
+   "n_villages": 254,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.2378,
+   "sm_surface_stddev": 0.0095
+  },
+  {
+   "block_name": "Bangana",
+   "sdcode": 149,
+   "n_villages": 349,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.2363,
+   "sm_surface_stddev": 0.0145
+  },
+  {
+   "block_name": "Bharwain",
+   "sdcode": 147,
+   "n_villages": 48,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.2464,
+   "sm_surface_stddev": 0.0112
+  },
+  {
+   "block_name": "Haroli",
+   "sdcode": 151,
+   "n_villages": 59,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.2061,
+   "sm_surface_stddev": 0.009
+  },
+  {
+   "block_name": "Una",
+   "sdcode": 150,
+   "n_villages": 143,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.2197,
+   "sm_surface_stddev": 0.0106
+  }
+ ],
+ "villages": {
+  "18663": [
+   "Kattal Ii",
+   149,
+   8
+  ],
+  "18188": [
+   "Jarla Ii",
+   148,
+   6
+  ],
+  "18187": [
+   "Jarla Pratham",
+   148,
+   6
+  ],
+  "18184": [
+   "Kuthera Jaswala Nichla",
+   148,
+   6
+  ],
+  "18181": [
+   "Mawa Sindiyan Upperli",
+   148,
+   6
+  ],
+  "18180": [
+   "Tatera",
+   148,
+   9
+  ],
+  "18179": [
+   "Oyal",
+   148,
+   9
+  ],
+  "18178": [
+   "Thaplan",
+   148,
+   9
+  ],
+  "18177": [
+   "Pambra",
+   148,
+   9
+  ],
+  "18176": [
+   "Bhathiyan Wala",
+   148,
+   9
+  ],
+  "18174": [
+   "Shastri Nagar",
+   148,
+   9
+  ],
+  "18173": [
+   "Bumbbalu",
+   148,
+   9
+  ],
+  "248235": [
+   "Santokhgarh",
+   150,
+   1
+  ],
+  "18830": [
+   "Chhatarpur Dhada",
+   150,
+   1
+  ],
+  "18829": [
+   "Chhatarpur",
+   150,
+   1
+  ],
+  "18812": [
+   "Fatehpur",
+   150,
+   1
+  ],
+  "18811": [
+   "Nangran Nichla",
+   150,
+   1
+  ],
+  "18813": [
+   "Nangran Upperla",
+   150,
+   1
+  ],
+  "18797": [
+   "Up Mahal Pekhu Bela",
+   150,
+   1
+  ],
+  "18791": [
+   "Jankaur Har",
+   150,
+   3
+  ],
+  "18792": [
+   "Abada Barana",
+   150,
+   3
+  ],
+  "18796": [
+   "Jankaur Khas",
+   150,
+   4
+  ],
+  "18798": [
+   "Up Mahal Jhorowal",
+   150,
+   1
+  ],
+  "18799": [
+   "Mahal Upperla Badehar",
+   150,
+   4
+  ],
+  "18800": [
+   "Mahal Badehar Upnam Dehlan",
+   150,
+   4
+  ],
+  "18810": [
+   "Lamlehra",
+   150,
+   1
+  ],
+  "18808": [
+   "Mahal Mahantan",
+   150,
+   1
+  ],
+  "18814": [
+   "Sasan",
+   150,
+   1
+  ],
+  "18816": [
+   "Udaypur",
+   150,
+   1
+  ],
+  "18815": [
+   "Charatgarh Upperla",
+   150,
+   1
+  ],
+  "18809": [
+   "Mahal Nichla Badehar",
+   150,
+   1
+  ],
+  "18859": [
+   "Jorian",
+   151,
+   2
+  ],
+  "18863": [
+   "Janani",
+   151,
+   0
+  ],
+  "18864": [
+   "Tibian",
+   151,
+   0
+  ],
+  "18861": [
+   "Polianbeet",
+   151,
+   0
+  ],
+  "18862": [
+   "Maluwal",
+   151,
+   0
+  ],
+  "18867": [
+   "Hiran",
+   151,
+   0
+  ],
+  "18868": [
+   "Dulehr Uparla",
+   151,
+   0
+  ],
+  "18866": [
+   "Bhadiaran",
+   151,
+   0
+  ],
+  "18870": [
+   "Goindpur Bula Uparla",
+   151,
+   0
+  ],
+  "18871": [
+   "Goindpur Tarf Jaichand",
+   151,
+   0
+  ],
+  "18872": [
+   "Goindpur Jai Chand Nichala",
+   151,
+   0
+  ],
+  "18869": [
+   "Goindpur Tarf Bula",
+   151,
+   0
+  ],
+  "18873": [
+   "Singa Urf Sur Kalan",
+   151,
+   0
+  ],
+  "18874": [
+   "Bitan",
+   151,
+   0
+  ],
+  "18878": [
+   "Shiampura",
+   151,
+   0
+  ],
+  "18879": [
+   "Thara",
+   151,
+   0
+  ],
+  "18877": [
+   "Hiran",
+   151,
+   0
+  ],
+  "18860": [
+   "Makor Ghar",
+   151,
+   0
+  ],
+  "18858": [
+   "Kutharbeet",
+   151,
+   0
+  ],
+  "18876": [
+   "Chhetaran",
+   151,
+   0
+  ],
+  "18894": [
+   "Bathri",
+   151,
+   0
+  ],
+  "18895": [
+   "Bela Bathri",
+   151,
+   1
+  ],
+  "18892": [
+   "Gurpalah",
+   151,
+   1
+  ],
+  "18893": [
+   "Kelua",
+   151,
+   0
+  ],
+  "18891": [
+   "Bathu",
+   151,
+   0
+  ],
+  "18890": [
+   "Bat Khurd",
+   151,
+   1
+  ],
+  "18889": [
+   "Bat Kalan",
+   151,
+   1
+  ],
+  "18888": [
+   "Tahaliwal Nichala",
+   151,
+   1
+  ],
+  "18887": [
+   "Tahaliwal Uparla",
+   151,
+   1
+  ],
+  "18886": [
+   "Nangal Jatpur",
+   151,
+   0
+  ],
+  "18885": [
+   "Nangal Kalan",
+   151,
+   0
+  ],
+  "18883": [
+   "Manuwal",
+   151,
+   0
+  ],
+  "18884": [
+   "Theh",
+   151,
+   0
+  ],
+  "18882": [
+   "Nangal Khurd",
+   151,
+   0
+  ],
+  "18881": [
+   "Lalehri",
+   151,
+   0
+  ],
+  "18875": [
+   "Kungrat",
+   151,
+   0
+  ],
+  "18880": [
+   "Chandpur",
+   151,
+   0
+  ],
+  "18853": [
+   "Palakwah Nichala",
+   151,
+   0
+  ],
+  "18856": [
+   "Haleran",
+   151,
+   0
+  ],
+  "18855": [
+   "Ojale",
+   151,
+   0
+  ],
+  "18851": [
+   "Thakaran",
+   151,
+   0
+  ],
+  "18852": [
+   "Karampur",
+   151,
+   0
+  ],
+  "18849": [
+   "Palakwah",
+   151,
+   0
+  ],
+  "18850": [
+   "Kante",
+   151,
+   0
+  ],
+  "18848": [
+   "Bhadauri",
+   151,
+   0
+  ],
+  "18847": [
+   "Haroli Ii Nd",
+   151,
+   0
+  ],
+  "18846": [
+   "Haroli Ist",
+   151,
+   3
+  ],
+  "18854": [
+   "Pubowal",
+   151,
+   0
+  ],
+  "18857": [
+   "Jorian",
+   151,
+   2
+  ],
+  "18842": [
+   "Rora Baliwal",
+   151,
+   3
+  ],
+  "18845": [
+   "Haroli",
+   151,
+   0
+  ],
+  "18841": [
+   "Samnal",
+   151,
+   3
+  ],
+  "18844": [
+   "Panjuana",
+   151,
+   3
+  ],
+  "18865": [
+   "Dulehar",
+   151,
+   0
+  ],
+  "18828": [
+   "Khanpur",
+   150,
+   1
+  ],
+  "18807": [
+   "Aerian",
+   150,
+   4
+  ],
+  "18595": [
+   "D P F Kosar",
+   149,
+   5
+  ],
+  "18594": [
+   "Jagat Khana",
+   149,
+   5
+  ],
+  "18836": [
+   "Sanoli",
+   150,
+   1
+  ],
+  "18835": [
+   "Malukpur",
+   150,
+   1
+  ],
+  "18833": [
+   "Majara",
+   150,
+   1
+  ],
+  "18834": [
+   "Binnewal",
+   150,
+   1
+  ],
+  "18831": [
+   "Ajauli",
+   150,
+   1
+  ],
+  "18832": [
+   "Puna",
+   150,
+   1
+  ],
+  "18817": [
+   "Charatgarh Nichla",
+   150,
+   1
+  ],
+  "18819": [
+   "Raipur Nichla",
+   150,
+   1
+  ],
+  "18823": [
+   "Up Mahal Jarei Mehatpur",
+   150,
+   1
+  ],
+  "18826": [
+   "Up Mahal Kalsehra",
+   150,
+   1
+  ],
+  "18824": [
+   "Up Mahal Uperli Bhatoli",
+   150,
+   1
+  ],
+  "18825": [
+   "Up Mahal Nichli Bhatoli",
+   150,
+   1
+  ],
+  "18827": [
+   "Up Mahal Bhatoli College",
+   150,
+   1
+  ],
+  "18821": [
+   "Ban Garh",
+   150,
+   4
+  ],
+  "18801": [
+   "Mahal Bans Bonsre",
+   150,
+   4
+  ],
+  "18820": [
+   "Jakhera",
+   150,
+   1
+  ],
+  "18818": [
+   "Raipur Upperla",
+   150,
+   1
+  ],
+  "248234": [
+   "Mehatpur Basdehra",
+   150,
+   1
+  ],
+  "18806": [
+   "Mahal Uperli Dehlan",
+   150,
+   1
+  ],
+  "18838": [
+   "Kangar",
+   151,
+   3
+  ],
+  "18345": [
+   "Up Mahal Dhusara Abal",
+   148,
+   7
+  ],
+  "18346": [
+   "Up Mahal Dhusara Doem",
+   148,
+   7
+  ],
+  "18341": [
+   "Up Mahal Malkada",
+   148,
+   7
+  ],
+  "18347": [
+   "Saluri",
+   148,
+   7
+  ],
+  "18339": [
+   "Bhaira",
+   148,
+   7
+  ],
+  "18342": [
+   "Up Mahal Satothar",
+   148,
+   7
+  ],
+  "18344": [
+   "Up Mahal Hamboli Nichali",
+   148,
+   6
+  ],
+  "18338": [
+   "Diyara",
+   148,
+   7
+  ],
+  "18343": [
+   "Up Mahal Hamboli Uperli",
+   148,
+   6
+  ],
+  "18340": [
+   "Seri",
+   148,
+   6
+  ],
+  "18336": [
+   "Baheri",
+   148,
+   6
+  ],
+  "18335": [
+   "Charuru",
+   148,
+   6
+  ],
+  "18337": [
+   "Dilwan",
+   148,
+   6
+  ],
+  "18312": [
+   "Nandpur",
+   148,
+   6
+  ],
+  "18334": [
+   "Up Mahal Dhandari",
+   148,
+   6
+  ],
+  "18333": [
+   "Up Mahal Shiv Nagar",
+   148,
+   6
+  ],
+  "18332": [
+   "Up Mahal Takarla",
+   148,
+   7
+  ],
+  "18331": [
+   "Bilan Da Thappal",
+   148,
+   10
+  ],
+  "18311": [
+   "Kathiari",
+   148,
+   10
+  ],
+  "18193": [
+   "Talwal",
+   148,
+   10
+  ],
+  "18194": [
+   "Badaun",
+   148,
+   10
+  ],
+  "18314": [
+   "Up Mahal Thathal",
+   148,
+   10
+  ],
+  "18313": [
+   "Up Mahal Nakki",
+   148,
+   10
+  ],
+  "18330": [
+   "Maslana",
+   148,
+   10
+  ],
+  "18329": [
+   "Jaman Kual",
+   148,
+   10
+  ],
+  "18328": [
+   "Mairi Khas",
+   148,
+   10
+  ],
+  "18326": [
+   "Behar Jaswan Kansi",
+   148,
+   10
+  ],
+  "18315": [
+   "Up Mahal Ram Nagar",
+   148,
+   10
+  ],
+  "18327": [
+   "Chak",
+   148,
+   10
+  ],
+  "18325": [
+   "Behar Bithal",
+   148,
+   10
+  ],
+  "18324": [
+   "Akrot",
+   148,
+   10
+  ],
+  "18192": [
+   "Piplu",
+   148,
+   6
+  ],
+  "18191": [
+   "Guglehar",
+   148,
+   6
+  ],
+  "18190": [
+   "Badhera",
+   148,
+   6
+  ],
+  "18189": [
+   "Koharri",
+   148,
+   6
+  ],
+  "18186": [
+   "Loharli Nichli",
+   148,
+   6
+  ],
+  "18185": [
+   "Loharli Upperli",
+   148,
+   6
+  ],
+  "18183": [
+   "Kuthera Jaswala Upperla",
+   148,
+   6
+  ],
+  "18182": [
+   "Mawa Sindiyan Nichli",
+   148,
+   6
+  ],
+  "18323": [
+   "Ghungralan",
+   148,
+   10
+  ],
+  "18525": [
+   "Samur",
+   149,
+   8
+  ],
+  "18521": [
+   "Baul Uperli",
+   149,
+   8
+  ],
+  "18523": [
+   "Baul",
+   149,
+   8
+  ],
+  "18526": [
+   "Ludher",
+   149,
+   8
+  ],
+  "18527": [
+   "Mowkhas",
+   149,
+   7
+  ],
+  "18522": [
+   "Khurwan",
+   149,
+   8
+  ],
+  "18520": [
+   "Kawari",
+   149,
+   8
+  ],
+  "18533": [
+   "Ghuggan Kakrana",
+   149,
+   8
+  ],
+  "18518": [
+   "Chakroa",
+   149,
+   8
+  ],
+  "18517": [
+   "Tiyar",
+   149,
+   8
+  ],
+  "18514": [
+   "Kuhroo",
+   149,
+   7
+  ],
+  "18516": [
+   "Kathoh",
+   149,
+   8
+  ],
+  "18519": [
+   "Dharun",
+   149,
+   7
+  ],
+  "18515": [
+   "Amroh",
+   149,
+   7
+  ],
+  "18493": [
+   "Kiarian",
+   149,
+   8
+  ],
+  "18509": [
+   "Kukhera Rajputan",
+   149,
+   8
+  ],
+  "18492": [
+   "Kud",
+   149,
+   8
+  ],
+  "18491": [
+   "Palahta",
+   149,
+   8
+  ],
+  "18512": [
+   "Kukhera Jatan",
+   149,
+   7
+  ],
+  "18490": [
+   "Harot",
+   149,
+   8
+  ],
+  "18513": [
+   "Ambhera Dhiraj",
+   149,
+   7
+  ],
+  "18510": [
+   "Ambhera Ramkishan",
+   149,
+   7
+  ],
+  "18353": [
+   "Kaint",
+   149,
+   7
+  ],
+  "18351": [
+   "Talap",
+   149,
+   7
+  ],
+  "18349": [
+   "Pallian",
+   149,
+   7
+  ],
+  "18350": [
+   "Panjora",
+   149,
+   7
+  ],
+  "18352": [
+   "Nagar Chauki",
+   149,
+   7
+  ],
+  "18354": [
+   "Chauki Khas",
+   149,
+   7
+  ],
+  "18357": [
+   "Umre Di Behar",
+   149,
+   7
+  ],
+  "18507": [
+   "Atia",
+   149,
+   7
+  ],
+  "18508": [
+   "Meyor",
+   149,
+   7
+  ],
+  "18506": [
+   "Baghnal",
+   149,
+   11
+  ],
+  "18358": [
+   "Harsa Jandora",
+   149,
+   7
+  ],
+  "18360": [
+   "Jol",
+   149,
+   7
+  ],
+  "18359": [
+   "Harsa Lathan",
+   149,
+   11
+  ],
+  "18348": [
+   "Baruhi",
+   149,
+   7
+  ],
+  "18368": [
+   "Baslehar",
+   149,
+   11
+  ],
+  "18364": [
+   "Krishan Nagar",
+   149,
+   11
+  ],
+  "18362": [
+   "Bairian",
+   149,
+   11
+  ],
+  "18356": [
+   "Bhood",
+   149,
+   11
+  ],
+  "18367": [
+   "Chhatter",
+   149,
+   11
+  ],
+  "18369": [
+   "Bharmar",
+   149,
+   11
+  ],
+  "18371": [
+   "Ram Nagar",
+   149,
+   11
+  ],
+  "18494": [
+   "D P F Ban Dhanet",
+   149,
+   8
+  ],
+  "18496": [
+   "D P F Charoli",
+   149,
+   12
+  ],
+  "18355": [
+   "D P F Chauki",
+   149,
+   7
+  ],
+  "18511": [
+   "D P F Atia",
+   149,
+   7
+  ],
+  "18361": [
+   "D P F Jol",
+   149,
+   11
+  ],
+  "18363": [
+   "D P F Bairian",
+   149,
+   11
+  ],
+  "18498": [
+   "D P F Dhayunser Iv",
+   149,
+   11
+  ],
+  "18502": [
+   "D P F Dhayunser V",
+   149,
+   11
+  ],
+  "18388": [
+   "Panjardra",
+   149,
+   11
+  ],
+  "18501": [
+   "Ghartholi",
+   149,
+   11
+  ],
+  "18497": [
+   "Chamboa",
+   149,
+   12
+  ],
+  "18499": [
+   "Sarnoti",
+   149,
+   11
+  ],
+  "18495": [
+   "Charoli",
+   149,
+   12
+  ],
+  "18485": [
+   "Kokra",
+   149,
+   12
+  ],
+  "18488": [
+   "Chaplah Kutlehrian",
+   149,
+   12
+  ],
+  "18489": [
+   "Chaplah Garlan",
+   149,
+   12
+  ],
+  "18444": [
+   "Chaksar",
+   149,
+   12
+  ],
+  "18445": [
+   "D P F Sar",
+   149,
+   12
+  ],
+  "18484": [
+   "Bohana",
+   149,
+   12
+  ],
+  "18698": [
+   "Nagnoli",
+   150,
+   6
+  ],
+  "18699": [
+   "Nagnuli Har",
+   150,
+   6
+  ],
+  "18697": [
+   "Lawana Majra",
+   150,
+   6
+  ],
+  "18702": [
+   "Jangal Panjawar",
+   150,
+   6
+  ],
+  "18701": [
+   "Panjawar",
+   150,
+   6
+  ],
+  "18700": [
+   "Panjawar Nichla",
+   150,
+   6
+  ],
+  "18704": [
+   "Jangal Khad",
+   150,
+   2
+  ],
+  "18703": [
+   "Daulatpur",
+   150,
+   6
+  ],
+  "18705": [
+   "Khad Khas",
+   150,
+   6
+  ],
+  "18706": [
+   "Chak Khad",
+   150,
+   2
+  ],
+  "18709": [
+   "Pandogha Khas",
+   150,
+   2
+  ],
+  "18708": [
+   "Pandogha Nichla",
+   150,
+   2
+  ],
+  "18711": [
+   "Pandogha Kairian",
+   150,
+   2
+  ],
+  "18710": [
+   "Pandogha Uparla",
+   150,
+   2
+  ],
+  "18707": [
+   "Bhaini Khad",
+   150,
+   6
+  ],
+  "18726": [
+   "Bhalola",
+   150,
+   7
+  ],
+  "18712": [
+   "Ispur Upperla",
+   150,
+   2
+  ],
+  "18713": [
+   "Ispur Tanda",
+   150,
+   2
+  ],
+  "18714": [
+   "Ispur",
+   150,
+   3
+  ],
+  "18718": [
+   "Jangal Bhadsali",
+   150,
+   2
+  ],
+  "18721": [
+   "Saloh Uperla",
+   150,
+   2
+  ],
+  "18724": [
+   "Arjunpura",
+   150,
+   3
+  ],
+  "18723": [
+   "Dhariyan Wala",
+   150,
+   3
+  ],
+  "18722": [
+   "Saloh Nichla",
+   150,
+   3
+  ],
+  "18725": [
+   "Ghalu Wal",
+   150,
+   3
+  ],
+  "18715": [
+   "Bhadsali Har",
+   150,
+   2
+  ],
+  "18717": [
+   "Bhadsali Bhul Gharh",
+   150,
+   2
+  ],
+  "18719": [
+   "Bhadsali Tholian",
+   150,
+   2
+  ],
+  "18716": [
+   "Bhadsali",
+   150,
+   3
+  ],
+  "18728": [
+   "Ghandawal",
+   150,
+   7
+  ],
+  "18729": [
+   "Bhaloh",
+   150,
+   7
+  ],
+  "18730": [
+   "Bareda",
+   150,
+   7
+  ],
+  "18731": [
+   "Satletta",
+   150,
+   7
+  ],
+  "18732": [
+   "Sanjhot",
+   150,
+   7
+  ],
+  "18727": [
+   "Batuhi",
+   150,
+   7
+  ],
+  "18736": [
+   "Panoh I",
+   150,
+   7
+  ],
+  "18737": [
+   "Panoh Ii",
+   150,
+   7
+  ],
+  "18738": [
+   "Tiuri I",
+   150,
+   7
+  ],
+  "18739": [
+   "Tiuri Doam",
+   150,
+   3
+  ],
+  "18763": [
+   "Khadunni",
+   150,
+   3
+  ],
+  "18767": [
+   "Jhalera",
+   150,
+   3
+  ],
+  "18766": [
+   "Raisari Upperli",
+   150,
+   3
+  ],
+  "18764": [
+   "Galua",
+   150,
+   3
+  ],
+  "18759": [
+   "Sansala Nagar",
+   150,
+   3
+  ],
+  "18762": [
+   "Kasba",
+   150,
+   7
+  ],
+  "18735": [
+   "Badoli",
+   150,
+   7
+  ],
+  "18734": [
+   "Dhatwara",
+   150,
+   7
+  ],
+  "18733": [
+   "Dhamandri",
+   150,
+   7
+  ],
+  "18740": [
+   "Badsala",
+   150,
+   7
+  ],
+  "18741": [
+   "Salangari",
+   150,
+   7
+  ],
+  "18742": [
+   "Nangal Ii",
+   150,
+   7
+  ],
+  "18743": [
+   "Nangal I",
+   150,
+   7
+  ],
+  "18745": [
+   "Chalola Ii",
+   150,
+   7
+  ],
+  "18744": [
+   "Chalola I",
+   150,
+   7
+  ],
+  "18746": [
+   "Dhadial",
+   150,
+   7
+  ],
+  "18747": [
+   "Nari Nichli",
+   150,
+   7
+  ],
+  "18748": [
+   "Nari Upperli",
+   150,
+   7
+  ],
+  "18749": [
+   "Lam",
+   150,
+   7
+  ],
+  "18750": [
+   "Jhambar",
+   150,
+   7
+  ],
+  "18761": [
+   "Thakar Dawara",
+   150,
+   7
+  ],
+  "18760": [
+   "Basal",
+   150,
+   7
+  ],
+  "18751": [
+   "Surjehra",
+   150,
+   7
+  ],
+  "18752": [
+   "Kuriala",
+   150,
+   8
+  ],
+  "18758": [
+   "Vishna Nagar",
+   150,
+   3
+  ],
+  "18757": [
+   "Ram Nagar",
+   150,
+   3
+  ],
+  "18756": [
+   "Dangehra",
+   150,
+   3
+  ],
+  "18753": [
+   "Samoor Kalan Awal",
+   150,
+   4
+  ],
+  "18755": [
+   "Samoor Kalan Doam",
+   150,
+   4
+  ],
+  "18765": [
+   "Raisari Nichli",
+   150,
+   3
+  ],
+  "18768": [
+   "Kotla Khurd",
+   150,
+   3
+  ],
+  "18754": [
+   "Barnoh",
+   150,
+   4
+  ],
+  "18774": [
+   "Dangoli",
+   150,
+   4
+  ],
+  "18773": [
+   "Ajnoli",
+   150,
+   4
+  ],
+  "18769": [
+   "Lal Singhi",
+   150,
+   3
+  ],
+  "18770": [
+   "Kotla Kalan Nichla",
+   150,
+   3
+  ],
+  "18772": [
+   "Kotla Kalan Upperla",
+   150,
+   4
+  ],
+  "18788": [
+   "Rampur Bela",
+   150,
+   3
+  ],
+  "18771": [
+   "Arniala",
+   150,
+   4
+  ],
+  "18778": [
+   "Madan Pur",
+   150,
+   4
+  ],
+  "248233": [
+   "Una",
+   150,
+   3
+  ],
+  "18785": [
+   "Malahat",
+   150,
+   4
+  ],
+  "18787": [
+   "Rampur",
+   150,
+   3
+  ],
+  "18786": [
+   "Bhrolian Khurd",
+   150,
+   4
+  ],
+  "18790": [
+   "Kuthar Kalan",
+   150,
+   3
+  ],
+  "18789": [
+   "Kuthar Khurd",
+   150,
+   3
+  ],
+  "18784": [
+   "Rakkar Kaloni",
+   150,
+   4
+  ],
+  "18782": [
+   "Jal Graon",
+   150,
+   4
+  ],
+  "18783": [
+   "Tabba",
+   150,
+   4
+  ],
+  "18793": [
+   "Sunehra",
+   150,
+   4
+  ],
+  "18794": [
+   "Barsara",
+   150,
+   4
+  ],
+  "18795": [
+   "Bharolian Kalan",
+   150,
+   4
+  ],
+  "18837": [
+   "Badehra",
+   151,
+   3
+  ],
+  "18843": [
+   "Rora",
+   151,
+   3
+  ],
+  "18839": [
+   "Dharampur",
+   151,
+   3
+  ],
+  "18840": [
+   "Saihnsowal",
+   151,
+   3
+  ],
+  "18720": [
+   "Jangal Sloh",
+   150,
+   2
+  ],
+  "18696": [
+   "Padyola",
+   149,
+   5
+  ],
+  "18589": [
+   "Chukath",
+   149,
+   5
+  ],
+  "18600": [
+   "Kusila",
+   149,
+   5
+  ],
+  "18588": [
+   "Bohru",
+   149,
+   5
+  ],
+  "18590": [
+   "Lidkot",
+   149,
+   5
+  ],
+  "18605": [
+   "Dobar",
+   149,
+   5
+  ],
+  "18591": [
+   "Chulehri",
+   149,
+   5
+  ],
+  "18593": [
+   "Kamunn",
+   149,
+   4
+  ],
+  "18581": [
+   "Bahal Khalsa",
+   149,
+   4
+  ],
+  "18592": [
+   "Changar",
+   149,
+   4
+  ],
+  "18579": [
+   "Ramgarh",
+   149,
+   4
+  ],
+  "18607": [
+   "Matehati",
+   149,
+   5
+  ],
+  "18604": [
+   "Androli",
+   149,
+   5
+  ],
+  "18606": [
+   "Raipur Uperli",
+   149,
+   5
+  ],
+  "18602": [
+   "Raipur",
+   149,
+   5
+  ],
+  "18601": [
+   "Badaur",
+   149,
+   5
+  ],
+  "18584": [
+   "Kolka",
+   149,
+   5
+  ],
+  "18599": [
+   "Proiana Kalan",
+   149,
+   5
+  ],
+  "18603": [
+   "Jawalapur",
+   149,
+   5
+  ],
+  "18608": [
+   "Govind Sagar Jheel",
+   149,
+   5
+  ],
+  "18691": [
+   "Kodra",
+   149,
+   5
+  ],
+  "18687": [
+   "Neri",
+   149,
+   5
+  ],
+  "18690": [
+   "Dehn",
+   149,
+   5
+  ],
+  "18692": [
+   "Sepra",
+   149,
+   5
+  ],
+  "18689": [
+   "Dharet",
+   149,
+   5
+  ],
+  "18684": [
+   "Dhawera",
+   149,
+   5
+  ],
+  "18688": [
+   "Kharota",
+   149,
+   5
+  ],
+  "18686": [
+   "Turkal Uperli",
+   149,
+   5
+  ],
+  "18685": [
+   "Turkal",
+   149,
+   5
+  ],
+  "18683": [
+   "Budhan Jhikla",
+   149,
+   5
+  ],
+  "18680": [
+   "Pansai",
+   149,
+   5
+  ],
+  "18675": [
+   "Jadhol",
+   149,
+   5
+  ],
+  "18695": [
+   "D P F Paniala",
+   149,
+   5
+  ],
+  "18673": [
+   "Noloot",
+   149,
+   5
+  ],
+  "18631": [
+   "Rachhoh",
+   149,
+   5
+  ],
+  "18682": [
+   "Budhan Uparla",
+   149,
+   5
+  ],
+  "18681": [
+   "Ghugal",
+   149,
+   5
+  ],
+  "18674": [
+   "Sohari",
+   149,
+   5
+  ],
+  "18678": [
+   "Jalgaran",
+   149,
+   5
+  ],
+  "18672": [
+   "Rajli Jatan",
+   149,
+   5
+  ],
+  "18677": [
+   "Aliana",
+   149,
+   5
+  ],
+  "18671": [
+   "Rajli Baniala",
+   149,
+   5
+  ],
+  "18566": [
+   "Badgar",
+   149,
+   5
+  ],
+  "18567": [
+   "Dohak",
+   149,
+   5
+  ],
+  "18570": [
+   "Nurghari",
+   149,
+   4
+  ],
+  "18580": [
+   "Makrer",
+   149,
+   4
+  ],
+  "18582": [
+   "Tanda Anokha",
+   149,
+   4
+  ],
+  "18585": [
+   "Ghior",
+   149,
+   4
+  ],
+  "18575": [
+   "Daulehri Brahmna",
+   149,
+   4
+  ],
+  "18553": [
+   "Daulehri Rajputan",
+   149,
+   4
+  ],
+  "18583": [
+   "Gharbasra",
+   149,
+   4
+  ],
+  "18569": [
+   "Dain",
+   149,
+   4
+  ],
+  "18568": [
+   "Natheri",
+   149,
+   4
+  ],
+  "18571": [
+   "Mandli",
+   149,
+   8
+  ],
+  "18572": [
+   "Bihru Kalan",
+   149,
+   4
+  ],
+  "18574": [
+   "Changreri",
+   149,
+   4
+  ],
+  "18573": [
+   "Bihru Khurd",
+   149,
+   8
+  ],
+  "18552": [
+   "Sasan",
+   149,
+   8
+  ],
+  "18551": [
+   "Madhan",
+   149,
+   8
+  ],
+  "18550": [
+   "Doh",
+   149,
+   8
+  ],
+  "18576": [
+   "Thana Khurd",
+   149,
+   8
+  ],
+  "18554": [
+   "Aghlor",
+   149,
+   8
+  ],
+  "18564": [
+   "Tanda Jhikla",
+   149,
+   8
+  ],
+  "18563": [
+   "Tanda Uperla",
+   149,
+   8
+  ],
+  "18597": [
+   "D P F Ramgarh Awarla I",
+   149,
+   5
+  ],
+  "18596": [
+   "D P F Ramgarh Parla",
+   149,
+   4
+  ],
+  "18598": [
+   "D P F Ramgarh Awarla Iii",
+   149,
+   5
+  ],
+  "18693": [
+   "Duthan",
+   149,
+   5
+  ],
+  "18694": [
+   "Duthan I",
+   149,
+   5
+  ],
+  "18578": [
+   "D P F Ramgarh Awarla Ii",
+   149,
+   4
+  ],
+  "18577": [
+   "D P F Ramgarh Awarla I",
+   149,
+   4
+  ],
+  "18587": [
+   "D P F Tanda Anokha Ii",
+   149,
+   4
+  ],
+  "18586": [
+   "D P F Tanda Anokha I",
+   149,
+   4
+  ],
+  "18565": [
+   "D P F Tanda",
+   149,
+   4
+  ],
+  "18555": [
+   "D P F Aghlor",
+   149,
+   8
+  ],
+  "18557": [
+   "D P F Tihra",
+   149,
+   8
+  ],
+  "18775": [
+   "Lamlehri Upperli",
+   150,
+   8
+  ],
+  "18776": [
+   "Lamlehri Nichli",
+   150,
+   4
+  ],
+  "18777": [
+   "Basoli Upperli",
+   150,
+   4
+  ],
+  "18779": [
+   "Basoli Nichli",
+   150,
+   4
+  ],
+  "18781": [
+   "Chatra Khas",
+   150,
+   4
+  ],
+  "18780": [
+   "Chatara Upperla",
+   150,
+   4
+  ],
+  "18803": [
+   "Up Mahal Bahdala",
+   150,
+   4
+  ],
+  "18802": [
+   "Up Mahal Lamian",
+   150,
+   4
+  ],
+  "18804": [
+   "Up Mahal Chaukhyal",
+   150,
+   4
+  ],
+  "18805": [
+   "Up Mahal Majhalian",
+   150,
+   4
+  ],
+  "18822": [
+   "Fatehwal",
+   150,
+   4
+  ],
+  "18480": [
+   "Tamlet",
+   149,
+   12
+  ],
+  "18679": [
+   "Banjal",
+   149,
+   5
+  ],
+  "18670": [
+   "Rajli Uparli",
+   149,
+   5
+  ],
+  "18666": [
+   "Tyasar",
+   149,
+   5
+  ],
+  "18634": [
+   "Kheri",
+   149,
+   5
+  ],
+  "18633": [
+   "Daroh",
+   149,
+   5
+  ],
+  "18667": [
+   "Lathyani",
+   149,
+   5
+  ],
+  "18668": [
+   "Chehru",
+   149,
+   8
+  ],
+  "18664": [
+   "Karsai",
+   149,
+   8
+  ],
+  "18629": [
+   "Saroh",
+   149,
+   8
+  ],
+  "18630": [
+   "Basatar",
+   149,
+   8
+  ],
+  "18655": [
+   "Sasan",
+   149,
+   8
+  ],
+  "18628": [
+   "Chamyari",
+   149,
+   8
+  ],
+  "18632": [
+   "Suknehra",
+   149,
+   8
+  ],
+  "18617": [
+   "Kott",
+   149,
+   8
+  ],
+  "18618": [
+   "Matoh",
+   149,
+   8
+  ],
+  "18619": [
+   "Jandana",
+   149,
+   8
+  ],
+  "18620": [
+   "Sihana",
+   149,
+   8
+  ],
+  "18621": [
+   "Dolu",
+   149,
+   12
+  ],
+  "18468": [
+   "Bhaleti Pathian",
+   149,
+   12
+  ],
+  "18622": [
+   "Jarola",
+   149,
+   12
+  ],
+  "18623": [
+   "Jateheri",
+   149,
+   12
+  ],
+  "18625": [
+   "Kanehra",
+   149,
+   12
+  ],
+  "18624": [
+   "Pantehri",
+   149,
+   12
+  ],
+  "18649": [
+   "Malangar Brahmna",
+   149,
+   8
+  ],
+  "18648": [
+   "Malangar Mian",
+   149,
+   8
+  ],
+  "18650": [
+   "Sarsoli",
+   149,
+   8
+  ],
+  "18660": [
+   "Tareta",
+   149,
+   8
+  ],
+  "18654": [
+   "Tanoh",
+   149,
+   8
+  ],
+  "18659": [
+   "Badher Uparla",
+   149,
+   8
+  ],
+  "18665": [
+   "Dadyar",
+   149,
+   8
+  ],
+  "18676": [
+   "Baliara",
+   149,
+   8
+  ],
+  "18669": [
+   "Heru Khas",
+   149,
+   8
+  ],
+  "18657": [
+   "Kehlwin",
+   149,
+   8
+  ],
+  "18656": [
+   "Ghatti",
+   149,
+   8
+  ],
+  "18658": [
+   "Dughar",
+   149,
+   8
+  ],
+  "18661": [
+   "Badher Jhikla",
+   149,
+   8
+  ],
+  "18653": [
+   "Soharla Jhikla",
+   149,
+   8
+  ],
+  "18652": [
+   "Soharla Upperla",
+   149,
+   8
+  ],
+  "18638": [
+   "Amrera",
+   149,
+   8
+  ],
+  "18641": [
+   "Narahun",
+   149,
+   8
+  ],
+  "18549": [
+   "Gulehar",
+   149,
+   8
+  ],
+  "18546": [
+   "Baral",
+   149,
+   8
+  ],
+  "18556": [
+   "Tihra Khas",
+   149,
+   8
+  ],
+  "18547": [
+   "Patti",
+   149,
+   8
+  ],
+  "18548": [
+   "Kholi",
+   149,
+   8
+  ],
+  "18545": [
+   "Bhadwar",
+   149,
+   8
+  ],
+  "18541": [
+   "Bahal",
+   149,
+   8
+  ],
+  "18536": [
+   "Chhaproh Khurd",
+   149,
+   8
+  ],
+  "18559": [
+   "Karwalian Sanhal",
+   149,
+   8
+  ],
+  "18561": [
+   "Talehra Sanhal",
+   149,
+   8
+  ],
+  "18560": [
+   "Malounia Sanhal",
+   149,
+   8
+  ],
+  "18542": [
+   "Bahal Rehre",
+   149,
+   8
+  ],
+  "18558": [
+   "Parnoulian Sanhal",
+   149,
+   8
+  ],
+  "18543": [
+   "Bahal Kholi",
+   149,
+   8
+  ],
+  "18537": [
+   "Narghota",
+   149,
+   8
+  ],
+  "18524": [
+   "Ambe Da Behra",
+   149,
+   8
+  ],
+  "18562": [
+   "Sakohan",
+   149,
+   8
+  ],
+  "18540": [
+   "Paned",
+   149,
+   8
+  ],
+  "18535": [
+   "Chhaproh Kalan",
+   149,
+   8
+  ],
+  "18639": [
+   "Kangru",
+   149,
+   8
+  ],
+  "18538": [
+   "Bushal",
+   149,
+   8
+  ],
+  "18529": [
+   "Jharkhar",
+   149,
+   8
+  ],
+  "18534": [
+   "Hari Nagar",
+   149,
+   8
+  ],
+  "18651": [
+   "Sohari",
+   149,
+   8
+  ],
+  "18612": [
+   "Kaswan Ranauttan",
+   149,
+   8
+  ],
+  "18647": [
+   "Bagg",
+   149,
+   8
+  ],
+  "18642": [
+   "Nanawin",
+   149,
+   8
+  ],
+  "18615": [
+   "Dhundla",
+   149,
+   8
+  ],
+  "18640": [
+   "Jamnoti",
+   149,
+   8
+  ],
+  "18646": [
+   "Bahal",
+   149,
+   8
+  ],
+  "18463": [
+   "Vandhar Solhasingi",
+   149,
+   8
+  ],
+  "18613": [
+   "Beri",
+   149,
+   8
+  ],
+  "18616": [
+   "Hatli",
+   149,
+   8
+  ],
+  "18471": [
+   "Jakhola",
+   149,
+   8
+  ],
+  "18470": [
+   "Amjar",
+   149,
+   8
+  ],
+  "18472": [
+   "Dogh Upperli",
+   149,
+   8
+  ],
+  "18466": [
+   "Bhugarian Brahmina",
+   149,
+   12
+  ],
+  "18614": [
+   "Dhatol",
+   149,
+   8
+  ],
+  "18531": [
+   "Majher",
+   149,
+   8
+  ],
+  "18528": [
+   "Rachhol",
+   149,
+   8
+  ],
+  "18611": [
+   "Kaswan Brahmna",
+   149,
+   8
+  ],
+  "18609": [
+   "Kotla Khas",
+   149,
+   8
+  ],
+  "18530": [
+   "Thana Khas",
+   149,
+   8
+  ],
+  "18532": [
+   "Thana Kalan",
+   149,
+   8
+  ],
+  "18475": [
+   "Sirath",
+   149,
+   8
+  ],
+  "18474": [
+   "Nalwari",
+   149,
+   8
+  ],
+  "18478": [
+   "Kothi",
+   149,
+   8
+  ],
+  "18486": [
+   "Ghaneti",
+   149,
+   8
+  ],
+  "18479": [
+   "Gaihra",
+   149,
+   8
+  ],
+  "18636": [
+   "D P F Basatar",
+   149,
+   8
+  ],
+  "18627": [
+   "D P F Kott",
+   149,
+   8
+  ],
+  "18626": [
+   "D P F Matoh",
+   149,
+   8
+  ],
+  "18637": [
+   "D P F Chamyari",
+   149,
+   8
+  ],
+  "18662": [
+   "Kattal I",
+   149,
+   8
+  ],
+  "18644": [
+   "Bajwar Kundu I",
+   149,
+   8
+  ],
+  "18645": [
+   "Bajwar Kundu Ii",
+   149,
+   8
+  ],
+  "18643": [
+   "Bajwar Kundu",
+   149,
+   8
+  ],
+  "18539": [
+   "D P F Bushal",
+   149,
+   8
+  ],
+  "18544": [
+   "Kattal",
+   149,
+   8
+  ],
+  "18476": [
+   "Van Gharyara",
+   149,
+   8
+  ],
+  "18443": [
+   "Sar Rajputa",
+   149,
+   12
+  ],
+  "18423": [
+   "Pakhalag",
+   149,
+   12
+  ],
+  "18610": [
+   "Surara",
+   149,
+   8
+  ],
+  "18473": [
+   "Dogh Jhikli",
+   149,
+   8
+  ],
+  "18464": [
+   "Marhun",
+   149,
+   8
+  ],
+  "18465": [
+   "Bhugarian Chamiaran",
+   149,
+   12
+  ],
+  "18469": [
+   "Bhaleti Padhian",
+   149,
+   12
+  ],
+  "18483": [
+   "Thathun",
+   149,
+   12
+  ],
+  "18481": [
+   "Matyana",
+   149,
+   8
+  ],
+  "18477": [
+   "Dumkhar",
+   149,
+   8
+  ],
+  "18459": [
+   "Muchhali Khas",
+   149,
+   8
+  ],
+  "18452": [
+   "Marhot Brahmana",
+   149,
+   12
+  ],
+  "18448": [
+   "Awahar",
+   149,
+   12
+  ],
+  "18467": [
+   "Bhaleti Main",
+   149,
+   12
+  ],
+  "18460": [
+   "Chilly",
+   149,
+   8
+  ],
+  "18461": [
+   "Jhabrani",
+   149,
+   12
+  ],
+  "18482": [
+   "Maryatan",
+   149,
+   12
+  ],
+  "18457": [
+   "Gharoh",
+   149,
+   8
+  ],
+  "18454": [
+   "Naily Upperli",
+   149,
+   8
+  ],
+  "18453": [
+   "Bhalet",
+   149,
+   12
+  ],
+  "18458": [
+   "Naily Jhikly",
+   149,
+   12
+  ],
+  "18456": [
+   "Bangana",
+   149,
+   12
+  ],
+  "18449": [
+   "Nargroo",
+   149,
+   12
+  ],
+  "18450": [
+   "Ritt Satrukha",
+   149,
+   12
+  ],
+  "18462": [
+   "Tamlet",
+   149,
+   12
+  ],
+  "18435": [
+   "Hatli Patialan",
+   149,
+   12
+  ],
+  "18451": [
+   "Tehi",
+   149,
+   12
+  ],
+  "18439": [
+   "Kharooni",
+   149,
+   12
+  ],
+  "18440": [
+   "Jandur",
+   149,
+   12
+  ],
+  "18487": [
+   "Sar",
+   149,
+   12
+  ],
+  "18394": [
+   "Bahal",
+   149,
+   12
+  ],
+  "18635": [
+   "D P F Kanehra",
+   149,
+   12
+  ],
+  "18146": [
+   "Amlehar",
+   148,
+   13
+  ],
+  "18058": [
+   "Ban Sarkar",
+   147,
+   13
+  ],
+  "18087": [
+   "Reserve Jangal A",
+   147,
+   13
+  ],
+  "18049": [
+   "Malon Parla",
+   147,
+   13
+  ],
+  "18301": [
+   "Reserve Jangal Dharui R Iii G",
+   148,
+   10
+  ],
+  "18050": [
+   "Gindpur",
+   147,
+   13
+  ],
+  "18051": [
+   "Malon Awarla",
+   147,
+   13
+  ],
+  "18052": [
+   "Kharoh",
+   147,
+   13
+  ],
+  "18054": [
+   "Bhatehr Parli",
+   147,
+   13
+  ],
+  "18053": [
+   "Bhatehr Jhikli",
+   147,
+   13
+  ],
+  "18055": [
+   "Baret",
+   147,
+   13
+  ],
+  "18056": [
+   "Bhatehr Khas",
+   147,
+   13
+  ],
+  "18057": [
+   "Beharn",
+   147,
+   13
+  ],
+  "18059": [
+   "Godri Sidh",
+   147,
+   13
+  ],
+  "18060": [
+   "Dharamsal Mahaintan",
+   147,
+   13
+  ],
+  "18061": [
+   "Dharamsal Mahaintan Jhikli",
+   147,
+   13
+  ],
+  "18064": [
+   "Badhmana",
+   147,
+   13
+  ],
+  "18063": [
+   "Gugwar",
+   147,
+   13
+  ],
+  "18065": [
+   "Dalwari",
+   147,
+   13
+  ],
+  "18070": [
+   "Dalwari Dehlwan",
+   147,
+   13
+  ],
+  "18069": [
+   "Chalaul Behr",
+   147,
+   13
+  ],
+  "18071": [
+   "Jawal",
+   147,
+   14
+  ],
+  "18206": [
+   "Khareyali",
+   148,
+   14
+  ],
+  "18153": [
+   "Kanshi Pur",
+   148,
+   9
+  ],
+  "18154": [
+   "Shiv Pur",
+   148,
+   9
+  ],
+  "18156": [
+   "Rampur",
+   148,
+   9
+  ],
+  "18155": [
+   "Mubarik Pur",
+   148,
+   9
+  ],
+  "18202": [
+   "Kalruhi",
+   148,
+   10
+  ],
+  "18204": [
+   "Ghavet Baherh",
+   148,
+   10
+  ],
+  "18175": [
+   "Baroh",
+   148,
+   9
+  ],
+  "18172": [
+   "Kaloh",
+   148,
+   9
+  ],
+  "18169": [
+   "Dev Nagar",
+   148,
+   9
+  ],
+  "18171": [
+   "Gagret",
+   148,
+   9
+  ],
+  "18170": [
+   "Ram Nagar",
+   148,
+   9
+  ],
+  "248232": [
+   "Gagret",
+   148,
+   9
+  ],
+  "18167": [
+   "Krishan Nagar",
+   148,
+   9
+  ],
+  "18164": [
+   "Chatehar Buhal",
+   148,
+   9
+  ],
+  "18162": [
+   "Dhawali",
+   148,
+   9
+  ],
+  "18160": [
+   "Kala Panga",
+   148,
+   9
+  ],
+  "18168": [
+   "Indira Nagar",
+   148,
+   9
+  ],
+  "18165": [
+   "Jindbar",
+   148,
+   9
+  ],
+  "18163": [
+   "Ambota",
+   148,
+   9
+  ],
+  "18166": [
+   "Shiv Bari",
+   148,
+   9
+  ],
+  "18161": [
+   "Matyalka",
+   148,
+   9
+  ],
+  "18159": [
+   "Sanghanai",
+   148,
+   9
+  ],
+  "18158": [
+   "Dhanowal",
+   148,
+   9
+  ],
+  "18132": [
+   "Deoli Jaswalan",
+   148,
+   9
+  ],
+  "18133": [
+   "Deoli Minahasan",
+   148,
+   9
+  ],
+  "18130": [
+   "Ghanari Dathwalan",
+   148,
+   9
+  ],
+  "18131": [
+   "Ghanari Brahman Chahgan",
+   148,
+   9
+  ],
+  "18129": [
+   "Khann Tilla",
+   148,
+   13
+  ],
+  "18128": [
+   "Mohe Dhariye",
+   148,
+   13
+  ],
+  "18127": [
+   "Chowki",
+   148,
+   13
+  ],
+  "18123": [
+   "Lambi",
+   148,
+   13
+  ],
+  "18126": [
+   "Nangal Jariyalan",
+   148,
+   13
+  ],
+  "18124": [
+   "Amboa",
+   148,
+   13
+  ],
+  "18125": [
+   "Hatwal",
+   148,
+   13
+  ],
+  "18121": [
+   "Tarali",
+   148,
+   13
+  ],
+  "18122": [
+   "Nalauti",
+   148,
+   13
+  ],
+  "18118": [
+   "Chalet Nichla",
+   148,
+   13
+  ],
+  "18115": [
+   "Babehar",
+   148,
+   13
+  ],
+  "18101": [
+   "Raipur",
+   148,
+   13
+  ],
+  "18102": [
+   "Marwari",
+   148,
+   13
+  ],
+  "18100": [
+   "Ganu",
+   148,
+   13
+  ],
+  "18099": [
+   "Mandwara",
+   148,
+   13
+  ],
+  "18103": [
+   "Maidan Garh",
+   148,
+   13
+  ],
+  "18096": [
+   "Sikri",
+   148,
+   13
+  ],
+  "18104": [
+   "Saloh",
+   148,
+   13
+  ],
+  "18097": [
+   "Joh",
+   148,
+   13
+  ],
+  "18098": [
+   "Bah",
+   148,
+   13
+  ],
+  "18105": [
+   "Prithi Pur Khas",
+   148,
+   13
+  ],
+  "18106": [
+   "Prithi Pur Nichla",
+   148,
+   13
+  ],
+  "18107": [
+   "Prithipur Upperla",
+   148,
+   13
+  ],
+  "248231": [
+   "Daulatpur",
+   148,
+   13
+  ],
+  "18114": [
+   "Dangoh Khas",
+   148,
+   13
+  ],
+  "18108": [
+   "Dangoh Khurd",
+   148,
+   13
+  ],
+  "18109": [
+   "Dangoh Upperla",
+   148,
+   13
+  ],
+  "18117": [
+   "Chalet Upperla",
+   148,
+   13
+  ],
+  "18119": [
+   "Mawa Kahola Upperli",
+   148,
+   13
+  ],
+  "18120": [
+   "Mawa Kahola Jhikli",
+   148,
+   13
+  ],
+  "18113": [
+   "Dangoh Kalan",
+   148,
+   13
+  ],
+  "18111": [
+   "Bhadar Kali",
+   148,
+   13
+  ],
+  "18110": [
+   "Abhay Pur",
+   148,
+   13
+  ],
+  "18112": [
+   "Brahm Pur",
+   148,
+   13
+  ],
+  "18142": [
+   "Fatehpur",
+   148,
+   13
+  ],
+  "18141": [
+   "Tud Khari",
+   148,
+   13
+  ],
+  "18136": [
+   "Gondpur Banehra Nichla",
+   148,
+   13
+  ],
+  "18134": [
+   "Kuneran Nichla",
+   148,
+   13
+  ],
+  "18137": [
+   "Gondpur Banehra Upperla",
+   148,
+   13
+  ],
+  "18135": [
+   "Kuneran Upperla",
+   148,
+   9
+  ],
+  "18140": [
+   "Nakroh",
+   148,
+   13
+  ],
+  "18143": [
+   "Kuthera Rampur",
+   148,
+   13
+  ],
+  "18144": [
+   "Kuthera Haryala",
+   148,
+   13
+  ],
+  "18139": [
+   "Ram Nagar",
+   148,
+   13
+  ],
+  "18138": [
+   "Kailash Nagar",
+   148,
+   13
+  ],
+  "18152": [
+   "Kad",
+   148,
+   9
+  ],
+  "18151": [
+   "Gokal Nagar",
+   148,
+   9
+  ],
+  "18150": [
+   "Maira Nagar",
+   148,
+   13
+  ],
+  "18148": [
+   "Bhanjal",
+   148,
+   13
+  ],
+  "18149": [
+   "Ram Nagar",
+   148,
+   13
+  ],
+  "18147": [
+   "Shankar Nagar",
+   148,
+   13
+  ],
+  "18157": [
+   "Jitpur Baheri",
+   148,
+   9
+  ],
+  "18116": [
+   "Kuai Devi",
+   148,
+   13
+  ],
+  "18145": [
+   "Kunet Ratiya",
+   148,
+   13
+  ],
+  "18048": [
+   "Ghangret",
+   147,
+   13
+  ],
+  "18249": [
+   "Salana",
+   148,
+   10
+  ],
+  "18207": [
+   "Sunhi",
+   148,
+   14
+  ],
+  "18205": [
+   "Sidh Chalet",
+   148,
+   14
+  ],
+  "18208": [
+   "Mandholi",
+   148,
+   10
+  ],
+  "18220": [
+   "Aghar",
+   148,
+   14
+  ],
+  "18216": [
+   "Muthehar",
+   148,
+   14
+  ],
+  "18218": [
+   "Bhagrah",
+   148,
+   14
+  ],
+  "18217": [
+   "Bringal",
+   148,
+   14
+  ],
+  "18219": [
+   "Jijjar",
+   148,
+   14
+  ],
+  "18236": [
+   "Jawar",
+   148,
+   14
+  ],
+  "18230": [
+   "Langyana",
+   148,
+   11
+  ],
+  "18229": [
+   "Nari",
+   148,
+   11
+  ],
+  "18231": [
+   "Lahad",
+   148,
+   11
+  ],
+  "18235": [
+   "Padah",
+   148,
+   11
+  ],
+  "18240": [
+   "Naloh",
+   148,
+   11
+  ],
+  "18241": [
+   "Pollian Prohitan",
+   148,
+   11
+  ],
+  "18282": [
+   "Ripoh Muchliyan Doem",
+   148,
+   11
+  ],
+  "18285": [
+   "Sar",
+   148,
+   11
+  ],
+  "18286": [
+   "Paloh",
+   148,
+   11
+  ],
+  "18254": [
+   "Nauhan",
+   148,
+   14
+  ],
+  "18237": [
+   "Lamba Sail",
+   148,
+   14
+  ],
+  "18239": [
+   "Up Mahal Mayod",
+   148,
+   11
+  ],
+  "18288": [
+   "Suri",
+   148,
+   11
+  ],
+  "18292": [
+   "Rakkar",
+   148,
+   11
+  ],
+  "18298": [
+   "Baroh",
+   148,
+   11
+  ],
+  "18297": [
+   "Lander Landiya",
+   148,
+   11
+  ],
+  "18296": [
+   "Ladiyalsantu",
+   148,
+   11
+  ],
+  "18295": [
+   "Jandoh",
+   148,
+   11
+  ],
+  "18287": [
+   "Khawari Pattiyan",
+   148,
+   11
+  ],
+  "18273": [
+   "Jawehar",
+   148,
+   11
+  ],
+  "18272": [
+   "Gondpur",
+   148,
+   11
+  ],
+  "18293": [
+   "Papehar",
+   148,
+   11
+  ],
+  "18294": [
+   "Jandoh Rakkar",
+   148,
+   11
+  ],
+  "18290": [
+   "Lander Tikkari",
+   148,
+   11
+  ],
+  "18275": [
+   "Kudet",
+   148,
+   11
+  ],
+  "18291": [
+   "Manjhar",
+   148,
+   11
+  ],
+  "18289": [
+   "Danguhi",
+   148,
+   11
+  ],
+  "18277": [
+   "Jhaker",
+   148,
+   11
+  ],
+  "18283": [
+   "Larauta",
+   148,
+   11
+  ],
+  "18284": [
+   "Machlehar",
+   148,
+   11
+  ],
+  "18278": [
+   "Gantharu",
+   148,
+   11
+  ],
+  "18270": [
+   "Kadap",
+   148,
+   11
+  ],
+  "18276": [
+   "Sandhari",
+   148,
+   11
+  ],
+  "18280": [
+   "Ripoh Misran",
+   148,
+   11
+  ],
+  "18279": [
+   "Ripoh Kuchha",
+   148,
+   11
+  ],
+  "18281": [
+   "Ripoh Muchlian Abbal",
+   148,
+   11
+  ],
+  "18242": [
+   "Ripoh Manmanyari",
+   148,
+   11
+  ],
+  "18247": [
+   "Sanoh",
+   148,
+   11
+  ],
+  "18246": [
+   "Satharu",
+   148,
+   11
+  ],
+  "18269": [
+   "Kotla",
+   148,
+   11
+  ],
+  "18321": [
+   "Basuni",
+   148,
+   11
+  ],
+  "18299": [
+   "Dhar Gujran",
+   148,
+   10
+  ],
+  "18300": [
+   "Tiyai",
+   148,
+   10
+  ],
+  "18320": [
+   "Ladiyal Chuk",
+   148,
+   10
+  ],
+  "18318": [
+   "Ladoli",
+   148,
+   10
+  ],
+  "18271": [
+   "Nunyai",
+   148,
+   10
+  ],
+  "18302": [
+   "Chak Sraye",
+   148,
+   10
+  ],
+  "18264": [
+   "Gujrehra",
+   148,
+   10
+  ],
+  "18263": [
+   "Nehri Khalsa",
+   148,
+   10
+  ],
+  "18265": [
+   "Dharu",
+   148,
+   10
+  ],
+  "18195": [
+   "Andora Nichla",
+   148,
+   10
+  ],
+  "18196": [
+   "Andora Upperla",
+   148,
+   10
+  ],
+  "18201": [
+   "Athwan",
+   148,
+   10
+  ],
+  "18203": [
+   "Tibbi",
+   148,
+   10
+  ],
+  "18209": [
+   "Bhalehar",
+   148,
+   10
+  ],
+  "18210": [
+   "Pramb",
+   148,
+   10
+  ],
+  "18213": [
+   "Alehar",
+   148,
+   10
+  ],
+  "18212": [
+   "Polian Jaswan",
+   148,
+   10
+  ],
+  "18198": [
+   "Amb",
+   148,
+   10
+  ],
+  "18197": [
+   "Pratap Nagar",
+   148,
+   10
+  ],
+  "18211": [
+   "Manso Tikkri",
+   148,
+   10
+  ],
+  "18199": [
+   "Heera Nagar",
+   148,
+   10
+  ],
+  "18200": [
+   "Adarsh Nagar",
+   148,
+   10
+  ],
+  "18309": [
+   "Kathauhar Khurd",
+   148,
+   10
+  ],
+  "18316": [
+   "Panjoa Kalan",
+   148,
+   10
+  ],
+  "18310": [
+   "Bijapur",
+   148,
+   10
+  ],
+  "18308": [
+   "Katauhar Kalan",
+   148,
+   10
+  ],
+  "18307": [
+   "Khariala",
+   148,
+   10
+  ],
+  "18317": [
+   "Panjoa Khurd",
+   148,
+   10
+  ],
+  "18322": [
+   "Chatehar Behar",
+   148,
+   10
+  ],
+  "18319": [
+   "Girgir",
+   148,
+   10
+  ],
+  "18305": [
+   "Bharwan Urf Kangruhi",
+   148,
+   10
+  ],
+  "18262": [
+   "Duhki",
+   148,
+   10
+  ],
+  "18306": [
+   "Kuthera",
+   148,
+   10
+  ],
+  "18261": [
+   "Jhot",
+   148,
+   10
+  ],
+  "18215": [
+   "Saloi",
+   148,
+   14
+  ],
+  "18256": [
+   "Sapori",
+   148,
+   10
+  ],
+  "18255": [
+   "Mughal",
+   148,
+   14
+  ],
+  "18238": [
+   "Patehad",
+   148,
+   10
+  ],
+  "18260": [
+   "Mukho",
+   148,
+   10
+  ],
+  "18259": [
+   "Santu Tilla",
+   148,
+   10
+  ],
+  "18267": [
+   "Nahari Nauranga",
+   148,
+   10
+  ],
+  "18266": [
+   "Dharui",
+   148,
+   10
+  ],
+  "18258": [
+   "Karar Behar",
+   148,
+   10
+  ],
+  "18245": [
+   "Rajpur Jaswan",
+   148,
+   11
+  ],
+  "18248": [
+   "Gawalsar",
+   148,
+   10
+  ],
+  "18257": [
+   "Bagga Barota",
+   148,
+   10
+  ],
+  "18268": [
+   "Januhi",
+   148,
+   10
+  ],
+  "18251": [
+   "Dulehan",
+   148,
+   10
+  ],
+  "18253": [
+   "Aado",
+   148,
+   10
+  ],
+  "18232": [
+   "Pangloo",
+   148,
+   11
+  ],
+  "18250": [
+   "Guliyar",
+   148,
+   10
+  ],
+  "18365": [
+   "Tokrian",
+   149,
+   11
+  ],
+  "18372": [
+   "Nandgran",
+   149,
+   11
+  ],
+  "18370": [
+   "Baruha",
+   149,
+   11
+  ],
+  "18381": [
+   "Takoli",
+   149,
+   11
+  ],
+  "18500": [
+   "Khairian",
+   149,
+   11
+  ],
+  "18380": [
+   "Chauli",
+   149,
+   11
+  ],
+  "18374": [
+   "Sohari",
+   149,
+   11
+  ],
+  "18376": [
+   "Dagrah",
+   149,
+   11
+  ],
+  "18375": [
+   "Bhindla",
+   149,
+   11
+  ],
+  "18373": [
+   "Barerah",
+   149,
+   11
+  ],
+  "18234": [
+   "Reserve Jangal Dharui R Iii A",
+   148,
+   14
+  ],
+  "18233": [
+   "Reserve Jangal Dharui R Iii E",
+   148,
+   11
+  ],
+  "18243": [
+   "Reserve Jangal Dharui D",
+   148,
+   11
+  ],
+  "18274": [
+   "Reserve Jangal R Iii Dharui G",
+   148,
+   11
+  ],
+  "18303": [
+   "Reserve Jangal R Iii Dharui B",
+   148,
+   10
+  ],
+  "18304": [
+   "Reserve Jangal R Iii Dharui F",
+   148,
+   10
+  ],
+  "18244": [
+   "Palahad",
+   148,
+   10
+  ],
+  "18252": [
+   "Reserve Jangal Dharui R Iii C I",
+   148,
+   10
+  ],
+  "18390": [
+   "D P F Dhayunser Iii",
+   149,
+   11
+  ],
+  "18389": [
+   "D P F Dhayunser Ii",
+   149,
+   11
+  ],
+  "18379": [
+   "D P F Dhayunser I",
+   149,
+   11
+  ],
+  "18378": [
+   "D P F Behlan",
+   149,
+   11
+  ],
+  "18366": [
+   "Bhallon",
+   149,
+   11
+  ],
+  "18384": [
+   "Lalshah",
+   149,
+   11
+  ],
+  "18386": [
+   "Baroa",
+   149,
+   11
+  ],
+  "18382": [
+   "Behi",
+   149,
+   11
+  ],
+  "18377": [
+   "Behlan",
+   149,
+   11
+  ],
+  "18385": [
+   "Raunkhar",
+   149,
+   11
+  ],
+  "18383": [
+   "Talmehra",
+   149,
+   12
+  ],
+  "18387": [
+   "Bhalkhoon",
+   149,
+   12
+  ],
+  "18504": [
+   "Deehar",
+   149,
+   12
+  ],
+  "18402": [
+   "Kharol",
+   149,
+   12
+  ],
+  "18401": [
+   "Nahri Dhian Singh",
+   149,
+   12
+  ],
+  "18398": [
+   "Karor Rajputan",
+   149,
+   12
+  ],
+  "18412": [
+   "Paproli",
+   149,
+   12
+  ],
+  "18411": [
+   "Sai",
+   149,
+   12
+  ],
+  "18408": [
+   "Bhiambi",
+   149,
+   12
+  ],
+  "18407": [
+   "Chhattehr",
+   149,
+   12
+  ],
+  "18405": [
+   "Charara",
+   149,
+   12
+  ],
+  "18400": [
+   "Nahri Devi Singh",
+   149,
+   12
+  ],
+  "18410": [
+   "Chaukahan",
+   149,
+   12
+  ],
+  "18406": [
+   "Karmali",
+   149,
+   12
+  ],
+  "18503": [
+   "Rajpura",
+   149,
+   12
+  ],
+  "18399": [
+   "Karor Brahmna",
+   149,
+   12
+  ],
+  "18393": [
+   "Arlu Kundu",
+   149,
+   12
+  ],
+  "18392": [
+   "Arlu Gurmukh",
+   149,
+   12
+  ],
+  "18395": [
+   "Shiv Nagar",
+   149,
+   12
+  ],
+  "18214": [
+   "Kuhad Shhan",
+   148,
+   10
+  ],
+  "18404": [
+   "D P F Sarkaru Ghorpalni Ii",
+   149,
+   12
+  ],
+  "18403": [
+   "D P F Oeal Da Ban",
+   149,
+   12
+  ],
+  "18413": [
+   "D P F Charara",
+   149,
+   12
+  ],
+  "18505": [
+   "D P F Sarkaru Ghor Palani",
+   149,
+   12
+  ],
+  "18422": [
+   "D P F Bharmot",
+   149,
+   12
+  ],
+  "18068": [
+   "Bambansera",
+   147,
+   14
+  ],
+  "18062": [
+   "Nari",
+   147,
+   14
+  ],
+  "18077": [
+   "Duhal Bhatwalan",
+   147,
+   14
+  ],
+  "18078": [
+   "Paplehra",
+   147,
+   14
+  ],
+  "18086": [
+   "Aloh",
+   147,
+   14
+  ],
+  "18090": [
+   "Jholan",
+   147,
+   14
+  ],
+  "18093": [
+   "Bhatolan Padehr",
+   147,
+   14
+  ],
+  "18092": [
+   "Lohara Khas",
+   147,
+   14
+  ],
+  "18089": [
+   "Baher Bhagwalan",
+   147,
+   14
+  ],
+  "18084": [
+   "Mawan",
+   147,
+   14
+  ],
+  "18094": [
+   "Sarrha",
+   147,
+   14
+  ],
+  "18095": [
+   "Guret",
+   147,
+   14
+  ],
+  "18080": [
+   "Bagmahua",
+   147,
+   14
+  ],
+  "18083": [
+   "Kotli Dharu",
+   147,
+   14
+  ],
+  "18085": [
+   "Kinoo",
+   147,
+   14
+  ],
+  "18079": [
+   "Thaneek Pura",
+   147,
+   14
+  ],
+  "18082": [
+   "Kotli",
+   147,
+   14
+  ],
+  "18067": [
+   "Duhal Bangwalan",
+   147,
+   14
+  ],
+  "18072": [
+   "Amokla Sandu",
+   147,
+   14
+  ],
+  "18088": [
+   "Lamba Panga",
+   147,
+   14
+  ],
+  "18091": [
+   "Reserve Jangal B",
+   147,
+   14
+  ],
+  "18081": [
+   "Ramnagar",
+   147,
+   14
+  ],
+  "18073": [
+   "Amokla Pritam",
+   147,
+   14
+  ],
+  "18066": [
+   "Chhaproh",
+   147,
+   14
+  ],
+  "18076": [
+   "Haripur",
+   147,
+   14
+  ],
+  "18074": [
+   "Rahi",
+   147,
+   14
+  ],
+  "18075": [
+   "Mirgoo",
+   147,
+   14
+  ],
+  "18221": [
+   "Chuar",
+   148,
+   14
+  ],
+  "18222": [
+   "Ardoh",
+   148,
+   14
+  ],
+  "18224": [
+   "Band Bakshi",
+   148,
+   14
+  ],
+  "18223": [
+   "Takoli",
+   148,
+   14
+  ],
+  "18227": [
+   "Gangoti",
+   148,
+   14
+  ],
+  "18225": [
+   "Amb Tilla",
+   148,
+   14
+  ],
+  "18226": [
+   "Baihal",
+   148,
+   14
+  ],
+  "18228": [
+   "Reserve Jangal Dharui R Iii",
+   148,
+   14
+  ],
+  "18409": [
+   "Sukryal",
+   149,
+   12
+  ],
+  "18433": [
+   "Alsahan",
+   149,
+   12
+  ],
+  "18421": [
+   "Samlara",
+   149,
+   12
+  ],
+  "18391": [
+   "Arlu Khas",
+   149,
+   12
+  ],
+  "18415": [
+   "Aisan",
+   149,
+   12
+  ],
+  "18432": [
+   "Ghaloon",
+   149,
+   12
+  ],
+  "18431": [
+   "Rerku",
+   149,
+   12
+  ],
+  "18430": [
+   "Samma",
+   149,
+   12
+  ],
+  "18428": [
+   "Thana Uparla",
+   149,
+   12
+  ],
+  "18429": [
+   "Thana Jhikla",
+   149,
+   12
+  ],
+  "18427": [
+   "Talpi",
+   149,
+   12
+  ],
+  "18425": [
+   "Behrar",
+   149,
+   12
+  ],
+  "18416": [
+   "Damohad",
+   149,
+   12
+  ],
+  "18420": [
+   "Hathlaun",
+   149,
+   12
+  ],
+  "18414": [
+   "Jasana",
+   149,
+   12
+  ],
+  "18396": [
+   "Bhabha",
+   149,
+   12
+  ],
+  "18397": [
+   "Baggi",
+   149,
+   12
+  ],
+  "18417": [
+   "Bharmot",
+   149,
+   12
+  ],
+  "18418": [
+   "Lakhroon",
+   149,
+   12
+  ],
+  "18446": [
+   "Dhagroon",
+   149,
+   12
+  ],
+  "18442": [
+   "Riwar",
+   149,
+   12
+  ],
+  "18419": [
+   "Majhiani",
+   149,
+   12
+  ],
+  "18455": [
+   "Saloh",
+   149,
+   12
+  ],
+  "18426": [
+   "Jhagrot",
+   149,
+   12
+  ],
+  "18424": [
+   "Hatwana",
+   149,
+   12
+  ],
+  "18447": [
+   "Bout",
+   149,
+   12
+  ],
+  "18434": [
+   "Marhot Rajputan",
+   149,
+   12
+  ],
+  "18438": [
+   "Mehed",
+   149,
+   12
+  ],
+  "18437": [
+   "Hatli Sultanu",
+   149,
+   12
+  ],
+  "18441": [
+   "Danoh",
+   149,
+   12
+  ],
+  "18436": [
+   "Hatli Kesru",
+   149,
+   12
+  ]
+ },
+ "village_count_total": 853,
+ "village_count_assigned": 853
+}

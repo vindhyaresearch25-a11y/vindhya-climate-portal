@@ -1,0 +1,1836 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Haryana",
+  "district": "Jind",
+  "district_lgd": 65,
+  "observation_window": "2026-08-07T11:08Z to 2026-08-12T11:08Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2419,
+  "sm_surface_stddev": 0.0138,
+  "sm_rootzone_mean": 0.2112,
+  "sm_rootzone_stddev": 0.0063,
+  "n_cells": 26,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 29.1009,
+    "lon": 76.3343,
+    "sm_surface": 0.2638,
+    "sm_rootzone": 0.2208,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 1,
+    "lat": 29.1009,
+    "lon": 76.4332,
+    "sm_surface": 0.2599,
+    "sm_rootzone": 0.2185,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 2,
+    "lat": 29.1997,
+    "lon": 76.3343,
+    "sm_surface": 0.2632,
+    "sm_rootzone": 0.2203,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 3,
+    "lat": 29.1997,
+    "lon": 76.4332,
+    "sm_surface": 0.2572,
+    "sm_rootzone": 0.216,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 4,
+    "lat": 29.2986,
+    "lon": 76.2355,
+    "sm_surface": 0.2638,
+    "sm_rootzone": 0.221,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 5,
+    "lat": 29.2986,
+    "lon": 76.3343,
+    "sm_surface": 0.2562,
+    "sm_rootzone": 0.2165,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 6,
+    "lat": 29.2986,
+    "lon": 76.4332,
+    "sm_surface": 0.25,
+    "sm_rootzone": 0.2122,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 7,
+    "lat": 29.2986,
+    "lon": 76.532,
+    "sm_surface": 0.2421,
+    "sm_rootzone": 0.2097,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 8,
+    "lat": 29.2986,
+    "lon": 76.6308,
+    "sm_surface": 0.2456,
+    "sm_rootzone": 0.2146,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 9,
+    "lat": 29.3974,
+    "lon": 76.2355,
+    "sm_surface": 0.2503,
+    "sm_rootzone": 0.2156,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 10,
+    "lat": 29.3974,
+    "lon": 76.3343,
+    "sm_surface": 0.2453,
+    "sm_rootzone": 0.2127,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 11,
+    "lat": 29.3974,
+    "lon": 76.4332,
+    "sm_surface": 0.2372,
+    "sm_rootzone": 0.2086,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 12,
+    "lat": 29.3974,
+    "lon": 76.532,
+    "sm_surface": 0.2305,
+    "sm_rootzone": 0.2059,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 13,
+    "lat": 29.3974,
+    "lon": 76.6308,
+    "sm_surface": 0.2289,
+    "sm_rootzone": 0.2065,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 14,
+    "lat": 29.3974,
+    "lon": 76.7296,
+    "sm_surface": 0.2317,
+    "sm_rootzone": 0.2089,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 15,
+    "lat": 29.4962,
+    "lon": 76.0379,
+    "sm_surface": 0.2563,
+    "sm_rootzone": 0.2204,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 16,
+    "lat": 29.4962,
+    "lon": 76.1367,
+    "sm_surface": 0.2453,
+    "sm_rootzone": 0.214,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 17,
+    "lat": 29.4962,
+    "lon": 76.2355,
+    "sm_surface": 0.2387,
+    "sm_rootzone": 0.209,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 18,
+    "lat": 29.4962,
+    "lon": 76.3343,
+    "sm_surface": 0.2336,
+    "sm_rootzone": 0.2068,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 19,
+    "lat": 29.4962,
+    "lon": 76.4332,
+    "sm_surface": 0.2292,
+    "sm_rootzone": 0.2054,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 20,
+    "lat": 29.595,
+    "lon": 76.0379,
+    "sm_surface": 0.2395,
+    "sm_rootzone": 0.2146,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 21,
+    "lat": 29.595,
+    "lon": 76.1367,
+    "sm_surface": 0.2331,
+    "sm_rootzone": 0.2056,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 22,
+    "lat": 29.595,
+    "lon": 76.2355,
+    "sm_surface": 0.2271,
+    "sm_rootzone": 0.2031,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 23,
+    "lat": 29.6938,
+    "lon": 76.0379,
+    "sm_surface": 0.2263,
+    "sm_rootzone": 0.2056,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 24,
+    "lat": 29.6938,
+    "lon": 76.1367,
+    "sm_surface": 0.2227,
+    "sm_rootzone": 0.2003,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 25,
+    "lat": 29.7926,
+    "lon": 76.1367,
+    "sm_surface": 0.2132,
+    "sm_rootzone": 0.1992,
+    "n_villages_sharing_cell": 8
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2448,
+  "sm_surface_stddev": 0.0109,
+  "n_blocks": 4
+ },
+ "blocks": [
+  {
+   "block_name": "Jind",
+   "sdcode": 383,
+   "n_villages": 99,
+   "n_cells_spanned": 10,
+   "sm_surface_mean": 0.2485,
+   "sm_surface_stddev": 0.0111
+  },
+  {
+   "block_name": "Julana",
+   "sdcode": 384,
+   "n_villages": 31,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.2609,
+   "sm_surface_stddev": 0.0026
+  },
+  {
+   "block_name": "Narwana",
+   "sdcode": 382,
+   "n_villages": 110,
+   "n_cells_spanned": 12,
+   "sm_surface_mean": 0.2351,
+   "sm_surface_stddev": 0.0112
+  },
+  {
+   "block_name": "Safidon",
+   "sdcode": 385,
+   "n_villages": 72,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.2346,
+   "sm_surface_stddev": 0.0063
+  }
+ ],
+ "villages": {
+  "60134": [
+   "Mando Kheri",
+   383,
+   11
+  ],
+  "59971": [
+   "Chak Ujhana",
+   382,
+   24
+  ],
+  "60249": [
+   "Karkhana",
+   385,
+   13
+  ],
+  "60173": [
+   "Kamach Khera",
+   384,
+   0
+  ],
+  "60174": [
+   "Deverar",
+   384,
+   1
+  ],
+  "60176": [
+   "Kila Zafargarh",
+   384,
+   1
+  ],
+  "60177": [
+   "Pauli",
+   384,
+   1
+  ],
+  "800395": [
+   "Safidon",
+   385,
+   13
+  ],
+  "60041": [
+   "Nachar Khera",
+   382,
+   15
+  ],
+  "60042": [
+   "Kakrod",
+   382,
+   16
+  ],
+  "60001": [
+   "Jajanwala",
+   382,
+   15
+  ],
+  "60037": [
+   "Surbrah",
+   382,
+   15
+  ],
+  "60002": [
+   "Sainthly",
+   382,
+   15
+  ],
+  "60038": [
+   "Darond Khera",
+   382,
+   15
+  ],
+  "60039": [
+   "Durjanpur",
+   382,
+   15
+  ],
+  "60040": [
+   "Udepur",
+   382,
+   15
+  ],
+  "60147": [
+   "Chabri",
+   383,
+   6
+  ],
+  "60105": [
+   "Ashrafgarh",
+   383,
+   5
+  ],
+  "60128": [
+   "Radhana",
+   383,
+   6
+  ],
+  "60119": [
+   "Ramrai",
+   383,
+   4
+  ],
+  "60145": [
+   "Sindhvi Khera",
+   383,
+   6
+  ],
+  "60107": [
+   "Gobindpura",
+   383,
+   5
+  ],
+  "60124": [
+   "Ramgarh",
+   383,
+   5
+  ],
+  "60106": [
+   "Kishanpura",
+   383,
+   5
+  ],
+  "60123": [
+   "Bahbalpur",
+   383,
+   2
+  ],
+  "60158": [
+   "Kinana",
+   383,
+   2
+  ],
+  "60104": [
+   "Pindara",
+   383,
+   5
+  ],
+  "60144": [
+   "Kharak Ramji",
+   383,
+   6
+  ],
+  "60116": [
+   "Rajpura",
+   383,
+   4
+  ],
+  "60129": [
+   "Brah Khurd",
+   383,
+   6
+  ],
+  "60115": [
+   "Ikas",
+   383,
+   4
+  ],
+  "60108": [
+   "Birbaraban",
+   383,
+   5
+  ],
+  "60117": [
+   "Gunkali",
+   383,
+   4
+  ],
+  "60125": [
+   "Ghimana",
+   383,
+   5
+  ],
+  "60127": [
+   "Baroli",
+   383,
+   5
+  ],
+  "60126": [
+   "Bishanpura",
+   383,
+   5
+  ],
+  "60148": [
+   "Lalit Khera",
+   383,
+   6
+  ],
+  "60146": [
+   "Nidani",
+   383,
+   6
+  ],
+  "60118": [
+   "Baganwala",
+   383,
+   4
+  ],
+  "60149": [
+   "Nidana",
+   383,
+   6
+  ],
+  "60157": [
+   "Anoopgarh",
+   383,
+   5
+  ],
+  "60156": [
+   "Shamlo Khurd",
+   383,
+   5
+  ],
+  "60120": [
+   "Ponkar Kheri",
+   383,
+   4
+  ],
+  "60122": [
+   "Bibipur",
+   383,
+   2
+  ],
+  "60155": [
+   "Padana",
+   383,
+   3
+  ],
+  "60121": [
+   "Igra",
+   383,
+   2
+  ],
+  "60154": [
+   "Khima Kheri",
+   383,
+   3
+  ],
+  "60164": [
+   "Jai Jaiwanti",
+   384,
+   2
+  ],
+  "60150": [
+   "Bharon Khera",
+   383,
+   3
+  ],
+  "60151": [
+   "Dhigana",
+   383,
+   3
+  ],
+  "60153": [
+   "Shamlo Kalan",
+   383,
+   3
+  ],
+  "60159": [
+   "Barar Khera",
+   383,
+   2
+  ],
+  "60152": [
+   "Ramkali",
+   383,
+   3
+  ],
+  "60162": [
+   "Gosain Khera",
+   384,
+   2
+  ],
+  "60160": [
+   "Buwana",
+   384,
+   2
+  ],
+  "60189": [
+   "Nandgarh",
+   384,
+   3
+  ],
+  "60161": [
+   "Buradehar",
+   384,
+   2
+  ],
+  "60163": [
+   "Gatauli",
+   384,
+   2
+  ],
+  "60188": [
+   "Lajwana Khurd",
+   384,
+   3
+  ],
+  "60073": [
+   "Raichandwala",
+   383,
+   11
+  ],
+  "60166": [
+   "Khraintee",
+   384,
+   0
+  ],
+  "60183": [
+   "Sirsa Kheri",
+   384,
+   3
+  ],
+  "60182": [
+   "Meherera",
+   384,
+   3
+  ],
+  "60165": [
+   "Gharwali",
+   384,
+   2
+  ],
+  "60187": [
+   "Karsola",
+   384,
+   3
+  ],
+  "60184": [
+   "Fatehgarh",
+   384,
+   3
+  ],
+  "60181": [
+   "Lajwana Kalan",
+   384,
+   3
+  ],
+  "60169": [
+   "Khera Bakhta",
+   384,
+   0
+  ],
+  "60168": [
+   "Jhamola",
+   384,
+   0
+  ],
+  "60179": [
+   "Budha Khera Lather",
+   384,
+   1
+  ],
+  "60185": [
+   "Shadipur",
+   384,
+   1
+  ],
+  "60167": [
+   "Karela",
+   384,
+   0
+  ],
+  "60170": [
+   "Rajgarh",
+   384,
+   0
+  ],
+  "60180": [
+   "Akalgarh",
+   384,
+   1
+  ],
+  "60171": [
+   "Desh Khera",
+   384,
+   0
+  ],
+  "60178": [
+   "Hathwala",
+   384,
+   1
+  ],
+  "60175": [
+   "Brahmanwas",
+   384,
+   1
+  ],
+  "60172": [
+   "Malvi",
+   384,
+   0
+  ],
+  "60194": [
+   "Bhartana",
+   385,
+   7
+  ],
+  "60193": [
+   "Morkhi",
+   385,
+   7
+  ],
+  "60192": [
+   "Malsari Khera",
+   385,
+   7
+  ],
+  "60190": [
+   "Ludana",
+   385,
+   7
+  ],
+  "60186": [
+   "Julana Rural",
+   384,
+   1
+  ],
+  "60064": [
+   "Pegan",
+   383,
+   19
+  ],
+  "60063": [
+   "Thuha",
+   383,
+   18
+  ],
+  "60067": [
+   "Katwal",
+   383,
+   19
+  ],
+  "60068": [
+   "Badhana",
+   383,
+   19
+  ],
+  "60078": [
+   "Dauhla",
+   383,
+   18
+  ],
+  "60079": [
+   "Kachrana Khurd",
+   383,
+   18
+  ],
+  "60077": [
+   "Shamdo",
+   383,
+   19
+  ],
+  "60069": [
+   "Alewa",
+   383,
+   19
+  ],
+  "60080": [
+   "Kachrana Kalan",
+   383,
+   18
+  ],
+  "60081": [
+   "Bighana",
+   383,
+   18
+  ],
+  "60082": [
+   "Chuharpur",
+   383,
+   18
+  ],
+  "60083": [
+   "Naguran",
+   383,
+   10
+  ],
+  "60070": [
+   "Khanda",
+   383,
+   19
+  ],
+  "60075": [
+   "Hassanpur",
+   383,
+   11
+  ],
+  "60071": [
+   "Gohian",
+   383,
+   11
+  ],
+  "60072": [
+   "Dhillowal",
+   383,
+   11
+  ],
+  "60074": [
+   "Kheri Naguran",
+   383,
+   11
+  ],
+  "60084": [
+   "Shahpur",
+   383,
+   10
+  ],
+  "60089": [
+   "Jitgarh",
+   383,
+   10
+  ],
+  "60085": [
+   "Jiwanpur",
+   383,
+   11
+  ],
+  "60090": [
+   "Roopgarh",
+   383,
+   10
+  ],
+  "60093": [
+   "Barsola",
+   383,
+   9
+  ],
+  "60086": [
+   "Dalamwala",
+   383,
+   11
+  ],
+  "60091": [
+   "Barodi",
+   383,
+   10
+  ],
+  "60087": [
+   "Sirirag",
+   383,
+   10
+  ],
+  "60088": [
+   "Kandela",
+   383,
+   10
+  ],
+  "60092": [
+   "Jhanj Kalan",
+   383,
+   9
+  ],
+  "60136": [
+   "Khunga",
+   383,
+   11
+  ],
+  "60096": [
+   "Darya Wala",
+   383,
+   9
+  ],
+  "60133": [
+   "Bohat Wala",
+   383,
+   10
+  ],
+  "60094": [
+   "Danda Kheri",
+   383,
+   9
+  ],
+  "60097": [
+   "Jhanj Khurd",
+   383,
+   10
+  ],
+  "60095": [
+   "Jajwan",
+   383,
+   4
+  ],
+  "60135": [
+   "Barsana",
+   383,
+   11
+  ],
+  "60138": [
+   "Lohchab",
+   383,
+   11
+  ],
+  "60099": [
+   "Kaer Kheri",
+   383,
+   10
+  ],
+  "60110": [
+   "Jalalpur Kalan",
+   383,
+   4
+  ],
+  "60132": [
+   "Khokhri",
+   383,
+   10
+  ],
+  "60139": [
+   "Taloda",
+   383,
+   11
+  ],
+  "60100": [
+   "Teg Bahadurpur",
+   383,
+   10
+  ],
+  "60140": [
+   "Kheri Taloda",
+   383,
+   11
+  ],
+  "60137": [
+   "Manohar Pur",
+   383,
+   6
+  ],
+  "60098": [
+   "Ahirka",
+   383,
+   10
+  ],
+  "60111": [
+   "Julani",
+   383,
+   4
+  ],
+  "60103": [
+   "Haibatpur",
+   383,
+   5
+  ],
+  "60101": [
+   "Amarheri",
+   383,
+   5
+  ],
+  "60141": [
+   "Sewaha",
+   383,
+   6
+  ],
+  "60112": [
+   "Sangat Pura",
+   383,
+   4
+  ],
+  "60131": [
+   "Nirjan",
+   383,
+   5
+  ],
+  "60142": [
+   "Brah Kalan",
+   383,
+   6
+  ],
+  "60130": [
+   "Lakhmir Wala",
+   383,
+   6
+  ],
+  "60113": [
+   "Intal Khurd",
+   383,
+   4
+  ],
+  "60114": [
+   "Intal Kalan",
+   383,
+   4
+  ],
+  "60109": [
+   "Jalalpura Khurd",
+   383,
+   5
+  ],
+  "60143": [
+   "Assan",
+   383,
+   6
+  ],
+  "60060": [
+   "Chhattar",
+   382,
+   18
+  ],
+  "60027": [
+   "Daroli Khera",
+   382,
+   16
+  ],
+  "60056": [
+   "Karsindhu",
+   382,
+   17
+  ],
+  "60032": [
+   "Pahlwan",
+   382,
+   17
+  ],
+  "60033": [
+   "Kheri Masania",
+   382,
+   16
+  ],
+  "60035": [
+   "Sedha Majra",
+   382,
+   16
+  ],
+  "60036": [
+   "Uchana Khurd",
+   382,
+   16
+  ],
+  "60053": [
+   "Kasoon",
+   382,
+   17
+  ],
+  "60034": [
+   "Uchana Kalan",
+   382,
+   16
+  ],
+  "60054": [
+   "Ghogharian",
+   382,
+   17
+  ],
+  "60055": [
+   "Rohaj Khera",
+   382,
+   17
+  ],
+  "60047": [
+   "Baroda",
+   382,
+   9
+  ],
+  "60052": [
+   "Kalta",
+   382,
+   18
+  ],
+  "60044": [
+   "Budain",
+   382,
+   16
+  ],
+  "60043": [
+   "Makhand",
+   382,
+   16
+  ],
+  "60045": [
+   "Bhongra",
+   382,
+   16
+  ],
+  "60050": [
+   "Dhankhari",
+   382,
+   18
+  ],
+  "60046": [
+   "Khapran",
+   382,
+   9
+  ],
+  "60051": [
+   "Bhonsla",
+   382,
+   18
+  ],
+  "60049": [
+   "Mohangarh",
+   382,
+   10
+  ],
+  "60048": [
+   "Khatkar",
+   382,
+   9
+  ],
+  "60206": [
+   "Mandi Khurd",
+   385,
+   11
+  ],
+  "60210": [
+   "Ratauli",
+   385,
+   12
+  ],
+  "60207": [
+   "Mohammad Khera",
+   385,
+   11
+  ],
+  "60205": [
+   "Dhathrath",
+   385,
+   11
+  ],
+  "60209": [
+   "Kharak Gadian",
+   385,
+   11
+  ],
+  "60211": [
+   "Rajana",
+   385,
+   12
+  ],
+  "60204": [
+   "Jamni",
+   385,
+   12
+  ],
+  "60203": [
+   "Amrali Khera",
+   385,
+   12
+  ],
+  "60201": [
+   "Kalwa",
+   385,
+   7
+  ],
+  "60202": [
+   "Pillu Khera",
+   385,
+   7
+  ],
+  "60199": [
+   "Kharak Gagar",
+   385,
+   7
+  ],
+  "60195": [
+   "Dharoli",
+   385,
+   7
+  ],
+  "60196": [
+   "Gangoli",
+   385,
+   7
+  ],
+  "60208": [
+   "Ahlanjogi Khera",
+   385,
+   12
+  ],
+  "60102": [
+   "Jind Rural",
+   383,
+   5
+  ],
+  "60076": [
+   "Majra Pegan",
+   383,
+   19
+  ],
+  "59972": [
+   "Kharal",
+   382,
+   24
+  ],
+  "59973": [
+   "Loan",
+   382,
+   23
+  ],
+  "59955": [
+   "Dhamtan Sahib",
+   382,
+   23
+  ],
+  "59956": [
+   "Rasidan",
+   382,
+   23
+  ],
+  "59957": [
+   "Dhabi Teksingh",
+   382,
+   23
+  ],
+  "59954": [
+   "Kalwan",
+   382,
+   23
+  ],
+  "59985": [
+   "Sulehra",
+   382,
+   23
+  ],
+  "59974": [
+   "Hamirgarh",
+   382,
+   24
+  ],
+  "59984": [
+   "Julehra",
+   382,
+   23
+  ],
+  "59986": [
+   "Rajgarh Dhobi",
+   382,
+   23
+  ],
+  "59983": [
+   "Harnampura",
+   382,
+   23
+  ],
+  "59987": [
+   "Fulian Kalan",
+   382,
+   20
+  ],
+  "59981": [
+   "Dharodi",
+   382,
+   21
+  ],
+  "59982": [
+   "Karamgarh",
+   382,
+   20
+  ],
+  "59988": [
+   "Fulian Khurd",
+   382,
+   20
+  ],
+  "59994": [
+   "Lochab",
+   382,
+   20
+  ],
+  "59989": [
+   "Kahna Khera",
+   382,
+   20
+  ],
+  "59990": [
+   "Khanpur",
+   382,
+   20
+  ],
+  "59995": [
+   "Khararwal",
+   382,
+   20
+  ],
+  "59993": [
+   "Nehra",
+   382,
+   20
+  ],
+  "59992": [
+   "Amargarh",
+   382,
+   20
+  ],
+  "60006": [
+   "Ishmailpur",
+   382,
+   20
+  ],
+  "59991": [
+   "Frain Kalan",
+   382,
+   20
+  ],
+  "59996": [
+   "Kaloda Khurd",
+   382,
+   20
+  ],
+  "59997": [
+   "Frain Khurd",
+   382,
+   20
+  ],
+  "60005": [
+   "Dablain",
+   382,
+   20
+  ],
+  "59999": [
+   "Kaloda Kalan",
+   382,
+   20
+  ],
+  "59998": [
+   "Bhikhewala",
+   382,
+   20
+  ],
+  "60004": [
+   "Sacha Khera",
+   382,
+   20
+  ],
+  "60003": [
+   "Danoda Kalan",
+   382,
+   15
+  ],
+  "60000": [
+   "Danoda Khurd",
+   382,
+   20
+  ],
+  "60026": [
+   "Mangalpur",
+   382,
+   15
+  ],
+  "59960": [
+   "Rewar",
+   382,
+   25
+  ],
+  "59959": [
+   "Pipaltha",
+   382,
+   24
+  ],
+  "59958": [
+   "Naraingarh",
+   382,
+   23
+  ],
+  "59967": [
+   "Garhi",
+   382,
+   24
+  ],
+  "60062": [
+   "Sandil",
+   383,
+   18
+  ],
+  "60065": [
+   "Kheri Bulanwali",
+   383,
+   19
+  ],
+  "60066": [
+   "Durana",
+   383,
+   19
+  ],
+  "59970": [
+   "Ujhana",
+   382,
+   24
+  ],
+  "59975": [
+   "Belarkha",
+   382,
+   24
+  ],
+  "59976": [
+   "Ambarsar",
+   382,
+   24
+  ],
+  "59977": [
+   "Gorusar",
+   382,
+   24
+  ],
+  "59978": [
+   "Bhana Barahmnan",
+   382,
+   24
+  ],
+  "59979": [
+   "Suraja Khera Urf Sheogarh",
+   382,
+   21
+  ],
+  "60010": [
+   "Hatho",
+   382,
+   22
+  ],
+  "60009": [
+   "Gurthali",
+   382,
+   21
+  ],
+  "60008": [
+   "Mohal Khera",
+   382,
+   21
+  ],
+  "59980": [
+   "Narwana Rural",
+   382,
+   21
+  ],
+  "60013": [
+   "Bidrana",
+   382,
+   22
+  ],
+  "60014": [
+   "Shinghwa",
+   382,
+   22
+  ],
+  "60011": [
+   "Dhakal",
+   382,
+   21
+  ],
+  "60012": [
+   "Sinsar",
+   382,
+   22
+  ],
+  "60015": [
+   "Sudkain Khurd",
+   382,
+   22
+  ],
+  "60016": [
+   "Sudkain Kalan",
+   382,
+   22
+  ],
+  "60007": [
+   "Badowala",
+   382,
+   21
+  ],
+  "60059": [
+   "Lodhar",
+   382,
+   22
+  ],
+  "60021": [
+   "Dumarkha Kalan",
+   382,
+   21
+  ],
+  "60061": [
+   "Mandi Kalan",
+   382,
+   22
+  ],
+  "60023": [
+   "Sunderpura",
+   382,
+   21
+  ],
+  "60017": [
+   "Kabarchha",
+   382,
+   22
+  ],
+  "60019": [
+   "Dumarkha Khurd",
+   382,
+   21
+  ],
+  "60022": [
+   "Jheel",
+   382,
+   21
+  ],
+  "60024": [
+   "Badanpur",
+   382,
+   21
+  ],
+  "60018": [
+   "Tarkha",
+   382,
+   22
+  ],
+  "60025": [
+   "Dohana Khera",
+   382,
+   16
+  ],
+  "60020": [
+   "Ghaso Kalan",
+   382,
+   16
+  ],
+  "60058": [
+   "Khera Gandawala",
+   382,
+   17
+  ],
+  "60057": [
+   "Alipura",
+   382,
+   17
+  ],
+  "60030": [
+   "Kheri Safa",
+   382,
+   16
+  ],
+  "60031": [
+   "Kharak Bhura",
+   382,
+   17
+  ],
+  "60029": [
+   "Ghaso Khurd",
+   382,
+   16
+  ],
+  "60028": [
+   "Bhagwan Pura",
+   382,
+   16
+  ],
+  "800392": [
+   "Uchana",
+   382,
+   16
+  ],
+  "59963": [
+   "Barta",
+   382,
+   25
+  ],
+  "59962": [
+   "Dhindoli",
+   382,
+   25
+  ],
+  "59961": [
+   "Padarath Khera",
+   382,
+   25
+  ],
+  "59965": [
+   "Dhanauri",
+   382,
+   25
+  ],
+  "59964": [
+   "Hans Dahar",
+   382,
+   25
+  ],
+  "59966": [
+   "Data Singhwala",
+   382,
+   25
+  ],
+  "59968": [
+   "Nepewala",
+   382,
+   24
+  ],
+  "59969": [
+   "Koel",
+   382,
+   25
+  ],
+  "800394": [
+   "Julana",
+   384,
+   1
+  ],
+  "60260": [
+   "Bhuran CT",
+   385,
+   12
+  ],
+  "800393": [
+   "Jind",
+   383,
+   5
+  ],
+  "800391": [
+   "Narwana",
+   382,
+   21
+  ],
+  "60256": [
+   "Siwana Mal",
+   385,
+   8
+  ],
+  "60257": [
+   "Anchra Khurd",
+   385,
+   8
+  ],
+  "60255": [
+   "Bagru Khurd",
+   385,
+   8
+  ],
+  "60254": [
+   "Bagru Kalan",
+   385,
+   8
+  ],
+  "60197": [
+   "Bhag Khera",
+   385,
+   7
+  ],
+  "60258": [
+   "Sarfabad",
+   385,
+   8
+  ],
+  "60259": [
+   "Anchra Kalan",
+   385,
+   8
+  ],
+  "60191": [
+   "Bham Bhewa",
+   385,
+   7
+  ],
+  "60216": [
+   "Theh Malakpur",
+   385,
+   13
+  ],
+  "60227": [
+   "Didwara",
+   385,
+   14
+  ],
+  "60217": [
+   "Malakpur",
+   385,
+   13
+  ],
+  "60228": [
+   "Bhuslana",
+   385,
+   14
+  ],
+  "60215": [
+   "Rorh",
+   385,
+   13
+  ],
+  "60226": [
+   "Nimnabad",
+   385,
+   14
+  ],
+  "60225": [
+   "Dharamgarh",
+   385,
+   13
+  ],
+  "60218": [
+   "Aftabgarh",
+   385,
+   13
+  ],
+  "60214": [
+   "Muana",
+   385,
+   12
+  ],
+  "60224": [
+   "Paju Kalan",
+   385,
+   13
+  ],
+  "60219": [
+   "Paju Khurd",
+   385,
+   13
+  ],
+  "60229": [
+   "Khatla",
+   385,
+   14
+  ],
+  "60234": [
+   "Sahanpur",
+   385,
+   14
+  ],
+  "60220": [
+   "Singhana",
+   385,
+   13
+  ],
+  "60235": [
+   "Khera Khemawati",
+   385,
+   13
+  ],
+  "60221": [
+   "Chhapar",
+   385,
+   13
+  ],
+  "60231": [
+   "Badodh",
+   385,
+   14
+  ],
+  "60230": [
+   "Basini",
+   385,
+   14
+  ],
+  "60233": [
+   "Todi Kheri",
+   385,
+   14
+  ],
+  "60236": [
+   "Safidon Rural",
+   385,
+   14
+  ],
+  "60223": [
+   "Rampura",
+   385,
+   13
+  ],
+  "60232": [
+   "Anta",
+   385,
+   14
+  ],
+  "60242": [
+   "Singhpura",
+   385,
+   13
+  ],
+  "60212": [
+   "Budha Khera",
+   385,
+   12
+  ],
+  "60244": [
+   "Silla Kheri",
+   385,
+   13
+  ],
+  "60237": [
+   "Karsindhu",
+   385,
+   14
+  ],
+  "60243": [
+   "Ratta Khera",
+   385,
+   13
+  ],
+  "60213": [
+   "Beri Khera",
+   385,
+   12
+  ],
+  "60245": [
+   "Bahadargarh",
+   385,
+   13
+  ],
+  "60222": [
+   "Jaipur",
+   385,
+   13
+  ],
+  "60238": [
+   "Tito Kheri",
+   385,
+   14
+  ],
+  "60239": [
+   "Bahadarpur",
+   385,
+   14
+  ],
+  "60246": [
+   "Malar",
+   385,
+   13
+  ],
+  "60241": [
+   "Kharkara",
+   385,
+   13
+  ],
+  "60247": [
+   "Hoshiarpura",
+   385,
+   12
+  ],
+  "60240": [
+   "Kurar",
+   385,
+   13
+  ],
+  "60248": [
+   "Rojhla",
+   385,
+   13
+  ],
+  "60251": [
+   "Butani",
+   385,
+   13
+  ],
+  "60250": [
+   "Hat",
+   385,
+   8
+  ],
+  "60200": [
+   "Kalawati",
+   385,
+   7
+  ],
+  "60252": [
+   "Ramnagar",
+   385,
+   8
+  ],
+  "60198": [
+   "Hadwa",
+   385,
+   7
+  ],
+  "60253": [
+   "Harigarh",
+   385,
+   8
+  ]
+ },
+ "village_count_total": 312,
+ "village_count_assigned": 312
+}

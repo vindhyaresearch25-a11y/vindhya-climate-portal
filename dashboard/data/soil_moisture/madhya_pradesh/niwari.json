@@ -1,0 +1,1591 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Madhya Pradesh",
+  "district": "Niwari",
+  "district_lgd": 722,
+  "observation_window": "2026-08-07T11:15Z to 2026-08-12T11:15Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2114,
+  "sm_surface_stddev": 0.0076,
+  "sm_rootzone_mean": 0.1788,
+  "sm_rootzone_stddev": 0.0075,
+  "n_cells": 12,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 25.1483,
+    "lon": 78.6071,
+    "sm_surface": 0.2088,
+    "sm_rootzone": 0.1741,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 1,
+    "lat": 25.1483,
+    "lon": 78.7059,
+    "sm_surface": 0.2058,
+    "sm_rootzone": 0.1751,
+    "n_villages_sharing_cell": 33
+   },
+   {
+    "cell_index": 2,
+    "lat": 25.1483,
+    "lon": 78.8047,
+    "sm_surface": 0.2,
+    "sm_rootzone": 0.1757,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 3,
+    "lat": 25.2472,
+    "lon": 78.6071,
+    "sm_surface": 0.2077,
+    "sm_rootzone": 0.1722,
+    "n_villages_sharing_cell": 25
+   },
+   {
+    "cell_index": 4,
+    "lat": 25.2472,
+    "lon": 78.7059,
+    "sm_surface": 0.2076,
+    "sm_rootzone": 0.1752,
+    "n_villages_sharing_cell": 24
+   },
+   {
+    "cell_index": 5,
+    "lat": 25.2472,
+    "lon": 78.8047,
+    "sm_surface": 0.2057,
+    "sm_rootzone": 0.179,
+    "n_villages_sharing_cell": 31
+   },
+   {
+    "cell_index": 6,
+    "lat": 25.346,
+    "lon": 78.6071,
+    "sm_surface": 0.2064,
+    "sm_rootzone": 0.1642,
+    "n_villages_sharing_cell": 24
+   },
+   {
+    "cell_index": 7,
+    "lat": 25.346,
+    "lon": 78.7059,
+    "sm_surface": 0.2121,
+    "sm_rootzone": 0.1793,
+    "n_villages_sharing_cell": 25
+   },
+   {
+    "cell_index": 8,
+    "lat": 25.346,
+    "lon": 78.8047,
+    "sm_surface": 0.2148,
+    "sm_rootzone": 0.1868,
+    "n_villages_sharing_cell": 24
+   },
+   {
+    "cell_index": 9,
+    "lat": 25.4448,
+    "lon": 78.8047,
+    "sm_surface": 0.2175,
+    "sm_rootzone": 0.1824,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 10,
+    "lat": 25.4448,
+    "lon": 78.9035,
+    "sm_surface": 0.2234,
+    "sm_rootzone": 0.1882,
+    "n_villages_sharing_cell": 32
+   },
+   {
+    "cell_index": 11,
+    "lat": 25.5436,
+    "lon": 78.9035,
+    "sm_surface": 0.2273,
+    "sm_rootzone": 0.193,
+    "n_villages_sharing_cell": 9
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2103,
+  "sm_surface_stddev": 0.0049,
+  "n_blocks": 3
+ },
+ "blocks": [
+  {
+   "block_name": "Niwari",
+   "sdcode": 3415,
+   "n_villages": 107,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.2172,
+   "sm_surface_stddev": 0.0067
+  },
+  {
+   "block_name": "Orchha",
+   "sdcode": 3416,
+   "n_villages": 36,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.2074,
+   "sm_surface_stddev": 0.0019
+  },
+  {
+   "block_name": "Prithvipur",
+   "sdcode": 3417,
+   "n_villages": 144,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.2062,
+   "sm_surface_stddev": 0.0035
+  }
+ ],
+ "villages": {
+  "456568": [
+   "Sakera Khurd Bhata",
+   3417,
+   4
+  ],
+  "456464": [
+   "Bhamora Grant",
+   3415,
+   10
+  ],
+  "456643": [
+   "Rampura Khas",
+   3417,
+   2
+  ],
+  "456604": [
+   "Pancham Kheda",
+   3417,
+   1
+  ],
+  "456593": [
+   "Rampura Naj Simra",
+   3417,
+   0
+  ],
+  "456594": [
+   "Bhelsi Khurd",
+   3417,
+   0
+  ],
+  "456605": [
+   "Maraura",
+   3417,
+   1
+  ],
+  "456610": [
+   "Ghurara Jagir",
+   3417,
+   1
+  ],
+  "456609": [
+   "Tatarpura Boresar",
+   3417,
+   1
+  ],
+  "456630": [
+   "Tilpura",
+   3417,
+   1
+  ],
+  "456595": [
+   "Todi",
+   3417,
+   0
+  ],
+  "456596": [
+   "Boresar Bhata",
+   3417,
+   1
+  ],
+  "456632": [
+   "Barho Buzurg",
+   3417,
+   1
+  ],
+  "456631": [
+   "Saidpura",
+   3417,
+   1
+  ],
+  "456640": [
+   "Maujipura Khas",
+   3417,
+   1
+  ],
+  "456598": [
+   "Khairai",
+   3417,
+   0
+  ],
+  "456641": [
+   "Para Khera Khas",
+   3417,
+   2
+  ],
+  "456639": [
+   "Jirawani Bhitara",
+   3417,
+   1
+  ],
+  "290323": [
+   "Jeron Khalsa",
+   3417,
+   1
+  ],
+  "456633": [
+   "Majal",
+   3417,
+   1
+  ],
+  "456599": [
+   "Majra Kachar",
+   3417,
+   0
+  ],
+  "456637": [
+   "Kakawani Khas",
+   3417,
+   1
+  ],
+  "456634": [
+   "Majra Soori",
+   3417,
+   1
+  ],
+  "456636": [
+   "Kakawani Bhata",
+   3417,
+   1
+  ],
+  "456644": [
+   "Keshriganj",
+   3417,
+   2
+  ],
+  "456600": [
+   "Dirguwan",
+   3417,
+   0
+  ],
+  "456601": [
+   "Mudauni",
+   3417,
+   0
+  ],
+  "456635": [
+   "Luharguwan",
+   3417,
+   1
+  ],
+  "456629": [
+   "Madiya Mota",
+   3417,
+   1
+  ],
+  "456611": [
+   "Bada Pahad Bhata",
+   3417,
+   1
+  ],
+  "456602": [
+   "Sanera Tal",
+   3417,
+   1
+  ],
+  "456638": [
+   "Maujipura Bhata",
+   3417,
+   1
+  ],
+  "456642": [
+   "Para Khera Bhata",
+   3417,
+   2
+  ],
+  "456603": [
+   "Bajranggarh",
+   3417,
+   0
+  ],
+  "456502": [
+   "Ram Nagar",
+   3415,
+   7
+  ],
+  "456577": [
+   "Sunrai Bhata",
+   3417,
+   3
+  ],
+  "456448": [
+   "Khiriya Bhata Ugad",
+   3415,
+   10
+  ],
+  "456680": [
+   "Kunwarpura",
+   3417,
+   2
+  ],
+  "456648": [
+   "Birora Pahad Khas",
+   3417,
+   2
+  ],
+  "456678": [
+   "Sakera Bhadoran Khas",
+   3417,
+   2
+  ],
+  "456677": [
+   "Sakera Bhadoran Bhata",
+   3417,
+   2
+  ],
+  "456647": [
+   "Birora Khet",
+   3417,
+   2
+  ],
+  "456681": [
+   "Maniyan",
+   3417,
+   2
+  ],
+  "456646": [
+   "Jayora Mora",
+   3417,
+   2
+  ],
+  "456645": [
+   "Chirpura",
+   3417,
+   2
+  ],
+  "456516": [
+   "Bangay Har",
+   3416,
+   6
+  ],
+  "456519": [
+   "Bangay Khas",
+   3416,
+   6
+  ],
+  "456517": [
+   "Majra Bangaya",
+   3416,
+   6
+  ],
+  "456521": [
+   "Kari Pahari",
+   3416,
+   6
+  ],
+  "456520": [
+   "Rajpura",
+   3416,
+   6
+  ],
+  "456523": [
+   "Chandawani Khas",
+   3416,
+   3
+  ],
+  "456526": [
+   "Lathesara",
+   3416,
+   3
+  ],
+  "456525": [
+   "Chakarpur",
+   3416,
+   3
+  ],
+  "456522": [
+   "Janoli",
+   3416,
+   3
+  ],
+  "456524": [
+   "Chandawani Bhata",
+   3416,
+   3
+  ],
+  "456515": [
+   "Jamuniya Khas",
+   3416,
+   6
+  ],
+  "293827": [
+   "Orchha",
+   3416,
+   6
+  ],
+  "456548": [
+   "Dulawani",
+   3417,
+   7
+  ],
+  "456550": [
+   "Lidhora",
+   3417,
+   7
+  ],
+  "456549": [
+   "Sunauniya West",
+   3417,
+   7
+  ],
+  "456491": [
+   "Poha Khas",
+   3415,
+   8
+  ],
+  "456535": [
+   "Chandrawan",
+   3416,
+   6
+  ],
+  "456495": [
+   "Baswan",
+   3415,
+   7
+  ],
+  "456551": [
+   "Sunauniya Khas",
+   3417,
+   7
+  ],
+  "456528": [
+   "Bagan",
+   3416,
+   6
+  ],
+  "456518": [
+   "Maharajpura",
+   3416,
+   6
+  ],
+  "456492": [
+   "Basantpura",
+   3415,
+   7
+  ],
+  "456529": [
+   "Radhapur",
+   3416,
+   6
+  ],
+  "456493": [
+   "Poha Bhata",
+   3415,
+   8
+  ],
+  "456530": [
+   "Ladpura North",
+   3416,
+   6
+  ],
+  "456496": [
+   "Jugyai",
+   3415,
+   7
+  ],
+  "456552": [
+   "Bhelsa",
+   3417,
+   7
+  ],
+  "456503": [
+   "Bilt",
+   3415,
+   8
+  ],
+  "456504": [
+   "Naya Khera",
+   3415,
+   8
+  ],
+  "456531": [
+   "Ladpura Khas",
+   3416,
+   6
+  ],
+  "456505": [
+   "Kuluwa Khas",
+   3415,
+   8
+  ],
+  "456561": [
+   "Chandrapura Khas",
+   3417,
+   7
+  ],
+  "456554": [
+   "Ragoli",
+   3417,
+   7
+  ],
+  "456497": [
+   "Neem Khera",
+   3415,
+   7
+  ],
+  "456557": [
+   "Kunwarpura",
+   3417,
+   7
+  ],
+  "456560": [
+   "Sujanpura Naj Bhelsa",
+   3417,
+   7
+  ],
+  "456562": [
+   "Saiguwan",
+   3417,
+   4
+  ],
+  "456555": [
+   "Mohanpura",
+   3417,
+   7
+  ],
+  "456533": [
+   "Mador West",
+   3416,
+   6
+  ],
+  "456683": [
+   "Chandpura Bhata",
+   3417,
+   3
+  ],
+  "456499": [
+   "Majra Makara",
+   3415,
+   5
+  ],
+  "456556": [
+   "Dhilla",
+   3417,
+   4
+  ],
+  "456527": [
+   "Pathari",
+   3416,
+   3
+  ],
+  "456498": [
+   "Makara",
+   3415,
+   4
+  ],
+  "456559": [
+   "Madwa Jugalpura",
+   3417,
+   4
+  ],
+  "456682": [
+   "Wagpura",
+   3417,
+   3
+  ],
+  "456534": [
+   "Mador East",
+   3416,
+   3
+  ],
+  "456558": [
+   "Maujan",
+   3417,
+   4
+  ],
+  "456481": [
+   "Kuluwa Bhata",
+   3415,
+   5
+  ],
+  "456563": [
+   "Panhari",
+   3417,
+   3
+  ],
+  "456506": [
+   "Rajapur",
+   3415,
+   5
+  ],
+  "456485": [
+   "Panyara Khera",
+   3415,
+   5
+  ],
+  "456573": [
+   "Lidwaha",
+   3417,
+   4
+  ],
+  "456500": [
+   "Majguwan",
+   3415,
+   4
+  ],
+  "456571": [
+   "Darretha",
+   3417,
+   4
+  ],
+  "456684": [
+   "Sewari",
+   3417,
+   3
+  ],
+  "456564": [
+   "Niwaura",
+   3417,
+   3
+  ],
+  "456507": [
+   "Ladwari Kachhyau",
+   3415,
+   4
+  ],
+  "456655": [
+   "Manikpur",
+   3417,
+   5
+  ],
+  "456656": [
+   "Dumduma",
+   3417,
+   5
+  ],
+  "456565": [
+   "Neguwan Khas",
+   3417,
+   4
+  ],
+  "456567": [
+   "Sakera Khurd",
+   3417,
+   3
+  ],
+  "456569": [
+   "Madori",
+   3417,
+   3
+  ],
+  "293821": [
+   "Prithvipur",
+   3417,
+   4
+  ],
+  "456553": [
+   "Majra Bhelsa",
+   3417,
+   7
+  ],
+  "456532": [
+   "Mador Bhata",
+   3416,
+   6
+  ],
+  "456501": [
+   "Ladwari Har",
+   3415,
+   4
+  ],
+  "456572": [
+   "Jaitwara",
+   3417,
+   4
+  ],
+  "456582": [
+   "Sarsaura",
+   3417,
+   3
+  ],
+  "456570": [
+   "Atarra",
+   3417,
+   4
+  ],
+  "456654": [
+   "Chandeli Toriya",
+   3417,
+   5
+  ],
+  "456575": [
+   "Vishanpura Bhata",
+   3417,
+   4
+  ],
+  "456581": [
+   "Tapariya Hadaran",
+   3417,
+   3
+  ],
+  "456574": [
+   "Papawani East",
+   3417,
+   4
+  ],
+  "456576": [
+   "Papawani Khas",
+   3417,
+   4
+  ],
+  "456685": [
+   "Koti",
+   3417,
+   3
+  ],
+  "456583": [
+   "Hamirpur",
+   3417,
+   3
+  ],
+  "456578": [
+   "Sunrai Khas",
+   3417,
+   3
+  ],
+  "456621": [
+   "Tenipura",
+   3417,
+   4
+  ],
+  "456584": [
+   "Urdora",
+   3417,
+   3
+  ],
+  "456622": [
+   "Ladwari Khas",
+   3417,
+   4
+  ],
+  "456579": [
+   "Banyani",
+   3417,
+   4
+  ],
+  "456580": [
+   "Dhorra",
+   3417,
+   3
+  ],
+  "456613": [
+   "Jera Bhata",
+   3417,
+   3
+  ],
+  "456614": [
+   "Mahua Bag",
+   3417,
+   4
+  ],
+  "456623": [
+   "Ladwari Tal",
+   3417,
+   1
+  ],
+  "456619": [
+   "Madwa Rajgarh",
+   3417,
+   1
+  ],
+  "456620": [
+   "Beer Sagar Khas",
+   3417,
+   4
+  ],
+  "456585": [
+   "Digwar Bhata",
+   3417,
+   3
+  ],
+  "456625": [
+   "Gatara",
+   3417,
+   1
+  ],
+  "456624": [
+   "Mavai",
+   3417,
+   2
+  ],
+  "456588": [
+   "Chhewala Mata",
+   3417,
+   0
+  ],
+  "456587": [
+   "Digwar Kalan",
+   3417,
+   0
+  ],
+  "456590": [
+   "Digwar Khurd",
+   3417,
+   0
+  ],
+  "456586": [
+   "Gulenda",
+   3417,
+   0
+  ],
+  "456589": [
+   "Patariya",
+   3417,
+   0
+  ],
+  "456617": [
+   "Naya Khera",
+   3417,
+   1
+  ],
+  "456607": [
+   "Kachhiya Khera",
+   3417,
+   0
+  ],
+  "456612": [
+   "Jera Khas",
+   3417,
+   1
+  ],
+  "456616": [
+   "Beer Sagar Tal",
+   3417,
+   1
+  ],
+  "456626": [
+   "Achhrumata",
+   3417,
+   1
+  ],
+  "456627": [
+   "Madiya Khas",
+   3417,
+   1
+  ],
+  "456606": [
+   "Simra Khas",
+   3417,
+   0
+  ],
+  "456592": [
+   "Simra Bhata",
+   3417,
+   0
+  ],
+  "456615": [
+   "Bamroli",
+   3417,
+   1
+  ],
+  "456618": [
+   "Bhopalpura",
+   3417,
+   1
+  ],
+  "456608": [
+   "Jawahar Pura",
+   3417,
+   1
+  ],
+  "456597": [
+   "Majra Sewlal",
+   3417,
+   1
+  ],
+  "456628": [
+   "Keripura",
+   3417,
+   1
+  ],
+  "456649": [
+   "Birora Pahad North",
+   3417,
+   2
+  ],
+  "456566": [
+   "Neguwan Bhata",
+   3417,
+   4
+  ],
+  "456675": [
+   "Jasrath Pura",
+   3417,
+   2
+  ],
+  "456540": [
+   "Basoba",
+   3416,
+   7
+  ],
+  "456405": [
+   "Bheetri",
+   3415,
+   9
+  ],
+  "456408": [
+   "Baghat",
+   3415,
+   9
+  ],
+  "456406": [
+   "Beejour",
+   3415,
+   9
+  ],
+  "456411": [
+   "Dewari Bamnau",
+   3415,
+   9
+  ],
+  "456539": [
+   "Jijora",
+   3416,
+   7
+  ],
+  "456542": [
+   "Ghatwaha",
+   3416,
+   7
+  ],
+  "456536": [
+   "Pratap Pura",
+   3416,
+   6
+  ],
+  "456543": [
+   "Bhojpura",
+   3416,
+   7
+  ],
+  "456418": [
+   "Biharipura",
+   3415,
+   9
+  ],
+  "456417": [
+   "Babai",
+   3415,
+   9
+  ],
+  "456538": [
+   "Kumharra Khas",
+   3416,
+   6
+  ],
+  "456537": [
+   "Kumharra Bhata",
+   3416,
+   6
+  ],
+  "456511": [
+   "Ramnagar",
+   3416,
+   6
+  ],
+  "456420": [
+   "Kena",
+   3415,
+   8
+  ],
+  "456419": [
+   "Neguwan",
+   3415,
+   8
+  ],
+  "456510": [
+   "Mathura Pura",
+   3416,
+   6
+  ],
+  "456544": [
+   "Sujanpura Jagir",
+   3417,
+   7
+  ],
+  "456512": [
+   "Gujarra Kalan",
+   3416,
+   6
+  ],
+  "456421": [
+   "Niwari Bhata",
+   3415,
+   8
+  ],
+  "456514": [
+   "Gujarra Khurd",
+   3416,
+   6
+  ],
+  "456513": [
+   "Jamuniya Bhata",
+   3416,
+   6
+  ],
+  "456547": [
+   "Kanaura",
+   3417,
+   7
+  ],
+  "456546": [
+   "Hirapura",
+   3417,
+   7
+  ],
+  "456541": [
+   "Sitapur",
+   3416,
+   7
+  ],
+  "456545": [
+   "Rampura Naj Kanaura",
+   3417,
+   7
+  ],
+  "456672": [
+   "Gova Pashchimi",
+   3417,
+   2
+  ],
+  "456468": [
+   "Nimchoni",
+   3415,
+   8
+  ],
+  "456474": [
+   "Raipura Khas",
+   3415,
+   5
+  ],
+  "456460": [
+   "Bamhori Sheetal",
+   3415,
+   10
+  ],
+  "290382": [
+   "Niwari",
+   3415,
+   8
+  ],
+  "456459": [
+   "Thona",
+   3415,
+   10
+  ],
+  "456465": [
+   "Bhamora Khas",
+   3415,
+   5
+  ],
+  "456487": [
+   "Churara",
+   3415,
+   8
+  ],
+  "456462": [
+   "Ghughsi Khas",
+   3415,
+   10
+  ],
+  "456467": [
+   "Urdora",
+   3415,
+   10
+  ],
+  "456466": [
+   "Naura",
+   3415,
+   8
+  ],
+  "456469": [
+   "Kalothara",
+   3415,
+   8
+  ],
+  "456463": [
+   "Umri",
+   3415,
+   10
+  ],
+  "456470": [
+   "Dewari Nayak",
+   3415,
+   8
+  ],
+  "456472": [
+   "Namapura",
+   3415,
+   8
+  ],
+  "456471": [
+   "Bahera",
+   3415,
+   8
+  ],
+  "456476": [
+   "Tehar Ka Khas",
+   3415,
+   8
+  ],
+  "456473": [
+   "Churari",
+   3415,
+   5
+  ],
+  "456483": [
+   "Dharma Pura",
+   3415,
+   5
+  ],
+  "456484": [
+   "Jhingora",
+   3415,
+   5
+  ],
+  "456479": [
+   "Tehar Ka Bhata",
+   3415,
+   5
+  ],
+  "456477": [
+   "Baraipura",
+   3415,
+   5
+  ],
+  "456478": [
+   "Jikhangaon",
+   3415,
+   5
+  ],
+  "456657": [
+   "Siya Khas",
+   3417,
+   5
+  ],
+  "456480": [
+   "Astari",
+   3415,
+   5
+  ],
+  "456658": [
+   "Garroli",
+   3417,
+   5
+  ],
+  "456653": [
+   "Khiston",
+   3417,
+   5
+  ],
+  "456659": [
+   "Sorka",
+   3417,
+   5
+  ],
+  "456489": [
+   "Kataraban",
+   3415,
+   8
+  ],
+  "456490": [
+   "Siddha Toriya",
+   3415,
+   8
+  ],
+  "456461": [
+   "Ghughsi Grant",
+   3415,
+   10
+  ],
+  "456494": [
+   "Byata Jangal",
+   3415,
+   8
+  ],
+  "456475": [
+   "Raipura Jangal",
+   3415,
+   5
+  ],
+  "456486": [
+   "Siya Bhata",
+   3415,
+   5
+  ],
+  "456660": [
+   "Gopalpura",
+   3417,
+   5
+  ],
+  "456661": [
+   "Gora Gusai Khas",
+   3417,
+   5
+  ],
+  "456665": [
+   "Banjaripura Khas",
+   3417,
+   5
+  ],
+  "456666": [
+   "Barho Khurd",
+   3417,
+   5
+  ],
+  "456663": [
+   "Gailwara Khas",
+   3417,
+   5
+  ],
+  "456662": [
+   "Gora Bhata",
+   3417,
+   5
+  ],
+  "456652": [
+   "Jalandhar",
+   3417,
+   5
+  ],
+  "456667": [
+   "Banjaripura Bhata",
+   3417,
+   5
+  ],
+  "456668": [
+   "Phadibamsi",
+   3417,
+   5
+  ],
+  "456673": [
+   "Bitar",
+   3417,
+   2
+  ],
+  "456664": [
+   "Gailwara Bhata",
+   3417,
+   2
+  ],
+  "456669": [
+   "Chomo Khas",
+   3417,
+   2
+  ],
+  "456651": [
+   "Bachhaura",
+   3417,
+   2
+  ],
+  "456674": [
+   "Chikta Gulenda",
+   3417,
+   2
+  ],
+  "456670": [
+   "Chomo Bhata",
+   3417,
+   2
+  ],
+  "456676": [
+   "Sakera Bhadoran Har",
+   3417,
+   2
+  ],
+  "456671": [
+   "Manetha",
+   3417,
+   2
+  ],
+  "456679": [
+   "Gova Purvi",
+   3417,
+   2
+  ],
+  "456482": [
+   "Barwaha",
+   3415,
+   8
+  ],
+  "456509": [
+   "Dhimarpura Najumri",
+   3415,
+   10
+  ],
+  "456650": [
+   "Birora Pahad Bhata",
+   3417,
+   2
+  ],
+  "456435": [
+   "Kaithau Pahari",
+   3415,
+   11
+  ],
+  "456434": [
+   "Madri",
+   3415,
+   11
+  ],
+  "456436": [
+   "Sendari",
+   3415,
+   11
+  ],
+  "456439": [
+   "Sindoor Sagar",
+   3415,
+   11
+  ],
+  "456433": [
+   "Dhawa Bangra",
+   3415,
+   11
+  ],
+  "456429": [
+   "Sakuli",
+   3415,
+   10
+  ],
+  "456432": [
+   "Shakti Bheron",
+   3415,
+   9
+  ],
+  "456441": [
+   "Ganj",
+   3415,
+   11
+  ],
+  "456407": [
+   "Baparoli",
+   3415,
+   9
+  ],
+  "456427": [
+   "Tarichar Khurd",
+   3415,
+   10
+  ],
+  "456443": [
+   "Kunwarpura Khas",
+   3415,
+   10
+  ],
+  "456430": [
+   "Dabar Khas",
+   3415,
+   10
+  ],
+  "456409": [
+   "Putri Khera",
+   3415,
+   9
+  ],
+  "456412": [
+   "Puchhikar Guan",
+   3415,
+   9
+  ],
+  "456416": [
+   "Dewara Khera",
+   3415,
+   9
+  ],
+  "456447": [
+   "Dabar Jangal",
+   3415,
+   10
+  ],
+  "456446": [
+   "Dabar Bhatta Ugad",
+   3415,
+   10
+  ],
+  "456431": [
+   "Shyamsi",
+   3415,
+   10
+  ],
+  "456410": [
+   "Dewari Kalrau",
+   3415,
+   9
+  ],
+  "456414": [
+   "Pipra",
+   3415,
+   9
+  ],
+  "456413": [
+   "Mohanpura",
+   3415,
+   9
+  ],
+  "456445": [
+   "Uboura",
+   3415,
+   10
+  ],
+  "456449": [
+   "Khiriya Khas",
+   3415,
+   10
+  ],
+  "456453": [
+   "Chachawali",
+   3415,
+   10
+  ],
+  "456450": [
+   "Virsinghpura",
+   3415,
+   10
+  ],
+  "293818": [
+   "Taricharkala",
+   3415,
+   10
+  ],
+  "456455": [
+   "Patharam",
+   3415,
+   10
+  ],
+  "456426": [
+   "Kishore Pura",
+   3415,
+   9
+  ],
+  "456425": [
+   "Asati Khas",
+   3415,
+   9
+  ],
+  "456452": [
+   "Kachhipura",
+   3415,
+   10
+  ],
+  "456415": [
+   "Gidkhini",
+   3415,
+   9
+  ],
+  "456457": [
+   "Dhamna",
+   3415,
+   10
+  ],
+  "456451": [
+   "Binwara",
+   3415,
+   10
+  ],
+  "456422": [
+   "Tila",
+   3415,
+   8
+  ],
+  "456458": [
+   "Gwavali",
+   3415,
+   10
+  ],
+  "456423": [
+   "Devendrapura",
+   3415,
+   8
+  ],
+  "456488": [
+   "Mudara",
+   3415,
+   8
+  ],
+  "456444": [
+   "Kunwarpura Jangal",
+   3415,
+   10
+  ],
+  "456456": [
+   "Majra Chachawali",
+   3415,
+   10
+  ],
+  "456454": [
+   "Majra Patharam",
+   3415,
+   10
+  ],
+  "456424": [
+   "Asati Jangal",
+   3415,
+   9
+  ],
+  "456428": [
+   "Nabada",
+   3415,
+   10
+  ],
+  "456440": [
+   "Dhimarpura",
+   3415,
+   10
+  ],
+  "456438": [
+   "Sadik Pura",
+   3415,
+   11
+  ],
+  "456437": [
+   "Durgapur",
+   3415,
+   11
+  ],
+  "456442": [
+   "Kudar",
+   3415,
+   10
+  ],
+  "456508": [
+   "Futera Jangal",
+   3415,
+   11
+  ],
+  "999999": [
+   "Morar R F",
+   3416,
+   6
+  ],
+  "456591": [
+   "Karkigarh",
+   3417,
+   3
+  ]
+ },
+ "village_count_total": 287,
+ "village_count_assigned": 287
+}

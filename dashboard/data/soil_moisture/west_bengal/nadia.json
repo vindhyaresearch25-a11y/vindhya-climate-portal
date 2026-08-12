@@ -1,0 +1,7324 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "West Bengal",
+  "district": "Nadia",
+  "district_lgd": 320,
+  "observation_window": "2026-08-07T11:31Z to 2026-08-12T11:31Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3056,
+  "sm_surface_stddev": 0.0198,
+  "sm_rootzone_mean": 0.2951,
+  "sm_rootzone_stddev": 0.0263,
+  "n_cells": 34,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 22.9744,
+    "lon": 88.4885,
+    "sm_surface": 0.2998,
+    "sm_rootzone": 0.2721,
+    "n_villages_sharing_cell": 44
+   },
+   {
+    "cell_index": 1,
+    "lat": 22.9744,
+    "lon": 88.5874,
+    "sm_surface": 0.287,
+    "sm_rootzone": 0.2619,
+    "n_villages_sharing_cell": 94
+   },
+   {
+    "cell_index": 2,
+    "lat": 23.0732,
+    "lon": 88.4885,
+    "sm_surface": 0.2927,
+    "sm_rootzone": 0.2641,
+    "n_villages_sharing_cell": 33
+   },
+   {
+    "cell_index": 3,
+    "lat": 23.0732,
+    "lon": 88.5874,
+    "sm_surface": 0.2821,
+    "sm_rootzone": 0.2582,
+    "n_villages_sharing_cell": 82
+   },
+   {
+    "cell_index": 4,
+    "lat": 23.172,
+    "lon": 88.4885,
+    "sm_surface": 0.2835,
+    "sm_rootzone": 0.2564,
+    "n_villages_sharing_cell": 49
+   },
+   {
+    "cell_index": 5,
+    "lat": 23.172,
+    "lon": 88.5874,
+    "sm_surface": 0.2709,
+    "sm_rootzone": 0.2493,
+    "n_villages_sharing_cell": 53
+   },
+   {
+    "cell_index": 6,
+    "lat": 23.172,
+    "lon": 88.6862,
+    "sm_surface": 0.3374,
+    "sm_rootzone": 0.3284,
+    "n_villages_sharing_cell": 40
+   },
+   {
+    "cell_index": 7,
+    "lat": 23.2709,
+    "lon": 88.3897,
+    "sm_surface": 0.3413,
+    "sm_rootzone": 0.3416,
+    "n_villages_sharing_cell": 31
+   },
+   {
+    "cell_index": 8,
+    "lat": 23.2709,
+    "lon": 88.4885,
+    "sm_surface": 0.2925,
+    "sm_rootzone": 0.2928,
+    "n_villages_sharing_cell": 49
+   },
+   {
+    "cell_index": 9,
+    "lat": 23.2709,
+    "lon": 88.5874,
+    "sm_surface": 0.334,
+    "sm_rootzone": 0.3209,
+    "n_villages_sharing_cell": 37
+   },
+   {
+    "cell_index": 10,
+    "lat": 23.2709,
+    "lon": 88.6862,
+    "sm_surface": 0.3318,
+    "sm_rootzone": 0.3258,
+    "n_villages_sharing_cell": 36
+   },
+   {
+    "cell_index": 11,
+    "lat": 23.3697,
+    "lon": 88.3897,
+    "sm_surface": 0.2945,
+    "sm_rootzone": 0.2936,
+    "n_villages_sharing_cell": 35
+   },
+   {
+    "cell_index": 12,
+    "lat": 23.3697,
+    "lon": 88.4885,
+    "sm_surface": 0.278,
+    "sm_rootzone": 0.255,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 13,
+    "lat": 23.3697,
+    "lon": 88.5874,
+    "sm_surface": 0.3316,
+    "sm_rootzone": 0.3194,
+    "n_villages_sharing_cell": 32
+   },
+   {
+    "cell_index": 14,
+    "lat": 23.3697,
+    "lon": 88.6862,
+    "sm_surface": 0.3268,
+    "sm_rootzone": 0.3199,
+    "n_villages_sharing_cell": 43
+   },
+   {
+    "cell_index": 15,
+    "lat": 23.4685,
+    "lon": 88.3897,
+    "sm_surface": 0.3281,
+    "sm_rootzone": 0.3316,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 16,
+    "lat": 23.4685,
+    "lon": 88.4885,
+    "sm_surface": 0.3376,
+    "sm_rootzone": 0.3227,
+    "n_villages_sharing_cell": 34
+   },
+   {
+    "cell_index": 17,
+    "lat": 23.4685,
+    "lon": 88.5874,
+    "sm_surface": 0.3259,
+    "sm_rootzone": 0.3144,
+    "n_villages_sharing_cell": 38
+   },
+   {
+    "cell_index": 18,
+    "lat": 23.4685,
+    "lon": 88.6862,
+    "sm_surface": 0.3195,
+    "sm_rootzone": 0.3093,
+    "n_villages_sharing_cell": 50
+   },
+   {
+    "cell_index": 19,
+    "lat": 23.4685,
+    "lon": 88.785,
+    "sm_surface": 0.3216,
+    "sm_rootzone": 0.3167,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 20,
+    "lat": 23.5673,
+    "lon": 88.3897,
+    "sm_surface": 0.3182,
+    "sm_rootzone": 0.3285,
+    "n_villages_sharing_cell": 49
+   },
+   {
+    "cell_index": 21,
+    "lat": 23.5673,
+    "lon": 88.4885,
+    "sm_surface": 0.3064,
+    "sm_rootzone": 0.2915,
+    "n_villages_sharing_cell": 29
+   },
+   {
+    "cell_index": 22,
+    "lat": 23.5673,
+    "lon": 88.5874,
+    "sm_surface": 0.3198,
+    "sm_rootzone": 0.3111,
+    "n_villages_sharing_cell": 29
+   },
+   {
+    "cell_index": 23,
+    "lat": 23.6661,
+    "lon": 88.1921,
+    "sm_surface": 0.3052,
+    "sm_rootzone": 0.3131,
+    "n_villages_sharing_cell": 50
+   },
+   {
+    "cell_index": 24,
+    "lat": 23.6661,
+    "lon": 88.2909,
+    "sm_surface": 0.2948,
+    "sm_rootzone": 0.2754,
+    "n_villages_sharing_cell": 54
+   },
+   {
+    "cell_index": 25,
+    "lat": 23.6661,
+    "lon": 88.3897,
+    "sm_surface": 0.2915,
+    "sm_rootzone": 0.2759,
+    "n_villages_sharing_cell": 30
+   },
+   {
+    "cell_index": 26,
+    "lat": 23.6661,
+    "lon": 88.4885,
+    "sm_surface": 0.2918,
+    "sm_rootzone": 0.2775,
+    "n_villages_sharing_cell": 29
+   },
+   {
+    "cell_index": 27,
+    "lat": 23.7649,
+    "lon": 88.2909,
+    "sm_surface": 0.2915,
+    "sm_rootzone": 0.2732,
+    "n_villages_sharing_cell": 36
+   },
+   {
+    "cell_index": 28,
+    "lat": 23.7649,
+    "lon": 88.3897,
+    "sm_surface": 0.2877,
+    "sm_rootzone": 0.2732,
+    "n_villages_sharing_cell": 24
+   },
+   {
+    "cell_index": 29,
+    "lat": 23.7649,
+    "lon": 88.4885,
+    "sm_surface": 0.2883,
+    "sm_rootzone": 0.2745,
+    "n_villages_sharing_cell": 32
+   },
+   {
+    "cell_index": 30,
+    "lat": 23.8637,
+    "lon": 88.4885,
+    "sm_surface": 0.3003,
+    "sm_rootzone": 0.2884,
+    "n_villages_sharing_cell": 43
+   },
+   {
+    "cell_index": 31,
+    "lat": 23.9626,
+    "lon": 88.5874,
+    "sm_surface": 0.2931,
+    "sm_rootzone": 0.2835,
+    "n_villages_sharing_cell": 39
+   },
+   {
+    "cell_index": 32,
+    "lat": 23.9626,
+    "lon": 88.6862,
+    "sm_surface": 0.2955,
+    "sm_rootzone": 0.2909,
+    "n_villages_sharing_cell": 71
+   },
+   {
+    "cell_index": 33,
+    "lat": 24.0614,
+    "lon": 88.6862,
+    "sm_surface": 0.2912,
+    "sm_rootzone": 0.3227,
+    "n_villages_sharing_cell": 19
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3046,
+  "sm_surface_stddev": 0.0131,
+  "n_blocks": 17
+ },
+ "blocks": [
+  {
+   "block_name": "Chakdah",
+   "sdcode": 2314,
+   "n_villages": 161,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.2894,
+   "sm_surface_stddev": 0.0091
+  },
+  {
+   "block_name": "Chapra",
+   "sdcode": 2305,
+   "n_villages": 84,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.3175,
+   "sm_surface_stddev": 0.0099
+  },
+  {
+   "block_name": "Hanskhali",
+   "sdcode": 2310,
+   "n_villages": 81,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.3276,
+   "sm_surface_stddev": 0.0102
+  },
+  {
+   "block_name": "Haringhata",
+   "sdcode": 2315,
+   "n_villages": 87,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.2879,
+   "sm_surface_stddev": 0.0032
+  },
+  {
+   "block_name": "Kaliganj",
+   "sdcode": 2303,
+   "n_villages": 127,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.2978,
+   "sm_surface_stddev": 0.0062
+  },
+  {
+   "block_name": "Karimpur - I",
+   "sdcode": 2299,
+   "n_villages": 74,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.2942,
+   "sm_surface_stddev": 0.0019
+  },
+  {
+   "block_name": "Karimpur - II",
+   "sdcode": 2300,
+   "n_villages": 71,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.2955,
+   "sm_surface_stddev": 0.0028
+  },
+  {
+   "block_name": "Krishnaganj",
+   "sdcode": 2309,
+   "n_villages": 53,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3217,
+   "sm_surface_stddev": 0.003
+  },
+  {
+   "block_name": "Krishnagar - I",
+   "sdcode": 2308,
+   "n_villages": 94,
+   "n_cells_spanned": 10,
+   "sm_surface_mean": 0.3068,
+   "sm_surface_stddev": 0.0233
+  },
+  {
+   "block_name": "Krishnagar - II",
+   "sdcode": 2306,
+   "n_villages": 45,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.3288,
+   "sm_surface_stddev": 0.0108
+  },
+  {
+   "block_name": "Nabadwip",
+   "sdcode": 2307,
+   "n_villages": 29,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3096,
+   "sm_surface_stddev": 0.0167
+  },
+  {
+   "block_name": "Nakashipara",
+   "sdcode": 2304,
+   "n_villages": 109,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.3046,
+   "sm_surface_stddev": 0.0121
+  },
+  {
+   "block_name": "Ranaghat - I",
+   "sdcode": 2312,
+   "n_villages": 76,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.2929,
+   "sm_surface_stddev": 0.0221
+  },
+  {
+   "block_name": "Ranaghat - II",
+   "sdcode": 2313,
+   "n_villages": 118,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.3116,
+   "sm_surface_stddev": 0.0305
+  },
+  {
+   "block_name": "Santipur",
+   "sdcode": 2311,
+   "n_villages": 71,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3095,
+   "sm_surface_stddev": 0.0251
+  },
+  {
+   "block_name": "Tehatta - I",
+   "sdcode": 2301,
+   "n_villages": 62,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.294,
+   "sm_surface_stddev": 0.0054
+  },
+  {
+   "block_name": "Tehatta - II",
+   "sdcode": 2302,
+   "n_villages": 34,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.2887,
+   "sm_surface_stddev": 0.003
+  }
+ ],
+ "villages": {
+  "321374": [
+   "Naihati",
+   2303,
+   23
+  ],
+  "321276": [
+   "Biljiala",
+   2302,
+   28
+  ],
+  "322307": [
+   "Jaydebbati P",
+   2314,
+   0
+  ],
+  "322015": [
+   "Sat Sambhuganj",
+   2312,
+   4
+  ],
+  "322027": [
+   "Nakadi",
+   2312,
+   4
+  ],
+  "321976": [
+   "Champaklata",
+   2311,
+   4
+  ],
+  "321719": [
+   "Chakchapra",
+   2308,
+   8
+  ],
+  "321720": [
+   "Jeolgari",
+   2308,
+   8
+  ],
+  "321656": [
+   "Bishnu Nagar",
+   2306,
+   16
+  ],
+  "321380": [
+   "Brajanathpur",
+   2303,
+   23
+  ],
+  "321338": [
+   "Gobra",
+   2303,
+   23
+  ],
+  "321343": [
+   "Baraitna",
+   2303,
+   23
+  ],
+  "321373": [
+   "Bhagyabantapur",
+   2303,
+   23
+  ],
+  "321371": [
+   "Akanda Beria",
+   2303,
+   23
+  ],
+  "321375": [
+   "Nasipur",
+   2303,
+   23
+  ],
+  "321372": [
+   "Kanua",
+   2303,
+   23
+  ],
+  "321368": [
+   "Bara Atagi",
+   2303,
+   23
+  ],
+  "321376": [
+   "Kadihati",
+   2303,
+   23
+  ],
+  "321369": [
+   "Chanduria",
+   2303,
+   23
+  ],
+  "321370": [
+   "Chak Maheshpur",
+   2303,
+   23
+  ],
+  "321377": [
+   "Ballabhpara",
+   2303,
+   23
+  ],
+  "321382": [
+   "Kamdebpur",
+   2303,
+   23
+  ],
+  "321378": [
+   "Basatpur",
+   2303,
+   23
+  ],
+  "321383": [
+   "Maheshpur",
+   2303,
+   23
+  ],
+  "321384": [
+   "Karalia",
+   2303,
+   23
+  ],
+  "321381": [
+   "Faridpur",
+   2303,
+   23
+  ],
+  "321410": [
+   "Noachar",
+   2303,
+   23
+  ],
+  "321379": [
+   "Rajnagar",
+   2303,
+   23
+  ],
+  "321334": [
+   "Char Sriharipur",
+   2303,
+   23
+  ],
+  "321337": [
+   "Char Dattabati",
+   2303,
+   23
+  ],
+  "321305": [
+   "Manikdihi",
+   2303,
+   27
+  ],
+  "321419": [
+   "Matiari CT",
+   2303,
+   23
+  ],
+  "321333": [
+   "Juranpur",
+   2303,
+   23
+  ],
+  "321335": [
+   "Fulbagan",
+   2303,
+   23
+  ],
+  "321342": [
+   "Jayrampur",
+   2303,
+   23
+  ],
+  "321340": [
+   "Adampur",
+   2303,
+   23
+  ],
+  "321339": [
+   "Chhutipur",
+   2303,
+   23
+  ],
+  "321336": [
+   "Char Sitahati",
+   2303,
+   23
+  ],
+  "321409": [
+   "Char Gopalpur",
+   2303,
+   27
+  ],
+  "321306": [
+   "Char Manikdihi",
+   2303,
+   23
+  ],
+  "321307": [
+   "Char Serpur",
+   2303,
+   23
+  ],
+  "321701": [
+   "Monipota",
+   2308,
+   11
+  ],
+  "321915": [
+   "Chak Bholadanga",
+   2311,
+   7
+  ],
+  "322317": [
+   "Punglia CT",
+   2314,
+   3
+  ],
+  "322319": [
+   "Lalpur P CT",
+   2314,
+   3
+  ],
+  "321707": [
+   "Malipota",
+   2308,
+   11
+  ],
+  "321712": [
+   "Satkulta",
+   2308,
+   11
+  ],
+  "322282": [
+   "Manpur",
+   2314,
+   3
+  ],
+  "321758": [
+   "Dharmma Daha",
+   2308,
+   12
+  ],
+  "322407": [
+   "Dighalgram",
+   2315,
+   1
+  ],
+  "322408": [
+   "Jhikra",
+   2315,
+   1
+  ],
+  "322409": [
+   "Chanda",
+   2315,
+   1
+  ],
+  "322393": [
+   "Parulia",
+   2315,
+   1
+  ],
+  "322303": [
+   "Majher Char P",
+   2314,
+   0
+  ],
+  "322305": [
+   "Char Kancharapara P",
+   2314,
+   0
+  ],
+  "322304": [
+   "Char Nandan Bati",
+   2314,
+   0
+  ],
+  "321710": [
+   "Chakpansila",
+   2308,
+   11
+  ],
+  "322370": [
+   "Hatikanda",
+   2315,
+   0
+  ],
+  "322315": [
+   "Char Jajira",
+   2314,
+   0
+  ],
+  "322316": [
+   "Char Modhusudanpur",
+   2314,
+   0
+  ],
+  "322301": [
+   "Birpara P",
+   2314,
+   0
+  ],
+  "322302": [
+   "Char Jadubati P",
+   2314,
+   0
+  ],
+  "322299": [
+   "Char Raghunathpur",
+   2314,
+   0
+  ],
+  "322296": [
+   "Dumurdaha Char",
+   2314,
+   2
+  ],
+  "322297": [
+   "Raninagar Char",
+   2314,
+   0
+  ],
+  "322298": [
+   "Naosari Char",
+   2314,
+   0
+  ],
+  "322194": [
+   "Alaipur",
+   2314,
+   0
+  ],
+  "322210": [
+   "Anilia",
+   2314,
+   0
+  ],
+  "322300": [
+   "Muratipur P",
+   2314,
+   0
+  ],
+  "322203": [
+   "Kumarpur",
+   2314,
+   0
+  ],
+  "322330": [
+   "Birohi",
+   2315,
+   1
+  ],
+  "322331": [
+   "Chandirampur",
+   2315,
+   0
+  ],
+  "322306": [
+   "Chand Mari P",
+   2314,
+   0
+  ],
+  "322313": [
+   "Ghora Gachha",
+   2314,
+   0
+  ],
+  "250104": [
+   "Kalyani",
+   2314,
+   0
+  ],
+  "322335": [
+   "Ayespur",
+   2315,
+   1
+  ],
+  "322332": [
+   "Panchpota",
+   2315,
+   1
+  ],
+  "322308": [
+   "Krishnapur",
+   2314,
+   0
+  ],
+  "322314": [
+   "Teli Gachha",
+   2314,
+   0
+  ],
+  "322333": [
+   "Balindi",
+   2315,
+   1
+  ],
+  "322310": [
+   "Dogachhia P",
+   2314,
+   0
+  ],
+  "250105": [
+   "Gayespur",
+   2314,
+   0
+  ],
+  "322309": [
+   "Raghunathpur P",
+   2314,
+   0
+  ],
+  "322372": [
+   "Sirajanpara",
+   2315,
+   0
+  ],
+  "322334": [
+   "Muragachha",
+   2315,
+   1
+  ],
+  "322311": [
+   "Kata Belia",
+   2314,
+   0
+  ],
+  "322371": [
+   "Manpur",
+   2315,
+   0
+  ],
+  "322373": [
+   "Khodra Manpur",
+   2315,
+   0
+  ],
+  "322375": [
+   "Kapileshwar",
+   2315,
+   1
+  ],
+  "322374": [
+   "Jaguli",
+   2315,
+   1
+  ],
+  "322345": [
+   "Paschim Satbaria",
+   2315,
+   1
+  ],
+  "322344": [
+   "Bijra",
+   2315,
+   1
+  ],
+  "322240": [
+   "Kadamgachhi",
+   2314,
+   1
+  ],
+  "322294": [
+   "Garuimari",
+   2314,
+   1
+  ],
+  "322352": [
+   "Mitrapur",
+   2315,
+   1
+  ],
+  "322343": [
+   "Par Majdia",
+   2315,
+   1
+  ],
+  "322242": [
+   "Kundulia",
+   2314,
+   1
+  ],
+  "322293": [
+   "Deuli",
+   2314,
+   1
+  ],
+  "322354": [
+   "Khalsi",
+   2315,
+   1
+  ],
+  "322329": [
+   "Sonakhali",
+   2315,
+   1
+  ],
+  "322353": [
+   "Hazra Pota",
+   2315,
+   1
+  ],
+  "322351": [
+   "Uttar Datta Para",
+   2315,
+   1
+  ],
+  "322356": [
+   "Uttar Brahma Pur",
+   2315,
+   1
+  ],
+  "322346": [
+   "Panpur",
+   2315,
+   1
+  ],
+  "322340": [
+   "Darap Pur",
+   2315,
+   1
+  ],
+  "322338": [
+   "Uttar Rajapur",
+   2315,
+   1
+  ],
+  "322339": [
+   "Chak Birahi",
+   2315,
+   1
+  ],
+  "322357": [
+   "Sat Simulia",
+   2315,
+   1
+  ],
+  "322341": [
+   "Bahir Sonakhali",
+   2315,
+   1
+  ],
+  "322348": [
+   "Hazrabelia",
+   2315,
+   1
+  ],
+  "322347": [
+   "Basantapur",
+   2315,
+   1
+  ],
+  "322364": [
+   "Madhpur",
+   2315,
+   1
+  ],
+  "322363": [
+   "Kathdanga",
+   2315,
+   1
+  ],
+  "322358": [
+   "Jalkar Bhomra",
+   2315,
+   1
+  ],
+  "322336": [
+   "Narayanpur",
+   2315,
+   1
+  ],
+  "322350": [
+   "Kurambelia",
+   2315,
+   1
+  ],
+  "322359": [
+   "Subuddipur",
+   2315,
+   1
+  ],
+  "322367": [
+   "Mollabalia",
+   2315,
+   1
+  ],
+  "322337": [
+   "Dakshin Rajapur",
+   2315,
+   1
+  ],
+  "322365": [
+   "Bamunbaria",
+   2315,
+   1
+  ],
+  "322369": [
+   "Ganguria",
+   2315,
+   1
+  ],
+  "322362": [
+   "Jalkarampur",
+   2315,
+   1
+  ],
+  "322360": [
+   "Purba Satbaria",
+   2315,
+   1
+  ],
+  "322399": [
+   "Dasbaria",
+   2315,
+   1
+  ],
+  "322366": [
+   "Dasdia",
+   2315,
+   1
+  ],
+  "322368": [
+   "Loupala",
+   2315,
+   1
+  ],
+  "322361": [
+   "Sekandarpur",
+   2315,
+   1
+  ],
+  "322397": [
+   "Ukrah",
+   2315,
+   1
+  ],
+  "322396": [
+   "Barasat",
+   2315,
+   1
+  ],
+  "322394": [
+   "Malpara",
+   2315,
+   1
+  ],
+  "322378": [
+   "Behara",
+   2315,
+   1
+  ],
+  "322385": [
+   "Fatepur",
+   2315,
+   1
+  ],
+  "322387": [
+   "Dakshin Datta Para",
+   2315,
+   1
+  ],
+  "322395": [
+   "Hari Puknaria",
+   2315,
+   1
+  ],
+  "322377": [
+   "Mobarakpur",
+   2315,
+   1
+  ],
+  "322376": [
+   "Santoshpur",
+   2315,
+   1
+  ],
+  "322402": [
+   "Hapania",
+   2315,
+   1
+  ],
+  "322398": [
+   "Simul Pukharia",
+   2315,
+   1
+  ],
+  "322388": [
+   "Baliadanga",
+   2315,
+   1
+  ],
+  "322379": [
+   "Panchkahania",
+   2315,
+   1
+  ],
+  "322392": [
+   "Baikara",
+   2315,
+   1
+  ],
+  "322403": [
+   "Goaldob",
+   2315,
+   1
+  ],
+  "322383": [
+   "Bansbana",
+   2315,
+   1
+  ],
+  "322391": [
+   "Baruni",
+   2315,
+   1
+  ],
+  "322384": [
+   "Dhopagachi",
+   2315,
+   1
+  ],
+  "322380": [
+   "Dakshin Brahmapur",
+   2315,
+   1
+  ],
+  "322390": [
+   "Mali Danga",
+   2315,
+   1
+  ],
+  "322389": [
+   "Bamanpara",
+   2315,
+   1
+  ],
+  "322381": [
+   "Bhabanipur",
+   2315,
+   1
+  ],
+  "322382": [
+   "Satyapole",
+   2315,
+   1
+  ],
+  "322404": [
+   "Chak Bhandarkona",
+   2315,
+   1
+  ],
+  "322401": [
+   "Singa",
+   2315,
+   1
+  ],
+  "322400": [
+   "Sonakur",
+   2315,
+   1
+  ],
+  "322406": [
+   "Bhandarkona",
+   2315,
+   1
+  ],
+  "322405": [
+   "Thansara",
+   2315,
+   1
+  ],
+  "322342": [
+   "Jalkar Magra",
+   2315,
+   1
+  ],
+  "322213": [
+   "Brahma Para",
+   2314,
+   2
+  ],
+  "322029": [
+   "Ukhil Nara",
+   2312,
+   4
+  ],
+  "322028": [
+   "Jagapur",
+   2312,
+   2
+  ],
+  "322038": [
+   "Char Gaur Nagar",
+   2312,
+   2
+  ],
+  "322170": [
+   "Balagari Char",
+   2314,
+   2
+  ],
+  "322171": [
+   "Uttarghugia P",
+   2314,
+   2
+  ],
+  "250103": [
+   "Chakdaha",
+   2314,
+   2
+  ],
+  "322179": [
+   "Palagachha",
+   2314,
+   3
+  ],
+  "322185": [
+   "Raninagar",
+   2314,
+   2
+  ],
+  "322184": [
+   "Chhatimtala",
+   2314,
+   3
+  ],
+  "322187": [
+   "Charjirat",
+   2314,
+   2
+  ],
+  "322189": [
+   "Jaykrishnapur P",
+   2314,
+   3
+  ],
+  "322188": [
+   "Noada Durgapur",
+   2314,
+   2
+  ],
+  "322191": [
+   "Malichaghar",
+   2314,
+   2
+  ],
+  "322227": [
+   "Uttar Panch Pota",
+   2314,
+   3
+  ],
+  "322190": [
+   "Manasapota",
+   2314,
+   2
+  ],
+  "322221": [
+   "Ektarpur",
+   2314,
+   2
+  ],
+  "322215": [
+   "Inayetpur",
+   2314,
+   2
+  ],
+  "322222": [
+   "Khorgachhi",
+   2314,
+   3
+  ],
+  "322220": [
+   "Tantgachi",
+   2314,
+   2
+  ],
+  "322214": [
+   "Sutargachhi",
+   2314,
+   2
+  ],
+  "322192": [
+   "Chaktarinipur",
+   2314,
+   2
+  ],
+  "322216": [
+   "Rautari",
+   2314,
+   2
+  ],
+  "322196": [
+   "Tarinipur",
+   2314,
+   2
+  ],
+  "322219": [
+   "Maheswarpur",
+   2314,
+   3
+  ],
+  "322205": [
+   "Kautukpur",
+   2314,
+   2
+  ],
+  "322193": [
+   "Sikarpur",
+   2314,
+   2
+  ],
+  "322201": [
+   "Sarati",
+   2314,
+   0
+  ],
+  "322204": [
+   "Jibannagar",
+   2314,
+   2
+  ],
+  "322200": [
+   "Ganga Manoharpur",
+   2314,
+   0
+  ],
+  "322209": [
+   "Harispur",
+   2314,
+   0
+  ],
+  "322211": [
+   "Narapati Para",
+   2314,
+   0
+  ],
+  "322217": [
+   "Jatrapur",
+   2314,
+   2
+  ],
+  "322206": [
+   "Uchitpur",
+   2314,
+   0
+  ],
+  "322202": [
+   "Umapur",
+   2314,
+   0
+  ],
+  "322208": [
+   "Rameswarpur",
+   2314,
+   0
+  ],
+  "322195": [
+   "Iswaripur",
+   2314,
+   0
+  ],
+  "322207": [
+   "Teghara",
+   2314,
+   0
+  ],
+  "322328": [
+   "Panchpukuria",
+   2315,
+   1
+  ],
+  "322295": [
+   "Srikrishnapur Char",
+   2314,
+   2
+  ],
+  "322169": [
+   "Gour Nagar",
+   2314,
+   2
+  ],
+  "322186": [
+   "Durllabhpur",
+   2314,
+   2
+  ],
+  "322198": [
+   "Sukhsagar",
+   2314,
+   2
+  ],
+  "322199": [
+   "Durgapur",
+   2314,
+   2
+  ],
+  "322218": [
+   "Jutarpur",
+   2314,
+   1
+  ],
+  "322155": [
+   "Uzirpukuria",
+   2313,
+   6
+  ],
+  "322072": [
+   "Ruppur",
+   2313,
+   3
+  ],
+  "322070": [
+   "Dakshin Khaspur",
+   2313,
+   3
+  ],
+  "322256": [
+   "Chak Tengra",
+   2314,
+   3
+  ],
+  "322154": [
+   "Sijdia",
+   2313,
+   6
+  ],
+  "322152": [
+   "Anantapur",
+   2313,
+   3
+  ],
+  "322266": [
+   "Ghola",
+   2314,
+   3
+  ],
+  "322173": [
+   "Mahanala",
+   2314,
+   3
+  ],
+  "322265": [
+   "Ichhapur",
+   2314,
+   3
+  ],
+  "322156": [
+   "Dakshinrameswarpur",
+   2313,
+   6
+  ],
+  "322174": [
+   "Huda",
+   2314,
+   3
+  ],
+  "322267": [
+   "Dubra",
+   2314,
+   3
+  ],
+  "322153": [
+   "Mithapur",
+   2313,
+   3
+  ],
+  "322172": [
+   "Chandrapur",
+   2314,
+   3
+  ],
+  "322175": [
+   "Cheuntia",
+   2314,
+   3
+  ],
+  "322269": [
+   "Jagannathpur",
+   2314,
+   3
+  ],
+  "322178": [
+   "Tatla",
+   2314,
+   3
+  ],
+  "322268": [
+   "Neulia",
+   2314,
+   3
+  ],
+  "322176": [
+   "Masara",
+   2314,
+   3
+  ],
+  "322264": [
+   "Mathurapur",
+   2314,
+   3
+  ],
+  "322270": [
+   "Chak Amdanga",
+   2314,
+   3
+  ],
+  "322274": [
+   "Silinda",
+   2314,
+   3
+  ],
+  "322271": [
+   "Padma Bila",
+   2314,
+   3
+  ],
+  "322258": [
+   "Purba Bishnupur",
+   2314,
+   3
+  ],
+  "322263": [
+   "Sutra",
+   2314,
+   3
+  ],
+  "322262": [
+   "Bhatpara",
+   2314,
+   3
+  ],
+  "322177": [
+   "Dhanicha",
+   2314,
+   3
+  ],
+  "322261": [
+   "Chuadanga",
+   2314,
+   3
+  ],
+  "322260": [
+   "Parari",
+   2314,
+   3
+  ],
+  "322181": [
+   "Itapukuria",
+   2314,
+   3
+  ],
+  "322180": [
+   "Kamalpur",
+   2314,
+   3
+  ],
+  "322272": [
+   "Chaku Danga",
+   2314,
+   3
+  ],
+  "322259": [
+   "Mathurgachhi",
+   2314,
+   3
+  ],
+  "322183": [
+   "Sarmastapur",
+   2314,
+   3
+  ],
+  "322230": [
+   "Bejpara",
+   2314,
+   3
+  ],
+  "322253": [
+   "Santra",
+   2314,
+   3
+  ],
+  "322247": [
+   "Banamalipara",
+   2314,
+   3
+  ],
+  "322255": [
+   "Bagdob",
+   2314,
+   3
+  ],
+  "322182": [
+   "Jagadispur",
+   2314,
+   3
+  ],
+  "322252": [
+   "Sahispur",
+   2314,
+   3
+  ],
+  "322231": [
+   "Muktipara",
+   2314,
+   3
+  ],
+  "322229": [
+   "Dighra",
+   2314,
+   3
+  ],
+  "322250": [
+   "Kasimpur",
+   2314,
+   3
+  ],
+  "322228": [
+   "Gobindapur",
+   2314,
+   3
+  ],
+  "322254": [
+   "Tengra",
+   2314,
+   3
+  ],
+  "322280": [
+   "Hariankha",
+   2314,
+   3
+  ],
+  "322233": [
+   "Srinathpur",
+   2314,
+   3
+  ],
+  "322232": [
+   "Rukminidanga",
+   2314,
+   3
+  ],
+  "322281": [
+   "Dumuria",
+   2314,
+   3
+  ],
+  "322251": [
+   "Goara",
+   2314,
+   3
+  ],
+  "322287": [
+   "Ballabhpur",
+   2314,
+   3
+  ],
+  "322248": [
+   "Sibpur",
+   2314,
+   3
+  ],
+  "322288": [
+   "Purulia",
+   2314,
+   3
+  ],
+  "322226": [
+   "Kugachhi",
+   2314,
+   3
+  ],
+  "322234": [
+   "Belgaria",
+   2314,
+   3
+  ],
+  "322223": [
+   "Tentul Baria",
+   2314,
+   3
+  ],
+  "322249": [
+   "Chaugachha",
+   2314,
+   3
+  ],
+  "322286": [
+   "Hing Nara",
+   2314,
+   3
+  ],
+  "322246": [
+   "Nizra",
+   2314,
+   3
+  ],
+  "322235": [
+   "Juranpur",
+   2314,
+   3
+  ],
+  "322245": [
+   "Jaguli",
+   2314,
+   3
+  ],
+  "322285": [
+   "Maheshchandrapur",
+   2314,
+   3
+  ],
+  "322224": [
+   "Nikhar Gachhi",
+   2314,
+   3
+  ],
+  "322236": [
+   "Ghetu Gachhi",
+   2314,
+   3
+  ],
+  "322283": [
+   "Ber Baria",
+   2314,
+   3
+  ],
+  "322327": [
+   "Baksha",
+   2315,
+   1
+  ],
+  "322244": [
+   "Mandalhat",
+   2314,
+   3
+  ],
+  "322284": [
+   "Bagrabpur",
+   2314,
+   3
+  ],
+  "322237": [
+   "Gotera",
+   2314,
+   1
+  ],
+  "322243": [
+   "Narayanpur",
+   2314,
+   1
+  ],
+  "322291": [
+   "Sarapur",
+   2314,
+   1
+  ],
+  "322292": [
+   "Rasullapur",
+   2314,
+   1
+  ],
+  "322238": [
+   "Ramkrishnapur",
+   2314,
+   1
+  ],
+  "322239": [
+   "Chak Mirjapur",
+   2314,
+   1
+  ],
+  "322257": [
+   "Chak Chaku Danga",
+   2314,
+   3
+  ],
+  "322225": [
+   "Chakgobindapur",
+   2314,
+   3
+  ],
+  "321929": [
+   "Charharipur",
+   2311,
+   7
+  ],
+  "321674": [
+   "Bankar Dhopadi",
+   2307,
+   11
+  ],
+  "321678": [
+   "Mohisunra",
+   2307,
+   11
+  ],
+  "321708": [
+   "Bhaluka",
+   2308,
+   11
+  ],
+  "321703": [
+   "Ektarpur",
+   2308,
+   11
+  ],
+  "321704": [
+   "Hazrapal",
+   2308,
+   11
+  ],
+  "321706": [
+   "Joania",
+   2308,
+   11
+  ],
+  "321709": [
+   "Sijaipur",
+   2308,
+   11
+  ],
+  "321711": [
+   "Chaksijaipur",
+   2308,
+   11
+  ],
+  "322324": [
+   "Madanpur CT",
+   2314,
+   0
+  ],
+  "322325": [
+   "Saguna P CT",
+   2314,
+   0
+  ],
+  "322326": [
+   "Kulia P CT",
+   2314,
+   0
+  ],
+  "322410": [
+   "Haringhata Farm CT",
+   2315,
+   0
+  ],
+  "322413": [
+   "Digha CT",
+   2315,
+   1
+  ],
+  "322412": [
+   "Subarnapur CT",
+   2315,
+   1
+  ],
+  "322411": [
+   "Simhat CT",
+   2315,
+   1
+  ],
+  "322320": [
+   "Chanduria CT",
+   2314,
+   2
+  ],
+  "322322": [
+   "Priyanagar CT",
+   2314,
+   2
+  ],
+  "322321": [
+   "Simurali CT",
+   2314,
+   2
+  ],
+  "322323": [
+   "Jangal CT",
+   2314,
+   0
+  ],
+  "322168": [
+   "Belgharia CT",
+   2313,
+   3
+  ],
+  "322318": [
+   "Darappur CT",
+   2314,
+   3
+  ],
+  "321980": [
+   "Harinadibhastsala CT",
+   2311,
+   7
+  ],
+  "321713": [
+   "Boalia",
+   2308,
+   11
+  ],
+  "321717": [
+   "Ghol Gachhi",
+   2308,
+   11
+  ],
+  "321705": [
+   "Kursi",
+   2308,
+   11
+  ],
+  "321922": [
+   "Saguna",
+   2311,
+   7
+  ],
+  "321716": [
+   "Goalpara",
+   2308,
+   7
+  ],
+  "321714": [
+   "Sardanga",
+   2308,
+   7
+  ],
+  "321715": [
+   "Tiabali",
+   2308,
+   7
+  ],
+  "321914": [
+   "Manik Nagar",
+   2311,
+   7
+  ],
+  "321923": [
+   "Aluipara",
+   2311,
+   7
+  ],
+  "321918": [
+   "Media",
+   2311,
+   7
+  ],
+  "321936": [
+   "Kulia",
+   2311,
+   7
+  ],
+  "321937": [
+   "Gobindapur",
+   2311,
+   7
+  ],
+  "321986": [
+   "Doharpar",
+   2312,
+   4
+  ],
+  "321924": [
+   "Hijuli",
+   2311,
+   7
+  ],
+  "322039": [
+   "Jhau Mahal",
+   2312,
+   4
+  ],
+  "321920": [
+   "Gayespur",
+   2311,
+   7
+  ],
+  "321921": [
+   "Panpara",
+   2311,
+   7
+  ],
+  "321925": [
+   "Baganchara",
+   2311,
+   7
+  ],
+  "321935": [
+   "Kutubpur",
+   2311,
+   7
+  ],
+  "321934": [
+   "Karanchapali",
+   2311,
+   7
+  ],
+  "321931": [
+   "Bankdebipur P",
+   2311,
+   7
+  ],
+  "321932": [
+   "Raghunathpur",
+   2311,
+   7
+  ],
+  "250099": [
+   "Santipur",
+   2311,
+   7
+  ],
+  "321926": [
+   "Brahmasasan",
+   2311,
+   7
+  ],
+  "321933": [
+   "Haripur",
+   2311,
+   7
+  ],
+  "321928": [
+   "Chandkuri",
+   2311,
+   7
+  ],
+  "321930": [
+   "Chak Raghunathpur",
+   2311,
+   7
+  ],
+  "321916": [
+   "Bholadanga",
+   2311,
+   7
+  ],
+  "321917": [
+   "Nutanmath Bholadanga",
+   2311,
+   7
+  ],
+  "321919": [
+   "Char Malatipura",
+   2311,
+   7
+  ],
+  "321927": [
+   "Ranadi",
+   2311,
+   7
+  ],
+  "322006": [
+   "Aram Danga",
+   2312,
+   4
+  ],
+  "321969": [
+   "Umapur",
+   2311,
+   8
+  ],
+  "321970": [
+   "Goalpur",
+   2311,
+   4
+  ],
+  "321952": [
+   "Narasinha Nagar",
+   2311,
+   8
+  ],
+  "321978": [
+   "Chhenra Char P",
+   2311,
+   8
+  ],
+  "321984": [
+   "Durgapur",
+   2312,
+   8
+  ],
+  "321955": [
+   "Phulia",
+   2311,
+   4
+  ],
+  "321953": [
+   "Ghoshra",
+   2311,
+   8
+  ],
+  "321957": [
+   "Malipota",
+   2311,
+   4
+  ],
+  "321974": [
+   "Simulia",
+   2311,
+   4
+  ],
+  "321971": [
+   "Nabla",
+   2311,
+   4
+  ],
+  "321956": [
+   "Pumlia",
+   2311,
+   4
+  ],
+  "322005": [
+   "Habibpur",
+   2312,
+   4
+  ],
+  "321972": [
+   "Bhikarchar",
+   2311,
+   4
+  ],
+  "322007": [
+   "Gazipur",
+   2312,
+   4
+  ],
+  "321977": [
+   "Nilnagar",
+   2311,
+   4
+  ],
+  "322008": [
+   "Tarapur",
+   2312,
+   4
+  ],
+  "322040": [
+   "Suresh Nagar",
+   2312,
+   4
+  ],
+  "322004": [
+   "Kalaighata",
+   2312,
+   5
+  ],
+  "322010": [
+   "Beleati",
+   2312,
+   4
+  ],
+  "322009": [
+   "Girish Nagar",
+   2312,
+   4
+  ],
+  "322012": [
+   "Dakshin Bishnupur",
+   2312,
+   4
+  ],
+  "322013": [
+   "Majdia",
+   2312,
+   4
+  ],
+  "322018": [
+   "Paschim Noapara",
+   2312,
+   4
+  ],
+  "322011": [
+   "Mashunda",
+   2312,
+   4
+  ],
+  "322042": [
+   "Baikunthapur",
+   2312,
+   4
+  ],
+  "322017": [
+   "Ananda Dham",
+   2312,
+   4
+  ],
+  "322014": [
+   "Nandighat",
+   2312,
+   4
+  ],
+  "322016": [
+   "Uttar Haradhan",
+   2312,
+   4
+  ],
+  "322025": [
+   "Dakshin Haradhan",
+   2312,
+   4
+  ],
+  "322019": [
+   "Budya Nandapur",
+   2312,
+   4
+  ],
+  "322020": [
+   "Sarkarpur",
+   2312,
+   4
+  ],
+  "322033": [
+   "Briddhakol",
+   2312,
+   4
+  ],
+  "322034": [
+   "Kayet Para",
+   2312,
+   5
+  ],
+  "322026": [
+   "Gurpara",
+   2312,
+   4
+  ],
+  "322021": [
+   "Paschim Sambhupur",
+   2312,
+   4
+  ],
+  "322035": [
+   "Sundalpur Char",
+   2312,
+   4
+  ],
+  "322032": [
+   "Ghora Gachha",
+   2312,
+   4
+  ],
+  "322037": [
+   "Gosair Char",
+   2312,
+   4
+  ],
+  "322022": [
+   "Sibpur",
+   2312,
+   4
+  ],
+  "322024": [
+   "Par Niamatpur",
+   2312,
+   4
+  ],
+  "322031": [
+   "Gilapol",
+   2312,
+   4
+  ],
+  "322036": [
+   "Char Sripur",
+   2312,
+   4
+  ],
+  "322030": [
+   "Niamatpur",
+   2312,
+   4
+  ],
+  "321954": [
+   "Gangadharpur",
+   2311,
+   4
+  ],
+  "321975": [
+   "Brittirchar",
+   2311,
+   4
+  ],
+  "321973": [
+   "Charsimulia",
+   2311,
+   4
+  ],
+  "322041": [
+   "Chak Noapara",
+   2312,
+   4
+  ],
+  "322023": [
+   "Ghol Nadia",
+   2312,
+   4
+  ],
+  "322101": [
+   "Sabdalpur",
+   2313,
+   9
+  ],
+  "321991": [
+   "Baharpur",
+   2312,
+   9
+  ],
+  "322102": [
+   "Goalsalua",
+   2313,
+   9
+  ],
+  "322120": [
+   "Shikri",
+   2313,
+   10
+  ],
+  "322103": [
+   "Raghunathpur",
+   2313,
+   9
+  ],
+  "322108": [
+   "Bira Baria",
+   2313,
+   9
+  ],
+  "322107": [
+   "Panchbaria",
+   2313,
+   5
+  ],
+  "322080": [
+   "Jafar Nagar",
+   2313,
+   5
+  ],
+  "322109": [
+   "Kanaipur",
+   2313,
+   5
+  ],
+  "322081": [
+   "Kathaura",
+   2313,
+   5
+  ],
+  "322111": [
+   "Daula",
+   2313,
+   6
+  ],
+  "322106": [
+   "Rajapur",
+   2313,
+   5
+  ],
+  "322105": [
+   "Kesaipur",
+   2313,
+   5
+  ],
+  "322110": [
+   "Chandpur",
+   2313,
+   5
+  ],
+  "322112": [
+   "Debipur",
+   2313,
+   5
+  ],
+  "322079": [
+   "Uttar Para",
+   2313,
+   5
+  ],
+  "321759": [
+   "Gopal Pur",
+   2308,
+   8
+  ],
+  "322113": [
+   "Dhantala",
+   2313,
+   5
+  ],
+  "322114": [
+   "Sankarpur",
+   2313,
+   6
+  ],
+  "321988": [
+   "Bera Kamgachhi",
+   2312,
+   5
+  ],
+  "322151": [
+   "Chapra",
+   2313,
+   5
+  ],
+  "322150": [
+   "Purba Sambhupur",
+   2313,
+   5
+  ],
+  "322074": [
+   "Muragachha",
+   2313,
+   5
+  ],
+  "322115": [
+   "Andulpota",
+   2313,
+   6
+  ],
+  "322116": [
+   "Harishpur",
+   2313,
+   6
+  ],
+  "322057": [
+   "Harachandrapur",
+   2313,
+   5
+  ],
+  "322063": [
+   "Nokari",
+   2313,
+   5
+  ],
+  "322056": [
+   "Matikumra",
+   2313,
+   5
+  ],
+  "250101": [
+   "Ranaghat",
+   2312,
+   5
+  ],
+  "322062": [
+   "Hudapatila",
+   2313,
+   5
+  ],
+  "322054": [
+   "Ghola",
+   2313,
+   6
+  ],
+  "250102": [
+   "Cooper S Camp",
+   2313,
+   5
+  ],
+  "322075": [
+   "Uttar Dhakuria",
+   2313,
+   5
+  ],
+  "322076": [
+   "Shridharpur",
+   2313,
+   6
+  ],
+  "322060": [
+   "Dayabari",
+   2313,
+   5
+  ],
+  "322064": [
+   "Raynagar",
+   2313,
+   5
+  ],
+  "322061": [
+   "Kumarshatpur P",
+   2313,
+   5
+  ],
+  "322065": [
+   "Paschim Simulia P",
+   2313,
+   5
+  ],
+  "322077": [
+   "Korabari",
+   2313,
+   5
+  ],
+  "322059": [
+   "Patuli",
+   2313,
+   5
+  ],
+  "322058": [
+   "Kusharia",
+   2313,
+   5
+  ],
+  "322073": [
+   "Gopinagar Baghadanga",
+   2313,
+   5
+  ],
+  "322071": [
+   "Nasherkuli",
+   2313,
+   5
+  ],
+  "322069": [
+   "Dakshin Dhakuria",
+   2313,
+   5
+  ],
+  "322066": [
+   "Paschim Putkhali",
+   2313,
+   5
+  ],
+  "322068": [
+   "Baidyapur",
+   2313,
+   5
+  ],
+  "322067": [
+   "Ghatigachhi",
+   2313,
+   5
+  ],
+  "322104": [
+   "Rajapurchak",
+   2313,
+   5
+  ],
+  "322078": [
+   "Debipur Chak",
+   2313,
+   5
+  ],
+  "321749": [
+   "Jalalkhali",
+   2308,
+   12
+  ],
+  "321725": [
+   "Itla",
+   2308,
+   12
+  ],
+  "321724": [
+   "Singadanga",
+   2308,
+   12
+  ],
+  "321753": [
+   "Senpur",
+   2308,
+   12
+  ],
+  "321723": [
+   "Dignagar",
+   2308,
+   12
+  ],
+  "321868": [
+   "Purba Khamar Simulia",
+   2310,
+   12
+  ],
+  "321722": [
+   "Chapra Dignagar",
+   2308,
+   12
+  ],
+  "321756": [
+   "Naduria",
+   2308,
+   12
+  ],
+  "321721": [
+   "Hatisala",
+   2308,
+   8
+  ],
+  "321755": [
+   "Kaya",
+   2308,
+   8
+  ],
+  "321754": [
+   "Mailka",
+   2308,
+   8
+  ],
+  "321870": [
+   "Patua",
+   2310,
+   8
+  ],
+  "321871": [
+   "Panch Baria",
+   2310,
+   9
+  ],
+  "321718": [
+   "Baliadanga",
+   2308,
+   7
+  ],
+  "321941": [
+   "Khalsi",
+   2311,
+   8
+  ],
+  "321869": [
+   "Naopukuria",
+   2310,
+   8
+  ],
+  "321942": [
+   "Chandra",
+   2311,
+   8
+  ],
+  "321996": [
+   "Gagrakhali",
+   2312,
+   9
+  ],
+  "321940": [
+   "Bathangachhi",
+   2311,
+   8
+  ],
+  "321939": [
+   "Bagdia",
+   2311,
+   8
+  ],
+  "321938": [
+   "Panchpota",
+   2311,
+   8
+  ],
+  "321964": [
+   "Denui",
+   2311,
+   8
+  ],
+  "321965": [
+   "Arbandi",
+   2311,
+   8
+  ],
+  "321943": [
+   "Bagalpur",
+   2311,
+   8
+  ],
+  "321966": [
+   "Ballabhpur",
+   2311,
+   8
+  ],
+  "321967": [
+   "Boalia",
+   2311,
+   8
+  ],
+  "321944": [
+   "Chhotajiakur",
+   2311,
+   8
+  ],
+  "321891": [
+   "Jagannath",
+   2310,
+   9
+  ],
+  "321945": [
+   "Barajiakur",
+   2311,
+   8
+  ],
+  "321946": [
+   "Dankshira",
+   2311,
+   8
+  ],
+  "321947": [
+   "Arpara",
+   2311,
+   8
+  ],
+  "321962": [
+   "Bansdob",
+   2311,
+   8
+  ],
+  "250098": [
+   "Taherpur",
+   2312,
+   8
+  ],
+  "321950": [
+   "Bathna",
+   2311,
+   8
+  ],
+  "321961": [
+   "Bahadurpur",
+   2311,
+   8
+  ],
+  "321948": [
+   "Kanakhola",
+   2311,
+   8
+  ],
+  "321960": [
+   "Arbalda",
+   2311,
+   8
+  ],
+  "321949": [
+   "Mollaber",
+   2311,
+   8
+  ],
+  "321968": [
+   "Nidhkur",
+   2311,
+   8
+  ],
+  "321958": [
+   "Kadampur",
+   2311,
+   8
+  ],
+  "321959": [
+   "Manikdihi",
+   2311,
+   8
+  ],
+  "321999": [
+   "Jalkar Patuli",
+   2312,
+   8
+  ],
+  "321963": [
+   "Palasgachhi",
+   2311,
+   8
+  ],
+  "321951": [
+   "Chhota Ranaghat P",
+   2311,
+   8
+  ],
+  "321881": [
+   "Muragachha",
+   2310,
+   13
+  ],
+  "322000": [
+   "Chandan Daha",
+   2312,
+   9
+  ],
+  "321878": [
+   "Dahar Buinchha",
+   2310,
+   13
+  ],
+  "321882": [
+   "Gayes",
+   2310,
+   13
+  ],
+  "321877": [
+   "Mandabghat",
+   2310,
+   13
+  ],
+  "321876": [
+   "Parua",
+   2310,
+   13
+  ],
+  "321883": [
+   "Haldipara",
+   2310,
+   13
+  ],
+  "321892": [
+   "Sahapur",
+   2310,
+   13
+  ],
+  "321872": [
+   "Dosatina",
+   2310,
+   13
+  ],
+  "321884": [
+   "Hatisala",
+   2310,
+   13
+  ],
+  "321886": [
+   "Mamjoani",
+   2310,
+   9
+  ],
+  "321894": [
+   "Paschim Harindanga",
+   2310,
+   10
+  ],
+  "321893": [
+   "Bhayna",
+   2310,
+   10
+  ],
+  "321873": [
+   "Kaya",
+   2310,
+   9
+  ],
+  "321890": [
+   "Madna",
+   2310,
+   9
+  ],
+  "321887": [
+   "Dalaigram",
+   2310,
+   9
+  ],
+  "321885": [
+   "Pirpur",
+   2310,
+   9
+  ],
+  "321875": [
+   "Purandarpur",
+   2310,
+   9
+  ],
+  "321874": [
+   "Garuapota",
+   2310,
+   9
+  ],
+  "321889": [
+   "Hatibandha",
+   2310,
+   9
+  ],
+  "321888": [
+   "Patkabari",
+   2310,
+   9
+  ],
+  "322002": [
+   "Takshali",
+   2312,
+   9
+  ],
+  "322001": [
+   "Bara Kulta",
+   2312,
+   9
+  ],
+  "322082": [
+   "Hajrapur",
+   2313,
+   9
+  ],
+  "322085": [
+   "Shibchandrapur",
+   2313,
+   10
+  ],
+  "321998": [
+   "Mugrail",
+   2312,
+   9
+  ],
+  "322084": [
+   "Hatubhanga",
+   2313,
+   9
+  ],
+  "321997": [
+   "Bagrail",
+   2312,
+   9
+  ],
+  "322083": [
+   "Barahata",
+   2313,
+   9
+  ],
+  "322003": [
+   "Byaspur",
+   2312,
+   9
+  ],
+  "322086": [
+   "Bahirgachhi",
+   2313,
+   10
+  ],
+  "322096": [
+   "Arranghata Narayanpur",
+   2313,
+   9
+  ],
+  "321985": [
+   "Palitpara",
+   2312,
+   9
+  ],
+  "321994": [
+   "Radhakantapur",
+   2312,
+   9
+  ],
+  "321995": [
+   "Khisma",
+   2312,
+   9
+  ],
+  "322095": [
+   "Uttar Bishnupur",
+   2313,
+   10
+  ],
+  "322094": [
+   "Petuapur",
+   2313,
+   10
+  ],
+  "322097": [
+   "Bholadanga",
+   2313,
+   9
+  ],
+  "321990": [
+   "Birnagar P",
+   2312,
+   9
+  ],
+  "321992": [
+   "Arkhisma",
+   2312,
+   9
+  ],
+  "322098": [
+   "Hosenpur",
+   2313,
+   10
+  ],
+  "322099": [
+   "Kamalpur",
+   2313,
+   10
+  ],
+  "322100": [
+   "Basta",
+   2313,
+   9
+  ],
+  "250100": [
+   "Birnagar",
+   2312,
+   9
+  ],
+  "321993": [
+   "Arshikra",
+   2312,
+   9
+  ],
+  "321979": [
+   "Nrisinghapur CT",
+   2311,
+   7
+  ],
+  "321983": [
+   "Phulia CT",
+   2311,
+   8
+  ],
+  "322050": [
+   "Anulia CT",
+   2312,
+   5
+  ],
+  "321666": [
+   "Ghasighata",
+   2307,
+   15
+  ],
+  "321982": [
+   "Beharia CT",
+   2311,
+   8
+  ],
+  "322046": [
+   "Raghabpur CT",
+   2312,
+   5
+  ],
+  "322047": [
+   "Panpara CT",
+   2312,
+   5
+  ],
+  "322049": [
+   "Satigachha CT",
+   2312,
+   5
+  ],
+  "322051": [
+   "Gopalpur CT",
+   2312,
+   5
+  ],
+  "322052": [
+   "Parbbatipur CT",
+   2312,
+   5
+  ],
+  "645590": [
+   "Taherpur OG Part",
+   2312,
+   8
+  ],
+  "322045": [
+   "Kamgachhi CT",
+   2312,
+   5
+  ],
+  "322163": [
+   "Halalpur Krishnapur CT",
+   2313,
+   5
+  ],
+  "322048": [
+   "Aistala CT",
+   2312,
+   5
+  ],
+  "322164": [
+   "Hijuli CT",
+   2313,
+   5
+  ],
+  "322166": [
+   "Nasra CT",
+   2313,
+   5
+  ],
+  "322167": [
+   "Gangnapur CT",
+   2313,
+   6
+  ],
+  "645594": [
+   "Magurkhali OG Part",
+   2313,
+   5
+  ],
+  "321912": [
+   "Badkulla CT",
+   2310,
+   8
+  ],
+  "321913": [
+   "Patuli CT",
+   2310,
+   8
+  ],
+  "322044": [
+   "Gangni CT",
+   2312,
+   8
+  ],
+  "321981": [
+   "Ghoralia CT",
+   2311,
+   8
+  ],
+  "645591": [
+   "Barasat OG Part",
+   2312,
+   9
+  ],
+  "645593": [
+   "Mahishdanga OG Part",
+   2312,
+   8
+  ],
+  "645592": [
+   "Bhaduri OG Part",
+   2312,
+   8
+  ],
+  "321911": [
+   "Bagula CT",
+   2310,
+   14
+  ],
+  "322279": [
+   "Raghabpur",
+   2314,
+   3
+  ],
+  "322157": [
+   "Dubli",
+   2313,
+   6
+  ],
+  "322161": [
+   "Gangsara",
+   2313,
+   6
+  ],
+  "322162": [
+   "Gourisail",
+   2313,
+   6
+  ],
+  "322275": [
+   "Natapuli",
+   2314,
+   6
+  ],
+  "322276": [
+   "Rajbaria",
+   2314,
+   6
+  ],
+  "322277": [
+   "Balia",
+   2314,
+   3
+  ],
+  "322278": [
+   "Balarampur",
+   2314,
+   3
+  ],
+  "322290": [
+   "Lakhmipur",
+   2314,
+   1
+  ],
+  "322289": [
+   "Srinagar",
+   2314,
+   3
+  ],
+  "321661": [
+   "Bharuidanga",
+   2307,
+   15
+  ],
+  "322133": [
+   "Barabaria",
+   2313,
+   10
+  ],
+  "322122": [
+   "Kusbaria",
+   2313,
+   10
+  ],
+  "322121": [
+   "Huda",
+   2313,
+   6
+  ],
+  "322147": [
+   "Sarisadanga",
+   2313,
+   6
+  ],
+  "322134": [
+   "Nathkura",
+   2313,
+   6
+  ],
+  "322135": [
+   "Uttarkhaspukur",
+   2313,
+   6
+  ],
+  "322136": [
+   "Purbanagar",
+   2313,
+   6
+  ],
+  "322118": [
+   "Krishnanagar",
+   2313,
+   6
+  ],
+  "322117": [
+   "Kamalpur",
+   2313,
+   6
+  ],
+  "322137": [
+   "Khargadanga",
+   2313,
+   6
+  ],
+  "322140": [
+   "Rakhalgachi",
+   2313,
+   6
+  ],
+  "322141": [
+   "Purba Puthkhali",
+   2313,
+   6
+  ],
+  "322138": [
+   "Badbagi",
+   2313,
+   6
+  ],
+  "322139": [
+   "Aismali",
+   2313,
+   6
+  ],
+  "322142": [
+   "Balia Danga",
+   2313,
+   6
+  ],
+  "322144": [
+   "Chinapukuria",
+   2313,
+   6
+  ],
+  "322053": [
+   "Debagram",
+   2313,
+   6
+  ],
+  "322149": [
+   "Chakdebagram",
+   2313,
+   6
+  ],
+  "322143": [
+   "Eruli",
+   2313,
+   6
+  ],
+  "322146": [
+   "Chaksaarisadanga",
+   2313,
+   6
+  ],
+  "322145": [
+   "Mollabaria",
+   2313,
+   6
+  ],
+  "322158": [
+   "Kamargaria",
+   2313,
+   6
+  ],
+  "322159": [
+   "Humnipota",
+   2313,
+   6
+  ],
+  "322160": [
+   "Purba Simulia",
+   2313,
+   6
+  ],
+  "321897": [
+   "Garapota",
+   2310,
+   14
+  ],
+  "321852": [
+   "Sanatanur",
+   2310,
+   14
+  ],
+  "321907": [
+   "Shyamnagar",
+   2310,
+   14
+  ],
+  "321896": [
+   "Kautaknagar",
+   2310,
+   14
+  ],
+  "321851": [
+   "Bhatghata",
+   2310,
+   14
+  ],
+  "321908": [
+   "Umarpur",
+   2310,
+   14
+  ],
+  "321906": [
+   "Chupria",
+   2310,
+   14
+  ],
+  "321898": [
+   "Purba Harindanga",
+   2310,
+   14
+  ],
+  "321909": [
+   "Nebutala",
+   2310,
+   14
+  ],
+  "321900": [
+   "Kaikhali",
+   2310,
+   10
+  ],
+  "321899": [
+   "Pandit Pur",
+   2310,
+   10
+  ],
+  "322092": [
+   "Uttar Rameshwarpur",
+   2313,
+   10
+  ],
+  "321910": [
+   "Ramnagar",
+   2310,
+   10
+  ],
+  "321904": [
+   "Ulasi",
+   2310,
+   10
+  ],
+  "321901": [
+   "Bayardengi",
+   2310,
+   10
+  ],
+  "321903": [
+   "Silbaria",
+   2310,
+   10
+  ],
+  "321902": [
+   "Nagarpota",
+   2310,
+   10
+  ],
+  "322088": [
+   "Bhat Bhanga",
+   2313,
+   10
+  ],
+  "322127": [
+   "Baranbaria",
+   2313,
+   10
+  ],
+  "322087": [
+   "Kamdanga",
+   2313,
+   10
+  ],
+  "322126": [
+   "Kulgachi",
+   2313,
+   10
+  ],
+  "322089": [
+   "Kulgachhi Chak",
+   2313,
+   10
+  ],
+  "322091": [
+   "Andipur Chak",
+   2313,
+   10
+  ],
+  "322090": [
+   "Doluabari",
+   2313,
+   10
+  ],
+  "322128": [
+   "Shrirampur",
+   2313,
+   10
+  ],
+  "322131": [
+   "Kanibamani",
+   2313,
+   10
+  ],
+  "322125": [
+   "Kalinagar",
+   2313,
+   10
+  ],
+  "322132": [
+   "Bagdia",
+   2313,
+   10
+  ],
+  "322093": [
+   "Kalipur",
+   2313,
+   10
+  ],
+  "322130": [
+   "Duttapulia",
+   2313,
+   10
+  ],
+  "322129": [
+   "Kalupur",
+   2313,
+   10
+  ],
+  "322124": [
+   "Andipur",
+   2313,
+   10
+  ],
+  "322123": [
+   "Maijdia",
+   2313,
+   10
+  ],
+  "321664": [
+   "Rajapur",
+   2307,
+   15
+  ],
+  "321659": [
+   "Sankarpur",
+   2307,
+   15
+  ],
+  "321660": [
+   "Rudrapara P",
+   2307,
+   15
+  ],
+  "321658": [
+   "Indrakpur",
+   2307,
+   15
+  ],
+  "321662": [
+   "Tota",
+   2307,
+   15
+  ],
+  "321668": [
+   "Ballaldighi",
+   2307,
+   15
+  ],
+  "321667": [
+   "Mollapara",
+   2307,
+   15
+  ],
+  "321696": [
+   "Shyamnagar",
+   2308,
+   15
+  ],
+  "321697": [
+   "Amghata",
+   2308,
+   11
+  ],
+  "321694": [
+   "Subarna Behar",
+   2308,
+   11
+  ],
+  "250097": [
+   "Nabadwip",
+   2307,
+   11
+  ],
+  "321698": [
+   "Usidpur",
+   2308,
+   11
+  ],
+  "321670": [
+   "Brahmanagar",
+   2307,
+   11
+  ],
+  "321676": [
+   "Gadkhali",
+   2307,
+   11
+  ],
+  "321671": [
+   "Simul Gachi",
+   2307,
+   11
+  ],
+  "321672": [
+   "Brahman Para",
+   2307,
+   11
+  ],
+  "321675": [
+   "Parmedia",
+   2307,
+   11
+  ],
+  "321699": [
+   "Bishnupur",
+   2308,
+   11
+  ],
+  "321673": [
+   "Pansila",
+   2307,
+   11
+  ],
+  "321700": [
+   "Kundapara",
+   2308,
+   11
+  ],
+  "321677": [
+   "Teghari P",
+   2307,
+   11
+  ],
+  "321702": [
+   "Chhunchia",
+   2308,
+   11
+  ],
+  "321474": [
+   "Jalsuka",
+   2304,
+   20
+  ],
+  "321479": [
+   "Sudhakarpur",
+   2304,
+   20
+  ],
+  "321481": [
+   "Jagannathpur",
+   2304,
+   20
+  ],
+  "321480": [
+   "Kasiadanga",
+   2304,
+   20
+  ],
+  "321490": [
+   "Dahakula",
+   2304,
+   20
+  ],
+  "321489": [
+   "Raghunathpur",
+   2304,
+   20
+  ],
+  "321491": [
+   "Bholadanga",
+   2304,
+   20
+  ],
+  "321483": [
+   "Chandanpur",
+   2304,
+   20
+  ],
+  "321487": [
+   "Gopalpur",
+   2304,
+   20
+  ],
+  "321488": [
+   "Chak Bhabanipur",
+   2304,
+   20
+  ],
+  "321477": [
+   "Uday Chandrapur",
+   2304,
+   20
+  ],
+  "321478": [
+   "Dadupur",
+   2304,
+   20
+  ],
+  "321486": [
+   "Kachkuli",
+   2304,
+   20
+  ],
+  "321485": [
+   "Tetul Baria",
+   2304,
+   20
+  ],
+  "321518": [
+   "Loha Gachhi",
+   2304,
+   20
+  ],
+  "321523": [
+   "Adam Pota",
+   2304,
+   20
+  ],
+  "321517": [
+   "Gachha",
+   2304,
+   20
+  ],
+  "321484": [
+   "Ramchandrapur",
+   2304,
+   20
+  ],
+  "321482": [
+   "Karkaria",
+   2304,
+   20
+  ],
+  "321524": [
+   "Bati Kandua",
+   2304,
+   20
+  ],
+  "321520": [
+   "Dharmmadaha",
+   2304,
+   20
+  ],
+  "321522": [
+   "Chhota Kandoa",
+   2304,
+   20
+  ],
+  "321519": [
+   "Muragachha",
+   2304,
+   20
+  ],
+  "321521": [
+   "Dakshin Bahirgachhi",
+   2304,
+   20
+  ],
+  "321628": [
+   "Kamarhati",
+   2306,
+   20
+  ],
+  "321629": [
+   "Ghateswar",
+   2306,
+   20
+  ],
+  "321526": [
+   "Kamalnagar",
+   2304,
+   20
+  ],
+  "321613": [
+   "Rukunpur",
+   2306,
+   20
+  ],
+  "321615": [
+   "Sadhanpara",
+   2306,
+   20
+  ],
+  "321463": [
+   "Chak Gobindapur",
+   2304,
+   25
+  ],
+  "321616": [
+   "Rakalgachhi",
+   2306,
+   20
+  ],
+  "321614": [
+   "Bargara",
+   2306,
+   15
+  ],
+  "321525": [
+   "Bil Basu Lakshmi",
+   2304,
+   20
+  ],
+  "321679": [
+   "Bamanpukur CT",
+   2307,
+   15
+  ],
+  "321680": [
+   "Tiorkhali CT",
+   2307,
+   11
+  ],
+  "321681": [
+   "Bablari Dewanganj CT",
+   2307,
+   15
+  ],
+  "321682": [
+   "Gadigachha CT",
+   2307,
+   11
+  ],
+  "321683": [
+   "Majdia CT",
+   2307,
+   11
+  ],
+  "321685": [
+   "Char Brahmanagar CT",
+   2307,
+   11
+  ],
+  "321684": [
+   "Char Maijdia CT",
+   2307,
+   11
+  ],
+  "321627": [
+   "Chupipota",
+   2306,
+   15
+  ],
+  "321626": [
+   "Tatla",
+   2306,
+   15
+  ],
+  "321618": [
+   "Sujanpur",
+   2306,
+   15
+  ],
+  "321619": [
+   "Balainagar",
+   2306,
+   15
+  ],
+  "321624": [
+   "Dwipchandrapur",
+   2306,
+   15
+  ],
+  "321625": [
+   "Polta",
+   2306,
+   15
+  ],
+  "321622": [
+   "Belpukur",
+   2306,
+   15
+  ],
+  "321620": [
+   "Durgabas",
+   2306,
+   15
+  ],
+  "321434": [
+   "Chak Madandanga",
+   2304,
+   24
+  ],
+  "321621": [
+   "Char Behala",
+   2306,
+   15
+  ],
+  "321623": [
+   "Sonadanga",
+   2306,
+   15
+  ],
+  "321275": [
+   "Chak Komthana",
+   2302,
+   28
+  ],
+  "321646": [
+   "Chaugachhahansadanga",
+   2306,
+   16
+  ],
+  "321763": [
+   "Krishnapur",
+   2308,
+   17
+  ],
+  "321650": [
+   "Krishna Chandrapur",
+   2306,
+   16
+  ],
+  "321775": [
+   "Damodarkhali",
+   2308,
+   17
+  ],
+  "321773": [
+   "Gobindapur",
+   2308,
+   17
+  ],
+  "321767": [
+   "Adapota",
+   2308,
+   17
+  ],
+  "321654": [
+   "Banagram",
+   2306,
+   16
+  ],
+  "321687": [
+   "Bhandar Khola",
+   2308,
+   16
+  ],
+  "321686": [
+   "Jaba",
+   2308,
+   16
+  ],
+  "321733": [
+   "Naldaha",
+   2308,
+   17
+  ],
+  "321768": [
+   "Muragachha",
+   2308,
+   17
+  ],
+  "321770": [
+   "Bhimpur",
+   2308,
+   18
+  ],
+  "321774": [
+   "Rampur",
+   2308,
+   17
+  ],
+  "321737": [
+   "Poragachha",
+   2308,
+   17
+  ],
+  "321665": [
+   "Sardanga",
+   2307,
+   15
+  ],
+  "321769": [
+   "Joginidaha",
+   2308,
+   18
+  ],
+  "321736": [
+   "Purbbabhatjangla",
+   2308,
+   17
+  ],
+  "321799": [
+   "Shakdaha",
+   2309,
+   18
+  ],
+  "321772": [
+   "Chandpur",
+   2308,
+   17
+  ],
+  "321690": [
+   "Hara Nagar",
+   2308,
+   16
+  ],
+  "321273": [
+   "Chak Shatikhali",
+   2302,
+   28
+  ],
+  "321692": [
+   "Rui Pukur P",
+   2308,
+   16
+  ],
+  "321771": [
+   "Pukurgachhi",
+   2308,
+   17
+  ],
+  "321655": [
+   "Bahadurpur",
+   2306,
+   16
+  ],
+  "321653": [
+   "Saheb Nagar",
+   2306,
+   16
+  ],
+  "321652": [
+   "Mayaral",
+   2306,
+   16
+  ],
+  "321738": [
+   "Bansbaria",
+   2308,
+   17
+  ],
+  "321688": [
+   "Gokul Nagar",
+   2308,
+   16
+  ],
+  "321689": [
+   "Paninala",
+   2308,
+   16
+  ],
+  "321641": [
+   "Debipur",
+   2306,
+   16
+  ],
+  "321734": [
+   "Khamarpara",
+   2308,
+   17
+  ],
+  "321760": [
+   "Asannagar",
+   2308,
+   17
+  ],
+  "321732": [
+   "Arsihari",
+   2308,
+   16
+  ],
+  "321651": [
+   "Parmedia",
+   2306,
+   16
+  ],
+  "321739": [
+   "Kulgachhi",
+   2308,
+   17
+  ],
+  "321695": [
+   "Berij",
+   2308,
+   16
+  ],
+  "321731": [
+   "Ghurni P",
+   2308,
+   16
+  ],
+  "321761": [
+   "Dafarpota",
+   2308,
+   13
+  ],
+  "321740": [
+   "Gobrapota",
+   2308,
+   17
+  ],
+  "250096": [
+   "Krishnanagar",
+   2308,
+   12
+  ],
+  "321833": [
+   "Muchi Fulbaria",
+   2310,
+   13
+  ],
+  "321836": [
+   "Itabaria",
+   2310,
+   13
+  ],
+  "321837": [
+   "Betna",
+   2310,
+   13
+  ],
+  "321741": [
+   "Hijuli",
+   2308,
+   13
+  ],
+  "321800": [
+   "Ckak Jogini Daha",
+   2309,
+   18
+  ],
+  "321691": [
+   "Chakgokul Nagar",
+   2308,
+   16
+  ],
+  "321834": [
+   "Gopalpur",
+   2310,
+   13
+  ],
+  "321762": [
+   "Nidhirpota",
+   2308,
+   14
+  ],
+  "321742": [
+   "Mahishnengra",
+   2308,
+   13
+  ],
+  "321743": [
+   "Bera Beria",
+   2308,
+   13
+  ],
+  "321838": [
+   "Tarinipur",
+   2310,
+   13
+  ],
+  "321841": [
+   "Raypur",
+   2310,
+   14
+  ],
+  "321862": [
+   "Jhinuk Ghata",
+   2310,
+   13
+  ],
+  "321728": [
+   "Jahangirpur",
+   2308,
+   12
+  ],
+  "321840": [
+   "Bhairab Chandrapur",
+   2310,
+   14
+  ],
+  "321835": [
+   "Dhakuria",
+   2310,
+   13
+  ],
+  "321839": [
+   "Huda Chapra",
+   2310,
+   14
+  ],
+  "321558": [
+   "Gokhurapota",
+   2305,
+   21
+  ],
+  "321730": [
+   "Krishnanagar P",
+   2308,
+   12
+  ],
+  "321843": [
+   "Benali",
+   2310,
+   14
+  ],
+  "321745": [
+   "Jatrapur",
+   2308,
+   13
+  ],
+  "321864": [
+   "Fulbari",
+   2310,
+   13
+  ],
+  "321859": [
+   "Ber Gram",
+   2310,
+   13
+  ],
+  "321861": [
+   "Gobindapur",
+   2310,
+   13
+  ],
+  "321744": [
+   "Tegharia",
+   2308,
+   13
+  ],
+  "321863": [
+   "Chak Dakshinpara",
+   2310,
+   13
+  ],
+  "321866": [
+   "Dakshinpara",
+   2310,
+   13
+  ],
+  "321729": [
+   "Satgachhi",
+   2308,
+   12
+  ],
+  "321727": [
+   "Raotara",
+   2308,
+   12
+  ],
+  "321867": [
+   "Jaypur",
+   2310,
+   13
+  ],
+  "321747": [
+   "Dogachhi P",
+   2308,
+   12
+  ],
+  "321561": [
+   "Bangaljhi",
+   2305,
+   17
+  ],
+  "321858": [
+   "Payradanda",
+   2310,
+   14
+  ],
+  "321860": [
+   "Kalipara",
+   2310,
+   13
+  ],
+  "321649": [
+   "Purbapanditpur",
+   2306,
+   16
+  ],
+  "321726": [
+   "Tetla",
+   2308,
+   12
+  ],
+  "321750": [
+   "Dakshinjhitkipota",
+   2308,
+   12
+  ],
+  "321746": [
+   "Kshirpuli",
+   2308,
+   12
+  ],
+  "321857": [
+   "Mayurhat",
+   2310,
+   14
+  ],
+  "321751": [
+   "Durgapur",
+   2308,
+   12
+  ],
+  "321748": [
+   "Hatboalia",
+   2308,
+   12
+  ],
+  "321879": [
+   "Hanskhali",
+   2310,
+   13
+  ],
+  "321865": [
+   "Hematpur Itabaria",
+   2310,
+   13
+  ],
+  "321549": [
+   "Hatkhola",
+   2305,
+   22
+  ],
+  "321556": [
+   "Talukhuda",
+   2305,
+   21
+  ],
+  "321551": [
+   "Sikra",
+   2305,
+   22
+  ],
+  "321513": [
+   "Digha",
+   2304,
+   21
+  ],
+  "321553": [
+   "Dompukur",
+   2305,
+   22
+  ],
+  "321555": [
+   "Deulia",
+   2305,
+   21
+  ],
+  "321554": [
+   "Lakshmigachha",
+   2305,
+   21
+  ],
+  "321493": [
+   "Nangla",
+   2304,
+   21
+  ],
+  "321550": [
+   "Dukria",
+   2305,
+   22
+  ],
+  "321569": [
+   "Badelangi Padmamala",
+   2305,
+   22
+  ],
+  "321514": [
+   "Dogachhia",
+   2304,
+   21
+  ],
+  "321515": [
+   "Deulgachhi",
+   2304,
+   21
+  ],
+  "321574": [
+   "Mahakala",
+   2305,
+   22
+  ],
+  "321573": [
+   "Madhupur",
+   2305,
+   22
+  ],
+  "321557": [
+   "Brittihuda",
+   2305,
+   21
+  ],
+  "321568": [
+   "Arangsarisha",
+   2305,
+   22
+  ],
+  "321567": [
+   "Najhidaha",
+   2305,
+   22
+  ],
+  "321516": [
+   "Saligram",
+   2304,
+   21
+  ],
+  "321572": [
+   "Fulkalmi",
+   2305,
+   22
+  ],
+  "321575": [
+   "Elangi",
+   2305,
+   22
+  ],
+  "321571": [
+   "Goaldanga",
+   2305,
+   22
+  ],
+  "321570": [
+   "Kalyandaha",
+   2305,
+   22
+  ],
+  "321559": [
+   "Pitambarpur",
+   2305,
+   21
+  ],
+  "321634": [
+   "Noapara",
+   2306,
+   21
+  ],
+  "321589": [
+   "Pibragachhi",
+   2305,
+   22
+  ],
+  "321345": [
+   "Tegharia",
+   2303,
+   23
+  ],
+  "321590": [
+   "Lakshmipur",
+   2305,
+   22
+  ],
+  "321636": [
+   "Rupdaha",
+   2306,
+   21
+  ],
+  "321635": [
+   "Chuakhali",
+   2306,
+   21
+  ],
+  "321566": [
+   "Malam Gachha",
+   2305,
+   22
+  ],
+  "321630": [
+   "Khajuri",
+   2306,
+   21
+  ],
+  "321632": [
+   "Singhati",
+   2306,
+   21
+  ],
+  "321584": [
+   "Dudkhola",
+   2305,
+   18
+  ],
+  "321586": [
+   "Karuigachhi",
+   2305,
+   22
+  ],
+  "321633": [
+   "Chhagharia",
+   2306,
+   16
+  ],
+  "321591": [
+   "Gachha",
+   2305,
+   17
+  ],
+  "321637": [
+   "Pathradaha",
+   2306,
+   21
+  ],
+  "321565": [
+   "Balibanga",
+   2305,
+   17
+  ],
+  "321638": [
+   "Sonatala",
+   2306,
+   16
+  ],
+  "321588": [
+   "Charatala",
+   2305,
+   17
+  ],
+  "321583": [
+   "Simulia",
+   2305,
+   18
+  ],
+  "321585": [
+   "Dangna",
+   2305,
+   18
+  ],
+  "321592": [
+   "Krishnaebpur",
+   2305,
+   17
+  ],
+  "321639": [
+   "Charmahatpur",
+   2306,
+   16
+  ],
+  "321587": [
+   "Satghata",
+   2305,
+   17
+  ],
+  "321602": [
+   "Bagbaria",
+   2305,
+   18
+  ],
+  "321631": [
+   "Gabarkuli",
+   2306,
+   16
+  ],
+  "321562": [
+   "Kalinga",
+   2305,
+   17
+  ],
+  "321564": [
+   "Chandpur",
+   2305,
+   17
+  ],
+  "321640": [
+   "Armia",
+   2306,
+   16
+  ],
+  "321563": [
+   "Kulgachhi",
+   2305,
+   17
+  ],
+  "321610": [
+   "Mahatpur",
+   2305,
+   16
+  ],
+  "321593": [
+   "Ichhapur",
+   2305,
+   17
+  ],
+  "321598": [
+   "Bahirgachhi",
+   2305,
+   17
+  ],
+  "321600": [
+   "Ramnagar",
+   2305,
+   17
+  ],
+  "321644": [
+   "Dhubulia",
+   2306,
+   16
+  ],
+  "321599": [
+   "Kukra Daha",
+   2305,
+   17
+  ],
+  "321601": [
+   "Gatra",
+   2305,
+   18
+  ],
+  "321594": [
+   "Patia",
+   2305,
+   17
+  ],
+  "321595": [
+   "Katgara",
+   2305,
+   17
+  ],
+  "321606": [
+   "Kultala",
+   2305,
+   18
+  ],
+  "321643": [
+   "Belgaon",
+   2306,
+   16
+  ],
+  "321247": [
+   "Pashim Chalkjalia",
+   2301,
+   26
+  ],
+  "321597": [
+   "Mathurapur",
+   2305,
+   17
+  ],
+  "321642": [
+   "Uttarjhitkipota",
+   2306,
+   16
+  ],
+  "321596": [
+   "Madhabpur",
+   2305,
+   17
+  ],
+  "321609": [
+   "Mrigipota",
+   2305,
+   17
+  ],
+  "321607": [
+   "Bhatchhala",
+   2305,
+   18
+  ],
+  "321766": [
+   "Digri",
+   2308,
+   17
+  ],
+  "321648": [
+   "Paschim Panditpur",
+   2306,
+   16
+  ],
+  "321765": [
+   "Andulpota",
+   2308,
+   17
+  ],
+  "321608": [
+   "Maidanpur",
+   2305,
+   18
+  ],
+  "321647": [
+   "Dalai Molla",
+   2306,
+   16
+  ],
+  "321764": [
+   "Jalkarmathurapur",
+   2308,
+   17
+  ],
+  "321611": [
+   "Dakshin Sonatala",
+   2305,
+   16
+  ],
+  "321344": [
+   "Hijuli",
+   2303,
+   23
+  ],
+  "321499": [
+   "Dhananjoypur",
+   2304,
+   25
+  ],
+  "321451": [
+   "Bandakhola",
+   2304,
+   25
+  ],
+  "321363": [
+   "Chak Bege",
+   2303,
+   24
+  ],
+  "321364": [
+   "Gokul Nagar",
+   2303,
+   24
+  ],
+  "321455": [
+   "Uttar Bahirgachi",
+   2304,
+   25
+  ],
+  "321346": [
+   "Ashachia",
+   2303,
+   24
+  ],
+  "321422": [
+   "Giridharpur",
+   2304,
+   25
+  ],
+  "321424": [
+   "Dhubinagadi",
+   2304,
+   24
+  ],
+  "321362": [
+   "Arar Bege",
+   2303,
+   24
+  ],
+  "321425": [
+   "Bikrampur",
+   2304,
+   24
+  ],
+  "321421": [
+   "Chak Ghurni",
+   2304,
+   25
+  ],
+  "321449": [
+   "Chandipur",
+   2304,
+   25
+  ],
+  "321450": [
+   "Malumgachha",
+   2304,
+   25
+  ],
+  "321353": [
+   "Pacha Chandpur",
+   2303,
+   24
+  ],
+  "321360": [
+   "Khorda Bege",
+   2303,
+   24
+  ],
+  "321460": [
+   "Gobipur",
+   2304,
+   25
+  ],
+  "321365": [
+   "Rautara",
+   2303,
+   24
+  ],
+  "321367": [
+   "Mohanpur",
+   2303,
+   23
+  ],
+  "321366": [
+   "Chhota Atagi",
+   2303,
+   23
+  ],
+  "321393": [
+   "Durgabati",
+   2303,
+   23
+  ],
+  "321359": [
+   "Palit Bege",
+   2303,
+   24
+  ],
+  "321459": [
+   "Chhota Simulia",
+   2304,
+   25
+  ],
+  "321354": [
+   "Bhaga",
+   2303,
+   24
+  ],
+  "321355": [
+   "Banpalashi",
+   2303,
+   24
+  ],
+  "321423": [
+   "Senpur",
+   2304,
+   25
+  ],
+  "321358": [
+   "Khorda Palashi",
+   2303,
+   24
+  ],
+  "321456": [
+   "Kalibas",
+   2304,
+   25
+  ],
+  "321402": [
+   "Santipur",
+   2303,
+   24
+  ],
+  "321448": [
+   "Guurni",
+   2304,
+   25
+  ],
+  "321357": [
+   "Bairampur",
+   2303,
+   24
+  ],
+  "321403": [
+   "Naosa",
+   2303,
+   24
+  ],
+  "321447": [
+   "Bade Tehatta",
+   2304,
+   25
+  ],
+  "321401": [
+   "Ghorai Khetra",
+   2303,
+   24
+  ],
+  "321405": [
+   "Daluipura",
+   2303,
+   24
+  ],
+  "321392": [
+   "Joyrambati",
+   2303,
+   23
+  ],
+  "321498": [
+   "Bara Simulia",
+   2304,
+   25
+  ],
+  "321446": [
+   "Bagunda",
+   2304,
+   25
+  ],
+  "321461": [
+   "Chichuria",
+   2304,
+   25
+  ],
+  "321406": [
+   "Sita Chandrapur",
+   2303,
+   24
+  ],
+  "321391": [
+   "Chakundi",
+   2303,
+   23
+  ],
+  "321348": [
+   "Chak Kuturia",
+   2303,
+   24
+  ],
+  "321361": [
+   "Solakur",
+   2303,
+   24
+  ],
+  "321394": [
+   "Sahazadpur",
+   2303,
+   24
+  ],
+  "321356": [
+   "Kamalbati",
+   2303,
+   24
+  ],
+  "321395": [
+   "Rajarampur",
+   2303,
+   24
+  ],
+  "321407": [
+   "Sapjola",
+   2303,
+   24
+  ],
+  "321386": [
+   "Balidanga",
+   2303,
+   23
+  ],
+  "321464": [
+   "Chenga",
+   2304,
+   25
+  ],
+  "321389": [
+   "Dakshin Hajrapota",
+   2303,
+   23
+  ],
+  "321430": [
+   "Sribati",
+   2304,
+   24
+  ],
+  "321426": [
+   "Bhabanipur",
+   2304,
+   24
+  ],
+  "321427": [
+   "Goalchandpur",
+   2304,
+   24
+  ],
+  "321385": [
+   "Panchpota",
+   2303,
+   23
+  ],
+  "321396": [
+   "Khalsi",
+   2303,
+   24
+  ],
+  "321497": [
+   "Patikabari",
+   2304,
+   25
+  ],
+  "321429": [
+   "Basudebpur",
+   2304,
+   24
+  ],
+  "321443": [
+   "Baman Danga",
+   2304,
+   25
+  ],
+  "321462": [
+   "Belpukuria",
+   2304,
+   25
+  ],
+  "321428": [
+   "Chaumoha",
+   2304,
+   24
+  ],
+  "321400": [
+   "Dhapara",
+   2303,
+   24
+  ],
+  "321432": [
+   "Majhergram",
+   2304,
+   24
+  ],
+  "321398": [
+   "Sah Mahmudpur",
+   2303,
+   24
+  ],
+  "321399": [
+   "Ghola",
+   2303,
+   24
+  ],
+  "321442": [
+   "Sonadanga",
+   2304,
+   25
+  ],
+  "321388": [
+   "Sri Krishnapur",
+   2303,
+   23
+  ],
+  "321431": [
+   "Roybali",
+   2304,
+   24
+  ],
+  "321439": [
+   "Arpara",
+   2304,
+   24
+  ],
+  "321438": [
+   "Narayanpur",
+   2304,
+   24
+  ],
+  "321433": [
+   "Akandanga",
+   2304,
+   24
+  ],
+  "321441": [
+   "Shuk Pukuria",
+   2304,
+   20
+  ],
+  "321495": [
+   "Jalsuka",
+   2304,
+   20
+  ],
+  "321496": [
+   "Bekoail",
+   2304,
+   20
+  ],
+  "321435": [
+   "Madandanga",
+   2304,
+   24
+  ],
+  "321437": [
+   "Sultanpur",
+   2304,
+   24
+  ],
+  "321436": [
+   "Nischintapur",
+   2304,
+   24
+  ],
+  "321465": [
+   "Kanthalbaria",
+   2304,
+   20
+  ],
+  "321440": [
+   "Palasdanga",
+   2304,
+   20
+  ],
+  "321475": [
+   "Gotpara",
+   2304,
+   20
+  ],
+  "321466": [
+   "Bethuadahari",
+   2304,
+   20
+  ],
+  "321445": [
+   "Chak Shukpukuria",
+   2304,
+   25
+  ],
+  "321470": [
+   "Rajapur",
+   2304,
+   20
+  ],
+  "321390": [
+   "Chak Durgabati",
+   2303,
+   23
+  ],
+  "321492": [
+   "Bangaria",
+   2304,
+   20
+  ],
+  "321471": [
+   "Nakasipara",
+   2304,
+   20
+  ],
+  "321467": [
+   "Chak Hatisala",
+   2304,
+   20
+  ],
+  "321473": [
+   "Mirjapur",
+   2304,
+   20
+  ],
+  "321469": [
+   "Bilwagram",
+   2304,
+   20
+  ],
+  "321468": [
+   "Jugpur",
+   2304,
+   20
+  ],
+  "321458": [
+   "Chak Paschim Simulia",
+   2304,
+   25
+  ],
+  "321457": [
+   "Chak Purbba Simulia",
+   2304,
+   25
+  ],
+  "321387": [
+   "Char Balidanga",
+   2303,
+   23
+  ],
+  "321476": [
+   "Chak Nischintapur",
+   2304,
+   20
+  ],
+  "321294": [
+   "Tejnagar",
+   2303,
+   27
+  ],
+  "321268": [
+   "Chhota Naldaha",
+   2302,
+   28
+  ],
+  "321293": [
+   "Char Tejnagar",
+   2303,
+   27
+  ],
+  "321413": [
+   "Bara Chandghar",
+   2303,
+   27
+  ],
+  "321272": [
+   "Baor",
+   2302,
+   28
+  ],
+  "321296": [
+   "Palasi",
+   2303,
+   27
+  ],
+  "321411": [
+   "Molamdi",
+   2303,
+   27
+  ],
+  "321297": [
+   "Sajua",
+   2303,
+   27
+  ],
+  "321271": [
+   "Panchdara Abhaynagar",
+   2302,
+   28
+  ],
+  "321270": [
+   "Kulgachhi",
+   2302,
+   28
+  ],
+  "321414": [
+   "Chhota Chandghar",
+   2303,
+   28
+  ],
+  "321266": [
+   "Palsunda",
+   2302,
+   28
+  ],
+  "321302": [
+   "Erardanga",
+   2303,
+   27
+  ],
+  "321298": [
+   "Uttar Hajrapota",
+   2303,
+   27
+  ],
+  "321299": [
+   "Panchkhela",
+   2303,
+   27
+  ],
+  "321295": [
+   "Char Palasi",
+   2303,
+   27
+  ],
+  "321300": [
+   "Bhurulia",
+   2303,
+   27
+  ],
+  "321320": [
+   "Chak Gobindapur",
+   2303,
+   27
+  ],
+  "321274": [
+   "Shatikhali",
+   2302,
+   28
+  ],
+  "321264": [
+   "Baruipara",
+   2302,
+   28
+  ],
+  "321321": [
+   "Bharatpur",
+   2303,
+   27
+  ],
+  "321319": [
+   "Gabindapur",
+   2303,
+   27
+  ],
+  "321301": [
+   "Chhota Kulberia",
+   2303,
+   27
+  ],
+  "321277": [
+   "Barnia",
+   2302,
+   28
+  ],
+  "321303": [
+   "Bara Kulberia",
+   2303,
+   27
+  ],
+  "321260": [
+   "Baraia",
+   2302,
+   28
+  ],
+  "321265": [
+   "Digbaria",
+   2302,
+   28
+  ],
+  "321304": [
+   "Narayanpur",
+   2303,
+   27
+  ],
+  "321314": [
+   "Chak Khidirpur",
+   2303,
+   27
+  ],
+  "321318": [
+   "Bathangachhi",
+   2303,
+   27
+  ],
+  "321263": [
+   "Komthana",
+   2302,
+   28
+  ],
+  "321317": [
+   "Chapai",
+   2303,
+   27
+  ],
+  "321322": [
+   "Jamalpur",
+   2303,
+   27
+  ],
+  "321259": [
+   "Dhwapara",
+   2302,
+   28
+  ],
+  "321311": [
+   "Khidirpur",
+   2303,
+   27
+  ],
+  "321310": [
+   "Serpur",
+   2303,
+   23
+  ],
+  "321262": [
+   "Charakpota",
+   2302,
+   28
+  ],
+  "321309": [
+   "Kaliganj",
+   2303,
+   27
+  ],
+  "321316": [
+   "Jot Mahesh",
+   2303,
+   27
+  ],
+  "321312": [
+   "Chapra",
+   2303,
+   27
+  ],
+  "321327": [
+   "Panighata",
+   2303,
+   27
+  ],
+  "321323": [
+   "Jalkar Jalmahal",
+   2303,
+   27
+  ],
+  "321315": [
+   "Radhikapur",
+   2303,
+   27
+  ],
+  "321324": [
+   "Sajapur",
+   2303,
+   27
+  ],
+  "321261": [
+   "Abhaynagar",
+   2302,
+   28
+  ],
+  "321313": [
+   "Sahapur",
+   2303,
+   27
+  ],
+  "321453": [
+   "Arbetai",
+   2304,
+   25
+  ],
+  "321325": [
+   "Radhakantapur",
+   2303,
+   24
+  ],
+  "321328": [
+   "Hatgachha",
+   2303,
+   24
+  ],
+  "321326": [
+   "Dhwaja Pushkarini",
+   2303,
+   24
+  ],
+  "321329": [
+   "Kamari",
+   2303,
+   24
+  ],
+  "321330": [
+   "Anantapur",
+   2303,
+   23
+  ],
+  "321454": [
+   "Parkula",
+   2304,
+   25
+  ],
+  "321351": [
+   "Debagram",
+   2303,
+   24
+  ],
+  "321352": [
+   "Dingel",
+   2303,
+   24
+  ],
+  "321452": [
+   "Bilkumari",
+   2304,
+   25
+  ],
+  "321332": [
+   "Kuturia",
+   2303,
+   23
+  ],
+  "321420": [
+   "Haranagar",
+   2304,
+   25
+  ],
+  "321415": [
+   "Hat Gobindapur",
+   2303,
+   27
+  ],
+  "321349": [
+   "Naopara",
+   2303,
+   24
+  ],
+  "321347": [
+   "Bashar Khola",
+   2303,
+   24
+  ],
+  "321350": [
+   "Seorataza",
+   2303,
+   24
+  ],
+  "321408": [
+   "Char Ramnagar",
+   2303,
+   27
+  ],
+  "321416": [
+   "Chak Gobindapur",
+   2303,
+   28
+  ],
+  "321417": [
+   "Chak Chandghar",
+   2303,
+   28
+  ],
+  "321308": [
+   "Char Lakhuria",
+   2303,
+   23
+  ],
+  "321331": [
+   "Baninathpur",
+   2303,
+   23
+  ],
+  "321285": [
+   "Palashipara",
+   2302,
+   29
+  ],
+  "321235": [
+   "Karaigachhi",
+   2301,
+   29
+  ],
+  "321210": [
+   "Chilakhali",
+   2301,
+   29
+  ],
+  "321290": [
+   "Ramnagar",
+   2302,
+   29
+  ],
+  "321237": [
+   "Betai Jitpur",
+   2301,
+   29
+  ],
+  "321204": [
+   "Syamnagar",
+   2301,
+   29
+  ],
+  "321207": [
+   "Nishchintapur",
+   2301,
+   29
+  ],
+  "321291": [
+   "Rudranagar",
+   2302,
+   29
+  ],
+  "321206": [
+   "Suruppur",
+   2301,
+   29
+  ],
+  "321205": [
+   "Tarangar",
+   2301,
+   29
+  ],
+  "321238": [
+   "Bagakhali",
+   2301,
+   29
+  ],
+  "321284": [
+   "Chak Ramnagar",
+   2302,
+   28
+  ],
+  "321239": [
+   "Sahapur",
+   2301,
+   29
+  ],
+  "321244": [
+   "Jitpur",
+   2301,
+   29
+  ],
+  "321243": [
+   "Chhatina",
+   2301,
+   29
+  ],
+  "321283": [
+   "Labangola",
+   2302,
+   29
+  ],
+  "321240": [
+   "Ramjibanpur",
+   2301,
+   29
+  ],
+  "321208": [
+   "Raghunathpur",
+   2301,
+   29
+  ],
+  "321209": [
+   "Krishnachandrapur",
+   2301,
+   29
+  ],
+  "321282": [
+   "Chak Rudranagar",
+   2302,
+   29
+  ],
+  "321292": [
+   "Iswarchandrapur",
+   2302,
+   29
+  ],
+  "321245": [
+   "Chak Jaliapara",
+   2301,
+   29
+  ],
+  "321241": [
+   "Gopalpur",
+   2301,
+   29
+  ],
+  "321246": [
+   "Tehatta",
+   2301,
+   29
+  ],
+  "321280": [
+   "Natipota",
+   2302,
+   29
+  ],
+  "321242": [
+   "Garibpur",
+   2301,
+   29
+  ],
+  "321281": [
+   "Dharammapur",
+   2302,
+   29
+  ],
+  "321251": [
+   "Natna",
+   2301,
+   29
+  ],
+  "321250": [
+   "Haulia",
+   2301,
+   29
+  ],
+  "321279": [
+   "Hanspukuria",
+   2302,
+   29
+  ],
+  "321202": [
+   "Khaspu",
+   2301,
+   26
+  ],
+  "321201": [
+   "Kulgachhi",
+   2301,
+   26
+  ],
+  "321203": [
+   "Kushtia",
+   2301,
+   26
+  ],
+  "321278": [
+   "Uzirpur",
+   2302,
+   26
+  ],
+  "321199": [
+   "Chanderghat",
+   2301,
+   26
+  ],
+  "321200": [
+   "Chak Hanspukuria",
+   2301,
+   26
+  ],
+  "321254": [
+   "Taranipur",
+   2301,
+   26
+  ],
+  "321197": [
+   "Dhopahat",
+   2301,
+   26
+  ],
+  "321255": [
+   "Puthimari",
+   2301,
+   26
+  ],
+  "321501": [
+   "Mejpota",
+   2304,
+   26
+  ],
+  "321198": [
+   "Kamalapur",
+   2301,
+   26
+  ],
+  "321500": [
+   "Dhaparia",
+   2304,
+   26
+  ],
+  "321256": [
+   "Pathar Ghata",
+   2301,
+   26
+  ],
+  "321502": [
+   "Sibpur",
+   2304,
+   26
+  ],
+  "321529": [
+   "Hatisala",
+   2305,
+   26
+  ],
+  "321532": [
+   "Sonpukar",
+   2305,
+   26
+  ],
+  "321503": [
+   "Radhanagar",
+   2304,
+   26
+  ],
+  "321236": [
+   "Imamganj",
+   2301,
+   29
+  ],
+  "321248": [
+   "Purbba Chak Jaliapara",
+   2301,
+   26
+  ],
+  "321249": [
+   "Chak Haulia",
+   2301,
+   26
+  ],
+  "321253": [
+   "Salua",
+   2301,
+   26
+  ],
+  "321252": [
+   "Chak Khas Taranipur",
+   2301,
+   26
+  ],
+  "321530": [
+   "Mahesnagar",
+   2305,
+   26
+  ],
+  "321534": [
+   "Hridaypur",
+   2305,
+   22
+  ],
+  "321504": [
+   "Birpur",
+   2304,
+   26
+  ],
+  "321536": [
+   "Fulbari",
+   2305,
+   26
+  ],
+  "321531": [
+   "Bara Andulia",
+   2305,
+   26
+  ],
+  "321511": [
+   "Paduma",
+   2304,
+   21
+  ],
+  "321535": [
+   "Betbaria",
+   2305,
+   22
+  ],
+  "321537": [
+   "Jidha",
+   2305,
+   26
+  ],
+  "321505": [
+   "Petuabhanga",
+   2304,
+   26
+  ],
+  "321582": [
+   "Amjhupi",
+   2305,
+   18
+  ],
+  "321506": [
+   "Teghari",
+   2304,
+   21
+  ],
+  "321538": [
+   "Alfa",
+   2305,
+   22
+  ],
+  "321510": [
+   "Miraipur",
+   2304,
+   21
+  ],
+  "321509": [
+   "Sarbari",
+   2304,
+   21
+  ],
+  "321546": [
+   "Gongra",
+   2305,
+   22
+  ],
+  "321777": [
+   "Baruihuda CT",
+   2308,
+   12
+  ],
+  "321545": [
+   "Bhatgachhi",
+   2305,
+   22
+  ],
+  "321508": [
+   "Bargachhi",
+   2304,
+   21
+  ],
+  "321494": [
+   "Rari Para",
+   2304,
+   21
+  ],
+  "321512": [
+   "Bad Belgaon",
+   2304,
+   21
+  ],
+  "321543": [
+   "Bania Khari",
+   2305,
+   22
+  ],
+  "321541": [
+   "Hatra",
+   2305,
+   21
+  ],
+  "321544": [
+   "Pathuria",
+   2305,
+   22
+  ],
+  "321507": [
+   "Mota",
+   2304,
+   21
+  ],
+  "321577": [
+   "Dakshin Ramgiarpota",
+   2305,
+   18
+  ],
+  "321547": [
+   "Rajibpur",
+   2305,
+   22
+  ],
+  "321552": [
+   "Ranabanda",
+   2305,
+   22
+  ],
+  "321578": [
+   "Chaksimulia",
+   2305,
+   18
+  ],
+  "321542": [
+   "Chhota Andulia",
+   2305,
+   22
+  ],
+  "321539": [
+   "Chakjidha",
+   2305,
+   21
+  ],
+  "321548": [
+   "Chak Hudapara",
+   2305,
+   22
+  ],
+  "321576": [
+   "Uttar Rangiarpota",
+   2305,
+   18
+  ],
+  "321579": [
+   "Maluapara",
+   2305,
+   18
+  ],
+  "321580": [
+   "Panch Pota",
+   2305,
+   18
+  ],
+  "321581": [
+   "Naeayanpur",
+   2305,
+   18
+  ],
+  "321779": [
+   "Kadipur",
+   2309,
+   18
+  ],
+  "321780": [
+   "Digambarpur",
+   2309,
+   18
+  ],
+  "321784": [
+   "Chak Pratappur",
+   2309,
+   18
+  ],
+  "321820": [
+   "Gede",
+   2309,
+   19
+  ],
+  "321603": [
+   "Maheshpur",
+   2305,
+   18
+  ],
+  "321785": [
+   "Kadaghata",
+   2309,
+   18
+  ],
+  "321783": [
+   "Pratappur",
+   2309,
+   18
+  ],
+  "321781": [
+   "Bishnupur",
+   2309,
+   18
+  ],
+  "321786": [
+   "Jayghata",
+   2309,
+   18
+  ],
+  "321782": [
+   "Mukundapur",
+   2309,
+   18
+  ],
+  "321776": [
+   "Sonda P CT",
+   2308,
+   12
+  ],
+  "321778": [
+   "Paschimbhatjangla CT",
+   2308,
+   12
+  ],
+  "321612": [
+   "Chapra CT",
+   2305,
+   22
+  ],
+  "321657": [
+   "Harindanga CT",
+   2306,
+   16
+  ],
+  "321527": [
+   "Jagadanandapur CT",
+   2304,
+   20
+  ],
+  "321528": [
+   "Kshidirpur CT",
+   2304,
+   20
+  ],
+  "321418": [
+   "Mira CT",
+   2303,
+   27
+  ],
+  "321789": [
+   "Khal Boalia",
+   2309,
+   18
+  ],
+  "321604": [
+   "Karsura",
+   2305,
+   18
+  ],
+  "321787": [
+   "Maghdia",
+   2309,
+   18
+  ],
+  "321821": [
+   "Matiari",
+   2309,
+   19
+  ],
+  "321817": [
+   "Gobindapur",
+   2309,
+   19
+  ],
+  "321819": [
+   "Bijoypur",
+   2309,
+   19
+  ],
+  "321605": [
+   "Tengra",
+   2305,
+   18
+  ],
+  "321788": [
+   "Ghuguragachhi",
+   2309,
+   18
+  ],
+  "321790": [
+   "Mahesh Chandrapur",
+   2309,
+   18
+  ],
+  "321815": [
+   "Banpur",
+   2309,
+   19
+  ],
+  "321796": [
+   "Chak Shyamnaar",
+   2309,
+   18
+  ],
+  "321792": [
+   "Shyam Nagar",
+   2309,
+   18
+  ],
+  "321798": [
+   "Bhagabanpur",
+   2309,
+   18
+  ],
+  "321791": [
+   "Nathpur",
+   2309,
+   18
+  ],
+  "321793": [
+   "Paikpara",
+   2309,
+   18
+  ],
+  "321816": [
+   "Malighata",
+   2309,
+   19
+  ],
+  "321813": [
+   "Taldaha",
+   2309,
+   18
+  ],
+  "321797": [
+   "Durgapur",
+   2309,
+   18
+  ],
+  "321794": [
+   "Gopipur",
+   2309,
+   18
+  ],
+  "321795": [
+   "Chak Gutra",
+   2309,
+   18
+  ],
+  "321812": [
+   "Teghari",
+   2309,
+   18
+  ],
+  "321811": [
+   "Mathurapur",
+   2309,
+   18
+  ],
+  "321801": [
+   "Chau Gachha",
+   2309,
+   18
+  ],
+  "321814": [
+   "Adityapur",
+   2309,
+   18
+  ],
+  "321810": [
+   "Goari",
+   2309,
+   18
+  ],
+  "321807": [
+   "Songhata",
+   2309,
+   18
+  ],
+  "321824": [
+   "Tungi",
+   2309,
+   19
+  ],
+  "321823": [
+   "Dharmmapur",
+   2309,
+   19
+  ],
+  "321808": [
+   "Krishna Ganj",
+   2309,
+   14
+  ],
+  "321828": [
+   "Majhdia",
+   2309,
+   14
+  ],
+  "321803": [
+   "Chandan Nagar",
+   2309,
+   14
+  ],
+  "321802": [
+   "Momar Pur",
+   2309,
+   14
+  ],
+  "321806": [
+   "Shibnibas",
+   2309,
+   14
+  ],
+  "321809": [
+   "Jalkar Banpur",
+   2309,
+   18
+  ],
+  "321825": [
+   "Putikhali",
+   2309,
+   19
+  ],
+  "321827": [
+   "Khatura",
+   2309,
+   14
+  ],
+  "321805": [
+   "Par Chandan Nagar",
+   2309,
+   14
+  ],
+  "321829": [
+   "Pabakhali",
+   2309,
+   14
+  ],
+  "321804": [
+   "Krishna Pur",
+   2309,
+   14
+  ],
+  "321842": [
+   "Nutangram",
+   2310,
+   14
+  ],
+  "321826": [
+   "Nalupur",
+   2309,
+   14
+  ],
+  "321831": [
+   "Bhajanghat",
+   2309,
+   14
+  ],
+  "321830": [
+   "Helenchi",
+   2309,
+   14
+  ],
+  "321847": [
+   "Pipulbaria",
+   2310,
+   14
+  ],
+  "321846": [
+   "Gazna",
+   2310,
+   14
+  ],
+  "321845": [
+   "Dwip Chandrapur",
+   2310,
+   14
+  ],
+  "321832": [
+   "Nanaganj",
+   2309,
+   14
+  ],
+  "321848": [
+   "Mobarekpur",
+   2310,
+   14
+  ],
+  "321849": [
+   "Fatepur",
+   2310,
+   14
+  ],
+  "321854": [
+   "Bajitpur",
+   2310,
+   14
+  ],
+  "321855": [
+   "Naoda Kamalpur",
+   2310,
+   14
+  ],
+  "321856": [
+   "Sibchandrpur",
+   2310,
+   14
+  ],
+  "321853": [
+   "Chunari",
+   2310,
+   14
+  ],
+  "321122": [
+   "Char Garura",
+   2299,
+   32
+  ],
+  "321123": [
+   "Paschim Garura",
+   2299,
+   32
+  ],
+  "321080": [
+   "Dakshin Chakarabpur",
+   2299,
+   32
+  ],
+  "321081": [
+   "Chak Haripur",
+   2299,
+   32
+  ],
+  "321286": [
+   "Gopinathpur",
+   2302,
+   28
+  ],
+  "321267": [
+   "Bara Naldaha",
+   2302,
+   28
+  ],
+  "321269": [
+   "Sahebnagar",
+   2302,
+   28
+  ],
+  "321412": [
+   "Shitalpur",
+   2303,
+   27
+  ],
+  "321152": [
+   "Jaynabad",
+   2300,
+   30
+  ],
+  "321173": [
+   "Chandpur",
+   2300,
+   31
+  ],
+  "321221": [
+   "Bagadoba",
+   2301,
+   30
+  ],
+  "321140": [
+   "Narayanpur",
+   2300,
+   30
+  ],
+  "321156": [
+   "Ratanpur",
+   2300,
+   31
+  ],
+  "321157": [
+   "Ramnagar",
+   2300,
+   30
+  ],
+  "321171": [
+   "Dakshin Krishnapur",
+   2300,
+   32
+  ],
+  "321186": [
+   "Gaubari",
+   2300,
+   32
+  ],
+  "321162": [
+   "Kathalia",
+   2300,
+   31
+  ],
+  "321175": [
+   "Chak Hatishala",
+   2300,
+   31
+  ],
+  "321185": [
+   "Manikdihi",
+   2300,
+   32
+  ],
+  "321149": [
+   "Kishorpur",
+   2300,
+   30
+  ],
+  "321155": [
+   "Dakshin Gopalpur",
+   2300,
+   31
+  ],
+  "321184": [
+   "Bagdanga",
+   2300,
+   32
+  ],
+  "321141": [
+   "Char Brindabanpur",
+   2300,
+   30
+  ],
+  "321144": [
+   "Char Ajlampur",
+   2300,
+   30
+  ],
+  "321142": [
+   "Sadipur",
+   2300,
+   30
+  ],
+  "321178": [
+   "Teinpur",
+   2300,
+   32
+  ],
+  "321163": [
+   "Nandanpur",
+   2300,
+   31
+  ],
+  "321174": [
+   "Gobindapur",
+   2300,
+   31
+  ],
+  "321143": [
+   "Topla",
+   2300,
+   30
+  ],
+  "321179": [
+   "Baruipota",
+   2300,
+   32
+  ],
+  "321176": [
+   "Hatishala",
+   2300,
+   31
+  ],
+  "321153": [
+   "Char Nazirpur",
+   2300,
+   30
+  ],
+  "321150": [
+   "Mahisha Khola",
+   2300,
+   30
+  ],
+  "321177": [
+   "Audia",
+   2300,
+   31
+  ],
+  "321164": [
+   "Rautbati",
+   2300,
+   31
+  ],
+  "321151": [
+   "Moktarpur",
+   2300,
+   30
+  ],
+  "321217": [
+   "Rajapur",
+   2301,
+   30
+  ],
+  "321154": [
+   "Char Mirza Nagar",
+   2300,
+   30
+  ],
+  "321220": [
+   "Nazirpur",
+   2301,
+   30
+  ],
+  "321219": [
+   "Pratapnagar",
+   2301,
+   30
+  ],
+  "321232": [
+   "Khanjepur",
+   2301,
+   30
+  ],
+  "321216": [
+   "Kanainagar",
+   2301,
+   30
+  ],
+  "321218": [
+   "Jayrampur",
+   2301,
+   30
+  ],
+  "321231": [
+   "Aztullanagar",
+   2301,
+   30
+  ],
+  "321222": [
+   "Chhitka",
+   2301,
+   30
+  ],
+  "321223": [
+   "Mrigi",
+   2301,
+   30
+  ],
+  "321215": [
+   "Shrirampur",
+   2301,
+   30
+  ],
+  "321226": [
+   "Chak Chilakhali",
+   2301,
+   30
+  ],
+  "321230": [
+   "Mobarakpur",
+   2301,
+   30
+  ],
+  "321287": [
+   "Raninagar",
+   2302,
+   30
+  ],
+  "321224": [
+   "Bahadurpur",
+   2301,
+   30
+  ],
+  "321225": [
+   "Binodnagar",
+   2301,
+   30
+  ],
+  "321228": [
+   "Haripur",
+   2301,
+   30
+  ],
+  "321257": [
+   "Uttar Char Chandpur",
+   2301,
+   30
+  ],
+  "321214": [
+   "Sardanga",
+   2301,
+   30
+  ],
+  "321233": [
+   "Bhatpara",
+   2301,
+   30
+  ],
+  "321288": [
+   "Radhanagar",
+   2302,
+   30
+  ],
+  "321211": [
+   "Bhabanipur",
+   2301,
+   30
+  ],
+  "321212": [
+   "Baksipur",
+   2301,
+   30
+  ],
+  "321234": [
+   "Betai",
+   2301,
+   29
+  ],
+  "321227": [
+   "Balarampur",
+   2301,
+   30
+  ],
+  "321213": [
+   "Fatepur",
+   2301,
+   30
+  ],
+  "321289": [
+   "Krishnanagar",
+   2302,
+   29
+  ],
+  "321148": [
+   "Char Jagaipur",
+   2300,
+   30
+  ],
+  "321229": [
+   "Chak Balarampur",
+   2301,
+   30
+  ],
+  "321258": [
+   "Dakshin Char Chandpur Part",
+   2301,
+   30
+  ],
+  "321126": [
+   "Dogachhi",
+   2300,
+   31
+  ],
+  "321054": [
+   "Uttar Krishnapur",
+   2299,
+   33
+  ],
+  "321127": [
+   "Dhoradaha",
+   2300,
+   31
+  ],
+  "321053": [
+   "Takipur",
+   2299,
+   33
+  ],
+  "321052": [
+   "Kuchaidanga",
+   2299,
+   32
+  ],
+  "321128": [
+   "Jayghata",
+   2300,
+   31
+  ],
+  "321130": [
+   "Pipulkhola",
+   2300,
+   31
+  ],
+  "321132": [
+   "Saguna",
+   2300,
+   31
+  ],
+  "321129": [
+   "Monoharpur",
+   2300,
+   31
+  ],
+  "321097": [
+   "Patabukahuda",
+   2299,
+   32
+  ],
+  "321087": [
+   "Abhaypur",
+   2299,
+   31
+  ],
+  "321131": [
+   "Sobharajpur",
+   2300,
+   31
+  ],
+  "321091": [
+   "Senpara",
+   2299,
+   31
+  ],
+  "321096": [
+   "Natna",
+   2299,
+   32
+  ],
+  "321089": [
+   "Madhaya Gopalpur",
+   2299,
+   31
+  ],
+  "321095": [
+   "Majlispur",
+   2299,
+   32
+  ],
+  "321094": [
+   "Chak Natna",
+   2299,
+   32
+  ],
+  "321088": [
+   "Gabrudanga",
+   2299,
+   31
+  ],
+  "321093": [
+   "Kalabaria",
+   2299,
+   32
+  ],
+  "321147": [
+   "Thanapara",
+   2300,
+   31
+  ],
+  "321133": [
+   "Natidanga",
+   2300,
+   31
+  ],
+  "321092": [
+   "Gopalpara",
+   2299,
+   31
+  ],
+  "321090": [
+   "Malintala",
+   2299,
+   31
+  ],
+  "321136": [
+   "Char Moktappur",
+   2300,
+   31
+  ],
+  "321195": [
+   "Chak Brajala",
+   2300,
+   32
+  ],
+  "321159": [
+   "Goas",
+   2300,
+   31
+  ],
+  "321161": [
+   "Mahish Bathan",
+   2300,
+   31
+  ],
+  "321134": [
+   "Char Adityapur",
+   2300,
+   31
+  ],
+  "321192": [
+   "Madhpur",
+   2300,
+   32
+  ],
+  "321138": [
+   "Fazil Nagar",
+   2300,
+   30
+  ],
+  "321158": [
+   "Barbakpur",
+   2300,
+   31
+  ],
+  "321160": [
+   "Rahamatpur",
+   2300,
+   31
+  ],
+  "321169": [
+   "Baliadanga",
+   2300,
+   32
+  ],
+  "321168": [
+   "Rasikpur",
+   2300,
+   32
+  ],
+  "321167": [
+   "Chak Gandharajpur",
+   2300,
+   31
+  ],
+  "321135": [
+   "Char Gaurbhanga",
+   2300,
+   31
+  ],
+  "321137": [
+   "Piarpur",
+   2300,
+   30
+  ],
+  "321166": [
+   "Gandharajpur",
+   2300,
+   31
+  ],
+  "321165": [
+   "Huda Gopirampur",
+   2300,
+   31
+  ],
+  "321145": [
+   "Falia",
+   2300,
+   31
+  ],
+  "321172": [
+   "Khanpur",
+   2300,
+   31
+  ],
+  "321146": [
+   "Yusufpur",
+   2300,
+   31
+  ],
+  "321139": [
+   "Lalnagar",
+   2300,
+   30
+  ],
+  "321194": [
+   "Chak Madhupur",
+   2300,
+   32
+  ],
+  "321125": [
+   "Uttampur CT",
+   2299,
+   32
+  ],
+  "321124": [
+   "Karimpur CT",
+   2299,
+   31
+  ],
+  "321120": [
+   "Char Fulbari",
+   2299,
+   32
+  ],
+  "321189": [
+   "Chak Gaubari",
+   2300,
+   32
+  ],
+  "321058": [
+   "Dhanerpara",
+   2299,
+   33
+  ],
+  "321055": [
+   "Durlabhpur",
+   2299,
+   33
+  ],
+  "321182": [
+   "Bariamda",
+   2300,
+   32
+  ],
+  "321064": [
+   "Madhugari",
+   2299,
+   33
+  ],
+  "321062": [
+   "Chak Madhubona",
+   2299,
+   33
+  ],
+  "321061": [
+   "Gopalpur",
+   2299,
+   33
+  ],
+  "321065": [
+   "Tarapur",
+   2299,
+   33
+  ],
+  "321060": [
+   "Jayrampur",
+   2299,
+   33
+  ],
+  "321059": [
+   "Jalalerpara",
+   2299,
+   33
+  ],
+  "321181": [
+   "Dhannagar",
+   2300,
+   32
+  ],
+  "321056": [
+   "Harekrishnapur",
+   2299,
+   33
+  ],
+  "321057": [
+   "Gauripur",
+   2299,
+   33
+  ],
+  "321073": [
+   "Marttajapur",
+   2299,
+   32
+  ],
+  "321066": [
+   "Andhar Kotha",
+   2299,
+   33
+  ],
+  "321067": [
+   "Sekh Parameghna",
+   2299,
+   33
+  ],
+  "321075": [
+   "Changachha",
+   2299,
+   33
+  ],
+  "321076": [
+   "Sundalpur",
+   2299,
+   32
+  ],
+  "321068": [
+   "Rukanpur",
+   2299,
+   33
+  ],
+  "321069": [
+   "Ramnagar",
+   2299,
+   33
+  ],
+  "321102": [
+   "Rani Nagar",
+   2299,
+   32
+  ],
+  "321180": [
+   "Dakshin Tajpur",
+   2300,
+   32
+  ],
+  "321106": [
+   "Kechua Danga",
+   2299,
+   32
+  ],
+  "321070": [
+   "Bilasisa",
+   2299,
+   33
+  ],
+  "321074": [
+   "Mollahad",
+   2299,
+   32
+  ],
+  "321086": [
+   "Durgapur",
+   2299,
+   32
+  ],
+  "321104": [
+   "Baruipara",
+   2299,
+   32
+  ],
+  "321072": [
+   "Betbaria",
+   2299,
+   32
+  ],
+  "321077": [
+   "Jamserpur",
+   2299,
+   32
+  ],
+  "321108": [
+   "Fulkhali",
+   2299,
+   32
+  ],
+  "321079": [
+   "Arabpur",
+   2299,
+   32
+  ],
+  "321078": [
+   "Haripur",
+   2299,
+   32
+  ],
+  "321103": [
+   "Dahakula",
+   2299,
+   32
+  ],
+  "321107": [
+   "Hazra Khali",
+   2299,
+   32
+  ],
+  "321105": [
+   "Jot Darpanarayan",
+   2299,
+   32
+  ],
+  "321082": [
+   "Bara Jangal",
+   2299,
+   32
+  ],
+  "321114": [
+   "Beldanga",
+   2299,
+   32
+  ],
+  "321085": [
+   "Muktadaha",
+   2299,
+   32
+  ],
+  "321115": [
+   "Nandalalpur",
+   2299,
+   32
+  ],
+  "321083": [
+   "Santoshpur",
+   2299,
+   32
+  ],
+  "321084": [
+   "Bansbaria",
+   2299,
+   32
+  ],
+  "321116": [
+   "Charalkhali",
+   2299,
+   32
+  ],
+  "321118": [
+   "Gandina",
+   2299,
+   32
+  ],
+  "321113": [
+   "Anandapur",
+   2299,
+   32
+  ],
+  "321117": [
+   "Fulbari",
+   2299,
+   32
+  ],
+  "321196": [
+   "Nischintapur",
+   2300,
+   32
+  ],
+  "321193": [
+   "Dakshin Udaynagar",
+   2300,
+   32
+  ],
+  "321110": [
+   "Pipulbaria",
+   2299,
+   32
+  ],
+  "321119": [
+   "Karamdia",
+   2299,
+   32
+  ],
+  "321112": [
+   "Chak Marua",
+   2299,
+   32
+  ],
+  "321121": [
+   "Uttar Tajpur",
+   2299,
+   32
+  ],
+  "321109": [
+   "Angardaha",
+   2299,
+   32
+  ],
+  "321191": [
+   "Baniakandi",
+   2300,
+   32
+  ],
+  "321170": [
+   "Murutia",
+   2300,
+   32
+  ],
+  "321111": [
+   "Chak Krishnapur",
+   2299,
+   32
+  ],
+  "321063": [
+   "Bausmari",
+   2299,
+   33
+  ],
+  "321190": [
+   "Singadanga",
+   2300,
+   32
+  ],
+  "321100": [
+   "Mathurapur",
+   2299,
+   32
+  ],
+  "321101": [
+   "Ber Ramchandrapur",
+   2299,
+   32
+  ],
+  "321099": [
+   "Chawk Pipulbaria",
+   2299,
+   32
+  ],
+  "321098": [
+   "Paiksa",
+   2299,
+   32
+  ],
+  "321187": [
+   "Dighalkandi",
+   2300,
+   32
+  ],
+  "321188": [
+   "Dharar",
+   2300,
+   32
+  ],
+  "321183": [
+   "Rakhal Gachhi",
+   2300,
+   32
+  ],
+  "321533": [
+   "Santia",
+   2305,
+   26
+  ],
+  "321822": [
+   "Fulbari",
+   2309,
+   19
+  ],
+  "321341": [
+   "Kalibas",
+   2303,
+   23
+  ],
+  "322212": [
+   "Ruppur",
+   2314,
+   2
+  ],
+  "322165": [
+   "Ranaghat CT",
+   2313,
+   5
+  ],
+  "322312": [
+   "Basantapur",
+   2314,
+   0
+  ],
+  "322241": [
+   "Dakshin Panch Pota",
+   2314,
+   1
+  ],
+  "321844": [
+   "Bil Bayesa",
+   2310,
+   14
+  ],
+  "322349": [
+   "Nischintapur",
+   2315,
+   1
+  ],
+  "322386": [
+   "Garagohalia",
+   2315,
+   1
+  ],
+  "322197": [
+   "Kalipur",
+   2314,
+   2
+  ],
+  "322273": [
+   "Amdanga",
+   2314,
+   3
+  ],
+  "322043": [
+   "Char Rasulpur",
+   2312,
+   4
+  ],
+  "321987": [
+   "Simaistala",
+   2312,
+   5
+  ],
+  "322119": [
+   "Purbanoapara",
+   2313,
+   6
+  ],
+  "321989": [
+   "Krishnapur Chak",
+   2312,
+   5
+  ],
+  "322055": [
+   "Harighat",
+   2313,
+   6
+  ],
+  "321752": [
+   "Chakdignagar",
+   2308,
+   12
+  ],
+  "321757": [
+   "Khamar Simulia",
+   2308,
+   12
+  ],
+  "321880": [
+   "Satpota",
+   2310,
+   13
+  ],
+  "321895": [
+   "Bhabanipur",
+   2310,
+   14
+  ],
+  "322355": [
+   "Rustam Nagar",
+   2315,
+   1
+  ],
+  "322148": [
+   "Mondalpukuria",
+   2313,
+   6
+  ],
+  "321905": [
+   "Malsadaha",
+   2310,
+   10
+  ],
+  "321663": [
+   "Charkashthasali",
+   2307,
+   15
+  ],
+  "321669": [
+   "Maheshganj",
+   2307,
+   11
+  ],
+  "321617": [
+   "Bamanpara",
+   2306,
+   15
+  ],
+  "321645": [
+   "Kanthaliamath",
+   2306,
+   16
+  ],
+  "321735": [
+   "Pansipara",
+   2308,
+   17
+  ],
+  "321693": [
+   "Simul Tala",
+   2308,
+   12
+  ],
+  "321560": [
+   "Dwipchandrapur",
+   2305,
+   21
+  ],
+  "321404": [
+   "Bil Bhalsuni",
+   2303,
+   24
+  ],
+  "321444": [
+   "Sali",
+   2304,
+   25
+  ],
+  "321397": [
+   "Char Khosalpur",
+   2303,
+   24
+  ],
+  "321472": [
+   "Sabaipur",
+   2304,
+   20
+  ],
+  "321850": [
+   "Kamalpur",
+   2310,
+   14
+  ],
+  "321071": [
+   "Uttar Chakarabpur",
+   2299,
+   32
+  ],
+  "321540": [
+   "Gopinathpur",
+   2305,
+   21
+  ]
+ },
+ "village_count_total": 1376,
+ "village_count_assigned": 1376
+}

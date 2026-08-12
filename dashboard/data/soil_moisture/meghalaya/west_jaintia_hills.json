@@ -1,0 +1,1861 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Meghalaya",
+  "district": "West Jaintia Hills",
+  "district_lgd": 275,
+  "observation_window": "2026-08-07T11:18Z to 2026-08-12T11:18Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.4347,
+  "sm_surface_stddev": 0.0383,
+  "sm_rootzone_mean": 0.4391,
+  "sm_rootzone_stddev": 0.0473,
+  "n_cells": 17,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 25.1483,
+    "lon": 92.1447,
+    "sm_surface": 0.5236,
+    "sm_rootzone": 0.5407,
+    "n_villages_sharing_cell": 28
+   },
+   {
+    "cell_index": 1,
+    "lat": 25.2472,
+    "lon": 92.0459,
+    "sm_surface": 0.4963,
+    "sm_rootzone": 0.5141,
+    "n_villages_sharing_cell": 38
+   },
+   {
+    "cell_index": 2,
+    "lat": 25.2472,
+    "lon": 92.1447,
+    "sm_surface": 0.4308,
+    "sm_rootzone": 0.4452,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 3,
+    "lat": 25.346,
+    "lon": 92.1447,
+    "sm_surface": 0.4951,
+    "sm_rootzone": 0.5137,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 4,
+    "lat": 25.4448,
+    "lon": 92.1447,
+    "sm_surface": 0.4941,
+    "sm_rootzone": 0.5129,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 5,
+    "lat": 25.4448,
+    "lon": 92.2435,
+    "sm_surface": 0.4198,
+    "sm_rootzone": 0.4343,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 6,
+    "lat": 25.4448,
+    "lon": 92.3423,
+    "sm_surface": 0.4143,
+    "sm_rootzone": 0.4279,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 7,
+    "lat": 25.4448,
+    "lon": 92.4411,
+    "sm_surface": 0.4102,
+    "sm_rootzone": 0.4046,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 8,
+    "lat": 25.5436,
+    "lon": 92.1447,
+    "sm_surface": 0.4101,
+    "sm_rootzone": 0.4002,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 9,
+    "lat": 25.5436,
+    "lon": 92.2435,
+    "sm_surface": 0.4175,
+    "sm_rootzone": 0.4313,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 10,
+    "lat": 25.5436,
+    "lon": 92.3423,
+    "sm_surface": 0.4096,
+    "sm_rootzone": 0.4023,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 11,
+    "lat": 25.5436,
+    "lon": 92.4411,
+    "sm_surface": 0.4146,
+    "sm_rootzone": 0.4136,
+    "n_villages_sharing_cell": 21
+   },
+   {
+    "cell_index": 12,
+    "lat": 25.5436,
+    "lon": 92.5399,
+    "sm_surface": 0.4103,
+    "sm_rootzone": 0.4083,
+    "n_villages_sharing_cell": 28
+   },
+   {
+    "cell_index": 13,
+    "lat": 25.5436,
+    "lon": 92.6388,
+    "sm_surface": 0.4041,
+    "sm_rootzone": 0.4118,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 14,
+    "lat": 25.6424,
+    "lon": 92.2435,
+    "sm_surface": 0.4172,
+    "sm_rootzone": 0.4066,
+    "n_villages_sharing_cell": 33
+   },
+   {
+    "cell_index": 15,
+    "lat": 25.6424,
+    "lon": 92.3423,
+    "sm_surface": 0.4138,
+    "sm_rootzone": 0.4016,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 16,
+    "lat": 25.6424,
+    "lon": 92.4411,
+    "sm_surface": 0.4092,
+    "sm_rootzone": 0.3953,
+    "n_villages_sharing_cell": 31
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.4417,
+  "sm_surface_stddev": 0.0354,
+  "n_blocks": 3
+ },
+ "blocks": [
+  {
+   "block_name": "Amlarem",
+   "sdcode": 1998,
+   "n_villages": 99,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.4913,
+   "sm_surface_stddev": 0.0318
+  },
+  {
+   "block_name": "Laskein",
+   "sdcode": 1997,
+   "n_villages": 101,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.4111,
+   "sm_surface_stddev": 0.0026
+  },
+  {
+   "block_name": "Thadlaskein",
+   "sdcode": 1996,
+   "n_villages": 135,
+   "n_cells_spanned": 9,
+   "sm_surface_mean": 0.4227,
+   "sm_surface_stddev": 0.0246
+  }
+ ],
+ "villages": {
+  "279196": [
+   "Myntler",
+   1997,
+   16
+  ],
+  "279197": [
+   "Laser",
+   1997,
+   16
+  ],
+  "279388": [
+   "Amlako",
+   1998,
+   0
+  ],
+  "279244": [
+   "Pdeinmuktieh",
+   1997,
+   10
+  ],
+  "279134": [
+   "Khyndawwaso",
+   1996,
+   10
+  ],
+  "279385": [
+   "Lumsohrmen",
+   1998,
+   0
+  ],
+  "279387": [
+   "Jaliakhola",
+   1998,
+   0
+  ],
+  "279381": [
+   "Hawai Bhoi",
+   1998,
+   0
+  ],
+  "279380": [
+   "Hawaisutnga",
+   1998,
+   0
+  ],
+  "279386": [
+   "Sankhat",
+   1998,
+   0
+  ],
+  "279382": [
+   "Phrang Prang",
+   1998,
+   0
+  ],
+  "279316": [
+   "Khonglah",
+   1998,
+   1
+  ],
+  "279330": [
+   "Amkoi",
+   1998,
+   1
+  ],
+  "279334": [
+   "Lamin",
+   1998,
+   1
+  ],
+  "279335": [
+   "Shnongpdeng",
+   1998,
+   1
+  ],
+  "279346": [
+   "Lymba",
+   1998,
+   1
+  ],
+  "279347": [
+   "Kongwang",
+   1998,
+   1
+  ],
+  "279350": [
+   "Bakur",
+   1998,
+   1
+  ],
+  "279349": [
+   "Dawki",
+   1998,
+   1
+  ],
+  "279315": [
+   "Dapdeng",
+   1998,
+   1
+  ],
+  "279317": [
+   "Nongbareh Rim",
+   1998,
+   1
+  ],
+  "279318": [
+   "Mawngap",
+   1998,
+   1
+  ],
+  "279319": [
+   "Pdengkarong",
+   1998,
+   1
+  ],
+  "279320": [
+   "Amlarang",
+   1998,
+   2
+  ],
+  "279322": [
+   "Jaralood",
+   1998,
+   2
+  ],
+  "279323": [
+   "Amtasam",
+   1998,
+   2
+  ],
+  "279324": [
+   "Amlamet",
+   1998,
+   2
+  ],
+  "279325": [
+   "Lurniang",
+   1998,
+   2
+  ],
+  "279326": [
+   "Pdengshakap",
+   1998,
+   2
+  ],
+  "279327": [
+   "Wahrong",
+   1998,
+   1
+  ],
+  "279328": [
+   "Nongbareh Lyntiar",
+   1998,
+   1
+  ],
+  "279329": [
+   "Kudeng Rim",
+   1998,
+   1
+  ],
+  "279331": [
+   "Kudeng Thymmai",
+   1998,
+   1
+  ],
+  "279332": [
+   "Amjajer Roko",
+   1998,
+   1
+  ],
+  "279333": [
+   "Sohkha Shnong",
+   1998,
+   1
+  ],
+  "279336": [
+   "Sohkha Mission",
+   1998,
+   1
+  ],
+  "279337": [
+   "Sohkha Phlang",
+   1998,
+   1
+  ],
+  "279338": [
+   "Wahlyngdoh",
+   1998,
+   1
+  ],
+  "279339": [
+   "Pdengkseh",
+   1998,
+   2
+  ],
+  "279340": [
+   "Nongtalang Main",
+   1998,
+   1
+  ],
+  "279341": [
+   "Amsohmahaleng",
+   1998,
+   1
+  ],
+  "279343": [
+   "Nongtalang Mission",
+   1998,
+   1
+  ],
+  "279342": [
+   "New Nonglamin",
+   1998,
+   1
+  ],
+  "279353": [
+   "Amdoh",
+   1998,
+   1
+  ],
+  "279345": [
+   "Sohkha Model",
+   1998,
+   1
+  ],
+  "279348": [
+   "Darang",
+   1998,
+   1
+  ],
+  "279352": [
+   "Tamabil",
+   1998,
+   1
+  ],
+  "279354": [
+   "Riahjalong",
+   1998,
+   1
+  ],
+  "279355": [
+   "Rhongkum",
+   1998,
+   0
+  ],
+  "279367": [
+   "Amlympiang",
+   1998,
+   0
+  ],
+  "279356": [
+   "Jong U Shen",
+   1998,
+   0
+  ],
+  "279357": [
+   "Twah U Sdiah",
+   1998,
+   2
+  ],
+  "279358": [
+   "Amsohtai",
+   1998,
+   2
+  ],
+  "279368": [
+   "Amsku",
+   1998,
+   0
+  ],
+  "279366": [
+   "Amjalong",
+   1998,
+   0
+  ],
+  "279369": [
+   "Bhoi Kyrweng",
+   1998,
+   0
+  ],
+  "279371": [
+   "Muktapur",
+   1998,
+   0
+  ],
+  "279372": [
+   "Hartale",
+   1998,
+   0
+  ],
+  "279365": [
+   "Syndai Mission",
+   1998,
+   0
+  ],
+  "279370": [
+   "Lakroh",
+   1998,
+   0
+  ],
+  "279364": [
+   "Syndai Lyngkot",
+   1998,
+   0
+  ],
+  "279363": [
+   "Syndai Kmaishnong",
+   1998,
+   0
+  ],
+  "279359": [
+   "Amlari Rim",
+   1998,
+   2
+  ],
+  "279360": [
+   "Amlari Model",
+   1998,
+   2
+  ],
+  "279361": [
+   "Satpator",
+   1998,
+   2
+  ],
+  "279362": [
+   "Tarangblang",
+   1998,
+   2
+  ],
+  "279374": [
+   "Amlanai",
+   1998,
+   0
+  ],
+  "279376": [
+   "Amsoh Rhong",
+   1998,
+   0
+  ],
+  "279377": [
+   "Amtra",
+   1998,
+   0
+  ],
+  "279378": [
+   "Kharkhana",
+   1998,
+   0
+  ],
+  "279379": [
+   "Lumpyngngad",
+   1998,
+   0
+  ],
+  "279384": [
+   "Kamsing",
+   1998,
+   0
+  ],
+  "279383": [
+   "Pasadwar",
+   1998,
+   0
+  ],
+  "279344": [
+   "Nongtalang Thymmai",
+   1998,
+   1
+  ],
+  "279351": [
+   "Latang",
+   1998,
+   1
+  ],
+  "279373": [
+   "Amtaniut",
+   1998,
+   0
+  ],
+  "279375": [
+   "Larem Shyiap",
+   1998,
+   0
+  ],
+  "279293": [
+   "Mupylut",
+   1998,
+   3
+  ],
+  "279294": [
+   "Umsalang",
+   1998,
+   3
+  ],
+  "279295": [
+   "Madan Tyrpait",
+   1998,
+   3
+  ],
+  "279296": [
+   "Shken Pyrsit",
+   1998,
+   3
+  ],
+  "279297": [
+   "Shken Talang",
+   1998,
+   3
+  ],
+  "279298": [
+   "Jarain",
+   1998,
+   3
+  ],
+  "279299": [
+   "Ladjaplem",
+   1998,
+   3
+  ],
+  "279300": [
+   "Umladkhur",
+   1998,
+   3
+  ],
+  "279301": [
+   "Thangbuli",
+   1998,
+   3
+  ],
+  "279302": [
+   "Amsarim",
+   1998,
+   3
+  ],
+  "279304": [
+   "Krangpamtadong",
+   1998,
+   3
+  ],
+  "279305": [
+   "Khliehamkshar",
+   1998,
+   3
+  ],
+  "279306": [
+   "Amsyrwai",
+   1998,
+   2
+  ],
+  "279303": [
+   "Amlarem",
+   1998,
+   2
+  ],
+  "279307": [
+   "Amshipai",
+   1998,
+   2
+  ],
+  "279308": [
+   "Ammutong",
+   1998,
+   2
+  ],
+  "279309": [
+   "Shmiashyiang",
+   1998,
+   1
+  ],
+  "279310": [
+   "Pamtadong",
+   1998,
+   1
+  ],
+  "279311": [
+   "Mawlong",
+   1998,
+   1
+  ],
+  "279312": [
+   "Padu Mawsku",
+   1998,
+   1
+  ],
+  "279313": [
+   "Padubah",
+   1998,
+   1
+  ],
+  "279314": [
+   "Amtapoh",
+   1998,
+   1
+  ],
+  "279321": [
+   "Pamtbuh",
+   1998,
+   2
+  ],
+  "999999": [
+   "Data Partially Available",
+   1997,
+   11
+  ],
+  "279264": [
+   "Mushai",
+   1997,
+   7
+  ],
+  "279128": [
+   "Moorap",
+   1996,
+   9
+  ],
+  "279129": [
+   "Mynsngat",
+   1996,
+   9
+  ],
+  "279157": [
+   "Myrjai",
+   1996,
+   9
+  ],
+  "279147": [
+   "Mupliang",
+   1996,
+   9
+  ],
+  "279140": [
+   "Moodop",
+   1996,
+   9
+  ],
+  "279136": [
+   "Kpermynsnieh",
+   1996,
+   9
+  ],
+  "279137": [
+   "Mookhoniung",
+   1996,
+   9
+  ],
+  "279139": [
+   "Nartiang",
+   1996,
+   9
+  ],
+  "279158": [
+   "Moopasi",
+   1996,
+   9
+  ],
+  "279166": [
+   "Mukhla Nongrim",
+   1996,
+   5
+  ],
+  "279167": [
+   "Umlangshor",
+   1996,
+   5
+  ],
+  "279168": [
+   "Khliehtyrshi",
+   1996,
+   5
+  ],
+  "279185": [
+   "Mihmyntdu",
+   1996,
+   5
+  ],
+  "279176": [
+   "Mookyniang",
+   1996,
+   4
+  ],
+  "279175": [
+   "Ats",
+   1996,
+   4
+  ],
+  "279173": [
+   "Moopyllait Syiar",
+   1996,
+   4
+  ],
+  "279174": [
+   "Chyrmang Nein",
+   1996,
+   4
+  ],
+  "279163": [
+   "Lad Mukhla",
+   1996,
+   4
+  ],
+  "279164": [
+   "Mukhla Mission",
+   1996,
+   8
+  ],
+  "279165": [
+   "Mukhla Shohshrieh",
+   1996,
+   8
+  ],
+  "279155": [
+   "Wahiajer",
+   1996,
+   8
+  ],
+  "279160": [
+   "Ummulong",
+   1996,
+   8
+  ],
+  "279154": [
+   "Maskut",
+   1996,
+   8
+  ],
+  "279153": [
+   "Lumcharatoh",
+   1996,
+   8
+  ],
+  "279152": [
+   "Tyrshang",
+   1996,
+   8
+  ],
+  "279151": [
+   "Wahrymbai",
+   1996,
+   8
+  ],
+  "279150": [
+   "Larnai",
+   1996,
+   8
+  ],
+  "279138": [
+   "Sohphoh",
+   1996,
+   8
+  ],
+  "279149": [
+   "Kdohkule",
+   1996,
+   8
+  ],
+  "279161": [
+   "Mookyndur",
+   1996,
+   8
+  ],
+  "279162": [
+   "Moodymmai",
+   1996,
+   8
+  ],
+  "279177": [
+   "Niriang",
+   1996,
+   4
+  ],
+  "279178": [
+   "Madur",
+   1996,
+   4
+  ],
+  "279179": [
+   "Madur Thymme",
+   1996,
+   4
+  ],
+  "279180": [
+   "Lumkhudung",
+   1996,
+   4
+  ],
+  "279181": [
+   "Phlongingkhaw",
+   1996,
+   4
+  ],
+  "279183": [
+   "Sohmynting",
+   1996,
+   4
+  ],
+  "279182": [
+   "Demthring",
+   1996,
+   4
+  ],
+  "279184": [
+   "Pynthorlangtein",
+   1996,
+   4
+  ],
+  "279188": [
+   "Muphlang",
+   1996,
+   3
+  ],
+  "279189": [
+   "Mustem",
+   1996,
+   5
+  ],
+  "279190": [
+   "Iongnoh",
+   1996,
+   5
+  ],
+  "279187": [
+   "Moobyrni",
+   1996,
+   5
+  ],
+  "279186": [
+   "Chyrmang Wah",
+   1996,
+   5
+  ],
+  "279291": [
+   "Moosakhia",
+   1998,
+   3
+  ],
+  "279292": [
+   "Samanong",
+   1998,
+   3
+  ],
+  "279148": [
+   "Mynso",
+   1996,
+   9
+  ],
+  "279156": [
+   "Ksehlamare",
+   1996,
+   8
+  ],
+  "249820": [
+   "Jowai",
+   1996,
+   5
+  ],
+  "279171": [
+   "Sabahmuswang",
+   1996,
+   5
+  ],
+  "279172": [
+   "Ialong",
+   1996,
+   5
+  ],
+  "279251": [
+   "Pdeimutong",
+   1997,
+   6
+  ],
+  "279252": [
+   "Phramer",
+   1997,
+   6
+  ],
+  "279253": [
+   "Thadmuthlong",
+   1997,
+   6
+  ],
+  "279254": [
+   "Muthlongrim",
+   1997,
+   6
+  ],
+  "279255": [
+   "Shangpung Khlieh Mushut",
+   1997,
+   6
+  ],
+  "279256": [
+   "Shangpung Moolibang",
+   1997,
+   6
+  ],
+  "279257": [
+   "Shangpung Misssion",
+   1997,
+   6
+  ],
+  "279258": [
+   "Shangpung Pohshnong",
+   1997,
+   6
+  ],
+  "279259": [
+   "Shangpung Moosyiem",
+   1997,
+   6
+  ],
+  "279260": [
+   "Khliehrangnah",
+   1997,
+   7
+  ],
+  "279261": [
+   "Mynska",
+   1997,
+   7
+  ],
+  "279263": [
+   "Mynkrem",
+   1997,
+   7
+  ],
+  "279169": [
+   "Mookaswan",
+   1996,
+   5
+  ],
+  "279170": [
+   "Lad Mynkseh",
+   1996,
+   9
+  ],
+  "279159": [
+   "Nongbah",
+   1996,
+   9
+  ],
+  "279242": [
+   "Mynskiah",
+   1997,
+   10
+  ],
+  "279243": [
+   "Khliehumbuit",
+   1997,
+   10
+  ],
+  "279245": [
+   "Mynso A",
+   1997,
+   10
+  ],
+  "279246": [
+   "Mynso B",
+   1997,
+   10
+  ],
+  "279247": [
+   "Kyndongtuber",
+   1997,
+   10
+  ],
+  "279248": [
+   "Myntkung",
+   1997,
+   10
+  ],
+  "279249": [
+   "Pammanik",
+   1997,
+   10
+  ],
+  "279250": [
+   "Pasyih",
+   1997,
+   10
+  ],
+  "279145": [
+   "Iongthma",
+   1996,
+   9
+  ],
+  "279146": [
+   "Nongjngi",
+   1996,
+   9
+  ],
+  "279142": [
+   "Iangkar",
+   1996,
+   9
+  ],
+  "279143": [
+   "Moolephaw",
+   1996,
+   10
+  ],
+  "279144": [
+   "Lumtrep",
+   1996,
+   10
+  ],
+  "279141": [
+   "Ionglwit",
+   1996,
+   9
+  ],
+  "279131": [
+   "Ringkyrtein",
+   1996,
+   10
+  ],
+  "279133": [
+   "Khlohriat",
+   1996,
+   10
+  ],
+  "279135": [
+   "Mynkrem",
+   1996,
+   10
+  ],
+  "279220": [
+   "Thadbamon",
+   1997,
+   10
+  ],
+  "279223": [
+   "Thadialong",
+   1997,
+   10
+  ],
+  "279224": [
+   "Lummuriap",
+   1997,
+   10
+  ],
+  "279222": [
+   "Lummuphan",
+   1997,
+   10
+  ],
+  "279204": [
+   "Thangrain",
+   1997,
+   11
+  ],
+  "279215": [
+   "Iongkwang",
+   1997,
+   11
+  ],
+  "279216": [
+   "Shilliang Myntang",
+   1997,
+   10
+  ],
+  "279219": [
+   "Iongkalani",
+   1997,
+   10
+  ],
+  "279225": [
+   "Samatan",
+   1997,
+   10
+  ],
+  "279233": [
+   "Mowkaiaw",
+   1997,
+   11
+  ],
+  "279234": [
+   "Mulum",
+   1997,
+   11
+  ],
+  "279237": [
+   "Laskein",
+   1997,
+   11
+  ],
+  "279238": [
+   "Nongkynrih",
+   1997,
+   11
+  ],
+  "279239": [
+   "Mulieh",
+   1997,
+   11
+  ],
+  "279240": [
+   "Madankynsaw",
+   1997,
+   11
+  ],
+  "279241": [
+   "Mookyndeng",
+   1997,
+   11
+  ],
+  "279262": [
+   "Khlookynrin",
+   1997,
+   7
+  ],
+  "279266": [
+   "Raliang",
+   1997,
+   11
+  ],
+  "279267": [
+   "Pyntei",
+   1997,
+   11
+  ],
+  "279269": [
+   "Biar",
+   1997,
+   11
+  ],
+  "279270": [
+   "Chutwakhu Sarhen",
+   1997,
+   11
+  ],
+  "279271": [
+   "Nongryngkoh",
+   1997,
+   11
+  ],
+  "279289": [
+   "Lum Lyntur",
+   1997,
+   7
+  ],
+  "279268": [
+   "Latanai",
+   1997,
+   11
+  ],
+  "279209": [
+   "Tum Tum",
+   1997,
+   12
+  ],
+  "279210": [
+   "Iongkasaro",
+   1997,
+   12
+  ],
+  "279211": [
+   "Sahsniang A",
+   1997,
+   12
+  ],
+  "279212": [
+   "Sahsniang B",
+   1997,
+   12
+  ],
+  "279213": [
+   "Mooshroot",
+   1997,
+   12
+  ],
+  "279214": [
+   "Kyrwen",
+   1997,
+   11
+  ],
+  "279226": [
+   "Niawkmai",
+   1997,
+   12
+  ],
+  "279228": [
+   "Thangthring",
+   1997,
+   12
+  ],
+  "279229": [
+   "Pdeilapatein",
+   1997,
+   12
+  ],
+  "279230": [
+   "Iong U Lang",
+   1997,
+   12
+  ],
+  "279231": [
+   "Mynksan",
+   1997,
+   12
+  ],
+  "279232": [
+   "Madanrwan",
+   1997,
+   11
+  ],
+  "279235": [
+   "Mootyrshiah A",
+   1997,
+   11
+  ],
+  "279236": [
+   "Mootyrshiah B",
+   1997,
+   11
+  ],
+  "279265": [
+   "Rtiang",
+   1997,
+   7
+  ],
+  "279272": [
+   "Mukhap",
+   1997,
+   11
+  ],
+  "279273": [
+   "Khonshnong",
+   1997,
+   12
+  ],
+  "279274": [
+   "Lakadong",
+   1997,
+   12
+  ],
+  "279277": [
+   "Iooksi",
+   1997,
+   12
+  ],
+  "279275": [
+   "Tongkiad",
+   1997,
+   12
+  ],
+  "279276": [
+   "Umsalait",
+   1997,
+   12
+  ],
+  "279278": [
+   "Kyanmynsar Thlongmoo",
+   1997,
+   12
+  ],
+  "279279": [
+   "Praing",
+   1997,
+   12
+  ],
+  "279280": [
+   "Umdinlieng",
+   1997,
+   12
+  ],
+  "279281": [
+   "Iawthymmei",
+   1997,
+   13
+  ],
+  "279282": [
+   "Saphai",
+   1997,
+   13
+  ],
+  "279285": [
+   "Shet Jahadem",
+   1997,
+   12
+  ],
+  "279286": [
+   "Madanrwai",
+   1997,
+   12
+  ],
+  "279287": [
+   "Sangkari",
+   1997,
+   12
+  ],
+  "279288": [
+   "Pohriat",
+   1997,
+   12
+  ],
+  "279290": [
+   "Madanpohkseh",
+   1997,
+   12
+  ],
+  "279227": [
+   "Khyndawwaso",
+   1997,
+   12
+  ],
+  "279283": [
+   "Thadmurit",
+   1997,
+   13
+  ],
+  "279284": [
+   "Laru",
+   1997,
+   13
+  ],
+  "279098": [
+   "Maw Shillong",
+   1996,
+   14
+  ],
+  "279058": [
+   "Laru Ladaw",
+   1996,
+   14
+  ],
+  "279064": [
+   "Umbluhumsning",
+   1996,
+   14
+  ],
+  "279065": [
+   "Mooker",
+   1996,
+   14
+  ],
+  "279066": [
+   "Umtangtiang",
+   1996,
+   14
+  ],
+  "279101": [
+   "Kdiap",
+   1996,
+   14
+  ],
+  "279100": [
+   "Rakabah",
+   1996,
+   14
+  ],
+  "279093": [
+   "Umladang",
+   1996,
+   14
+  ],
+  "279095": [
+   "Lumkya",
+   1996,
+   14
+  ],
+  "279094": [
+   "Nongrimbambthong",
+   1996,
+   14
+  ],
+  "279097": [
+   "Nongdhar",
+   1996,
+   14
+  ],
+  "279096": [
+   "Nongsutnga",
+   1996,
+   14
+  ],
+  "279099": [
+   "Moorathud",
+   1996,
+   14
+  ],
+  "279109": [
+   "Iongshiwiat",
+   1996,
+   14
+  ],
+  "279111": [
+   "Remain",
+   1996,
+   14
+  ],
+  "279110": [
+   "Bamkamar",
+   1996,
+   8
+  ],
+  "279124": [
+   "Nongkharai",
+   1996,
+   8
+  ],
+  "279123": [
+   "Umrakia",
+   1996,
+   8
+  ],
+  "279125": [
+   "Nongkhroh",
+   1996,
+   8
+  ],
+  "279122": [
+   "Nonglatem",
+   1996,
+   14
+  ],
+  "279112": [
+   "Mookabeng",
+   1996,
+   14
+  ],
+  "279126": [
+   "Thadmusem",
+   1996,
+   8
+  ],
+  "279127": [
+   "Nongkhyllep",
+   1996,
+   14
+  ],
+  "279113": [
+   "Kremlabit",
+   1996,
+   14
+  ],
+  "279108": [
+   "Mookjat",
+   1996,
+   14
+  ],
+  "279063": [
+   "Ladaw",
+   1996,
+   14
+  ],
+  "279059": [
+   "Thadmynri",
+   1996,
+   14
+  ],
+  "279060": [
+   "Khonsaro",
+   1996,
+   14
+  ],
+  "279061": [
+   "Lad Myngngor",
+   1996,
+   14
+  ],
+  "279062": [
+   "Mookbu",
+   1996,
+   14
+  ],
+  "279067": [
+   "Thadmukoh",
+   1996,
+   15
+  ],
+  "279068": [
+   "Kremmyrsiang",
+   1996,
+   15
+  ],
+  "279090": [
+   "Namdong A",
+   1996,
+   15
+  ],
+  "279089": [
+   "Umjalisiaw",
+   1996,
+   14
+  ],
+  "279092": [
+   "Namdong B",
+   1996,
+   14
+  ],
+  "279091": [
+   "Mukhnang",
+   1996,
+   15
+  ],
+  "279102": [
+   "Lumrot",
+   1996,
+   14
+  ],
+  "279106": [
+   "Nongthymme",
+   1996,
+   14
+  ],
+  "279107": [
+   "Nongmulieh",
+   1996,
+   14
+  ],
+  "279121": [
+   "Ksehrynshang",
+   1996,
+   14
+  ],
+  "279130": [
+   "Moolyngkdein",
+   1996,
+   14
+  ],
+  "279114": [
+   "Moobakhon",
+   1996,
+   14
+  ],
+  "279105": [
+   "Lumstong",
+   1996,
+   15
+  ],
+  "279115": [
+   "Moorapushai",
+   1996,
+   15
+  ],
+  "279120": [
+   "Madansynrang",
+   1996,
+   15
+  ],
+  "279069": [
+   "Rtiang Sanphew",
+   1996,
+   15
+  ],
+  "279074": [
+   "Mukoiram",
+   1996,
+   15
+  ],
+  "279075": [
+   "Saitsama",
+   1996,
+   15
+  ],
+  "279076": [
+   "Umshangiar",
+   1996,
+   16
+  ],
+  "279073": [
+   "Rudumplu",
+   1996,
+   16
+  ],
+  "279070": [
+   "Myn I",
+   1996,
+   16
+  ],
+  "279071": [
+   "Khanduli",
+   1996,
+   16
+  ],
+  "279072": [
+   "Madanrtiang",
+   1996,
+   16
+  ],
+  "279077": [
+   "Shiabnai",
+   1996,
+   16
+  ],
+  "279078": [
+   "Myngngor",
+   1996,
+   16
+  ],
+  "279079": [
+   "Tamu",
+   1996,
+   16
+  ],
+  "279081": [
+   "Lumlakhiat",
+   1996,
+   16
+  ],
+  "279082": [
+   "Lakaroi",
+   1996,
+   16
+  ],
+  "279086": [
+   "Pdeintaloo",
+   1996,
+   16
+  ],
+  "279085": [
+   "Tahpatpnar",
+   1996,
+   16
+  ],
+  "279087": [
+   "Lapangap",
+   1996,
+   16
+  ],
+  "279080": [
+   "Pdeiniawmusiang",
+   1996,
+   15
+  ],
+  "279103": [
+   "Sanaroo",
+   1996,
+   15
+  ],
+  "279104": [
+   "Pdeiniadaw",
+   1996,
+   15
+  ],
+  "279118": [
+   "Sophohwaiong",
+   1996,
+   15
+  ],
+  "279119": [
+   "Khliehriat",
+   1996,
+   15
+  ],
+  "279116": [
+   "Iongsnieh Takhniang",
+   1996,
+   15
+  ],
+  "279192": [
+   "Mukroh",
+   1997,
+   16
+  ],
+  "279193": [
+   "Saba",
+   1997,
+   16
+  ],
+  "279194": [
+   "Maitdieng",
+   1997,
+   16
+  ],
+  "279195": [
+   "Jongkynshur",
+   1997,
+   16
+  ],
+  "279198": [
+   "Barato",
+   1997,
+   16
+  ],
+  "279199": [
+   "Moobando",
+   1997,
+   16
+  ],
+  "279200": [
+   "Latymphu",
+   1997,
+   16
+  ],
+  "279201": [
+   "Musiaw",
+   1997,
+   16
+  ],
+  "279202": [
+   "Umsalang",
+   1997,
+   16
+  ],
+  "279203": [
+   "Khliehsiniriang",
+   1997,
+   16
+  ],
+  "279206": [
+   "Khatkasla",
+   1997,
+   12
+  ],
+  "279207": [
+   "Psiar",
+   1997,
+   12
+  ],
+  "279208": [
+   "Myntang Tihwieh",
+   1997,
+   12
+  ],
+  "279217": [
+   "Bhain",
+   1997,
+   16
+  ],
+  "279218": [
+   "Thadsning",
+   1997,
+   15
+  ],
+  "279221": [
+   "Sookhlieh",
+   1997,
+   16
+  ],
+  "279088": [
+   "Mookyndur",
+   1996,
+   15
+  ],
+  "279084": [
+   "Bampiej",
+   1996,
+   16
+  ],
+  "279083": [
+   "Umsaitmuit",
+   1996,
+   16
+  ],
+  "279117": [
+   "Saphai",
+   1996,
+   16
+  ],
+  "279132": [
+   "Takhniang",
+   1996,
+   15
+  ],
+  "279191": [
+   "Umlaphiah",
+   1997,
+   16
+  ],
+  "279205": [
+   "Nohkrei",
+   1997,
+   12
+  ]
+ },
+ "village_count_total": 335,
+ "village_count_assigned": 335
+}

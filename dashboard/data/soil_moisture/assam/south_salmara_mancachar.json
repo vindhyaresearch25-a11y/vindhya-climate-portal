@@ -1,0 +1,1691 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Assam",
+  "district": "South Salmara Mancachar",
+  "district_lgd": 707,
+  "observation_window": "2026-08-07T11:02Z to 2026-08-12T11:02Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3275,
+  "sm_surface_stddev": 0.0144,
+  "sm_rootzone_mean": 0.3463,
+  "sm_rootzone_stddev": 0.0194,
+  "n_cells": 8,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 25.5436,
+    "lon": 89.872,
+    "sm_surface": 0.3525,
+    "sm_rootzone": 0.3775,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 1,
+    "lat": 25.6424,
+    "lon": 89.9708,
+    "sm_surface": 0.3406,
+    "sm_rootzone": 0.3667,
+    "n_villages_sharing_cell": 37
+   },
+   {
+    "cell_index": 2,
+    "lat": 25.7412,
+    "lon": 89.872,
+    "sm_surface": 0.3242,
+    "sm_rootzone": 0.3489,
+    "n_villages_sharing_cell": 58
+   },
+   {
+    "cell_index": 3,
+    "lat": 25.84,
+    "lon": 89.872,
+    "sm_surface": 0.3326,
+    "sm_rootzone": 0.352,
+    "n_villages_sharing_cell": 38
+   },
+   {
+    "cell_index": 4,
+    "lat": 25.84,
+    "lon": 89.9708,
+    "sm_surface": 0.3244,
+    "sm_rootzone": 0.3432,
+    "n_villages_sharing_cell": 30
+   },
+   {
+    "cell_index": 5,
+    "lat": 25.9389,
+    "lon": 89.9708,
+    "sm_surface": 0.3308,
+    "sm_rootzone": 0.3438,
+    "n_villages_sharing_cell": 36
+   },
+   {
+    "cell_index": 6,
+    "lat": 25.9389,
+    "lon": 90.0696,
+    "sm_surface": 0.3108,
+    "sm_rootzone": 0.3255,
+    "n_villages_sharing_cell": 48
+   },
+   {
+    "cell_index": 7,
+    "lat": 26.0377,
+    "lon": 90.1684,
+    "sm_surface": 0.3044,
+    "sm_rootzone": 0.3126,
+    "n_villages_sharing_cell": 46
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3271,
+  "sm_surface_stddev": 0.0079,
+  "n_blocks": 2
+ },
+ "blocks": [
+  {
+   "block_name": "Mankachar",
+   "sdcode": 2012,
+   "n_villages": 114,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.335,
+   "sm_surface_stddev": 0.0112
+  },
+  {
+   "block_name": "South Salmara",
+   "sdcode": 2011,
+   "n_villages": 201,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.3193,
+   "sm_surface_stddev": 0.0114
+  }
+ ],
+ "villages": {
+  "281737": [
+   "Jhawdanga Pt Iii",
+   2012,
+   0
+  ],
+  "281491": [
+   "River Block N C",
+   2011,
+   3
+  ],
+  "281723": [
+   "Kanyamati Kamamoti",
+   2012,
+   0
+  ],
+  "281738": [
+   "Kuchnimara",
+   2012,
+   0
+  ],
+  "281739": [
+   "Jordanga Pt I",
+   2012,
+   0
+  ],
+  "281743": [
+   "Jhagrarchar Pt Ii",
+   2012,
+   0
+  ],
+  "281741": [
+   "Thakurarbari",
+   2012,
+   0
+  ],
+  "281744": [
+   "Kakripara Pt Ii",
+   2012,
+   0
+  ],
+  "281746": [
+   "Chamaibil",
+   2012,
+   0
+  ],
+  "281742": [
+   "Jhagrarchar Pt I",
+   2012,
+   0
+  ],
+  "281745": [
+   "Kakripara Pt I",
+   2012,
+   0
+  ],
+  "281740": [
+   "Jordanga Pt Ii",
+   2012,
+   0
+  ],
+  "281747": [
+   "Khashbil",
+   2012,
+   0
+  ],
+  "281734": [
+   "Monjuri",
+   2012,
+   1
+  ],
+  "281751": [
+   "Banshali",
+   2012,
+   1
+  ],
+  "281750": [
+   "Barkona",
+   2012,
+   1
+  ],
+  "281736": [
+   "Rangapani",
+   2012,
+   0
+  ],
+  "281748": [
+   "Joyfar",
+   2012,
+   0
+  ],
+  "281749": [
+   "Ayodoba",
+   2012,
+   0
+  ],
+  "281515": [
+   "Bamundanga",
+   2011,
+   3
+  ],
+  "281502": [
+   "Salapara Pt Ii",
+   2011,
+   3
+  ],
+  "281635": [
+   "Khopati Pt I",
+   2011,
+   4
+  ],
+  "281507": [
+   "Nilokhia Pt Iv",
+   2011,
+   3
+  ],
+  "281505": [
+   "Nilokhia Pt Ii",
+   2011,
+   3
+  ],
+  "281512": [
+   "Barabangarchar Pt Iv",
+   2011,
+   3
+  ],
+  "281641": [
+   "Bramputra Borabanga",
+   2011,
+   3
+  ],
+  "281639": [
+   "Boalea Pt I",
+   2011,
+   4
+  ],
+  "281516": [
+   "Fdimarichar",
+   2011,
+   3
+  ],
+  "281643": [
+   "Falimari",
+   2011,
+   3
+  ],
+  "281506": [
+   "Nilokhia Pt Iii",
+   2011,
+   3
+  ],
+  "281640": [
+   "Boalea Pt Ii",
+   2011,
+   3
+  ],
+  "281636": [
+   "Khopati Pt Ii",
+   2011,
+   4
+  ],
+  "281645": [
+   "Borobaloo",
+   2011,
+   2
+  ],
+  "281642": [
+   "Gotabari",
+   2011,
+   4
+  ],
+  "281651": [
+   "Berabanga Pt I",
+   2012,
+   2
+  ],
+  "281647": [
+   "Dewaneralga Pt Ii",
+   2012,
+   2
+  ],
+  "281644": [
+   "Boraitari",
+   2011,
+   2
+  ],
+  "281648": [
+   "Dewaneralga Pt Iii",
+   2012,
+   2
+  ],
+  "281637": [
+   "Khopati Pt Iii",
+   2011,
+   4
+  ],
+  "281649": [
+   "Suckchar Pt Ii",
+   2012,
+   2
+  ],
+  "281652": [
+   "Bhutiadanga",
+   2012,
+   2
+  ],
+  "281650": [
+   "Berabanga Pt Ii",
+   2012,
+   2
+  ],
+  "281653": [
+   "Gokulpur Tangnamari",
+   2012,
+   2
+  ],
+  "281638": [
+   "Khopati Pt Iv",
+   2011,
+   2
+  ],
+  "281656": [
+   "Malakhowa",
+   2012,
+   2
+  ],
+  "281654": [
+   "Chotoharipur",
+   2012,
+   2
+  ],
+  "281657": [
+   "Fattapara",
+   2012,
+   2
+  ],
+  "281658": [
+   "Dakuamari",
+   2012,
+   2
+  ],
+  "281655": [
+   "Ferengichar",
+   2012,
+   2
+  ],
+  "281662": [
+   "Maliralga Pt I",
+   2012,
+   2
+  ],
+  "281664": [
+   "Boriralga",
+   2012,
+   2
+  ],
+  "281668": [
+   "Fulerchar Pt Iv",
+   2012,
+   2
+  ],
+  "281667": [
+   "Fulerchar Pt Iii",
+   2012,
+   2
+  ],
+  "281666": [
+   "Kokradanga Pt Iii",
+   2012,
+   2
+  ],
+  "281672": [
+   "Kokradanga Pt Ii",
+   2012,
+   2
+  ],
+  "281674": [
+   "Kaliralga Pt Ii",
+   2012,
+   2
+  ],
+  "281669": [
+   "Hatsingimari",
+   2012,
+   2
+  ],
+  "281671": [
+   "Fulerchar Pt Ii",
+   2012,
+   2
+  ],
+  "281670": [
+   "Bhimapara",
+   2012,
+   2
+  ],
+  "281673": [
+   "Assameralga",
+   2012,
+   2
+  ],
+  "281678": [
+   "Fekamari Pt I",
+   2012,
+   2
+  ],
+  "281680": [
+   "Kharuabandha",
+   2012,
+   2
+  ],
+  "281679": [
+   "Fulerchar Pt I",
+   2012,
+   2
+  ],
+  "281682": [
+   "Sreerampara",
+   2012,
+   2
+  ],
+  "281685": [
+   "Fekamari Pt Ii",
+   2012,
+   2
+  ],
+  "281681": [
+   "Roghupara",
+   2012,
+   2
+  ],
+  "281676": [
+   "Kanaimara Pt Ii",
+   2012,
+   2
+  ],
+  "281687": [
+   "Dayerchar",
+   2012,
+   2
+  ],
+  "281677": [
+   "Kanaimara Pt I",
+   2012,
+   2
+  ],
+  "281683": [
+   "Bangtimari",
+   2012,
+   2
+  ],
+  "281684": [
+   "Moinabndha",
+   2012,
+   2
+  ],
+  "281686": [
+   "Paglatola",
+   2012,
+   2
+  ],
+  "281713": [
+   "Ramvolapara",
+   2012,
+   1
+  ],
+  "281700": [
+   "Manullapara",
+   2012,
+   2
+  ],
+  "281699": [
+   "Pacherkandi",
+   2012,
+   2
+  ],
+  "281688": [
+   "Kathalbari",
+   2012,
+   2
+  ],
+  "281689": [
+   "Changurchar",
+   2012,
+   2
+  ],
+  "281701": [
+   "Pipulbari Pt Iv",
+   2012,
+   1
+  ],
+  "281691": [
+   "Diara",
+   2012,
+   2
+  ],
+  "281698": [
+   "Bamunpara",
+   2012,
+   2
+  ],
+  "281714": [
+   "Dhanua",
+   2012,
+   1
+  ],
+  "281693": [
+   "Uramari Pt I",
+   2012,
+   2
+  ],
+  "281710": [
+   "Gachuabari",
+   2012,
+   1
+  ],
+  "281728": [
+   "Tangoan Pt Iii",
+   2012,
+   1
+  ],
+  "281702": [
+   "Ashomkata",
+   2012,
+   1
+  ],
+  "281697": [
+   "Moishaldanga Pt Ii",
+   2012,
+   2
+  ],
+  "281694": [
+   "Bowalia",
+   2012,
+   2
+  ],
+  "281696": [
+   "Charibari Pt I",
+   2012,
+   2
+  ],
+  "281709": [
+   "Pipulbari Pt Iii",
+   2012,
+   1
+  ],
+  "281695": [
+   "Kukurmara Pt I",
+   2012,
+   2
+  ],
+  "281729": [
+   "Tangoan Pt Ii",
+   2012,
+   1
+  ],
+  "281703": [
+   "Moishaldanga Pt I",
+   2012,
+   1
+  ],
+  "281704": [
+   "Charbari Pt Ii",
+   2012,
+   1
+  ],
+  "281715": [
+   "Pipulbari Pt I",
+   2012,
+   1
+  ],
+  "281716": [
+   "Pipulbari Pt Ii",
+   2012,
+   1
+  ],
+  "281706": [
+   "Dharakoba Pt I",
+   2012,
+   1
+  ],
+  "281707": [
+   "Dharakoba Ptii",
+   2012,
+   1
+  ],
+  "281708": [
+   "Bhurakata",
+   2012,
+   1
+  ],
+  "281705": [
+   "Kukurmara Pt Ii",
+   2012,
+   1
+  ],
+  "281730": [
+   "Shalibharin",
+   2012,
+   1
+  ],
+  "281727": [
+   "Tangoan Pt I",
+   2012,
+   1
+  ],
+  "281755": [
+   "Dhapgurikuraltanga Pt Ii",
+   2012,
+   1
+  ],
+  "281717": [
+   "Chirakhowa Toppara",
+   2012,
+   1
+  ],
+  "281719": [
+   "Pathuria",
+   2012,
+   0
+  ],
+  "281731": [
+   "Shadullabari",
+   2012,
+   1
+  ],
+  "281756": [
+   "Dhapgurikuraltanga Pt I",
+   2012,
+   1
+  ],
+  "281711": [
+   "Dorua",
+   2012,
+   1
+  ],
+  "281726": [
+   "Chirakhowa",
+   2012,
+   1
+  ],
+  "281754": [
+   "Bormatia",
+   2012,
+   1
+  ],
+  "281758": [
+   "Depkaidalbari",
+   2012,
+   1
+  ],
+  "281718": [
+   "Chirakhowa Bengervita",
+   2012,
+   1
+  ],
+  "281757": [
+   "Margaon Jatna",
+   2012,
+   1
+  ],
+  "281725": [
+   "Chirakhowa Maishghuma",
+   2012,
+   1
+  ],
+  "281732": [
+   "Chomrashali",
+   2012,
+   1
+  ],
+  "281722": [
+   "Darua Kawahagi",
+   2012,
+   0
+  ],
+  "281724": [
+   "Chirakhowa Kutherghat",
+   2012,
+   0
+  ],
+  "281753": [
+   "Jogipara",
+   2012,
+   1
+  ],
+  "281733": [
+   "Chirakhowa Tetlibari",
+   2012,
+   1
+  ],
+  "281752": [
+   "Gopalpur",
+   2012,
+   1
+  ],
+  "281735": [
+   "Niz Chirakhowa",
+   2012,
+   0
+  ],
+  "281646": [
+   "Dewaneralga Pt I",
+   2012,
+   2
+  ],
+  "281663": [
+   "Nepureralga",
+   2012,
+   2
+  ],
+  "281665": [
+   "Kokradanga Pt I",
+   2012,
+   2
+  ],
+  "281690": [
+   "Uzan Jhagrarchar",
+   2012,
+   2
+  ],
+  "281712": [
+   "Domartola",
+   2012,
+   1
+  ],
+  "281720": [
+   "Jhowdanga Pt Ii",
+   2012,
+   0
+  ],
+  "281721": [
+   "Jhowdanga Pt I",
+   2012,
+   0
+  ],
+  "281517": [
+   "Darogaralga Nc",
+   2011,
+   3
+  ],
+  "281659": [
+   "Suckchar Pt I",
+   2012,
+   2
+  ],
+  "281660": [
+   "Maliralga Pt Iii",
+   2012,
+   2
+  ],
+  "281661": [
+   "Maliralga Pt Ii",
+   2012,
+   2
+  ],
+  "281675": [
+   "Kaliralga Pt I",
+   2012,
+   2
+  ],
+  "281692": [
+   "Uramari Pt Ii",
+   2012,
+   2
+  ],
+  "281455": [
+   "Birsing Pt I",
+   2011,
+   5
+  ],
+  "281458": [
+   "Aminerchar",
+   2011,
+   5
+  ],
+  "281456": [
+   "Birsing Pt Ii",
+   2011,
+   5
+  ],
+  "281462": [
+   "Katiaralga Katiartol",
+   2011,
+   5
+  ],
+  "281463": [
+   "Dhadaimari",
+   2011,
+   5
+  ],
+  "281470": [
+   "Dowarikhota",
+   2011,
+   5
+  ],
+  "281596": [
+   "Baushkata Pt V",
+   2011,
+   5
+  ],
+  "281469": [
+   "Kathieralga No I",
+   2011,
+   5
+  ],
+  "281595": [
+   "Baushkata Pt Iv",
+   2011,
+   5
+  ],
+  "281597": [
+   "Baushkata Pt Vi",
+   2011,
+   5
+  ],
+  "281466": [
+   "Dawarikhota",
+   2011,
+   5
+  ],
+  "281602": [
+   "Char Bastir Char",
+   2011,
+   5
+  ],
+  "281468": [
+   "Assameralga",
+   2011,
+   5
+  ],
+  "281601": [
+   "Chaitarchar Pt I",
+   2011,
+   5
+  ],
+  "281617": [
+   "Chaitarchar Basirchar",
+   2011,
+   5
+  ],
+  "281467": [
+   "Pacherchar",
+   2011,
+   5
+  ],
+  "281486": [
+   "River Block N C",
+   2011,
+   4
+  ],
+  "281465": [
+   "Nateseralga Pt Ii Natineralga Pt Ii",
+   2011,
+   5
+  ],
+  "281615": [
+   "Chaitarchar Pt Ii",
+   2011,
+   5
+  ],
+  "281483": [
+   "Pacherchar Pt I",
+   2011,
+   5
+  ],
+  "281484": [
+   "Pacherchar Pt Ii",
+   2011,
+   5
+  ],
+  "281489": [
+   "Muthakhowa Pt Iii",
+   2011,
+   3
+  ],
+  "281464": [
+   "Satitralga Pt I Natineralga Pt I",
+   2011,
+   5
+  ],
+  "281611": [
+   "Salmara Pt I",
+   2011,
+   5
+  ],
+  "281628": [
+   "Lawkhowa",
+   2011,
+   5
+  ],
+  "281612": [
+   "Salmara Pt Ii",
+   2011,
+   5
+  ],
+  "281630": [
+   "Khodaidhila",
+   2011,
+   4
+  ],
+  "281624": [
+   "Monirchar",
+   2011,
+   4
+  ],
+  "281482": [
+   "Sutramara Pt Ii",
+   2011,
+   4
+  ],
+  "281490": [
+   "Mahamayarchar",
+   2011,
+   3
+  ],
+  "281487": [
+   "Muthakhowa Pt I",
+   2011,
+   3
+  ],
+  "281481": [
+   "Sutramara Pt I",
+   2011,
+   3
+  ],
+  "281626": [
+   "Monir Damumara",
+   2011,
+   4
+  ],
+  "281629": [
+   "Taltari",
+   2011,
+   4
+  ],
+  "281618": [
+   "Tumni",
+   2011,
+   4
+  ],
+  "281619": [
+   "Tumni Simlakandi",
+   2011,
+   4
+  ],
+  "281496": [
+   "Kathearalga Pt Iv",
+   2011,
+   3
+  ],
+  "281493": [
+   "Kathearalga Pt I",
+   2011,
+   3
+  ],
+  "281625": [
+   "Monirchar Madarchar",
+   2011,
+   4
+  ],
+  "281627": [
+   "Monirchar Boidergaon",
+   2011,
+   4
+  ],
+  "281488": [
+   "Muthakhowa Pt Ii",
+   2011,
+   3
+  ],
+  "281492": [
+   "Chakirchar",
+   2011,
+   3
+  ],
+  "281474": [
+   "Monirchar Pt I",
+   2011,
+   3
+  ],
+  "281494": [
+   "Kathearalga Pt Ii",
+   2011,
+   3
+  ],
+  "281623": [
+   "Rajabala Tersertari",
+   2011,
+   4
+  ],
+  "281495": [
+   "Kathearalga Pt Iii",
+   2011,
+   3
+  ],
+  "281631": [
+   "Niz Monirchar",
+   2011,
+   4
+  ],
+  "281471": [
+   "Charmonirchar",
+   2011,
+   4
+  ],
+  "281472": [
+   "River Block N C",
+   2011,
+   4
+  ],
+  "281622": [
+   "Rajabala Bhlukmari",
+   2011,
+   4
+  ],
+  "281514": [
+   "Nilokhia Pt Vi",
+   2011,
+   3
+  ],
+  "281501": [
+   "Salapara Pt I",
+   2011,
+   3
+  ],
+  "281461": [
+   "Airmari",
+   2011,
+   5
+  ],
+  "281473": [
+   "River Block N C",
+   2011,
+   4
+  ],
+  "281497": [
+   "Kathearalga Pt V",
+   2011,
+   3
+  ],
+  "281498": [
+   "Kathearalga Pt Vi",
+   2011,
+   3
+  ],
+  "281633": [
+   "Pata Kata",
+   2011,
+   4
+  ],
+  "281509": [
+   "Barabangarchar Pt I",
+   2011,
+   3
+  ],
+  "281621": [
+   "Raja Bala",
+   2011,
+   4
+  ],
+  "281477": [
+   "Charkatdanga Pt I",
+   2011,
+   4
+  ],
+  "281634": [
+   "Katdanga Satdubi Pt Ii",
+   2011,
+   4
+  ],
+  "281476": [
+   "Katdanga",
+   2011,
+   4
+  ],
+  "281478": [
+   "Charkatdanga Pt Ii",
+   2011,
+   4
+  ],
+  "281510": [
+   "Barabangarchar Pt Ii",
+   2011,
+   3
+  ],
+  "281480": [
+   "Rashomari Pt Ii",
+   2011,
+   3
+  ],
+  "281508": [
+   "Nilokhia Pt V",
+   2011,
+   3
+  ],
+  "281504": [
+   "Nilokhia Pt I",
+   2011,
+   3
+  ],
+  "281511": [
+   "Barabangarchar Pt Iii",
+   2011,
+   3
+  ],
+  "281479": [
+   "Bowalia",
+   2011,
+   4
+  ],
+  "281503": [
+   "Salapara Pt Iii",
+   2011,
+   3
+  ],
+  "281513": [
+   "Roshomari Pt I",
+   2011,
+   3
+  ],
+  "281632": [
+   "Katdanga Satdubi Pt I",
+   2011,
+   4
+  ],
+  "281613": [
+   "Baladoba",
+   2011,
+   5
+  ],
+  "281616": [
+   "Chaitarchar Pt Iii",
+   2011,
+   5
+  ],
+  "281485": [
+   "Pacherchar Pt Iii",
+   2011,
+   5
+  ],
+  "281475": [
+   "Monirchar Pt Ii",
+   2011,
+   3
+  ],
+  "281499": [
+   "Kathearalga Pt Vii",
+   2011,
+   3
+  ],
+  "281600": [
+   "Soto Ravatary",
+   2011,
+   5
+  ],
+  "281500": [
+   "Kathearalga Pt Viii",
+   2011,
+   3
+  ],
+  "281759": [
+   "Mankachar CT",
+   2012,
+   0
+  ],
+  "281605": [
+   "Borokalia Sharsho",
+   2011,
+   6
+  ],
+  "281610": [
+   "Bororavatary Pt Ii",
+   2011,
+   5
+  ],
+  "281609": [
+   "Bororavatary Pt I",
+   2011,
+   6
+  ],
+  "281614": [
+   "Saboltari",
+   2011,
+   5
+  ],
+  "281620": [
+   "Tumni Lawkhowa",
+   2011,
+   4
+  ],
+  "281549": [
+   "Kulamuachoto Nichinpur",
+   2011,
+   7
+  ],
+  "281550": [
+   "Boronichinpur",
+   2011,
+   7
+  ],
+  "281543": [
+   "Godervita",
+   2011,
+   7
+  ],
+  "281545": [
+   "Puthia",
+   2011,
+   7
+  ],
+  "281546": [
+   "Modokona",
+   2011,
+   7
+  ],
+  "281547": [
+   "Madatari",
+   2011,
+   7
+  ],
+  "281548": [
+   "Kalnoi",
+   2011,
+   7
+  ],
+  "281532": [
+   "Kabaitari Nc",
+   2011,
+   7
+  ],
+  "281531": [
+   "Gota Khowa Nc",
+   2011,
+   7
+  ],
+  "281524": [
+   "Mondia",
+   2011,
+   7
+  ],
+  "281535": [
+   "Narowamari Nc",
+   2011,
+   7
+  ],
+  "281554": [
+   "Gobratari",
+   2011,
+   7
+  ],
+  "281530": [
+   "Darikona Mari Nc",
+   2011,
+   7
+  ],
+  "281529": [
+   "Belakhowa Nc",
+   2011,
+   7
+  ],
+  "281449": [
+   "Puhirtari",
+   2011,
+   6
+  ],
+  "281528": [
+   "Rowarpara Nc",
+   2011,
+   7
+  ],
+  "281557": [
+   "Medobil",
+   2011,
+   7
+  ],
+  "281538": [
+   "Satsimla Nc",
+   2011,
+   7
+  ],
+  "281536": [
+   "Kapurpuri Nc",
+   2011,
+   7
+  ],
+  "281450": [
+   "Gadupara Bhijapara",
+   2011,
+   6
+  ],
+  "281527": [
+   "Paglapara",
+   2011,
+   7
+  ],
+  "281556": [
+   "Dariaparamajuli",
+   2011,
+   7
+  ],
+  "281555": [
+   "Paddervita",
+   2011,
+   7
+  ],
+  "281561": [
+   "Dingdinga",
+   2011,
+   7
+  ],
+  "281537": [
+   "Antarvita Nc",
+   2011,
+   7
+  ],
+  "281539": [
+   "Berkakhali Nc",
+   2011,
+   6
+  ],
+  "281523": [
+   "Khamari",
+   2011,
+   7
+  ],
+  "281519": [
+   "Berurghar",
+   2011,
+   6
+  ],
+  "281522": [
+   "Routhmara",
+   2011,
+   7
+  ],
+  "281559": [
+   "Kumari",
+   2011,
+   7
+  ],
+  "281560": [
+   "Parua",
+   2011,
+   7
+  ],
+  "281558": [
+   "Kasiartari",
+   2011,
+   7
+  ],
+  "281518": [
+   "Matifata",
+   2011,
+   6
+  ],
+  "281563": [
+   "Fulgacha",
+   2011,
+   7
+  ],
+  "281521": [
+   "Mahajan Para",
+   2011,
+   7
+  ],
+  "281576": [
+   "Payastechar",
+   2011,
+   6
+  ],
+  "281452": [
+   "Borovita",
+   2011,
+   6
+  ],
+  "281570": [
+   "Dudhtola",
+   2011,
+   7
+  ],
+  "281520": [
+   "Kukurkandi",
+   2011,
+   6
+  ],
+  "281525": [
+   "Sunderpara Pt I",
+   2011,
+   6
+  ],
+  "281453": [
+   "Sialmari",
+   2011,
+   6
+  ],
+  "281457": [
+   "Birsing Pt Iii",
+   2011,
+   5
+  ],
+  "281565": [
+   "Chirakutichatapara",
+   2011,
+   7
+  ],
+  "281583": [
+   "Ghagmari Pt Ii Bhegmari Pt Ii",
+   2011,
+   6
+  ],
+  "281571": [
+   "Porarvita",
+   2011,
+   6
+  ],
+  "281569": [
+   "Paikarpara",
+   2011,
+   7
+  ],
+  "281566": [
+   "Baoluri",
+   2011,
+   7
+  ],
+  "281577": [
+   "Sunderpara Pt Ii",
+   2011,
+   6
+  ],
+  "281562": [
+   "Gunaipani",
+   2011,
+   7
+  ],
+  "281573": [
+   "Jamadarpara",
+   2011,
+   6
+  ],
+  "281568": [
+   "Mathakatabana Chapa",
+   2011,
+   6
+  ],
+  "281459": [
+   "Golaperalga",
+   2011,
+   6
+  ],
+  "281587": [
+   "Bhakuamari",
+   2011,
+   6
+  ],
+  "281575": [
+   "Shakaripara",
+   2011,
+   6
+  ],
+  "281567": [
+   "Tarangijhar",
+   2011,
+   6
+  ],
+  "281585": [
+   "Chotokalia Pt Ii",
+   2011,
+   6
+  ],
+  "281578": [
+   "Sunderpara Pt Iii",
+   2011,
+   6
+  ],
+  "281572": [
+   "Balatari",
+   2011,
+   6
+  ],
+  "281603": [
+   "Charia Gram",
+   2011,
+   5
+  ],
+  "281590": [
+   "Sunderpara Pt Iv",
+   2011,
+   6
+  ],
+  "281579": [
+   "Maira Kuchi Pt I",
+   2011,
+   6
+  ],
+  "281589": [
+   "Baladmara Fakirganga",
+   2011,
+   6
+  ],
+  "281588": [
+   "Borokalia Pt I",
+   2011,
+   6
+  ],
+  "281593": [
+   "Baushkata Pt Ii",
+   2011,
+   6
+  ],
+  "281592": [
+   "Baushkata Pt I",
+   2011,
+   5
+  ],
+  "281591": [
+   "Mairakuchi Pt Ii",
+   2011,
+   6
+  ],
+  "281607": [
+   "Borokalia Chatlarpur",
+   2011,
+   6
+  ],
+  "281606": [
+   "Borokalia Goladegi",
+   2011,
+   6
+  ],
+  "281604": [
+   "Borokalia Nashkara",
+   2011,
+   6
+  ],
+  "281608": [
+   "Borokalia Surjyamara",
+   2011,
+   6
+  ],
+  "281445": [
+   "Tindubi Phuhirtari Char",
+   2011,
+   6
+  ],
+  "281533": [
+   "Baitkarvita Nc",
+   2011,
+   7
+  ],
+  "281534": [
+   "Dhangrapara Nc",
+   2011,
+   7
+  ],
+  "281446": [
+   "Tindubi",
+   2011,
+   6
+  ],
+  "281448": [
+   "Thusipara",
+   2011,
+   6
+  ],
+  "281447": [
+   "Sialtrita",
+   2011,
+   6
+  ],
+  "281451": [
+   "Gossaidubi",
+   2011,
+   6
+  ],
+  "281454": [
+   "Birsing Sialmari",
+   2011,
+   6
+  ],
+  "281581": [
+   "Bamunirpar",
+   2011,
+   6
+  ],
+  "281582": [
+   "Ghagmari Pt I Bhegmari Pt I",
+   2011,
+   6
+  ],
+  "281460": [
+   "Kanchanmala",
+   2011,
+   6
+  ],
+  "281584": [
+   "Chotokalia Pt I",
+   2011,
+   6
+  ],
+  "281586": [
+   "Chotokalia Pt Iii",
+   2011,
+   6
+  ],
+  "281599": [
+   "Borokalia Pt Ii",
+   2011,
+   6
+  ],
+  "281594": [
+   "Baushkata Pt Iii",
+   2011,
+   5
+  ],
+  "281598": [
+   "Baushkata Pt Vii",
+   2011,
+   5
+  ],
+  "281551": [
+   "Jambari",
+   2011,
+   7
+  ],
+  "281552": [
+   "Airkata",
+   2011,
+   7
+  ],
+  "281564": [
+   "Bamunervita",
+   2011,
+   7
+  ],
+  "281553": [
+   "Falpur",
+   2011,
+   7
+  ],
+  "281574": [
+   "Satsia",
+   2011,
+   6
+  ],
+  "281580": [
+   "Baladmara Joypur",
+   2011,
+   6
+  ],
+  "281526": [
+   "River Block",
+   2011,
+   7
+  ],
+  "281540": [
+   "Dighirpar",
+   2011,
+   7
+  ],
+  "281541": [
+   "Daruamari",
+   2011,
+   7
+  ],
+  "281544": [
+   "Beldubi",
+   2011,
+   7
+  ],
+  "281542": [
+   "Cherakuti",
+   2011,
+   7
+  ]
+ },
+ "village_count_total": 315,
+ "village_count_assigned": 315
+}

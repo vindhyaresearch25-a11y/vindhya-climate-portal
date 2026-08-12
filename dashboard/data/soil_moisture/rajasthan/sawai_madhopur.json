@@ -1,0 +1,4582 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Rajasthan",
+  "district": "Sawai Madhopur",
+  "district_lgd": 113,
+  "observation_window": "2026-08-07T11:23Z to 2026-08-12T11:23Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2369,
+  "sm_surface_stddev": 0.0211,
+  "sm_rootzone_mean": 0.2239,
+  "sm_rootzone_stddev": 0.033,
+  "n_cells": 49,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 25.84,
+    "lon": 76.3343,
+    "sm_surface": 0.2346,
+    "sm_rootzone": 0.2493,
+    "n_villages_sharing_cell": 27
+   },
+   {
+    "cell_index": 1,
+    "lat": 25.84,
+    "lon": 76.4332,
+    "sm_surface": 0.2994,
+    "sm_rootzone": 0.3305,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 2,
+    "lat": 25.9389,
+    "lon": 76.3343,
+    "sm_surface": 0.2368,
+    "sm_rootzone": 0.2317,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 3,
+    "lat": 25.9389,
+    "lon": 76.4332,
+    "sm_surface": 0.2361,
+    "sm_rootzone": 0.2275,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 4,
+    "lat": 25.9389,
+    "lon": 76.532,
+    "sm_surface": 0.3041,
+    "sm_rootzone": 0.3143,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 5,
+    "lat": 25.9389,
+    "lon": 76.6308,
+    "sm_surface": 0.2929,
+    "sm_rootzone": 0.32,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 6,
+    "lat": 25.9389,
+    "lon": 76.7296,
+    "sm_surface": 0.2499,
+    "sm_rootzone": 0.2179,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 7,
+    "lat": 26.0377,
+    "lon": 76.1367,
+    "sm_surface": 0.2214,
+    "sm_rootzone": 0.2579,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 8,
+    "lat": 26.0377,
+    "lon": 76.2355,
+    "sm_surface": 0.2251,
+    "sm_rootzone": 0.2567,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 9,
+    "lat": 26.0377,
+    "lon": 76.3343,
+    "sm_surface": 0.2386,
+    "sm_rootzone": 0.2411,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 10,
+    "lat": 26.0377,
+    "lon": 76.4332,
+    "sm_surface": 0.23,
+    "sm_rootzone": 0.2238,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 11,
+    "lat": 26.0377,
+    "lon": 76.532,
+    "sm_surface": 0.2325,
+    "sm_rootzone": 0.2216,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 12,
+    "lat": 26.0377,
+    "lon": 76.6308,
+    "sm_surface": 0.2938,
+    "sm_rootzone": 0.3225,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 13,
+    "lat": 26.0377,
+    "lon": 76.7296,
+    "sm_surface": 0.2422,
+    "sm_rootzone": 0.2357,
+    "n_villages_sharing_cell": 21
+   },
+   {
+    "cell_index": 14,
+    "lat": 26.0377,
+    "lon": 76.8284,
+    "sm_surface": 0.2404,
+    "sm_rootzone": 0.2339,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 15,
+    "lat": 26.1365,
+    "lon": 76.0379,
+    "sm_surface": 0.2219,
+    "sm_rootzone": 0.2102,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 16,
+    "lat": 26.1365,
+    "lon": 76.1367,
+    "sm_surface": 0.2274,
+    "sm_rootzone": 0.2119,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 17,
+    "lat": 26.1365,
+    "lon": 76.2355,
+    "sm_surface": 0.2327,
+    "sm_rootzone": 0.2098,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 18,
+    "lat": 26.1365,
+    "lon": 76.3343,
+    "sm_surface": 0.2434,
+    "sm_rootzone": 0.2136,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 19,
+    "lat": 26.1365,
+    "lon": 76.4332,
+    "sm_surface": 0.2488,
+    "sm_rootzone": 0.2153,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 20,
+    "lat": 26.1365,
+    "lon": 76.532,
+    "sm_surface": 0.2326,
+    "sm_rootzone": 0.2354,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 21,
+    "lat": 26.1365,
+    "lon": 76.6308,
+    "sm_surface": 0.2271,
+    "sm_rootzone": 0.2229,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 22,
+    "lat": 26.1365,
+    "lon": 76.7296,
+    "sm_surface": 0.2337,
+    "sm_rootzone": 0.2278,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 23,
+    "lat": 26.2353,
+    "lon": 76.0379,
+    "sm_surface": 0.2166,
+    "sm_rootzone": 0.2053,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 24,
+    "lat": 26.2353,
+    "lon": 76.1367,
+    "sm_surface": 0.2208,
+    "sm_rootzone": 0.2053,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 25,
+    "lat": 26.2353,
+    "lon": 76.2355,
+    "sm_surface": 0.2178,
+    "sm_rootzone": 0.1995,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 26,
+    "lat": 26.2353,
+    "lon": 76.3343,
+    "sm_surface": 0.2224,
+    "sm_rootzone": 0.201,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 27,
+    "lat": 26.2353,
+    "lon": 76.4332,
+    "sm_surface": 0.2285,
+    "sm_rootzone": 0.2046,
+    "n_villages_sharing_cell": 25
+   },
+   {
+    "cell_index": 28,
+    "lat": 26.2353,
+    "lon": 76.532,
+    "sm_surface": 0.2214,
+    "sm_rootzone": 0.2273,
+    "n_villages_sharing_cell": 21
+   },
+   {
+    "cell_index": 29,
+    "lat": 26.3341,
+    "lon": 76.1367,
+    "sm_surface": 0.2181,
+    "sm_rootzone": 0.2048,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 30,
+    "lat": 26.3341,
+    "lon": 76.2355,
+    "sm_surface": 0.2145,
+    "sm_rootzone": 0.1981,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 31,
+    "lat": 26.3341,
+    "lon": 76.3343,
+    "sm_surface": 0.2207,
+    "sm_rootzone": 0.2031,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 32,
+    "lat": 26.3341,
+    "lon": 76.4332,
+    "sm_surface": 0.2271,
+    "sm_rootzone": 0.2064,
+    "n_villages_sharing_cell": 25
+   },
+   {
+    "cell_index": 33,
+    "lat": 26.3341,
+    "lon": 76.532,
+    "sm_surface": 0.2336,
+    "sm_rootzone": 0.21,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 34,
+    "lat": 26.3341,
+    "lon": 76.6308,
+    "sm_surface": 0.226,
+    "sm_rootzone": 0.1926,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 35,
+    "lat": 26.4329,
+    "lon": 76.2355,
+    "sm_surface": 0.2043,
+    "sm_rootzone": 0.195,
+    "n_villages_sharing_cell": 21
+   },
+   {
+    "cell_index": 36,
+    "lat": 26.4329,
+    "lon": 76.3343,
+    "sm_surface": 0.2124,
+    "sm_rootzone": 0.1989,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 37,
+    "lat": 26.4329,
+    "lon": 76.4332,
+    "sm_surface": 0.2227,
+    "sm_rootzone": 0.2009,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 38,
+    "lat": 26.4329,
+    "lon": 76.532,
+    "sm_surface": 0.2346,
+    "sm_rootzone": 0.2048,
+    "n_villages_sharing_cell": 31
+   },
+   {
+    "cell_index": 39,
+    "lat": 26.4329,
+    "lon": 76.6308,
+    "sm_surface": 0.2316,
+    "sm_rootzone": 0.2063,
+    "n_villages_sharing_cell": 27
+   },
+   {
+    "cell_index": 40,
+    "lat": 26.4329,
+    "lon": 76.7296,
+    "sm_surface": 0.2402,
+    "sm_rootzone": 0.2094,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 41,
+    "lat": 26.5317,
+    "lon": 76.532,
+    "sm_surface": 0.2333,
+    "sm_rootzone": 0.1943,
+    "n_villages_sharing_cell": 27
+   },
+   {
+    "cell_index": 42,
+    "lat": 26.5317,
+    "lon": 76.6308,
+    "sm_surface": 0.2362,
+    "sm_rootzone": 0.2089,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 43,
+    "lat": 26.5317,
+    "lon": 76.7296,
+    "sm_surface": 0.2435,
+    "sm_rootzone": 0.2119,
+    "n_villages_sharing_cell": 21
+   },
+   {
+    "cell_index": 44,
+    "lat": 26.5317,
+    "lon": 76.8284,
+    "sm_surface": 0.2502,
+    "sm_rootzone": 0.2154,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 45,
+    "lat": 26.6306,
+    "lon": 76.532,
+    "sm_surface": 0.2413,
+    "sm_rootzone": 0.1984,
+    "n_villages_sharing_cell": 32
+   },
+   {
+    "cell_index": 46,
+    "lat": 26.6306,
+    "lon": 76.6308,
+    "sm_surface": 0.234,
+    "sm_rootzone": 0.2004,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 47,
+    "lat": 26.6306,
+    "lon": 76.8284,
+    "sm_surface": 0.2531,
+    "sm_rootzone": 0.2181,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 48,
+    "lat": 26.6306,
+    "lon": 76.9272,
+    "sm_surface": 0.2585,
+    "sm_rootzone": 0.2209,
+    "n_villages_sharing_cell": 22
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2373,
+  "sm_surface_stddev": 0.0155,
+  "n_blocks": 8
+ },
+ "blocks": [
+  {
+   "block_name": "Bamanwas",
+   "sdcode": 527,
+   "n_villages": 153,
+   "n_cells_spanned": 9,
+   "sm_surface_mean": 0.2343,
+   "sm_surface_stddev": 0.0052
+  },
+  {
+   "block_name": "Bonli",
+   "sdcode": 529,
+   "n_villages": 106,
+   "n_cells_spanned": 9,
+   "sm_surface_mean": 0.2152,
+   "sm_surface_stddev": 0.0062
+  },
+  {
+   "block_name": "Chauth Ka Barwara",
+   "sdcode": 530,
+   "n_villages": 67,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.2244,
+   "sm_surface_stddev": 0.0046
+  },
+  {
+   "block_name": "Gangapur",
+   "sdcode": 526,
+   "n_villages": 83,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.2362,
+   "sm_surface_stddev": 0.0063
+  },
+  {
+   "block_name": "Khandar",
+   "sdcode": 532,
+   "n_villages": 134,
+   "n_cells_spanned": 13,
+   "sm_surface_mean": 0.2654,
+   "sm_surface_stddev": 0.0299
+  },
+  {
+   "block_name": "Malarna Doongar",
+   "sdcode": 528,
+   "n_villages": 76,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.2252,
+   "sm_surface_stddev": 0.0033
+  },
+  {
+   "block_name": "Sawai Madhopur",
+   "sdcode": 531,
+   "n_villages": 155,
+   "n_cells_spanned": 14,
+   "sm_surface_mean": 0.2434,
+   "sm_surface_stddev": 0.0201
+  },
+  {
+   "block_name": "Wazeerpur",
+   "sdcode": 6386,
+   "n_villages": 44,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.2544,
+   "sm_surface_stddev": 0.0046
+  }
+ ],
+ "villages": {
+  "77852": [
+   "Sukhwas",
+   532,
+   4
+  ],
+  "77849": [
+   "Ganganagar",
+   532,
+   4
+  ],
+  "77848": [
+   "Chhan",
+   532,
+   4
+  ],
+  "77693": [
+   "Aarampura",
+   531,
+   2
+  ],
+  "77690": [
+   "Nimli Khurd",
+   531,
+   2
+  ],
+  "77685": [
+   "Sangrampura",
+   531,
+   2
+  ],
+  "77682": [
+   "Alanpur Rural",
+   531,
+   9
+  ],
+  "77679": [
+   "Himmatpur",
+   531,
+   10
+  ],
+  "77461": [
+   "Kuvaganv",
+   529,
+   30
+  ],
+  "77820": [
+   "Padri Topkhana",
+   532,
+   5
+  ],
+  "77611": [
+   "Padana",
+   531,
+   27
+  ],
+  "77610": [
+   "Khat Kalan",
+   531,
+   19
+  ],
+  "77585": [
+   "Kumhariya",
+   530,
+   7
+  ],
+  "77586": [
+   "Jajera",
+   530,
+   7
+  ],
+  "77587": [
+   "Kanwarpura",
+   530,
+   7
+  ],
+  "77829": [
+   "Rawara",
+   532,
+   12
+  ],
+  "77178": [
+   "Jaitpur",
+   526,
+   39
+  ],
+  "77193": [
+   "Kotri",
+   526,
+   34
+  ],
+  "77192": [
+   "Barh Kotri",
+   526,
+   34
+  ],
+  "77747": [
+   "Kishanpura",
+   531,
+   0
+  ],
+  "77744": [
+   "Dheeroli",
+   531,
+   1
+  ],
+  "77742": [
+   "Sewti Khurd",
+   531,
+   1
+  ],
+  "77743": [
+   "Sewti Kalan",
+   531,
+   1
+  ],
+  "77754": [
+   "Akodiya",
+   531,
+   1
+  ],
+  "77745": [
+   "Rampura",
+   531,
+   1
+  ],
+  "77749": [
+   "Balwan Khurd",
+   531,
+   0
+  ],
+  "77751": [
+   "Shyopura",
+   531,
+   0
+  ],
+  "77750": [
+   "Ramnagar",
+   531,
+   0
+  ],
+  "77752": [
+   "Karmapur",
+   531,
+   0
+  ],
+  "77746": [
+   "Chitara",
+   531,
+   1
+  ],
+  "77753": [
+   "Garhi",
+   531,
+   1
+  ],
+  "77748": [
+   "Khanpur",
+   531,
+   0
+  ],
+  "77842": [
+   "Chhandal Chhandali",
+   532,
+   11
+  ],
+  "77845": [
+   "Mayapur",
+   532,
+   3
+  ],
+  "77867": [
+   "Phariya",
+   532,
+   4
+  ],
+  "77843": [
+   "Gopalpura",
+   532,
+   4
+  ],
+  "77859": [
+   "Sewti Khurd",
+   532,
+   4
+  ],
+  "77866": [
+   "Bahrawanda Khurd",
+   532,
+   4
+  ],
+  "77846": [
+   "Nachhai",
+   532,
+   3
+  ],
+  "77850": [
+   "Gandayata",
+   532,
+   1
+  ],
+  "77854": [
+   "Berna",
+   532,
+   1
+  ],
+  "77855": [
+   "Kyarda Khurd",
+   532,
+   4
+  ],
+  "77857": [
+   "Chak Dharmpuri",
+   532,
+   4
+  ],
+  "77860": [
+   "Haripura",
+   532,
+   4
+  ],
+  "77858": [
+   "Dharmpuri",
+   532,
+   4
+  ],
+  "77787": [
+   "Prempura",
+   532,
+   11
+  ],
+  "77841": [
+   "Lahpur",
+   532,
+   11
+  ],
+  "77653": [
+   "Karela",
+   531,
+   9
+  ],
+  "77738": [
+   "Lahsoda",
+   531,
+   1
+  ],
+  "77680": [
+   "Madhosinghpura",
+   531,
+   10
+  ],
+  "77709": [
+   "Kali Bhati",
+   531,
+   2
+  ],
+  "77681": [
+   "Qila Ranthambor",
+   531,
+   10
+  ],
+  "77721": [
+   "Bhairoonpura",
+   531,
+   1
+  ],
+  "77719": [
+   "Bodal",
+   531,
+   3
+  ],
+  "77716": [
+   "Mor Doongri",
+   531,
+   3
+  ],
+  "77711": [
+   "Kushalipura",
+   531,
+   2
+  ],
+  "77712": [
+   "Halonda",
+   531,
+   2
+  ],
+  "77739": [
+   "Sawaiganj",
+   531,
+   1
+  ],
+  "77720": [
+   "Awand",
+   531,
+   1
+  ],
+  "77740": [
+   "Ajeetpura",
+   531,
+   1
+  ],
+  "77741": [
+   "Khirkhari",
+   531,
+   1
+  ],
+  "77736": [
+   "Dangarwara",
+   531,
+   1
+  ],
+  "77734": [
+   "Dolada",
+   531,
+   0
+  ],
+  "77722": [
+   "Jalpa Kheri",
+   531,
+   0
+  ],
+  "77730": [
+   "Kala Kua",
+   531,
+   0
+  ],
+  "77735": [
+   "Anchher",
+   531,
+   1
+  ],
+  "77733": [
+   "Mundraheri",
+   531,
+   0
+  ],
+  "248720": [
+   "Sawai Madhopur",
+   531,
+   9
+  ],
+  "77723": [
+   "Dumoda",
+   531,
+   0
+  ],
+  "77725": [
+   "Hindwara",
+   531,
+   0
+  ],
+  "77710": [
+   "Hajjam Kheri",
+   531,
+   2
+  ],
+  "77724": [
+   "Kailashpuri",
+   531,
+   0
+  ],
+  "77726": [
+   "Phalaudi",
+   531,
+   0
+  ],
+  "77692": [
+   "Nimli Kalan",
+   531,
+   2
+  ],
+  "77705": [
+   "Rawanjna Chaur",
+   531,
+   2
+  ],
+  "77706": [
+   "Jaitpura",
+   531,
+   2
+  ],
+  "77707": [
+   "Shyopura",
+   531,
+   2
+  ],
+  "77703": [
+   "Laxmipura",
+   531,
+   0
+  ],
+  "77704": [
+   "Sankli",
+   531,
+   0
+  ],
+  "77708": [
+   "Rawanjna Doongar",
+   531,
+   0
+  ],
+  "77727": [
+   "Vijaynagar",
+   531,
+   0
+  ],
+  "77699": [
+   "Khijoori",
+   531,
+   0
+  ],
+  "77701": [
+   "Pancholas",
+   531,
+   0
+  ],
+  "77697": [
+   "Bagawda",
+   531,
+   2
+  ],
+  "77698": [
+   "Manrajpura",
+   531,
+   0
+  ],
+  "77695": [
+   "Mui",
+   531,
+   2
+  ],
+  "77689": [
+   "Kushtala",
+   531,
+   2
+  ],
+  "77683": [
+   "Jeenapur",
+   531,
+   9
+  ],
+  "77684": [
+   "Borif",
+   531,
+   2
+  ],
+  "77687": [
+   "Dahakwa",
+   531,
+   8
+  ],
+  "77696": [
+   "Peepalwara",
+   531,
+   2
+  ],
+  "77732": [
+   "Tetra",
+   531,
+   0
+  ],
+  "77731": [
+   "Bhatpura",
+   531,
+   0
+  ],
+  "77702": [
+   "Kalyanpura",
+   531,
+   0
+  ],
+  "77700": [
+   "Kherla",
+   531,
+   0
+  ],
+  "77694": [
+   "Juwar",
+   531,
+   2
+  ],
+  "77686": [
+   "Gambhira",
+   531,
+   9
+  ],
+  "77651": [
+   "Dhumon Khurd",
+   531,
+   9
+  ],
+  "77594": [
+   "Borda",
+   530,
+   8
+  ],
+  "77595": [
+   "Deopura",
+   530,
+   8
+  ],
+  "77588": [
+   "Gardwas",
+   530,
+   7
+  ],
+  "77590": [
+   "Ramsinghpura",
+   530,
+   7
+  ],
+  "77844": [
+   "Indala",
+   532,
+   4
+  ],
+  "77589": [
+   "Roopnagar",
+   530,
+   7
+  ],
+  "77591": [
+   "Balriya",
+   530,
+   7
+  ],
+  "77584": [
+   "Ratanpura",
+   530,
+   7
+  ],
+  "77582": [
+   "Ganeshganj",
+   530,
+   7
+  ],
+  "77581": [
+   "Gopalpura",
+   530,
+   7
+  ],
+  "77593": [
+   "Thekra",
+   530,
+   8
+  ],
+  "77840": [
+   "Umri Firozpur",
+   532,
+   11
+  ],
+  "77718": [
+   "Nakdi Rahmanpura",
+   531,
+   3
+  ],
+  "77717": [
+   "Gurha",
+   531,
+   3
+  ],
+  "77715": [
+   "Khalwara",
+   531,
+   3
+  ],
+  "77714": [
+   "Shahrpura",
+   531,
+   3
+  ],
+  "77713": [
+   "Ajabpura",
+   531,
+   3
+  ],
+  "77688": [
+   "Jaisapura",
+   531,
+   8
+  ],
+  "77847": [
+   "Jetpur",
+   532,
+   3
+  ],
+  "77853": [
+   "Allapur",
+   532,
+   4
+  ],
+  "77865": [
+   "Daulatpura",
+   532,
+   4
+  ],
+  "77652": [
+   "Kherli Kalan",
+   531,
+   9
+  ],
+  "77650": [
+   "Dhumon Kalan",
+   531,
+   8
+  ],
+  "77729": [
+   "Todra",
+   531,
+   0
+  ],
+  "77678": [
+   "Bhuderda",
+   531,
+   9
+  ],
+  "77536": [
+   "Peeplya",
+   530,
+   23
+  ],
+  "77535": [
+   "Shiwar",
+   530,
+   23
+  ],
+  "77548": [
+   "Isarda",
+   530,
+   15
+  ],
+  "77549": [
+   "Chaukri",
+   530,
+   15
+  ],
+  "77550": [
+   "Raipur",
+   530,
+   15
+  ],
+  "77551": [
+   "Solpur",
+   530,
+   15
+  ],
+  "77537": [
+   "Mahapura",
+   530,
+   23
+  ],
+  "77538": [
+   "Murli Manoharpura",
+   530,
+   23
+  ],
+  "77534": [
+   "Kanwarpura",
+   530,
+   23
+  ],
+  "77545": [
+   "Deoli",
+   530,
+   16
+  ],
+  "77547": [
+   "Sarsop",
+   530,
+   15
+  ],
+  "77552": [
+   "Dholi",
+   530,
+   15
+  ],
+  "77539": [
+   "Bandh Gopalpura",
+   530,
+   24
+  ],
+  "77384": [
+   "Barodiya",
+   528,
+   25
+  ],
+  "77613": [
+   "Rahitha Kalan",
+   531,
+   19
+  ],
+  "77665": [
+   "Uliyana",
+   531,
+   19
+  ],
+  "77624": [
+   "Kundera",
+   531,
+   19
+  ],
+  "77353": [
+   "Barh Bariyara",
+   528,
+   32
+  ],
+  "77756": [
+   "Baso Khurd",
+   532,
+   20
+  ],
+  "77755": [
+   "Baso Kalan",
+   532,
+   20
+  ],
+  "77783": [
+   "Kacheeda Kalan",
+   532,
+   20
+  ],
+  "77784": [
+   "Lakkarda",
+   532,
+   11
+  ],
+  "77785": [
+   "Kacheeda Khurd",
+   532,
+   11
+  ],
+  "77778": [
+   "Padra Nizamat",
+   532,
+   20
+  ],
+  "77623": [
+   "Parli",
+   531,
+   19
+  ],
+  "77622": [
+   "Bhadlao",
+   531,
+   20
+  ],
+  "77621": [
+   "Shyampura",
+   531,
+   20
+  ],
+  "77620": [
+   "Niwadi",
+   531,
+   28
+  ],
+  "77619": [
+   "Endwa",
+   531,
+   28
+  ],
+  "77615": [
+   "Badolas",
+   531,
+   27
+  ],
+  "77617": [
+   "Olwara",
+   531,
+   28
+  ],
+  "77618": [
+   "Hingoni",
+   531,
+   20
+  ],
+  "77614": [
+   "Ninoni",
+   531,
+   19
+  ],
+  "77631": [
+   "Bhains Khera",
+   531,
+   19
+  ],
+  "77671": [
+   "Khilchipur",
+   531,
+   10
+  ],
+  "77667": [
+   "Sherpur",
+   531,
+   10
+  ],
+  "77666": [
+   "Khandoj",
+   531,
+   10
+  ],
+  "77668": [
+   "Kutalpura Maliyan",
+   531,
+   10
+  ],
+  "77673": [
+   "Lodhipura",
+   531,
+   9
+  ],
+  "77662": [
+   "Phoosoda",
+   531,
+   19
+  ],
+  "77664": [
+   "Ranwal",
+   531,
+   19
+  ],
+  "77663": [
+   "Chharoda",
+   531,
+   19
+  ],
+  "77669": [
+   "Khawa",
+   531,
+   10
+  ],
+  "77670": [
+   "Jamool Khera",
+   531,
+   19
+  ],
+  "77677": [
+   "Karmoda",
+   531,
+   9
+  ],
+  "77606": [
+   "Dhoonda",
+   531,
+   26
+  ],
+  "77638": [
+   "Jatwara Kalan",
+   531,
+   18
+  ],
+  "77637": [
+   "Needarda",
+   531,
+   18
+  ],
+  "77630": [
+   "Seloo",
+   531,
+   19
+  ],
+  "77625": [
+   "Kanseer",
+   531,
+   19
+  ],
+  "77661": [
+   "Dhanoli",
+   531,
+   19
+  ],
+  "77633": [
+   "Menpura",
+   531,
+   18
+  ],
+  "77636": [
+   "Shyamota",
+   531,
+   18
+  ],
+  "77629": [
+   "Chakeri",
+   531,
+   19
+  ],
+  "77607": [
+   "Dubbi Bidarkha",
+   531,
+   18
+  ],
+  "77635": [
+   "Ajnoti",
+   531,
+   18
+  ],
+  "77634": [
+   "Koshali",
+   531,
+   18
+  ],
+  "77632": [
+   "Gongor",
+   531,
+   19
+  ],
+  "77627": [
+   "Dobra Kalan",
+   531,
+   19
+  ],
+  "77628": [
+   "Makholi",
+   531,
+   19
+  ],
+  "77626": [
+   "Dubbi Khurd",
+   531,
+   19
+  ],
+  "77612": [
+   "Rahitha Khurd",
+   531,
+   27
+  ],
+  "77609": [
+   "Khat Khurd",
+   531,
+   19
+  ],
+  "77639": [
+   "Lorwara",
+   531,
+   18
+  ],
+  "77602": [
+   "Bandha",
+   531,
+   17
+  ],
+  "77601": [
+   "Ghata Jharnya",
+   531,
+   17
+  ],
+  "77603": [
+   "Kherli Khalsa",
+   531,
+   17
+  ],
+  "77605": [
+   "Surang",
+   531,
+   26
+  ],
+  "77604": [
+   "Dobra Khurd",
+   531,
+   26
+  ],
+  "77640": [
+   "Banota",
+   531,
+   18
+  ],
+  "77660": [
+   "Soorwal",
+   531,
+   18
+  ],
+  "77641": [
+   "Sinoli",
+   531,
+   18
+  ],
+  "77642": [
+   "Sunari",
+   531,
+   18
+  ],
+  "77659": [
+   "Mahu",
+   531,
+   18
+  ],
+  "77643": [
+   "Adoondi",
+   531,
+   9
+  ],
+  "77644": [
+   "Atoon Kalan",
+   531,
+   9
+  ],
+  "77658": [
+   "Gothra",
+   531,
+   9
+  ],
+  "77657": [
+   "Mathurapura",
+   531,
+   9
+  ],
+  "77655": [
+   "Pacheeplya",
+   531,
+   9
+  ],
+  "77656": [
+   "Atoon Khurd",
+   531,
+   9
+  ],
+  "77649": [
+   "Bilopa",
+   531,
+   8
+  ],
+  "77672": [
+   "Dondri",
+   531,
+   10
+  ],
+  "77676": [
+   "Khatupura",
+   531,
+   9
+  ],
+  "77675": [
+   "Naya Padhana",
+   531,
+   10
+  ],
+  "77648": [
+   "Itawa",
+   531,
+   8
+  ],
+  "77646": [
+   "Ramri",
+   531,
+   9
+  ],
+  "77645": [
+   "Khidarpur",
+   531,
+   9
+  ],
+  "77647": [
+   "Ghudasi",
+   531,
+   9
+  ],
+  "77392": [
+   "Bharja Gaddi",
+   528,
+   27
+  ],
+  "77386": [
+   "Jolanda",
+   528,
+   26
+  ],
+  "77385": [
+   "Maheshra",
+   528,
+   25
+  ],
+  "77387": [
+   "Dehlod",
+   528,
+   26
+  ],
+  "77383": [
+   "Khirni",
+   528,
+   26
+  ],
+  "77382": [
+   "Maidpura",
+   528,
+   26
+  ],
+  "77381": [
+   "Chandnoli",
+   528,
+   26
+  ],
+  "77380": [
+   "Bhadkoli",
+   528,
+   26
+  ],
+  "77378": [
+   "Baragaon at Kahar",
+   528,
+   26
+  ],
+  "77377": [
+   "Deoli",
+   528,
+   26
+  ],
+  "77389": [
+   "Gambheera",
+   528,
+   26
+  ],
+  "77376": [
+   "Rasoolpura",
+   528,
+   26
+  ],
+  "77375": [
+   "Bharoti",
+   528,
+   26
+  ],
+  "77388": [
+   "Bharja Nadi",
+   528,
+   26
+  ],
+  "77401": [
+   "Sangarwasa",
+   528,
+   27
+  ],
+  "77402": [
+   "Khatoli",
+   528,
+   27
+  ],
+  "77400": [
+   "Gojari",
+   528,
+   27
+  ],
+  "77397": [
+   "Diwara",
+   528,
+   27
+  ],
+  "77398": [
+   "Sesa",
+   528,
+   27
+  ],
+  "77399": [
+   "Kundli Nadi",
+   528,
+   27
+  ],
+  "77359": [
+   "Karel",
+   528,
+   32
+  ],
+  "77372": [
+   "Malarna Chaur",
+   528,
+   32
+  ],
+  "77373": [
+   "Taranpur",
+   528,
+   27
+  ],
+  "77526": [
+   "Rathod",
+   529,
+   24
+  ],
+  "77352": [
+   "Bariyara",
+   528,
+   32
+  ],
+  "77357": [
+   "Neemod",
+   528,
+   32
+  ],
+  "77356": [
+   "Barh Bariyara Chak No 2",
+   528,
+   32
+  ],
+  "77355": [
+   "Keeratpura",
+   528,
+   32
+  ],
+  "77367": [
+   "Shripura",
+   528,
+   32
+  ],
+  "77366": [
+   "Manoli",
+   528,
+   27
+  ],
+  "77371": [
+   "Aniyala",
+   528,
+   32
+  ],
+  "77368": [
+   "Mohammadpura",
+   528,
+   32
+  ],
+  "77369": [
+   "Ramri",
+   528,
+   32
+  ],
+  "77363": [
+   "Bahter",
+   528,
+   32
+  ],
+  "77361": [
+   "Phalsawata",
+   528,
+   32
+  ],
+  "77360": [
+   "Samrathpura",
+   528,
+   32
+  ],
+  "77370": [
+   "Didwara",
+   528,
+   32
+  ],
+  "77424": [
+   "Maksoodanpura",
+   528,
+   28
+  ],
+  "77364": [
+   "Chak Khohri",
+   528,
+   32
+  ],
+  "77425": [
+   "Paniyala",
+   528,
+   33
+  ],
+  "77418": [
+   "Kothali",
+   528,
+   28
+  ],
+  "77396": [
+   "Malarna Doongar",
+   528,
+   27
+  ],
+  "77403": [
+   "Dahroli",
+   528,
+   27
+  ],
+  "77414": [
+   "Donaycha",
+   528,
+   28
+  ],
+  "77409": [
+   "Peepalwara Nadi",
+   528,
+   27
+  ],
+  "77405": [
+   "Bhookha",
+   528,
+   27
+  ],
+  "77407": [
+   "Barh Peepalwara Chak No 1",
+   528,
+   27
+  ],
+  "77410": [
+   "Baloli",
+   528,
+   27
+  ],
+  "77404": [
+   "Barh Bhookha",
+   528,
+   27
+  ],
+  "77419": [
+   "Barh Biloli",
+   528,
+   28
+  ],
+  "77417": [
+   "Chak Biloli",
+   528,
+   28
+  ],
+  "77415": [
+   "Peelwa Nadi",
+   528,
+   28
+  ],
+  "77412": [
+   "Barh Bichchhi Dona",
+   528,
+   28
+  ],
+  "77395": [
+   "Shri Kishanpura",
+   528,
+   27
+  ],
+  "77411": [
+   "Bichchhi Dona",
+   528,
+   28
+  ],
+  "77592": [
+   "Chauth Ka Barwara",
+   530,
+   7
+  ],
+  "77600": [
+   "Teendoo",
+   530,
+   9
+  ],
+  "77599": [
+   "Kawad",
+   530,
+   8
+  ],
+  "77570": [
+   "Jola",
+   530,
+   8
+  ],
+  "77569": [
+   "Manpur",
+   530,
+   17
+  ],
+  "77354": [
+   "Barh Bariyara Chak No 1",
+   528,
+   32
+  ],
+  "77571": [
+   "Rewatpura",
+   530,
+   17
+  ],
+  "77568": [
+   "Bhagwatgarh",
+   530,
+   17
+  ],
+  "77567": [
+   "Trilokpura",
+   530,
+   17
+  ],
+  "77566": [
+   "Torda",
+   530,
+   17
+  ],
+  "77573": [
+   "Adalwara Kalan",
+   530,
+   8
+  ],
+  "77598": [
+   "Ekra",
+   530,
+   8
+  ],
+  "77555": [
+   "Bageena",
+   530,
+   16
+  ],
+  "77556": [
+   "Jhonpra",
+   530,
+   16
+  ],
+  "77557": [
+   "Jagmoda",
+   530,
+   16
+  ],
+  "77562": [
+   "Nayagaon",
+   530,
+   7
+  ],
+  "77574": [
+   "Girdharpura",
+   530,
+   8
+  ],
+  "77565": [
+   "Sirohi",
+   530,
+   17
+  ],
+  "77564": [
+   "Nahri Khurd With Jharkund",
+   530,
+   16
+  ],
+  "77575": [
+   "Nahri Kalan",
+   530,
+   16
+  ],
+  "77572": [
+   "Adalwara Khurd",
+   530,
+   17
+  ],
+  "77597": [
+   "Banjari",
+   530,
+   8
+  ],
+  "77596": [
+   "Bansra",
+   530,
+   8
+  ],
+  "77577": [
+   "Bhedola",
+   530,
+   16
+  ],
+  "77576": [
+   "Andholi",
+   530,
+   16
+  ],
+  "77578": [
+   "Bhedoli",
+   530,
+   7
+  ],
+  "77563": [
+   "Shersinghpura",
+   530,
+   16
+  ],
+  "77583": [
+   "Rajwana",
+   530,
+   7
+  ],
+  "77580": [
+   "Chainpura",
+   530,
+   7
+  ],
+  "77542": [
+   "Jharoda",
+   530,
+   24
+  ],
+  "77546": [
+   "Samundrapura",
+   530,
+   16
+  ],
+  "77540": [
+   "Tapur",
+   530,
+   24
+  ],
+  "77544": [
+   "Encher",
+   530,
+   16
+  ],
+  "77541": [
+   "Kachhipura",
+   530,
+   24
+  ],
+  "77543": [
+   "Abhaipura",
+   530,
+   24
+  ],
+  "77561": [
+   "Sawai Ganj",
+   530,
+   7
+  ],
+  "77559": [
+   "Gunseela",
+   530,
+   16
+  ],
+  "77560": [
+   "Paondera",
+   530,
+   7
+  ],
+  "77558": [
+   "Bansla",
+   530,
+   16
+  ],
+  "77554": [
+   "Banderiya",
+   530,
+   16
+  ],
+  "77553": [
+   "Didayach",
+   530,
+   16
+  ],
+  "77579": [
+   "Vijaipura",
+   530,
+   7
+  ],
+  "77497": [
+   "Sisolaw",
+   529,
+   29
+  ],
+  "77528": [
+   "Gudla Nadi",
+   529,
+   25
+  ],
+  "77515": [
+   "Devta",
+   529,
+   26
+  ],
+  "77516": [
+   "Harsoti",
+   529,
+   26
+  ],
+  "77517": [
+   "Harsota",
+   529,
+   25
+  ],
+  "77358": [
+   "Chak Samrathpura",
+   528,
+   32
+  ],
+  "77511": [
+   "Sarwari",
+   529,
+   25
+  ],
+  "77510": [
+   "Rasoolpura",
+   529,
+   25
+  ],
+  "77532": [
+   "Hathdoli",
+   529,
+   25
+  ],
+  "77518": [
+   "Hindupura",
+   529,
+   25
+  ],
+  "77520": [
+   "Jatawti",
+   529,
+   25
+  ],
+  "77519": [
+   "Didwari",
+   529,
+   25
+  ],
+  "77509": [
+   "Chanda Ki Jhopadi",
+   529,
+   25
+  ],
+  "77524": [
+   "Bagdoli",
+   529,
+   24
+  ],
+  "77507": [
+   "Bahnoli",
+   529,
+   25
+  ],
+  "77523": [
+   "Mangrol",
+   529,
+   24
+  ],
+  "77522": [
+   "Gudla Chandan",
+   529,
+   25
+  ],
+  "77521": [
+   "Peepalwara",
+   529,
+   25
+  ],
+  "77529": [
+   "Sanwasa",
+   529,
+   25
+  ],
+  "77530": [
+   "Bansda Nadi",
+   529,
+   25
+  ],
+  "77527": [
+   "Karadi",
+   529,
+   24
+  ],
+  "77362": [
+   "Jadeed Phalsawata",
+   528,
+   32
+  ],
+  "77406": [
+   "Barh Peepalwara Chak No 3",
+   528,
+   27
+  ],
+  "77450": [
+   "Peepalda",
+   529,
+   36
+  ],
+  "77486": [
+   "Jastana",
+   529,
+   31
+  ],
+  "77654": [
+   "Barh Khidarpur",
+   531,
+   9
+  ],
+  "77416": [
+   "Barh Peelwa",
+   528,
+   28
+  ],
+  "77379": [
+   "Rasoolpura Chak No 3",
+   528,
+   26
+  ],
+  "77374": [
+   "Chak Bharoti",
+   528,
+   26
+  ],
+  "77393": [
+   "Shri Kishanpura Chak No 1",
+   528,
+   27
+  ],
+  "77394": [
+   "Shri Kishanpura Chak No 2",
+   528,
+   27
+  ],
+  "77487": [
+   "Tond",
+   529,
+   32
+  ],
+  "77484": [
+   "Shahpura",
+   529,
+   32
+  ],
+  "77482": [
+   "Chainpura",
+   529,
+   31
+  ],
+  "77489": [
+   "Galad Khurd",
+   529,
+   31
+  ],
+  "77491": [
+   "Mamdoli",
+   529,
+   31
+  ],
+  "77480": [
+   "Galad Kalna",
+   529,
+   31
+  ],
+  "77481": [
+   "Sundarpur",
+   529,
+   31
+  ],
+  "77488": [
+   "Ladota",
+   529,
+   31
+  ],
+  "77490": [
+   "Gadota",
+   529,
+   31
+  ],
+  "77452": [
+   "Pura Panesingh",
+   529,
+   31
+  ],
+  "77454": [
+   "Hanumatpura",
+   529,
+   36
+  ],
+  "77453": [
+   "Pura Gulabsingh",
+   529,
+   31
+  ],
+  "77451": [
+   "Miskinpura",
+   529,
+   31
+  ],
+  "77443": [
+   "Ghata Nainwari",
+   529,
+   35
+  ],
+  "77455": [
+   "Hanutya",
+   529,
+   36
+  ],
+  "77445": [
+   "Gotod",
+   529,
+   36
+  ],
+  "77444": [
+   "Datuli",
+   529,
+   36
+  ],
+  "77449": [
+   "Dhorala",
+   529,
+   36
+  ],
+  "77447": [
+   "Peelukheda Kalan",
+   529,
+   36
+  ],
+  "77448": [
+   "Marmatpura",
+   529,
+   36
+  ],
+  "77474": [
+   "Khirkhadi",
+   529,
+   30
+  ],
+  "77428": [
+   "Kotra",
+   529,
+   35
+  ],
+  "77478": [
+   "Dhanesra",
+   529,
+   31
+  ],
+  "77456": [
+   "Bhedoli",
+   529,
+   35
+  ],
+  "77477": [
+   "Jhanoon",
+   529,
+   30
+  ],
+  "77476": [
+   "Pattya",
+   529,
+   30
+  ],
+  "77463": [
+   "Borkheda",
+   529,
+   30
+  ],
+  "77437": [
+   "Majhewla",
+   529,
+   35
+  ],
+  "77460": [
+   "Kushalpura",
+   529,
+   35
+  ],
+  "77438": [
+   "Moran",
+   529,
+   35
+  ],
+  "77459": [
+   "Mukundpura",
+   529,
+   35
+  ],
+  "77458": [
+   "Somwas",
+   529,
+   35
+  ],
+  "77475": [
+   "Thadi",
+   529,
+   30
+  ],
+  "77479": [
+   "Kodyai",
+   529,
+   31
+  ],
+  "77495": [
+   "Bans Torda",
+   529,
+   25
+  ],
+  "77494": [
+   "Rawasa",
+   529,
+   30
+  ],
+  "77470": [
+   "Lakhanpur",
+   529,
+   30
+  ],
+  "77525": [
+   "Neemod",
+   529,
+   24
+  ],
+  "77506": [
+   "Kolada",
+   529,
+   24
+  ],
+  "77504": [
+   "Bandhawal",
+   529,
+   24
+  ],
+  "77505": [
+   "Golpur",
+   529,
+   24
+  ],
+  "77503": [
+   "Pakhala",
+   529,
+   24
+  ],
+  "77464": [
+   "Googdod",
+   529,
+   29
+  ],
+  "77469": [
+   "Kheda",
+   529,
+   30
+  ],
+  "77466": [
+   "Bapui",
+   529,
+   29
+  ],
+  "77468": [
+   "Ratanpura",
+   529,
+   29
+  ],
+  "77471": [
+   "Khohri",
+   529,
+   30
+  ],
+  "77467": [
+   "Dungri",
+   529,
+   29
+  ],
+  "77502": [
+   "Thadoli",
+   529,
+   24
+  ],
+  "77501": [
+   "Bheepura",
+   529,
+   24
+  ],
+  "77500": [
+   "Raghuwanti",
+   529,
+   29
+  ],
+  "77473": [
+   "Gothda",
+   529,
+   30
+  ],
+  "77499": [
+   "Bansda Banesingh",
+   529,
+   29
+  ],
+  "77498": [
+   "Jailalpura",
+   529,
+   29
+  ],
+  "77496": [
+   "Gangwara",
+   529,
+   24
+  ],
+  "77514": [
+   "Puneta",
+   529,
+   30
+  ],
+  "77492": [
+   "Aluda",
+   529,
+   30
+  ],
+  "77513": [
+   "Sotoli",
+   529,
+   30
+  ],
+  "77472": [
+   "Gol",
+   529,
+   30
+  ],
+  "77465": [
+   "Jatlav",
+   529,
+   29
+  ],
+  "77462": [
+   "Medar Khurd",
+   529,
+   30
+  ],
+  "77441": [
+   "Udganv",
+   529,
+   35
+  ],
+  "77433": [
+   "Nantodi",
+   529,
+   35
+  ],
+  "77442": [
+   "Manpur",
+   529,
+   35
+  ],
+  "77435": [
+   "Mitrapura",
+   529,
+   35
+  ],
+  "77429": [
+   "Soyla",
+   529,
+   35
+  ],
+  "77432": [
+   "Rungti",
+   529,
+   35
+  ],
+  "77430": [
+   "Borda",
+   529,
+   35
+  ],
+  "77439": [
+   "Thanera",
+   529,
+   35
+  ],
+  "77440": [
+   "Kutka",
+   529,
+   35
+  ],
+  "77434": [
+   "Chak Dhakda",
+   529,
+   35
+  ],
+  "77436": [
+   "Jaitpura",
+   529,
+   35
+  ],
+  "77331": [
+   "Jeewad",
+   527,
+   33
+  ],
+  "77332": [
+   "Mandir Meena",
+   527,
+   33
+  ],
+  "77345": [
+   "Batoda",
+   527,
+   33
+  ],
+  "77346": [
+   "Bhinora",
+   527,
+   33
+  ],
+  "77344": [
+   "Kazi Kundli",
+   527,
+   33
+  ],
+  "77347": [
+   "Jharoda",
+   527,
+   33
+  ],
+  "77348": [
+   "Barh Jharoda",
+   527,
+   33
+  ],
+  "77318": [
+   "Ramsinghpura",
+   527,
+   38
+  ],
+  "77342": [
+   "Goth",
+   527,
+   33
+  ],
+  "77343": [
+   "Morpa",
+   527,
+   33
+  ],
+  "77340": [
+   "Berkhandi",
+   527,
+   32
+  ],
+  "77311": [
+   "Sancholi",
+   527,
+   37
+  ],
+  "77316": [
+   "Sundri",
+   527,
+   37
+  ],
+  "77317": [
+   "Meena Theekri",
+   527,
+   38
+  ],
+  "77336": [
+   "Barnala",
+   527,
+   37
+  ],
+  "77335": [
+   "Bhawar",
+   527,
+   38
+  ],
+  "77334": [
+   "Barh Sohan",
+   527,
+   38
+  ],
+  "77323": [
+   "Goojar Theekariya",
+   527,
+   38
+  ],
+  "77303": [
+   "Bairada",
+   527,
+   38
+  ],
+  "77289": [
+   "Madalgaon",
+   527,
+   38
+  ],
+  "77302": [
+   "Barh Dehri",
+   527,
+   38
+  ],
+  "77319": [
+   "Phulwara",
+   527,
+   38
+  ],
+  "77322": [
+   "Barh Mohanpur",
+   527,
+   38
+  ],
+  "77321": [
+   "Binjari",
+   527,
+   38
+  ],
+  "77290": [
+   "Koochawar Chak No 3",
+   527,
+   38
+  ],
+  "77339": [
+   "Tigriya",
+   527,
+   32
+  ],
+  "77312": [
+   "Sukhanandpura",
+   527,
+   37
+  ],
+  "77307": [
+   "Barh Sancholi",
+   527,
+   37
+  ],
+  "77314": [
+   "Arpura",
+   527,
+   37
+  ],
+  "77313": [
+   "Chak Udairampura",
+   527,
+   37
+  ],
+  "77308": [
+   "Abadi Ki Dhani",
+   527,
+   37
+  ],
+  "77309": [
+   "Mahrawand",
+   527,
+   37
+  ],
+  "77310": [
+   "Madhopura",
+   527,
+   37
+  ],
+  "77306": [
+   "Bhanwarki",
+   527,
+   37
+  ],
+  "77304": [
+   "Bichhauchh",
+   527,
+   38
+  ],
+  "77305": [
+   "Shankarpura",
+   527,
+   38
+  ],
+  "77285": [
+   "Naroli Chaur",
+   527,
+   37
+  ],
+  "77286": [
+   "Sitarampura",
+   527,
+   37
+  ],
+  "77288": [
+   "Chandanholi",
+   527,
+   38
+  ],
+  "77431": [
+   "Bans Parsa",
+   529,
+   35
+  ],
+  "77287": [
+   "Ramzanipura",
+   527,
+   38
+  ],
+  "77333": [
+   "Navadia Meena",
+   527,
+   33
+  ],
+  "77338": [
+   "Barh Lakhanpur",
+   527,
+   37
+  ],
+  "77608": [
+   "Jarawata",
+   531,
+   18
+  ],
+  "77616": [
+   "Keerpura",
+   531,
+   28
+  ],
+  "77674": [
+   "Ramsinghpura",
+   531,
+   10
+  ],
+  "77483": [
+   "Badh Tanka",
+   529,
+   31
+  ],
+  "77446": [
+   "Peelukheda Khurd",
+   529,
+   36
+  ],
+  "77493": [
+   "Kila Bonli",
+   529,
+   30
+  ],
+  "77485": [
+   "Chak Shahpura",
+   529,
+   32
+  ],
+  "77329": [
+   "Barh Govindpura",
+   527,
+   38
+  ],
+  "77341": [
+   "Barh Goth",
+   527,
+   33
+  ],
+  "77881": [
+   "Seengor Khurd",
+   532,
+   6
+  ],
+  "77807": [
+   "Kishangarh Chhahara",
+   532,
+   13
+  ],
+  "77877": [
+   "Barod",
+   532,
+   5
+  ],
+  "77838": [
+   "Mei Kalan",
+   532,
+   4
+  ],
+  "77861": [
+   "Pali",
+   532,
+   4
+  ],
+  "77875": [
+   "Gandawar",
+   532,
+   5
+  ],
+  "77878": [
+   "On Meena",
+   532,
+   5
+  ],
+  "77876": [
+   "Peepalda",
+   532,
+   5
+  ],
+  "77864": [
+   "Katar",
+   532,
+   4
+  ],
+  "77862": [
+   "Jailalpura",
+   532,
+   4
+  ],
+  "77868": [
+   "Khandeolan",
+   532,
+   4
+  ],
+  "77869": [
+   "Pawandi",
+   532,
+   4
+  ],
+  "77870": [
+   "Sanwalpur",
+   532,
+   5
+  ],
+  "77872": [
+   "Meena Kheri",
+   532,
+   5
+  ],
+  "77871": [
+   "Sonkachh",
+   532,
+   5
+  ],
+  "77873": [
+   "Bohna",
+   532,
+   5
+  ],
+  "77874": [
+   "Binjari",
+   532,
+   5
+  ],
+  "77879": [
+   "Aniyala",
+   532,
+   6
+  ],
+  "77811": [
+   "Bagora",
+   532,
+   14
+  ],
+  "77812": [
+   "Jakhoda",
+   532,
+   13
+  ],
+  "77813": [
+   "Rodawad",
+   532,
+   6
+  ],
+  "77814": [
+   "Kachnari",
+   532,
+   6
+  ],
+  "77885": [
+   "Akoda",
+   532,
+   6
+  ],
+  "77880": [
+   "Padra Bardar",
+   532,
+   6
+  ],
+  "77886": [
+   "Barwas",
+   532,
+   6
+  ],
+  "77887": [
+   "Sewti Kalan",
+   532,
+   6
+  ],
+  "77819": [
+   "Gokulpur",
+   532,
+   6
+  ],
+  "77810": [
+   "Kosra With Chhareta Tod",
+   532,
+   13
+  ],
+  "77804": [
+   "Bahrawada Kalan",
+   532,
+   13
+  ],
+  "77802": [
+   "Kudana",
+   532,
+   13
+  ],
+  "77803": [
+   "Bhoolanpur",
+   532,
+   13
+  ],
+  "77809": [
+   "Madhpuri",
+   532,
+   13
+  ],
+  "77808": [
+   "Kabeerpura",
+   532,
+   13
+  ],
+  "77815": [
+   "Kareera Khurd",
+   532,
+   6
+  ],
+  "77821": [
+   "On Kalal",
+   532,
+   5
+  ],
+  "77806": [
+   "Karauli Ghata",
+   532,
+   13
+  ],
+  "77817": [
+   "Akhegarh",
+   532,
+   6
+  ],
+  "77805": [
+   "Kutalpur",
+   532,
+   13
+  ],
+  "77816": [
+   "Kareera Kalan",
+   532,
+   6
+  ],
+  "77884": [
+   "Bari Ka Chhahara",
+   532,
+   6
+  ],
+  "77818": [
+   "Seengor Kalan",
+   532,
+   6
+  ],
+  "77827": [
+   "Qila Khandar",
+   532,
+   12
+  ],
+  "77823": [
+   "Parsipura",
+   532,
+   12
+  ],
+  "77835": [
+   "Mukandpura",
+   532,
+   5
+  ],
+  "77836": [
+   "Kamokhari",
+   532,
+   5
+  ],
+  "77839": [
+   "Mei Khurd",
+   532,
+   4
+  ],
+  "77828": [
+   "Kushalpur",
+   532,
+   12
+  ],
+  "77831": [
+   "Kasba Khandar",
+   532,
+   12
+  ],
+  "77826": [
+   "Banipura",
+   532,
+   12
+  ],
+  "77832": [
+   "Jaisinghpura",
+   532,
+   5
+  ],
+  "77833": [
+   "Ishapura",
+   532,
+   12
+  ],
+  "77830": [
+   "Padada Visthapit",
+   532,
+   12
+  ],
+  "77837": [
+   "Gothra",
+   532,
+   5
+  ],
+  "77822": [
+   "Barnawada",
+   532,
+   12
+  ],
+  "77888": [
+   "Singan Kachh",
+   532,
+   6
+  ],
+  "77883": [
+   "Mamrot",
+   532,
+   6
+  ],
+  "77882": [
+   "Chak Simgor",
+   532,
+   6
+  ],
+  "77863": [
+   "Narwalan",
+   532,
+   4
+  ],
+  "77834": [
+   "Chak Ishapura",
+   532,
+   5
+  ],
+  "77757": [
+   "Bhoori Pahari",
+   532,
+   28
+  ],
+  "77758": [
+   "Doongri",
+   532,
+   21
+  ],
+  "77786": [
+   "Bareda",
+   532,
+   11
+  ],
+  "77782": [
+   "Hanotya",
+   532,
+   11
+  ],
+  "77779": [
+   "Phooleri",
+   532,
+   20
+  ],
+  "77777": [
+   "Kathooli Dangaycha",
+   532,
+   20
+  ],
+  "77759": [
+   "Khidarpur Jadon",
+   532,
+   21
+  ],
+  "77775": [
+   "Bhaopur",
+   532,
+   21
+  ],
+  "77768": [
+   "Baler",
+   532,
+   13
+  ],
+  "77760": [
+   "Dang Bhavpur",
+   532,
+   22
+  ],
+  "77762": [
+   "Berai",
+   532,
+   22
+  ],
+  "77770": [
+   "Moroj",
+   532,
+   13
+  ],
+  "77789": [
+   "Goth Bihari",
+   532,
+   12
+  ],
+  "77765": [
+   "Kuredi",
+   532,
+   14
+  ],
+  "77763": [
+   "Isarda",
+   532,
+   22
+  ],
+  "77766": [
+   "Khidarpur Jatan",
+   532,
+   14
+  ],
+  "77780": [
+   "Bhind",
+   532,
+   21
+  ],
+  "77776": [
+   "Talra",
+   532,
+   21
+  ],
+  "77788": [
+   "Itawada",
+   532,
+   11
+  ],
+  "77790": [
+   "Banpur",
+   532,
+   12
+  ],
+  "77781": [
+   "Chiroli",
+   532,
+   12
+  ],
+  "77771": [
+   "Bajoli",
+   532,
+   22
+  ],
+  "77795": [
+   "Bichpuri Goojran",
+   532,
+   13
+  ],
+  "77796": [
+   "Kaneti",
+   532,
+   13
+  ],
+  "77797": [
+   "Bangarda Khurd",
+   532,
+   13
+  ],
+  "77767": [
+   "Bichpuri Mishran",
+   532,
+   13
+  ],
+  "77769": [
+   "Beerpur",
+   532,
+   13
+  ],
+  "77798": [
+   "Bangarda Kalan",
+   532,
+   13
+  ],
+  "77799": [
+   "Kyarda Kalan",
+   532,
+   13
+  ],
+  "77800": [
+   "Karauli Tarachand",
+   532,
+   13
+  ],
+  "77801": [
+   "Peeplet",
+   532,
+   13
+  ],
+  "77774": [
+   "Sanwata",
+   532,
+   21
+  ],
+  "77292": [
+   "Dehri",
+   527,
+   38
+  ],
+  "77773": [
+   "Naypur",
+   532,
+   21
+  ],
+  "77793": [
+   "Peeleri",
+   532,
+   12
+  ],
+  "77794": [
+   "Khatkar",
+   532,
+   12
+  ],
+  "77792": [
+   "Talawara",
+   532,
+   12
+  ],
+  "77791": [
+   "Kathara Sanwas",
+   532,
+   12
+  ],
+  "77825": [
+   "Dabich Bairwan",
+   532,
+   12
+  ],
+  "77824": [
+   "Dabich",
+   532,
+   12
+  ],
+  "77421": [
+   "Raghuwanti",
+   528,
+   28
+  ],
+  "77427": [
+   "Sankra",
+   528,
+   28
+  ],
+  "77423": [
+   "Barh Sankra",
+   528,
+   28
+  ],
+  "77422": [
+   "Shyamoli",
+   528,
+   28
+  ],
+  "77420": [
+   "Biloli Nadi",
+   528,
+   28
+  ],
+  "77761": [
+   "Dang Bajoli",
+   532,
+   22
+  ],
+  "77764": [
+   "Chiroji Khera",
+   532,
+   14
+  ],
+  "77772": [
+   "Koondla",
+   532,
+   21
+  ],
+  "77181": [
+   "Talawara",
+   526,
+   39
+  ],
+  "77533": [
+   "Kasba Bonli CT",
+   529,
+   30
+  ],
+  "77426": [
+   "Ebra",
+   528,
+   28
+  ],
+  "77349": [
+   "Nananwas",
+   527,
+   33
+  ],
+  "77328": [
+   "Jakholas Khurd",
+   527,
+   38
+  ],
+  "77330": [
+   "Jakholas Kalan",
+   527,
+   38
+  ],
+  "77351": [
+   "Barh Paniyala",
+   527,
+   33
+  ],
+  "77325": [
+   "Palasod",
+   527,
+   38
+  ],
+  "77326": [
+   "Barh Palasod",
+   527,
+   38
+  ],
+  "77301": [
+   "Ladpura",
+   527,
+   38
+  ],
+  "77324": [
+   "Govindpura",
+   527,
+   38
+  ],
+  "77299": [
+   "Garhi Gopalpura",
+   527,
+   38
+  ],
+  "77298": [
+   "Garhi Ka Bairwa",
+   527,
+   39
+  ],
+  "77300": [
+   "Soorgarh",
+   527,
+   38
+  ],
+  "77189": [
+   "Milakpur",
+   526,
+   34
+  ],
+  "77297": [
+   "Sumel",
+   527,
+   39
+  ],
+  "77296": [
+   "Akodiya",
+   527,
+   39
+  ],
+  "77293": [
+   "Nehri",
+   527,
+   38
+  ],
+  "77173": [
+   "Barh Bhawta",
+   526,
+   39
+  ],
+  "77184": [
+   "Barh Ramsar",
+   526,
+   34
+  ],
+  "77186": [
+   "Tatwara",
+   526,
+   34
+  ],
+  "77194": [
+   "Ramgarh Murara",
+   526,
+   33
+  ],
+  "77197": [
+   "Barh Tatwara",
+   526,
+   34
+  ],
+  "77190": [
+   "Hirapur",
+   526,
+   34
+  ],
+  "77185": [
+   "Narayanpur",
+   526,
+   34
+  ],
+  "77196": [
+   "Barh Guwari",
+   526,
+   33
+  ],
+  "77195": [
+   "Khera Barh Ramgarh",
+   526,
+   33
+  ],
+  "77167": [
+   "Bucholai",
+   526,
+   39
+  ],
+  "77166": [
+   "Dhay",
+   526,
+   40
+  ],
+  "77183": [
+   "Totolai",
+   526,
+   39
+  ],
+  "77177": [
+   "Kari Gaonri",
+   526,
+   39
+  ],
+  "77176": [
+   "Nandpura",
+   526,
+   39
+  ],
+  "77182": [
+   "Jaisinghpura",
+   526,
+   39
+  ],
+  "77188": [
+   "Barh Milakpur",
+   526,
+   34
+  ],
+  "77168": [
+   "Meenapara",
+   526,
+   39
+  ],
+  "77180": [
+   "Kari Jhonpari",
+   526,
+   39
+  ],
+  "77169": [
+   "Machchhipura",
+   526,
+   39
+  ],
+  "77171": [
+   "Amargarh",
+   526,
+   39
+  ],
+  "77175": [
+   "Kunkata Kalan",
+   526,
+   39
+  ],
+  "77174": [
+   "Bhawta",
+   526,
+   39
+  ],
+  "77127": [
+   "Chooli Rural",
+   526,
+   40
+  ],
+  "77165": [
+   "Umri",
+   526,
+   40
+  ],
+  "77161": [
+   "Habeebpur",
+   526,
+   39
+  ],
+  "77162": [
+   "Salarpur",
+   526,
+   40
+  ],
+  "77163": [
+   "Salempur",
+   526,
+   40
+  ],
+  "77164": [
+   "Lalpur",
+   526,
+   40
+  ],
+  "77159": [
+   "Naugaon",
+   526,
+   39
+  ],
+  "77153": [
+   "Pharaspur",
+   526,
+   40
+  ],
+  "77157": [
+   "Baman Baroda",
+   526,
+   39
+  ],
+  "77158": [
+   "Khudsya",
+   526,
+   39
+  ],
+  "77160": [
+   "Arniya",
+   526,
+   39
+  ],
+  "77125": [
+   "Chhawa",
+   526,
+   40
+  ],
+  "77122": [
+   "Barh Chhawa No 1",
+   526,
+   40
+  ],
+  "77124": [
+   "Barh Chhawa No 2",
+   526,
+   40
+  ],
+  "77123": [
+   "Chak Chhawa",
+   526,
+   40
+  ],
+  "248718": [
+   "Gangapur City",
+   526,
+   40
+  ],
+  "77350": [
+   "Barh Nananwas",
+   527,
+   33
+  ],
+  "77126": [
+   "Tajpur",
+   526,
+   40
+  ],
+  "77128": [
+   "Mahu Khurd Rural",
+   526,
+   40
+  ],
+  "77172": [
+   "Maliyon Ki Choki",
+   526,
+   39
+  ],
+  "77170": [
+   "Kunkata Khurd",
+   526,
+   39
+  ],
+  "77179": [
+   "Kari Patti",
+   526,
+   39
+  ],
+  "77327": [
+   "Barh Phulwara",
+   527,
+   38
+  ],
+  "77187": [
+   "Ramsar",
+   526,
+   34
+  ],
+  "77191": [
+   "Kholai",
+   526,
+   34
+  ],
+  "77198": [
+   "Mahu Kalan CT",
+   526,
+   40
+  ],
+  "77220": [
+   "Jagrampura",
+   527,
+   45
+  ],
+  "77278": [
+   "Piplai",
+   527,
+   41
+  ],
+  "77245": [
+   "Kacharhera",
+   527,
+   41
+  ],
+  "77282": [
+   "Koochawar Chak No 1",
+   527,
+   41
+  ],
+  "77236": [
+   "Liwali",
+   527,
+   41
+  ],
+  "77235": [
+   "Naharsinghpura",
+   527,
+   41
+  ],
+  "77234": [
+   "Gothra",
+   527,
+   41
+  ],
+  "77283": [
+   "Dabar",
+   527,
+   41
+  ],
+  "77284": [
+   "Sarsali",
+   527,
+   37
+  ],
+  "77242": [
+   "Ramnagar Dhosi",
+   527,
+   41
+  ],
+  "77239": [
+   "Khatana",
+   527,
+   41
+  ],
+  "77237": [
+   "Nawar Kishanpura",
+   527,
+   41
+  ],
+  "77238": [
+   "Gurla",
+   527,
+   41
+  ],
+  "77279": [
+   "Kherli",
+   527,
+   41
+  ],
+  "77241": [
+   "Rampura",
+   527,
+   41
+  ],
+  "77243": [
+   "Kohli Prempura",
+   527,
+   41
+  ],
+  "77244": [
+   "Sitapura",
+   527,
+   41
+  ],
+  "77211": [
+   "Bichpuri",
+   527,
+   41
+  ],
+  "77212": [
+   "Singhtauli",
+   527,
+   41
+  ],
+  "77206": [
+   "Bhanwra",
+   527,
+   45
+  ],
+  "77233": [
+   "Kakrala",
+   527,
+   45
+  ],
+  "77231": [
+   "Shyampura",
+   527,
+   45
+  ],
+  "77203": [
+   "Dujai",
+   527,
+   45
+  ],
+  "77202": [
+   "Doongarpatti Amawara",
+   527,
+   45
+  ],
+  "77199": [
+   "Sikroli",
+   527,
+   45
+  ],
+  "77219": [
+   "Meena Koleta",
+   527,
+   45
+  ],
+  "77200": [
+   "Goth",
+   527,
+   45
+  ],
+  "77205": [
+   "Riwali",
+   527,
+   45
+  ],
+  "77201": [
+   "Amawara",
+   527,
+   45
+  ],
+  "77215": [
+   "Bheetoli",
+   527,
+   45
+  ],
+  "77216": [
+   "Raghopura",
+   527,
+   45
+  ],
+  "77217": [
+   "Barh Raghopura",
+   527,
+   45
+  ],
+  "77218": [
+   "Naneta Khera",
+   527,
+   45
+  ],
+  "77221": [
+   "Goojar Koleta",
+   527,
+   45
+  ],
+  "77222": [
+   "Banor",
+   527,
+   45
+  ],
+  "77224": [
+   "Doongarwara",
+   527,
+   45
+  ],
+  "77214": [
+   "Barh Raghunathpura",
+   527,
+   45
+  ],
+  "77207": [
+   "Chandlai",
+   527,
+   45
+  ],
+  "77210": [
+   "Kuagaon",
+   527,
+   45
+  ],
+  "77209": [
+   "Dovnagar",
+   527,
+   45
+  ],
+  "77208": [
+   "Sukar",
+   527,
+   45
+  ],
+  "77204": [
+   "Barh Dujai",
+   527,
+   45
+  ],
+  "77213": [
+   "Raghunathpura",
+   527,
+   41
+  ],
+  "77232": [
+   "Abhaipura",
+   527,
+   45
+  ],
+  "77281": [
+   "Nagarhera",
+   527,
+   41
+  ],
+  "77280": [
+   "Koochawar Chak No 2",
+   527,
+   41
+  ],
+  "77240": [
+   "Tajpura",
+   527,
+   41
+  ],
+  "77115": [
+   "Barh Chhan",
+   6386,
+   44
+  ],
+  "77246": [
+   "Gola Gaonri",
+   527,
+   41
+  ],
+  "77291": [
+   "Barh Piplai",
+   527,
+   38
+  ],
+  "77272": [
+   "Koyla",
+   527,
+   42
+  ],
+  "77271": [
+   "Gahnoli",
+   527,
+   42
+  ],
+  "77136": [
+   "Daulatpur",
+   526,
+   43
+  ],
+  "77225": [
+   "Dangra",
+   527,
+   45
+  ],
+  "77259": [
+   "Gandal",
+   527,
+   42
+  ],
+  "77249": [
+   "Kiratpura",
+   527,
+   45
+  ],
+  "77251": [
+   "Bareela",
+   527,
+   46
+  ],
+  "77252": [
+   "Danta Sooti",
+   527,
+   46
+  ],
+  "77263": [
+   "Shafipura",
+   527,
+   42
+  ],
+  "77254": [
+   "Raneela",
+   527,
+   46
+  ],
+  "77256": [
+   "Jharoli",
+   527,
+   46
+  ],
+  "77257": [
+   "Barh Jharoli",
+   527,
+   46
+  ],
+  "77264": [
+   "Radheki",
+   527,
+   42
+  ],
+  "77258": [
+   "Sarai",
+   527,
+   46
+  ],
+  "77260": [
+   "Kishanpura",
+   527,
+   42
+  ],
+  "77267": [
+   "Bhautai",
+   527,
+   42
+  ],
+  "77266": [
+   "Gehlot Nagar",
+   527,
+   42
+  ],
+  "77265": [
+   "Nagtalai",
+   527,
+   42
+  ],
+  "77262": [
+   "Bandhawal",
+   527,
+   42
+  ],
+  "77261": [
+   "Kundli",
+   527,
+   42
+  ],
+  "77248": [
+   "Bamanwas Patti Khurd",
+   527,
+   41
+  ],
+  "77247": [
+   "Bamanwas Patti Kalan",
+   527,
+   41
+  ],
+  "77268": [
+   "Ramsinghpura",
+   527,
+   42
+  ],
+  "77294": [
+   "Shyosinghpura",
+   527,
+   38
+  ],
+  "77295": [
+   "Goojar Barauda",
+   527,
+   39
+  ],
+  "77270": [
+   "Barh Gahnoli Chak No 2",
+   527,
+   42
+  ],
+  "77269": [
+   "Barh Koyla",
+   527,
+   42
+  ],
+  "77277": [
+   "Sitor",
+   527,
+   41
+  ],
+  "77273": [
+   "Sarangpura",
+   527,
+   42
+  ],
+  "77275": [
+   "Barh Sitor",
+   527,
+   41
+  ],
+  "77274": [
+   "Barh Gahnoli Chak No 1",
+   527,
+   42
+  ],
+  "77229": [
+   "Jahra",
+   527,
+   45
+  ],
+  "77226": [
+   "Tundeela",
+   527,
+   45
+  ],
+  "77223": [
+   "Tora",
+   527,
+   45
+  ],
+  "77228": [
+   "Theekarya",
+   527,
+   45
+  ],
+  "77230": [
+   "Barh Jahra",
+   527,
+   45
+  ],
+  "77087": [
+   "Baglai",
+   6386,
+   47
+  ],
+  "77105": [
+   "Mahanandpur Dyodha",
+   6386,
+   47
+  ],
+  "77104": [
+   "Piloda",
+   6386,
+   47
+  ],
+  "77088": [
+   "Kherli",
+   6386,
+   47
+  ],
+  "77103": [
+   "Kharera",
+   6386,
+   47
+  ],
+  "77097": [
+   "Meena Baroda",
+   6386,
+   48
+  ],
+  "77098": [
+   "Baroli",
+   6386,
+   48
+  ],
+  "77080": [
+   "Kherla Janetpur",
+   6386,
+   48
+  ],
+  "77100": [
+   "Chhakra",
+   6386,
+   44
+  ],
+  "77092": [
+   "Meri",
+   6386,
+   48
+  ],
+  "77099": [
+   "Wazeerpur",
+   6386,
+   44
+  ],
+  "77090": [
+   "Paota",
+   6386,
+   48
+  ],
+  "77091": [
+   "Phulwara",
+   6386,
+   48
+  ],
+  "77081": [
+   "Mohcha Ka Pura",
+   6386,
+   48
+  ],
+  "77096": [
+   "Kherla",
+   6386,
+   48
+  ],
+  "77095": [
+   "Kunsay",
+   6386,
+   48
+  ],
+  "77093": [
+   "Math",
+   6386,
+   48
+  ],
+  "77094": [
+   "Raipur",
+   6386,
+   48
+  ],
+  "77082": [
+   "Mohcha",
+   6386,
+   48
+  ],
+  "77084": [
+   "Khandeep",
+   6386,
+   48
+  ],
+  "77086": [
+   "Shiwala",
+   6386,
+   47
+  ],
+  "77083": [
+   "Bhalpur",
+   6386,
+   48
+  ],
+  "77073": [
+   "Nayagaon",
+   6386,
+   48
+  ],
+  "77075": [
+   "Barh Rayal",
+   6386,
+   48
+  ],
+  "77074": [
+   "Kemri Khurd",
+   6386,
+   48
+  ],
+  "77085": [
+   "Sundarpur",
+   6386,
+   47
+  ],
+  "77077": [
+   "Rendayal Goojar",
+   6386,
+   48
+  ],
+  "77076": [
+   "Rendayal Turk",
+   6386,
+   48
+  ],
+  "77110": [
+   "Udai Kalan Rural",
+   526,
+   43
+  ],
+  "77109": [
+   "Ramsinghpura",
+   6386,
+   43
+  ],
+  "77108": [
+   "Kamalpur",
+   6386,
+   43
+  ],
+  "77112": [
+   "Dibsya",
+   526,
+   43
+  ],
+  "77117": [
+   "Jeewli",
+   6386,
+   44
+  ],
+  "77113": [
+   "Vinega",
+   526,
+   44
+  ],
+  "77111": [
+   "Udai Khurd",
+   6386,
+   44
+  ],
+  "77102": [
+   "Shekhpur",
+   6386,
+   44
+  ],
+  "77101": [
+   "Syaroli",
+   6386,
+   44
+  ],
+  "77116": [
+   "Sewa",
+   6386,
+   44
+  ],
+  "77114": [
+   "Chhan",
+   6386,
+   44
+  ],
+  "77079": [
+   "Chak Redayal Turk",
+   6386,
+   48
+  ],
+  "77119": [
+   "Benipur",
+   6386,
+   44
+  ],
+  "77118": [
+   "Dob",
+   6386,
+   44
+  ],
+  "77120": [
+   "Toksi",
+   526,
+   44
+  ],
+  "77154": [
+   "Motipur",
+   526,
+   39
+  ],
+  "77150": [
+   "Jalokhara",
+   526,
+   42
+  ],
+  "77156": [
+   "Dhoodhoopura",
+   526,
+   42
+  ],
+  "77155": [
+   "Bidarkha",
+   526,
+   42
+  ],
+  "77147": [
+   "Thali",
+   526,
+   42
+  ],
+  "77143": [
+   "Khoontla Salauna",
+   526,
+   42
+  ],
+  "77144": [
+   "Salona",
+   526,
+   42
+  ],
+  "77141": [
+   "Sahajpur",
+   526,
+   42
+  ],
+  "77140": [
+   "Gaonri Khurd",
+   526,
+   43
+  ],
+  "77142": [
+   "Gaonri Kalan",
+   526,
+   43
+  ],
+  "77145": [
+   "Khoontla Ki Dhani",
+   526,
+   42
+  ],
+  "77146": [
+   "Barh Khoontla",
+   526,
+   42
+  ],
+  "77152": [
+   "Hingotiya",
+   526,
+   43
+  ],
+  "77151": [
+   "Barh Kalan",
+   526,
+   43
+  ],
+  "77148": [
+   "Barh Bichla",
+   526,
+   42
+  ],
+  "77149": [
+   "Barh Khurd",
+   526,
+   43
+  ],
+  "77138": [
+   "Aliganj",
+   526,
+   43
+  ],
+  "77139": [
+   "Ahmadpur Rural",
+   526,
+   43
+  ],
+  "77135": [
+   "Astroli",
+   526,
+   43
+  ],
+  "77137": [
+   "Jiyapur",
+   526,
+   43
+  ],
+  "77134": [
+   "Brahmabad Rural",
+   526,
+   43
+  ],
+  "77133": [
+   "Mahanandpur Rural",
+   526,
+   43
+  ],
+  "77132": [
+   "Barh Mahanandpur",
+   526,
+   43
+  ],
+  "77106": [
+   "Khidarpur",
+   6386,
+   44
+  ],
+  "77129": [
+   "Khanpur Baroda",
+   526,
+   40
+  ],
+  "77121": [
+   "Jat Baroda",
+   526,
+   43
+  ],
+  "77276": [
+   "Bari Jhonpari",
+   527,
+   41
+  ],
+  "77107": [
+   "Kashipur",
+   6386,
+   43
+  ],
+  "77089": [
+   "Kishorpur",
+   6386,
+   48
+  ],
+  "77131": [
+   "Saloda Rural",
+   526,
+   43
+  ],
+  "77130": [
+   "Barh Saloda Rural",
+   526,
+   43
+  ],
+  "77253": [
+   "Barh Danta Sooti",
+   527,
+   46
+  ],
+  "77250": [
+   "Barh Bareela",
+   527,
+   46
+  ],
+  "77255": [
+   "Kadeepur",
+   527,
+   46
+  ],
+  "77227": [
+   "Sherpur Donay",
+   527,
+   46
+  ],
+  "77078": [
+   "Chak Redayal Goojar",
+   6386,
+   48
+  ],
+  "77413": [
+   "Barh Donaycha",
+   528,
+   28
+  ],
+  "77691": [
+   "Vijaipura",
+   531,
+   2
+  ],
+  "77408": [
+   "Barh Peepalwara Chak No 2",
+   528,
+   27
+  ],
+  "77851": [
+   "Badhpur",
+   532,
+   1
+  ],
+  "77856": [
+   "Sumanpura",
+   532,
+   4
+  ],
+  "77728": [
+   "Balapura",
+   531,
+   0
+  ],
+  "77737": [
+   "Laxmipura",
+   531,
+   1
+  ],
+  "77365": [
+   "Khohri",
+   528,
+   32
+  ],
+  "77508": [
+   "Badaganv Sarwar",
+   529,
+   25
+  ],
+  "77531": [
+   "Sahrawta",
+   529,
+   25
+  ],
+  "77457": [
+   "Chak Somwas",
+   529,
+   35
+  ],
+  "77512": [
+   "Chak Rasoolpura",
+   529,
+   25
+  ],
+  "77337": [
+   "Lakhanpur",
+   527,
+   37
+  ],
+  "77315": [
+   "Barh Sundri",
+   527,
+   37
+  ],
+  "77320": [
+   "Chak Govindpura",
+   527,
+   38
+  ],
+  "77390": [
+   "Rasoolpura Chak No 2",
+   528,
+   26
+  ],
+  "77391": [
+   "Rasoolpura Chak No 1",
+   528,
+   27
+  ]
+ },
+ "village_count_total": 818,
+ "village_count_assigned": 818
+}

@@ -1,0 +1,2883 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Tamil Nadu",
+  "district": "Dharmapuri",
+  "district_lgd": 571,
+  "observation_window": "2026-08-07T11:24Z to 2026-08-12T11:24Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.1536,
+  "sm_surface_stddev": 0.0242,
+  "sm_rootzone_mean": 0.1965,
+  "sm_rootzone_stddev": 0.0212,
+  "n_cells": 39,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 11.9072,
+    "lon": 77.8166,
+    "sm_surface": 0.1209,
+    "sm_rootzone": 0.1953,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 1,
+    "lat": 11.9072,
+    "lon": 77.9154,
+    "sm_surface": 0.142,
+    "sm_rootzone": 0.205,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 2,
+    "lat": 11.9072,
+    "lon": 78.4094,
+    "sm_surface": 0.1358,
+    "sm_rootzone": 0.1644,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 3,
+    "lat": 11.9072,
+    "lon": 78.5083,
+    "sm_surface": 0.1716,
+    "sm_rootzone": 0.1976,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 4,
+    "lat": 11.9072,
+    "lon": 78.6071,
+    "sm_surface": 0.1691,
+    "sm_rootzone": 0.1972,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 5,
+    "lat": 11.9072,
+    "lon": 78.7059,
+    "sm_surface": 0.1664,
+    "sm_rootzone": 0.1957,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 6,
+    "lat": 12.006,
+    "lon": 77.7177,
+    "sm_surface": 0.0852,
+    "sm_rootzone": 0.1502,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 7,
+    "lat": 12.006,
+    "lon": 77.8166,
+    "sm_surface": 0.1199,
+    "sm_rootzone": 0.1959,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 8,
+    "lat": 12.006,
+    "lon": 77.9154,
+    "sm_surface": 0.1367,
+    "sm_rootzone": 0.2044,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 9,
+    "lat": 12.006,
+    "lon": 78.0142,
+    "sm_surface": 0.1438,
+    "sm_rootzone": 0.2044,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 10,
+    "lat": 12.006,
+    "lon": 78.113,
+    "sm_surface": 0.1505,
+    "sm_rootzone": 0.2019,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 11,
+    "lat": 12.006,
+    "lon": 78.2118,
+    "sm_surface": 0.1602,
+    "sm_rootzone": 0.2032,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 12,
+    "lat": 12.006,
+    "lon": 78.3106,
+    "sm_surface": 0.1667,
+    "sm_rootzone": 0.2046,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 13,
+    "lat": 12.006,
+    "lon": 78.4094,
+    "sm_surface": 0.1733,
+    "sm_rootzone": 0.2087,
+    "n_villages_sharing_cell": 27
+   },
+   {
+    "cell_index": 14,
+    "lat": 12.006,
+    "lon": 78.5083,
+    "sm_surface": 0.1391,
+    "sm_rootzone": 0.1575,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 15,
+    "lat": 12.006,
+    "lon": 78.6071,
+    "sm_surface": 0.1724,
+    "sm_rootzone": 0.1986,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 16,
+    "lat": 12.1048,
+    "lon": 77.8166,
+    "sm_surface": 0.0964,
+    "sm_rootzone": 0.1527,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 17,
+    "lat": 12.1048,
+    "lon": 77.9154,
+    "sm_surface": 0.1462,
+    "sm_rootzone": 0.22,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 18,
+    "lat": 12.1048,
+    "lon": 78.0142,
+    "sm_surface": 0.1448,
+    "sm_rootzone": 0.2184,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 19,
+    "lat": 12.1048,
+    "lon": 78.113,
+    "sm_surface": 0.149,
+    "sm_rootzone": 0.1966,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 20,
+    "lat": 12.1048,
+    "lon": 78.2118,
+    "sm_surface": 0.1569,
+    "sm_rootzone": 0.1967,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 21,
+    "lat": 12.1048,
+    "lon": 78.3106,
+    "sm_surface": 0.1632,
+    "sm_rootzone": 0.198,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 22,
+    "lat": 12.1048,
+    "lon": 78.4094,
+    "sm_surface": 0.1657,
+    "sm_rootzone": 0.1977,
+    "n_villages_sharing_cell": 50
+   },
+   {
+    "cell_index": 23,
+    "lat": 12.1048,
+    "lon": 78.5083,
+    "sm_surface": 0.1719,
+    "sm_rootzone": 0.2001,
+    "n_villages_sharing_cell": 44
+   },
+   {
+    "cell_index": 24,
+    "lat": 12.1048,
+    "lon": 78.6071,
+    "sm_surface": 0.1711,
+    "sm_rootzone": 0.1986,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 25,
+    "lat": 12.1048,
+    "lon": 78.7059,
+    "sm_surface": 0.1702,
+    "sm_rootzone": 0.2053,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 26,
+    "lat": 12.2036,
+    "lon": 77.8166,
+    "sm_surface": 0.1095,
+    "sm_rootzone": 0.1524,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 27,
+    "lat": 12.2036,
+    "lon": 77.9154,
+    "sm_surface": 0.1488,
+    "sm_rootzone": 0.1973,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 28,
+    "lat": 12.2036,
+    "lon": 78.0142,
+    "sm_surface": 0.1561,
+    "sm_rootzone": 0.2207,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 29,
+    "lat": 12.2036,
+    "lon": 78.113,
+    "sm_surface": 0.1473,
+    "sm_rootzone": 0.195,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 30,
+    "lat": 12.2036,
+    "lon": 78.2118,
+    "sm_surface": 0.1567,
+    "sm_rootzone": 0.1967,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 31,
+    "lat": 12.2036,
+    "lon": 78.3106,
+    "sm_surface": 0.1619,
+    "sm_rootzone": 0.1978,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 32,
+    "lat": 12.3024,
+    "lon": 77.9154,
+    "sm_surface": 0.1674,
+    "sm_rootzone": 0.1914,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 33,
+    "lat": 12.3024,
+    "lon": 78.0142,
+    "sm_surface": 0.1625,
+    "sm_rootzone": 0.1997,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 34,
+    "lat": 12.3024,
+    "lon": 78.113,
+    "sm_surface": 0.2229,
+    "sm_rootzone": 0.2687,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 35,
+    "lat": 12.3024,
+    "lon": 78.2118,
+    "sm_surface": 0.1612,
+    "sm_rootzone": 0.1976,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 36,
+    "lat": 12.4012,
+    "lon": 78.0142,
+    "sm_surface": 0.146,
+    "sm_rootzone": 0.1611,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 37,
+    "lat": 12.4012,
+    "lon": 78.113,
+    "sm_surface": 0.1749,
+    "sm_rootzone": 0.2103,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 38,
+    "lat": 12.5001,
+    "lon": 77.9154,
+    "sm_surface": 0.1847,
+    "sm_rootzone": 0.2052,
+    "n_villages_sharing_cell": 2
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.1575,
+  "sm_surface_stddev": 0.013,
+  "n_blocks": 5
+ },
+ "blocks": [
+  {
+   "block_name": "Dharmapuri",
+   "sdcode": 5888,
+   "n_villages": 65,
+   "n_cells_spanned": 13,
+   "sm_surface_mean": 0.1518,
+   "sm_surface_stddev": 0.0057
+  },
+  {
+   "block_name": "Harur",
+   "sdcode": 5886,
+   "n_villages": 179,
+   "n_cells_spanned": 10,
+   "sm_surface_mean": 0.1659,
+   "sm_surface_stddev": 0.009
+  },
+  {
+   "block_name": "Palakkodu",
+   "sdcode": 5885,
+   "n_villages": 97,
+   "n_cells_spanned": 9,
+   "sm_surface_mean": 0.1728,
+   "sm_surface_stddev": 0.0294
+  },
+  {
+   "block_name": "Pappireddipatti",
+   "sdcode": 5887,
+   "n_villages": 104,
+   "n_cells_spanned": 10,
+   "sm_surface_mean": 0.1615,
+   "sm_surface_stddev": 0.0139
+  },
+  {
+   "block_name": "Pennagaram",
+   "sdcode": 5889,
+   "n_villages": 54,
+   "n_cells_spanned": 15,
+   "sm_surface_mean": 0.1353,
+   "sm_surface_stddev": 0.021
+  }
+ ],
+ "villages": {
+  "643343": [
+   "Mugilipatti",
+   5886,
+   22
+  ],
+  "643615": [
+   "Dokkubodanahalli",
+   5888,
+   10
+  ],
+  "643527": [
+   "Jangalahalli",
+   5887,
+   12
+  ],
+  "643633": [
+   "Velampatti",
+   5889,
+   29
+  ],
+  "643345": [
+   "Thoranampatti",
+   5886,
+   23
+  ],
+  "643222": [
+   "Annamalaihalli",
+   5885,
+   37
+  ],
+  "643545": [
+   "Chinnamanjavadi",
+   5887,
+   2
+  ],
+  "643424": [
+   "Mookanurpatti",
+   5886,
+   22
+  ],
+  "643482": [
+   "Allalapatty",
+   5887,
+   13
+  ],
+  "643243": [
+   "Sirandapuram",
+   5885,
+   33
+  ],
+  "643256": [
+   "Thellanahalli",
+   5885,
+   35
+  ],
+  "643634": [
+   "Kariappanahalli",
+   5889,
+   29
+  ],
+  "643443": [
+   "Jadaiyankombai",
+   5886,
+   4
+  ],
+  "643451": [
+   "Tariasal",
+   5886,
+   5
+  ],
+  "643445": [
+   "Ammapettai",
+   5886,
+   4
+  ],
+  "643268": [
+   "Guthalahalli",
+   5885,
+   34
+  ],
+  "643267": [
+   "Sitiganahalli",
+   5885,
+   34
+  ],
+  "643277": [
+   "Neralamarudahalli",
+   5885,
+   34
+  ],
+  "643278": [
+   "Bathalahalli",
+   5885,
+   34
+  ],
+  "643279": [
+   "Pothalahalli",
+   5885,
+   29
+  ],
+  "643214": [
+   "Chennanahalli",
+   5885,
+   36
+  ],
+  "643215": [
+   "Chikkamarandhahalli",
+   5885,
+   36
+  ],
+  "643435": [
+   "Kattiripatty",
+   5886,
+   15
+  ],
+  "643365": [
+   "Melachengambadi",
+   5886,
+   24
+  ],
+  "643364": [
+   "Mondukuli",
+   5886,
+   24
+  ],
+  "643363": [
+   "Kilchengampadi",
+   5886,
+   24
+  ],
+  "643433": [
+   "Andipatty",
+   5886,
+   5
+  ],
+  "643286": [
+   "Bannikulam",
+   5886,
+   31
+  ],
+  "643464": [
+   "Singirihalli",
+   5887,
+   21
+  ],
+  "643586": [
+   "Vellegoundan Palayam Part",
+   5888,
+   19
+  ],
+  "643432": [
+   "Sengandipatti",
+   5886,
+   15
+  ],
+  "643446": [
+   "Suramatham",
+   5886,
+   5
+  ],
+  "643434": [
+   "Mangalapatty",
+   5886,
+   5
+  ],
+  "643447": [
+   "Kulunthambinatham",
+   5886,
+   5
+  ],
+  "643481": [
+   "Annamalaipatty",
+   5887,
+   22
+  ],
+  "643366": [
+   "Andiyur",
+   5886,
+   24
+  ],
+  "643400": [
+   "Kattur",
+   5886,
+   22
+  ],
+  "643626": [
+   "Hale Dharmapuri CT",
+   5888,
+   30
+  ],
+  "643384": [
+   "Morappur",
+   5886,
+   22
+  ],
+  "643383": [
+   "Rasalampatti",
+   5886,
+   22
+  ],
+  "643423": [
+   "Sandappatti",
+   5886,
+   22
+  ],
+  "643382": [
+   "M Vetrapatti",
+   5886,
+   22
+  ],
+  "643394": [
+   "Avlampatty",
+   5886,
+   22
+  ],
+  "643659": [
+   "Ramakondahalli",
+   5889,
+   7
+  ],
+  "643393": [
+   "Nadupatti",
+   5886,
+   22
+  ],
+  "643397": [
+   "Panamarathupatti",
+   5886,
+   22
+  ],
+  "643662": [
+   "D Solapadi",
+   5889,
+   0
+  ],
+  "643661": [
+   "Manjarahalli",
+   5889,
+   7
+  ],
+  "643658": [
+   "Nagamarai",
+   5889,
+   0
+  ],
+  "643660": [
+   "Jarimankurichy",
+   5889,
+   0
+  ],
+  "643664": [
+   "Badrahalli",
+   5889,
+   1
+  ],
+  "643657": [
+   "Sunchalnatham",
+   5889,
+   7
+  ],
+  "643649": [
+   "Ajjanahalli",
+   5889,
+   16
+  ],
+  "643656": [
+   "Donnakuttahalli",
+   5889,
+   7
+  ],
+  "643647": [
+   "Kodihalli",
+   5889,
+   16
+  ],
+  "643678": [
+   "Perumbalai Rf",
+   5889,
+   7
+  ],
+  "643677": [
+   "Badanavadi Rf",
+   5889,
+   6
+  ],
+  "643676": [
+   "Badanavadi Rf Ext",
+   5889,
+   6
+  ],
+  "643673": [
+   "Singarhallai Parapadi R F",
+   5889,
+   6
+  ],
+  "643672": [
+   "Bevanurmalai R F",
+   5889,
+   16
+  ],
+  "643674": [
+   "Masakkal R F",
+   5889,
+   8
+  ],
+  "643396": [
+   "Morasapatti",
+   5886,
+   22
+  ],
+  "643398": [
+   "Setrapatti",
+   5886,
+   22
+  ],
+  "643380": [
+   "Sundangipatti",
+   5886,
+   22
+  ],
+  "643654": [
+   "Chinnampalli",
+   5889,
+   9
+  ],
+  "643665": [
+   "Gendenahalli",
+   5889,
+   1
+  ],
+  "643655": [
+   "Kalappambadi",
+   5889,
+   8
+  ],
+  "643653": [
+   "Arakasanahalli",
+   5889,
+   9
+  ],
+  "643663": [
+   "Perumbalai",
+   5889,
+   8
+  ],
+  "643652": [
+   "Pudupatti",
+   5889,
+   8
+  ],
+  "643651": [
+   "Kadamadai",
+   5889,
+   17
+  ],
+  "643650": [
+   "Kukuttamaruthahalli",
+   5889,
+   17
+  ],
+  "643644": [
+   "Maanjinaickanahalli",
+   5889,
+   17
+  ],
+  "643646": [
+   "Senganur",
+   5889,
+   17
+  ],
+  "643645": [
+   "Sathiyanathapuram",
+   5889,
+   17
+  ],
+  "643600": [
+   "Echanahalli",
+   5888,
+   17
+  ],
+  "643599": [
+   "Errabaiyanahalli",
+   5888,
+   18
+  ],
+  "643598": [
+   "Nekkundhi",
+   5888,
+   18
+  ],
+  "643597": [
+   "Nagarkoodal",
+   5888,
+   18
+  ],
+  "643550": [
+   "Elandaikuttapatty",
+   5887,
+   2
+  ],
+  "643596": [
+   "Balajangamanhalli",
+   5888,
+   19
+  ],
+  "643601": [
+   "Elagiri",
+   5888,
+   10
+  ],
+  "643602": [
+   "Pagalahalli",
+   5888,
+   10
+  ],
+  "643616": [
+   "Boalanahalli",
+   5888,
+   9
+  ],
+  "643609": [
+   "Thippireddihalli",
+   5888,
+   11
+  ],
+  "643618": [
+   "Kammampatti",
+   5888,
+   1
+  ],
+  "643614": [
+   "Palayam",
+   5888,
+   10
+  ],
+  "643619": [
+   "Thoppur T Kanigarahalli",
+   5888,
+   10
+  ],
+  "643617": [
+   "Maniathahalli",
+   5888,
+   9
+  ],
+  "643622": [
+   "Kukkalmalai",
+   5888,
+   11
+  ],
+  "643621": [
+   "Kondagarahalli",
+   5888,
+   11
+  ],
+  "643608": [
+   "Vathalamalai",
+   5888,
+   11
+  ],
+  "643611": [
+   "Mittareddihalli",
+   5888,
+   11
+  ],
+  "643620": [
+   "Veppilaimuthempatti",
+   5888,
+   10
+  ],
+  "643613": [
+   "Sivadi",
+   5888,
+   10
+  ],
+  "643612": [
+   "Budanahalli",
+   5888,
+   10
+  ],
+  "643610": [
+   "Dhinnahalli",
+   5888,
+   11
+  ],
+  "643603": [
+   "Nallampalli",
+   5888,
+   19
+  ],
+  "643604": [
+   "Laligam",
+   5888,
+   10
+  ],
+  "643605": [
+   "Mademangalam",
+   5888,
+   19
+  ],
+  "643606": [
+   "Noolahalli",
+   5888,
+   20
+  ],
+  "643539": [
+   "Mangade",
+   5887,
+   3
+  ],
+  "643607": [
+   "Mukkalnaickanahalli",
+   5888,
+   20
+  ],
+  "643593": [
+   "Ungaranhalli",
+   5888,
+   20
+  ],
+  "643595": [
+   "Adiyamankottai",
+   5888,
+   19
+  ],
+  "643594": [
+   "A Jettihalli",
+   5888,
+   19
+  ],
+  "643468": [
+   "Bosinaickenhalli",
+   5887,
+   21
+  ],
+  "643469": [
+   "Nallagudlahalli",
+   5887,
+   20
+  ],
+  "252414": [
+   "Kadathur Tp",
+   5887,
+   21
+  ],
+  "643467": [
+   "Linginaickenhalli",
+   5887,
+   21
+  ],
+  "643472": [
+   "Madathahally",
+   5887,
+   21
+  ],
+  "643521": [
+   "Gundalamaduvu",
+   5887,
+   12
+  ],
+  "643496": [
+   "Thalanatham",
+   5887,
+   12
+  ],
+  "643471": [
+   "Buddireddipatti",
+   5887,
+   21
+  ],
+  "643497": [
+   "Kettureddipatty",
+   5887,
+   12
+  ],
+  "643470": [
+   "Gedakarahally",
+   5887,
+   20
+  ],
+  "643501": [
+   "Battalamalai",
+   5887,
+   11
+  ],
+  "643500": [
+   "Unisenahalli",
+   5887,
+   21
+  ],
+  "643499": [
+   "Sunkarahalli",
+   5887,
+   12
+  ],
+  "643498": [
+   "Mottankurichi",
+   5887,
+   12
+  ],
+  "643502": [
+   "Regadahalli",
+   5887,
+   12
+  ],
+  "252415": [
+   "B Mallapuram Tp",
+   5887,
+   12
+  ],
+  "643542": [
+   "Sembiyanur",
+   5887,
+   11
+  ],
+  "643552": [
+   "Ammapalayam",
+   5887,
+   3
+  ],
+  "643524": [
+   "Bommidi",
+   5887,
+   12
+  ],
+  "643523": [
+   "Kumbarahalli",
+   5887,
+   12
+  ],
+  "643525": [
+   "Vellalapatti",
+   5887,
+   12
+  ],
+  "643541": [
+   "Varianur",
+   5887,
+   12
+  ],
+  "643543": [
+   "Ajjampatty",
+   5887,
+   12
+  ],
+  "643253": [
+   "Periyanahalli",
+   5885,
+   35
+  ],
+  "643540": [
+   "Bothakkadu",
+   5887,
+   12
+  ],
+  "643526": [
+   "Pallipatti",
+   5887,
+   12
+  ],
+  "643528": [
+   "Bairanatham",
+   5887,
+   12
+  ],
+  "643522": [
+   "Kadiripuram",
+   5887,
+   12
+  ],
+  "643529": [
+   "Devarajapalayam",
+   5887,
+   12
+  ],
+  "643530": [
+   "Molayanur",
+   5887,
+   2
+  ],
+  "643679": [
+   "Barigam Rf Portion",
+   5889,
+   1
+  ],
+  "643675": [
+   "Kalappambadi R F",
+   5889,
+   8
+  ],
+  "643554": [
+   "Kavaramalai R F",
+   5887,
+   12
+  ],
+  "643555": [
+   "Kavaramalai Extension R F",
+   5887,
+   12
+  ],
+  "643624": [
+   "Barigam R F Hills",
+   5888,
+   9
+  ],
+  "643623": [
+   "Neonahalli R F",
+   5888,
+   11
+  ],
+  "643379": [
+   "Velampatti",
+   5886,
+   22
+  ],
+  "643625": [
+   "K Thoppur R F",
+   5888,
+   10
+  ],
+  "643244": [
+   "Errakuttahalli",
+   5885,
+   33
+  ],
+  "643648": [
+   "Koothapadi",
+   5889,
+   17
+  ],
+  "643670": [
+   "Woddapatti R F",
+   5889,
+   26
+  ],
+  "643669": [
+   "Gurthirayan R F",
+   5889,
+   26
+  ],
+  "643671": [
+   "Pennagaram R F",
+   5889,
+   26
+  ],
+  "643245": [
+   "Boppidi",
+   5885,
+   33
+  ],
+  "643246": [
+   "Erudukuttahalli",
+   5885,
+   33
+  ],
+  "643232": [
+   "Pulikkal",
+   5885,
+   34
+  ],
+  "643275": [
+   "P Gollahalli",
+   5885,
+   29
+  ],
+  "643282": [
+   "Jagirburgur",
+   5885,
+   29
+  ],
+  "643281": [
+   "Mallikuttai",
+   5885,
+   29
+  ],
+  "643260": [
+   "Molappanahalli",
+   5885,
+   30
+  ],
+  "643261": [
+   "Poonathanahalli",
+   5885,
+   35
+  ],
+  "643381": [
+   "Thambichettipatti",
+   5886,
+   22
+  ],
+  "643231": [
+   "Nariyanahalli",
+   5885,
+   34
+  ],
+  "643238": [
+   "Budihalli",
+   5885,
+   33
+  ],
+  "643255": [
+   "Dindal",
+   5885,
+   35
+  ],
+  "643574": [
+   "Kondampatti",
+   5888,
+   30
+  ],
+  "643221": [
+   "Dandukaranahalli",
+   5885,
+   34
+  ],
+  "643239": [
+   "Belamaranahalli",
+   5885,
+   33
+  ],
+  "643237": [
+   "Nallur",
+   5885,
+   33
+  ],
+  "643240": [
+   "Thirumalvadi",
+   5885,
+   32
+  ],
+  "643236": [
+   "Kanavenahalli",
+   5885,
+   33
+  ],
+  "643241": [
+   "Bevuhalli",
+   5885,
+   33
+  ],
+  "643242": [
+   "Sirenahalli",
+   5885,
+   33
+  ],
+  "643220": [
+   "P Settighalli",
+   5885,
+   33
+  ],
+  "643235": [
+   "Jertalar",
+   5885,
+   34
+  ],
+  "643234": [
+   "Chikkardanahalli",
+   5885,
+   34
+  ],
+  "643233": [
+   "Kondachamanahalli",
+   5885,
+   34
+  ],
+  "643223": [
+   "Hanumanthapuram",
+   5885,
+   34
+  ],
+  "252409": [
+   "Palakkodu Tp",
+   5885,
+   34
+  ],
+  "643249": [
+   "Palacode",
+   5885,
+   34
+  ],
+  "643247": [
+   "Erranahalli",
+   5885,
+   33
+  ],
+  "643273": [
+   "Domalahalli",
+   5885,
+   34
+  ],
+  "643272": [
+   "Settihalli",
+   5885,
+   34
+  ],
+  "643274": [
+   "Papinayakanahalli",
+   5885,
+   29
+  ],
+  "643248": [
+   "Karagodahalli",
+   5885,
+   34
+  ],
+  "643250": [
+   "Bolabhaguthanhalli",
+   5885,
+   34
+  ],
+  "643271": [
+   "Modugulahalli",
+   5885,
+   34
+  ],
+  "643270": [
+   "Karukkamaranhalli",
+   5885,
+   34
+  ],
+  "643276": [
+   "Pulikkarai",
+   5885,
+   29
+  ],
+  "643269": [
+   "Kattanahalli",
+   5885,
+   34
+  ],
+  "643266": [
+   "Begarahalli",
+   5885,
+   34
+  ],
+  "643251": [
+   "Kottumaranahalli",
+   5885,
+   35
+  ],
+  "643285": [
+   "Sekkodi",
+   5885,
+   29
+  ],
+  "643284": [
+   "Booganahalli",
+   5885,
+   29
+  ],
+  "643283": [
+   "Selliyampatti",
+   5885,
+   29
+  ],
+  "643280": [
+   "Pumandahalli",
+   5885,
+   29
+  ],
+  "643265": [
+   "Kalappanahalli",
+   5885,
+   30
+  ],
+  "643264": [
+   "Baisuhalli",
+   5885,
+   30
+  ],
+  "643263": [
+   "Donnenahalli",
+   5885,
+   30
+  ],
+  "643262": [
+   "Chennarayanahalli",
+   5885,
+   30
+  ],
+  "643259": [
+   "Indamangalam",
+   5885,
+   30
+  ],
+  "643252": [
+   "Naganampatty",
+   5885,
+   35
+  ],
+  "643230": [
+   "Bommahalli",
+   5885,
+   34
+  ],
+  "643225": [
+   "Mukkulam",
+   5885,
+   35
+  ],
+  "643226": [
+   "Kumbarahalli",
+   5885,
+   35
+  ],
+  "643668": [
+   "Morappur R F",
+   5889,
+   32
+  ],
+  "643229": [
+   "Karimangalam",
+   5885,
+   35
+  ],
+  "252408": [
+   "Kariamangalam Tp",
+   5885,
+   35
+  ],
+  "643227": [
+   "Pachchiganapalli",
+   5885,
+   35
+  ],
+  "643228": [
+   "Kerakodahalli",
+   5885,
+   35
+  ],
+  "643258": [
+   "Murukkampatti",
+   5885,
+   30
+  ],
+  "643257": [
+   "Bandarahalli",
+   5885,
+   35
+  ],
+  "643254": [
+   "Adilam",
+   5885,
+   35
+  ],
+  "643643": [
+   "Peyalmari",
+   5889,
+   17
+  ],
+  "252419": [
+   "Pennagaram Tp",
+   5889,
+   17
+  ],
+  "643640": [
+   "Parvathanahalli",
+   5889,
+   17
+  ],
+  "643641": [
+   "Kattinaickenahalli",
+   5889,
+   27
+  ],
+  "643642": [
+   "Anjehalli",
+   5889,
+   17
+  ],
+  "643378": [
+   "Agraharam",
+   5886,
+   22
+  ],
+  "643638": [
+   "Sigaralahalli",
+   5889,
+   18
+  ],
+  "643637": [
+   "Thithiyoppanahalli",
+   5889,
+   28
+  ],
+  "643631": [
+   "Andarahalli",
+   5889,
+   29
+  ],
+  "643632": [
+   "Pallipatti",
+   5889,
+   29
+  ],
+  "643635": [
+   "Onnappagoundanahalli",
+   5889,
+   28
+  ],
+  "643630": [
+   "Madehalli",
+   5889,
+   29
+  ],
+  "252484": [
+   "Papparapatti Tp",
+   5889,
+   28
+  ],
+  "643629": [
+   "Panaikulam",
+   5889,
+   33
+  ],
+  "643628": [
+   "Pikkili",
+   5889,
+   28
+  ],
+  "643636": [
+   "Papparapatti",
+   5889,
+   28
+  ],
+  "643579": [
+   "Dhalavaihalli",
+   5888,
+   18
+  ],
+  "643587": [
+   "Settikarai",
+   5888,
+   20
+  ],
+  "643639": [
+   "Vattuvanahalli",
+   5889,
+   27
+  ],
+  "643565": [
+   "Palavadi",
+   5888,
+   29
+  ],
+  "643564": [
+   "Mookkanahalli",
+   5888,
+   28
+  ],
+  "643580": [
+   "Somenahalli",
+   5888,
+   18
+  ],
+  "643582": [
+   "Konangihalli",
+   5888,
+   18
+  ],
+  "643581": [
+   "Pangunatham",
+   5888,
+   18
+  ],
+  "643583": [
+   "Kumbalapadi",
+   5888,
+   18
+  ],
+  "643584": [
+   "Nathathahalli",
+   5888,
+   18
+  ],
+  "643578": [
+   "Adagapadi",
+   5888,
+   19
+  ],
+  "643566": [
+   "Kadagathur",
+   5888,
+   29
+  ],
+  "643577": [
+   "Pappinaickanahalli",
+   5888,
+   19
+  ],
+  "643567": [
+   "Naduhalli",
+   5888,
+   29
+  ],
+  "643585": [
+   "Thadangam",
+   5888,
+   19
+  ],
+  "643592": [
+   "Annasagaram",
+   5888,
+   20
+  ],
+  "643576": [
+   "A Reddihalli",
+   5888,
+   19
+  ],
+  "252417": [
+   "Dharmapuri M",
+   5888,
+   19
+  ],
+  "643568": [
+   "Nallanahalli",
+   5888,
+   30
+  ],
+  "643569": [
+   "Konanginaickanahalli",
+   5888,
+   30
+  ],
+  "643591": [
+   "Vellolai",
+   5888,
+   20
+  ],
+  "643588": [
+   "Naickanahalli",
+   5888,
+   20
+  ],
+  "643575": [
+   "Kuppur",
+   5888,
+   30
+  ],
+  "643570": [
+   "Vellalapatti",
+   5888,
+   30
+  ],
+  "643344": [
+   "Neruppandalkuppam",
+   5886,
+   23
+  ],
+  "643571": [
+   "Andihalli",
+   5888,
+   30
+  ],
+  "643572": [
+   "Krishnapuram",
+   5888,
+   30
+  ],
+  "643590": [
+   "Mookanur",
+   5888,
+   21
+  ],
+  "643589": [
+   "Akkamanahalli",
+   5888,
+   20
+  ],
+  "643573": [
+   "Pulidikarai",
+   5888,
+   31
+  ],
+  "643287": [
+   "Irumathur",
+   5886,
+   31
+  ],
+  "643288": [
+   "Kongarapatty",
+   5886,
+   31
+  ],
+  "643331": [
+   "Vagurappampatti",
+   5886,
+   31
+  ],
+  "643289": [
+   "Kelavalli",
+   5886,
+   31
+  ],
+  "643375": [
+   "Maveripatti",
+   5886,
+   23
+  ],
+  "643332": [
+   "Pallipatti",
+   5886,
+   31
+  ],
+  "643333": [
+   "Jakkupatti",
+   5886,
+   31
+  ],
+  "643334": [
+   "Battalahalli",
+   5886,
+   31
+  ],
+  "252412": [
+   "Kambainallur Tp",
+   5886,
+   31
+  ],
+  "643388": [
+   "Gobinathampatti",
+   5886,
+   21
+  ],
+  "643463": [
+   "Maniyabadi",
+   5887,
+   21
+  ],
+  "643667": [
+   "Keserkuli R F Extension",
+   5889,
+   28
+  ],
+  "643666": [
+   "Keserkuli R F",
+   5889,
+   32
+  ],
+  "643399": [
+   "Nachanampatty",
+   5886,
+   22
+  ],
+  "643395": [
+   "Appiyampatty",
+   5886,
+   22
+  ],
+  "643194": [
+   "Namandahalli",
+   5885,
+   36
+  ],
+  "643210": [
+   "Bodikuttalapally",
+   5885,
+   36
+  ],
+  "643192": [
+   "Panjapalli",
+   5885,
+   38
+  ],
+  "643195": [
+   "Chinnagowndanahalli",
+   5885,
+   38
+  ],
+  "643193": [
+   "Periyanur",
+   5885,
+   36
+  ],
+  "643197": [
+   "Gummanur",
+   5885,
+   36
+  ],
+  "643209": [
+   "Samanur",
+   5885,
+   36
+  ],
+  "643213": [
+   "Marandahalli",
+   5885,
+   36
+  ],
+  "643208": [
+   "Chikkadornabettam",
+   5885,
+   36
+  ],
+  "643198": [
+   "Jittandahalli",
+   5885,
+   36
+  ],
+  "643207": [
+   "Giddanahalli",
+   5885,
+   36
+  ],
+  "643199": [
+   "Mahendramangalam",
+   5885,
+   37
+  ],
+  "643200": [
+   "Maravadi",
+   5885,
+   37
+  ],
+  "643204": [
+   "Karukkanahalli",
+   5885,
+   37
+  ],
+  "643201": [
+   "Themmarayanahalli",
+   5885,
+   37
+  ],
+  "643203": [
+   "Bikkanahalli",
+   5885,
+   37
+  ],
+  "643205": [
+   "Velakalahalli",
+   5885,
+   37
+  ],
+  "643206": [
+   "Jakkasamudram",
+   5885,
+   36
+  ],
+  "643219": [
+   "Sengabasuvantalar",
+   5885,
+   36
+  ],
+  "643218": [
+   "Rengampatti",
+   5885,
+   36
+  ],
+  "643211": [
+   "Athimutlu",
+   5885,
+   36
+  ],
+  "252407": [
+   "Marandahalli Tp",
+   5885,
+   36
+  ],
+  "643212": [
+   "Gendanahalli",
+   5885,
+   36
+  ],
+  "643216": [
+   "Gujjarahalli",
+   5885,
+   36
+  ],
+  "643196": [
+   "Chudanur",
+   5885,
+   36
+  ],
+  "643217": [
+   "Upparahalli",
+   5885,
+   36
+  ],
+  "643377": [
+   "Thadampatti",
+   5886,
+   23
+  ],
+  "643553": [
+   "Kullampatty",
+   5887,
+   4
+  ],
+  "643347": [
+   "Kurumbatty",
+   5886,
+   23
+  ],
+  "643202": [
+   "Murukkalnatham",
+   5885,
+   37
+  ],
+  "643224": [
+   "Elumichanahalli",
+   5885,
+   34
+  ],
+  "643627": [
+   "Lakkiampatti CT",
+   5888,
+   19
+  ],
+  "643544": [
+   "Kombur",
+   5887,
+   2
+  ],
+  "643547": [
+   "Kallattupatti",
+   5887,
+   2
+  ],
+  "643549": [
+   "Nonanganur",
+   5887,
+   2
+  ],
+  "643546": [
+   "Manjavadi",
+   5887,
+   2
+  ],
+  "643548": [
+   "Nadupatti",
+   5887,
+   2
+  ],
+  "643415": [
+   "Ponneri",
+   5886,
+   14
+  ],
+  "643559": [
+   "Pallipatti R F",
+   5887,
+   2
+  ],
+  "643561": [
+   "Ammapalaiyam R F",
+   5887,
+   4
+  ],
+  "643562": [
+   "Kaland Extension Rf",
+   5887,
+   3
+  ],
+  "643563": [
+   "Nachikutti R F",
+   5887,
+   3
+  ],
+  "643406": [
+   "Ittaiampatty",
+   5886,
+   23
+  ],
+  "643407": [
+   "Pudinattam",
+   5886,
+   15
+  ],
+  "643455": [
+   "Velanur",
+   5886,
+   4
+  ],
+  "643389": [
+   "Dasirihalli",
+   5886,
+   22
+  ],
+  "643390": [
+   "Reddipatti",
+   5886,
+   22
+  ],
+  "643560": [
+   "Sitteri R F",
+   5887,
+   3
+  ],
+  "643425": [
+   "Soorapatti",
+   5886,
+   22
+  ],
+  "643421": [
+   "Kottarapatty",
+   5886,
+   22
+  ],
+  "643422": [
+   "Venakkampatti",
+   5886,
+   22
+  ],
+  "643351": [
+   "Melanur",
+   5886,
+   23
+  ],
+  "643352": [
+   "Kilanur",
+   5886,
+   23
+  ],
+  "643349": [
+   "Kuttipatti",
+   5886,
+   23
+  ],
+  "643374": [
+   "Kodamandapatti",
+   5886,
+   23
+  ],
+  "643350": [
+   "Veppanatham",
+   5886,
+   23
+  ],
+  "643376": [
+   "Soriyampatti",
+   5886,
+   23
+  ],
+  "643402": [
+   "Mobirippatti",
+   5886,
+   23
+  ],
+  "643401": [
+   "Tandekuppam",
+   5886,
+   23
+  ],
+  "643419": [
+   "Pachanampatty",
+   5886,
+   14
+  ],
+  "643420": [
+   "Dodampatty",
+   5886,
+   14
+  ],
+  "643426": [
+   "Nachanampatti",
+   5886,
+   14
+  ],
+  "643427": [
+   "Kalladipatty",
+   5886,
+   14
+  ],
+  "643441": [
+   "Achalvadi",
+   5886,
+   14
+  ],
+  "643440": [
+   "Kudumiyampatty",
+   5886,
+   14
+  ],
+  "643428": [
+   "Kiraipatty",
+   5886,
+   14
+  ],
+  "643429": [
+   "Kelapparai",
+   5886,
+   14
+  ],
+  "643418": [
+   "Ellepudayampatti",
+   5886,
+   14
+  ],
+  "643373": [
+   "Sekkampatti",
+   5886,
+   23
+  ],
+  "643371": [
+   "Chellampatti",
+   5886,
+   23
+  ],
+  "643370": [
+   "Valaduppu",
+   5886,
+   23
+  ],
+  "643372": [
+   "Kavoipatty",
+   5886,
+   23
+  ],
+  "643404": [
+   "Jangalvodi",
+   5886,
+   23
+  ],
+  "252413": [
+   "Harur Tp",
+   5886,
+   14
+  ],
+  "643403": [
+   "Konampatty",
+   5886,
+   23
+  ],
+  "643405": [
+   "Vengiampatti",
+   5886,
+   23
+  ],
+  "643417": [
+   "Kammalampatty",
+   5886,
+   14
+  ],
+  "643416": [
+   "Thedampatti",
+   5886,
+   14
+  ],
+  "643414": [
+   "Veppampatti",
+   5886,
+   15
+  ],
+  "643413": [
+   "Mambadi",
+   5886,
+   15
+  ],
+  "643408": [
+   "Virappanayakkampatti",
+   5886,
+   24
+  ],
+  "643368": [
+   "Palaiyam",
+   5886,
+   24
+  ],
+  "643369": [
+   "Gudalur",
+   5886,
+   24
+  ],
+  "643354": [
+   "Poyyapatti",
+   5886,
+   23
+  ],
+  "643367": [
+   "Theerthamalai",
+   5886,
+   24
+  ],
+  "643442": [
+   "Vallimadurai",
+   5886,
+   14
+  ],
+  "643439": [
+   "Samanattam",
+   5886,
+   14
+  ],
+  "643430": [
+   "Pudur",
+   5886,
+   14
+  ],
+  "643438": [
+   "Tadaravalasai",
+   5886,
+   15
+  ],
+  "643436": [
+   "Kambalai",
+   5886,
+   15
+  ],
+  "643437": [
+   "Karapadi",
+   5886,
+   15
+  ],
+  "643359": [
+   "Mandikulampatti",
+   5886,
+   25
+  ],
+  "643358": [
+   "Periyapatti",
+   5886,
+   25
+  ],
+  "643361": [
+   "Runganavalasai",
+   5886,
+   25
+  ],
+  "643362": [
+   "Thanippadi",
+   5886,
+   25
+  ],
+  "643494": [
+   "Thadhanur",
+   5887,
+   13
+  ],
+  "643360": [
+   "Sikkalur",
+   5886,
+   25
+  ],
+  "643410": [
+   "Vedapatti",
+   5886,
+   25
+  ],
+  "643409": [
+   "Senrayampatti",
+   5886,
+   25
+  ],
+  "643411": [
+   "Naripalli",
+   5886,
+   25
+  ],
+  "643412": [
+   "Bairnayakkampatty",
+   5886,
+   15
+  ],
+  "643449": [
+   "Avallur",
+   5886,
+   5
+  ],
+  "643431": [
+   "Kottapatty",
+   5886,
+   15
+  ],
+  "643452": [
+   "Sittilingi",
+   5886,
+   4
+  ],
+  "643453": [
+   "Meithangi",
+   5886,
+   4
+  ],
+  "643454": [
+   "Thathampatti",
+   5886,
+   4
+  ],
+  "643444": [
+   "Chettikuttai",
+   5886,
+   4
+  ],
+  "643450": [
+   "Selambai",
+   5886,
+   5
+  ],
+  "643448": [
+   "Thekkanampatti",
+   5886,
+   5
+  ],
+  "643465": [
+   "Kerekodahalli",
+   5887,
+   21
+  ],
+  "643466": [
+   "Chintalpadi",
+   5887,
+   22
+  ],
+  "643473": [
+   "Basuvapuram",
+   5887,
+   21
+  ],
+  "643474": [
+   "Gurubarahalli",
+   5887,
+   13
+  ],
+  "643475": [
+   "Thinnahalli",
+   5887,
+   22
+  ],
+  "643476": [
+   "Balasamudram",
+   5887,
+   13
+  ],
+  "643495": [
+   "Obilinayakkanahalli",
+   5887,
+   12
+  ],
+  "643493": [
+   "Pethasamudram",
+   5887,
+   13
+  ],
+  "643492": [
+   "Rameyanahalli",
+   5887,
+   13
+  ],
+  "643491": [
+   "Thurinihalli",
+   5887,
+   13
+  ],
+  "643478": [
+   "Sikkampatti",
+   5887,
+   13
+  ],
+  "643477": [
+   "Peddur",
+   5887,
+   22
+  ],
+  "643480": [
+   "Papichettipatti",
+   5887,
+   22
+  ],
+  "643483": [
+   "Andipatty",
+   5887,
+   13
+  ],
+  "643484": [
+   "Kadaranampatty",
+   5887,
+   13
+  ],
+  "643479": [
+   "Gopichettipalayam",
+   5887,
+   13
+  ],
+  "643485": [
+   "Kolagampatty",
+   5887,
+   13
+  ],
+  "643490": [
+   "Tenkaraikottai",
+   5887,
+   13
+  ],
+  "643503": [
+   "Mekalanayakanahalli",
+   5887,
+   13
+  ],
+  "643520": [
+   "Pudinattam",
+   5887,
+   12
+  ],
+  "643519": [
+   "Menasi",
+   5887,
+   12
+  ],
+  "643531": [
+   "Venkatesamudram",
+   5887,
+   2
+  ],
+  "643532": [
+   "Kolimekkenur",
+   5887,
+   2
+  ],
+  "252416": [
+   "Pappireddipatti Tp",
+   5887,
+   2
+  ],
+  "643551": [
+   "Pattukonampatty",
+   5887,
+   2
+  ],
+  "643533": [
+   "Adigarapatty",
+   5887,
+   2
+  ],
+  "643538": [
+   "A Pallipatti",
+   5887,
+   2
+  ],
+  "643537": [
+   "Irulapatty",
+   5887,
+   2
+  ],
+  "643534": [
+   "Thadampatti",
+   5887,
+   2
+  ],
+  "643535": [
+   "Kavandampatty",
+   5887,
+   13
+  ],
+  "643518": [
+   "Alapuram",
+   5887,
+   13
+  ],
+  "643536": [
+   "Mookkareddipatti",
+   5887,
+   2
+  ],
+  "643513": [
+   "Pappambadi",
+   5887,
+   2
+  ],
+  "643515": [
+   "Pudupatti",
+   5887,
+   13
+  ],
+  "643512": [
+   "Vachathi",
+   5887,
+   3
+  ],
+  "643517": [
+   "Gopalapuram",
+   5887,
+   13
+  ],
+  "643516": [
+   "Naranapuram",
+   5887,
+   13
+  ],
+  "643514": [
+   "Erumiyampatty",
+   5887,
+   13
+  ],
+  "643508": [
+   "Kokkarapatty",
+   5887,
+   13
+  ],
+  "643509": [
+   "Malagapadi",
+   5887,
+   14
+  ],
+  "643504": [
+   "Jammanahalli",
+   5887,
+   13
+  ],
+  "643489": [
+   "Annamalaihalli",
+   5887,
+   13
+  ],
+  "643486": [
+   "Nambippatti",
+   5887,
+   14
+  ],
+  "643488": [
+   "Chinnankuppam",
+   5887,
+   13
+  ],
+  "643506": [
+   "Devarajapalayam",
+   5887,
+   13
+  ],
+  "643505": [
+   "Parayapatti",
+   5887,
+   13
+  ],
+  "643507": [
+   "Puludiyur",
+   5887,
+   13
+  ],
+  "643487": [
+   "Pethathampatti",
+   5887,
+   14
+  ],
+  "643458": [
+   "Veppampatti Rf",
+   5886,
+   15
+  ],
+  "643459": [
+   "Veppampatti Extension R F",
+   5886,
+   15
+  ],
+  "643461": [
+   "Sittilingi Extension R F",
+   5886,
+   4
+  ],
+  "643511": [
+   "Sitteri",
+   5887,
+   3
+  ],
+  "643510": [
+   "Suriyakadi",
+   5887,
+   4
+  ],
+  "643456": [
+   "Theerthamalai R F",
+   5886,
+   24
+  ],
+  "643460": [
+   "Kottapatti Extension R F",
+   5886,
+   15
+  ],
+  "643462": [
+   "Sittilingi R F",
+   5886,
+   5
+  ],
+  "643457": [
+   "Kottapatty R F",
+   5886,
+   5
+  ],
+  "643556": [
+   "Tambal Extension R F",
+   5887,
+   14
+  ],
+  "643557": [
+   "Karungal R F",
+   5887,
+   4
+  ],
+  "643558": [
+   "Sitteri R F Extension",
+   5887,
+   4
+  ],
+  "643326": [
+   "Kalladipatti",
+   5886,
+   22
+  ],
+  "643342": [
+   "Mottayampatti",
+   5886,
+   22
+  ],
+  "643391": [
+   "Bodinaickenhalli",
+   5886,
+   22
+  ],
+  "643387": [
+   "Veppasennampatti",
+   5886,
+   22
+  ],
+  "643392": [
+   "Kurumbapatty",
+   5886,
+   22
+  ],
+  "643330": [
+   "Chinnakoundampatti",
+   5886,
+   31
+  ],
+  "643329": [
+   "Navalai",
+   5886,
+   31
+  ],
+  "643291": [
+   "Agraharam",
+   5886,
+   31
+  ],
+  "643290": [
+   "Ichambadi",
+   5886,
+   31
+  ],
+  "643293": [
+   "Gettupatty",
+   5886,
+   31
+  ],
+  "643292": [
+   "Ettipatty",
+   5886,
+   31
+  ],
+  "643335": [
+   "Palayampalli",
+   5886,
+   21
+  ],
+  "643336": [
+   "Andipatty",
+   5886,
+   22
+  ],
+  "643328": [
+   "Elavadi",
+   5886,
+   22
+  ],
+  "643294": [
+   "Samandahalli",
+   5886,
+   22
+  ],
+  "643295": [
+   "Singilipatty",
+   5886,
+   22
+  ],
+  "643296": [
+   "Kuttapatty",
+   5886,
+   22
+  ],
+  "643299": [
+   "Tamaleripatti",
+   5886,
+   23
+  ],
+  "643327": [
+   "Palayam",
+   5886,
+   22
+  ],
+  "643325": [
+   "Pallipatti",
+   5886,
+   22
+  ],
+  "643324": [
+   "Velampatti",
+   5886,
+   22
+  ],
+  "643323": [
+   "Marudipatti",
+   5886,
+   22
+  ],
+  "643338": [
+   "Kosapatty",
+   5886,
+   22
+  ],
+  "643337": [
+   "Thoppampatti",
+   5886,
+   22
+  ],
+  "643339": [
+   "Vengiyampatti",
+   5886,
+   22
+  ],
+  "643340": [
+   "Obilinayakkanpatti",
+   5886,
+   22
+  ],
+  "643341": [
+   "Nayinakavundampatti",
+   5886,
+   22
+  ],
+  "643386": [
+   "Sennampatti",
+   5886,
+   22
+  ],
+  "643385": [
+   "Kondayampatty",
+   5886,
+   22
+  ],
+  "643297": [
+   "Kilomorappur",
+   5886,
+   22
+  ],
+  "643300": [
+   "Pariayapatti",
+   5886,
+   23
+  ],
+  "643301": [
+   "Kurumbapatty",
+   5886,
+   23
+  ],
+  "643302": [
+   "Ganapathipatty",
+   5886,
+   23
+  ],
+  "643322": [
+   "Mettuvalasai",
+   5886,
+   23
+  ],
+  "643321": [
+   "Tamarakoliyampatti",
+   5886,
+   23
+  ],
+  "643303": [
+   "Kuruthampatty",
+   5886,
+   23
+  ],
+  "643320": [
+   "Mattiyampatti",
+   5886,
+   23
+  ],
+  "643346": [
+   "Vadugapatti",
+   5886,
+   23
+  ],
+  "643348": [
+   "Ichampadi",
+   5886,
+   23
+  ],
+  "643319": [
+   "K Vetrapatti",
+   5886,
+   23
+  ],
+  "643318": [
+   "Kondampatti",
+   5886,
+   23
+  ],
+  "643317": [
+   "Sakkilipatti",
+   5886,
+   23
+  ],
+  "643304": [
+   "Kangavembu",
+   5886,
+   23
+  ],
+  "643305": [
+   "Ilaiyampatty",
+   5886,
+   23
+  ],
+  "643306": [
+   "Pappinayakkenvalasai",
+   5886,
+   23
+  ],
+  "643307": [
+   "Kumrampatty",
+   5886,
+   23
+  ],
+  "643308": [
+   "Ittalapatti",
+   5886,
+   23
+  ],
+  "643316": [
+   "Mampatty",
+   5886,
+   23
+  ],
+  "643315": [
+   "Vadapatti",
+   5886,
+   23
+  ],
+  "643353": [
+   "Kothanampatti",
+   5886,
+   23
+  ],
+  "643298": [
+   "Thippampatti",
+   5886,
+   23
+  ],
+  "643355": [
+   "Kattuvadichampatti",
+   5886,
+   24
+  ],
+  "643309": [
+   "Nariyampatti",
+   5886,
+   24
+  ],
+  "643310": [
+   "Chandrapuram",
+   5886,
+   24
+  ],
+  "643311": [
+   "Mattiyampatti",
+   5886,
+   24
+  ],
+  "643313": [
+   "Chinnapannimaduvu",
+   5886,
+   24
+  ],
+  "643314": [
+   "Periyappannimaduvu",
+   5886,
+   24
+  ],
+  "643312": [
+   "Tambal",
+   5886,
+   24
+  ],
+  "643356": [
+   "Vedakadamaduvu",
+   5886,
+   24
+  ],
+  "643357": [
+   "Alambadi",
+   5886,
+   24
+  ]
+ },
+ "village_count_total": 499,
+ "village_count_assigned": 499
+}

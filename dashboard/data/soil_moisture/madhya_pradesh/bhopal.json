@@ -1,0 +1,2862 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Madhya Pradesh",
+  "district": "Bhopal",
+  "district_lgd": 396,
+  "observation_window": "2026-08-07T11:15Z to 2026-08-12T11:15Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3616,
+  "sm_surface_stddev": 0.0463,
+  "sm_rootzone_mean": 0.359,
+  "sm_rootzone_stddev": 0.0556,
+  "n_cells": 24,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 23.172,
+    "lon": 77.3225,
+    "sm_surface": 0.3902,
+    "sm_rootzone": 0.3948,
+    "n_villages_sharing_cell": 37
+   },
+   {
+    "cell_index": 1,
+    "lat": 23.172,
+    "lon": 77.4213,
+    "sm_surface": 0.3935,
+    "sm_rootzone": 0.3963,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 2,
+    "lat": 23.172,
+    "lon": 77.5201,
+    "sm_surface": 0.395,
+    "sm_rootzone": 0.4015,
+    "n_villages_sharing_cell": 27
+   },
+   {
+    "cell_index": 3,
+    "lat": 23.2709,
+    "lon": 77.2237,
+    "sm_surface": 0.3829,
+    "sm_rootzone": 0.3933,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 4,
+    "lat": 23.2709,
+    "lon": 77.3225,
+    "sm_surface": 0.3756,
+    "sm_rootzone": 0.3845,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 5,
+    "lat": 23.2709,
+    "lon": 77.4213,
+    "sm_surface": 0.3768,
+    "sm_rootzone": 0.3838,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 6,
+    "lat": 23.2709,
+    "lon": 77.5201,
+    "sm_surface": 0.3814,
+    "sm_rootzone": 0.3911,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 7,
+    "lat": 23.3697,
+    "lon": 77.3225,
+    "sm_surface": 0.3752,
+    "sm_rootzone": 0.3847,
+    "n_villages_sharing_cell": 30
+   },
+   {
+    "cell_index": 8,
+    "lat": 23.3697,
+    "lon": 77.4213,
+    "sm_surface": 0.373,
+    "sm_rootzone": 0.3856,
+    "n_villages_sharing_cell": 35
+   },
+   {
+    "cell_index": 9,
+    "lat": 23.3697,
+    "lon": 77.5201,
+    "sm_surface": 0.376,
+    "sm_rootzone": 0.3869,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 10,
+    "lat": 23.4685,
+    "lon": 77.3225,
+    "sm_surface": 0.3787,
+    "sm_rootzone": 0.3864,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 11,
+    "lat": 23.4685,
+    "lon": 77.4213,
+    "sm_surface": 0.3782,
+    "sm_rootzone": 0.3853,
+    "n_villages_sharing_cell": 34
+   },
+   {
+    "cell_index": 12,
+    "lat": 23.5673,
+    "lon": 77.3225,
+    "sm_surface": 0.3855,
+    "sm_rootzone": 0.3892,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 13,
+    "lat": 23.5673,
+    "lon": 77.4213,
+    "sm_surface": 0.3873,
+    "sm_rootzone": 0.3899,
+    "n_villages_sharing_cell": 30
+   },
+   {
+    "cell_index": 14,
+    "lat": 23.6661,
+    "lon": 77.2237,
+    "sm_surface": 0.3739,
+    "sm_rootzone": 0.3686,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 15,
+    "lat": 23.6661,
+    "lon": 77.3225,
+    "sm_surface": 0.2736,
+    "sm_rootzone": 0.2543,
+    "n_villages_sharing_cell": 27
+   },
+   {
+    "cell_index": 16,
+    "lat": 23.6661,
+    "lon": 77.4213,
+    "sm_surface": 0.403,
+    "sm_rootzone": 0.3891,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 17,
+    "lat": 23.6661,
+    "lon": 77.5201,
+    "sm_surface": 0.4066,
+    "sm_rootzone": 0.3917,
+    "n_villages_sharing_cell": 34
+   },
+   {
+    "cell_index": 18,
+    "lat": 23.6661,
+    "lon": 77.6189,
+    "sm_surface": 0.4035,
+    "sm_rootzone": 0.3881,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 19,
+    "lat": 23.7649,
+    "lon": 77.2237,
+    "sm_surface": 0.3732,
+    "sm_rootzone": 0.3674,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 20,
+    "lat": 23.7649,
+    "lon": 77.3225,
+    "sm_surface": 0.2763,
+    "sm_rootzone": 0.254,
+    "n_villages_sharing_cell": 24
+   },
+   {
+    "cell_index": 21,
+    "lat": 23.7649,
+    "lon": 77.4213,
+    "sm_surface": 0.2917,
+    "sm_rootzone": 0.2615,
+    "n_villages_sharing_cell": 27
+   },
+   {
+    "cell_index": 22,
+    "lat": 23.8637,
+    "lon": 77.2237,
+    "sm_surface": 0.2523,
+    "sm_rootzone": 0.2411,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 23,
+    "lat": 23.8637,
+    "lon": 77.3225,
+    "sm_surface": 0.2758,
+    "sm_rootzone": 0.248,
+    "n_villages_sharing_cell": 15
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3755,
+  "sm_surface_stddev": 0.018,
+  "n_blocks": 3
+ },
+ "blocks": [
+  {
+   "block_name": "Berasia",
+   "sdcode": 3580,
+   "n_villages": 304,
+   "n_cells_spanned": 14,
+   "sm_surface_mean": 0.3513,
+   "sm_surface_stddev": 0.0538
+  },
+  {
+   "block_name": "Huzur",
+   "sdcode": 3581,
+   "n_villages": 185,
+   "n_cells_spanned": 12,
+   "sm_surface_mean": 0.3808,
+   "sm_surface_stddev": 0.0071
+  },
+  {
+   "block_name": "Kolar",
+   "sdcode": 7034,
+   "n_villages": 33,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3943,
+   "sm_surface_stddev": 0.0007
+  }
+ ],
+ "villages": {
+  "482155": [
+   "Jamusar Khurd",
+   3580,
+   17
+  ],
+  "482219": [
+   "Kolu Khedi",
+   3580,
+   16
+  ],
+  "482504": [
+   "Anwala",
+   3581,
+   0
+  ],
+  "482525": [
+   "Samasgarh",
+   3581,
+   0
+  ],
+  "482524": [
+   "Borda",
+   7034,
+   1
+  ],
+  "482526": [
+   "Samaspura",
+   3581,
+   0
+  ],
+  "482527": [
+   "Mahawadiya",
+   7034,
+   1
+  ],
+  "482528": [
+   "Thua Kheda",
+   7034,
+   1
+  ],
+  "482561": [
+   "Bavali Kheda",
+   3581,
+   0
+  ],
+  "482535": [
+   "Amrabad Kalan",
+   7034,
+   1
+  ],
+  "482529": [
+   "Pipaliya Berkhedi",
+   7034,
+   1
+  ],
+  "482531": [
+   "Kalapani",
+   7034,
+   1
+  ],
+  "482536": [
+   "Shobhapur Jahej",
+   7034,
+   1
+  ],
+  "482530": [
+   "Gol",
+   7034,
+   1
+  ],
+  "482543": [
+   "Panchawa",
+   7034,
+   1
+  ],
+  "482362": [
+   "Prempura",
+   3581,
+   7
+  ],
+  "482349": [
+   "Jhhirniya",
+   3581,
+   3
+  ],
+  "482421": [
+   "Semra Saiyad",
+   3581,
+   8
+  ],
+  "482370": [
+   "Chandpur",
+   3581,
+   7
+  ],
+  "482453": [
+   "Puraman Bhawan",
+   3581,
+   8
+  ],
+  "482352": [
+   "Chandukhedi",
+   3581,
+   7
+  ],
+  "482472": [
+   "Toomda",
+   3581,
+   3
+  ],
+  "482371": [
+   "Parewa Kheda",
+   3581,
+   8
+  ],
+  "482361": [
+   "Khejdadeo",
+   3581,
+   7
+  ],
+  "482372": [
+   "Arwaliya",
+   3581,
+   8
+  ],
+  "482454": [
+   "Mohammad Nagar Urf Sattikheda",
+   3581,
+   8
+  ],
+  "482363": [
+   "Dobra",
+   3581,
+   7
+  ],
+  "482354": [
+   "Parwaliya Sadak",
+   3581,
+   7
+  ],
+  "482469": [
+   "Rasooliya Pathar",
+   3581,
+   3
+  ],
+  "482373": [
+   "Parvaliya Sani",
+   3581,
+   8
+  ],
+  "482468": [
+   "Kalan Khedi",
+   3581,
+   3
+  ],
+  "482460": [
+   "Kurana",
+   3581,
+   7
+  ],
+  "482455": [
+   "Shyampur",
+   3581,
+   8
+  ],
+  "482456": [
+   "Deval Khedi",
+   3581,
+   8
+  ],
+  "482365": [
+   "Lamba Kheda",
+   3581,
+   8
+  ],
+  "482364": [
+   "Bishan Khedi",
+   3581,
+   7
+  ],
+  "482458": [
+   "Pipliya Bajkhan",
+   3581,
+   5
+  ],
+  "482353": [
+   "Bundrkha Sadak",
+   3581,
+   4
+  ],
+  "482470": [
+   "Neelbad",
+   3581,
+   3
+  ],
+  "250946": [
+   "Bhopal",
+   3581,
+   5
+  ],
+  "482461": [
+   "Mubarikpur",
+   3581,
+   4
+  ],
+  "482457": [
+   "Ghat Khedi",
+   3581,
+   8
+  ],
+  "482467": [
+   "Ratanpur",
+   3581,
+   3
+  ],
+  "482459": [
+   "Barkheda Bondar",
+   3581,
+   4
+  ],
+  "482471": [
+   "Barkheda Salam",
+   3581,
+   3
+  ],
+  "482463": [
+   "Bhauri",
+   3581,
+   4
+  ],
+  "482473": [
+   "Khori",
+   3581,
+   3
+  ],
+  "482462": [
+   "Meerpur",
+   3581,
+   4
+  ],
+  "482478": [
+   "Bakaniya",
+   3581,
+   3
+  ],
+  "482465": [
+   "Kolu Khedi",
+   3581,
+   4
+  ],
+  "482474": [
+   "Dhamaniya",
+   3581,
+   3
+  ],
+  "482464": [
+   "Jamoniyachhir",
+   3581,
+   4
+  ],
+  "482475": [
+   "Khar Khedi",
+   3581,
+   3
+  ],
+  "482479": [
+   "Khetla Khedi",
+   3581,
+   3
+  ],
+  "482481": [
+   "Khamla Khedi",
+   3581,
+   3
+  ],
+  "482480": [
+   "Khajoori Sadak",
+   3581,
+   3
+  ],
+  "482476": [
+   "Phanda Kala",
+   3581,
+   3
+  ],
+  "482505": [
+   "Mugaliyachhap",
+   3581,
+   0
+  ],
+  "482466": [
+   "Lakhapur",
+   3581,
+   4
+  ],
+  "482482": [
+   "Int Khedichhap",
+   3581,
+   3
+  ],
+  "482484": [
+   "Pipaliya Dhakad",
+   3581,
+   3
+  ],
+  "482509": [
+   "Barkheda Nathu",
+   3581,
+   0
+  ],
+  "482483": [
+   "Kajlas",
+   3581,
+   3
+  ],
+  "482477": [
+   "Phanda Khurd",
+   3581,
+   3
+  ],
+  "482511": [
+   "Rolu Khedi",
+   3581,
+   0
+  ],
+  "482486": [
+   "Doobdi",
+   3581,
+   3
+  ],
+  "482485": [
+   "Rasuliya Ghat",
+   3581,
+   3
+  ],
+  "482489": [
+   "Kodiya",
+   3581,
+   0
+  ],
+  "482487": [
+   "Hatai Khedi",
+   3581,
+   3
+  ],
+  "482512": [
+   "Mali Khedi",
+   3581,
+   0
+  ],
+  "482488": [
+   "Borkhedi",
+   3581,
+   3
+  ],
+  "482490": [
+   "Khokariya",
+   3581,
+   3
+  ],
+  "482491": [
+   "Saista Khedi",
+   3581,
+   3
+  ],
+  "482510": [
+   "Neelbad",
+   3581,
+   0
+  ],
+  "482506": [
+   "Rasuliya Gusain",
+   3581,
+   0
+  ],
+  "482513": [
+   "Kal Khedi",
+   3581,
+   0
+  ],
+  "482493": [
+   "Nandni",
+   3581,
+   0
+  ],
+  "482507": [
+   "Sikandarabad",
+   3581,
+   0
+  ],
+  "482492": [
+   "Jat Khedi",
+   3581,
+   3
+  ],
+  "482545": [
+   "Mendori",
+   3581,
+   0
+  ],
+  "482508": [
+   "Kharpa",
+   3581,
+   0
+  ],
+  "482351": [
+   "Morga",
+   3581,
+   7
+  ],
+  "482516": [
+   "Berkhedi Bazyaft",
+   3581,
+   0
+  ],
+  "482496": [
+   "Teela Khedi",
+   3581,
+   0
+  ],
+  "482495": [
+   "Narela",
+   3581,
+   0
+  ],
+  "482494": [
+   "Kharpi",
+   3581,
+   0
+  ],
+  "482544": [
+   "Mendora",
+   3581,
+   0
+  ],
+  "482517": [
+   "Ratibad",
+   3581,
+   0
+  ],
+  "482515": [
+   "Kushalpura",
+   3581,
+   0
+  ],
+  "482518": [
+   "Semri Bazyaft",
+   3581,
+   0
+  ],
+  "482498": [
+   "Moondla",
+   3581,
+   0
+  ],
+  "482519": [
+   "Chhapri",
+   3581,
+   0
+  ],
+  "482521": [
+   "Fatehpur Dobra",
+   3581,
+   0
+  ],
+  "482497": [
+   "Kalyanpur",
+   3581,
+   0
+  ],
+  "482520": [
+   "Mahua Kheda",
+   3581,
+   0
+  ],
+  "482501": [
+   "Jhagariya Khurd",
+   3581,
+   0
+  ],
+  "482502": [
+   "Sarvar",
+   3581,
+   0
+  ],
+  "482499": [
+   "Dehriya Kalan",
+   3581,
+   0
+  ],
+  "482500": [
+   "Khurchani",
+   3581,
+   0
+  ],
+  "482514": [
+   "Mittu Khedi",
+   3581,
+   0
+  ],
+  "482523": [
+   "Bhanpur",
+   3581,
+   0
+  ],
+  "482503": [
+   "Badjhiri",
+   3581,
+   0
+  ],
+  "482522": [
+   "Amarpura",
+   3581,
+   0
+  ],
+  "482285": [
+   "Barkheda Baramad",
+   3580,
+   12
+  ],
+  "482358": [
+   "Guradiya",
+   3581,
+   7
+  ],
+  "482420": [
+   "Rusalli Beldar",
+   3581,
+   8
+  ],
+  "802313": [
+   "Kolar M",
+   3581,
+   1
+  ],
+  "482279": [
+   "Semri Kalan",
+   3580,
+   13
+  ],
+  "482237": [
+   "Kachnariya",
+   3580,
+   12
+  ],
+  "482276": [
+   "Garentiyadangi",
+   3580,
+   13
+  ],
+  "482248": [
+   "Chakkheda",
+   3580,
+   12
+  ],
+  "482251": [
+   "Tarawli Kalan",
+   3580,
+   13
+  ],
+  "482241": [
+   "Goria Sankheda",
+   3580,
+   12
+  ],
+  "482252": [
+   "Hiran Khedi",
+   3580,
+   12
+  ],
+  "482247": [
+   "Undrai",
+   3580,
+   12
+  ],
+  "482277": [
+   "Sonkatch",
+   3580,
+   13
+  ],
+  "482242": [
+   "Ganga Pipaliya",
+   3580,
+   12
+  ],
+  "482245": [
+   "Barri Gujar",
+   3580,
+   12
+  ],
+  "482244": [
+   "Dhamarra",
+   3580,
+   12
+  ],
+  "482278": [
+   "Tanda",
+   3580,
+   13
+  ],
+  "482246": [
+   "Maholi",
+   3580,
+   12
+  ],
+  "482243": [
+   "Junapani",
+   3580,
+   10
+  ],
+  "482280": [
+   "Kolu Khedi",
+   3580,
+   13
+  ],
+  "482282": [
+   "Harrakheda",
+   3580,
+   11
+  ],
+  "482281": [
+   "Dillod",
+   3580,
+   11
+  ],
+  "482311": [
+   "Keshokhedi",
+   3580,
+   11
+  ],
+  "482290": [
+   "Jafrabad",
+   3580,
+   10
+  ],
+  "482287": [
+   "Rondia",
+   3580,
+   10
+  ],
+  "482286": [
+   "Ijagiri",
+   3580,
+   10
+  ],
+  "482301": [
+   "Hinoti Sadak",
+   3580,
+   11
+  ],
+  "482291": [
+   "Kalara",
+   3580,
+   10
+  ],
+  "482302": [
+   "Pardi",
+   3580,
+   11
+  ],
+  "482283": [
+   "Rusalli",
+   3580,
+   11
+  ],
+  "482289": [
+   "Pipalkheda",
+   3580,
+   10
+  ],
+  "482284": [
+   "Khadampur",
+   3580,
+   11
+  ],
+  "482297": [
+   "Manikhedi",
+   3580,
+   10
+  ],
+  "482304": [
+   "Ratua Ratanpur",
+   3580,
+   11
+  ],
+  "482303": [
+   "Bandikhedi",
+   3580,
+   11
+  ],
+  "482294": [
+   "Khedi",
+   3580,
+   10
+  ],
+  "482308": [
+   "Sagoni Jora",
+   3580,
+   11
+  ],
+  "482298": [
+   "Chandbad Kadim",
+   3580,
+   11
+  ],
+  "482292": [
+   "Namdarpura",
+   3580,
+   10
+  ],
+  "482295": [
+   "Unida",
+   3580,
+   10
+  ],
+  "482299": [
+   "Gunga",
+   3580,
+   10
+  ],
+  "482305": [
+   "Jetpura",
+   3580,
+   11
+  ],
+  "482379": [
+   "Sagoniya",
+   3581,
+   10
+  ],
+  "482296": [
+   "Bhungiyai",
+   3580,
+   10
+  ],
+  "482307": [
+   "Berkhedi Kalan",
+   3580,
+   11
+  ],
+  "482293": [
+   "Kutkipura",
+   3580,
+   10
+  ],
+  "482300": [
+   "Karondiya",
+   3580,
+   10
+  ],
+  "482306": [
+   "Mudia Kheda",
+   3580,
+   11
+  ],
+  "482393": [
+   "Dupadiya",
+   3581,
+   11
+  ],
+  "482392": [
+   "Kachhi Barkheda",
+   3581,
+   11
+  ],
+  "482394": [
+   "Raipur",
+   3581,
+   11
+  ],
+  "482378": [
+   "Kuthar",
+   3581,
+   7
+  ],
+  "482374": [
+   "Chanderi",
+   3581,
+   7
+  ],
+  "482381": [
+   "Shahpur",
+   3581,
+   7
+  ],
+  "482380": [
+   "Deopur",
+   3581,
+   7
+  ],
+  "482396": [
+   "Nipaniya Jat",
+   3581,
+   8
+  ],
+  "482397": [
+   "Barkhedi Hajjam",
+   3581,
+   8
+  ],
+  "482405": [
+   "Rasla Khedi",
+   3581,
+   8
+  ],
+  "482355": [
+   "Bagoniya",
+   3581,
+   7
+  ],
+  "482398": [
+   "Hinotiya Jagir",
+   3581,
+   8
+  ],
+  "482408": [
+   "Kala Pipal",
+   3581,
+   8
+  ],
+  "482375": [
+   "Jhapadiya",
+   3581,
+   7
+  ],
+  "482384": [
+   "Khajuri",
+   3581,
+   8
+  ],
+  "482346": [
+   "Chhindwada",
+   3581,
+   7
+  ],
+  "482376": [
+   "Nipaniya Sukha",
+   3581,
+   7
+  ],
+  "482377": [
+   "Kardai",
+   3581,
+   7
+  ],
+  "482382": [
+   "Rojibeg",
+   3581,
+   7
+  ],
+  "482383": [
+   "Ratatal",
+   3581,
+   7
+  ],
+  "482386": [
+   "Kham Kheda",
+   3581,
+   8
+  ],
+  "482409": [
+   "Sumer Khedi",
+   3581,
+   8
+  ],
+  "482385": [
+   "Beenapur",
+   3581,
+   8
+  ],
+  "482389": [
+   "Gol Khedi",
+   3581,
+   8
+  ],
+  "482416": [
+   "Kalyanpura",
+   3581,
+   8
+  ],
+  "482390": [
+   "Islamnagar",
+   3581,
+   8
+  ],
+  "482347": [
+   "Daulatpur Thikriya",
+   3581,
+   7
+  ],
+  "482366": [
+   "Manikhedi Kot",
+   3581,
+   7
+  ],
+  "482356": [
+   "Taraisewaniya",
+   3581,
+   7
+  ],
+  "482387": [
+   "Kanchbavli",
+   3581,
+   8
+  ],
+  "482350": [
+   "Ratibad",
+   3581,
+   7
+  ],
+  "482348": [
+   "Mugaliya Hat",
+   3581,
+   7
+  ],
+  "482360": [
+   "Pipalia Chhaparband",
+   3581,
+   7
+  ],
+  "482367": [
+   "Intkhedi Sadak",
+   3581,
+   8
+  ],
+  "482391": [
+   "Ghasipura",
+   3581,
+   8
+  ],
+  "482388": [
+   "Bherupura",
+   3581,
+   8
+  ],
+  "482369": [
+   "Acharpura",
+   3581,
+   7
+  ],
+  "482368": [
+   "Hajjampura",
+   3581,
+   8
+  ],
+  "482359": [
+   "Prithvipura",
+   3581,
+   7
+  ],
+  "482288": [
+   "Chakpipal Kheda",
+   3580,
+   10
+  ],
+  "482357": [
+   "Jogibarri",
+   3581,
+   7
+  ],
+  "482144": [
+   "Manpur",
+   3580,
+   21
+  ],
+  "482060": [
+   "Dhamantori",
+   3580,
+   19
+  ],
+  "482061": [
+   "Nazirabad",
+   3580,
+   19
+  ],
+  "482143": [
+   "Badbeli Khurd",
+   3580,
+   21
+  ],
+  "482146": [
+   "Beelkhoh",
+   3580,
+   21
+  ],
+  "482071": [
+   "Syar Kalan",
+   3580,
+   20
+  ],
+  "482069": [
+   "Mainapura",
+   3580,
+   20
+  ],
+  "482065": [
+   "Kadaiya Kalan",
+   3580,
+   19
+  ],
+  "482070": [
+   "Bhainsana",
+   3580,
+   20
+  ],
+  "482072": [
+   "Kadaiya Kota",
+   3580,
+   20
+  ],
+  "482141": [
+   "Nay Samand",
+   3580,
+   21
+  ],
+  "482147": [
+   "Barkhedi",
+   3580,
+   21
+  ],
+  "482062": [
+   "Barbeli Kalan",
+   3580,
+   19
+  ],
+  "482068": [
+   "Surana",
+   3580,
+   20
+  ],
+  "482066": [
+   "Khajuriya Kalan",
+   3580,
+   19
+  ],
+  "482064": [
+   "Dongargaon",
+   3580,
+   19
+  ],
+  "482149": [
+   "Bandrua",
+   3580,
+   21
+  ],
+  "482131": [
+   "Manakund",
+   3580,
+   21
+  ],
+  "482073": [
+   "Nekli",
+   3580,
+   20
+  ],
+  "482074": [
+   "Amarpur",
+   3580,
+   19
+  ],
+  "482117": [
+   "Kalayanpura",
+   3580,
+   20
+  ],
+  "482067": [
+   "Bhatni",
+   3580,
+   20
+  ],
+  "482116": [
+   "Danderi",
+   3580,
+   20
+  ],
+  "482063": [
+   "Bahrawal",
+   3580,
+   19
+  ],
+  "482137": [
+   "Malkari",
+   3580,
+   21
+  ],
+  "482338": [
+   "Majheda Majhedi",
+   3580,
+   20
+  ],
+  "482130": [
+   "Mahua Kheda",
+   3580,
+   20
+  ],
+  "482138": [
+   "Kandi Khedi",
+   3580,
+   21
+  ],
+  "482132": [
+   "Dariyapur",
+   3580,
+   21
+  ],
+  "482139": [
+   "Thikariya Banramda",
+   3580,
+   21
+  ],
+  "482075": [
+   "Barkheda Kalan",
+   3580,
+   19
+  ],
+  "482129": [
+   "Garha Khurd",
+   3580,
+   20
+  ],
+  "482076": [
+   "Bhakwaha",
+   3580,
+   19
+  ],
+  "482080": [
+   "Bhujpura Kalan",
+   3580,
+   19
+  ],
+  "482128": [
+   "Garha Kalan",
+   3580,
+   20
+  ],
+  "482135": [
+   "Gujartodi",
+   3580,
+   21
+  ],
+  "482079": [
+   "Neem Khedi",
+   3580,
+   19
+  ],
+  "482133": [
+   "Pasaiya",
+   3580,
+   21
+  ],
+  "482118": [
+   "Kanera",
+   3580,
+   20
+  ],
+  "482082": [
+   "Bandikhedi",
+   3580,
+   19
+  ],
+  "482151": [
+   "Indarpura",
+   3580,
+   21
+  ],
+  "482119": [
+   "Ganyari",
+   3580,
+   20
+  ],
+  "482134": [
+   "Semra",
+   3580,
+   21
+  ],
+  "482115": [
+   "Jagmeri",
+   3580,
+   20
+  ],
+  "482086": [
+   "Ankia",
+   3580,
+   19
+  ],
+  "482081": [
+   "Bhujpura Khurd",
+   3580,
+   19
+  ],
+  "482205": [
+   "Karhaiya Shah",
+   3580,
+   21
+  ],
+  "482339": [
+   "Bamhori",
+   3580,
+   20
+  ],
+  "482077": [
+   "Runaha",
+   3580,
+   14
+  ],
+  "482124": [
+   "Sunga",
+   3580,
+   15
+  ],
+  "482120": [
+   "Damila",
+   3580,
+   20
+  ],
+  "482211": [
+   "Shahpur",
+   3580,
+   21
+  ],
+  "482121": [
+   "Kadaia Brahman",
+   3580,
+   20
+  ],
+  "482340": [
+   "Sheshapura",
+   3580,
+   20
+  ],
+  "482085": [
+   "Bijawan Kalan",
+   3580,
+   19
+  ],
+  "482212": [
+   "Gondipura",
+   3580,
+   15
+  ],
+  "482218": [
+   "Chanda Saloi",
+   3580,
+   16
+  ],
+  "482083": [
+   "Sumer",
+   3580,
+   14
+  ],
+  "482213": [
+   "Bagapura",
+   3580,
+   15
+  ],
+  "482206": [
+   "Rampura Khurd",
+   3580,
+   16
+  ],
+  "482088": [
+   "Mangalgarh",
+   3580,
+   14
+  ],
+  "482091": [
+   "Padli",
+   3580,
+   14
+  ],
+  "482122": [
+   "Hinotiya Jagir",
+   3580,
+   15
+  ],
+  "482214": [
+   "Borpura",
+   3580,
+   15
+  ],
+  "482341": [
+   "Ramtek",
+   3580,
+   15
+  ],
+  "482125": [
+   "Badli",
+   3580,
+   15
+  ],
+  "482084": [
+   "Mengra",
+   3580,
+   14
+  ],
+  "482100": [
+   "Kadaiya Khurd",
+   3580,
+   14
+  ],
+  "482207": [
+   "Chatahedi",
+   3580,
+   16
+  ],
+  "482097": [
+   "Parason",
+   3580,
+   14
+  ],
+  "482217": [
+   "Khitwas",
+   3580,
+   15
+  ],
+  "482208": [
+   "Dhekpur",
+   3580,
+   16
+  ],
+  "482092": [
+   "Bijawan Khurd",
+   3580,
+   14
+  ],
+  "482220": [
+   "Pathariya",
+   3580,
+   16
+  ],
+  "482093": [
+   "Dhoot Khedi",
+   3580,
+   14
+  ],
+  "482126": [
+   "Netapura",
+   3580,
+   15
+  ],
+  "482090": [
+   "Thikariya Laxmanpur",
+   3580,
+   14
+  ],
+  "482101": [
+   "Kalapipal",
+   3580,
+   14
+  ],
+  "482225": [
+   "Ramgarha",
+   3580,
+   15
+  ],
+  "482123": [
+   "Parsora",
+   3580,
+   15
+  ],
+  "482102": [
+   "Kolu Khedi Kalan",
+   3580,
+   14
+  ],
+  "482094": [
+   "Bhaupura",
+   3580,
+   14
+  ],
+  "482221": [
+   "Nidanpur",
+   3580,
+   16
+  ],
+  "482127": [
+   "Shukla",
+   3580,
+   15
+  ],
+  "482209": [
+   "Ganga Khedi",
+   3580,
+   16
+  ],
+  "482096": [
+   "Gonda Khedi",
+   3580,
+   14
+  ],
+  "482095": [
+   "Bagsi",
+   3580,
+   14
+  ],
+  "482108": [
+   "Bamhora",
+   3580,
+   15
+  ],
+  "482203": [
+   "Keetkhedi",
+   3580,
+   16
+  ],
+  "482222": [
+   "Bhojapura",
+   3580,
+   15
+  ],
+  "482226": [
+   "Habibganj",
+   3580,
+   16
+  ],
+  "482210": [
+   "Saloi Sangraj",
+   3580,
+   16
+  ],
+  "482103": [
+   "Kotra",
+   3580,
+   15
+  ],
+  "482107": [
+   "Dhonoura",
+   3580,
+   15
+  ],
+  "482109": [
+   "Jangaliya Pura",
+   3580,
+   15
+  ],
+  "482231": [
+   "Dewalkheda",
+   3580,
+   16
+  ],
+  "482204": [
+   "Barkheda Moji",
+   3580,
+   16
+  ],
+  "482098": [
+   "Manikhedi",
+   3580,
+   14
+  ],
+  "482223": [
+   "Laloi",
+   3580,
+   15
+  ],
+  "482099": [
+   "Jajankhedi",
+   3580,
+   14
+  ],
+  "482342": [
+   "Richhai",
+   3580,
+   15
+  ],
+  "482110": [
+   "Kadia Khoh",
+   3580,
+   15
+  ],
+  "482104": [
+   "Semra Bheropura",
+   3580,
+   14
+  ],
+  "482230": [
+   "Imaliya Swaroop",
+   3580,
+   16
+  ],
+  "482229": [
+   "Pipalia Hasnabad",
+   3580,
+   16
+  ],
+  "482105": [
+   "Mithi Chhapri",
+   3580,
+   14
+  ],
+  "482111": [
+   "Kadia Chabar",
+   3580,
+   15
+  ],
+  "482227": [
+   "Mahuwa Kheda",
+   3580,
+   15
+  ],
+  "482232": [
+   "Birhai",
+   3580,
+   16
+  ],
+  "482253": [
+   "Khajuria Ramdas",
+   3580,
+   13
+  ],
+  "482106": [
+   "Jhirniya",
+   3580,
+   14
+  ],
+  "482112": [
+   "Dolatpura",
+   3580,
+   12
+  ],
+  "482228": [
+   "Khejra Gopi",
+   3580,
+   15
+  ],
+  "482113": [
+   "Ajabpura",
+   3580,
+   12
+  ],
+  "482233": [
+   "Birha Shyam Khedi",
+   3580,
+   13
+  ],
+  "482343": [
+   "Agra",
+   3580,
+   12
+  ],
+  "482235": [
+   "Chapadiya",
+   3580,
+   12
+  ],
+  "482234": [
+   "Rehtai",
+   3580,
+   13
+  ],
+  "482254": [
+   "Ajampur",
+   3580,
+   13
+  ],
+  "482238": [
+   "Khukaria",
+   3580,
+   12
+  ],
+  "482114": [
+   "Karanpura",
+   3580,
+   12
+  ],
+  "482236": [
+   "Jhironiya Kankad",
+   3580,
+   12
+  ],
+  "482250": [
+   "Nalkheda",
+   3580,
+   13
+  ],
+  "482240": [
+   "Babdi Khar",
+   3580,
+   12
+  ],
+  "482256": [
+   "Bhesoda",
+   3580,
+   13
+  ],
+  "482255": [
+   "Narela Bazyaft",
+   3580,
+   13
+  ],
+  "482239": [
+   "Rampura Balachon",
+   3580,
+   12
+  ],
+  "482249": [
+   "Madnai",
+   3580,
+   13
+  ],
+  "482224": [
+   "Daknai",
+   3580,
+   15
+  ],
+  "482142": [
+   "Baniyatodi",
+   3580,
+   21
+  ],
+  "482136": [
+   "Sujanpura",
+   3580,
+   21
+  ],
+  "482078": [
+   "Kadi Khedi",
+   3580,
+   19
+  ],
+  "482087": [
+   "Chachakhedi",
+   3580,
+   14
+  ],
+  "482216": [
+   "Jujpura",
+   3580,
+   15
+  ],
+  "482089": [
+   "Banjari",
+   3580,
+   14
+  ],
+  "482345": [
+   "Anandipura",
+   3580,
+   15
+  ],
+  "482215": [
+   "Junapani",
+   3580,
+   15
+  ],
+  "482435": [
+   "Sagoni Kalan",
+   3581,
+   6
+  ],
+  "482436": [
+   "Dobra Jagir",
+   3581,
+   6
+  ],
+  "482443": [
+   "Lalpura",
+   3581,
+   6
+  ],
+  "482451": [
+   "Chor Sagoni",
+   3581,
+   6
+  ],
+  "482422": [
+   "Imliya",
+   3581,
+   8
+  ],
+  "482425": [
+   "Kalyanpur",
+   3581,
+   9
+  ],
+  "482430": [
+   "Samarda",
+   3581,
+   9
+  ],
+  "482427": [
+   "Chopda Kalan",
+   3581,
+   8
+  ],
+  "482431": [
+   "Jhiriya Kheda",
+   3581,
+   6
+  ],
+  "482426": [
+   "Pipaliya Jahirpeer",
+   3581,
+   6
+  ],
+  "482429": [
+   "Kanasaiya",
+   3581,
+   6
+  ],
+  "482452": [
+   "Sewaniya Onkar",
+   3581,
+   6
+  ],
+  "482428": [
+   "Arhedi",
+   3581,
+   6
+  ],
+  "482432": [
+   "Chhawani Adampur",
+   3581,
+   6
+  ],
+  "482433": [
+   "Bilkhiriya Kalan",
+   3581,
+   6
+  ],
+  "482437": [
+   "Sankalpadariya",
+   3581,
+   6
+  ],
+  "482434": [
+   "Kolua Khurd",
+   3581,
+   6
+  ],
+  "482440": [
+   "Bansiya",
+   3581,
+   6
+  ],
+  "482438": [
+   "Bankhedi",
+   3581,
+   6
+  ],
+  "482439": [
+   "Dangroli",
+   3581,
+   2
+  ],
+  "482442": [
+   "Amjhira",
+   3581,
+   2
+  ],
+  "482444": [
+   "Jamoniya Kalan",
+   3581,
+   2
+  ],
+  "482441": [
+   "Jhagariya Khurd",
+   3581,
+   2
+  ],
+  "482445": [
+   "Pipaliya Hatila",
+   3581,
+   2
+  ],
+  "482550": [
+   "Barrai",
+   7034,
+   2
+  ],
+  "482447": [
+   "Babadiya Khurd",
+   3581,
+   2
+  ],
+  "482549": [
+   "Katara",
+   7034,
+   2
+  ],
+  "482448": [
+   "Padariya Jat",
+   3581,
+   2
+  ],
+  "482446": [
+   "Narela Bazyafth",
+   3581,
+   2
+  ],
+  "482537": [
+   "Sewaniya",
+   7034,
+   1
+  ],
+  "482450": [
+   "Bagarauda",
+   3581,
+   2
+  ],
+  "482449": [
+   "Semari Khurd",
+   3581,
+   2
+  ],
+  "482552": [
+   "Rapadiya",
+   7034,
+   2
+  ],
+  "482551": [
+   "Bagli",
+   7034,
+   2
+  ],
+  "482553": [
+   "Maksi",
+   7034,
+   2
+  ],
+  "482546": [
+   "Bhairopur",
+   7034,
+   2
+  ],
+  "482556": [
+   "Chhan",
+   7034,
+   2
+  ],
+  "482554": [
+   "Pipaliya Kunjadgarh",
+   7034,
+   2
+  ],
+  "482557": [
+   "Deepdi",
+   7034,
+   2
+  ],
+  "482547": [
+   "Bilkhiriya Khurd",
+   7034,
+   1
+  ],
+  "482555": [
+   "Ratanpur",
+   7034,
+   2
+  ],
+  "482559": [
+   "Samarda Kaliyasot",
+   7034,
+   2
+  ],
+  "482548": [
+   "Gudari Ghat",
+   7034,
+   1
+  ],
+  "482560": [
+   "Narela Hanumant Singh",
+   7034,
+   2
+  ],
+  "482558": [
+   "Bangrasia",
+   7034,
+   2
+  ],
+  "482532": [
+   "Kodi",
+   7034,
+   1
+  ],
+  "482538": [
+   "Khad Bamuliya",
+   7034,
+   2
+  ],
+  "482534": [
+   "Bhoj Nagar",
+   7034,
+   1
+  ],
+  "482533": [
+   "Pipaliya Rani",
+   7034,
+   2
+  ],
+  "482539": [
+   "Kotra",
+   7034,
+   2
+  ],
+  "482540": [
+   "Khandabad",
+   7034,
+   2
+  ],
+  "482542": [
+   "Bandori",
+   7034,
+   1
+  ],
+  "482541": [
+   "Suraiya Nagar",
+   7034,
+   1
+  ],
+  "482272": [
+   "Chataua",
+   3580,
+   13
+  ],
+  "482267": [
+   "Sagoni Kalan",
+   3580,
+   13
+  ],
+  "482271": [
+   "Khuja Khedi",
+   3580,
+   13
+  ],
+  "482273": [
+   "Arrawati",
+   3580,
+   13
+  ],
+  "482270": [
+   "Darwaji",
+   3580,
+   13
+  ],
+  "482310": [
+   "Barkheda Baramad Gunga",
+   3580,
+   13
+  ],
+  "482269": [
+   "Barodi",
+   3580,
+   13
+  ],
+  "482274": [
+   "Pipalkhedi",
+   3580,
+   13
+  ],
+  "482314": [
+   "Ronjia Bazaft",
+   3580,
+   13
+  ],
+  "482315": [
+   "Khejra Babbar",
+   3580,
+   13
+  ],
+  "482313": [
+   "Bagraj",
+   3580,
+   11
+  ],
+  "482316": [
+   "Barri Mustsil Bagraj",
+   3580,
+   11
+  ],
+  "482318": [
+   "Budhor Kalan",
+   3580,
+   11
+  ],
+  "482312": [
+   "Untkheda",
+   3580,
+   11
+  ],
+  "482320": [
+   "Pipaliya Kadim",
+   3580,
+   11
+  ],
+  "482319": [
+   "Sukaliya",
+   3580,
+   11
+  ],
+  "482322": [
+   "Bhens Kheda",
+   3580,
+   11
+  ],
+  "482309": [
+   "Kotra Chopra",
+   3580,
+   11
+  ],
+  "482325": [
+   "Pipaliya Junnardar",
+   3580,
+   11
+  ],
+  "482402": [
+   "Karhod Khurd",
+   3581,
+   9
+  ],
+  "482401": [
+   "Kadhaiya",
+   3581,
+   11
+  ],
+  "482400": [
+   "Momanpur",
+   3581,
+   11
+  ],
+  "482399": [
+   "Kanera",
+   3581,
+   11
+  ],
+  "482395": [
+   "Khinchital",
+   3581,
+   11
+  ],
+  "482411": [
+   "Balampur",
+   3581,
+   9
+  ],
+  "482404": [
+   "Agariya",
+   3581,
+   8
+  ],
+  "482410": [
+   "Barkhedi Abdulla",
+   3581,
+   9
+  ],
+  "482406": [
+   "Fatehpur",
+   3581,
+   9
+  ],
+  "482407": [
+   "Chanched",
+   3581,
+   8
+  ],
+  "482412": [
+   "Dob",
+   3581,
+   9
+  ],
+  "482417": [
+   "Ganyari",
+   3581,
+   8
+  ],
+  "482413": [
+   "Rusalli Chunanagar",
+   3581,
+   9
+  ],
+  "482423": [
+   "Amoni",
+   3581,
+   9
+  ],
+  "482419": [
+   "Mungalia Kot",
+   3581,
+   8
+  ],
+  "482415": [
+   "Sukhi Sewaniya",
+   3581,
+   9
+  ],
+  "482424": [
+   "Prempura",
+   3581,
+   9
+  ],
+  "482414": [
+   "Garhmurra",
+   3581,
+   9
+  ],
+  "482268": [
+   "Sagoni Khurd",
+   3580,
+   13
+  ],
+  "482317": [
+   "Budhor Khurd",
+   3580,
+   11
+  ],
+  "482321": [
+   "Hindola",
+   3580,
+   11
+  ],
+  "482323": [
+   "Chhatri",
+   3580,
+   11
+  ],
+  "482324": [
+   "Cheelkheda",
+   3580,
+   11
+  ],
+  "482403": [
+   "Kirat Nagar",
+   3581,
+   9
+  ],
+  "482418": [
+   "Mungalia Khurd",
+   3581,
+   8
+  ],
+  "482275": [
+   "Charpahadi Bazyaft",
+   3580,
+   13
+  ],
+  "482148": [
+   "Tinoniya",
+   3580,
+   21
+  ],
+  "482159": [
+   "Hinotiya Ghat",
+   3580,
+   21
+  ],
+  "482150": [
+   "Berkhedi",
+   3580,
+   21
+  ],
+  "482165": [
+   "Vichhnai",
+   3580,
+   18
+  ],
+  "482166": [
+   "Dhaturiya",
+   3580,
+   18
+  ],
+  "482153": [
+   "Moondla Chattan",
+   3580,
+   21
+  ],
+  "482164": [
+   "Manpura",
+   3580,
+   17
+  ],
+  "482160": [
+   "Dohaya",
+   3580,
+   17
+  ],
+  "482154": [
+   "Jamusar Kalan",
+   3580,
+   21
+  ],
+  "482167": [
+   "Khai Kheda",
+   3580,
+   17
+  ],
+  "482161": [
+   "Suhaya",
+   3580,
+   17
+  ],
+  "482152": [
+   "Tarawli Khurd",
+   3580,
+   21
+  ],
+  "482169": [
+   "Pura Khana",
+   3580,
+   18
+  ],
+  "482162": [
+   "Khejra Padhar",
+   3580,
+   17
+  ],
+  "482170": [
+   "Rani Khajuri",
+   3580,
+   18
+  ],
+  "482171": [
+   "Arjunkhedi",
+   3580,
+   18
+  ],
+  "482168": [
+   "Dojyai",
+   3580,
+   18
+  ],
+  "482163": [
+   "Parsoriya",
+   3580,
+   17
+  ],
+  "482172": [
+   "Khejra Ghat",
+   3580,
+   18
+  ],
+  "482188": [
+   "Hingoni",
+   3580,
+   17
+  ],
+  "482189": [
+   "Barkheda Yakub",
+   3580,
+   18
+  ],
+  "482157": [
+   "Hinotiya Piran",
+   3580,
+   17
+  ],
+  "482156": [
+   "Khejra Misar",
+   3580,
+   16
+  ],
+  "482173": [
+   "Babachiya",
+   3580,
+   18
+  ],
+  "482183": [
+   "Barrai",
+   3580,
+   17
+  ],
+  "482174": [
+   "Laharpur",
+   3580,
+   18
+  ],
+  "482185": [
+   "Arrai Sardar Singh",
+   3580,
+   17
+  ],
+  "482158": [
+   "Pipal Khedi",
+   3580,
+   17
+  ],
+  "482186": [
+   "Barela Kheda",
+   3580,
+   17
+  ],
+  "482176": [
+   "Hamid Khedi",
+   3580,
+   18
+  ],
+  "482187": [
+   "Parwaria",
+   3580,
+   17
+  ],
+  "482175": [
+   "Mundla Chand",
+   3580,
+   18
+  ],
+  "482199": [
+   "Megra Kalan",
+   3580,
+   17
+  ],
+  "482184": [
+   "Arrai Rai Singh",
+   3580,
+   17
+  ],
+  "482190": [
+   "Semri Khurd",
+   3580,
+   17
+  ],
+  "482181": [
+   "Umariya",
+   3580,
+   18
+  ],
+  "482191": [
+   "Dungariya",
+   3580,
+   17
+  ],
+  "482182": [
+   "Khajuria Ranku",
+   3580,
+   18
+  ],
+  "482180": [
+   "Narela Damodar",
+   3580,
+   18
+  ],
+  "482194": [
+   "Lalariya",
+   3580,
+   17
+  ],
+  "482177": [
+   "Chandan Khedi",
+   3580,
+   18
+  ],
+  "482193": [
+   "Bairagarh",
+   3580,
+   17
+  ],
+  "482200": [
+   "Karariya",
+   3580,
+   17
+  ],
+  "482192": [
+   "Garenthiya Bazyft",
+   3580,
+   17
+  ],
+  "482178": [
+   "Chhapryai",
+   3580,
+   18
+  ],
+  "482201": [
+   "Patalpur",
+   3580,
+   16
+  ],
+  "482196": [
+   "Kulhor",
+   3580,
+   17
+  ],
+  "482202": [
+   "Mankhiyai",
+   3580,
+   17
+  ],
+  "250945": [
+   "Berasia",
+   3580,
+   16
+  ],
+  "482179": [
+   "Latifpur",
+   3580,
+   17
+  ],
+  "482195": [
+   "Khejra Kamal",
+   3580,
+   17
+  ],
+  "482262": [
+   "Imalia Narendra",
+   3580,
+   17
+  ],
+  "482198": [
+   "Jhikariya Khurd",
+   3580,
+   17
+  ],
+  "482197": [
+   "Charpahari",
+   3580,
+   17
+  ],
+  "482257": [
+   "Barrichheer Kheda",
+   3580,
+   17
+  ],
+  "482263": [
+   "Dam Kheda",
+   3580,
+   17
+  ],
+  "482258": [
+   "Bhonrasa",
+   3580,
+   13
+  ],
+  "482264": [
+   "Dangroli",
+   3580,
+   17
+  ],
+  "482265": [
+   "Langarpur",
+   3580,
+   17
+  ],
+  "482260": [
+   "Sapaua",
+   3580,
+   13
+  ],
+  "482266": [
+   "Bineka",
+   3580,
+   17
+  ],
+  "482259": [
+   "Semra Kalan",
+   3580,
+   13
+  ],
+  "482261": [
+   "Jhikariya Kalan",
+   3580,
+   13
+  ],
+  "482048": [
+   "Gana Khedi",
+   3580,
+   23
+  ],
+  "482043": [
+   "Surajpura",
+   3580,
+   22
+  ],
+  "482047": [
+   "Khata Khedi",
+   3580,
+   23
+  ],
+  "482049": [
+   "Majidgarh",
+   3580,
+   23
+  ],
+  "482046": [
+   "Amalya",
+   3580,
+   22
+  ],
+  "482344": [
+   "Khedli",
+   3580,
+   23
+  ],
+  "482050": [
+   "Garha Brahman",
+   3580,
+   23
+  ],
+  "482326": [
+   "Kolu Khedi Khurd",
+   3580,
+   23
+  ],
+  "482044": [
+   "Babukhedi",
+   3580,
+   22
+  ],
+  "482045": [
+   "Umaraya",
+   3580,
+   22
+  ],
+  "482328": [
+   "Bijapura",
+   3580,
+   23
+  ],
+  "482327": [
+   "Chandpura",
+   3580,
+   23
+  ],
+  "482056": [
+   "Sindhora",
+   3580,
+   22
+  ],
+  "482055": [
+   "Kherkhedi",
+   3580,
+   19
+  ],
+  "482051": [
+   "Kalapatha",
+   3580,
+   23
+  ],
+  "482335": [
+   "Patalpani",
+   3580,
+   23
+  ],
+  "482052": [
+   "Shahodra",
+   3580,
+   22
+  ],
+  "482330": [
+   "Rawatpura",
+   3580,
+   23
+  ],
+  "482053": [
+   "Pipakhedi",
+   3580,
+   22
+  ],
+  "482336": [
+   "Khandariya",
+   3580,
+   23
+  ],
+  "482334": [
+   "Patalpur",
+   3580,
+   23
+  ],
+  "482329": [
+   "Ramaha",
+   3580,
+   23
+  ],
+  "482337": [
+   "Goria",
+   3580,
+   21
+  ],
+  "482331": [
+   "Keetai Dewapura",
+   3580,
+   23
+  ],
+  "482057": [
+   "Khejra Kalyanpur",
+   3580,
+   22
+  ],
+  "482054": [
+   "Ghogalpur",
+   3580,
+   22
+  ],
+  "482058": [
+   "Khejra Ghat",
+   3580,
+   19
+  ],
+  "482140": [
+   "Haripur",
+   3580,
+   20
+  ],
+  "482333": [
+   "Kher Kheda",
+   3580,
+   20
+  ],
+  "482332": [
+   "Keetgarh",
+   3580,
+   20
+  ],
+  "482145": [
+   "Dhokapura",
+   3580,
+   21
+  ],
+  "482059": [
+   "Barkheda Khurd",
+   3580,
+   20
+  ]
+ },
+ "village_count_total": 522,
+ "village_count_assigned": 522
+}

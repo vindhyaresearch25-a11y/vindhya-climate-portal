@@ -1,0 +1,749 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Nagaland",
+  "district": "Kohima",
+  "district_lgd": 245,
+  "observation_window": "2026-08-07T11:19Z to 2026-08-12T11:19Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3709,
+  "sm_surface_stddev": 0.0268,
+  "sm_rootzone_mean": 0.3703,
+  "sm_rootzone_stddev": 0.0328,
+  "n_cells": 13,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 25.5436,
+    "lon": 94.121,
+    "sm_surface": 0.3939,
+    "sm_rootzone": 0.4067,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 1,
+    "lat": 25.6424,
+    "lon": 93.9234,
+    "sm_surface": 0.322,
+    "sm_rootzone": 0.3176,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 2,
+    "lat": 25.6424,
+    "lon": 94.0222,
+    "sm_surface": 0.3385,
+    "sm_rootzone": 0.3324,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 3,
+    "lat": 25.6424,
+    "lon": 94.121,
+    "sm_surface": 0.3907,
+    "sm_rootzone": 0.3822,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 4,
+    "lat": 25.7412,
+    "lon": 94.0222,
+    "sm_surface": 0.3824,
+    "sm_rootzone": 0.3727,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 5,
+    "lat": 25.7412,
+    "lon": 94.121,
+    "sm_surface": 0.3892,
+    "sm_rootzone": 0.3813,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 6,
+    "lat": 25.7412,
+    "lon": 94.2198,
+    "sm_surface": 0.3941,
+    "sm_rootzone": 0.4097,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 7,
+    "lat": 25.84,
+    "lon": 94.0222,
+    "sm_surface": 0.3832,
+    "sm_rootzone": 0.3922,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 8,
+    "lat": 25.84,
+    "lon": 94.121,
+    "sm_surface": 0.3887,
+    "sm_rootzone": 0.3804,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 9,
+    "lat": 25.84,
+    "lon": 94.2198,
+    "sm_surface": 0.3942,
+    "sm_rootzone": 0.408,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 10,
+    "lat": 25.9389,
+    "lon": 94.0222,
+    "sm_surface": 0.3776,
+    "sm_rootzone": 0.3834,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 11,
+    "lat": 25.9389,
+    "lon": 94.121,
+    "sm_surface": 0.326,
+    "sm_rootzone": 0.3161,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 12,
+    "lat": 25.9389,
+    "lon": 94.2198,
+    "sm_surface": 0.3411,
+    "sm_rootzone": 0.3318,
+    "n_villages_sharing_cell": 24
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3762,
+  "sm_surface_stddev": 0.0187,
+  "n_blocks": 8
+ },
+ "blocks": [
+  {
+   "block_name": "Botsa",
+   "sdcode": 1846,
+   "n_villages": 11,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3907,
+   "sm_surface_stddev": 0.0026
+  },
+  {
+   "block_name": "Chiephobozou",
+   "sdcode": 1845,
+   "n_villages": 19,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3872,
+   "sm_surface_stddev": 0.0027
+  },
+  {
+   "block_name": "Jakhama",
+   "sdcode": 1848,
+   "n_villages": 11,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3919,
+   "sm_surface_stddev": 0.0015
+  },
+  {
+   "block_name": "Kezocha",
+   "sdcode": 1847,
+   "n_villages": 11,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3928,
+   "sm_surface_stddev": 0.0016
+  },
+  {
+   "block_name": "Kohima Sadar",
+   "sdcode": 1849,
+   "n_villages": 5,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3898,
+   "sm_surface_stddev": 0.0007
+  },
+  {
+   "block_name": "Sechu-Zubza",
+   "sdcode": 1850,
+   "n_villages": 17,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3485,
+   "sm_surface_stddev": 0.0227
+  },
+  {
+   "block_name": "Tseminyu",
+   "sdcode": 1843,
+   "n_villages": 34,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.3504,
+   "sm_surface_stddev": 0.022
+  },
+  {
+   "block_name": "Tsogin",
+   "sdcode": 1844,
+   "n_villages": 8,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3583,
+   "sm_surface_stddev": 0.025
+  }
+ ],
+ "villages": {
+  "999999": [
+   "Data Partially Available",
+   1846,
+   8
+  ],
+  "268260": [
+   "Kidima",
+   1847,
+   0
+  ],
+  "268259": [
+   "Kezocha Hq",
+   1847,
+   0
+  ],
+  "268270": [
+   "Khuzama",
+   1848,
+   0
+  ],
+  "268269": [
+   "Viswema",
+   1848,
+   0
+  ],
+  "268268": [
+   "Sweba Viswema",
+   1848,
+   0
+  ],
+  "268267": [
+   "Jakhama Vill",
+   1848,
+   0
+  ],
+  "268289": [
+   "Dzuleke",
+   1850,
+   1
+  ],
+  "268288": [
+   "Khonoma Basa Ur",
+   1850,
+   2
+  ],
+  "268287": [
+   "Khonoma",
+   1850,
+   2
+  ],
+  "268284": [
+   "Mezoma",
+   1850,
+   2
+  ],
+  "268281": [
+   "Mezo Basa",
+   1850,
+   2
+  ],
+  "268280": [
+   "Hydro Project Station",
+   1850,
+   2
+  ],
+  "268283": [
+   "Sechuma",
+   1850,
+   2
+  ],
+  "268277": [
+   "Kiruphema Bawe",
+   1850,
+   4
+  ],
+  "268279": [
+   "Sechu Zubza",
+   1850,
+   4
+  ],
+  "268278": [
+   "Kiruphema Basa",
+   1850,
+   4
+  ],
+  "268275": [
+   "Peducha",
+   1850,
+   4
+  ],
+  "268274": [
+   "Mengujuma",
+   1850,
+   4
+  ],
+  "268276": [
+   "Sirhi Angami",
+   1850,
+   1
+  ],
+  "268282": [
+   "Thekrejuma",
+   1850,
+   1
+  ],
+  "268226": [
+   "Phekerkrie Bawe",
+   1845,
+   7
+  ],
+  "268223": [
+   "Viphoma",
+   1845,
+   7
+  ],
+  "268224": [
+   "Viphoma Basa Ur",
+   1845,
+   7
+  ],
+  "268219": [
+   "Tsosinyu",
+   1844,
+   10
+  ],
+  "268216": [
+   "Longwesunyu",
+   1844,
+   10
+  ],
+  "268218": [
+   "Rengmapani",
+   1844,
+   10
+  ],
+  "268238": [
+   "Meriema",
+   1845,
+   5
+  ],
+  "268239": [
+   "4Th Nap Batt Thiza",
+   1845,
+   5
+  ],
+  "268237": [
+   "Thizama",
+   1845,
+   5
+  ],
+  "268235": [
+   "Tsiese Basa",
+   1845,
+   5
+  ],
+  "268236": [
+   "Tsiese Bawe",
+   1845,
+   5
+  ],
+  "268234": [
+   "Phezha",
+   1845,
+   5
+  ],
+  "268233": [
+   "Nerhema",
+   1845,
+   5
+  ],
+  "268232": [
+   "Nerhe Model",
+   1845,
+   8
+  ],
+  "268240": [
+   "Rusoma",
+   1845,
+   5
+  ],
+  "268229": [
+   "Ciechama",
+   1845,
+   8
+  ],
+  "268231": [
+   "Chiephobozou",
+   1845,
+   8
+  ],
+  "268250": [
+   "Gareiphe Basa",
+   1846,
+   6
+  ],
+  "268258": [
+   "Kezoma",
+   1847,
+   3
+  ],
+  "268257": [
+   "Kezo Basa",
+   1847,
+   3
+  ],
+  "268256": [
+   "Mitelephe",
+   1847,
+   3
+  ],
+  "268255": [
+   "Kezo Town Ur",
+   1847,
+   3
+  ],
+  "268254": [
+   "Sakhabama",
+   1847,
+   6
+  ],
+  "268253": [
+   "Dihoma",
+   1847,
+   6
+  ],
+  "268252": [
+   "Kijumetou Basa",
+   1847,
+   6
+  ],
+  "268251": [
+   "Kijumetouma",
+   1847,
+   6
+  ],
+  "268266": [
+   "Jakhama Hq Ur",
+   1848,
+   3
+  ],
+  "268265": [
+   "Kigwe Town Ur",
+   1848,
+   3
+  ],
+  "268264": [
+   "Kigwema",
+   1848,
+   3
+  ],
+  "268262": [
+   "Phesama",
+   1848,
+   3
+  ],
+  "268261": [
+   "Pfuchama",
+   1848,
+   3
+  ],
+  "268263": [
+   "Mima",
+   1848,
+   3
+  ],
+  "268272": [
+   "Chiedema",
+   1849,
+   5
+  ],
+  "268271": [
+   "Chiede Model Vill",
+   1849,
+   5
+  ],
+  "268285": [
+   "Jotsoma",
+   1850,
+   2
+  ],
+  "268286": [
+   "Phezhu Jotsoma Ur",
+   1850,
+   2
+  ],
+  "249722": [
+   "Kohima",
+   1849,
+   3
+  ],
+  "268184": [
+   "Rumensinyu",
+   1843,
+   11
+  ],
+  "268198": [
+   "Khenyu",
+   1843,
+   11
+  ],
+  "268199": [
+   "Phenshunyu",
+   1843,
+   11
+  ],
+  "268209": [
+   "Henbenji",
+   1843,
+   8
+  ],
+  "268207": [
+   "Terogunyu",
+   1843,
+   9
+  ],
+  "268206": [
+   "Khonibenzun",
+   1843,
+   12
+  ],
+  "268213": [
+   "Phenda Ur",
+   1843,
+   8
+  ],
+  "268212": [
+   "Kashanyishi",
+   1843,
+   9
+  ],
+  "268215": [
+   "New Terogunyu",
+   1843,
+   9
+  ],
+  "268210": [
+   "Kashanyu",
+   1843,
+   9
+  ],
+  "268205": [
+   "Tseminyu Old Town",
+   1843,
+   12
+  ],
+  "268204": [
+   "Zunpha Mission Centre Ur",
+   1843,
+   12
+  ],
+  "268214": [
+   "Tseminyu South",
+   1843,
+   12
+  ],
+  "268203": [
+   "Zisunyu",
+   1843,
+   12
+  ],
+  "268201": [
+   "Ngvuphen",
+   1843,
+   12
+  ],
+  "268200": [
+   "Tseminyu Vill",
+   1843,
+   12
+  ],
+  "253209": [
+   "Tseminyu Town",
+   1843,
+   12
+  ],
+  "268202": [
+   "Gukhanyu",
+   1843,
+   12
+  ],
+  "268195": [
+   "New Tesophenyu",
+   1843,
+   12
+  ],
+  "268192": [
+   "Nsunyu",
+   1843,
+   12
+  ],
+  "268190": [
+   "Chunlikha",
+   1843,
+   12
+  ],
+  "268185": [
+   "Tsonsa",
+   1843,
+   12
+  ],
+  "268188": [
+   "Kandinu",
+   1843,
+   12
+  ],
+  "268187": [
+   "Sishunu",
+   1843,
+   12
+  ],
+  "268186": [
+   "K Station",
+   1843,
+   12
+  ],
+  "268196": [
+   "Tesophenyu",
+   1843,
+   12
+  ],
+  "268197": [
+   "Ziphenyu",
+   1843,
+   12
+  ],
+  "268208": [
+   "Phenwhenyu",
+   1843,
+   12
+  ],
+  "268221": [
+   "Sendenyu",
+   1844,
+   11
+  ],
+  "268220": [
+   "New Sendenyu",
+   1844,
+   11
+  ],
+  "268225": [
+   "Phekerkrie Basa",
+   1845,
+   7
+  ],
+  "268230": [
+   "Zhadima",
+   1845,
+   7
+  ],
+  "268227": [
+   "Ziezou",
+   1845,
+   7
+  ],
+  "268228": [
+   "Nachama",
+   1845,
+   8
+  ],
+  "268244": [
+   "Seiyha Phesa",
+   1846,
+   8
+  ],
+  "268243": [
+   "Seiyhama",
+   1846,
+   8
+  ],
+  "268248": [
+   "Teichuma",
+   1846,
+   8
+  ],
+  "268242": [
+   "Tsiemekhuma Bawe",
+   1846,
+   8
+  ],
+  "268241": [
+   "Tsiemekhuma Basa",
+   1846,
+   8
+  ],
+  "268245": [
+   "Botsa",
+   1846,
+   8
+  ],
+  "268246": [
+   "Tuophema",
+   1846,
+   9
+  ],
+  "268247": [
+   "Tuophe Phezou",
+   1846,
+   9
+  ],
+  "268249": [
+   "Gareiphema",
+   1846,
+   9
+  ],
+  "268194": [
+   "Yikhanu",
+   1843,
+   12
+  ],
+  "268193": [
+   "Ehunnu",
+   1843,
+   12
+  ],
+  "268273": [
+   "Kohima Village CT",
+   1849,
+   3
+  ],
+  "268211": [
+   "Guzinyu Ur",
+   1843,
+   9
+  ],
+  "268189": [
+   "Likhwenchu",
+   1843,
+   12
+  ],
+  "268191": [
+   "Sewanu",
+   1843,
+   12
+  ],
+  "268222": [
+   "Thongsunyu",
+   1844,
+   11
+  ],
+  "268217": [
+   "Tsogin Hq",
+   1844,
+   10
+  ]
+ },
+ "village_count_total": 116,
+ "village_count_assigned": 116
+}

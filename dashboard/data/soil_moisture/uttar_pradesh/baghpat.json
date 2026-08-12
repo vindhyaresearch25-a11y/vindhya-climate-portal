@@ -1,0 +1,1771 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Uttar Pradesh",
+  "district": "Baghpat",
+  "district_lgd": 124,
+  "observation_window": "2026-08-07T11:27Z to 2026-08-12T11:27Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2618,
+  "sm_surface_stddev": 0.0101,
+  "sm_rootzone_mean": 0.2464,
+  "sm_rootzone_stddev": 0.0081,
+  "n_cells": 12,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 28.8045,
+    "lon": 77.3225,
+    "sm_surface": 0.2809,
+    "sm_rootzone": 0.2593,
+    "n_villages_sharing_cell": 33
+   },
+   {
+    "cell_index": 1,
+    "lat": 28.9033,
+    "lon": 77.3225,
+    "sm_surface": 0.2695,
+    "sm_rootzone": 0.2549,
+    "n_villages_sharing_cell": 36
+   },
+   {
+    "cell_index": 2,
+    "lat": 28.9033,
+    "lon": 77.4213,
+    "sm_surface": 0.2751,
+    "sm_rootzone": 0.2564,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 3,
+    "lat": 29.0021,
+    "lon": 77.2237,
+    "sm_surface": 0.2567,
+    "sm_rootzone": 0.2394,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 4,
+    "lat": 29.0021,
+    "lon": 77.3225,
+    "sm_surface": 0.2611,
+    "sm_rootzone": 0.2495,
+    "n_villages_sharing_cell": 33
+   },
+   {
+    "cell_index": 5,
+    "lat": 29.0021,
+    "lon": 77.4213,
+    "sm_surface": 0.2695,
+    "sm_rootzone": 0.2524,
+    "n_villages_sharing_cell": 29
+   },
+   {
+    "cell_index": 6,
+    "lat": 29.1009,
+    "lon": 77.2237,
+    "sm_surface": 0.2514,
+    "sm_rootzone": 0.2361,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 7,
+    "lat": 29.1009,
+    "lon": 77.3225,
+    "sm_surface": 0.2563,
+    "sm_rootzone": 0.2429,
+    "n_villages_sharing_cell": 25
+   },
+   {
+    "cell_index": 8,
+    "lat": 29.1009,
+    "lon": 77.4213,
+    "sm_surface": 0.2655,
+    "sm_rootzone": 0.2489,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 9,
+    "lat": 29.1997,
+    "lon": 77.2237,
+    "sm_surface": 0.2465,
+    "sm_rootzone": 0.2333,
+    "n_villages_sharing_cell": 31
+   },
+   {
+    "cell_index": 10,
+    "lat": 29.1997,
+    "lon": 77.3225,
+    "sm_surface": 0.2498,
+    "sm_rootzone": 0.2388,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 11,
+    "lat": 29.1997,
+    "lon": 77.4213,
+    "sm_surface": 0.2598,
+    "sm_rootzone": 0.2452,
+    "n_villages_sharing_cell": 26
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2655,
+  "sm_surface_stddev": 0.009,
+  "n_blocks": 3
+ },
+ "blocks": [
+  {
+   "block_name": "Baghpat",
+   "sdcode": 736,
+   "n_villages": 116,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.2648,
+   "sm_surface_stddev": 0.0068
+  },
+  {
+   "block_name": "Baraut",
+   "sdcode": 735,
+   "n_villages": 154,
+   "n_cells_spanned": 9,
+   "sm_surface_mean": 0.2549,
+   "sm_surface_stddev": 0.0068
+  },
+  {
+   "block_name": "Khekada",
+   "sdcode": 737,
+   "n_villages": 53,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.2769,
+   "sm_surface_stddev": 0.0053
+  }
+ ],
+ "villages": {
+  "119464": [
+   "Shahjahanpur Tisotra Urf Nwada",
+   736,
+   5
+  ],
+  "119468": [
+   "Baleni",
+   736,
+   5
+  ],
+  "119465": [
+   "Haria Khera",
+   736,
+   5
+  ],
+  "119466": [
+   "Amipur Baleni",
+   736,
+   5
+  ],
+  "119458": [
+   "Pura",
+   736,
+   5
+  ],
+  "119457": [
+   "Mavi Khurd",
+   736,
+   5
+  ],
+  "119240": [
+   "Tugana",
+   735,
+   9
+  ],
+  "119251": [
+   "Tilwara Sakin",
+   735,
+   9
+  ],
+  "119253": [
+   "Rathaura",
+   735,
+   9
+  ],
+  "119241": [
+   "Nangal",
+   735,
+   9
+  ],
+  "119239": [
+   "Bodha",
+   735,
+   9
+  ],
+  "119250": [
+   "Mirpur",
+   735,
+   9
+  ],
+  "119238": [
+   "Tanda",
+   735,
+   9
+  ],
+  "119295": [
+   "Adilabad",
+   735,
+   6
+  ],
+  "119249": [
+   "Hewa",
+   735,
+   9
+  ],
+  "119297": [
+   "Kotana",
+   735,
+   6
+  ],
+  "119296": [
+   "Chaubli",
+   735,
+   6
+  ],
+  "119299": [
+   "Bohla",
+   735,
+   6
+  ],
+  "119292": [
+   "Sadakpur Sinoli",
+   735,
+   6
+  ],
+  "119293": [
+   "Jafarpur Odhapur",
+   735,
+   6
+  ],
+  "119259": [
+   "Kakor Kalan",
+   735,
+   9
+  ],
+  "119257": [
+   "Badarkha",
+   735,
+   9
+  ],
+  "119290": [
+   "Malakpur",
+   735,
+   6
+  ],
+  "119294": [
+   "Jagos",
+   735,
+   6
+  ],
+  "119260": [
+   "Bachhor",
+   735,
+   9
+  ],
+  "119258": [
+   "Khwajgipur Urf Chandanheri",
+   735,
+   9
+  ],
+  "119255": [
+   "Halalpur",
+   735,
+   9
+  ],
+  "119261": [
+   "Khwaja Nagla",
+   735,
+   9
+  ],
+  "119291": [
+   "Shabga",
+   735,
+   6
+  ],
+  "248969": [
+   "Chhaprauli",
+   735,
+   9
+  ],
+  "119256": [
+   "Chhaprauli Dehat Now In Nagar",
+   735,
+   9
+  ],
+  "119242": [
+   "Koori",
+   735,
+   9
+  ],
+  "119252": [
+   "Tilwara Patti",
+   735,
+   9
+  ],
+  "119279": [
+   "Jiwana",
+   735,
+   10
+  ],
+  "119266": [
+   "Basoli",
+   735,
+   9
+  ],
+  "119310": [
+   "Mirapur",
+   735,
+   7
+  ],
+  "119287": [
+   "Mahavatpur",
+   735,
+   6
+  ],
+  "119273": [
+   "Asharfabad Thal",
+   735,
+   10
+  ],
+  "119300": [
+   "Sadakpur Jonmana",
+   735,
+   6
+  ],
+  "119254": [
+   "Silana",
+   735,
+   9
+  ],
+  "119283": [
+   "Chhachharpur",
+   735,
+   7
+  ],
+  "119309": [
+   "Vazidpur",
+   735,
+   7
+  ],
+  "119308": [
+   "Lohadda",
+   735,
+   7
+  ],
+  "119277": [
+   "Hasanpur Jiwani",
+   735,
+   10
+  ],
+  "119306": [
+   "Bijrol",
+   735,
+   7
+  ],
+  "119281": [
+   "Acharaj Khera",
+   735,
+   7
+  ],
+  "119286": [
+   "Baoli",
+   735,
+   6
+  ],
+  "119274": [
+   "Kishanpur",
+   735,
+   10
+  ],
+  "119267": [
+   "Sherpur",
+   735,
+   9
+  ],
+  "119282": [
+   "Goonga Kheri",
+   735,
+   7
+  ],
+  "119268": [
+   "Luhara",
+   735,
+   9
+  ],
+  "119276": [
+   "Kasampur Kheri",
+   735,
+   10
+  ],
+  "119275": [
+   "Biral",
+   735,
+   9
+  ],
+  "119311": [
+   "Angadpur",
+   735,
+   7
+  ],
+  "119305": [
+   "Asafpur Kharkhari",
+   735,
+   7
+  ],
+  "119288": [
+   "Rustampur",
+   735,
+   6
+  ],
+  "119289": [
+   "Loyan",
+   735,
+   6
+  ],
+  "119280": [
+   "Mukarrabpur Kandera",
+   735,
+   10
+  ],
+  "119285": [
+   "Barwala",
+   735,
+   9
+  ],
+  "119307": [
+   "Jalalpur",
+   735,
+   7
+  ],
+  "248972": [
+   "Badaut",
+   735,
+   6
+  ],
+  "119284": [
+   "Aurangabad Jathauli",
+   735,
+   9
+  ],
+  "119301": [
+   "Baraut Rural Now In Nagar",
+   735,
+   6
+  ],
+  "119265": [
+   "Rajpur",
+   735,
+   9
+  ],
+  "119345": [
+   "Palra",
+   735,
+   11
+  ],
+  "119365": [
+   "Begamabad Garhi",
+   735,
+   8
+  ],
+  "119329": [
+   "Mozizabad Nagal",
+   735,
+   10
+  ],
+  "119351": [
+   "Kanhar Talibpur",
+   735,
+   11
+  ],
+  "119370": [
+   "Jiwana",
+   735,
+   7
+  ],
+  "119338": [
+   "Bopura",
+   735,
+   11
+  ],
+  "119335": [
+   "Daha",
+   735,
+   11
+  ],
+  "119361": [
+   "Chandayan",
+   735,
+   8
+  ],
+  "119347": [
+   "Mohammadpur Khunti",
+   735,
+   11
+  ],
+  "119366": [
+   "Dadri",
+   735,
+   8
+  ],
+  "119312": [
+   "Johri",
+   735,
+   7
+  ],
+  "119359": [
+   "Mangrauli",
+   735,
+   8
+  ],
+  "119364": [
+   "Baranawa",
+   735,
+   8
+  ],
+  "119340": [
+   "Fauladnagar",
+   735,
+   11
+  ],
+  "119352": [
+   "Palri",
+   735,
+   11
+  ],
+  "119344": [
+   "Mujaffarpur Kanwara",
+   735,
+   11
+  ],
+  "119367": [
+   "Fakharpur Shaikhpura",
+   735,
+   8
+  ],
+  "119369": [
+   "Pichokra",
+   735,
+   8
+  ],
+  "119368": [
+   "Binauli",
+   735,
+   8
+  ],
+  "119353": [
+   "Pusar",
+   735,
+   11
+  ],
+  "119357": [
+   "Ranchhar",
+   735,
+   8
+  ],
+  "119358": [
+   "Rahatna",
+   735,
+   8
+  ],
+  "119356": [
+   "Sirsali",
+   735,
+   7
+  ],
+  "119360": [
+   "Shahjahanpur",
+   735,
+   11
+  ],
+  "119355": [
+   "Bamnauli",
+   735,
+   7
+  ],
+  "119346": [
+   "Azampur Mulsam",
+   735,
+   11
+  ],
+  "119354": [
+   "Adampur",
+   735,
+   11
+  ],
+  "119330": [
+   "Idrishpur",
+   735,
+   10
+  ],
+  "119339": [
+   "Garhi Kanmaran",
+   735,
+   11
+  ],
+  "248971": [
+   "Doghat",
+   735,
+   11
+  ],
+  "119350": [
+   "Doghat Rural",
+   735,
+   10
+  ],
+  "119348": [
+   "Jaibabad",
+   735,
+   11
+  ],
+  "119325": [
+   "Himmatpur",
+   735,
+   10
+  ],
+  "119245": [
+   "Kakripur",
+   735,
+   10
+  ],
+  "119248": [
+   "Ramala",
+   735,
+   10
+  ],
+  "119244": [
+   "Kirthal",
+   735,
+   9
+  ],
+  "119264": [
+   "Soop",
+   735,
+   9
+  ],
+  "119243": [
+   "Loomb",
+   735,
+   9
+  ],
+  "119327": [
+   "Sujti",
+   735,
+   10
+  ],
+  "119331": [
+   "Nirpura",
+   735,
+   11
+  ],
+  "119262": [
+   "Mukandpur",
+   735,
+   9
+  ],
+  "119269": [
+   "Bhudpur",
+   735,
+   10
+  ],
+  "119332": [
+   "Bhadal",
+   735,
+   11
+  ],
+  "119328": [
+   "Gangnauli",
+   735,
+   10
+  ],
+  "119270": [
+   "Gopalpur Khadana",
+   735,
+   10
+  ],
+  "119263": [
+   "Sothi",
+   735,
+   9
+  ],
+  "119334": [
+   "Kheri Chittam",
+   735,
+   11
+  ],
+  "119272": [
+   "Fatehpur Chak",
+   735,
+   10
+  ],
+  "119271": [
+   "Ibrahimpur Majra",
+   735,
+   10
+  ],
+  "119246": [
+   "Asara",
+   735,
+   10
+  ],
+  "248970": [
+   "Tikri",
+   735,
+   10
+  ],
+  "119326": [
+   "Tikri Rural",
+   735,
+   10
+  ],
+  "119247": [
+   "Vidhawati",
+   735,
+   10
+  ],
+  "119341": [
+   "Sarora",
+   735,
+   11
+  ],
+  "119363": [
+   "Shahpur Banganga",
+   735,
+   8
+  ],
+  "119349": [
+   "Khaprana",
+   735,
+   11
+  ],
+  "119343": [
+   "Milana",
+   735,
+   11
+  ],
+  "119342": [
+   "Jhundpur",
+   735,
+   11
+  ],
+  "119362": [
+   "Kohnabad",
+   735,
+   11
+  ],
+  "119336": [
+   "Gaidabra",
+   735,
+   11
+  ],
+  "119333": [
+   "Dhanaura Tikri",
+   735,
+   11
+  ],
+  "119337": [
+   "Tabelagarhi",
+   735,
+   11
+  ],
+  "119278": [
+   "Karimpur",
+   735,
+   10
+  ],
+  "119445": [
+   "Gospur",
+   736,
+   4
+  ],
+  "119513": [
+   "Noorpur Khalsa",
+   737,
+   0
+  ],
+  "119535": [
+   "Nagla Vahan",
+   737,
+   0
+  ],
+  "119552": [
+   "Nagla Agri",
+   737,
+   0
+  ],
+  "119510": [
+   "Qutubpur Viran",
+   737,
+   1
+  ],
+  "119547": [
+   "Sharfabad",
+   737,
+   0
+  ],
+  "119534": [
+   "Sheikhpuri",
+   737,
+   0
+  ],
+  "119524": [
+   "Nagla Baheri",
+   737,
+   1
+  ],
+  "119511": [
+   "Fakharpur Viran",
+   737,
+   0
+  ],
+  "119516": [
+   "Hazipur Viran",
+   737,
+   0
+  ],
+  "119540": [
+   "Mansoorpur",
+   737,
+   2
+  ],
+  "119536": [
+   "Bhairapur",
+   737,
+   0
+  ],
+  "119548": [
+   "Phulera",
+   737,
+   0
+  ],
+  "119493": [
+   "Khaspur",
+   736,
+   1
+  ],
+  "119509": [
+   "Sankrod",
+   737,
+   1
+  ],
+  "119522": [
+   "Rawan Urf Baragoan",
+   737,
+   1
+  ],
+  "119525": [
+   "Mubarikpur",
+   737,
+   0
+  ],
+  "119507": [
+   "Khekhra Rural",
+   737,
+   1
+  ],
+  "119514": [
+   "Hasanpur Masoori",
+   737,
+   0
+  ],
+  "119523": [
+   "Khaila",
+   737,
+   1
+  ],
+  "119529": [
+   "Nagla Badi",
+   737,
+   0
+  ],
+  "119550": [
+   "Poornpur Nawada",
+   737,
+   0
+  ],
+  "119539": [
+   "Dagarpur",
+   737,
+   0
+  ],
+  "119533": [
+   "Rataul",
+   737,
+   0
+  ],
+  "119515": [
+   "Jahangirpur Urf Dunda Hera",
+   737,
+   0
+  ],
+  "119527": [
+   "Fakharpur Mohammad Shahpur",
+   737,
+   0
+  ],
+  "119544": [
+   "Gauna",
+   737,
+   0
+  ],
+  "119543": [
+   "Shahbanpur",
+   737,
+   2
+  ],
+  "119531": [
+   "Gothra",
+   737,
+   0
+  ],
+  "119545": [
+   "Singholi Taga",
+   737,
+   0
+  ],
+  "119517": [
+   "Abdullapur",
+   737,
+   0
+  ],
+  "119526": [
+   "Norozpur Aima",
+   737,
+   0
+  ],
+  "119542": [
+   "Lalyana",
+   737,
+   2
+  ],
+  "119551": [
+   "Garhi Kalanjri",
+   737,
+   0
+  ],
+  "119549": [
+   "Bhagot",
+   737,
+   0
+  ],
+  "119532": [
+   "Ghitora",
+   737,
+   0
+  ],
+  "119538": [
+   "Tigri",
+   737,
+   0
+  ],
+  "119546": [
+   "Alamgirpur Urf Tukali",
+   737,
+   0
+  ],
+  "119537": [
+   "Vinaipur",
+   737,
+   0
+  ],
+  "119530": [
+   "Ahamadnagar",
+   737,
+   0
+  ],
+  "119518": [
+   "Subhanpur",
+   737,
+   0
+  ],
+  "119528": [
+   "Firozpur",
+   737,
+   0
+  ],
+  "119512": [
+   "Noorpur Muzbida",
+   737,
+   0
+  ],
+  "119541": [
+   "Lahchauda",
+   737,
+   0
+  ],
+  "119508": [
+   "Sikanderpur",
+   737,
+   1
+  ],
+  "119428": [
+   "Khandwari",
+   736,
+   3
+  ],
+  "119303": [
+   "Luhari",
+   735,
+   6
+  ],
+  "119304": [
+   "Kheri Pradhan",
+   735,
+   6
+  ],
+  "119398": [
+   "Faizullapur",
+   736,
+   3
+  ],
+  "119389": [
+   "Kherae Islampur",
+   736,
+   6
+  ],
+  "119298": [
+   "Akbarpur Thasaka",
+   735,
+   6
+  ],
+  "119388": [
+   "Rajpur Khampur",
+   736,
+   6
+  ],
+  "119392": [
+   "Faizpur Ninana",
+   736,
+   3
+  ],
+  "119504": [
+   "Sunehra",
+   737,
+   1
+  ],
+  "119390": [
+   "Sultanpur Hatana",
+   736,
+   3
+  ],
+  "119399": [
+   "Nethla",
+   736,
+   3
+  ],
+  "119391": [
+   "Biharipur",
+   736,
+   3
+  ],
+  "119439": [
+   "Baghpat Rural Hamedabad Mill",
+   736,
+   3
+  ],
+  "119432": [
+   "Bali",
+   736,
+   4
+  ],
+  "119429": [
+   "Pali",
+   736,
+   1
+  ],
+  "119506": [
+   "Mavikala",
+   737,
+   1
+  ],
+  "119500": [
+   "Chamrawal",
+   736,
+   2
+  ],
+  "119437": [
+   "Soorajpur Mahanwa",
+   736,
+   1
+  ],
+  "119431": [
+   "Jawaharpur Mewla",
+   736,
+   4
+  ],
+  "119426": [
+   "Sisana",
+   736,
+   3
+  ],
+  "119427": [
+   "Baghu",
+   736,
+   3
+  ],
+  "119476": [
+   "Muradgaon Urf Roshangarh",
+   736,
+   2
+  ],
+  "119436": [
+   "Habibpur Majra",
+   736,
+   1
+  ],
+  "119472": [
+   "Poother",
+   736,
+   5
+  ],
+  "119455": [
+   "Hisawada",
+   736,
+   4
+  ],
+  "119479": [
+   "Saidpurkhurd Urf Nathmalpur",
+   736,
+   2
+  ],
+  "119425": [
+   "Niwara",
+   736,
+   3
+  ],
+  "119418": [
+   "Poothi Brahmnan",
+   736,
+   3
+  ],
+  "119423": [
+   "Santoshpur",
+   736,
+   3
+  ],
+  "119490": [
+   "Dhikoli",
+   736,
+   1
+  ],
+  "119488": [
+   "Makarandpur Ogti",
+   736,
+   2
+  ],
+  "119502": [
+   "Katha",
+   737,
+   1
+  ],
+  "119486": [
+   "Sikhera",
+   736,
+   1
+  ],
+  "119417": [
+   "Mukarampur",
+   736,
+   3
+  ],
+  "119442": [
+   "Pawla Begmabad",
+   736,
+   1
+  ],
+  "119440": [
+   "Ahera",
+   736,
+   1
+  ],
+  "119441": [
+   "Choulhada",
+   736,
+   1
+  ],
+  "119435": [
+   "Goripur Jawahar Nagar",
+   736,
+   1
+  ],
+  "119433": [
+   "Meetli",
+   736,
+   4
+  ],
+  "119420": [
+   "Ahamadshahpur Padra",
+   736,
+   4
+  ],
+  "119487": [
+   "Pathhouli",
+   736,
+   2
+  ],
+  "119503": [
+   "Harchandpur",
+   737,
+   1
+  ],
+  "119485": [
+   "Salawatpur Kheri",
+   736,
+   1
+  ],
+  "119462": [
+   "Saidbhar",
+   736,
+   5
+  ],
+  "119444": [
+   "Basaud",
+   736,
+   4
+  ],
+  "119499": [
+   "Harsia",
+   736,
+   2
+  ],
+  "119496": [
+   "Mukari",
+   736,
+   2
+  ],
+  "119497": [
+   "Latifpur Dattnagar",
+   736,
+   2
+  ],
+  "119419": [
+   "Niwali",
+   736,
+   4
+  ],
+  "119495": [
+   "Ghatoli",
+   736,
+   2
+  ],
+  "119521": [
+   "Saidpur Kalan",
+   737,
+   1
+  ],
+  "119492": [
+   "Panchi",
+   736,
+   1
+  ],
+  "119505": [
+   "Anandpur Urf Bandpur",
+   737,
+   1
+  ],
+  "119520": [
+   "Maharampur",
+   737,
+   1
+  ],
+  "119463": [
+   "Singhaoli Ahir",
+   736,
+   5
+  ],
+  "119467": [
+   "Mozzampur Urf Ladpur",
+   736,
+   5
+  ],
+  "119469": [
+   "Habibpur Nagla",
+   736,
+   2
+  ],
+  "119473": [
+   "Maniyar Bari",
+   736,
+   5
+  ],
+  "119446": [
+   "Daula",
+   736,
+   4
+  ],
+  "119519": [
+   "Basi",
+   737,
+   1
+  ],
+  "119498": [
+   "Kaharka",
+   736,
+   2
+  ],
+  "119483": [
+   "Abdullapur Mewla",
+   736,
+   1
+  ],
+  "119453": [
+   "Aminagar Sarai Rural",
+   736,
+   5
+  ],
+  "119480": [
+   "Rasoolpur Sankal Poothi",
+   736,
+   1
+  ],
+  "119482": [
+   "Khatta Prahladpur",
+   736,
+   1
+  ],
+  "119478": [
+   "Daulatpur",
+   736,
+   2
+  ],
+  "119481": [
+   "Basetikri",
+   736,
+   1
+  ],
+  "119475": [
+   "Pilana",
+   736,
+   1
+  ],
+  "119470": [
+   "Dolcha",
+   736,
+   2
+  ],
+  "119477": [
+   "Khera Viran",
+   736,
+   2
+  ],
+  "119471": [
+   "Mukarmatpur Chakbandi",
+   736,
+   2
+  ],
+  "119430": [
+   "Tatiri Rural",
+   736,
+   3
+  ],
+  "119434": [
+   "Rampur Khurd",
+   736,
+   4
+  ],
+  "119491": [
+   "Ukaoli",
+   736,
+   1
+  ],
+  "119484": [
+   "Kalyanpur",
+   736,
+   1
+  ],
+  "119494": [
+   "Sultanpur",
+   736,
+   2
+  ],
+  "119438": [
+   "Qasamabad Urf Dudba",
+   736,
+   3
+  ],
+  "119501": [
+   "Nagla Bahlolpur",
+   737,
+   1
+  ],
+  "248974": [
+   "Agarwal Mandi",
+   736,
+   3
+  ],
+  "248975": [
+   "Aminagar Sarai",
+   736,
+   5
+  ],
+  "248973": [
+   "Baghpat",
+   736,
+   3
+  ],
+  "119474": [
+   "Jonmani",
+   736,
+   4
+  ],
+  "119489": [
+   "Muzaffarpur Urf Ladpur",
+   736,
+   2
+  ],
+  "119424": [
+   "Gauripur",
+   736,
+   3
+  ],
+  "119371": [
+   "Malmazra",
+   735,
+   7
+  ],
+  "119314": [
+   "Barawad",
+   735,
+   7
+  ],
+  "119373": [
+   "Mahwar",
+   735,
+   7
+  ],
+  "119401": [
+   "Dhodra",
+   736,
+   4
+  ],
+  "119317": [
+   "Baraka",
+   735,
+   7
+  ],
+  "119380": [
+   "Galheta",
+   735,
+   8
+  ],
+  "119318": [
+   "Shahpur Baroli",
+   735,
+   6
+  ],
+  "119404": [
+   "Sujra",
+   736,
+   3
+  ],
+  "119385": [
+   "Sanjarpur Kaidwa",
+   735,
+   5
+  ],
+  "119447": [
+   "Fatehpur Majra",
+   736,
+   4
+  ],
+  "119378": [
+   "Muzaffarpur Poes",
+   735,
+   4
+  ],
+  "119415": [
+   "Chopra Maheshpur",
+   736,
+   4
+  ],
+  "119461": [
+   "Budhseni",
+   736,
+   5
+  ],
+  "119384": [
+   "Ibrahima Bad Gawri",
+   735,
+   5
+  ],
+  "119313": [
+   "Arifpur Kheri",
+   735,
+   7
+  ],
+  "119412": [
+   "Bichpari",
+   736,
+   4
+  ],
+  "119375": [
+   "Fazalpur",
+   735,
+   8
+  ],
+  "119454": [
+   "Chakrasenpur Khurd",
+   736,
+   5
+  ],
+  "119405": [
+   "Jahangarh Urf Doja",
+   736,
+   4
+  ],
+  "119416": [
+   "Gyasri Urf Gadhi",
+   736,
+   4
+  ],
+  "119422": [
+   "Norozpur Goorjar",
+   736,
+   3
+  ],
+  "119387": [
+   "Mawi Kalan",
+   735,
+   5
+  ],
+  "119379": [
+   "Tera",
+   735,
+   4
+  ],
+  "119410": [
+   "Budhera",
+   736,
+   4
+  ],
+  "119376": [
+   "Titrouda",
+   735,
+   5
+  ],
+  "119408": [
+   "Dhanaura Silvernagar",
+   736,
+   4
+  ],
+  "119409": [
+   "Gwali Khera",
+   736,
+   4
+  ],
+  "119402": [
+   "Ahamadpur Gathina",
+   736,
+   4
+  ],
+  "119411": [
+   "Kanoli",
+   736,
+   4
+  ],
+  "119403": [
+   "Qyampur",
+   736,
+   4
+  ],
+  "119394": [
+   "Shikohpur",
+   736,
+   3
+  ],
+  "119393": [
+   "Tyodhi",
+   736,
+   6
+  ],
+  "119320": [
+   "Idrispur",
+   735,
+   6
+  ],
+  "119386": [
+   "Hazurabad Garhi",
+   735,
+   5
+  ],
+  "119421": [
+   "Ladhwari",
+   736,
+   3
+  ],
+  "119322": [
+   "Osika",
+   735,
+   4
+  ],
+  "119397": [
+   "Saroorpur Kalan",
+   736,
+   3
+  ],
+  "119383": [
+   "Muzaffarpur Kambala",
+   735,
+   5
+  ],
+  "119381": [
+   "Jainuddinpur Chirchiya",
+   735,
+   5
+  ],
+  "119302": [
+   "Dhikana",
+   735,
+   6
+  ],
+  "119400": [
+   "Sadullapur",
+   736,
+   4
+  ],
+  "119316": [
+   "Gurana",
+   735,
+   7
+  ],
+  "119315": [
+   "Latifpur Sabha Kheri",
+   735,
+   7
+  ],
+  "119413": [
+   "Jafarabad Nangla",
+   736,
+   4
+  ],
+  "119321": [
+   "Hilwari",
+   735,
+   7
+  ],
+  "119414": [
+   "Karam Alipur",
+   736,
+   4
+  ],
+  "119374": [
+   "Bijwara",
+   735,
+   7
+  ],
+  "119407": [
+   "Fatehpur Poothi",
+   736,
+   7
+  ],
+  "119372": [
+   "Sirsal Darkaoda",
+   735,
+   8
+  ],
+  "119396": [
+   "Kheriki",
+   736,
+   3
+  ],
+  "119323": [
+   "Bam",
+   735,
+   4
+  ],
+  "119324": [
+   "Alawalpur",
+   735,
+   3
+  ],
+  "119377": [
+   "Nagla Rawa",
+   735,
+   4
+  ],
+  "119452": [
+   "Luhara",
+   736,
+   5
+  ],
+  "119449": [
+   "Ramnagar",
+   736,
+   5
+  ],
+  "119459": [
+   "Kansa Poothi",
+   736,
+   5
+  ],
+  "119443": [
+   "Bilochpura",
+   736,
+   4
+  ],
+  "119451": [
+   "Barsia",
+   736,
+   5
+  ],
+  "119448": [
+   "Khindora",
+   736,
+   4
+  ],
+  "119450": [
+   "Tilpani",
+   736,
+   5
+  ],
+  "119406": [
+   "Bari Nangla",
+   736,
+   7
+  ],
+  "119460": [
+   "Matanat Nagar",
+   736,
+   5
+  ],
+  "119456": [
+   "Dilavar Nagar",
+   736,
+   5
+  ],
+  "119382": [
+   "Ahamadabad Garhi",
+   735,
+   8
+  ],
+  "119395": [
+   "Hasanpur Jakhaira Urf Chandpur",
+   736,
+   3
+  ],
+  "119319": [
+   "Debigarh Urf Phalera",
+   735,
+   6
+  ],
+  "800727": [
+   "Khekada Np",
+   737,
+   1
+  ]
+ },
+ "village_count_total": 323,
+ "village_count_assigned": 323
+}

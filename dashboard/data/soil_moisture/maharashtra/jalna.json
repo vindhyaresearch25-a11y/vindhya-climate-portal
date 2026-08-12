@@ -1,0 +1,5523 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Maharashtra",
+  "district": "Jalna",
+  "district_lgd": 479,
+  "observation_window": "2026-08-07T11:16Z to 2026-08-12T11:16Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.342,
+  "sm_surface_stddev": 0.0297,
+  "sm_rootzone_mean": 0.3855,
+  "sm_rootzone_stddev": 0.023,
+  "n_cells": 71,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 19.3183,
+    "lon": 75.9391,
+    "sm_surface": 0.2903,
+    "sm_rootzone": 0.3455,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 1,
+    "lat": 19.3183,
+    "lon": 76.0379,
+    "sm_surface": 0.2969,
+    "sm_rootzone": 0.3486,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 2,
+    "lat": 19.3183,
+    "lon": 76.1367,
+    "sm_surface": 0.3042,
+    "sm_rootzone": 0.3517,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 3,
+    "lat": 19.4171,
+    "lon": 75.6426,
+    "sm_surface": 0.275,
+    "sm_rootzone": 0.3345,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 4,
+    "lat": 19.4171,
+    "lon": 75.7415,
+    "sm_surface": 0.2799,
+    "sm_rootzone": 0.3392,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 5,
+    "lat": 19.4171,
+    "lon": 75.8403,
+    "sm_surface": 0.2934,
+    "sm_rootzone": 0.3482,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 6,
+    "lat": 19.4171,
+    "lon": 75.9391,
+    "sm_surface": 0.3031,
+    "sm_rootzone": 0.3567,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 7,
+    "lat": 19.4171,
+    "lon": 76.0379,
+    "sm_surface": 0.3126,
+    "sm_rootzone": 0.3601,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 8,
+    "lat": 19.4171,
+    "lon": 76.1367,
+    "sm_surface": 0.3239,
+    "sm_rootzone": 0.3651,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 9,
+    "lat": 19.4171,
+    "lon": 76.2355,
+    "sm_surface": 0.3393,
+    "sm_rootzone": 0.3888,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 10,
+    "lat": 19.5159,
+    "lon": 75.6426,
+    "sm_surface": 0.2873,
+    "sm_rootzone": 0.3428,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 11,
+    "lat": 19.5159,
+    "lon": 75.7415,
+    "sm_surface": 0.2902,
+    "sm_rootzone": 0.3454,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 12,
+    "lat": 19.5159,
+    "lon": 75.8403,
+    "sm_surface": 0.3034,
+    "sm_rootzone": 0.3549,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 13,
+    "lat": 19.5159,
+    "lon": 75.9391,
+    "sm_surface": 0.3118,
+    "sm_rootzone": 0.3629,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 14,
+    "lat": 19.5159,
+    "lon": 76.0379,
+    "sm_surface": 0.3211,
+    "sm_rootzone": 0.3678,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 15,
+    "lat": 19.5159,
+    "lon": 76.1367,
+    "sm_surface": 0.3359,
+    "sm_rootzone": 0.388,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 16,
+    "lat": 19.5159,
+    "lon": 76.2355,
+    "sm_surface": 0.3462,
+    "sm_rootzone": 0.3936,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 17,
+    "lat": 19.5159,
+    "lon": 76.3343,
+    "sm_surface": 0.3474,
+    "sm_rootzone": 0.3793,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 18,
+    "lat": 19.6147,
+    "lon": 75.6426,
+    "sm_surface": 0.3031,
+    "sm_rootzone": 0.3516,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 19,
+    "lat": 19.6147,
+    "lon": 75.7415,
+    "sm_surface": 0.3047,
+    "sm_rootzone": 0.3531,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 20,
+    "lat": 19.6147,
+    "lon": 75.8403,
+    "sm_surface": 0.3162,
+    "sm_rootzone": 0.362,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 21,
+    "lat": 19.6147,
+    "lon": 75.9391,
+    "sm_surface": 0.3252,
+    "sm_rootzone": 0.3841,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 22,
+    "lat": 19.6147,
+    "lon": 76.0379,
+    "sm_surface": 0.3283,
+    "sm_rootzone": 0.3707,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 23,
+    "lat": 19.6147,
+    "lon": 76.1367,
+    "sm_surface": 0.335,
+    "sm_rootzone": 0.3743,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 24,
+    "lat": 19.6147,
+    "lon": 76.2355,
+    "sm_surface": 0.3431,
+    "sm_rootzone": 0.3786,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 25,
+    "lat": 19.6147,
+    "lon": 76.3343,
+    "sm_surface": 0.3503,
+    "sm_rootzone": 0.3829,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 26,
+    "lat": 19.6147,
+    "lon": 76.4332,
+    "sm_surface": 0.3588,
+    "sm_rootzone": 0.3872,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 27,
+    "lat": 19.7135,
+    "lon": 75.6426,
+    "sm_surface": 0.3172,
+    "sm_rootzone": 0.3772,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 28,
+    "lat": 19.7135,
+    "lon": 75.7415,
+    "sm_surface": 0.316,
+    "sm_rootzone": 0.3765,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 29,
+    "lat": 19.7135,
+    "lon": 75.8403,
+    "sm_surface": 0.3295,
+    "sm_rootzone": 0.3857,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 30,
+    "lat": 19.7135,
+    "lon": 75.9391,
+    "sm_surface": 0.3343,
+    "sm_rootzone": 0.3884,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 31,
+    "lat": 19.7135,
+    "lon": 76.0379,
+    "sm_surface": 0.3354,
+    "sm_rootzone": 0.372,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 32,
+    "lat": 19.7135,
+    "lon": 76.1367,
+    "sm_surface": 0.3406,
+    "sm_rootzone": 0.3777,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 33,
+    "lat": 19.7135,
+    "lon": 76.2355,
+    "sm_surface": 0.3471,
+    "sm_rootzone": 0.3822,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 34,
+    "lat": 19.7135,
+    "lon": 76.3343,
+    "sm_surface": 0.3531,
+    "sm_rootzone": 0.3863,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 35,
+    "lat": 19.7135,
+    "lon": 76.4332,
+    "sm_surface": 0.3688,
+    "sm_rootzone": 0.4099,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 36,
+    "lat": 19.8123,
+    "lon": 75.7415,
+    "sm_surface": 0.3319,
+    "sm_rootzone": 0.3869,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 37,
+    "lat": 19.8123,
+    "lon": 75.8403,
+    "sm_surface": 0.3438,
+    "sm_rootzone": 0.395,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 38,
+    "lat": 19.8123,
+    "lon": 75.9391,
+    "sm_surface": 0.3461,
+    "sm_rootzone": 0.3953,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 39,
+    "lat": 19.8123,
+    "lon": 76.0379,
+    "sm_surface": 0.3529,
+    "sm_rootzone": 0.3993,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 40,
+    "lat": 19.8123,
+    "lon": 76.1367,
+    "sm_surface": 0.3569,
+    "sm_rootzone": 0.4027,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 41,
+    "lat": 19.8123,
+    "lon": 76.2355,
+    "sm_surface": 0.3693,
+    "sm_rootzone": 0.4094,
+    "n_villages_sharing_cell": 21
+   },
+   {
+    "cell_index": 42,
+    "lat": 19.8123,
+    "lon": 76.3343,
+    "sm_surface": 0.3766,
+    "sm_rootzone": 0.414,
+    "n_villages_sharing_cell": 25
+   },
+   {
+    "cell_index": 43,
+    "lat": 19.8123,
+    "lon": 76.4332,
+    "sm_surface": 0.3824,
+    "sm_rootzone": 0.418,
+    "n_villages_sharing_cell": 24
+   },
+   {
+    "cell_index": 44,
+    "lat": 19.9112,
+    "lon": 75.7415,
+    "sm_surface": 0.3356,
+    "sm_rootzone": 0.391,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 45,
+    "lat": 19.9112,
+    "lon": 75.8403,
+    "sm_surface": 0.3487,
+    "sm_rootzone": 0.3999,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 46,
+    "lat": 19.9112,
+    "lon": 75.9391,
+    "sm_surface": 0.3501,
+    "sm_rootzone": 0.4011,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 47,
+    "lat": 19.9112,
+    "lon": 76.0379,
+    "sm_surface": 0.3592,
+    "sm_rootzone": 0.4058,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 48,
+    "lat": 19.9112,
+    "lon": 76.4332,
+    "sm_surface": 0.3909,
+    "sm_rootzone": 0.4244,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 49,
+    "lat": 20.01,
+    "lon": 75.6426,
+    "sm_surface": 0.3431,
+    "sm_rootzone": 0.399,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 50,
+    "lat": 20.01,
+    "lon": 75.7415,
+    "sm_surface": 0.3388,
+    "sm_rootzone": 0.396,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 51,
+    "lat": 20.01,
+    "lon": 75.8403,
+    "sm_surface": 0.3526,
+    "sm_rootzone": 0.4059,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 52,
+    "lat": 20.01,
+    "lon": 75.9391,
+    "sm_surface": 0.3565,
+    "sm_rootzone": 0.4065,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 53,
+    "lat": 20.1088,
+    "lon": 75.6426,
+    "sm_surface": 0.3379,
+    "sm_rootzone": 0.3766,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 54,
+    "lat": 20.1088,
+    "lon": 75.7415,
+    "sm_surface": 0.337,
+    "sm_rootzone": 0.3769,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 55,
+    "lat": 20.1088,
+    "lon": 75.8403,
+    "sm_surface": 0.357,
+    "sm_rootzone": 0.4057,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 56,
+    "lat": 20.1088,
+    "lon": 75.9391,
+    "sm_surface": 0.3632,
+    "sm_rootzone": 0.4052,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 57,
+    "lat": 20.1088,
+    "lon": 76.0379,
+    "sm_surface": 0.3731,
+    "sm_rootzone": 0.4111,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 58,
+    "lat": 20.2076,
+    "lon": 75.7415,
+    "sm_surface": 0.3536,
+    "sm_rootzone": 0.3837,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 59,
+    "lat": 20.2076,
+    "lon": 75.8403,
+    "sm_surface": 0.3691,
+    "sm_rootzone": 0.3962,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 60,
+    "lat": 20.2076,
+    "lon": 75.9391,
+    "sm_surface": 0.374,
+    "sm_rootzone": 0.3985,
+    "n_villages_sharing_cell": 21
+   },
+   {
+    "cell_index": 61,
+    "lat": 20.2076,
+    "lon": 76.0379,
+    "sm_surface": 0.3909,
+    "sm_rootzone": 0.4226,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 62,
+    "lat": 20.2076,
+    "lon": 76.1367,
+    "sm_surface": 0.3954,
+    "sm_rootzone": 0.4252,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 63,
+    "lat": 20.3064,
+    "lon": 75.7415,
+    "sm_surface": 0.3601,
+    "sm_rootzone": 0.3863,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 64,
+    "lat": 20.3064,
+    "lon": 75.8403,
+    "sm_surface": 0.382,
+    "sm_rootzone": 0.4178,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 65,
+    "lat": 20.3064,
+    "lon": 76.0379,
+    "sm_surface": 0.3852,
+    "sm_rootzone": 0.4038,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 66,
+    "lat": 20.3064,
+    "lon": 76.1367,
+    "sm_surface": 0.3978,
+    "sm_rootzone": 0.4268,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 67,
+    "lat": 20.4052,
+    "lon": 75.7415,
+    "sm_surface": 0.3718,
+    "sm_rootzone": 0.407,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 68,
+    "lat": 20.4052,
+    "lon": 75.8403,
+    "sm_surface": 0.3801,
+    "sm_rootzone": 0.4137,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 69,
+    "lat": 20.4052,
+    "lon": 75.9391,
+    "sm_surface": 0.3759,
+    "sm_rootzone": 0.3946,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 70,
+    "lat": 20.504,
+    "lon": 75.9391,
+    "sm_surface": 0.3767,
+    "sm_rootzone": 0.3969,
+    "n_villages_sharing_cell": 10
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3453,
+  "sm_surface_stddev": 0.0247,
+  "n_blocks": 8
+ },
+ "blocks": [
+  {
+   "block_name": "Ambad",
+   "sdcode": 4129,
+   "n_villages": 138,
+   "n_cells_spanned": 15,
+   "sm_surface_mean": 0.3018,
+   "sm_surface_stddev": 0.0153
+  },
+  {
+   "block_name": "Badnapur",
+   "sdcode": 4128,
+   "n_villages": 91,
+   "n_cells_spanned": 11,
+   "sm_surface_mean": 0.3382,
+   "sm_surface_stddev": 0.0088
+  },
+  {
+   "block_name": "Bhokardan",
+   "sdcode": 4125,
+   "n_villages": 159,
+   "n_cells_spanned": 15,
+   "sm_surface_mean": 0.3627,
+   "sm_surface_stddev": 0.0156
+  },
+  {
+   "block_name": "Ghansawangi",
+   "sdcode": 4130,
+   "n_villages": 117,
+   "n_cells_spanned": 14,
+   "sm_surface_mean": 0.3191,
+   "sm_surface_stddev": 0.0136
+  },
+  {
+   "block_name": "Jafferabad",
+   "sdcode": 4126,
+   "n_villages": 101,
+   "n_cells_spanned": 9,
+   "sm_surface_mean": 0.382,
+   "sm_surface_stddev": 0.0121
+  },
+  {
+   "block_name": "Jalna",
+   "sdcode": 4127,
+   "n_villages": 150,
+   "n_cells_spanned": 16,
+   "sm_surface_mean": 0.3524,
+   "sm_surface_stddev": 0.0123
+  },
+  {
+   "block_name": "Mantha",
+   "sdcode": 4132,
+   "n_villages": 117,
+   "n_cells_spanned": 9,
+   "sm_surface_mean": 0.368,
+   "sm_surface_stddev": 0.0148
+  },
+  {
+   "block_name": "Partur",
+   "sdcode": 4131,
+   "n_villages": 98,
+   "n_cells_spanned": 12,
+   "sm_surface_mean": 0.338,
+   "sm_surface_stddev": 0.0137
+  }
+ ],
+ "villages": {
+  "547859": [
+   "Bhamberi",
+   4129,
+   3
+  ],
+  "547860": [
+   "Dahyala",
+   4129,
+   3
+  ],
+  "547871": [
+   "Balegaon",
+   4129,
+   3
+  ],
+  "547872": [
+   "Apegaon",
+   4129,
+   3
+  ],
+  "547870": [
+   "Sasht Pimpalgaon",
+   4129,
+   3
+  ],
+  "547776": [
+   "Bhokarwadi",
+   4129,
+   18
+  ],
+  "547858": [
+   "Chandanpuri Bk",
+   4129,
+   3
+  ],
+  "547769": [
+   "Lembhewadi",
+   4129,
+   18
+  ],
+  "547775": [
+   "Bakshachiwadi",
+   4129,
+   18
+  ],
+  "547761": [
+   "Maherbhaigaon",
+   4129,
+   27
+  ],
+  "547745": [
+   "Wakulni",
+   4128,
+   27
+  ],
+  "547372": [
+   "Vazirkheda",
+   4125,
+   53
+  ],
+  "547373": [
+   "Pimpalgaon Kolte",
+   4125,
+   53
+  ],
+  "547670": [
+   "Nandkheda",
+   4128,
+   49
+  ],
+  "547686": [
+   "Rajewadi",
+   4128,
+   49
+  ],
+  "547688": [
+   "Bhakarwadi",
+   4128,
+   49
+  ],
+  "547687": [
+   "Dhangarwadi",
+   4128,
+   49
+  ],
+  "547603": [
+   "Shivnagar",
+   4127,
+   41
+  ],
+  "548046": [
+   "Revalgaon",
+   4131,
+   17
+  ],
+  "547403": [
+   "Borgaon Taru",
+   4125,
+   54
+  ],
+  "547851": [
+   "Pithori Sirasgaon",
+   4129,
+   5
+  ],
+  "547862": [
+   "Nalewadi",
+   4129,
+   3
+  ],
+  "547889": [
+   "Gondi",
+   4129,
+   5
+  ],
+  "547861": [
+   "Renapuri",
+   4129,
+   3
+  ],
+  "547863": [
+   "Antarwali Sarathi",
+   4129,
+   4
+  ],
+  "547885": [
+   "Karanjala",
+   4129,
+   5
+  ],
+  "547869": [
+   "Churmapuri",
+   4129,
+   3
+  ],
+  "547866": [
+   "Mahakala",
+   4129,
+   4
+  ],
+  "547864": [
+   "Wadigodri",
+   4129,
+   4
+  ],
+  "547884": [
+   "Jalura",
+   4129,
+   5
+  ],
+  "547888": [
+   "Ghungarde Hadgaon",
+   4129,
+   5
+  ],
+  "547865": [
+   "Patharwala Kh",
+   4129,
+   4
+  ],
+  "547890": [
+   "Patharwala Bk",
+   4129,
+   4
+  ],
+  "547892": [
+   "Hasanapur",
+   4129,
+   5
+  ],
+  "547873": [
+   "Domalgaon",
+   4129,
+   3
+  ],
+  "547874": [
+   "Gori",
+   4129,
+   3
+  ],
+  "547893": [
+   "Kothala Kh",
+   4129,
+   5
+  ],
+  "547875": [
+   "Gandhari",
+   4129,
+   3
+  ],
+  "547897": [
+   "Ganga Chincholi",
+   4129,
+   5
+  ],
+  "547877": [
+   "Walkeshwar",
+   4129,
+   4
+  ],
+  "547891": [
+   "Kuran",
+   4129,
+   4
+  ],
+  "547868": [
+   "Gahininath Nagar",
+   4129,
+   3
+  ],
+  "547867": [
+   "Bhagawan Nagar",
+   4129,
+   3
+  ],
+  "547997": [
+   "Mudregaon",
+   4130,
+   0
+  ],
+  "547994": [
+   "Soundalgaon Bk",
+   4130,
+   0
+  ],
+  "547996": [
+   "Mangrul",
+   4130,
+   0
+  ],
+  "547995": [
+   "Bhoggaon",
+   4130,
+   0
+  ],
+  "548011": [
+   "Ukkadgaon",
+   4130,
+   1
+  ],
+  "548012": [
+   "Gunj Bk",
+   4130,
+   1
+  ],
+  "548014": [
+   "Bhadli Kh",
+   4130,
+   1
+  ],
+  "548013": [
+   "Shivangaon",
+   4130,
+   1
+  ],
+  "548010": [
+   "Nagobachiwadi",
+   4130,
+   1
+  ],
+  "547978": [
+   "Khapardevhiwra",
+   4130,
+   6
+  ],
+  "547976": [
+   "Dahegaon Devi",
+   4130,
+   8
+  ],
+  "547974": [
+   "Bodkha Bk",
+   4130,
+   7
+  ],
+  "547809": [
+   "Waghalkheda",
+   4129,
+   20
+  ],
+  "547975": [
+   "Sindkhed",
+   4130,
+   7
+  ],
+  "547980": [
+   "Ekrukha",
+   4130,
+   7
+  ],
+  "547993": [
+   "Kothi",
+   4130,
+   0
+  ],
+  "547979": [
+   "Bhaigavhan",
+   4130,
+   6
+  ],
+  "547886": [
+   "Bhardi",
+   4129,
+   6
+  ],
+  "547998": [
+   "Khadkawadi",
+   4130,
+   7
+  ],
+  "547945": [
+   "Bhendala Tanda",
+   4130,
+   7
+  ],
+  "547981": [
+   "Dahigavhan Bk",
+   4130,
+   7
+  ],
+  "548000": [
+   "Limboni",
+   4130,
+   7
+  ],
+  "547946": [
+   "Bhendala",
+   4130,
+   8
+  ],
+  "548001": [
+   "Paduli Kh",
+   4130,
+   7
+  ],
+  "547999": [
+   "Khadka",
+   4130,
+   7
+  ],
+  "547983": [
+   "Tirthpuri",
+   4130,
+   6
+  ],
+  "547982": [
+   "Khalapuri",
+   4130,
+   7
+  ],
+  "547887": [
+   "Ekalahera",
+   4129,
+   6
+  ],
+  "548003": [
+   "Kumbhar Pimpalgaon",
+   4130,
+   7
+  ],
+  "548002": [
+   "Pimparkhed Bk",
+   4130,
+   7
+  ],
+  "547894": [
+   "Bhanang Jalgaon",
+   4129,
+   6
+  ],
+  "547985": [
+   "Murma",
+   4130,
+   6
+  ],
+  "548004": [
+   "Argadegavhan",
+   4130,
+   7
+  ],
+  "547989": [
+   "Jogladevi",
+   4130,
+   6
+  ],
+  "547984": [
+   "Daithana Kh",
+   4130,
+   6
+  ],
+  "547986": [
+   "Kandari Ambad",
+   4130,
+   7
+  ],
+  "547988": [
+   "Ramasgaon",
+   4130,
+   6
+  ],
+  "547895": [
+   "Sadegaon",
+   4129,
+   6
+  ],
+  "548006": [
+   "Murti",
+   4130,
+   1
+  ],
+  "547987": [
+   "Paduli Bk",
+   4130,
+   7
+  ],
+  "548005": [
+   "Rajurkarkotha",
+   4130,
+   7
+  ],
+  "547896": [
+   "Indalgaon",
+   4129,
+   5
+  ],
+  "547991": [
+   "Antarwali Tembhi",
+   4130,
+   1
+  ],
+  "548009": [
+   "Raja Takli",
+   4130,
+   1
+  ],
+  "547990": [
+   "Shevta",
+   4130,
+   6
+  ],
+  "547992": [
+   "Banegaon",
+   4130,
+   0
+  ],
+  "547801": [
+   "Shevga",
+   4129,
+   29
+  ],
+  "547803": [
+   "Hast Pokhari",
+   4129,
+   28
+  ],
+  "547899": [
+   "Mudhegaon",
+   4130,
+   30
+  ],
+  "547898": [
+   "Daithana Bk",
+   4130,
+   30
+  ],
+  "547901": [
+   "Antarwali Rathi",
+   4130,
+   30
+  ],
+  "547806": [
+   "Lalwadi",
+   4129,
+   20
+  ],
+  "547773": [
+   "Jogeshwarwadi",
+   4129,
+   18
+  ],
+  "547950": [
+   "Bondhalapuri",
+   4130,
+   13
+  ],
+  "547833": [
+   "Pangri",
+   4129,
+   12
+  ],
+  "547954": [
+   "Devdi Hadgaon",
+   4130,
+   14
+  ],
+  "547835": [
+   "Walkheda",
+   4129,
+   12
+  ],
+  "547770": [
+   "Kingaonwadi",
+   4129,
+   28
+  ],
+  "547923": [
+   "Chitravadgaon",
+   4130,
+   23
+  ],
+  "547905": [
+   "Chapadgaon",
+   4130,
+   22
+  ],
+  "547771": [
+   "Kingaon",
+   4129,
+   27
+  ],
+  "547919": [
+   "Bhutegaon",
+   4130,
+   22
+  ],
+  "547902": [
+   "Talegaon",
+   4130,
+   21
+  ],
+  "547903": [
+   "Menepuri",
+   4130,
+   21
+  ],
+  "547922": [
+   "Karadgaon",
+   4130,
+   22
+  ],
+  "547816": [
+   "Shiradhon",
+   4129,
+   19
+  ],
+  "547772": [
+   "Nandi",
+   4129,
+   19
+  ],
+  "547810": [
+   "Panegaon",
+   4129,
+   21
+  ],
+  "547774": [
+   "Jamkhed",
+   4129,
+   18
+  ],
+  "547808": [
+   "Dudhpuri",
+   4129,
+   20
+  ],
+  "547920": [
+   "Antarwalidai",
+   4130,
+   22
+  ],
+  "547921": [
+   "Krishnapurwadi",
+   4130,
+   22
+  ],
+  "547815": [
+   "Wadi Siradhon",
+   4129,
+   19
+  ],
+  "547817": [
+   "Parner",
+   4129,
+   20
+  ],
+  "547813": [
+   "Math Jalgaon",
+   4129,
+   19
+  ],
+  "547807": [
+   "Musai",
+   4129,
+   20
+  ],
+  "547910": [
+   "Rani Unchegaon",
+   4130,
+   21
+  ],
+  "547956": [
+   "Lamanwadi",
+   4130,
+   15
+  ],
+  "547819": [
+   "Mardi",
+   4129,
+   19
+  ],
+  "547814": [
+   "Bhiwandi Bodkha",
+   4129,
+   19
+  ],
+  "547777": [
+   "Malyachiwadi",
+   4129,
+   18
+  ],
+  "547906": [
+   "Panewadi",
+   4130,
+   22
+  ],
+  "547907": [
+   "Shevgal",
+   4130,
+   22
+  ],
+  "547811": [
+   "Dahipuri",
+   4129,
+   21
+  ],
+  "547837": [
+   "Parada",
+   4129,
+   13
+  ],
+  "547841": [
+   "Pangarkheda",
+   4129,
+   12
+  ],
+  "547951": [
+   "Mohpuri",
+   4130,
+   13
+  ],
+  "547778": [
+   "Vitthalwadi",
+   4129,
+   18
+  ],
+  "548036": [
+   "Waijoda",
+   4131,
+   25
+  ],
+  "547812": [
+   "Bori",
+   4129,
+   20
+  ],
+  "547911": [
+   "Nipani Pimpalgaon",
+   4130,
+   21
+  ],
+  "547818": [
+   "Govindpur",
+   4129,
+   20
+  ],
+  "547781": [
+   "Pagirwadi",
+   4129,
+   18
+  ],
+  "547908": [
+   "Sarapgavhan",
+   4130,
+   22
+  ],
+  "547779": [
+   "Gangaramwadi",
+   4129,
+   19
+  ],
+  "547780": [
+   "Pimparkhed Kh",
+   4129,
+   19
+  ],
+  "547917": [
+   "Yaval Pimpri",
+   4130,
+   23
+  ],
+  "547820": [
+   "Sirner",
+   4129,
+   19
+  ],
+  "547782": [
+   "Nagonyachiwadi",
+   4129,
+   18
+  ],
+  "547916": [
+   "Awalgaon Bk",
+   4130,
+   22
+  ],
+  "547909": [
+   "Shindewadgaon",
+   4130,
+   22
+  ],
+  "547955": [
+   "Maherjavala",
+   4130,
+   22
+  ],
+  "547787": [
+   "Rahuwadi",
+   4129,
+   19
+  ],
+  "547913": [
+   "Mangu Jalgaon",
+   4130,
+   14
+  ],
+  "547836": [
+   "Bhatkheda",
+   4129,
+   21
+  ],
+  "547912": [
+   "Raona",
+   4130,
+   13
+  ],
+  "547915": [
+   "Awalgaon Kh",
+   4130,
+   14
+  ],
+  "547786": [
+   "Chinchkhed",
+   4129,
+   19
+  ],
+  "547914": [
+   "Guru Pimpari",
+   4130,
+   14
+  ],
+  "547839": [
+   "Bhalgaon",
+   4129,
+   13
+  ],
+  "547821": [
+   "Bantakli",
+   4129,
+   11
+  ],
+  "547829": [
+   "Narayangaon",
+   4129,
+   12
+  ],
+  "547959": [
+   "Dhakephal",
+   4130,
+   14
+  ],
+  "547953": [
+   "Rajegaon",
+   4130,
+   14
+  ],
+  "547823": [
+   "Lasura",
+   4129,
+   10
+  ],
+  "547785": [
+   "Domegaon",
+   4129,
+   10
+  ],
+  "276370": [
+   "Ghansawangi",
+   4130,
+   14
+  ],
+  "547830": [
+   "Ramnagar",
+   4129,
+   12
+  ],
+  "547840": [
+   "Khadkeshwar",
+   4129,
+   13
+  ],
+  "547822": [
+   "Wadi Lasura",
+   4129,
+   11
+  ],
+  "547834": [
+   "Dawargaon",
+   4129,
+   12
+  ],
+  "547838": [
+   "Dhalaskheda",
+   4129,
+   13
+  ],
+  "547952": [
+   "Bolegaon",
+   4130,
+   14
+  ],
+  "547825": [
+   "Sonak Pimpalgaon",
+   4129,
+   11
+  ],
+  "547824": [
+   "Koli Sirasgaon",
+   4129,
+   11
+  ],
+  "547831": [
+   "Zirpi",
+   4129,
+   12
+  ],
+  "547967": [
+   "Dahalegaon",
+   4130,
+   14
+  ],
+  "547842": [
+   "Tadhadgaon",
+   4129,
+   13
+  ],
+  "547845": [
+   "Dungaon",
+   4129,
+   10
+  ],
+  "547960": [
+   "Pirgaibwadi",
+   4130,
+   14
+  ],
+  "547832": [
+   "Kaudgaon",
+   4129,
+   12
+  ],
+  "547879": [
+   "Kukkadgaon",
+   4129,
+   12
+  ],
+  "547962": [
+   "Bhadregaon",
+   4130,
+   14
+  ],
+  "547847": [
+   "Baraswada",
+   4129,
+   11
+  ],
+  "547966": [
+   "Devnagar",
+   4130,
+   14
+  ],
+  "547968": [
+   "Ghonsi Kh",
+   4130,
+   15
+  ],
+  "547738": [
+   "Padali",
+   4128,
+   36
+  ],
+  "547846": [
+   "Dodadgaon",
+   4129,
+   11
+  ],
+  "547963": [
+   "Wadi Ramasgaon",
+   4130,
+   13
+  ],
+  "547856": [
+   "Taka",
+   4129,
+   10
+  ],
+  "547965": [
+   "Ramgavhan Kh",
+   4130,
+   14
+  ],
+  "547964": [
+   "Bahiregaon",
+   4130,
+   14
+  ],
+  "548147": [
+   "Mohdari",
+   4132,
+   43
+  ],
+  "547848": [
+   "Madh Tanda",
+   4129,
+   12
+  ],
+  "547843": [
+   "Dahigavhan Kh",
+   4129,
+   13
+  ],
+  "547878": [
+   "Lakhmapuri",
+   4129,
+   12
+  ],
+  "547849": [
+   "Dadhegaon",
+   4129,
+   12
+  ],
+  "547844": [
+   "Bangaon",
+   4129,
+   13
+  ],
+  "547969": [
+   "Machindranath Chincholi",
+   4130,
+   7
+  ],
+  "547977": [
+   "Siddeshwar Pimpalgaon",
+   4130,
+   13
+  ],
+  "547881": [
+   "Belgaon",
+   4129,
+   12
+  ],
+  "547880": [
+   "Sukhapuri",
+   4129,
+   12
+  ],
+  "547855": [
+   "Ramgavhan Bk",
+   4129,
+   10
+  ],
+  "547852": [
+   "Shahapur",
+   4129,
+   11
+  ],
+  "547904": [
+   "Krishnanagar",
+   4130,
+   21
+  ],
+  "547970": [
+   "Rahera",
+   4130,
+   13
+  ],
+  "547971": [
+   "Bachegaon",
+   4130,
+   6
+  ],
+  "547857": [
+   "Chandanpuri Kh",
+   4129,
+   10
+  ],
+  "547973": [
+   "Mandala",
+   4130,
+   7
+  ],
+  "547883": [
+   "Wadikalya",
+   4129,
+   6
+  ],
+  "548022": [
+   "Nandra",
+   4131,
+   24
+  ],
+  "547853": [
+   "Dhakalgaon",
+   4129,
+   4
+  ],
+  "547850": [
+   "Rewalgaon",
+   4129,
+   12
+  ],
+  "547882": [
+   "Rui",
+   4129,
+   5
+  ],
+  "547972": [
+   "Devhiwra",
+   4130,
+   7
+  ],
+  "547854": [
+   "Soundalgaon Kh",
+   4129,
+   4
+  ],
+  "251424": [
+   "Ambad",
+   4129,
+   20
+  ],
+  "547783": [
+   "Kanadgaon",
+   4129,
+   18
+  ],
+  "547784": [
+   "Zodegaon",
+   4129,
+   18
+  ],
+  "547828": [
+   "Zirpi Tanda",
+   4129,
+   12
+  ],
+  "547827": [
+   "Vasantnagar",
+   4129,
+   12
+  ],
+  "547826": [
+   "Ishwarnagar",
+   4129,
+   12
+  ],
+  "548088": [
+   "Dhokmal Tanda",
+   4131,
+   9
+  ],
+  "548082": [
+   "Asangaon",
+   4131,
+   8
+  ],
+  "548083": [
+   "Karhala",
+   4131,
+   9
+  ],
+  "548080": [
+   "Surumgaon",
+   4131,
+   9
+  ],
+  "548085": [
+   "Likhit Pimpri",
+   4131,
+   9
+  ],
+  "547942": [
+   "Kothala Bk",
+   4130,
+   8
+  ],
+  "547944": [
+   "Dhanegaon",
+   4130,
+   8
+  ],
+  "548081": [
+   "Pandepokhari",
+   4131,
+   8
+  ],
+  "548089": [
+   "Paratwadi",
+   4131,
+   9
+  ],
+  "547943": [
+   "Guna Naik Tanda",
+   4130,
+   8
+  ],
+  "548087": [
+   "Akoli",
+   4131,
+   9
+  ],
+  "548092": [
+   "Hastur Tanda",
+   4131,
+   9
+  ],
+  "548110": [
+   "Golegaon",
+   4131,
+   2
+  ],
+  "548106": [
+   "Landakdara Tanda",
+   4131,
+   2
+  ],
+  "548111": [
+   "Sawangi Ganga Kinara",
+   4131,
+   2
+  ],
+  "547947": [
+   "Jamb Samarth",
+   4130,
+   8
+  ],
+  "548093": [
+   "Ashti",
+   4131,
+   9
+  ],
+  "548091": [
+   "Wahegaon Satara",
+   4131,
+   8
+  ],
+  "548090": [
+   "Dhonwadi",
+   4131,
+   8
+  ],
+  "548086": [
+   "Bramhanwadi",
+   4131,
+   9
+  ],
+  "547948": [
+   "Viregavhan",
+   4130,
+   8
+  ],
+  "548098": [
+   "Satara Wahegaon",
+   4131,
+   8
+  ],
+  "548100": [
+   "Kokate Hadgaon",
+   4131,
+   8
+  ],
+  "548094": [
+   "Raigavhan",
+   4131,
+   9
+  ],
+  "548097": [
+   "Kanakwadi",
+   4131,
+   9
+  ],
+  "547949": [
+   "Viregavhan Tanda",
+   4130,
+   8
+  ],
+  "548007": [
+   "Limbi",
+   4130,
+   8
+  ],
+  "548101": [
+   "Pimpali Dhamangaon",
+   4131,
+   2
+  ],
+  "548038": [
+   "Pardhi",
+   4131,
+   25
+  ],
+  "548095": [
+   "Phulwadi",
+   4131,
+   9
+  ],
+  "548008": [
+   "Shripatdhamangaon",
+   4130,
+   2
+  ],
+  "548102": [
+   "Banachiwadi",
+   4131,
+   2
+  ],
+  "548104": [
+   "Loni Kh",
+   4131,
+   2
+  ],
+  "548096": [
+   "Palsi",
+   4131,
+   9
+  ],
+  "548103": [
+   "Wadarwadi",
+   4131,
+   2
+  ],
+  "548107": [
+   "Sankanpuri",
+   4131,
+   2
+  ],
+  "548105": [
+   "Anandgaon",
+   4131,
+   2
+  ],
+  "548108": [
+   "Sawargaon Bk",
+   4131,
+   2
+  ],
+  "548109": [
+   "Changtpuri",
+   4131,
+   2
+  ],
+  "548202": [
+   "Pangri Kh",
+   4132,
+   35
+  ],
+  "548198": [
+   "Hiwarkheda",
+   4132,
+   34
+  ],
+  "548206": [
+   "Tokwadi",
+   4132,
+   35
+  ],
+  "548204": [
+   "Helas",
+   4132,
+   26
+  ],
+  "548195": [
+   "Akani",
+   4132,
+   34
+  ],
+  "548017": [
+   "Watur",
+   4131,
+   33
+  ],
+  "548207": [
+   "Thengewadgaon",
+   4132,
+   34
+  ],
+  "548196": [
+   "Barbada",
+   4132,
+   34
+  ],
+  "276371": [
+   "Mantha",
+   4132,
+   25
+  ],
+  "548205": [
+   "Helaswadi",
+   4132,
+   26
+  ],
+  "548018": [
+   "Pimparkheda",
+   4131,
+   34
+  ],
+  "548023": [
+   "Babultara",
+   4131,
+   33
+  ],
+  "548209": [
+   "Kendhali",
+   4132,
+   25
+  ],
+  "548024": [
+   "Babai",
+   4131,
+   32
+  ],
+  "548015": [
+   "Waghadi",
+   4131,
+   33
+  ],
+  "548021": [
+   "Dahifal Bhongane",
+   4131,
+   33
+  ],
+  "547924": [
+   "Ranjaniwadi",
+   4130,
+   32
+  ],
+  "548214": [
+   "Karnawal",
+   4132,
+   26
+  ],
+  "548212": [
+   "Georai",
+   4132,
+   25
+  ],
+  "548210": [
+   "Awalgaon",
+   4132,
+   25
+  ],
+  "548211": [
+   "Devthana Mantha",
+   4132,
+   25
+  ],
+  "548026": [
+   "Kawjawala",
+   4131,
+   23
+  ],
+  "548220": [
+   "Hatwan",
+   4132,
+   25
+  ],
+  "548213": [
+   "Khari Arda",
+   4132,
+   26
+  ],
+  "548019": [
+   "Kandari",
+   4131,
+   24
+  ],
+  "548025": [
+   "Dolhara",
+   4131,
+   23
+  ],
+  "548030": [
+   "Wadhona",
+   4131,
+   25
+  ],
+  "547925": [
+   "Ranjani",
+   4130,
+   23
+  ],
+  "548020": [
+   "Khadki",
+   4131,
+   24
+  ],
+  "548215": [
+   "Ranmala",
+   4132,
+   26
+  ],
+  "548218": [
+   "Arda Khari",
+   4132,
+   25
+  ],
+  "548032": [
+   "Rohina Bk",
+   4131,
+   24
+  ],
+  "548029": [
+   "Bramhawadgaon",
+   4131,
+   24
+  ],
+  "548031": [
+   "Shirdhar Jawala",
+   4131,
+   25
+  ],
+  "548028": [
+   "Amba",
+   4131,
+   24
+  ],
+  "548216": [
+   "Limbewadgaon",
+   4132,
+   26
+  ],
+  "548219": [
+   "Mangrul",
+   4132,
+   25
+  ],
+  "548217": [
+   "Patoda Bk",
+   4132,
+   26
+  ],
+  "548223": [
+   "Vidoli Bk",
+   4132,
+   25
+  ],
+  "548033": [
+   "Rohina Kh",
+   4131,
+   24
+  ],
+  "548034": [
+   "Eakrukha",
+   4131,
+   24
+  ],
+  "547927": [
+   "Deoli Ambad",
+   4130,
+   23
+  ],
+  "548035": [
+   "Nagapur",
+   4131,
+   24
+  ],
+  "547930": [
+   "Paradgaon",
+   4130,
+   23
+  ],
+  "547926": [
+   "Deoli Partur",
+   4130,
+   23
+  ],
+  "548027": [
+   "Masla",
+   4131,
+   23
+  ],
+  "548221": [
+   "Nansi",
+   4132,
+   25
+  ],
+  "548037": [
+   "Koregaon",
+   4131,
+   24
+  ],
+  "547928": [
+   "Yewala",
+   4130,
+   23
+  ],
+  "548225": [
+   "Wanjola",
+   4132,
+   17
+  ],
+  "548039": [
+   "Mapegaon Kh",
+   4131,
+   25
+  ],
+  "547929": [
+   "Bor Ranjani",
+   4130,
+   23
+  ],
+  "547931": [
+   "Pangra",
+   4130,
+   23
+  ],
+  "548227": [
+   "Patoda Kh",
+   4132,
+   26
+  ],
+  "548067": [
+   "Soijana",
+   4131,
+   16
+  ],
+  "547932": [
+   "Pangra Tandi",
+   4130,
+   23
+  ],
+  "547957": [
+   "Jiradgaon",
+   4130,
+   15
+  ],
+  "548064": [
+   "Sirasgaon",
+   4131,
+   16
+  ],
+  "547934": [
+   "Kandari Partur",
+   4130,
+   15
+  ],
+  "548042": [
+   "Warphal",
+   4131,
+   24
+  ],
+  "548041": [
+   "Chincholi",
+   4131,
+   25
+  ],
+  "548047": [
+   "Vondegaon",
+   4131,
+   17
+  ],
+  "548060": [
+   "Shewga",
+   4131,
+   23
+  ],
+  "548226": [
+   "Chandeshwar",
+   4132,
+   17
+  ],
+  "548048": [
+   "Raniwahegaon",
+   4131,
+   17
+  ],
+  "548043": [
+   "Warphalwadi",
+   4131,
+   16
+  ],
+  "548062": [
+   "Ananadwadi",
+   4131,
+   24
+  ],
+  "548061": [
+   "Bamni",
+   4131,
+   24
+  ],
+  "548049": [
+   "Davla",
+   4131,
+   17
+  ],
+  "548063": [
+   "Raipur",
+   4131,
+   16
+  ],
+  "548228": [
+   "Kedarwakadi",
+   4132,
+   26
+  ],
+  "548045": [
+   "Salgaon",
+   4131,
+   17
+  ],
+  "548068": [
+   "Shelwada",
+   4131,
+   15
+  ],
+  "547918": [
+   "Yaval Pimpri Tanda",
+   4130,
+   23
+  ],
+  "548066": [
+   "Singona",
+   4131,
+   16
+  ],
+  "548069": [
+   "Walkhed",
+   4131,
+   15
+  ],
+  "548065": [
+   "Khandvi",
+   4131,
+   16
+  ],
+  "548052": [
+   "Usmanpur",
+   4131,
+   17
+  ],
+  "548051": [
+   "Satona Bk",
+   4131,
+   17
+  ],
+  "548050": [
+   "Satona Kh",
+   4131,
+   17
+  ],
+  "548072": [
+   "Khandviwadi",
+   4131,
+   16
+  ],
+  "548070": [
+   "Hatdi",
+   4131,
+   15
+  ],
+  "547958": [
+   "Borgaon Kh",
+   4130,
+   15
+  ],
+  "548071": [
+   "Daithna Kh",
+   4131,
+   16
+  ],
+  "548054": [
+   "Takli Rangopant",
+   4131,
+   16
+  ],
+  "548053": [
+   "Pimprula Bk",
+   4131,
+   16
+  ],
+  "548055": [
+   "Ganeshpur",
+   4131,
+   17
+  ],
+  "547937": [
+   "Hatdi",
+   4130,
+   15
+  ],
+  "548077": [
+   "Yenora",
+   4131,
+   15
+  ],
+  "548075": [
+   "Daithna Bk",
+   4131,
+   16
+  ],
+  "547936": [
+   "Belwadi",
+   4130,
+   15
+  ],
+  "547935": [
+   "Masegaon",
+   4130,
+   15
+  ],
+  "548074": [
+   "Shrishti",
+   4131,
+   16
+  ],
+  "548056": [
+   "Angalgaon",
+   4131,
+   17
+  ],
+  "548057": [
+   "Shelgaon",
+   4131,
+   17
+  ],
+  "548076": [
+   "Shrishti Tanda",
+   4131,
+   16
+  ],
+  "548222": [
+   "Gopegaon",
+   4132,
+   25
+  ],
+  "548044": [
+   "Firozabad",
+   4131,
+   17
+  ],
+  "548058": [
+   "Torna",
+   4131,
+   16
+  ],
+  "548073": [
+   "Wahegaon Shrishti",
+   4131,
+   16
+  ],
+  "548079": [
+   "Mavpatoda",
+   4131,
+   16
+  ],
+  "275732": [
+   "Patoda",
+   4131,
+   15
+  ],
+  "547938": [
+   "Sakalgaon",
+   4130,
+   15
+  ],
+  "548084": [
+   "Lingsa",
+   4131,
+   9
+  ],
+  "548059": [
+   "Hanwadi",
+   4131,
+   17
+  ],
+  "547939": [
+   "Donsi Tanda No 1",
+   4130,
+   15
+  ],
+  "547940": [
+   "Donsi Bk",
+   4130,
+   15
+  ],
+  "547941": [
+   "Donsi Tanda No 2",
+   4130,
+   15
+  ],
+  "251425": [
+   "Partur",
+   4131,
+   24
+  ],
+  "548224": [
+   "Vidoli Kh",
+   4132,
+   25
+  ],
+  "548203": [
+   "Malkini",
+   4132,
+   35
+  ],
+  "547762": [
+   "Deshgavhan",
+   4129,
+   27
+  ],
+  "547796": [
+   "Gola",
+   4129,
+   29
+  ],
+  "547794": [
+   "Nagzari",
+   4129,
+   28
+  ],
+  "547795": [
+   "Math Pimpalgaon",
+   4129,
+   29
+  ],
+  "547535": [
+   "Deomurti",
+   4127,
+   38
+  ],
+  "547744": [
+   "Malegaon Kh",
+   4128,
+   27
+  ],
+  "547750": [
+   "Deopimpalgaon",
+   4128,
+   36
+  ],
+  "547540": [
+   "Indewadi",
+   4127,
+   37
+  ],
+  "547561": [
+   "Kadwanchi",
+   4127,
+   47
+  ],
+  "547560": [
+   "Nandapur",
+   4127,
+   46
+  ],
+  "547707": [
+   "Keligavhan",
+   4128,
+   44
+  ],
+  "547706": [
+   "Bharadkheda",
+   4128,
+   44
+  ],
+  "547732": [
+   "Dudhanwadi",
+   4128,
+   44
+  ],
+  "547729": [
+   "Nikalak",
+   4128,
+   44
+  ],
+  "547559": [
+   "Thar",
+   4127,
+   46
+  ],
+  "547558": [
+   "Dhawedi",
+   4127,
+   46
+  ],
+  "547529": [
+   "Jamwadi",
+   4127,
+   46
+  ],
+  "547564": [
+   "Patra Tanda",
+   4127,
+   47
+  ],
+  "547524": [
+   "Ghanewadi",
+   4127,
+   45
+  ],
+  "547528": [
+   "Gundewadi",
+   4127,
+   45
+  ],
+  "547530": [
+   "Shrikrushnagar",
+   4127,
+   46
+  ],
+  "547731": [
+   "Gokulwadi",
+   4128,
+   44
+  ],
+  "547730": [
+   "Akola",
+   4128,
+   44
+  ],
+  "547532": [
+   "Ahankar Devlgaon",
+   4127,
+   46
+  ],
+  "547566": [
+   "Dharkalyan",
+   4127,
+   47
+  ],
+  "547531": [
+   "Panshendra",
+   4127,
+   46
+  ],
+  "547525": [
+   "Ambedkarwadi",
+   4127,
+   45
+  ],
+  "547710": [
+   "Khadgaon",
+   4128,
+   45
+  ],
+  "547711": [
+   "Rajewadi",
+   4128,
+   44
+  ],
+  "547533": [
+   "Borkhedi",
+   4127,
+   47
+  ],
+  "547527": [
+   "Tandulwadi",
+   4127,
+   45
+  ],
+  "547714": [
+   "Dawalwadi",
+   4128,
+   45
+  ],
+  "547526": [
+   "Nidhona",
+   4127,
+   45
+  ],
+  "547733": [
+   "Georai",
+   4128,
+   44
+  ],
+  "547737": [
+   "Ramkheda",
+   4128,
+   44
+  ],
+  "276369": [
+   "Badnapur",
+   4128,
+   44
+  ],
+  "547572": [
+   "Wakhari",
+   4127,
+   47
+  ],
+  "547567": [
+   "Pirkalyan",
+   4127,
+   39
+  ],
+  "547713": [
+   "Shelgaon",
+   4128,
+   44
+  ],
+  "547534": [
+   "Gawali Pokhri",
+   4127,
+   46
+  ],
+  "547574": [
+   "Baji Umrad",
+   4127,
+   39
+  ],
+  "547735": [
+   "Kadegaon",
+   4128,
+   36
+  ],
+  "547739": [
+   "Deogaon",
+   4128,
+   36
+  ],
+  "547575": [
+   "Jalgaon",
+   4127,
+   39
+  ],
+  "547740": [
+   "Dhopteshwar",
+   4128,
+   36
+  ],
+  "547568": [
+   "Ranmurti",
+   4127,
+   38
+  ],
+  "547715": [
+   "Jawasgaon",
+   4128,
+   37
+  ],
+  "547571": [
+   "Somnath",
+   4127,
+   39
+  ],
+  "547541": [
+   "Daregaon",
+   4127,
+   37
+  ],
+  "547717": [
+   "Pirsavangi",
+   4128,
+   36
+  ],
+  "547716": [
+   "Haldola",
+   4128,
+   36
+  ],
+  "547570": [
+   "Sindhi Kalegaon",
+   4127,
+   38
+  ],
+  "547741": [
+   "Ambadgaon",
+   4128,
+   36
+  ],
+  "547583": [
+   "Nirkheda",
+   4127,
+   40
+  ],
+  "547742": [
+   "Kasturwadi",
+   4128,
+   36
+  ],
+  "547542": [
+   "Siraswadi",
+   4127,
+   37
+  ],
+  "547536": [
+   "Kharpudi",
+   4127,
+   38
+  ],
+  "547576": [
+   "Bramhankheda",
+   4127,
+   39
+  ],
+  "547743": [
+   "Kusali",
+   4128,
+   36
+  ],
+  "547749": [
+   "Bhilpuri Kh",
+   4128,
+   36
+  ],
+  "547569": [
+   "Majarewadi",
+   4127,
+   38
+  ],
+  "547748": [
+   "Dhoksal",
+   4128,
+   36
+  ],
+  "547580": [
+   "Sawargaon Hadap",
+   4127,
+   39
+  ],
+  "547577": [
+   "Ramnagar",
+   4127,
+   39
+  ],
+  "547582": [
+   "Bhilpuri Kh",
+   4127,
+   39
+  ],
+  "547581": [
+   "Maujpuri",
+   4127,
+   39
+  ],
+  "547747": [
+   "Roshangaon",
+   4128,
+   36
+  ],
+  "547578": [
+   "Salegaon",
+   4127,
+   39
+  ],
+  "547539": [
+   "Rohanwadi",
+   4127,
+   38
+  ],
+  "547751": [
+   "Manjargaon",
+   4128,
+   36
+  ],
+  "547654": [
+   "Pachanwadgaon",
+   4127,
+   30
+  ],
+  "547537": [
+   "Sarwadi",
+   4127,
+   38
+  ],
+  "547656": [
+   "Wanadgaon",
+   4127,
+   39
+  ],
+  "547579": [
+   "Hadap",
+   4127,
+   39
+  ],
+  "547538": [
+   "Londhyachiwadi",
+   4127,
+   38
+  ],
+  "547757": [
+   "Pankheda",
+   4128,
+   37
+  ],
+  "547543": [
+   "Kumbephal Bk",
+   4127,
+   37
+  ],
+  "547746": [
+   "Bajar Wahegaon",
+   4128,
+   27
+  ],
+  "547631": [
+   "Utavad",
+   4127,
+   39
+  ],
+  "547655": [
+   "Kacharewadi",
+   4127,
+   38
+  ],
+  "547650": [
+   "Bethlam",
+   4127,
+   38
+  ],
+  "547658": [
+   "Bhatepuri",
+   4127,
+   39
+  ],
+  "547754": [
+   "Kumbhari",
+   4128,
+   36
+  ],
+  "547651": [
+   "Revgaon",
+   4127,
+   30
+  ],
+  "547545": [
+   "Samangaon",
+   4127,
+   29
+  ],
+  "547752": [
+   "Nanegaon",
+   4128,
+   36
+  ],
+  "547544": [
+   "Antarwala",
+   4127,
+   37
+  ],
+  "547753": [
+   "Saigaon",
+   4128,
+   36
+  ],
+  "547657": [
+   "Khanepuri",
+   4127,
+   38
+  ],
+  "547758": [
+   "Kajla",
+   4128,
+   29
+  ],
+  "547763": [
+   "Chikangaon",
+   4129,
+   27
+  ],
+  "547755": [
+   "Dongargaon",
+   4128,
+   36
+  ],
+  "547756": [
+   "Butegaon",
+   4128,
+   28
+  ],
+  "547632": [
+   "Bapkal",
+   4127,
+   31
+  ],
+  "547788": [
+   "Badapur",
+   4129,
+   28
+  ],
+  "547546": [
+   "Golawadi",
+   4127,
+   29
+  ],
+  "547633": [
+   "Hiwara Roshangaon",
+   4127,
+   31
+  ],
+  "547653": [
+   "Pokalwadgaon",
+   4127,
+   30
+  ],
+  "547659": [
+   "Thergaon",
+   4127,
+   30
+  ],
+  "547789": [
+   "Antarwala Awa",
+   4129,
+   28
+  ],
+  "547790": [
+   "Awa",
+   4129,
+   28
+  ],
+  "547661": [
+   "Punegaon",
+   4127,
+   30
+  ],
+  "547764": [
+   "Lonar Bhaigaon",
+   4129,
+   28
+  ],
+  "547667": [
+   "Hatwan",
+   4127,
+   31
+  ],
+  "547759": [
+   "Ranjangaon",
+   4128,
+   28
+  ],
+  "547791": [
+   "Sadesawangi",
+   4129,
+   28
+  ],
+  "547660": [
+   "Islamwadi",
+   4127,
+   30
+  ],
+  "547666": [
+   "Wadiwadi",
+   4127,
+   31
+  ],
+  "547663": [
+   "Hiswan Kh",
+   4127,
+   30
+  ],
+  "547664": [
+   "Hiswan Bk",
+   4127,
+   30
+  ],
+  "547760": [
+   "Ghotan",
+   4128,
+   28
+  ],
+  "547792": [
+   "Alamgaon",
+   4129,
+   28
+  ],
+  "547547": [
+   "Golapangri",
+   4127,
+   29
+  ],
+  "547548": [
+   "Bathan Bk",
+   4127,
+   29
+  ],
+  "547793": [
+   "Chambharwadi",
+   4129,
+   28
+  ],
+  "547765": [
+   "Khedgaon",
+   4129,
+   27
+  ],
+  "547804": [
+   "Karjat",
+   4129,
+   28
+  ],
+  "547652": [
+   "Dudhana Kalegaon",
+   4127,
+   30
+  ],
+  "547767": [
+   "Rohi Lagad",
+   4129,
+   27
+  ],
+  "547639": [
+   "Wazar",
+   4127,
+   31
+  ],
+  "547797": [
+   "Harat Kheda",
+   4129,
+   29
+  ],
+  "547665": [
+   "Mali Pimpalgaon",
+   4127,
+   30
+  ],
+  "547766": [
+   "Kauchalwadi",
+   4129,
+   27
+  ],
+  "547668": [
+   "Karla",
+   4127,
+   31
+  ],
+  "547798": [
+   "Bhathan Kh",
+   4129,
+   29
+  ],
+  "547669": [
+   "Mamdabad",
+   4127,
+   31
+  ],
+  "547662": [
+   "Tandulwadi",
+   4127,
+   30
+  ],
+  "547802": [
+   "Dhangar Pimpari",
+   4129,
+   29
+  ],
+  "547799": [
+   "Katkheda",
+   4129,
+   29
+  ],
+  "547805": [
+   "Dhangar Pimpalgaon",
+   4129,
+   28
+  ],
+  "547900": [
+   "Gadhe Sawargaon",
+   4130,
+   30
+  ],
+  "547800": [
+   "Sarangpur",
+   4129,
+   29
+  ],
+  "251423": [
+   "Jalna",
+   4127,
+   37
+  ],
+  "547712": [
+   "Matarewadi",
+   4128,
+   36
+  ],
+  "547486": [
+   "Bhatodi",
+   4126,
+   57
+  ],
+  "547734": [
+   "Warudi",
+   4128,
+   36
+  ],
+  "547768": [
+   "Nihalsingwadi",
+   4129,
+   27
+  ],
+  "547510": [
+   "Ambewadi",
+   4126,
+   56
+  ],
+  "547369": [
+   "Borgaon Khadak",
+   4125,
+   54
+  ],
+  "547492": [
+   "Warkheda",
+   4126,
+   57
+  ],
+  "547368": [
+   "Sirasgaon Waghrul",
+   4125,
+   54
+  ],
+  "547393": [
+   "Nalni Bk",
+   4125,
+   56
+  ],
+  "547487": [
+   "Sawargaon",
+   4126,
+   57
+  ],
+  "547511": [
+   "Tembhurni",
+   4126,
+   57
+  ],
+  "547508": [
+   "Tapovan Gondhan",
+   4126,
+   56
+  ],
+  "547490": [
+   "Khanapur",
+   4126,
+   57
+  ],
+  "547489": [
+   "Kalegaon",
+   4126,
+   57
+  ],
+  "547395": [
+   "Pimpalgaon Thot",
+   4125,
+   56
+  ],
+  "547398": [
+   "Bamkheda",
+   4125,
+   55
+  ],
+  "547371": [
+   "Deulgaon",
+   4125,
+   53
+  ],
+  "547407": [
+   "Deulgaon Tad",
+   4125,
+   55
+  ],
+  "547520": [
+   "Tondoli",
+   4126,
+   55
+  ],
+  "547367": [
+   "Takli Bajad",
+   4125,
+   54
+  ],
+  "547375": [
+   "Ita",
+   4125,
+   53
+  ],
+  "547509": [
+   "Gadegavhan",
+   4126,
+   56
+  ],
+  "547404": [
+   "Takli Hivardi",
+   4125,
+   54
+  ],
+  "547512": [
+   "Ganeshpur",
+   4126,
+   57
+  ],
+  "547515": [
+   "Butkheda",
+   4126,
+   56
+  ],
+  "547386": [
+   "Palaskheda Dabhadi",
+   4125,
+   54
+  ],
+  "547680": [
+   "Waghrul Dabhadi",
+   4128,
+   50
+  ],
+  "547690": [
+   "Shirasgaon Ghati",
+   4128,
+   49
+  ],
+  "547726": [
+   "Khadakwadi",
+   4128,
+   44
+  ],
+  "547727": [
+   "Somthana",
+   4128,
+   44
+  ],
+  "547397": [
+   "Banegaon",
+   4125,
+   55
+  ],
+  "547380": [
+   "Khadki",
+   4125,
+   54
+  ],
+  "547493": [
+   "Papal",
+   4126,
+   57
+  ],
+  "547379": [
+   "Latifpur",
+   4125,
+   54
+  ],
+  "547491": [
+   "Dolkheda Kh",
+   4126,
+   57
+  ],
+  "547374": [
+   "Sawkheda",
+   4125,
+   53
+  ],
+  "547406": [
+   "Chincholi",
+   4125,
+   54
+  ],
+  "547377": [
+   "Khadgaon",
+   4125,
+   53
+  ],
+  "547396": [
+   "Palaskheda Pimpale",
+   4125,
+   56
+  ],
+  "547405": [
+   "Janephal Dabhadi",
+   4125,
+   54
+  ],
+  "547517": [
+   "Devale Gavhan",
+   4126,
+   56
+  ],
+  "547410": [
+   "Thigalkheda",
+   4125,
+   55
+  ],
+  "547494": [
+   "Kachanera",
+   4126,
+   57
+  ],
+  "547381": [
+   "Jawkheda Kh",
+   4125,
+   54
+  ],
+  "547408": [
+   "Chandai Thombri",
+   4125,
+   55
+  ],
+  "547378": [
+   "Fulenagar",
+   4125,
+   54
+  ],
+  "547382": [
+   "Jawkheda Bk",
+   4125,
+   54
+  ],
+  "547513": [
+   "Akola",
+   4126,
+   56
+  ],
+  "547384": [
+   "Pimpri",
+   4125,
+   53
+  ],
+  "547412": [
+   "Umarkheda",
+   4125,
+   56
+  ],
+  "547409": [
+   "Palaskheda Thombari",
+   4125,
+   55
+  ],
+  "547411": [
+   "Pimpalgaon Barao",
+   4125,
+   56
+  ],
+  "547413": [
+   "Khamkheda",
+   4125,
+   55
+  ],
+  "547495": [
+   "Kinhi",
+   4126,
+   57
+  ],
+  "547383": [
+   "Ekephal",
+   4125,
+   54
+  ],
+  "547496": [
+   "Nandkheda",
+   4126,
+   57
+  ],
+  "547385": [
+   "Talegaon",
+   4125,
+   53
+  ],
+  "547414": [
+   "Chandai Tepli",
+   4125,
+   55
+  ],
+  "547416": [
+   "Rajur",
+   4125,
+   55
+  ],
+  "547389": [
+   "Kota Dabhadi",
+   4125,
+   54
+  ],
+  "547388": [
+   "Pimpalgaon Sermulki",
+   4125,
+   54
+  ],
+  "547514": [
+   "Wadhona",
+   4126,
+   57
+  ],
+  "547516": [
+   "Pokhari",
+   4126,
+   52
+  ],
+  "547671": [
+   "Talni Lodhewadi",
+   4128,
+   49
+  ],
+  "547415": [
+   "Chandai Eko",
+   4125,
+   51
+  ],
+  "547673": [
+   "Vilhadi",
+   4128,
+   50
+  ],
+  "547387": [
+   "Pimpalgaon Sutar",
+   4125,
+   54
+  ],
+  "547418": [
+   "Longaon",
+   4125,
+   52
+  ],
+  "547497": [
+   "Sirala",
+   4126,
+   52
+  ],
+  "547674": [
+   "Hivra Dabhadi",
+   4128,
+   50
+  ],
+  "547518": [
+   "Dongaon",
+   4126,
+   52
+  ],
+  "547675": [
+   "Dangargaon Dabhadi",
+   4128,
+   50
+  ],
+  "547682": [
+   "Dabhadi",
+   4128,
+   50
+  ],
+  "547417": [
+   "Tapovan",
+   4125,
+   51
+  ],
+  "547672": [
+   "Mhasla",
+   4128,
+   49
+  ],
+  "547498": [
+   "Satephal",
+   4126,
+   52
+  ],
+  "547555": [
+   "Kumbhephal Shindkhed",
+   4127,
+   52
+  ],
+  "547677": [
+   "Chanegaon",
+   4128,
+   51
+  ],
+  "547683": [
+   "Mevhana",
+   4128,
+   50
+  ],
+  "547684": [
+   "Bhatkheda",
+   4128,
+   49
+  ],
+  "547685": [
+   "Khamgaon",
+   4128,
+   49
+  ],
+  "547676": [
+   "Chikhali",
+   4128,
+   51
+  ],
+  "547704": [
+   "Rala",
+   4128,
+   44
+  ],
+  "547678": [
+   "Tupewadi",
+   4128,
+   51
+  ],
+  "547679": [
+   "Asarkheda",
+   4128,
+   52
+  ],
+  "547519": [
+   "Niwdunga",
+   4126,
+   52
+  ],
+  "547692": [
+   "Kinhola",
+   4128,
+   50
+  ],
+  "547691": [
+   "Dawargaon",
+   4128,
+   49
+  ],
+  "547689": [
+   "Londhewadi",
+   4128,
+   49
+  ],
+  "547693": [
+   "Wanjarwadi",
+   4128,
+   50
+  ],
+  "547698": [
+   "Bawane Pangri",
+   4128,
+   52
+  ],
+  "547549": [
+   "Malegaon Kh",
+   4127,
+   52
+  ],
+  "547696": [
+   "Dhamangaon",
+   4128,
+   51
+  ],
+  "547554": [
+   "Pokhari Shindkhed",
+   4127,
+   52
+  ],
+  "547719": [
+   "Kandari Kh",
+   4128,
+   50
+  ],
+  "547718": [
+   "Sagarwadi",
+   4128,
+   49
+  ],
+  "547720": [
+   "Laxman Tanda",
+   4128,
+   50
+  ],
+  "547695": [
+   "Hiwara",
+   4128,
+   51
+  ],
+  "547694": [
+   "Anwi",
+   4128,
+   50
+  ],
+  "547697": [
+   "Pathar Deolgaon",
+   4128,
+   51
+  ],
+  "547553": [
+   "Warkheda",
+   4127,
+   52
+  ],
+  "547705": [
+   "Ujjainpuri",
+   4128,
+   44
+  ],
+  "547723": [
+   "Pirwadi",
+   4128,
+   49
+  ],
+  "547557": [
+   "Waghrul",
+   4127,
+   46
+  ],
+  "547724": [
+   "Dhasla",
+   4128,
+   49
+  ],
+  "547722": [
+   "Kandari Bk",
+   4128,
+   50
+  ],
+  "547550": [
+   "Malshendra",
+   4127,
+   46
+  ],
+  "547699": [
+   "Dagadwadi",
+   4128,
+   45
+  ],
+  "547700": [
+   "Mandeolgaon",
+   4128,
+   45
+  ],
+  "547701": [
+   "Asola",
+   4128,
+   45
+  ],
+  "547552": [
+   "Gondegaon",
+   4127,
+   46
+  ],
+  "547522": [
+   "Pirpimpalgaon",
+   4127,
+   45
+  ],
+  "547703": [
+   "Chitoda",
+   4128,
+   45
+  ],
+  "547551": [
+   "Wanjar Umrad",
+   4127,
+   46
+  ],
+  "547702": [
+   "Sindhi Pimpalgaon",
+   4128,
+   45
+  ],
+  "547728": [
+   "Walha",
+   4128,
+   44
+  ],
+  "547562": [
+   "Warud",
+   4127,
+   47
+  ],
+  "547521": [
+   "Bhatkheda",
+   4127,
+   46
+  ],
+  "547709": [
+   "Mandwa",
+   4128,
+   45
+  ],
+  "547708": [
+   "Najik Pangri",
+   4128,
+   45
+  ],
+  "547563": [
+   "Navha",
+   4127,
+   47
+  ],
+  "547523": [
+   "Tatewadi",
+   4127,
+   45
+  ],
+  "547376": [
+   "Ram Nagar",
+   4125,
+   53
+  ],
+  "547681": [
+   "Waghrul Dongargaon",
+   4128,
+   50
+  ],
+  "547725": [
+   "Malewadi",
+   4128,
+   50
+  ],
+  "547721": [
+   "Laxmannagar",
+   4128,
+   44
+  ],
+  "547556": [
+   "Gokulnagar",
+   4127,
+   47
+  ],
+  "548112": [
+   "Wazar Sarkate",
+   4132,
+   48
+  ],
+  "548156": [
+   "Kirtapur Tanda",
+   4132,
+   43
+  ],
+  "547625": [
+   "Borgaon",
+   4127,
+   42
+  ],
+  "547641": [
+   "Viregaon",
+   4127,
+   32
+  ],
+  "548144": [
+   "Chikhali",
+   4132,
+   43
+  ],
+  "548158": [
+   "Pangra Gadadhe",
+   4132,
+   35
+  ],
+  "548114": [
+   "Sirpur",
+   4132,
+   48
+  ],
+  "548115": [
+   "Kokramba",
+   4132,
+   48
+  ],
+  "548116": [
+   "Wadgaon Sarhadu",
+   4132,
+   48
+  ],
+  "548113": [
+   "Bhuwan",
+   4132,
+   48
+  ],
+  "548120": [
+   "Waghala",
+   4132,
+   48
+  ],
+  "548122": [
+   "Belora",
+   4132,
+   42
+  ],
+  "548117": [
+   "Talni",
+   4132,
+   48
+  ],
+  "548121": [
+   "Pokhai Kandhali",
+   4132,
+   48
+  ],
+  "548131": [
+   "Kirla",
+   4132,
+   48
+  ],
+  "548119": [
+   "Takalkhopa",
+   4132,
+   48
+  ],
+  "548123": [
+   "Shivangiri",
+   4132,
+   42
+  ],
+  "548118": [
+   "Incha",
+   4132,
+   48
+  ],
+  "548128": [
+   "Tupa",
+   4132,
+   48
+  ],
+  "548127": [
+   "Kokarasa",
+   4132,
+   42
+  ],
+  "548132": [
+   "Dudha",
+   4132,
+   43
+  ],
+  "548126": [
+   "Erandeshwar",
+   4132,
+   42
+  ],
+  "548133": [
+   "Limbkheda",
+   4132,
+   43
+  ],
+  "547606": [
+   "Pashta",
+   4127,
+   41
+  ],
+  "548135": [
+   "Devthana Uswad",
+   4132,
+   43
+  ],
+  "547607": [
+   "Sawargaon Bhagde",
+   4127,
+   41
+  ],
+  "548129": [
+   "Daha",
+   4132,
+   43
+  ],
+  "548130": [
+   "Jambharun",
+   4132,
+   43
+  ],
+  "548134": [
+   "Kanadi",
+   4132,
+   43
+  ],
+  "548139": [
+   "Saskheda",
+   4132,
+   43
+  ],
+  "548138": [
+   "Hanwat Kheda",
+   4132,
+   43
+  ],
+  "548124": [
+   "Jaipur",
+   4132,
+   42
+  ],
+  "547596": [
+   "Sondeo",
+   4127,
+   41
+  ],
+  "548137": [
+   "Uswad",
+   4132,
+   43
+  ],
+  "547608": [
+   "Bibi",
+   4127,
+   42
+  ],
+  "547612": [
+   "Erandwadgaon",
+   4127,
+   42
+  ],
+  "548140": [
+   "Malegaon",
+   4132,
+   43
+  ],
+  "547597": [
+   "Umri",
+   4127,
+   41
+  ],
+  "548141": [
+   "Dahifal Khandare",
+   4132,
+   43
+  ],
+  "547585": [
+   "Paregaon",
+   4127,
+   40
+  ],
+  "548145": [
+   "Andhwadi",
+   4132,
+   43
+  ],
+  "548136": [
+   "Khorwad",
+   4132,
+   43
+  ],
+  "547614": [
+   "Sevali",
+   4127,
+   41
+  ],
+  "547588": [
+   "Sawangi Talan",
+   4127,
+   40
+  ],
+  "547587": [
+   "Antarwala Sindkhed",
+   4127,
+   40
+  ],
+  "548150": [
+   "Mahora",
+   4132,
+   42
+  ],
+  "547613": [
+   "Warkheda",
+   4127,
+   42
+  ],
+  "548151": [
+   "Kehalwadgaon",
+   4132,
+   42
+  ],
+  "547598": [
+   "Patrud",
+   4127,
+   41
+  ],
+  "548146": [
+   "Ambhor Shelke",
+   4132,
+   43
+  ],
+  "548142": [
+   "Talegaon",
+   4132,
+   43
+  ],
+  "547605": [
+   "Dhara",
+   4127,
+   41
+  ],
+  "547615": [
+   "Nagapur",
+   4127,
+   41
+  ],
+  "548143": [
+   "Garteki Tanda",
+   4132,
+   43
+  ],
+  "547586": [
+   "Jaitapur",
+   4127,
+   40
+  ],
+  "548149": [
+   "Pokhari Takle",
+   4132,
+   42
+  ],
+  "547584": [
+   "Ganeshpur",
+   4127,
+   40
+  ],
+  "548161": [
+   "Waghoda",
+   4132,
+   42
+  ],
+  "548163": [
+   "Ambhora Jahagir",
+   4132,
+   42
+  ],
+  "548153": [
+   "Khorad Sawangi",
+   4132,
+   43
+  ],
+  "548152": [
+   "Naigaon P Bamhani",
+   4132,
+   43
+  ],
+  "548148": [
+   "Pewa",
+   4132,
+   43
+  ],
+  "547623": [
+   "Kolwadi",
+   4127,
+   42
+  ],
+  "547591": [
+   "Dahifal",
+   4127,
+   40
+  ],
+  "547604": [
+   "Ukhali",
+   4127,
+   41
+  ],
+  "548164": [
+   "Vaidhywadgaon",
+   4132,
+   42
+  ],
+  "548160": [
+   "Deogaon Khawate",
+   4132,
+   42
+  ],
+  "548155": [
+   "Kirtapur",
+   4132,
+   43
+  ],
+  "547624": [
+   "Daregaon",
+   4127,
+   42
+  ],
+  "547616": [
+   "Khambewadi",
+   4127,
+   41
+  ],
+  "547589": [
+   "Pahegaon",
+   4127,
+   40
+  ],
+  "547592": [
+   "Manegaon Khalsa",
+   4127,
+   40
+  ],
+  "547630": [
+   "Khodepuri",
+   4127,
+   40
+  ],
+  "548154": [
+   "Kinkheda",
+   4132,
+   43
+  ],
+  "547593": [
+   "Manegaon Jahangir",
+   4127,
+   40
+  ],
+  "548162": [
+   "Waghoda Tanda",
+   4132,
+   42
+  ],
+  "547622": [
+   "Dhagi",
+   4127,
+   41
+  ],
+  "548165": [
+   "Warud",
+   4132,
+   42
+  ],
+  "547590": [
+   "Salegaon",
+   4127,
+   40
+  ],
+  "548157": [
+   "Padlidudha",
+   4132,
+   35
+  ],
+  "547599": [
+   "Shivani Tanda",
+   4127,
+   41
+  ],
+  "547600": [
+   "Babar Pokhari",
+   4127,
+   41
+  ],
+  "548159": [
+   "Malsawangi",
+   4132,
+   35
+  ],
+  "547617": [
+   "Mohadi",
+   4127,
+   41
+  ],
+  "548169": [
+   "Wadhegaon",
+   4132,
+   35
+  ],
+  "547594": [
+   "Motigavhan",
+   4127,
+   40
+  ],
+  "548168": [
+   "Dhoksal",
+   4132,
+   34
+  ],
+  "548167": [
+   "Ganeshpur",
+   4132,
+   34
+  ],
+  "547618": [
+   "Rameshwar",
+   4127,
+   41
+  ],
+  "548172": [
+   "Pangri Bk",
+   4132,
+   35
+  ],
+  "547628": [
+   "Takarwan",
+   4127,
+   40
+  ],
+  "547595": [
+   "Dhandegaon",
+   4127,
+   40
+  ],
+  "547621": [
+   "Shambhu Sawargaon",
+   4127,
+   41
+  ],
+  "547620": [
+   "Kakda",
+   4127,
+   41
+  ],
+  "547626": [
+   "Kailasnagar",
+   4127,
+   34
+  ],
+  "547601": [
+   "Ner",
+   4127,
+   41
+  ],
+  "548171": [
+   "Maltondi",
+   4132,
+   35
+  ],
+  "548182": [
+   "Lawni",
+   4132,
+   34
+  ],
+  "548170": [
+   "Pandhurna",
+   4132,
+   35
+  ],
+  "548183": [
+   "Pangri",
+   4132,
+   33
+  ],
+  "547629": [
+   "Nipani Pokhari",
+   4127,
+   40
+  ],
+  "548181": [
+   "Arda Tolaji",
+   4132,
+   34
+  ],
+  "548173": [
+   "Sonunkarwadi",
+   4132,
+   35
+  ],
+  "548174": [
+   "Ambhoda Kadam",
+   4132,
+   35
+  ],
+  "547634": [
+   "Pimpri Dukri",
+   4127,
+   32
+  ],
+  "547636": [
+   "Hiwardi",
+   4127,
+   32
+  ],
+  "548177": [
+   "Pimparkheda Kharabe",
+   4132,
+   34
+  ],
+  "548185": [
+   "Wai",
+   4132,
+   33
+  ],
+  "548184": [
+   "Dhonde Pimpalgaon",
+   4132,
+   33
+  ],
+  "547635": [
+   "Nasadgaon",
+   4127,
+   32
+  ],
+  "548176": [
+   "Ramtirth",
+   4132,
+   35
+  ],
+  "548175": [
+   "Wirgavhan",
+   4132,
+   35
+  ],
+  "548180": [
+   "Sawargaon Wayal",
+   4132,
+   34
+  ],
+  "547637": [
+   "Ghodegaon",
+   4127,
+   32
+  ],
+  "547644": [
+   "Shevga",
+   4127,
+   32
+  ],
+  "547643": [
+   "Hastepimpalgaon",
+   4127,
+   32
+  ],
+  "548179": [
+   "Jatkheda",
+   4132,
+   34
+  ],
+  "547645": [
+   "Sarwadi",
+   4127,
+   33
+  ],
+  "548201": [
+   "Murumkheda",
+   4132,
+   35
+  ],
+  "548178": [
+   "Meskheda",
+   4132,
+   34
+  ],
+  "548197": [
+   "Limbona",
+   4132,
+   34
+  ],
+  "547642": [
+   "Dhanora",
+   4127,
+   32
+  ],
+  "548190": [
+   "Kanphodi",
+   4132,
+   34
+  ],
+  "548199": [
+   "Umarkheda",
+   4132,
+   35
+  ],
+  "548189": [
+   "Kathala Kh",
+   4132,
+   33
+  ],
+  "548188": [
+   "Kathala Bk",
+   4132,
+   33
+  ],
+  "548191": [
+   "Pakni",
+   4132,
+   34
+  ],
+  "547638": [
+   "Solgawhan",
+   4127,
+   32
+  ],
+  "547648": [
+   "Chitli Putli",
+   4127,
+   32
+  ],
+  "547647": [
+   "Dambri",
+   4127,
+   33
+  ],
+  "548187": [
+   "Mosa",
+   4132,
+   33
+  ],
+  "547646": [
+   "Pokhari Shingadi",
+   4127,
+   33
+  ],
+  "547649": [
+   "Ghetuli",
+   4127,
+   32
+  ],
+  "547640": [
+   "Kautha",
+   4127,
+   32
+  ],
+  "548016": [
+   "Edlapur",
+   4131,
+   33
+  ],
+  "548186": [
+   "Bramhnath Tanda",
+   4132,
+   33
+  ],
+  "547611": [
+   "Raigavhan",
+   4127,
+   42
+  ],
+  "548125": [
+   "Naigaon P Sevli",
+   4132,
+   42
+  ],
+  "548166": [
+   "Palaskheda",
+   4132,
+   42
+  ],
+  "547619": [
+   "Bhanunaik Tanda",
+   4127,
+   41
+  ],
+  "547627": [
+   "Palaskheda",
+   4127,
+   34
+  ],
+  "547609": [
+   "Pimpalwadi",
+   4127,
+   42
+  ],
+  "548193": [
+   "Gulkhand Tanda",
+   4132,
+   33
+  ],
+  "548194": [
+   "Watur Tanda",
+   4132,
+   33
+  ],
+  "547610": [
+   "Kharati",
+   4127,
+   42
+  ],
+  "547458": [
+   "Khaparkheda",
+   4126,
+   66
+  ],
+  "547456": [
+   "Sindi",
+   4126,
+   65
+  ],
+  "547341": [
+   "Nasirabad",
+   4125,
+   63
+  ],
+  "547420": [
+   "Chapnera",
+   4126,
+   65
+  ],
+  "547303": [
+   "Wadshed",
+   4125,
+   64
+  ],
+  "547337": [
+   "Rajapur",
+   4125,
+   64
+  ],
+  "547422": [
+   "Belora",
+   4126,
+   65
+  ],
+  "547421": [
+   "Dhondkheda",
+   4126,
+   65
+  ],
+  "547355": [
+   "Masanpur",
+   4125,
+   59
+  ],
+  "547345": [
+   "Muthad",
+   4125,
+   58
+  ],
+  "547436": [
+   "Bhorkheda",
+   4126,
+   60
+  ],
+  "547467": [
+   "Merkheda",
+   4126,
+   61
+  ],
+  "547319": [
+   "Dautpur",
+   4125,
+   59
+  ],
+  "547472": [
+   "Bharadkhead",
+   4126,
+   62
+  ],
+  "547483": [
+   "Aland",
+   4126,
+   61
+  ],
+  "547477": [
+   "Devulzari",
+   4126,
+   61
+  ],
+  "547429": [
+   "Yeota",
+   4126,
+   60
+  ],
+  "547430": [
+   "Wadala",
+   4126,
+   60
+  ],
+  "547338": [
+   "Manapur",
+   4125,
+   64
+  ],
+  "547335": [
+   "Pralhadpur",
+   4125,
+   63
+  ],
+  "547305": [
+   "Talni",
+   4125,
+   64
+  ],
+  "547441": [
+   "Repala",
+   4126,
+   61
+  ],
+  "547347": [
+   "Tandulwadi",
+   4125,
+   58
+  ],
+  "547289": [
+   "Savangi Aughadrao",
+   4125,
+   69
+  ],
+  "547293": [
+   "Kukdi",
+   4125,
+   68
+  ],
+  "547329": [
+   "Wakdi",
+   4125,
+   63
+  ],
+  "547298": [
+   "Relgaon",
+   4125,
+   69
+  ],
+  "547294": [
+   "Kathora Bajar",
+   4125,
+   64
+  ],
+  "547449": [
+   "Adha",
+   4126,
+   65
+  ],
+  "547297": [
+   "Warud Bk",
+   4125,
+   64
+  ],
+  "547299": [
+   "Mohalai",
+   4125,
+   69
+  ],
+  "547295": [
+   "Surangali",
+   4125,
+   64
+  ],
+  "547330": [
+   "Wadi Kh",
+   4125,
+   63
+  ],
+  "547296": [
+   "Palaskheda Murtad",
+   4125,
+   64
+  ],
+  "547300": [
+   "Dehed",
+   4125,
+   64
+  ],
+  "547448": [
+   "Pasodi",
+   4126,
+   65
+  ],
+  "547308": [
+   "Kosgaon",
+   4125,
+   69
+  ],
+  "547302": [
+   "Dagadwadi",
+   4125,
+   64
+  ],
+  "547310": [
+   "Malegaon",
+   4125,
+   64
+  ],
+  "547301": [
+   "Danapur",
+   4125,
+   64
+  ],
+  "547311": [
+   "Godri",
+   4125,
+   64
+  ],
+  "547332": [
+   "Bhivpur",
+   4125,
+   63
+  ],
+  "547333": [
+   "Avhana",
+   4125,
+   63
+  ],
+  "547309": [
+   "Kotha Jahagir",
+   4125,
+   64
+  ],
+  "547331": [
+   "Wadi Bk",
+   4125,
+   63
+  ],
+  "547455": [
+   "Bharaj Bk",
+   4126,
+   65
+  ],
+  "547334": [
+   "Gokul",
+   4125,
+   63
+  ],
+  "547336": [
+   "Malkapur",
+   4125,
+   63
+  ],
+  "547315": [
+   "Nimbola",
+   4125,
+   64
+  ],
+  "547312": [
+   "Kolegaon",
+   4125,
+   64
+  ],
+  "547343": [
+   "Subhanpur",
+   4125,
+   63
+  ],
+  "547423": [
+   "Borgaon Bk",
+   4126,
+   65
+  ],
+  "547457": [
+   "Sawasani",
+   4126,
+   65
+  ],
+  "547314": [
+   "Tadkalas",
+   4125,
+   64
+  ],
+  "547428": [
+   "Chinchkheda",
+   4126,
+   65
+  ],
+  "547304": [
+   "Bhaydi",
+   4125,
+   64
+  ],
+  "547424": [
+   "Borgaon Math",
+   4126,
+   65
+  ],
+  "547313": [
+   "Walsa Wadala",
+   4125,
+   64
+  ],
+  "547344": [
+   "Malkheda",
+   4125,
+   63
+  ],
+  "547342": [
+   "Perjapur",
+   4125,
+   63
+  ],
+  "547466": [
+   "Khasgaon",
+   4126,
+   61
+  ],
+  "547316": [
+   "Borgaon",
+   4125,
+   64
+  ],
+  "547339": [
+   "Alapur",
+   4125,
+   63
+  ],
+  "547431": [
+   "Mahora",
+   4126,
+   60
+  ],
+  "547427": [
+   "Janephal",
+   4126,
+   65
+  ],
+  "547425": [
+   "Bori Kh",
+   4126,
+   65
+  ],
+  "547307": [
+   "Viregaon",
+   4125,
+   64
+  ],
+  "547465": [
+   "Gopi",
+   4126,
+   62
+  ],
+  "547346": [
+   "Ibrahimpur",
+   4125,
+   63
+  ],
+  "547432": [
+   "Kolhapur",
+   4126,
+   60
+  ],
+  "547356": [
+   "Chorhala",
+   4125,
+   59
+  ],
+  "547438": [
+   "Mhasarul",
+   4126,
+   60
+  ],
+  "547317": [
+   "Sipora Bazar",
+   4125,
+   64
+  ],
+  "547318": [
+   "Babhulgaon",
+   4125,
+   59
+  ],
+  "547426": [
+   "Hiwarabali",
+   4126,
+   61
+  ],
+  "547433": [
+   "Asai",
+   4126,
+   60
+  ],
+  "547440": [
+   "Harpala",
+   4126,
+   61
+  ],
+  "547350": [
+   "Nanja",
+   4125,
+   58
+  ],
+  "547471": [
+   "Kumbhari",
+   4126,
+   61
+  ],
+  "547435": [
+   "Varud Kh",
+   4126,
+   60
+  ],
+  "547354": [
+   "Fattepur",
+   4125,
+   58
+  ],
+  "547437": [
+   "Ghankheda",
+   4126,
+   60
+  ],
+  "547322": [
+   "Lingewadi",
+   4125,
+   59
+  ],
+  "547351": [
+   "Kshirsagar",
+   4125,
+   58
+  ],
+  "547357": [
+   "Garkheda",
+   4125,
+   59
+  ],
+  "547321": [
+   "Kodoli",
+   4125,
+   59
+  ],
+  "547434": [
+   "Pimpalgaon Kad",
+   4126,
+   60
+  ],
+  "547320": [
+   "Takli Bhokardan",
+   4125,
+   59
+  ],
+  "547476": [
+   "Borkhedi Chinch",
+   4126,
+   61
+  ],
+  "547470": [
+   "Devulgaon Ugle",
+   4126,
+   61
+  ],
+  "547444": [
+   "Sawarkheda",
+   4126,
+   61
+  ],
+  "547348": [
+   "Jainpur",
+   4125,
+   58
+  ],
+  "547353": [
+   "Jomala",
+   4125,
+   58
+  ],
+  "547446": [
+   "Jawakheda",
+   4126,
+   60
+  ],
+  "547352": [
+   "Kumbhari",
+   4125,
+   58
+  ],
+  "276372": [
+   "Jafrabad",
+   4126,
+   61
+  ],
+  "547349": [
+   "Kathora",
+   4125,
+   58
+  ],
+  "547469": [
+   "Pimpal Khunta",
+   4126,
+   61
+  ],
+  "547445": [
+   "Aradkheda",
+   4126,
+   60
+  ],
+  "547323": [
+   "Baranjala",
+   4125,
+   59
+  ],
+  "547499": [
+   "Varkheda Viro",
+   4126,
+   60
+  ],
+  "547507": [
+   "Nimkheda Kh",
+   4126,
+   60
+  ],
+  "547363": [
+   "Sirasgaon",
+   4125,
+   58
+  ],
+  "547475": [
+   "Nimkheda Bk",
+   4126,
+   61
+  ],
+  "547325": [
+   "Tadegaonwadi",
+   4125,
+   60
+  ],
+  "547324": [
+   "Baranjala",
+   4125,
+   59
+  ],
+  "547447": [
+   "Borkhedi Gaiki",
+   4126,
+   60
+  ],
+  "547358": [
+   "Soegaon Devi",
+   4125,
+   59
+  ],
+  "547326": [
+   "Tadegaon",
+   4125,
+   60
+  ],
+  "547500": [
+   "Takli",
+   4126,
+   61
+  ],
+  "547503": [
+   "Sawangi",
+   4126,
+   61
+  ],
+  "547485": [
+   "Nalwihira",
+   4126,
+   61
+  ],
+  "547501": [
+   "Khamkheda",
+   4126,
+   61
+  ],
+  "547362": [
+   "Khandala",
+   4125,
+   58
+  ],
+  "547502": [
+   "Gondhankheda",
+   4126,
+   61
+  ],
+  "547504": [
+   "Garkheda",
+   4126,
+   60
+  ],
+  "547364": [
+   "Nimgaon",
+   4125,
+   58
+  ],
+  "547392": [
+   "Jawkheda Thombari",
+   4125,
+   59
+  ],
+  "547390": [
+   "Walsakhalsa",
+   4125,
+   59
+  ],
+  "547484": [
+   "Hiwara Kavali",
+   4126,
+   61
+  ],
+  "547360": [
+   "Koparda",
+   4125,
+   58
+  ],
+  "547361": [
+   "Goshegaon",
+   4125,
+   53
+  ],
+  "547505": [
+   "Dawargaon",
+   4126,
+   60
+  ],
+  "547506": [
+   "Dahigaon",
+   4126,
+   60
+  ],
+  "547328": [
+   "Samarth Nagar",
+   4125,
+   59
+  ],
+  "547359": [
+   "Belura",
+   4125,
+   58
+  ],
+  "547394": [
+   "Khaparkheda",
+   4125,
+   56
+  ],
+  "547488": [
+   "Kumbharzari",
+   4126,
+   57
+  ],
+  "547370": [
+   "Hasanabad",
+   4125,
+   53
+  ],
+  "547402": [
+   "Dawargaon",
+   4125,
+   58
+  ],
+  "547391": [
+   "Merkheda",
+   4125,
+   59
+  ],
+  "547365": [
+   "Rajala",
+   4125,
+   54
+  ],
+  "547401": [
+   "Walsa Dawargaon",
+   4125,
+   54
+  ],
+  "547419": [
+   "Gavhan Sangameshwar",
+   4125,
+   55
+  ],
+  "547399": [
+   "Kedarkheda",
+   4125,
+   55
+  ],
+  "547400": [
+   "Pimpalgaon",
+   4125,
+   55
+  ],
+  "547306": [
+   "Palaskheda Bhokardan",
+   4125,
+   64
+  ],
+  "547442": [
+   "Rupkheda Kh",
+   4126,
+   61
+  ],
+  "251422": [
+   "Bhokardan",
+   4125,
+   58
+  ],
+  "547439": [
+   "Gokulwadi",
+   4126,
+   60
+  ],
+  "547366": [
+   "Pandharpur",
+   4125,
+   54
+  ],
+  "547327": [
+   "Nalni Kh",
+   4125,
+   59
+  ],
+  "547262": [
+   "Mehgaon",
+   4125,
+   70
+  ],
+  "547266": [
+   "Dhawada",
+   4125,
+   70
+  ],
+  "547265": [
+   "Vizora",
+   4125,
+   70
+  ],
+  "547263": [
+   "Wadhona",
+   4125,
+   70
+  ],
+  "547271": [
+   "Walsawangi",
+   4125,
+   70
+  ],
+  "547267": [
+   "Bhorkheda",
+   4125,
+   70
+  ],
+  "547269": [
+   "Pokhari",
+   4125,
+   70
+  ],
+  "547268": [
+   "Wadhod Tangda",
+   4125,
+   70
+  ],
+  "547274": [
+   "Adgaon",
+   4125,
+   68
+  ],
+  "547273": [
+   "Dahigaon",
+   4125,
+   68
+  ],
+  "547272": [
+   "Selud",
+   4125,
+   69
+  ],
+  "547287": [
+   "Padmavati",
+   4125,
+   69
+  ],
+  "547276": [
+   "Koda",
+   4125,
+   68
+  ],
+  "547277": [
+   "Dhondkheda",
+   4125,
+   67
+  ],
+  "547286": [
+   "Paradh Kh",
+   4125,
+   69
+  ],
+  "547283": [
+   "Hisoda Bk",
+   4125,
+   68
+  ],
+  "547275": [
+   "Jalgaon",
+   4125,
+   68
+  ],
+  "547288": [
+   "Paradh Bk",
+   4125,
+   69
+  ],
+  "547285": [
+   "Leha",
+   4125,
+   69
+  ],
+  "547284": [
+   "Hisoda Kh",
+   4125,
+   68
+  ],
+  "547281": [
+   "Anvapada",
+   4125,
+   68
+  ],
+  "547278": [
+   "Anwa",
+   4125,
+   67
+  ],
+  "547279": [
+   "Karlawadi",
+   4125,
+   67
+  ],
+  "547291": [
+   "Kotha Koli",
+   4125,
+   68
+  ],
+  "547290": [
+   "Pimpalgaon",
+   4125,
+   69
+  ],
+  "547280": [
+   "Janephal",
+   4125,
+   67
+  ],
+  "547292": [
+   "Karajgaon",
+   4125,
+   68
+  ],
+  "547282": [
+   "Kalyani",
+   4125,
+   68
+  ],
+  "547264": [
+   "Jaidevwadi",
+   4125,
+   70
+  ],
+  "547270": [
+   "Sunderwadi",
+   4125,
+   70
+  ],
+  "547451": [
+   "Kusali",
+   4126,
+   66
+  ],
+  "547461": [
+   "Kolegaon",
+   4126,
+   66
+  ],
+  "547453": [
+   "Wankheda",
+   4126,
+   66
+  ],
+  "547462": [
+   "Sanjol",
+   4126,
+   66
+  ],
+  "547450": [
+   "Andhari",
+   4126,
+   66
+  ],
+  "547452": [
+   "Rastal",
+   4126,
+   66
+  ],
+  "547454": [
+   "Bharaj Kh",
+   4126,
+   66
+  ],
+  "547460": [
+   "Warud Bk",
+   4126,
+   66
+  ],
+  "547459": [
+   "Songiri",
+   4126,
+   66
+  ],
+  "547463": [
+   "Konad",
+   4126,
+   62
+  ],
+  "547464": [
+   "Sonkheda",
+   4126,
+   62
+  ],
+  "547473": [
+   "Sawarkheda Gondhan",
+   4126,
+   62
+  ],
+  "547474": [
+   "Dolkheda Bk",
+   4126,
+   62
+  ],
+  "547478": [
+   "Sipora",
+   4126,
+   62
+  ],
+  "547482": [
+   "Hanumanth Kheda",
+   4126,
+   62
+  ],
+  "547479": [
+   "Mangarul",
+   4126,
+   62
+  ],
+  "547480": [
+   "Rupkheda Bk",
+   4126,
+   62
+  ],
+  "547481": [
+   "Bramhapuri",
+   4126,
+   62
+  ],
+  "547565": [
+   "Wadgaon",
+   4127,
+   47
+  ],
+  "547876": [
+   "Shahagad",
+   4129,
+   4
+  ],
+  "547933": [
+   "Antarwala Bk",
+   4130,
+   23
+  ],
+  "548099": [
+   "Antarwala",
+   4131,
+   8
+  ],
+  "548040": [
+   "Mapegaon Bk",
+   4131,
+   17
+  ],
+  "547573": [
+   "Baji Umrad Tanda",
+   4127,
+   47
+  ],
+  "547602": [
+   "Shivni",
+   4127,
+   41
+  ],
+  "548200": [
+   "Taltondi",
+   4132,
+   35
+  ],
+  "548192": [
+   "Gulkhand",
+   4132,
+   33
+  ],
+  "547340": [
+   "Rampur Bk",
+   4125,
+   63
+  ],
+  "547468": [
+   "Weerkheda Bhalki",
+   4126,
+   61
+  ]
+ },
+ "village_count_total": 971,
+ "village_count_assigned": 971
+}

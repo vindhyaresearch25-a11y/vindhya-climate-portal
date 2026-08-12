@@ -1,0 +1,3681 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Punjab",
+  "district": "Kapurthala",
+  "district_lgd": 35,
+  "observation_window": "2026-08-07T11:22Z to 2026-08-12T11:22Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2203,
+  "sm_surface_stddev": 0.0177,
+  "sm_rootzone_mean": 0.2346,
+  "sm_rootzone_stddev": 0.0256,
+  "n_cells": 16,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 31.176,
+    "lon": 75.0498,
+    "sm_surface": 0.198,
+    "sm_rootzone": 0.1906,
+    "n_villages_sharing_cell": 45
+   },
+   {
+    "cell_index": 1,
+    "lat": 31.176,
+    "lon": 75.1486,
+    "sm_surface": 0.2264,
+    "sm_rootzone": 0.2214,
+    "n_villages_sharing_cell": 28
+   },
+   {
+    "cell_index": 2,
+    "lat": 31.176,
+    "lon": 75.2474,
+    "sm_surface": 0.2296,
+    "sm_rootzone": 0.2228,
+    "n_villages_sharing_cell": 21
+   },
+   {
+    "cell_index": 3,
+    "lat": 31.176,
+    "lon": 75.7415,
+    "sm_surface": 0.2309,
+    "sm_rootzone": 0.2319,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 4,
+    "lat": 31.2748,
+    "lon": 75.1486,
+    "sm_surface": 0.2306,
+    "sm_rootzone": 0.2533,
+    "n_villages_sharing_cell": 70
+   },
+   {
+    "cell_index": 5,
+    "lat": 31.2748,
+    "lon": 75.2474,
+    "sm_surface": 0.2349,
+    "sm_rootzone": 0.2561,
+    "n_villages_sharing_cell": 36
+   },
+   {
+    "cell_index": 6,
+    "lat": 31.2748,
+    "lon": 75.3462,
+    "sm_surface": 0.2366,
+    "sm_rootzone": 0.2601,
+    "n_villages_sharing_cell": 41
+   },
+   {
+    "cell_index": 7,
+    "lat": 31.2748,
+    "lon": 75.445,
+    "sm_surface": 0.2368,
+    "sm_rootzone": 0.2328,
+    "n_villages_sharing_cell": 32
+   },
+   {
+    "cell_index": 8,
+    "lat": 31.2748,
+    "lon": 75.7415,
+    "sm_surface": 0.2331,
+    "sm_rootzone": 0.2346,
+    "n_villages_sharing_cell": 93
+   },
+   {
+    "cell_index": 9,
+    "lat": 31.3737,
+    "lon": 75.2474,
+    "sm_surface": 0.2218,
+    "sm_rootzone": 0.2542,
+    "n_villages_sharing_cell": 58
+   },
+   {
+    "cell_index": 10,
+    "lat": 31.3737,
+    "lon": 75.3462,
+    "sm_surface": 0.2205,
+    "sm_rootzone": 0.2547,
+    "n_villages_sharing_cell": 37
+   },
+   {
+    "cell_index": 11,
+    "lat": 31.3737,
+    "lon": 75.445,
+    "sm_surface": 0.2191,
+    "sm_rootzone": 0.2531,
+    "n_villages_sharing_cell": 34
+   },
+   {
+    "cell_index": 12,
+    "lat": 31.4725,
+    "lon": 75.3462,
+    "sm_surface": 0.2119,
+    "sm_rootzone": 0.2522,
+    "n_villages_sharing_cell": 51
+   },
+   {
+    "cell_index": 13,
+    "lat": 31.4725,
+    "lon": 75.445,
+    "sm_surface": 0.2123,
+    "sm_rootzone": 0.2491,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 14,
+    "lat": 31.5713,
+    "lon": 75.445,
+    "sm_surface": 0.2185,
+    "sm_rootzone": 0.2231,
+    "n_villages_sharing_cell": 67
+   },
+   {
+    "cell_index": 15,
+    "lat": 31.5713,
+    "lon": 75.5438,
+    "sm_surface": 0.1645,
+    "sm_rootzone": 0.164,
+    "n_villages_sharing_cell": 39
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2191,
+  "sm_surface_stddev": 0.013,
+  "n_blocks": 4
+ },
+ "blocks": [
+  {
+   "block_name": "Bhulath",
+   "sdcode": 205,
+   "n_villages": 103,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.1977,
+   "sm_surface_stddev": 0.0259
+  },
+  {
+   "block_name": "Kapurthala",
+   "sdcode": 206,
+   "n_villages": 263,
+   "n_cells_spanned": 9,
+   "sm_surface_mean": 0.2229,
+   "sm_surface_stddev": 0.0094
+  },
+  {
+   "block_name": "Phagwara",
+   "sdcode": 208,
+   "n_villages": 115,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.2327,
+   "sm_surface_stddev": 0.0009
+  },
+  {
+   "block_name": "Sultanpur Lodhi",
+   "sdcode": 207,
+   "n_villages": 216,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.223,
+   "sm_surface_stddev": 0.0133
+  }
+ ],
+ "villages": {
+  "29450": [
+   "Mubarakpur",
+   207,
+   4
+  ],
+  "29470": [
+   "Mirzapur",
+   207,
+   1
+  ],
+  "29542": [
+   "Mand Inderpur",
+   207,
+   0
+  ],
+  "29562": [
+   "Sitapur",
+   207,
+   0
+  ],
+  "29183": [
+   "Aloudinpur",
+   206,
+   10
+  ],
+  "29338": [
+   "Mallian",
+   206,
+   6
+  ],
+  "29289": [
+   "Saido Bhulana",
+   206,
+   6
+  ],
+  "29336": [
+   "Bhano Langa",
+   206,
+   6
+  ],
+  "29253": [
+   "Rasulpur Brahmanan",
+   206,
+   11
+  ],
+  "29112": [
+   "Haibatpur",
+   206,
+   14
+  ],
+  "29108": [
+   "Kotli",
+   206,
+   12
+  ],
+  "29067": [
+   "Isbucha",
+   205,
+   15
+  ],
+  "29004": [
+   "Chakshah Aladin",
+   205,
+   14
+  ],
+  "29608": [
+   "Sangatpur",
+   208,
+   8
+  ],
+  "29162": [
+   "Mand Jatike",
+   206,
+   12
+  ],
+  "29045": [
+   "Mand Islampur",
+   205,
+   14
+  ],
+  "29151": [
+   "Tukra No 3",
+   206,
+   12
+  ],
+  "29016": [
+   "Chak Shah Kala",
+   205,
+   14
+  ],
+  "29152": [
+   "Mand Bhandal Bet",
+   206,
+   12
+  ],
+  "29110": [
+   "Muzafarpur",
+   206,
+   14
+  ],
+  "29565": [
+   "Dewa Singhwala",
+   207,
+   0
+  ],
+  "29554": [
+   "Jamewal",
+   207,
+   0
+  ],
+  "29120": [
+   "Tajpur",
+   206,
+   13
+  ],
+  "29010": [
+   "Dabulian",
+   205,
+   14
+  ],
+  "29168": [
+   "Buduwala",
+   206,
+   12
+  ],
+  "29169": [
+   "Hothian",
+   206,
+   12
+  ],
+  "29018": [
+   "Miranpur",
+   205,
+   14
+  ],
+  "29031": [
+   "Mand Rawan",
+   205,
+   14
+  ],
+  "29009": [
+   "Bulewal",
+   205,
+   14
+  ],
+  "29007": [
+   "Passiewal",
+   205,
+   14
+  ],
+  "29008": [
+   "Bilpur",
+   205,
+   14
+  ],
+  "29035": [
+   "Mand Kamalpur",
+   205,
+   14
+  ],
+  "29373": [
+   "Nurowal",
+   207,
+   4
+  ],
+  "29078": [
+   "Jhal Bajaj",
+   205,
+   15
+  ],
+  "29207": [
+   "Khanpur",
+   206,
+   9
+  ],
+  "29181": [
+   "Rajpur",
+   206,
+   12
+  ],
+  "29546": [
+   "Mand Indresa",
+   207,
+   0
+  ],
+  "29529": [
+   "Mand Hussainpur Bulle",
+   207,
+   0
+  ],
+  "29568": [
+   "Sangheke Khurd",
+   207,
+   0
+  ],
+  "29560": [
+   "Mand Kirrian",
+   207,
+   0
+  ],
+  "29551": [
+   "Bakerke",
+   207,
+   0
+  ],
+  "29547": [
+   "Indresa",
+   207,
+   0
+  ],
+  "29558": [
+   "Naki",
+   207,
+   0
+  ],
+  "29559": [
+   "Mand Kamboa",
+   207,
+   0
+  ],
+  "29563": [
+   "Bishanpur",
+   207,
+   0
+  ],
+  "29543": [
+   "Ramgarh Daleli",
+   207,
+   0
+  ],
+  "29522": [
+   "Wattan Wali Khalan",
+   207,
+   1
+  ],
+  "29539": [
+   "Jhugian Gamu",
+   207,
+   0
+  ],
+  "29544": [
+   "Kutubpur",
+   207,
+   0
+  ],
+  "29514": [
+   "Tarf Behbal Bahadur",
+   207,
+   1
+  ],
+  "29564": [
+   "Pattiwaras",
+   207,
+   0
+  ],
+  "29472": [
+   "Bhago Arain",
+   207,
+   1
+  ],
+  "29527": [
+   "Hazara",
+   207,
+   0
+  ],
+  "29469": [
+   "Bussowal",
+   207,
+   1
+  ],
+  "29467": [
+   "Bhagobudha",
+   207,
+   1
+  ],
+  "29518": [
+   "Jabbowal",
+   207,
+   1
+  ],
+  "29473": [
+   "Tarf Haji",
+   207,
+   1
+  ],
+  "29464": [
+   "Kabirpur",
+   207,
+   1
+  ],
+  "29534": [
+   "Ahli Khurd",
+   207,
+   0
+  ],
+  "29532": [
+   "Mand Dhun",
+   207,
+   0
+  ],
+  "29519": [
+   "Raman",
+   207,
+   1
+  ],
+  "29516": [
+   "Farid Sarai",
+   207,
+   1
+  ],
+  "29538": [
+   "Chananwindi",
+   207,
+   1
+  ],
+  "29520": [
+   "Shahwala Andrisa",
+   207,
+   1
+  ],
+  "29517": [
+   "Suchetgarh",
+   207,
+   1
+  ],
+  "29471": [
+   "Miani Bahadur",
+   207,
+   1
+  ],
+  "29536": [
+   "Sarupwal",
+   207,
+   1
+  ],
+  "29466": [
+   "Lodhiwal",
+   207,
+   1
+  ],
+  "29545": [
+   "Bharowana",
+   207,
+   0
+  ],
+  "29523": [
+   "Mandi Kabirpur Jadid",
+   207,
+   1
+  ],
+  "29533": [
+   "Ahli Kalan",
+   207,
+   0
+  ],
+  "29474": [
+   "Machhi Jowa",
+   207,
+   1
+  ],
+  "29537": [
+   "Sheikh Manga",
+   207,
+   0
+  ],
+  "29524": [
+   "Alluwal",
+   207,
+   1
+  ],
+  "29541": [
+   "Tibbi",
+   207,
+   0
+  ],
+  "29540": [
+   "Takia",
+   207,
+   0
+  ],
+  "29481": [
+   "Sultanpur",
+   207,
+   1
+  ],
+  "29521": [
+   "Sherpur Sadha",
+   207,
+   1
+  ],
+  "29515": [
+   "Shatabgarh",
+   207,
+   1
+  ],
+  "29525": [
+   "Mandi Aluwal",
+   207,
+   1
+  ],
+  "29549": [
+   "Shahwala Nakki",
+   207,
+   0
+  ],
+  "29552": [
+   "Mand Ahli Kalan",
+   207,
+   0
+  ],
+  "29526": [
+   "Hussainpur Bulle",
+   207,
+   0
+  ],
+  "29566": [
+   "Gata Poh Windian",
+   207,
+   0
+  ],
+  "29535": [
+   "Mandi Kabirpur Kadim",
+   207,
+   0
+  ],
+  "29550": [
+   "Fatyewal",
+   207,
+   0
+  ],
+  "29553": [
+   "Gamewal",
+   207,
+   0
+  ],
+  "29567": [
+   "Khara",
+   207,
+   0
+  ],
+  "29556": [
+   "Gudda",
+   207,
+   0
+  ],
+  "29561": [
+   "Mand Fatehpur",
+   207,
+   0
+  ],
+  "29548": [
+   "Jand",
+   207,
+   0
+  ],
+  "29531": [
+   "Mundi",
+   207,
+   0
+  ],
+  "29557": [
+   "Pipal",
+   207,
+   0
+  ],
+  "29570": [
+   "Jagjitpur",
+   207,
+   0
+  ],
+  "29555": [
+   "Mand Singhpur",
+   207,
+   0
+  ],
+  "29569": [
+   "Nihalpur",
+   207,
+   0
+  ],
+  "29462": [
+   "Thakar Kaura",
+   207,
+   0
+  ],
+  "29512": [
+   "Gill",
+   207,
+   2
+  ],
+  "29502": [
+   "Tashpur",
+   207,
+   2
+  ],
+  "29501": [
+   "Rampur Jagir",
+   207,
+   2
+  ],
+  "29506": [
+   "Dalla",
+   207,
+   2
+  ],
+  "29500": [
+   "Maniala",
+   207,
+   2
+  ],
+  "29497": [
+   "Ahmedpur",
+   207,
+   2
+  ],
+  "29482": [
+   "Derasaida",
+   207,
+   2
+  ],
+  "29505": [
+   "Miranpur",
+   207,
+   2
+  ],
+  "29496": [
+   "Latianwala",
+   207,
+   2
+  ],
+  "29495": [
+   "Allahditta",
+   207,
+   6
+  ],
+  "29503": [
+   "Haidrabad Dona",
+   207,
+   2
+  ],
+  "29489": [
+   "Nasirewal",
+   207,
+   2
+  ],
+  "29507": [
+   "Shahjahanpur",
+   207,
+   2
+  ],
+  "29511": [
+   "Karamjitpur",
+   207,
+   2
+  ],
+  "29508": [
+   "Ugrupur",
+   207,
+   2
+  ],
+  "29509": [
+   "Amarjitpur",
+   207,
+   2
+  ],
+  "29498": [
+   "Sherpur Dona",
+   207,
+   2
+  ],
+  "29513": [
+   "Depewal",
+   207,
+   2
+  ],
+  "29510": [
+   "Mokha",
+   207,
+   2
+  ],
+  "29499": [
+   "Toti",
+   207,
+   2
+  ],
+  "29420": [
+   "Khokhar Jadid Kadim",
+   207,
+   5
+  ],
+  "29504": [
+   "Rawal",
+   207,
+   2
+  ],
+  "29488": [
+   "Mahablipur",
+   207,
+   2
+  ],
+  "29369": [
+   "Kutbewal",
+   207,
+   9
+  ],
+  "800157": [
+   "Sultanpur",
+   207,
+   1
+  ],
+  "29187": [
+   "Jahangirpur",
+   206,
+   10
+  ],
+  "29433": [
+   "Jhanduwala Kamboan",
+   207,
+   4
+  ],
+  "29434": [
+   "Nabipur",
+   207,
+   4
+  ],
+  "29448": [
+   "Mand Bhim Kadim",
+   207,
+   4
+  ],
+  "29386": [
+   "Mand Munda",
+   207,
+   4
+  ],
+  "29468": [
+   "Fattowal",
+   207,
+   4
+  ],
+  "29452": [
+   "Sangra",
+   207,
+   4
+  ],
+  "29431": [
+   "Pitho Rahal",
+   207,
+   4
+  ],
+  "29402": [
+   "Sawal",
+   207,
+   4
+  ],
+  "29390": [
+   "Muhamadali Khanwala",
+   207,
+   4
+  ],
+  "29444": [
+   "Mohamadabad",
+   207,
+   4
+  ],
+  "29463": [
+   "Silla Pur",
+   207,
+   1
+  ],
+  "29443": [
+   "Bhaini Kadar Baksh",
+   207,
+   4
+  ],
+  "29445": [
+   "Rampur Gaura",
+   207,
+   4
+  ],
+  "29385": [
+   "Chaudhriwala",
+   207,
+   4
+  ],
+  "29388": [
+   "Sherpur Dogran",
+   207,
+   4
+  ],
+  "29379": [
+   "Jhugian Araian",
+   207,
+   9
+  ],
+  "29457": [
+   "Bhim Qadim",
+   207,
+   4
+  ],
+  "29401": [
+   "Salehpur",
+   207,
+   4
+  ],
+  "29400": [
+   "Talwandi Chowdhrian",
+   207,
+   4
+  ],
+  "29384": [
+   "Khijarpur",
+   207,
+   4
+  ],
+  "29436": [
+   "Passan Kadim",
+   207,
+   4
+  ],
+  "29425": [
+   "Haidrabad Bet",
+   207,
+   4
+  ],
+  "29423": [
+   "Sarai Jattan",
+   207,
+   4
+  ],
+  "29427": [
+   "Paramjitpur",
+   207,
+   4
+  ],
+  "29429": [
+   "Latwala",
+   207,
+   4
+  ],
+  "29376": [
+   "Baja",
+   207,
+   9
+  ],
+  "29446": [
+   "Mand Gujarpur",
+   207,
+   4
+  ],
+  "29442": [
+   "Baupur Jadid",
+   207,
+   4
+  ],
+  "29476": [
+   "Allah Dad Chak",
+   207,
+   1
+  ],
+  "29381": [
+   "Patti Safdarpur",
+   207,
+   4
+  ],
+  "29397": [
+   "Dodawazir",
+   207,
+   4
+  ],
+  "29377": [
+   "Amritpur",
+   207,
+   9
+  ],
+  "29426": [
+   "Khurd",
+   207,
+   4
+  ],
+  "29403": [
+   "Patti Bakarpur",
+   207,
+   4
+  ],
+  "29398": [
+   "Mahijitpur",
+   207,
+   4
+  ],
+  "29424": [
+   "Ucha",
+   207,
+   4
+  ],
+  "29460": [
+   "Mand Bandu Jadid",
+   207,
+   4
+  ],
+  "29375": [
+   "Safardarpur",
+   207,
+   4
+  ],
+  "29430": [
+   "Jhugian Bandhu",
+   207,
+   4
+  ],
+  "29441": [
+   "Bhaini Bahadur",
+   207,
+   4
+  ],
+  "29428": [
+   "Pandori Jagir",
+   207,
+   4
+  ],
+  "29394": [
+   "Bhaini Hussekhan",
+   207,
+   4
+  ],
+  "29389": [
+   "Doda Sudagar",
+   207,
+   4
+  ],
+  "29391": [
+   "Mand Partappur",
+   207,
+   4
+  ],
+  "29435": [
+   "Lakh Warah",
+   207,
+   4
+  ],
+  "29399": [
+   "Faridpur",
+   207,
+   4
+  ],
+  "29392": [
+   "Mainwal",
+   207,
+   4
+  ],
+  "29475": [
+   "Jabo Sudhar",
+   207,
+   4
+  ],
+  "29454": [
+   "Mand Mubarakpur",
+   207,
+   4
+  ],
+  "29449": [
+   "Mand Bandu Kadim",
+   207,
+   4
+  ],
+  "29461": [
+   "Kishanpur Ghurka",
+   207,
+   0
+  ],
+  "29455": [
+   "Shahdulapur",
+   207,
+   4
+  ],
+  "29387": [
+   "Alam Khanwala",
+   207,
+   4
+  ],
+  "29478": [
+   "Mulan Kala",
+   207,
+   4
+  ],
+  "29456": [
+   "Hajipur",
+   207,
+   4
+  ],
+  "29437": [
+   "Chuharpur",
+   207,
+   4
+  ],
+  "29477": [
+   "Mukatram Wala",
+   207,
+   4
+  ],
+  "29447": [
+   "Akalpur",
+   207,
+   4
+  ],
+  "29383": [
+   "Fateh Ali Khanwala",
+   207,
+   4
+  ],
+  "29395": [
+   "Shiv Dayalwala",
+   207,
+   4
+  ],
+  "29465": [
+   "Patti Bhalu Bahadur",
+   207,
+   1
+  ],
+  "29528": [
+   "Mand Hazara",
+   207,
+   0
+  ],
+  "29451": [
+   "Baupur Kadim",
+   207,
+   4
+  ],
+  "29439": [
+   "Choladha",
+   207,
+   4
+  ],
+  "29380": [
+   "Jhugian Dogran",
+   207,
+   4
+  ],
+  "29374": [
+   "Jagnaika",
+   207,
+   4
+  ],
+  "29530": [
+   "Mand Karmowal",
+   207,
+   0
+  ],
+  "29453": [
+   "Khangah Shah Rehmatulah Quadri",
+   207,
+   4
+  ],
+  "29459": [
+   "Mand Kishanpur Ghurka",
+   207,
+   4
+  ],
+  "29382": [
+   "Miani Malahan",
+   207,
+   4
+  ],
+  "29432": [
+   "Jhanduwala Rajputan",
+   207,
+   4
+  ],
+  "29378": [
+   "Mand Goindwal",
+   207,
+   9
+  ],
+  "29458": [
+   "Bhim Jadid",
+   207,
+   4
+  ],
+  "29440": [
+   "Passan Jadid",
+   207,
+   4
+  ],
+  "29396": [
+   "Doda Kaman",
+   207,
+   4
+  ],
+  "29393": [
+   "Mand Dhunda",
+   207,
+   4
+  ],
+  "29438": [
+   "Middwal",
+   207,
+   4
+  ],
+  "29357": [
+   "Chak Todarwal",
+   207,
+   9
+  ],
+  "29294": [
+   "Biharipur",
+   206,
+   6
+  ],
+  "29226": [
+   "Bija",
+   206,
+   10
+  ],
+  "29285": [
+   "Brindpur",
+   206,
+   10
+  ],
+  "29352": [
+   "Sukhia Nangal",
+   206,
+   5
+  ],
+  "29410": [
+   "Jeorgepur Ur Merry Pur",
+   207,
+   5
+  ],
+  "29349": [
+   "Mithra",
+   206,
+   5
+  ],
+  "29159": [
+   "Sangojla",
+   206,
+   9
+  ],
+  "29360": [
+   "Todarwal",
+   207,
+   9
+  ],
+  "29492": [
+   "Kamalpur",
+   207,
+   6
+  ],
+  "29175": [
+   "Nurpur Rajputan",
+   206,
+   10
+  ],
+  "29479": [
+   "Wadel Kadim",
+   207,
+   5
+  ],
+  "29182": [
+   "Narkat",
+   206,
+   12
+  ],
+  "29212": [
+   "Dulowal",
+   206,
+   9
+  ],
+  "29177": [
+   "Khangah",
+   206,
+   10
+  ],
+  "29341": [
+   "Talwandi Pain",
+   206,
+   5
+  ],
+  "29318": [
+   "Sandhu Chatha",
+   206,
+   7
+  ],
+  "29358": [
+   "Patti Sardar Nabi Baksh",
+   207,
+   9
+  ],
+  "29356": [
+   "Sabuwal",
+   207,
+   9
+  ],
+  "29345": [
+   "Khera Dona",
+   206,
+   6
+  ],
+  "29223": [
+   "Nawanpind",
+   206,
+   10
+  ],
+  "29412": [
+   "Jhallaiwala",
+   207,
+   5
+  ],
+  "29217": [
+   "Chak Gopipur",
+   206,
+   9
+  ],
+  "29215": [
+   "Rata Kadim",
+   206,
+   10
+  ],
+  "29292": [
+   "Pakhowal",
+   206,
+   6
+  ],
+  "29320": [
+   "Manan",
+   206,
+   7
+  ],
+  "29370": [
+   "Burewal",
+   207,
+   9
+  ],
+  "29197": [
+   "Baguwal",
+   206,
+   9
+  ],
+  "29334": [
+   "Thigli",
+   206,
+   6
+  ],
+  "29418": [
+   "Lau",
+   207,
+   5
+  ],
+  "29351": [
+   "Sandhar Jagir",
+   206,
+   9
+  ],
+  "29233": [
+   "Kadupur",
+   206,
+   11
+  ],
+  "29353": [
+   "Shahpur Dogra",
+   206,
+   10
+  ],
+  "29416": [
+   "Shikarpur",
+   207,
+   5
+  ],
+  "29365": [
+   "Saidpur",
+   207,
+   9
+  ],
+  "29221": [
+   "Bhawnipur",
+   206,
+   10
+  ],
+  "29413": [
+   "Jainpur",
+   207,
+   5
+  ],
+  "29101": [
+   "Mirzapur",
+   206,
+   14
+  ],
+  "29350": [
+   "Muradpur Bet",
+   206,
+   5
+  ],
+  "29127": [
+   "Chuharwal",
+   206,
+   13
+  ],
+  "29220": [
+   "Dewlawala",
+   206,
+   10
+  ],
+  "29321": [
+   "Kesarpur",
+   206,
+   7
+  ],
+  "29205": [
+   "Ucha",
+   206,
+   9
+  ],
+  "29201": [
+   "Saiflabad",
+   206,
+   9
+  ],
+  "29371": [
+   "Hussainpur Dulowal",
+   207,
+   9
+  ],
+  "29490": [
+   "Bhaur",
+   207,
+   5
+  ],
+  "29265": [
+   "Jawalapur",
+   206,
+   6
+  ],
+  "29326": [
+   "Sidhwan Dona",
+   206,
+   6
+  ],
+  "29493": [
+   "Shaliapur Dona",
+   207,
+   6
+  ],
+  "29366": [
+   "Sujo Kalia",
+   207,
+   9
+  ],
+  "29291": [
+   "Burewal",
+   206,
+   6
+  ],
+  "29322": [
+   "Gaunspur",
+   206,
+   7
+  ],
+  "29406": [
+   "Amanipur",
+   207,
+   5
+  ],
+  "29204": [
+   "Khera Bet",
+   206,
+   9
+  ],
+  "29485": [
+   "Wadhel Harnampur",
+   207,
+   5
+  ],
+  "29206": [
+   "Rattra",
+   206,
+   9
+  ],
+  "29329": [
+   "Bhana",
+   206,
+   6
+  ],
+  "29266": [
+   "Waryah",
+   206,
+   6
+  ],
+  "29368": [
+   "Nathupur",
+   207,
+   9
+  ],
+  "29486": [
+   "Randhirpur",
+   207,
+   5
+  ],
+  "29245": [
+   "Talwandi Mehma",
+   206,
+   11
+  ],
+  "29179": [
+   "Khukhrain",
+   206,
+   12
+  ],
+  "29327": [
+   "Khusropur",
+   206,
+   6
+  ],
+  "29419": [
+   "Pamaan",
+   207,
+   5
+  ],
+  "29276": [
+   "Bhagwanpur",
+   206,
+   10
+  ],
+  "248283": [
+   "Kapurthala",
+   206,
+   10
+  ],
+  "29185": [
+   "Tayabpur",
+   206,
+   10
+  ],
+  "29484": [
+   "Mewa Singhwala",
+   207,
+   5
+  ],
+  "29340": [
+   "Karahal Nauabad",
+   206,
+   5
+  ],
+  "29188": [
+   "Khiranwali",
+   206,
+   9
+  ],
+  "29319": [
+   "Mander Dona",
+   206,
+   7
+  ],
+  "29222": [
+   "Parvejnagar",
+   206,
+   10
+  ],
+  "29367": [
+   "Mullan Baha",
+   207,
+   9
+  ],
+  "29339": [
+   "Isharwal",
+   206,
+   5
+  ],
+  "29274": [
+   "Sheikhupur",
+   206,
+   10
+  ],
+  "29244": [
+   "Mansoorwal Dona",
+   206,
+   11
+  ],
+  "29337": [
+   "Toganwala",
+   206,
+   6
+  ],
+  "29178": [
+   "Majorwala",
+   206,
+   10
+  ],
+  "29229": [
+   "Bishanpur",
+   206,
+   11
+  ],
+  "29372": [
+   "Mangupur",
+   207,
+   9
+  ],
+  "29491": [
+   "Saich",
+   207,
+   5
+  ],
+  "29494": [
+   "Gobindgarh",
+   207,
+   6
+  ],
+  "29275": [
+   "Kapurthala",
+   206,
+   10
+  ],
+  "29480": [
+   "Gazipur",
+   207,
+   4
+  ],
+  "29280": [
+   "Ratta Nauabad",
+   206,
+   10
+  ],
+  "29225": [
+   "Kanjli",
+   206,
+   10
+  ],
+  "29408": [
+   "Nasirpur",
+   207,
+   5
+  ],
+  "29158": [
+   "Alipur",
+   206,
+   9
+  ],
+  "29190": [
+   "Surakhpur",
+   206,
+   9
+  ],
+  "29295": [
+   "Bhandal Dona",
+   206,
+   6
+  ],
+  "29224": [
+   "Kokalpur",
+   206,
+   10
+  ],
+  "29281": [
+   "Jhall Bibri",
+   206,
+   10
+  ],
+  "29160": [
+   "Talwandi Rajputan",
+   206,
+   9
+  ],
+  "29279": [
+   "Hussainabad",
+   206,
+   10
+  ],
+  "29186": [
+   "Chak Gaziwal",
+   206,
+   10
+  ],
+  "29342": [
+   "Karahal Khurd",
+   206,
+   6
+  ],
+  "29362": [
+   "Dandupur",
+   207,
+   9
+  ],
+  "29284": [
+   "Bibri",
+   206,
+   10
+  ],
+  "29208": [
+   "Buh",
+   206,
+   9
+  ],
+  "29407": [
+   "Tibba",
+   207,
+   5
+  ],
+  "29273": [
+   "Bahui",
+   206,
+   10
+  ],
+  "29283": [
+   "Rasulpur Chisti",
+   206,
+   10
+  ],
+  "29361": [
+   "Dariewal",
+   207,
+   9
+  ],
+  "29184": [
+   "Ghug Bet",
+   206,
+   10
+  ],
+  "29203": [
+   "Faijla Bad",
+   206,
+   9
+  ],
+  "29364": [
+   "Thatta",
+   207,
+   9
+  ],
+  "29409": [
+   "Kalru",
+   207,
+   5
+  ],
+  "29344": [
+   "Qaulo Talwandi",
+   206,
+   6
+  ],
+  "29176": [
+   "Gaura",
+   206,
+   10
+  ],
+  "29174": [
+   "Bhila",
+   206,
+   12
+  ],
+  "29297": [
+   "Passan",
+   206,
+   7
+  ],
+  "29214": [
+   "Kulian Wala",
+   206,
+   9
+  ],
+  "29363": [
+   "Kalubhatia",
+   207,
+   9
+  ],
+  "29421": [
+   "Wadel Khuda Buxwala",
+   207,
+   5
+  ],
+  "29267": [
+   "Gosal",
+   206,
+   6
+  ],
+  "29270": [
+   "Madho Jhanda",
+   206,
+   10
+  ],
+  "29189": [
+   "Mand Surakhpur",
+   206,
+   9
+  ],
+  "29211": [
+   "Mehmadwal",
+   206,
+   9
+  ],
+  "29405": [
+   "Bidhipur",
+   207,
+   5
+  ],
+  "29272": [
+   "Ladhewal",
+   206,
+   10
+  ],
+  "29199": [
+   "Dessal",
+   206,
+   9
+  ],
+  "29202": [
+   "Ghanieki",
+   206,
+   9
+  ],
+  "29332": [
+   "Machhipal",
+   206,
+   6
+  ],
+  "29247": [
+   "Kutabpur",
+   206,
+   11
+  ],
+  "29268": [
+   "Dulo Araiyan",
+   206,
+   6
+  ],
+  "29278": [
+   "Majahadpur",
+   206,
+   10
+  ],
+  "29286": [
+   "Dhudianwal",
+   206,
+   10
+  ],
+  "29288": [
+   "Lodhi Bhulana",
+   206,
+   6
+  ],
+  "29359": [
+   "Boolpur",
+   207,
+   5
+  ],
+  "29271": [
+   "Saidowal",
+   206,
+   6
+  ],
+  "29347": [
+   "Mitha",
+   206,
+   5
+  ],
+  "29195": [
+   "Kamewal",
+   206,
+   9
+  ],
+  "29269": [
+   "Arianwala",
+   206,
+   6
+  ],
+  "29417": [
+   "Masit",
+   207,
+   5
+  ],
+  "29415": [
+   "Warian",
+   207,
+   5
+  ],
+  "29333": [
+   "Qaulpur",
+   206,
+   6
+  ],
+  "29483": [
+   "Wadhel Mauja",
+   207,
+   5
+  ],
+  "29335": [
+   "Sayal",
+   206,
+   6
+  ],
+  "29296": [
+   "Khanowal",
+   206,
+   7
+  ],
+  "29346": [
+   "Daulatpur",
+   206,
+   6
+  ],
+  "29328": [
+   "Aya",
+   206,
+   6
+  ],
+  "29216": [
+   "Gopipur",
+   206,
+   10
+  ],
+  "29422": [
+   "Mira",
+   207,
+   5
+  ],
+  "29191": [
+   "Akbarpur",
+   206,
+   9
+  ],
+  "29287": [
+   "Rawal",
+   206,
+   6
+  ],
+  "29228": [
+   "Seenpur",
+   206,
+   11
+  ],
+  "29219": [
+   "Adnawali",
+   206,
+   10
+  ],
+  "29210": [
+   "Fattu Dhinga",
+   206,
+   9
+  ],
+  "29290": [
+   "Mangaroda",
+   206,
+   6
+  ],
+  "29411": [
+   "Dadwindi",
+   207,
+   5
+  ],
+  "29200": [
+   "Miani Bola",
+   206,
+   9
+  ],
+  "29282": [
+   "Jalal Bhulana",
+   206,
+   6
+  ],
+  "29487": [
+   "Chakkotla",
+   207,
+   5
+  ],
+  "29246": [
+   "Razapur",
+   206,
+   11
+  ],
+  "29263": [
+   "Nathu Chahal",
+   206,
+   7
+  ],
+  "29414": [
+   "Habitpur",
+   207,
+   5
+  ],
+  "29218": [
+   "Nurpur Kiranwali",
+   206,
+   9
+  ],
+  "29331": [
+   "Kahlwan",
+   206,
+   6
+  ],
+  "29323": [
+   "Badial",
+   206,
+   7
+  ],
+  "29343": [
+   "Karahal Kalan",
+   206,
+   6
+  ],
+  "29354": [
+   "Khalu",
+   206,
+   10
+  ],
+  "29264": [
+   "Kasso Chahal",
+   206,
+   7
+  ],
+  "29404": [
+   "Daula",
+   207,
+   5
+  ],
+  "29277": [
+   "Jhugian Gulam",
+   206,
+   10
+  ],
+  "29293": [
+   "Bhalaipur",
+   206,
+   6
+  ],
+  "29209": [
+   "Mundi",
+   206,
+   9
+  ],
+  "29330": [
+   "Nidoke",
+   206,
+   6
+  ],
+  "29213": [
+   "Dhabulian",
+   206,
+   9
+  ],
+  "29227": [
+   "Abdulapur",
+   206,
+   11
+  ],
+  "29348": [
+   "Kahna",
+   206,
+   5
+  ],
+  "29324": [
+   "Nihaluwal",
+   206,
+   6
+  ],
+  "29304": [
+   "Malo Brahman",
+   206,
+   7
+  ],
+  "29196": [
+   "Charagpur",
+   206,
+   9
+  ],
+  "29192": [
+   "Mand Akbarpur",
+   206,
+   9
+  ],
+  "29198": [
+   "Mand Sabak Dessal",
+   206,
+   9
+  ],
+  "29325": [
+   "Moklanwala",
+   206,
+   6
+  ],
+  "29317": [
+   "Madhopur",
+   206,
+   7
+  ],
+  "29303": [
+   "Kadrabad",
+   206,
+   7
+  ],
+  "29316": [
+   "Jalowal",
+   206,
+   7
+  ],
+  "29310": [
+   "Jai Rampur",
+   206,
+   7
+  ],
+  "29305": [
+   "Sunranwala",
+   206,
+   7
+  ],
+  "29302": [
+   "Baler Khanpur",
+   206,
+   7
+  ],
+  "29301": [
+   "Jallo Bhati",
+   206,
+   7
+  ],
+  "29298": [
+   "Rasulpur Kulian",
+   206,
+   7
+  ],
+  "29261": [
+   "Bhait",
+   206,
+   7
+  ],
+  "29313": [
+   "Rampur",
+   206,
+   7
+  ],
+  "29260": [
+   "Nangal Naraingarh",
+   206,
+   11
+  ],
+  "29308": [
+   "Sukhani",
+   206,
+   7
+  ],
+  "29309": [
+   "Alamgir",
+   206,
+   7
+  ],
+  "29300": [
+   "Sidhpur",
+   206,
+   7
+  ],
+  "29262": [
+   "Dhandal",
+   206,
+   7
+  ],
+  "29299": [
+   "Baler Kalan",
+   206,
+   7
+  ],
+  "29306": [
+   "Chak",
+   206,
+   7
+  ],
+  "29314": [
+   "Samailpur",
+   206,
+   7
+  ],
+  "29315": [
+   "Kalasanghian",
+   206,
+   7
+  ],
+  "29312": [
+   "Muradpur Dona",
+   206,
+   7
+  ],
+  "29311": [
+   "Banwalipur",
+   206,
+   7
+  ],
+  "29355": [
+   "Hussainpur",
+   206,
+   6
+  ],
+  "29307": [
+   "Ghaddu Bagga",
+   206,
+   7
+  ],
+  "29242": [
+   "Dhawankha Jagir",
+   206,
+   11
+  ],
+  "29238": [
+   "Kot Krar Khan",
+   206,
+   11
+  ],
+  "29239": [
+   "Wadala Khurd",
+   206,
+   11
+  ],
+  "29248": [
+   "Aujla Jogi",
+   206,
+   11
+  ],
+  "29234": [
+   "Nurpur Dona",
+   206,
+   11
+  ],
+  "29237": [
+   "Phiali",
+   206,
+   11
+  ],
+  "29251": [
+   "Dhaipai",
+   206,
+   11
+  ],
+  "29256": [
+   "Budo Punder",
+   206,
+   11
+  ],
+  "29259": [
+   "Ahmedpur",
+   206,
+   11
+  ],
+  "29231": [
+   "Dainwind",
+   206,
+   11
+  ],
+  "29235": [
+   "Mainwan",
+   206,
+   11
+  ],
+  "29240": [
+   "Wadala Kalan",
+   206,
+   11
+  ],
+  "29255": [
+   "Khojewali",
+   206,
+   11
+  ],
+  "29257": [
+   "Aloudi",
+   206,
+   11
+  ],
+  "29254": [
+   "Gokalpur",
+   206,
+   11
+  ],
+  "29252": [
+   "Ibban",
+   206,
+   11
+  ],
+  "29250": [
+   "Gobindpur",
+   206,
+   11
+  ],
+  "29258": [
+   "Kotli",
+   206,
+   11
+  ],
+  "29243": [
+   "Dhaliwal Dona",
+   206,
+   11
+  ],
+  "29249": [
+   "Aujla Banwali",
+   206,
+   11
+  ],
+  "29241": [
+   "Dhawankha Nishan",
+   206,
+   11
+  ],
+  "29230": [
+   "Phulewal",
+   206,
+   11
+  ],
+  "29232": [
+   "Daburji",
+   206,
+   11
+  ],
+  "29130": [
+   "Boot",
+   206,
+   13
+  ],
+  "29236": [
+   "Talwandi Bakha",
+   206,
+   11
+  ],
+  "29145": [
+   "Nurpur Lubana",
+   206,
+   12
+  ],
+  "29141": [
+   "Fattu Chak",
+   206,
+   12
+  ],
+  "29161": [
+   "Mand Sangojla",
+   206,
+   9
+  ],
+  "29097": [
+   "Lakhanke Padde",
+   206,
+   13
+  ],
+  "29115": [
+   "Gadani",
+   206,
+   12
+  ],
+  "29129": [
+   "Badshahpur",
+   206,
+   13
+  ],
+  "29135": [
+   "Nizampur",
+   206,
+   12
+  ],
+  "29144": [
+   "Nurpur Jattan",
+   206,
+   12
+  ],
+  "29142": [
+   "M Ander Bet",
+   206,
+   12
+  ],
+  "28994": [
+   "Mand Raipur Araian",
+   205,
+   14
+  ],
+  "29111": [
+   "Mughal Chak",
+   206,
+   12
+  ],
+  "29107": [
+   "Butala",
+   206,
+   12
+  ],
+  "29153": [
+   "Bana Malwala",
+   206,
+   12
+  ],
+  "29119": [
+   "Ramidi",
+   206,
+   13
+  ],
+  "29121": [
+   "Mustfabad",
+   206,
+   13
+  ],
+  "29131": [
+   "Paharipur",
+   206,
+   13
+  ],
+  "29099": [
+   "Behlolpur",
+   206,
+   14
+  ],
+  "29140": [
+   "Ghuluwal",
+   206,
+   12
+  ],
+  "29117": [
+   "Sangowal",
+   206,
+   12
+  ],
+  "29096": [
+   "Mudowal",
+   206,
+   13
+  ],
+  "29165": [
+   "Bhandal Bet",
+   206,
+   12
+  ],
+  "29137": [
+   "Shahpur Peera",
+   206,
+   12
+  ],
+  "248282": [
+   "Dhilwan",
+   206,
+   12
+  ],
+  "29173": [
+   "Theh Kanjla",
+   206,
+   12
+  ],
+  "29157": [
+   "Sheikhanwala",
+   206,
+   9
+  ],
+  "29102": [
+   "Daudpur",
+   206,
+   14
+  ],
+  "29109": [
+   "Chakoki",
+   206,
+   14
+  ],
+  "29156": [
+   "Tarkhanawala",
+   206,
+   9
+  ],
+  "29146": [
+   "Bijli Nangal",
+   206,
+   12
+  ],
+  "29154": [
+   "Nabi Bakashwala",
+   206,
+   9
+  ],
+  "29139": [
+   "Gaji Gudana",
+   206,
+   12
+  ],
+  "29193": [
+   "Peerewal",
+   206,
+   9
+  ],
+  "29118": [
+   "Jai Rampur",
+   206,
+   12
+  ],
+  "29136": [
+   "Randhawa",
+   206,
+   12
+  ],
+  "29167": [
+   "Padde",
+   206,
+   12
+  ],
+  "29164": [
+   "Fatehpur",
+   206,
+   12
+  ],
+  "29170": [
+   "Bhular Bet",
+   206,
+   12
+  ],
+  "29116": [
+   "Sangrai",
+   206,
+   12
+  ],
+  "29155": [
+   "Kishan Singhwala",
+   206,
+   9
+  ],
+  "29143": [
+   "Buda Theh",
+   206,
+   12
+  ],
+  "29028": [
+   "Mand Dogranwala",
+   205,
+   14
+  ],
+  "29171": [
+   "Jhal Thikriwal",
+   206,
+   12
+  ],
+  "29166": [
+   "Nurpur Januhan",
+   206,
+   12
+  ],
+  "29172": [
+   "Thikriwala",
+   206,
+   12
+  ],
+  "29150": [
+   "Gurmukh Singhwala",
+   206,
+   12
+  ],
+  "29128": [
+   "Dham",
+   206,
+   12
+  ],
+  "28998": [
+   "Hassuwal",
+   205,
+   14
+  ],
+  "29132": [
+   "Rupanpur",
+   206,
+   13
+  ],
+  "29149": [
+   "Mand Dhaliwal Bet",
+   206,
+   12
+  ],
+  "29100": [
+   "Nihalgarh",
+   206,
+   14
+  ],
+  "29180": [
+   "Gauswal",
+   206,
+   12
+  ],
+  "29138": [
+   "Hambowal",
+   206,
+   12
+  ],
+  "29147": [
+   "Dhaliwal Bet",
+   206,
+   12
+  ],
+  "28999": [
+   "Bhakuwal",
+   205,
+   14
+  ],
+  "29113": [
+   "Mansoorwal Bet",
+   206,
+   12
+  ],
+  "29163": [
+   "Jatike",
+   206,
+   12
+  ],
+  "29134": [
+   "Bajola",
+   206,
+   12
+  ],
+  "28995": [
+   "Raipur Araian",
+   205,
+   14
+  ],
+  "29133": [
+   "Subhanpur",
+   206,
+   13
+  ],
+  "29114": [
+   "Mangewal",
+   206,
+   12
+  ],
+  "29027": [
+   "Mand Ahmedwal",
+   205,
+   14
+  ],
+  "29105": [
+   "Bhaini",
+   206,
+   12
+  ],
+  "29148": [
+   "Mand Rampur",
+   206,
+   12
+  ],
+  "29106": [
+   "Mand Dhilwan",
+   206,
+   12
+  ],
+  "29194": [
+   "Miani Sandhi",
+   206,
+   9
+  ],
+  "29103": [
+   "Mand Chakoki",
+   206,
+   14
+  ],
+  "29104": [
+   "Mand Butala",
+   206,
+   12
+  ],
+  "29093": [
+   "Lit",
+   205,
+   13
+  ],
+  "29124": [
+   "Dyalpur",
+   206,
+   13
+  ],
+  "29095": [
+   "Bamuwal",
+   206,
+   13
+  ],
+  "29125": [
+   "Lakhan Khurd",
+   206,
+   13
+  ],
+  "29092": [
+   "Ramgarh",
+   205,
+   13
+  ],
+  "29086": [
+   "Pandori",
+   205,
+   15
+  ],
+  "29013": [
+   "Talwandi Purdal",
+   205,
+   14
+  ],
+  "29088": [
+   "Surak",
+   205,
+   15
+  ],
+  "29090": [
+   "Mehmadpur",
+   205,
+   13
+  ],
+  "29089": [
+   "Musa Khel",
+   205,
+   15
+  ],
+  "29126": [
+   "Lakhan Kalan",
+   206,
+   13
+  ],
+  "29011": [
+   "Hassewal",
+   205,
+   14
+  ],
+  "29087": [
+   "Sher Singhwala",
+   205,
+   15
+  ],
+  "29014": [
+   "Khassan",
+   205,
+   14
+  ],
+  "29042": [
+   "Mand Miani Jhandeuwala",
+   205,
+   14
+  ],
+  "29123": [
+   "Murar",
+   206,
+   13
+  ],
+  "29098": [
+   "Jag",
+   206,
+   14
+  ],
+  "29012": [
+   "Sheruwal",
+   205,
+   13
+  ],
+  "29122": [
+   "Hamira",
+   206,
+   13
+  ],
+  "29091": [
+   "Shadipur",
+   205,
+   13
+  ],
+  "29094": [
+   "Mana Talwandi",
+   205,
+   13
+  ],
+  "29084": [
+   "Maitle Kherabad",
+   205,
+   15
+  ],
+  "29056": [
+   "Daulowal",
+   205,
+   14
+  ],
+  "29064": [
+   "Sarupwal",
+   205,
+   15
+  ],
+  "29047": [
+   "Nangal Lobana",
+   205,
+   14
+  ],
+  "29048": [
+   "Mandi Road",
+   205,
+   14
+  ],
+  "29075": [
+   "Tandi Dakhli",
+   205,
+   15
+  ],
+  "29037": [
+   "Mand Nangal Lobana",
+   205,
+   14
+  ],
+  "29025": [
+   "Ibrahimwal Daudpur Kharaj",
+   205,
+   14
+  ],
+  "29081": [
+   "Boparai",
+   205,
+   15
+  ],
+  "29005": [
+   "Khalil",
+   205,
+   14
+  ],
+  "29034": [
+   "Dhakran",
+   205,
+   14
+  ],
+  "29000": [
+   "Habibwal",
+   205,
+   14
+  ],
+  "29038": [
+   "Mand Ibrahimwal Tarf Arsad Khan",
+   205,
+   14
+  ],
+  "29043": [
+   "Mand Gurdaspur",
+   205,
+   14
+  ],
+  "29023": [
+   "Bhadas",
+   205,
+   15
+  ],
+  "29052": [
+   "Mandi Mand Kula",
+   205,
+   14
+  ],
+  "29068": [
+   "Bariar",
+   205,
+   15
+  ],
+  "29020": [
+   "Mubarikpur",
+   205,
+   15
+  ],
+  "29022": [
+   "Bagbanpur",
+   205,
+   15
+  ],
+  "29069": [
+   "Awan",
+   205,
+   15
+  ],
+  "29036": [
+   "Mand Dhakran",
+   205,
+   14
+  ],
+  "29080": [
+   "Bajaj",
+   205,
+   15
+  ],
+  "29040": [
+   "Mand Alahabad",
+   205,
+   14
+  ],
+  "29057": [
+   "Chak Purana",
+   205,
+   15
+  ],
+  "248281": [
+   "Bhulath",
+   205,
+   15
+  ],
+  "29006": [
+   "Dalla",
+   205,
+   14
+  ],
+  "29076": [
+   "Nadali",
+   205,
+   15
+  ],
+  "29002": [
+   "Raipur Rajputtana",
+   205,
+   14
+  ],
+  "29049": [
+   "Hassianpur",
+   205,
+   14
+  ],
+  "29077": [
+   "Karnail Ganj",
+   205,
+   15
+  ],
+  "29072": [
+   "Lamaa",
+   205,
+   15
+  ],
+  "28996": [
+   "Nadala",
+   205,
+   14
+  ],
+  "29065": [
+   "Jabowal",
+   205,
+   15
+  ],
+  "29066": [
+   "Kaluwal",
+   205,
+   15
+  ],
+  "29041": [
+   "Mand Sardar Sahibwala",
+   205,
+   14
+  ],
+  "29073": [
+   "Bhatnura Khurd",
+   205,
+   15
+  ],
+  "29051": [
+   "Mand Kula",
+   205,
+   14
+  ],
+  "29060": [
+   "Balo Chak",
+   205,
+   15
+  ],
+  "29050": [
+   "Mand Hussainpur",
+   205,
+   14
+  ],
+  "29055": [
+   "Miani Bhagu Purian",
+   205,
+   14
+  ],
+  "29058": [
+   "Fatehgarh Sikri",
+   205,
+   15
+  ],
+  "29029": [
+   "Mand Sandhi Khan",
+   205,
+   14
+  ],
+  "29030": [
+   "Talwandi Kuka",
+   205,
+   14
+  ],
+  "29079": [
+   "Fatehpur",
+   205,
+   15
+  ],
+  "29021": [
+   "Sidhwan Bet",
+   205,
+   15
+  ],
+  "29003": [
+   "Saitpur",
+   205,
+   14
+  ],
+  "29082": [
+   "Akala",
+   205,
+   15
+  ],
+  "29083": [
+   "Bagarian",
+   205,
+   15
+  ],
+  "29001": [
+   "Ibrahimwal Aliasgulam Nabi Khan",
+   205,
+   14
+  ],
+  "29039": [
+   "Mand Ibrahimwal Alias Gulam Nabi Khan",
+   205,
+   14
+  ],
+  "29024": [
+   "Maqsudpur",
+   205,
+   14
+  ],
+  "29032": [
+   "Rawan",
+   205,
+   14
+  ],
+  "29015": [
+   "Talwara",
+   205,
+   14
+  ],
+  "29026": [
+   "Mand Talwandi Kuka",
+   205,
+   14
+  ],
+  "29019": [
+   "Raipur Pir Bux Wala",
+   205,
+   14
+  ],
+  "29063": [
+   "Narangpur",
+   205,
+   15
+  ],
+  "29074": [
+   "Bhatnura Kalan",
+   205,
+   15
+  ],
+  "28997": [
+   "Chugawan",
+   205,
+   14
+  ],
+  "29033": [
+   "Kamalpur",
+   205,
+   14
+  ],
+  "29044": [
+   "Mand Faridkot",
+   205,
+   14
+  ],
+  "29071": [
+   "Jaid",
+   205,
+   15
+  ],
+  "29046": [
+   "Mand Miani Bhagu Purian",
+   205,
+   14
+  ],
+  "29059": [
+   "Feroz Sangowal",
+   205,
+   15
+  ],
+  "29017": [
+   "Bakarpur",
+   205,
+   14
+  ],
+  "29085": [
+   "Bhagwanpur War Salamatpur",
+   205,
+   15
+  ],
+  "248280": [
+   "Begowal",
+   205,
+   15
+  ],
+  "29070": [
+   "Bassi",
+   205,
+   15
+  ],
+  "29062": [
+   "Innowal",
+   205,
+   15
+  ],
+  "29061": [
+   "Akbarpur",
+   205,
+   15
+  ],
+  "29053": [
+   "Chak Deom",
+   205,
+   14
+  ],
+  "29054": [
+   "Chak Soem",
+   205,
+   14
+  ],
+  "29665": [
+   "Sunran Rajputan",
+   208,
+   3
+  ],
+  "29680": [
+   "Nangal",
+   208,
+   3
+  ],
+  "29672": [
+   "Kot Puransinghwala",
+   208,
+   3
+  ],
+  "29675": [
+   "Khera",
+   208,
+   3
+  ],
+  "29668": [
+   "Ucha Pind",
+   208,
+   3
+  ],
+  "29666": [
+   "Drawesh Pind",
+   208,
+   3
+  ],
+  "29681": [
+   "Mauli",
+   208,
+   3
+  ],
+  "29678": [
+   "Parwa",
+   208,
+   3
+  ],
+  "29674": [
+   "Sadarpur",
+   208,
+   3
+  ],
+  "29669": [
+   "Kirpalpur",
+   208,
+   3
+  ],
+  "29671": [
+   "Bhanoki",
+   208,
+   3
+  ],
+  "29679": [
+   "Dhak Chachoke",
+   208,
+   3
+  ],
+  "29682": [
+   "Jamalpur",
+   208,
+   3
+  ],
+  "29673": [
+   "Thakar Ki",
+   208,
+   3
+  ],
+  "29664": [
+   "Man",
+   208,
+   3
+  ],
+  "29677": [
+   "Nihalgarh",
+   208,
+   3
+  ],
+  "29670": [
+   "Jagatpur Jattan",
+   208,
+   3
+  ],
+  "29667": [
+   "Dhak Darwesh Pind",
+   208,
+   3
+  ],
+  "29663": [
+   "Dhak Maan",
+   208,
+   3
+  ],
+  "29676": [
+   "Khuni Kiyar",
+   208,
+   3
+  ],
+  "29684": [
+   "Chachoke",
+   208,
+   3
+  ],
+  "29662": [
+   "Naurang Shahpur",
+   208,
+   8
+  ],
+  "29597": [
+   "Malikpur",
+   208,
+   8
+  ],
+  "29656": [
+   "Mehat",
+   208,
+   8
+  ],
+  "29631": [
+   "Khurampur",
+   208,
+   8
+  ],
+  "29620": [
+   "Bir Puad",
+   208,
+   8
+  ],
+  "29649": [
+   "Kishan Pur",
+   208,
+   8
+  ],
+  "29646": [
+   "Madhopur",
+   208,
+   8
+  ],
+  "29621": [
+   "Dhak Bhulla Rai",
+   208,
+   8
+  ],
+  "29644": [
+   "Maheroo",
+   208,
+   8
+  ],
+  "29624": [
+   "Gulabgarh Jagir",
+   208,
+   8
+  ],
+  "29627": [
+   "Dhada",
+   208,
+   8
+  ],
+  "29598": [
+   "Saham",
+   208,
+   8
+  ],
+  "29610": [
+   "Balalo",
+   208,
+   8
+  ],
+  "29637": [
+   "Jagpalpur",
+   208,
+   8
+  ],
+  "29642": [
+   "Bhakhriana",
+   208,
+   8
+  ],
+  "29655": [
+   "Dhak Narang Shah Pur",
+   208,
+   8
+  ],
+  "29585": [
+   "Randhirgarh",
+   208,
+   8
+  ],
+  "29640": [
+   "Ranipur Kamboan",
+   208,
+   8
+  ],
+  "29632": [
+   "Dhak Khurampur",
+   208,
+   8
+  ],
+  "29617": [
+   "Khalwara",
+   208,
+   8
+  ],
+  "29609": [
+   "Pandori",
+   208,
+   8
+  ],
+  "29638": [
+   "Dhak Jagpalpur",
+   208,
+   8
+  ],
+  "248286": [
+   "Phagwara",
+   208,
+   3
+  ],
+  "29613": [
+   "Fatehgarh",
+   208,
+   8
+  ],
+  "29622": [
+   "Hajipur",
+   208,
+   8
+  ],
+  "29633": [
+   "Dhak Palahi",
+   208,
+   8
+  ],
+  "29618": [
+   "Dewa Singhwala",
+   208,
+   8
+  ],
+  "29634": [
+   "Palahi",
+   208,
+   8
+  ],
+  "29611": [
+   "Dhak Balalo",
+   208,
+   8
+  ],
+  "29647": [
+   "Bhagwan Pur",
+   208,
+   8
+  ],
+  "29639": [
+   "Ranipur Rajputan",
+   208,
+   8
+  ],
+  "29635": [
+   "Sri Hargobindgarh",
+   208,
+   8
+  ],
+  "29615": [
+   "Bajindowal",
+   208,
+   8
+  ],
+  "29603": [
+   "Rampur Sunra",
+   208,
+   8
+  ],
+  "29612": [
+   "Dhak Pandori",
+   208,
+   8
+  ],
+  "29636": [
+   "Sikri",
+   208,
+   8
+  ],
+  "29614": [
+   "Bishanpur",
+   208,
+   8
+  ],
+  "29659": [
+   "Naurangpur",
+   208,
+   8
+  ],
+  "29625": [
+   "Wariah",
+   208,
+   8
+  ],
+  "29660": [
+   "Atholi",
+   208,
+   8
+  ],
+  "29605": [
+   "Dhandoli",
+   208,
+   8
+  ],
+  "29643": [
+   "Khajurla",
+   208,
+   8
+  ],
+  "29657": [
+   "Saprore",
+   208,
+   8
+  ],
+  "29661": [
+   "Gandhawan",
+   208,
+   8
+  ],
+  "29630": [
+   "Khati",
+   208,
+   8
+  ],
+  "29619": [
+   "Akalgarh",
+   208,
+   8
+  ],
+  "29626": [
+   "Chak Prema",
+   208,
+   8
+  ],
+  "29623": [
+   "Bhullarai",
+   208,
+   8
+  ],
+  "29654": [
+   "Chak Hakim",
+   208,
+   8
+  ],
+  "29645": [
+   "Chaheru",
+   208,
+   8
+  ],
+  "29588": [
+   "Nasirabad",
+   208,
+   8
+  ],
+  "29584": [
+   "Rampur Khalian",
+   208,
+   8
+  ],
+  "29587": [
+   "Prempur",
+   208,
+   8
+  ],
+  "29616": [
+   "Dhak Khalwara",
+   208,
+   8
+  ],
+  "29653": [
+   "Khangura",
+   208,
+   8
+  ],
+  "29658": [
+   "Hradaspur",
+   208,
+   8
+  ],
+  "29604": [
+   "Bir Dhandoli",
+   208,
+   8
+  ],
+  "29589": [
+   "Dhak Malikpur",
+   208,
+   8
+  ],
+  "29651": [
+   "Baran",
+   208,
+   8
+  ],
+  "29652": [
+   "Nangal Majha",
+   208,
+   8
+  ],
+  "29607": [
+   "Lakhpur",
+   208,
+   8
+  ],
+  "29628": [
+   "Rawal Pindi",
+   208,
+   8
+  ],
+  "29629": [
+   "Dhak Khati",
+   208,
+   8
+  ],
+  "29648": [
+   "Mera",
+   208,
+   8
+  ],
+  "29606": [
+   "Dhak Dhandoli",
+   208,
+   8
+  ],
+  "29586": [
+   "Bir Khurampur",
+   208,
+   8
+  ],
+  "29650": [
+   "Dhak Baran",
+   208,
+   8
+  ],
+  "29601": [
+   "Babeli",
+   208,
+   8
+  ],
+  "29580": [
+   "Tanda Naroor",
+   208,
+   8
+  ],
+  "29581": [
+   "Tanda Bhagana",
+   208,
+   8
+  ],
+  "29602": [
+   "Dug",
+   208,
+   8
+  ],
+  "29575": [
+   "Baghana",
+   208,
+   8
+  ],
+  "29572": [
+   "Miranpur",
+   208,
+   8
+  ],
+  "29600": [
+   "Dumeli",
+   208,
+   8
+  ],
+  "29641": [
+   "Bohani",
+   208,
+   8
+  ],
+  "29573": [
+   "Rehana Jattan",
+   208,
+   8
+  ],
+  "29579": [
+   "Naroor",
+   208,
+   8
+  ],
+  "29571": [
+   "Gujratan",
+   208,
+   8
+  ],
+  "29599": [
+   "Bhabiana",
+   208,
+   8
+  ],
+  "29583": [
+   "Harbanspur",
+   208,
+   8
+  ],
+  "29683": [
+   "Phagwara Sharki",
+   208,
+   8
+  ],
+  "29594": [
+   "Dhak Chair",
+   208,
+   8
+  ],
+  "29582": [
+   "Gulabgarh Jattan",
+   208,
+   8
+  ],
+  "29574": [
+   "Galibwal",
+   208,
+   8
+  ],
+  "29590": [
+   "Wahid",
+   208,
+   8
+  ],
+  "29593": [
+   "Chair",
+   208,
+   8
+  ],
+  "29596": [
+   "Dhak Manak",
+   208,
+   8
+  ],
+  "29592": [
+   "Brahampur",
+   208,
+   8
+  ],
+  "29595": [
+   "Manak",
+   208,
+   8
+  ],
+  "29591": [
+   "Gopalpur",
+   208,
+   8
+  ],
+  "29578": [
+   "Panchhat",
+   208,
+   8
+  ],
+  "29576": [
+   "Balrampur",
+   208,
+   8
+  ],
+  "29577": [
+   "Maio Patti",
+   208,
+   8
+  ]
+ },
+ "village_count_total": 697,
+ "village_count_assigned": 697
+}

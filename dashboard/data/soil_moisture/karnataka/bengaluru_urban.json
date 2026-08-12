@@ -1,0 +1,3277 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Karnataka",
+  "district": "Bengaluru Urban",
+  "district_lgd": 525,
+  "observation_window": "2026-08-07T11:11Z to 2026-08-12T11:11Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.1963,
+  "sm_surface_stddev": 0.0029,
+  "sm_rootzone_mean": 0.2161,
+  "sm_rootzone_stddev": 0.0043,
+  "n_cells": 21,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 12.6977,
+    "lon": 77.6189,
+    "sm_surface": 0.1923,
+    "sm_rootzone": 0.2178,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 1,
+    "lat": 12.6977,
+    "lon": 77.7177,
+    "sm_surface": 0.19,
+    "sm_rootzone": 0.2066,
+    "n_villages_sharing_cell": 44
+   },
+   {
+    "cell_index": 2,
+    "lat": 12.7965,
+    "lon": 77.5201,
+    "sm_surface": 0.1918,
+    "sm_rootzone": 0.2176,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 3,
+    "lat": 12.7965,
+    "lon": 77.6189,
+    "sm_surface": 0.1949,
+    "sm_rootzone": 0.2105,
+    "n_villages_sharing_cell": 46
+   },
+   {
+    "cell_index": 4,
+    "lat": 12.7965,
+    "lon": 77.7177,
+    "sm_surface": 0.1961,
+    "sm_rootzone": 0.2107,
+    "n_villages_sharing_cell": 71
+   },
+   {
+    "cell_index": 5,
+    "lat": 12.8953,
+    "lon": 77.4213,
+    "sm_surface": 0.1942,
+    "sm_rootzone": 0.2187,
+    "n_villages_sharing_cell": 51
+   },
+   {
+    "cell_index": 6,
+    "lat": 12.8953,
+    "lon": 77.5201,
+    "sm_surface": 0.1968,
+    "sm_rootzone": 0.2105,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 7,
+    "lat": 12.8953,
+    "lon": 77.6189,
+    "sm_surface": 0.1982,
+    "sm_rootzone": 0.2118,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 8,
+    "lat": 12.8953,
+    "lon": 77.7177,
+    "sm_surface": 0.1965,
+    "sm_rootzone": 0.21,
+    "n_villages_sharing_cell": 37
+   },
+   {
+    "cell_index": 9,
+    "lat": 12.8953,
+    "lon": 77.8166,
+    "sm_surface": 0.1952,
+    "sm_rootzone": 0.2176,
+    "n_villages_sharing_cell": 29
+   },
+   {
+    "cell_index": 10,
+    "lat": 12.9941,
+    "lon": 77.4213,
+    "sm_surface": 0.1956,
+    "sm_rootzone": 0.2187,
+    "n_villages_sharing_cell": 52
+   },
+   {
+    "cell_index": 11,
+    "lat": 12.9941,
+    "lon": 77.5201,
+    "sm_surface": 0.1945,
+    "sm_rootzone": 0.2162,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 12,
+    "lat": 12.9941,
+    "lon": 77.6189,
+    "sm_surface": 0.1929,
+    "sm_rootzone": 0.2142,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 13,
+    "lat": 12.9941,
+    "lon": 77.7177,
+    "sm_surface": 0.199,
+    "sm_rootzone": 0.219,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 14,
+    "lat": 13.0929,
+    "lon": 77.4213,
+    "sm_surface": 0.1964,
+    "sm_rootzone": 0.2176,
+    "n_villages_sharing_cell": 43
+   },
+   {
+    "cell_index": 15,
+    "lat": 13.0929,
+    "lon": 77.5201,
+    "sm_surface": 0.1994,
+    "sm_rootzone": 0.2206,
+    "n_villages_sharing_cell": 43
+   },
+   {
+    "cell_index": 16,
+    "lat": 13.0929,
+    "lon": 77.6189,
+    "sm_surface": 0.1983,
+    "sm_rootzone": 0.2196,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 17,
+    "lat": 13.0929,
+    "lon": 77.7177,
+    "sm_surface": 0.2009,
+    "sm_rootzone": 0.222,
+    "n_villages_sharing_cell": 43
+   },
+   {
+    "cell_index": 18,
+    "lat": 13.1918,
+    "lon": 77.5201,
+    "sm_surface": 0.199,
+    "sm_rootzone": 0.2186,
+    "n_villages_sharing_cell": 33
+   },
+   {
+    "cell_index": 19,
+    "lat": 13.1918,
+    "lon": 77.6189,
+    "sm_surface": 0.1992,
+    "sm_rootzone": 0.2193,
+    "n_villages_sharing_cell": 29
+   },
+   {
+    "cell_index": 20,
+    "lat": 13.1918,
+    "lon": 77.7177,
+    "sm_surface": 0.2002,
+    "sm_rootzone": 0.2214,
+    "n_villages_sharing_cell": 15
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.1962,
+  "sm_surface_stddev": 0.0026,
+  "n_blocks": 6
+ },
+ "blocks": [
+  {
+   "block_name": "99999- Area Not Under Any Sub-district",
+   "sdcode": 9999,
+   "n_villages": 1,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.1929,
+   "sm_surface_stddev": 0.0
+  },
+  {
+   "block_name": "Anekal",
+   "sdcode": 5545,
+   "n_villages": 235,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.1943,
+   "sm_surface_stddev": 0.0024
+  },
+  {
+   "block_name": "Bengaluru East",
+   "sdcode": 5544,
+   "n_villages": 61,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.1997,
+   "sm_surface_stddev": 0.0015
+  },
+  {
+   "block_name": "Bengaluru North",
+   "sdcode": 5542,
+   "n_villages": 81,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.1964,
+   "sm_surface_stddev": 0.0012
+  },
+  {
+   "block_name": "Bengaluru South",
+   "sdcode": 5543,
+   "n_villages": 107,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.1944,
+   "sm_surface_stddev": 0.0015
+  },
+  {
+   "block_name": "Yelahanka",
+   "sdcode": 7103,
+   "n_villages": 125,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.1993,
+   "sm_surface_stddev": 0.0007
+  }
+ ],
+ "villages": {
+  "612990": [
+   "Kurubarapalya",
+   5543,
+   5
+  ],
+  "612980": [
+   "Yalachaguppe Ramapura",
+   5543,
+   10
+  ],
+  "613028": [
+   "Krishnarajapura",
+   5543,
+   5
+  ],
+  "612794": [
+   "Gavipalya",
+   5542,
+   10
+  ],
+  "613133": [
+   "Gollahalli",
+   5545,
+   3
+  ],
+  "613330": [
+   "Bidarakadahalli",
+   5545,
+   1
+  ],
+  "613225": [
+   "Koothaganahalli",
+   5545,
+   4
+  ],
+  "276600": [
+   "Bbmp",
+   5544,
+   16
+  ],
+  "613000": [
+   "Kethohalli Ramapura",
+   5543,
+   5
+  ],
+  "612952": [
+   "Chikkabidarakallu CT",
+   5542,
+   15
+  ],
+  "613030": [
+   "Thippur",
+   5543,
+   5
+  ],
+  "613029": [
+   "Hampapura",
+   5543,
+   5
+  ],
+  "612987": [
+   "Sulivara Ramapura",
+   5543,
+   5
+  ],
+  "613001": [
+   "Kolur Gururayanapura",
+   5543,
+   5
+  ],
+  "612813": [
+   "Kadabagere",
+   5542,
+   10
+  ],
+  "612798": [
+   "Sondekoppa",
+   5542,
+   10
+  ],
+  "612801": [
+   "Gollarapalya",
+   5542,
+   10
+  ],
+  "612800": [
+   "Mallasandra",
+   5542,
+   10
+  ],
+  "612799": [
+   "Nagasandra",
+   5542,
+   10
+  ],
+  "612782": [
+   "Hullegowdanahalli",
+   5542,
+   14
+  ],
+  "612796": [
+   "Avverahalli",
+   5542,
+   10
+  ],
+  "612797": [
+   "Hunnigere",
+   5542,
+   10
+  ],
+  "612785": [
+   "Lakkenahalli",
+   5542,
+   10
+  ],
+  "613003": [
+   "Kolur Nanjundapura",
+   5543,
+   5
+  ],
+  "612783": [
+   "Byregowdanahalli",
+   5542,
+   14
+  ],
+  "612784": [
+   "Venkatapura",
+   5542,
+   14
+  ],
+  "612802": [
+   "Ravuthanahalli",
+   5542,
+   10
+  ],
+  "612803": [
+   "Kammasandra",
+   5542,
+   10
+  ],
+  "612787": [
+   "Shivanapura",
+   5542,
+   14
+  ],
+  "612781": [
+   "Gejjagadahalli",
+   5542,
+   14
+  ],
+  "613020": [
+   "Kaniminike",
+   5543,
+   5
+  ],
+  "612976": [
+   "Cholanaikanahalli",
+   5543,
+   10
+  ],
+  "613017": [
+   "Bheemanakuppe",
+   5543,
+   5
+  ],
+  "613015": [
+   "Maligondanahalli",
+   5543,
+   5
+  ],
+  "613016": [
+   "Ramohalli",
+   5543,
+   5
+  ],
+  "612998": [
+   "Kethohalli",
+   5543,
+   5
+  ],
+  "613004": [
+   "Kolur",
+   5543,
+   5
+  ],
+  "613002": [
+   "Dodderi",
+   5543,
+   5
+  ],
+  "612988": [
+   "Chikkanahalli",
+   5543,
+   5
+  ],
+  "612991": [
+   "Donnenahalli",
+   5543,
+   5
+  ],
+  "612989": [
+   "Uddandanahalli",
+   5543,
+   5
+  ],
+  "613013": [
+   "Maragondanahalli",
+   5543,
+   5
+  ],
+  "612997": [
+   "Punagumaranahalli",
+   5543,
+   5
+  ],
+  "612996": [
+   "Muddaiahnapalya",
+   5543,
+   5
+  ],
+  "613009": [
+   "M Krishnasagara",
+   5543,
+   5
+  ],
+  "612966": [
+   "Channenahalli",
+   5543,
+   10
+  ],
+  "612981": [
+   "Yelachaguppe",
+   5543,
+   10
+  ],
+  "612965": [
+   "Honniganahatti",
+   5543,
+   10
+  ],
+  "612967": [
+   "Kurubarahalli",
+   5543,
+   10
+  ],
+  "612962": [
+   "Gangenahalli",
+   5543,
+   10
+  ],
+  "612961": [
+   "Jogerahalli",
+   5543,
+   10
+  ],
+  "612979": [
+   "Tavarekere",
+   5543,
+   10
+  ],
+  "612984": [
+   "Ajjanahalli",
+   5543,
+   5
+  ],
+  "612978": [
+   "Peddanapalya",
+   5543,
+   10
+  ],
+  "612968": [
+   "Bychaguppe",
+   5543,
+   10
+  ],
+  "612982": [
+   "Puradapalya",
+   5543,
+   5
+  ],
+  "612992": [
+   "Byalalu",
+   5543,
+   5
+  ],
+  "612993": [
+   "Chunchanakuppe",
+   5543,
+   5
+  ],
+  "612994": [
+   "Ganapathihalli",
+   5543,
+   5
+  ],
+  "612970": [
+   "Devamachohalli",
+   5543,
+   10
+  ],
+  "612977": [
+   "Ganukal",
+   5543,
+   10
+  ],
+  "612969": [
+   "Hosapalyaa",
+   5543,
+   10
+  ],
+  "612985": [
+   "Huluvenahalli",
+   5543,
+   5
+  ],
+  "612974": [
+   "Kempagondanahalli",
+   5543,
+   10
+  ],
+  "612971": [
+   "Marenahalli",
+   5543,
+   10
+  ],
+  "612972": [
+   "Gangappanahalli",
+   5543,
+   10
+  ],
+  "612975": [
+   "Madapatna",
+   5543,
+   5
+  ],
+  "613005": [
+   "Seshagiripura",
+   5543,
+   5
+  ],
+  "613006": [
+   "Chikkellur",
+   5543,
+   5
+  ],
+  "613007": [
+   "Chikkellur Venkatapura",
+   5543,
+   5
+  ],
+  "613008": [
+   "Chikkellur Ramapura",
+   5543,
+   5
+  ],
+  "612983": [
+   "Doddamaranahalli",
+   5543,
+   5
+  ],
+  "612995": [
+   "Karigiripura",
+   5543,
+   5
+  ],
+  "612963": [
+   "Varthur Narasimhapura K G",
+   5543,
+   10
+  ],
+  "613014": [
+   "Bheemanakuppe Ramasagara",
+   5543,
+   5
+  ],
+  "612811": [
+   "Gattisiddanahalli",
+   5542,
+   10
+  ],
+  "612812": [
+   "Giddenahalli",
+   5542,
+   10
+  ],
+  "612810": [
+   "Kittana Halli",
+   5542,
+   10
+  ],
+  "612809": [
+   "Bettahalli",
+   5542,
+   10
+  ],
+  "612814": [
+   "Byandahalli",
+   5542,
+   10
+  ],
+  "612999": [
+   "Kethohalli Narasimhapura",
+   5543,
+   5
+  ],
+  "612986": [
+   "Sulivara",
+   5543,
+   5
+  ],
+  "612964": [
+   "Varthur",
+   5543,
+   10
+  ],
+  "612786": [
+   "Kenganahalli",
+   5542,
+   14
+  ],
+  "612790": [
+   "Narayanappana Palya",
+   5542,
+   14
+  ],
+  "612788": [
+   "Gowdahalli",
+   5542,
+   14
+  ],
+  "612973": [
+   "Thippagondanahalli",
+   5543,
+   10
+  ],
+  "612960": [
+   "Naganahalli",
+   5543,
+   10
+  ],
+  "612959": [
+   "Tavakadhahalli",
+   5543,
+   10
+  ],
+  "613062": [
+   "Kumbalagodu CT",
+   5543,
+   5
+  ],
+  "999999": [
+   "River",
+   5544,
+   17
+  ],
+  "612751": [
+   "Shamabhattara Palya",
+   5542,
+   14
+  ],
+  "612757": [
+   "Huskur",
+   5542,
+   14
+  ],
+  "612780": [
+   "Dasanapura",
+   5542,
+   14
+  ],
+  "612764": [
+   "Nagarur",
+   5542,
+   14
+  ],
+  "612755": [
+   "Bethanagere",
+   5542,
+   14
+  ],
+  "612749": [
+   "Gopalapura",
+   5542,
+   14
+  ],
+  "612753": [
+   "Bommasettihalli",
+   5542,
+   14
+  ],
+  "612762": [
+   "Huchana Palya",
+   5542,
+   14
+  ],
+  "612763": [
+   "Pillahalli",
+   5542,
+   14
+  ],
+  "612756": [
+   "Rampalya",
+   5542,
+   14
+  ],
+  "612766": [
+   "Seshagiri Rao Palya",
+   5542,
+   14
+  ],
+  "612767": [
+   "Mariyanapalya",
+   5542,
+   14
+  ],
+  "612754": [
+   "Syadamipalya",
+   5542,
+   14
+  ],
+  "613239": [
+   "Nekkundi Dommasandra",
+   5545,
+   9
+  ],
+  "613241": [
+   "Madappanahalli",
+   5545,
+   9
+  ],
+  "613042": [
+   "Kaggalipura",
+   5543,
+   2
+  ],
+  "613050": [
+   "Somanahalli",
+   5543,
+   2
+  ],
+  "613055": [
+   "Vaddarapalya",
+   5543,
+   2
+  ],
+  "613053": [
+   "Sunkadakatte",
+   5543,
+   2
+  ],
+  "613054": [
+   "Thattaguppe",
+   5543,
+   2
+  ],
+  "613049": [
+   "Alakabelalu",
+   5543,
+   2
+  ],
+  "613047": [
+   "Tharalu",
+   5543,
+   2
+  ],
+  "613048": [
+   "Gulakamale",
+   5543,
+   2
+  ],
+  "613041": [
+   "O B Chudahalli",
+   5543,
+   2
+  ],
+  "613043": [
+   "Uttari",
+   5543,
+   2
+  ],
+  "613044": [
+   "Naganayakanahalli",
+   5543,
+   2
+  ],
+  "613051": [
+   "Nettigere",
+   5543,
+   2
+  ],
+  "613052": [
+   "Ravugodlu",
+   5543,
+   2
+  ],
+  "613045": [
+   "Nelaguli",
+   5543,
+   2
+  ],
+  "613046": [
+   "K Chudahalli",
+   5543,
+   2
+  ],
+  "613131": [
+   "Byrappanahalli",
+   5545,
+   3
+  ],
+  "613037": [
+   "Chinnakurchi",
+   5543,
+   2
+  ],
+  "613038": [
+   "Seegehalli",
+   5543,
+   2
+  ],
+  "613129": [
+   "Bhoothanahalli",
+   5545,
+   2
+  ],
+  "613136": [
+   "Laxmipura",
+   5545,
+   3
+  ],
+  "613134": [
+   "Kalkere",
+   5545,
+   3
+  ],
+  "613304": [
+   "Indlawadipura",
+   5545,
+   0
+  ],
+  "613139": [
+   "Jangal Palya",
+   5545,
+   3
+  ],
+  "613137": [
+   "Halesampigehalli",
+   5545,
+   3
+  ],
+  "613138": [
+   "Mantapa",
+   5545,
+   3
+  ],
+  "613130": [
+   "Bannerughatta Shankarikavalu",
+   5545,
+   2
+  ],
+  "613132": [
+   "Bannerughatta",
+   5545,
+   3
+  ],
+  "613127": [
+   "Kannaikana Agrahara",
+   5545,
+   2
+  ],
+  "613128": [
+   "Bilwaradahalli",
+   5545,
+   2
+  ],
+  "613153": [
+   "Shivanahalli",
+   5545,
+   0
+  ],
+  "613152": [
+   "Ragihalli",
+   5545,
+   0
+  ],
+  "613305": [
+   "Thammanaikanahalli",
+   5545,
+   0
+  ],
+  "613306": [
+   "Chikka Hosahalli",
+   5545,
+   0
+  ],
+  "613151": [
+   "Mahanthalingapura",
+   5545,
+   3
+  ],
+  "613150": [
+   "Kalbalu",
+   5545,
+   3
+  ],
+  "613154": [
+   "Kadajakkanahalli",
+   5545,
+   0
+  ],
+  "613171": [
+   "Bommandahalli",
+   5545,
+   3
+  ],
+  "613156": [
+   "J Bingipura",
+   5545,
+   3
+  ],
+  "613155": [
+   "Giddenahalli",
+   5545,
+   3
+  ],
+  "613170": [
+   "Konasandra",
+   5545,
+   3
+  ],
+  "613303": [
+   "Bagganadoddi",
+   5545,
+   0
+  ],
+  "613299": [
+   "Adur",
+   5545,
+   0
+  ],
+  "613298": [
+   "Sonnanayakanapura",
+   5545,
+   0
+  ],
+  "613300": [
+   "Thimmasandra",
+   5545,
+   0
+  ],
+  "613307": [
+   "Agasa Thimmanahalli",
+   5545,
+   0
+  ],
+  "613301": [
+   "Chikkanahalli",
+   5545,
+   0
+  ],
+  "613143": [
+   "Sakalawara",
+   5545,
+   3
+  ],
+  "613158": [
+   "Koppa",
+   5545,
+   3
+  ],
+  "613161": [
+   "Hulimangala",
+   5545,
+   3
+  ],
+  "613160": [
+   "S Bingipura",
+   5545,
+   3
+  ],
+  "613144": [
+   "Hullahalli",
+   5545,
+   3
+  ],
+  "613135": [
+   "Vaderahalli",
+   5545,
+   3
+  ],
+  "613142": [
+   "Hullukasavanahalli",
+   5545,
+   3
+  ],
+  "613166": [
+   "Kyalasanahalli",
+   5545,
+   3
+  ],
+  "613164": [
+   "Vabasandra",
+   5545,
+   3
+  ],
+  "613167": [
+   "Bande Nalla Sandra",
+   5545,
+   3
+  ],
+  "613172": [
+   "Nosenur Gollahalli",
+   5545,
+   0
+  ],
+  "613149": [
+   "Bukkasagara",
+   5545,
+   3
+  ],
+  "613148": [
+   "Harapanahalli",
+   5545,
+   3
+  ],
+  "613168": [
+   "Haragadde",
+   5545,
+   3
+  ],
+  "613173": [
+   "Nosenur",
+   5545,
+   0
+  ],
+  "613296": [
+   "Kumbaranahalli",
+   5545,
+   3
+  ],
+  "613174": [
+   "Dyavasandra",
+   5545,
+   3
+  ],
+  "613169": [
+   "Mada Patna",
+   5545,
+   3
+  ],
+  "613175": [
+   "Seethanaikana Halli",
+   5545,
+   3
+  ],
+  "613302": [
+   "Indlawadi",
+   5545,
+   0
+  ],
+  "613157": [
+   "Vaderamanchanahalli",
+   5545,
+   3
+  ],
+  "613140": [
+   "Begihalli",
+   5545,
+   3
+  ],
+  "613141": [
+   "Nallasandra",
+   5545,
+   3
+  ],
+  "613146": [
+   "Ramasandra",
+   5545,
+   3
+  ],
+  "613165": [
+   "Nanjapura",
+   5545,
+   3
+  ],
+  "613159": [
+   "Koppa Gate",
+   5545,
+   3
+  ],
+  "613177": [
+   "Masthena Halli",
+   5545,
+   3
+  ],
+  "613145": [
+   "Bujangadasanakere",
+   5545,
+   3
+  ],
+  "613147": [
+   "Amani Bidarakere",
+   5545,
+   3
+  ],
+  "613284": [
+   "Arehalli",
+   5545,
+   4
+  ],
+  "613281": [
+   "Kodlipura",
+   5545,
+   1
+  ],
+  "613265": [
+   "Iggalur",
+   5545,
+   4
+  ],
+  "613331": [
+   "Kalanaikanahalli",
+   5545,
+   1
+  ],
+  "613335": [
+   "Singasandra",
+   5545,
+   1
+  ],
+  "613334": [
+   "Vanakanahalli",
+   5545,
+   1
+  ],
+  "613333": [
+   "Menasiganahalli",
+   5545,
+   1
+  ],
+  "613332": [
+   "Solur",
+   5545,
+   1
+  ],
+  "613328": [
+   "Sunavara",
+   5545,
+   1
+  ],
+  "613329": [
+   "Patnagere Gollahalli",
+   5545,
+   1
+  ],
+  "613326": [
+   "Anekal Rural",
+   5545,
+   1
+  ],
+  "613327": [
+   "Chudenahalli",
+   5545,
+   1
+  ],
+  "613337": [
+   "Hompalaghatta",
+   5545,
+   1
+  ],
+  "613340": [
+   "Geratiganabele",
+   5545,
+   1
+  ],
+  "613342": [
+   "Muthagatti",
+   5545,
+   1
+  ],
+  "613341": [
+   "Submangala",
+   5545,
+   1
+  ],
+  "613338": [
+   "Gudnahalli",
+   5545,
+   1
+  ],
+  "613353": [
+   "Samandur",
+   5545,
+   1
+  ],
+  "613293": [
+   "Maranaikanahalli",
+   5545,
+   1
+  ],
+  "613351": [
+   "Rachamanahalli",
+   5545,
+   1
+  ],
+  "613352": [
+   "Channena Agrahara",
+   5545,
+   1
+  ],
+  "613280": [
+   "Halehalli",
+   5545,
+   1
+  ],
+  "613292": [
+   "Ballur",
+   5545,
+   4
+  ],
+  "613283": [
+   "Bhaktipura",
+   5545,
+   4
+  ],
+  "613282": [
+   "Dasanapura",
+   5545,
+   1
+  ],
+  "613290": [
+   "Chikkanahalli",
+   5545,
+   4
+  ],
+  "613289": [
+   "Bidaraguppe",
+   5545,
+   4
+  ],
+  "613230": [
+   "Adigarakallahalli",
+   5545,
+   9
+  ],
+  "613227": [
+   "S Medihalli",
+   5545,
+   4
+  ],
+  "613228": [
+   "Tyayakana Halli",
+   5545,
+   4
+  ],
+  "613287": [
+   "Jigala",
+   5545,
+   4
+  ],
+  "613274": [
+   "Krishnasagara",
+   5545,
+   4
+  ],
+  "613291": [
+   "Indlabele",
+   5545,
+   4
+  ],
+  "613288": [
+   "Arenur",
+   5545,
+   4
+  ],
+  "613223": [
+   "Sollepura",
+   5545,
+   4
+  ],
+  "613224": [
+   "Handenahalli",
+   5545,
+   4
+  ],
+  "613308": [
+   "A Medihalli",
+   5545,
+   1
+  ],
+  "613310": [
+   "Honnakalasapura",
+   5545,
+   1
+  ],
+  "613309": [
+   "Gowrenahalli",
+   5545,
+   1
+  ],
+  "613297": [
+   "Suragajakkanahalli",
+   5545,
+   0
+  ],
+  "613163": [
+   "Yarandahalli",
+   5545,
+   4
+  ],
+  "613180": [
+   "Hennagara",
+   5545,
+   4
+  ],
+  "613295": [
+   "Soppahalli",
+   5545,
+   1
+  ],
+  "613294": [
+   "Lingapura",
+   5545,
+   4
+  ],
+  "613176": [
+   "Rajapura",
+   5545,
+   4
+  ],
+  "613178": [
+   "Hinnakki",
+   5545,
+   4
+  ],
+  "613181": [
+   "Hosahalli",
+   5545,
+   4
+  ],
+  "613311": [
+   "Sidihosakote",
+   5545,
+   1
+  ],
+  "253189": [
+   "Anekal",
+   5545,
+   1
+  ],
+  "613350": [
+   "Bidaragere",
+   5545,
+   1
+  ],
+  "613343": [
+   "Kurubarahatti",
+   5545,
+   1
+  ],
+  "613344": [
+   "Haldenahalli",
+   5545,
+   1
+  ],
+  "613345": [
+   "Kaval Hosahalli",
+   5545,
+   1
+  ],
+  "613325": [
+   "Hasaruvani",
+   5545,
+   1
+  ],
+  "613278": [
+   "Mayasandra",
+   5545,
+   4
+  ],
+  "613277": [
+   "Kamblipura",
+   5545,
+   4
+  ],
+  "613348": [
+   "Bestammanahalli",
+   5545,
+   1
+  ],
+  "613279": [
+   "M Medihalli",
+   5545,
+   1
+  ],
+  "613318": [
+   "Madivala",
+   5545,
+   4
+  ],
+  "613183": [
+   "Ramakrishnapura",
+   5545,
+   4
+  ],
+  "613321": [
+   "Thattanahalli",
+   5545,
+   1
+  ],
+  "613317": [
+   "Naganaikanahalli",
+   5545,
+   4
+  ],
+  "613313": [
+   "Dodda Hagade",
+   5545,
+   4
+  ],
+  "613314": [
+   "Kunmadivala",
+   5545,
+   4
+  ],
+  "613315": [
+   "Byagadadenahalli",
+   5545,
+   4
+  ],
+  "613322": [
+   "Avadadenahalli",
+   5545,
+   4
+  ],
+  "613162": [
+   "Thirupalya",
+   5545,
+   3
+  ],
+  "613254": [
+   "Gollahalli",
+   5545,
+   3
+  ],
+  "613336": [
+   "Telagarahalli",
+   5545,
+   1
+  ],
+  "613285": [
+   "Manchanahalli",
+   5545,
+   4
+  ],
+  "613275": [
+   "Itchangur",
+   5545,
+   4
+  ],
+  "613276": [
+   "Muthasandra",
+   5545,
+   4
+  ],
+  "613320": [
+   "Marasur Agrahara",
+   5545,
+   4
+  ],
+  "613316": [
+   "Marasur",
+   5545,
+   4
+  ],
+  "613273": [
+   "Yadavanahalli",
+   5545,
+   4
+  ],
+  "613271": [
+   "Adigondanahalli",
+   5545,
+   4
+  ],
+  "613270": [
+   "Bendiganahalli",
+   5545,
+   4
+  ],
+  "613272": [
+   "Guddahatti",
+   5545,
+   4
+  ],
+  "613202": [
+   "Hale Bommasandra",
+   5545,
+   4
+  ],
+  "613203": [
+   "Muthanallur Amanikere",
+   5545,
+   4
+  ],
+  "613259": [
+   "Ramasagara",
+   5545,
+   4
+  ],
+  "613266": [
+   "Thirumagondanahalli",
+   5545,
+   4
+  ],
+  "613267": [
+   "Balagaranahalli",
+   5545,
+   4
+  ],
+  "613268": [
+   "Neralur",
+   5545,
+   4
+  ],
+  "613269": [
+   "Laxmi Sagara",
+   5545,
+   4
+  ],
+  "613182": [
+   "Kachanaikanahalli",
+   5545,
+   4
+  ],
+  "613263": [
+   "Kittaganahalli",
+   5545,
+   4
+  ],
+  "613261": [
+   "Chandapura",
+   5545,
+   4
+  ],
+  "613264": [
+   "Banahalli",
+   5545,
+   4
+  ],
+  "613262": [
+   "Chatrakhane",
+   5545,
+   4
+  ],
+  "613256": [
+   "Kammasandra",
+   5545,
+   4
+  ],
+  "613258": [
+   "Andapura",
+   5545,
+   4
+  ],
+  "613260": [
+   "Heelalige",
+   5545,
+   4
+  ],
+  "613349": [
+   "Karpur",
+   5545,
+   1
+  ],
+  "613347": [
+   "Aravantigepura",
+   5545,
+   1
+  ],
+  "613323": [
+   "Kammasandra Agrahara",
+   5545,
+   1
+  ],
+  "613346": [
+   "Chikka Hagade",
+   5545,
+   1
+  ],
+  "613324": [
+   "Amani Doddakere",
+   5545,
+   1
+  ],
+  "613312": [
+   "Kempavaderahalli",
+   5545,
+   1
+  ],
+  "613339": [
+   "Chikkanahatti",
+   5545,
+   1
+  ],
+  "613229": [
+   "Byalahalli",
+   5545,
+   4
+  ],
+  "613286": [
+   "Giddenahalli",
+   5545,
+   4
+  ],
+  "613226": [
+   "Bilchikkanahalli",
+   5545,
+   4
+  ],
+  "613179": [
+   "Hennagara Amanikere",
+   5545,
+   4
+  ],
+  "613319": [
+   "Bandapura",
+   5545,
+   4
+  ],
+  "612804": [
+   "Lakshmipura",
+   5542,
+   10
+  ],
+  "612805": [
+   "K G Srikantapura",
+   5542,
+   11
+  ],
+  "612789": [
+   "Harokyathanahalli",
+   5542,
+   14
+  ],
+  "612795": [
+   "Kadaranahalli",
+   5542,
+   10
+  ],
+  "612779": [
+   "Adakamaranahalli",
+   5542,
+   14
+  ],
+  "612791": [
+   "Madavara",
+   5542,
+   15
+  ],
+  "612793": [
+   "Dombarahalli",
+   5542,
+   14
+  ],
+  "612792": [
+   "Siddanahosahalli",
+   5542,
+   14
+  ],
+  "612778": [
+   "Makali",
+   5542,
+   14
+  ],
+  "613057": [
+   "Vittasandra",
+   5543,
+   7
+  ],
+  "613060": [
+   "Bettadasanapura",
+   5543,
+   3
+  ],
+  "613059": [
+   "Hommadevanahalli",
+   5543,
+   3
+  ],
+  "613022": [
+   "Kambipura",
+   5543,
+   5
+  ],
+  "613026": [
+   "Gudimavu",
+   5543,
+   5
+  ],
+  "613021": [
+   "Thagachaguppe",
+   5543,
+   5
+  ],
+  "613023": [
+   "Venkatapura",
+   5543,
+   6
+  ],
+  "613024": [
+   "Doddabele",
+   5543,
+   6
+  ],
+  "613061": [
+   "Uttarahalli Manavarthekaval",
+   5543,
+   6
+  ],
+  "613040": [
+   "Mallasandra",
+   5543,
+   6
+  ],
+  "613031": [
+   "Gonipura",
+   5543,
+   5
+  ],
+  "613036": [
+   "Badamanavarthekaval",
+   5543,
+   2
+  ],
+  "613039": [
+   "Agara",
+   5543,
+   2
+  ],
+  "613034": [
+   "Devagere",
+   5543,
+   5
+  ],
+  "613033": [
+   "Gangasandra",
+   5543,
+   5
+  ],
+  "613027": [
+   "Kumbalagodu Gollahalli",
+   5543,
+   5
+  ],
+  "613011": [
+   "Kommaghatta",
+   5543,
+   5
+  ],
+  "613010": [
+   "Kenchanapura",
+   5543,
+   10
+  ],
+  "613032": [
+   "Vasanthanahalli",
+   5543,
+   5
+  ],
+  "613012": [
+   "Sulikere",
+   5543,
+   5
+  ],
+  "613019": [
+   "Chalaghatta",
+   5543,
+   5
+  ],
+  "613018": [
+   "Kommaghatta Krishnasagara",
+   5543,
+   5
+  ],
+  "612821": [
+   "Thirumalapura",
+   5542,
+   11
+  ],
+  "612823": [
+   "Seegehalli",
+   5542,
+   10
+  ],
+  "612824": [
+   "Kannahalli",
+   5542,
+   10
+  ],
+  "612825": [
+   "Manganahalli",
+   5542,
+   10
+  ],
+  "612817": [
+   "Kachohalli",
+   5542,
+   10
+  ],
+  "612806": [
+   "Gangondanahalli",
+   5542,
+   10
+  ],
+  "612807": [
+   "K G Lakkenahalli",
+   5542,
+   10
+  ],
+  "612815": [
+   "Bylakonenahalli",
+   5542,
+   10
+  ],
+  "612816": [
+   "Machohalli",
+   5542,
+   10
+  ],
+  "612808": [
+   "Vaddarahalli",
+   5542,
+   10
+  ],
+  "613025": [
+   "Kengeri Gollahalli",
+   5543,
+   6
+  ],
+  "613035": [
+   "Rachanamadu",
+   5543,
+   6
+  ],
+  "613058": [
+   "Mylasandra",
+   5543,
+   7
+  ],
+  "612822": [
+   "Kodigehalli Part",
+   5542,
+   10
+  ],
+  "613360": [
+   "Jigani CT",
+   5545,
+   3
+  ],
+  "613356": [
+   "Maragondahalli CT",
+   5545,
+   3
+  ],
+  "613359": [
+   "Attibele CT",
+   5545,
+   4
+  ],
+  "613357": [
+   "Bommasandra CT",
+   5545,
+   4
+  ],
+  "613355": [
+   "Hebbagodi CT",
+   5545,
+   4
+  ],
+  "612951": [
+   "Madanaiyakanahalli CT",
+   5542,
+   14
+  ],
+  "613056": [
+   "Doddanagamangala",
+   5543,
+   8
+  ],
+  "613248": [
+   "Doddathimmasandra",
+   5545,
+   9
+  ],
+  "613221": [
+   "B Hosahalli",
+   5545,
+   8
+  ],
+  "613207": [
+   "Kommasandra",
+   5545,
+   8
+  ],
+  "613237": [
+   "Neriga",
+   5545,
+   9
+  ],
+  "613213": [
+   "Nekkundi Dommasandra",
+   5545,
+   9
+  ],
+  "613211": [
+   "Halasahalli Thippasandra",
+   5545,
+   8
+  ],
+  "613215": [
+   "Ramnaikanahalli",
+   5545,
+   8
+  ],
+  "613214": [
+   "Kathriguppe",
+   5545,
+   8
+  ],
+  "613212": [
+   "Chikkanekkundi",
+   5545,
+   9
+  ],
+  "613238": [
+   "Janthagondanahalli",
+   5545,
+   9
+  ],
+  "613236": [
+   "Gonighattapura",
+   5545,
+   9
+  ],
+  "613235": [
+   "Chikkadasarahalli",
+   5545,
+   9
+  ],
+  "613234": [
+   "Volagerekallahalli",
+   5545,
+   9
+  ],
+  "613216": [
+   "Chambenahalli",
+   5545,
+   8
+  ],
+  "613208": [
+   "Thigala Chowdadenahalli",
+   5545,
+   8
+  ],
+  "613210": [
+   "Heggondahalli",
+   5545,
+   8
+  ],
+  "613209": [
+   "Chikkavaderapura",
+   5545,
+   8
+  ],
+  "613245": [
+   "Kugur",
+   5545,
+   9
+  ],
+  "613244": [
+   "Mugalur",
+   5545,
+   9
+  ],
+  "613243": [
+   "Banahalli",
+   5545,
+   9
+  ],
+  "613247": [
+   "Kuthaganahalli",
+   5545,
+   9
+  ],
+  "613246": [
+   "Kamanahalli",
+   5545,
+   9
+  ],
+  "613240": [
+   "Seeganaikanahalli",
+   5545,
+   9
+  ],
+  "613242": [
+   "Deshapande Guttahalli",
+   5545,
+   9
+  ],
+  "613252": [
+   "Panditana Agrahara",
+   5545,
+   9
+  ],
+  "613253": [
+   "Mattanahalli",
+   5545,
+   9
+  ],
+  "613251": [
+   "Gudighattanahalli",
+   5545,
+   9
+  ],
+  "613249": [
+   "Thindlu",
+   5545,
+   9
+  ],
+  "613250": [
+   "Mahal Chowdadenahalli",
+   5545,
+   9
+  ],
+  "613231": [
+   "Billapura",
+   5545,
+   9
+  ],
+  "613232": [
+   "Buragunte",
+   5545,
+   9
+  ],
+  "613218": [
+   "Sompura",
+   5545,
+   9
+  ],
+  "613233": [
+   "Ittangur",
+   5545,
+   9
+  ],
+  "613220": [
+   "Chikkadunnasandra",
+   5545,
+   9
+  ],
+  "613222": [
+   "Bikkanahalli",
+   5545,
+   4
+  ],
+  "613255": [
+   "Veerasandra",
+   5545,
+   4
+  ],
+  "613194": [
+   "Chokkasandra",
+   5545,
+   8
+  ],
+  "613187": [
+   "Gattahalli",
+   5545,
+   8
+  ],
+  "613186": [
+   "Sriramapura",
+   5545,
+   8
+  ],
+  "613185": [
+   "Rayasandra",
+   5545,
+   8
+  ],
+  "613193": [
+   "Avalahalli",
+   5545,
+   8
+  ],
+  "613188": [
+   "Janatha Colony",
+   5545,
+   8
+  ],
+  "613191": [
+   "Gulimangala",
+   5545,
+   8
+  ],
+  "613196": [
+   "Kaggalipura",
+   5545,
+   8
+  ],
+  "613195": [
+   "Harohalli",
+   5545,
+   8
+  ],
+  "613189": [
+   "Chikkanagamangala",
+   5545,
+   8
+  ],
+  "613190": [
+   "Bhovi Palya Shanthi Pur",
+   5545,
+   8
+  ],
+  "613192": [
+   "Huskur",
+   5545,
+   8
+  ],
+  "613198": [
+   "Gottamaranahalli",
+   5545,
+   4
+  ],
+  "613197": [
+   "Chintalmadivala",
+   5545,
+   8
+  ],
+  "613117": [
+   "Valepura",
+   5544,
+   13
+  ],
+  "613122": [
+   "Kodathi",
+   5544,
+   8
+  ],
+  "613118": [
+   "Kachamaranahalli",
+   5544,
+   8
+  ],
+  "613123": [
+   "Sulikunte",
+   5544,
+   8
+  ],
+  "613119": [
+   "Mulluru",
+   5544,
+   8
+  ],
+  "613115": [
+   "Halanayakanahalli",
+   5544,
+   8
+  ],
+  "613116": [
+   "Chikkakannalli",
+   5544,
+   8
+  ],
+  "613121": [
+   "Chikkanayakanahalli",
+   5544,
+   8
+  ],
+  "613113": [
+   "Chikkabanahalli",
+   5544,
+   13
+  ],
+  "613120": [
+   "Hadosiddapura",
+   5544,
+   8
+  ],
+  "613097": [
+   "Bommenahalli",
+   5544,
+   17
+  ],
+  "613095": [
+   "Bendiganahalli",
+   5544,
+   17
+  ],
+  "613099": [
+   "Nimbekaipura",
+   5544,
+   17
+  ],
+  "613082": [
+   "Hirandahalli",
+   5544,
+   13
+  ],
+  "613114": [
+   "Seegehalli",
+   5544,
+   13
+  ],
+  "613112": [
+   "Kannamangala",
+   5544,
+   13
+  ],
+  "613111": [
+   "Khaji Sonnenahalli",
+   5544,
+   13
+  ],
+  "613110": [
+   "Goravigere",
+   5544,
+   17
+  ],
+  "613106": [
+   "Bidare Agrahara",
+   5544,
+   13
+  ],
+  "613108": [
+   "Konadasapura",
+   5544,
+   17
+  ],
+  "613109": [
+   "Katamnallur",
+   5544,
+   17
+  ],
+  "613098": [
+   "Huskur",
+   5544,
+   17
+  ],
+  "613104": [
+   "Dommasandra",
+   5544,
+   13
+  ],
+  "613103": [
+   "Kurudusonnenahalli",
+   5544,
+   13
+  ],
+  "613105": [
+   "Doddabanahalli",
+   5544,
+   13
+  ],
+  "613101": [
+   "Avalahalli",
+   5544,
+   13
+  ],
+  "613107": [
+   "Bandapura",
+   5544,
+   13
+  ],
+  "613100": [
+   "Cheemasandra",
+   5544,
+   17
+  ],
+  "613076": [
+   "Rampura",
+   5544,
+   17
+  ],
+  "613084": [
+   "Byappanahalli",
+   5544,
+   17
+  ],
+  "613083": [
+   "Bidarahalli",
+   5544,
+   17
+  ],
+  "613081": [
+   "Kithiganur",
+   5544,
+   13
+  ],
+  "613079": [
+   "Maragondanahalli",
+   5544,
+   13
+  ],
+  "613080": [
+   "Alehalli",
+   5544,
+   13
+  ],
+  "613077": [
+   "Adur",
+   5544,
+   17
+  ],
+  "613073": [
+   "Anagalapura",
+   5544,
+   17
+  ],
+  "613072": [
+   "Bandebommasandra",
+   5544,
+   17
+  ],
+  "613184": [
+   "Choodasandra",
+   5545,
+   8
+  ],
+  "613217": [
+   "Yamare",
+   5545,
+   8
+  ],
+  "613219": [
+   "Kadagrahara",
+   5545,
+   8
+  ],
+  "613201": [
+   "Muthanallur",
+   5545,
+   4
+  ],
+  "613204": [
+   "Samanahalli",
+   5545,
+   4
+  ],
+  "613205": [
+   "Chikkathimmasandra",
+   5545,
+   4
+  ],
+  "613206": [
+   "Gopasandra",
+   5545,
+   8
+  ],
+  "613199": [
+   "Singena Agrahara",
+   5545,
+   4
+  ],
+  "613257": [
+   "Vaddara Palya",
+   5545,
+   4
+  ],
+  "613200": [
+   "Narayanaghatta",
+   5545,
+   4
+  ],
+  "613102": [
+   "Veerenahalli",
+   5544,
+   13
+  ],
+  "613078": [
+   "Huvinane",
+   5544,
+   17
+  ],
+  "613075": [
+   "Vaderahalli",
+   5544,
+   17
+  ],
+  "613063": [
+   "Konappana Agrahara CT",
+   5543,
+   8
+  ],
+  "613354": [
+   "Dommasandra CT",
+   5545,
+   8
+  ],
+  "613358": [
+   "Sarjapura CT",
+   5545,
+   9
+  ],
+  "612900": [
+   "Settigere",
+   7103,
+   19
+  ],
+  "612899": [
+   "Doddajala",
+   7103,
+   19
+  ],
+  "612895": [
+   "Bettahalasur",
+   7103,
+   19
+  ],
+  "612846": [
+   "Sadenahalli",
+   7103,
+   19
+  ],
+  "612845": [
+   "Sreeramanahalli",
+   7103,
+   18
+  ],
+  "612884": [
+   "Tarahunase",
+   7103,
+   19
+  ],
+  "612885": [
+   "Kuduragere",
+   7103,
+   19
+  ],
+  "612888": [
+   "Navarathna Agrahara",
+   7103,
+   19
+  ],
+  "612887": [
+   "Tharabanahalli",
+   7103,
+   19
+  ],
+  "612886": [
+   "Gadenahalli",
+   7103,
+   19
+  ],
+  "612891": [
+   "Byanahalli",
+   7103,
+   19
+  ],
+  "612892": [
+   "Papanahalli",
+   7103,
+   19
+  ],
+  "612939": [
+   "Avalahalli",
+   7103,
+   15
+  ],
+  "612847": [
+   "Adiganahalli",
+   7103,
+   19
+  ],
+  "612932": [
+   "Honnenahalli",
+   7103,
+   18
+  ],
+  "612937": [
+   "Singanayakanahalli",
+   7103,
+   18
+  ],
+  "612912": [
+   "Sathnur",
+   7103,
+   16
+  ],
+  "612913": [
+   "Byappanahalli",
+   7103,
+   16
+  ],
+  "612898": [
+   "Maranayakana Halli",
+   7103,
+   19
+  ],
+  "612909": [
+   "Chikkabanavaara",
+   7103,
+   19
+  ],
+  "612908": [
+   "Huttanahalli",
+   7103,
+   19
+  ],
+  "612940": [
+   "Gantiganahalli",
+   7103,
+   16
+  ],
+  "612894": [
+   "Nellukunte",
+   7103,
+   19
+  ],
+  "612911": [
+   "Sonnappanahalli",
+   7103,
+   19
+  ],
+  "612910": [
+   "Bilmaranahalli",
+   7103,
+   19
+  ],
+  "612897": [
+   "Chikkajala",
+   7103,
+   19
+  ],
+  "612949": [
+   "Hunasamaranahalli CT",
+   7103,
+   16
+  ],
+  "612948": [
+   "Kadigenahalli CT",
+   7103,
+   19
+  ],
+  "612896": [
+   "Chokkanahalli",
+   7103,
+   19
+  ],
+  "612890": [
+   "Channahalli",
+   7103,
+   19
+  ],
+  "612774": [
+   "Kuduragere",
+   5542,
+   15
+  ],
+  "612777": [
+   "Heggadadevanapura",
+   5542,
+   14
+  ],
+  "612776": [
+   "Hanumantha Sagara",
+   5542,
+   14
+  ],
+  "612942": [
+   "Jarakbandekaval",
+   7103,
+   15
+  ],
+  "612943": [
+   "Shamarajpura",
+   7103,
+   15
+  ],
+  "612946": [
+   "Veerasagara",
+   7103,
+   15
+  ],
+  "612947": [
+   "Kempanahalli",
+   7103,
+   15
+  ],
+  "612941": [
+   "Ramagondanahalli",
+   7103,
+   15
+  ],
+  "612826": [
+   "Sonnenahalli",
+   7103,
+   18
+  ],
+  "612828": [
+   "Haniyur",
+   7103,
+   18
+  ],
+  "612839": [
+   "Seeresandra",
+   7103,
+   18
+  ],
+  "612837": [
+   "Channasandra",
+   7103,
+   18
+  ],
+  "612840": [
+   "Byatha",
+   7103,
+   18
+  ],
+  "612838": [
+   "Kamakshipura",
+   7103,
+   18
+  ],
+  "612827": [
+   "Challahalli",
+   7103,
+   18
+  ],
+  "612833": [
+   "Suradenpura",
+   7103,
+   18
+  ],
+  "612829": [
+   "Kakkehalli",
+   7103,
+   18
+  ],
+  "612831": [
+   "Kadathanamale",
+   7103,
+   18
+  ],
+  "612830": [
+   "Nellukunte",
+   7103,
+   18
+  ],
+  "612832": [
+   "Marasandra Amanikere",
+   7103,
+   18
+  ],
+  "612841": [
+   "Kakolu",
+   7103,
+   18
+  ],
+  "612870": [
+   "Madhugirihalli",
+   7103,
+   15
+  ],
+  "612863": [
+   "Shivakote",
+   7103,
+   15
+  ],
+  "612860": [
+   "Krishnarajapura",
+   7103,
+   15
+  ],
+  "612862": [
+   "Lingarajapura",
+   7103,
+   15
+  ],
+  "612858": [
+   "Muthagada Halli",
+   7103,
+   15
+  ],
+  "612861": [
+   "Mylappanahalli",
+   7103,
+   15
+  ],
+  "612855": [
+   "Kalenahalli",
+   7103,
+   15
+  ],
+  "612859": [
+   "Madappanahalli",
+   7103,
+   18
+  ],
+  "612856": [
+   "Mathkur",
+   7103,
+   18
+  ],
+  "612857": [
+   "Linganahalli",
+   7103,
+   18
+  ],
+  "612850": [
+   "Dibburu",
+   7103,
+   18
+  ],
+  "612851": [
+   "Koluvarayanahalli",
+   7103,
+   18
+  ],
+  "612849": [
+   "Ittagallpura",
+   7103,
+   18
+  ],
+  "612852": [
+   "Seethakempanahalli",
+   7103,
+   18
+  ],
+  "612844": [
+   "Chokkanahalli",
+   7103,
+   18
+  ],
+  "612834": [
+   "Adde Vishwanathapura",
+   7103,
+   18
+  ],
+  "612835": [
+   "Arakere",
+   7103,
+   18
+  ],
+  "612842": [
+   "Budumanahalli",
+   7103,
+   18
+  ],
+  "612872": [
+   "Bylakere",
+   7103,
+   15
+  ],
+  "612871": [
+   "Mavallipura",
+   7103,
+   15
+  ],
+  "612875": [
+   "Kasagattapura",
+   7103,
+   15
+  ],
+  "612873": [
+   "Kondashetti Halli",
+   7103,
+   15
+  ],
+  "612945": [
+   "Vaderahalli",
+   7103,
+   15
+  ],
+  "612944": [
+   "Medi Agrahara",
+   7103,
+   15
+  ],
+  "612819": [
+   "Somashetti Halli",
+   5542,
+   15
+  ],
+  "612820": [
+   "Lakshmipura",
+   5542,
+   15
+  ],
+  "612818": [
+   "Ganigarahalli",
+   5542,
+   15
+  ],
+  "612883": [
+   "Guniagrahara",
+   7103,
+   15
+  ],
+  "612882": [
+   "Kalathammanahalli",
+   7103,
+   15
+  ],
+  "612881": [
+   "Kempapura",
+   7103,
+   15
+  ],
+  "612865": [
+   "Hesaraghatta",
+   7103,
+   15
+  ],
+  "612750": [
+   "Kukkanahalli",
+   5542,
+   14
+  ],
+  "612765": [
+   "Kodipalya",
+   5542,
+   14
+  ],
+  "612773": [
+   "Alur",
+   5542,
+   14
+  ],
+  "612771": [
+   "Muniyanapalya",
+   5542,
+   14
+  ],
+  "612770": [
+   "Torenagasandra",
+   5542,
+   15
+  ],
+  "612752": [
+   "Totagere",
+   5542,
+   14
+  ],
+  "612759": [
+   "Hosahalli Palya",
+   5542,
+   14
+  ],
+  "612769": [
+   "Narasipura",
+   5542,
+   14
+  ],
+  "612772": [
+   "Vaderahalli",
+   5542,
+   14
+  ],
+  "612768": [
+   "Mathahalli",
+   5542,
+   14
+  ],
+  "612761": [
+   "Honnasandra",
+   5542,
+   14
+  ],
+  "612867": [
+   "Bilijaji",
+   7103,
+   14
+  ],
+  "612760": [
+   "Govindapura",
+   5542,
+   14
+  ],
+  "612869": [
+   "Thammarasanahalli",
+   7103,
+   15
+  ],
+  "612864": [
+   "Ivar Kandapura",
+   7103,
+   15
+  ],
+  "612854": [
+   "Dasenahalli",
+   7103,
+   18
+  ],
+  "612866": [
+   "Guddadahalli",
+   7103,
+   14
+  ],
+  "612906": [
+   "Doddajala Amanikere",
+   7103,
+   19
+  ],
+  "612938": [
+   "Krishnasagara",
+   7103,
+   15
+  ],
+  "612933": [
+   "Singanayakanahalli Amanikere",
+   7103,
+   19
+  ],
+  "612874": [
+   "Lingarajasagara",
+   7103,
+   15
+  ],
+  "613065": [
+   "Mittaganahalli",
+   5544,
+   16
+  ],
+  "612889": [
+   "Meenakunte",
+   7103,
+   19
+  ],
+  "612848": [
+   "Rajanukunte",
+   7103,
+   18
+  ],
+  "612836": [
+   "Byrapura",
+   7103,
+   18
+  ],
+  "612893": [
+   "Thimmasandra",
+   7103,
+   19
+  ],
+  "612936": [
+   "Muddanahalli",
+   7103,
+   19
+  ],
+  "612934": [
+   "Nagadasanahalli",
+   7103,
+   19
+  ],
+  "612935": [
+   "Lakshmisagara",
+   7103,
+   19
+  ],
+  "612843": [
+   "Shanubhoganahalli",
+   7103,
+   18
+  ],
+  "612868": [
+   "Kodagi Thirumalapura",
+   7103,
+   15
+  ],
+  "612876": [
+   "Hurali Chikkanahalli",
+   7103,
+   15
+  ],
+  "612877": [
+   "Tharabana Halli",
+   7103,
+   15
+  ],
+  "612878": [
+   "Sasiveghatta",
+   7103,
+   15
+  ],
+  "612879": [
+   "Soladevanahalli",
+   7103,
+   15
+  ],
+  "612775": [
+   "Thammenahalli",
+   5542,
+   15
+  ],
+  "612758": [
+   "Agrahara Palya",
+   5542,
+   14
+  ],
+  "612880": [
+   "Kumbarahalli",
+   7103,
+   15
+  ],
+  "612853": [
+   "Hesaraghatta Grass Farm",
+   7103,
+   18
+  ],
+  "612904": [
+   "Chikkanahalli",
+   7103,
+   20
+  ],
+  "612915": [
+   "Bagalur",
+   7103,
+   17
+  ],
+  "612925": [
+   "Mahadevakodigehalli",
+   7103,
+   17
+  ],
+  "612931": [
+   "Chokkana Hally",
+   7103,
+   17
+  ],
+  "612930": [
+   "Marasandra",
+   7103,
+   17
+  ],
+  "612927": [
+   "Maralakunte",
+   7103,
+   17
+  ],
+  "612921": [
+   "Dummanur",
+   7103,
+   20
+  ],
+  "612928": [
+   "Dasanayakanahalli",
+   7103,
+   17
+  ],
+  "612929": [
+   "Marenahalli",
+   7103,
+   17
+  ],
+  "612914": [
+   "Chagalahatti",
+   7103,
+   16
+  ],
+  "612920": [
+   "Hunachur",
+   7103,
+   20
+  ],
+  "612902": [
+   "Begur",
+   7103,
+   20
+  ],
+  "612901": [
+   "Muthugada Halli",
+   7103,
+   20
+  ],
+  "612907": [
+   "Meesaganahalli",
+   7103,
+   20
+  ],
+  "612905": [
+   "Boilahalli",
+   7103,
+   20
+  ],
+  "612917": [
+   "Bandi Kodige Halli",
+   7103,
+   20
+  ],
+  "612919": [
+   "Bandi Kodigehalli Palya",
+   7103,
+   20
+  ],
+  "613067": [
+   "Doddenahalli",
+   5544,
+   17
+  ],
+  "612922": [
+   "Singahalli",
+   7103,
+   20
+  ],
+  "612924": [
+   "Arebinnamangala",
+   7103,
+   20
+  ],
+  "612923": [
+   "Gollahalli",
+   7103,
+   20
+  ],
+  "612916": [
+   "Huvinayakanahalli",
+   7103,
+   20
+  ],
+  "612926": [
+   "Manchappanahosahalli",
+   7103,
+   17
+  ],
+  "612918": [
+   "Bandikodegehalli Amanikere",
+   7103,
+   20
+  ],
+  "613068": [
+   "Yerappanahalli",
+   5544,
+   17
+  ],
+  "613089": [
+   "Jothipura",
+   5544,
+   17
+  ],
+  "613091": [
+   "Hancharahalli",
+   5544,
+   17
+  ],
+  "613087": [
+   "Kattugollahalli",
+   5544,
+   17
+  ],
+  "613086": [
+   "Vanajanahalli",
+   5544,
+   17
+  ],
+  "613088": [
+   "Shringaripura",
+   5544,
+   17
+  ],
+  "613090": [
+   "Thirumenahalli",
+   5544,
+   17
+  ],
+  "613096": [
+   "Lagumenahalli",
+   5544,
+   17
+  ],
+  "613093": [
+   "Kodigehalli",
+   5544,
+   17
+  ],
+  "613094": [
+   "Mandur",
+   5544,
+   17
+  ],
+  "613070": [
+   "Gundur",
+   5544,
+   17
+  ],
+  "613069": [
+   "Chikkasandra",
+   5544,
+   17
+  ],
+  "613085": [
+   "Kammasandra",
+   5544,
+   17
+  ],
+  "613066": [
+   "Kadusonnappanahalli",
+   5544,
+   17
+  ],
+  "613071": [
+   "Kada Agrahara",
+   5544,
+   17
+  ],
+  "613074": [
+   "Nadagowdagollahalli",
+   5544,
+   17
+  ],
+  "613092": [
+   "Raghuvanahalli",
+   5544,
+   17
+  ],
+  "612903": [
+   "Mylanahalli",
+   7103,
+   20
+  ],
+  "612950": [
+   "Chikkabanavara CT",
+   5542,
+   15
+  ]
+ },
+ "village_count_total": 610,
+ "village_count_assigned": 610
+}

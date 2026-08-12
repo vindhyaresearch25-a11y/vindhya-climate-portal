@@ -1,0 +1,1014 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Nagaland",
+  "district": "Wokha",
+  "district_lgd": 250,
+  "observation_window": "2026-08-07T11:19Z to 2026-08-12T11:19Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3844,
+  "sm_surface_stddev": 0.0319,
+  "sm_rootzone_mean": 0.3942,
+  "sm_rootzone_stddev": 0.0416,
+  "n_cells": 14,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 26.0377,
+    "lon": 94.0222,
+    "sm_surface": 0.3121,
+    "sm_rootzone": 0.2966,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 1,
+    "lat": 26.0377,
+    "lon": 94.121,
+    "sm_surface": 0.3885,
+    "sm_rootzone": 0.3961,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 2,
+    "lat": 26.0377,
+    "lon": 94.2198,
+    "sm_surface": 0.3974,
+    "sm_rootzone": 0.4099,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 3,
+    "lat": 26.0377,
+    "lon": 94.3186,
+    "sm_surface": 0.4026,
+    "sm_rootzone": 0.4171,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 4,
+    "lat": 26.1365,
+    "lon": 94.0222,
+    "sm_surface": 0.3817,
+    "sm_rootzone": 0.3906,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 5,
+    "lat": 26.1365,
+    "lon": 94.121,
+    "sm_surface": 0.3914,
+    "sm_rootzone": 0.4013,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 6,
+    "lat": 26.1365,
+    "lon": 94.2198,
+    "sm_surface": 0.4,
+    "sm_rootzone": 0.4138,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 7,
+    "lat": 26.1365,
+    "lon": 94.3186,
+    "sm_surface": 0.4054,
+    "sm_rootzone": 0.4209,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 8,
+    "lat": 26.2353,
+    "lon": 94.121,
+    "sm_surface": 0.3938,
+    "sm_rootzone": 0.4073,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 9,
+    "lat": 26.2353,
+    "lon": 94.2198,
+    "sm_surface": 0.3988,
+    "sm_rootzone": 0.4154,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 10,
+    "lat": 26.2353,
+    "lon": 94.3186,
+    "sm_surface": 0.405,
+    "sm_rootzone": 0.4228,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 11,
+    "lat": 26.3341,
+    "lon": 94.2198,
+    "sm_surface": 0.3977,
+    "sm_rootzone": 0.4142,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 12,
+    "lat": 26.3341,
+    "lon": 94.3186,
+    "sm_surface": 0.4031,
+    "sm_rootzone": 0.4201,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 13,
+    "lat": 26.4329,
+    "lon": 94.2198,
+    "sm_surface": 0.3035,
+    "sm_rootzone": 0.2932,
+    "n_villages_sharing_cell": 19
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3816,
+  "sm_surface_stddev": 0.0322,
+  "n_blocks": 12
+ },
+ "blocks": [
+  {
+   "block_name": "Aitepyong",
+   "sdcode": 1781,
+   "n_villages": 10,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.4016,
+   "sm_surface_stddev": 0.0023
+  },
+  {
+   "block_name": "Baghty",
+   "sdcode": 1783,
+   "n_villages": 5,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.3988,
+   "sm_surface_stddev": 0.0
+  },
+  {
+   "block_name": "Bhandari",
+   "sdcode": 1782,
+   "n_villages": 32,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.385,
+   "sm_surface_stddev": 0.0198
+  },
+  {
+   "block_name": "Changpang",
+   "sdcode": 1780,
+   "n_villages": 21,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3125,
+   "sm_surface_stddev": 0.0277
+  },
+  {
+   "block_name": "Chukitong",
+   "sdcode": 1791,
+   "n_villages": 8,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.4051,
+   "sm_surface_stddev": 0.0009
+  },
+  {
+   "block_name": "Englan",
+   "sdcode": 1790,
+   "n_villages": 11,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.401,
+   "sm_surface_stddev": 0.0025
+  },
+  {
+   "block_name": "Lotsu",
+   "sdcode": 1786,
+   "n_villages": 9,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.381,
+   "sm_surface_stddev": 0.0244
+  },
+  {
+   "block_name": "Ralan",
+   "sdcode": 1787,
+   "n_villages": 18,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.3121,
+   "sm_surface_stddev": 0.0
+  },
+  {
+   "block_name": "Sanis",
+   "sdcode": 1785,
+   "n_villages": 9,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3981,
+   "sm_surface_stddev": 0.0024
+  },
+  {
+   "block_name": "Sungro",
+   "sdcode": 1784,
+   "n_villages": 9,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.4048,
+   "sm_surface_stddev": 0.0006
+  },
+  {
+   "block_name": "Wokha Sadar",
+   "sdcode": 1789,
+   "n_villages": 22,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.4002,
+   "sm_surface_stddev": 0.0025
+  },
+  {
+   "block_name": "Wozhuro",
+   "sdcode": 1788,
+   "n_villages": 11,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3787,
+   "sm_surface_stddev": 0.0316
+  }
+ ],
+ "villages": {
+  "267519": [
+   "Humtso",
+   1789,
+   6
+  ],
+  "267493": [
+   "Chandalashung New",
+   1787,
+   0
+  ],
+  "267494": [
+   "Lishayan",
+   1787,
+   0
+  ],
+  "267495": [
+   "Chandalashung B",
+   1787,
+   0
+  ],
+  "267496": [
+   "Chandalashung Old",
+   1787,
+   0
+  ],
+  "267497": [
+   "Woroku",
+   1787,
+   0
+  ],
+  "267498": [
+   "Ronsuyan",
+   1787,
+   0
+  ],
+  "267499": [
+   "Yampha",
+   1787,
+   0
+  ],
+  "267500": [
+   "Ralan Old",
+   1787,
+   0
+  ],
+  "267502": [
+   "Ralan Hq",
+   1787,
+   0
+  ],
+  "267503": [
+   "Ralan New",
+   1787,
+   0
+  ],
+  "267530": [
+   "Satsuphen Ur",
+   1789,
+   2
+  ],
+  "267504": [
+   "Phiro",
+   1788,
+   2
+  ],
+  "267506": [
+   "Shaki",
+   1788,
+   2
+  ],
+  "267507": [
+   "Sankiton",
+   1788,
+   2
+  ],
+  "267508": [
+   "Hanku",
+   1788,
+   1
+  ],
+  "267509": [
+   "N Longchum",
+   1788,
+   0
+  ],
+  "267512": [
+   "Wozhuro Hq",
+   1788,
+   2
+  ],
+  "267533": [
+   "N Longidang",
+   1789,
+   3
+  ],
+  "267534": [
+   "Ruzumphen Ur",
+   1789,
+   3
+  ],
+  "267487": [
+   "Liphayan",
+   1787,
+   0
+  ],
+  "267489": [
+   "S Wochan",
+   1787,
+   0
+  ],
+  "267490": [
+   "Yanlum",
+   1787,
+   0
+  ],
+  "267491": [
+   "Soshan",
+   1787,
+   0
+  ],
+  "267492": [
+   "Wochan",
+   1787,
+   0
+  ],
+  "267457": [
+   "Koro Old",
+   1782,
+   0
+  ],
+  "267448": [
+   "Liowokha Old",
+   1782,
+   4
+  ],
+  "267449": [
+   "Liowokha New",
+   1782,
+   4
+  ],
+  "267452": [
+   "Liphi",
+   1782,
+   4
+  ],
+  "267454": [
+   "Yanmhon Old",
+   1782,
+   4
+  ],
+  "267456": [
+   "Yanmhon New",
+   1782,
+   4
+  ],
+  "267515": [
+   "Vankhosung",
+   1789,
+   6
+  ],
+  "267516": [
+   "Wokha Vill",
+   1789,
+   6
+  ],
+  "267518": [
+   "Elumyo",
+   1789,
+   6
+  ],
+  "267531": [
+   "Tsungtsutong Ur",
+   1789,
+   2
+  ],
+  "249719": [
+   "Wokha Town Council",
+   1789,
+   6
+  ],
+  "267478": [
+   "Chudi",
+   1785,
+   5
+  ],
+  "999999": [
+   "Data Partially Available",
+   1791,
+   7
+  ],
+  "267480": [
+   "Longtsung",
+   1786,
+   5
+  ],
+  "267523": [
+   "Longsa",
+   1789,
+   2
+  ],
+  "267529": [
+   "Longsachung",
+   1789,
+   2
+  ],
+  "267520": [
+   "Tsungza",
+   1789,
+   2
+  ],
+  "267521": [
+   "Pongitong",
+   1789,
+   2
+  ],
+  "267522": [
+   "Ekok Ju Ur",
+   1789,
+   2
+  ],
+  "267481": [
+   "Morakjo",
+   1786,
+   5
+  ],
+  "267482": [
+   "Lotsu Vill",
+   1786,
+   1
+  ],
+  "267483": [
+   "Lotsu Hq",
+   1786,
+   1
+  ],
+  "267484": [
+   "Pyangsa",
+   1786,
+   1
+  ],
+  "267485": [
+   "Moilan",
+   1786,
+   1
+  ],
+  "267486": [
+   "Pyotchu",
+   1786,
+   0
+  ],
+  "267438": [
+   "Yimparasa",
+   1782,
+   8
+  ],
+  "267439": [
+   "Pangtong",
+   1782,
+   8
+  ],
+  "267440": [
+   "Roni Old",
+   1782,
+   8
+  ],
+  "267442": [
+   "Roni New",
+   1782,
+   8
+  ],
+  "267443": [
+   "Yimza",
+   1782,
+   8
+  ],
+  "267444": [
+   "Mongphio",
+   1782,
+   8
+  ],
+  "267445": [
+   "Lishuyo",
+   1782,
+   8
+  ],
+  "267450": [
+   "Sungkha",
+   1782,
+   4
+  ],
+  "267535": [
+   "Doyang Hydro Left Bank South Wing",
+   1790,
+   9
+  ],
+  "267542": [
+   "Englan Comp",
+   1790,
+   6
+  ],
+  "267544": [
+   "Yikhum",
+   1790,
+   6
+  ],
+  "267471": [
+   "Sunglup",
+   1785,
+   9
+  ],
+  "267472": [
+   "Yonchicho",
+   1785,
+   9
+  ],
+  "267473": [
+   "Doyang Hydro Right Bank North Wing",
+   1785,
+   9
+  ],
+  "267474": [
+   "Sanis Vill",
+   1785,
+   9
+  ],
+  "267475": [
+   "Menshangpen",
+   1785,
+   9
+  ],
+  "267476": [
+   "Sanis Hq",
+   1785,
+   9
+  ],
+  "267477": [
+   "Tsopo",
+   1785,
+   6
+  ],
+  "267461": [
+   "Baghty Hq",
+   1783,
+   9
+  ],
+  "267462": [
+   "Soku",
+   1783,
+   9
+  ],
+  "267517": [
+   "New Wokha",
+   1789,
+   7
+  ],
+  "267524": [
+   "Niroyo",
+   1789,
+   3
+  ],
+  "267526": [
+   "Yanthamo",
+   1789,
+   3
+  ],
+  "267527": [
+   "Yimkha",
+   1789,
+   3
+  ],
+  "267528": [
+   "Longla",
+   1789,
+   3
+  ],
+  "267536": [
+   "Changsu Old",
+   1790,
+   10
+  ],
+  "267537": [
+   "Changsu New",
+   1790,
+   10
+  ],
+  "267468": [
+   "Aree New",
+   1784,
+   10
+  ],
+  "267470": [
+   "Aree Old",
+   1784,
+   10
+  ],
+  "267545": [
+   "Nungying",
+   1791,
+   7
+  ],
+  "267546": [
+   "Koio",
+   1791,
+   7
+  ],
+  "267547": [
+   "Seluku",
+   1791,
+   7
+  ],
+  "267548": [
+   "Chukitong",
+   1791,
+   7
+  ],
+  "267550": [
+   "Tsungiki",
+   1791,
+   7
+  ],
+  "267551": [
+   "Mungya",
+   1791,
+   3
+  ],
+  "267436": [
+   "Khumchoyan",
+   1782,
+   8
+  ],
+  "267437": [
+   "Serika A Plus B",
+   1782,
+   8
+  ],
+  "267431": [
+   "Longayim",
+   1782,
+   8
+  ],
+  "267432": [
+   "Merapani",
+   1782,
+   8
+  ],
+  "267433": [
+   "Liolongchum",
+   1782,
+   11
+  ],
+  "267434": [
+   "Bhandari Hq",
+   1782,
+   8
+  ],
+  "267435": [
+   "Bhandari Vill",
+   1782,
+   8
+  ],
+  "267428": [
+   "Mekirang",
+   1782,
+   11
+  ],
+  "267429": [
+   "Yimpang",
+   1782,
+   11
+  ],
+  "267430": [
+   "Alikhum",
+   1782,
+   11
+  ],
+  "267423": [
+   "Akuk New",
+   1781,
+   11
+  ],
+  "267425": [
+   "Akuk Old",
+   1781,
+   12
+  ],
+  "267426": [
+   "Aitepyong Station",
+   1781,
+   11
+  ],
+  "267427": [
+   "Lakhuti",
+   1781,
+   9
+  ],
+  "267459": [
+   "Upper Baghty",
+   1783,
+   9
+  ],
+  "267408": [
+   "Tssori Old",
+   1780,
+   13
+  ],
+  "267410": [
+   "Sumito",
+   1780,
+   13
+  ],
+  "267411": [
+   "Lichuyan",
+   1780,
+   13
+  ],
+  "267412": [
+   "New Wozhu",
+   1780,
+   13
+  ],
+  "267413": [
+   "Wozhu Old",
+   1780,
+   13
+  ],
+  "267414": [
+   "Changpang Hq",
+   1780,
+   13
+  ],
+  "267415": [
+   "Changpang Vill",
+   1780,
+   13
+  ],
+  "267416": [
+   "Ongc Changpang",
+   1780,
+   13
+  ],
+  "267418": [
+   "Lio Longidang",
+   1780,
+   11
+  ],
+  "267409": [
+   "Azuhoto",
+   1780,
+   13
+  ],
+  "267419": [
+   "Zukeshe",
+   1781,
+   12
+  ],
+  "267421": [
+   "Akuk Mhayan Ur",
+   1781,
+   12
+  ],
+  "267422": [
+   "Chanaka",
+   1781,
+   12
+  ],
+  "267424": [
+   "Mekokla",
+   1781,
+   12
+  ],
+  "267463": [
+   "Okotso",
+   1784,
+   12
+  ],
+  "267464": [
+   "Asha",
+   1784,
+   10
+  ],
+  "267465": [
+   "Sungro Station",
+   1784,
+   10
+  ],
+  "267466": [
+   "Okotso Yanthanro Ur",
+   1784,
+   10
+  ],
+  "267467": [
+   "Pangti",
+   1784,
+   10
+  ],
+  "267401": [
+   "Amboto Old",
+   1780,
+   13
+  ],
+  "267402": [
+   "Akuhaiqua",
+   1780,
+   13
+  ],
+  "267403": [
+   "Amboto New",
+   1780,
+   13
+  ],
+  "267404": [
+   "Khakuthato",
+   1780,
+   13
+  ],
+  "267406": [
+   "Mithehe Mithelijan",
+   1780,
+   13
+  ],
+  "267407": [
+   "Tssori New",
+   1780,
+   13
+  ],
+  "267399": [
+   "Akahuto",
+   1780,
+   13
+  ],
+  "267400": [
+   "Aghuatito",
+   1780,
+   13
+  ],
+  "267501": [
+   "Likayan Ur",
+   1787,
+   0
+  ],
+  "267510": [
+   "Yankeli",
+   1788,
+   0
+  ],
+  "267505": [
+   "Totsu",
+   1788,
+   2
+  ],
+  "267511": [
+   "Meriyan",
+   1788,
+   1
+  ],
+  "267513": [
+   "L Yanthung Ur",
+   1788,
+   1
+  ],
+  "267488": [
+   "Tchuchanphen",
+   1787,
+   0
+  ],
+  "267453": [
+   "Ruchanyan",
+   1782,
+   4
+  ],
+  "267455": [
+   "Renthanyan Ur",
+   1782,
+   4
+  ],
+  "267458": [
+   "Koro New Ur",
+   1782,
+   0
+  ],
+  "267441": [
+   "Suphayan",
+   1782,
+   8
+  ],
+  "267446": [
+   "Yencho",
+   1782,
+   4
+  ],
+  "267451": [
+   "Hayiyan",
+   1782,
+   4
+  ],
+  "267479": [
+   "Sheru Echuk",
+   1786,
+   5
+  ],
+  "267447": [
+   "Longjung Ur",
+   1782,
+   4
+  ],
+  "267539": [
+   "Thillong Ur",
+   1790,
+   9
+  ],
+  "267540": [
+   "Riphyim New",
+   1790,
+   9
+  ],
+  "267541": [
+   "Riphyim Old",
+   1790,
+   6
+  ],
+  "267543": [
+   "Englan Hq",
+   1790,
+   6
+  ],
+  "267525": [
+   "Nyiro Comp",
+   1789,
+   3
+  ],
+  "267532": [
+   "Okhyeyan",
+   1789,
+   3
+  ],
+  "267538": [
+   "Ekhyoyan Ur",
+   1790,
+   10
+  ],
+  "267469": [
+   "Mhayan Ur",
+   1784,
+   10
+  ],
+  "267549": [
+   "Thenyayan Ur",
+   1791,
+   7
+  ],
+  "267460": [
+   "Makharong",
+   1783,
+   9
+  ],
+  "267417": [
+   "Longtsiri",
+   1780,
+   11
+  ],
+  "267420": [
+   "Yankhum Ur",
+   1781,
+   12
+  ],
+  "267405": [
+   "Shuvukhu Ur",
+   1780,
+   13
+  ]
+ },
+ "village_count_total": 165,
+ "village_count_assigned": 165
+}

@@ -1,0 +1,265 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Manipur",
+  "district": "Kakching",
+  "district_lgd": 711,
+  "observation_window": "2026-08-07T11:18Z to 2026-08-12T11:18Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3353,
+  "sm_surface_stddev": 0.0083,
+  "sm_rootzone_mean": 0.335,
+  "sm_rootzone_stddev": 0.0089,
+  "n_cells": 2,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 24.4566,
+    "lon": 93.9234,
+    "sm_surface": 0.3269,
+    "sm_rootzone": 0.3261,
+    "n_villages_sharing_cell": 32
+   },
+   {
+    "cell_index": 1,
+    "lat": 24.4566,
+    "lon": 94.0222,
+    "sm_surface": 0.3436,
+    "sm_rootzone": 0.3439,
+    "n_villages_sharing_cell": 10
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3309,
+  "sm_surface_stddev": 0.0,
+  "n_blocks": 1
+ },
+ "blocks": [
+  {
+   "block_name": "Kakching",
+   "sdcode": 1878,
+   "n_villages": 42,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3309,
+   "sm_surface_stddev": 0.0071
+  }
+ ],
+ "villages": {
+  "270017": [
+   "Nungoo",
+   1878,
+   0
+  ],
+  "270019": [
+   "Tangjeng",
+   1878,
+   0
+  ],
+  "270018": [
+   "Nungoo Wapokpi",
+   1878,
+   0
+  ],
+  "270023": [
+   "Serou",
+   1878,
+   0
+  ],
+  "270022": [
+   "Toupokpi",
+   1878,
+   0
+  ],
+  "270021": [
+   "Lakhi Maru",
+   1878,
+   0
+  ],
+  "270020": [
+   "Tonsel",
+   1878,
+   0
+  ],
+  "270016": [
+   "Chairel",
+   1878,
+   0
+  ],
+  "270013": [
+   "Thongam",
+   1878,
+   0
+  ],
+  "270015": [
+   "Wangoo",
+   1878,
+   0
+  ],
+  "270014": [
+   "Arong Nongmaikhong",
+   1878,
+   0
+  ],
+  "270011": [
+   "Waikhong Ningthoumanai",
+   1878,
+   0
+  ],
+  "270010": [
+   "Waikhong Laimanai",
+   1878,
+   0
+  ],
+  "270008": [
+   "Thongjao",
+   1878,
+   0
+  ],
+  "270007": [
+   "Elangkhangpokpi",
+   1878,
+   0
+  ],
+  "270006": [
+   "Thounaojam",
+   1878,
+   0
+  ],
+  "270000": [
+   "Pallel",
+   1878,
+   1
+  ],
+  "270012": [
+   "Mahou",
+   1878,
+   0
+  ],
+  "270009": [
+   "Purul Tampak",
+   1878,
+   1
+  ],
+  "270002": [
+   "Aimol Khunou",
+   1878,
+   1
+  ],
+  "270003": [
+   "Kangoi",
+   1878,
+   1
+  ],
+  "270001": [
+   "Aimol Khullel Do",
+   1878,
+   1
+  ],
+  "270004": [
+   "Maring Phunal",
+   1878,
+   1
+  ],
+  "269996": [
+   "Hiyanglam Ii",
+   1878,
+   0
+  ],
+  "269992": [
+   "Wabagai",
+   1878,
+   0
+  ],
+  "269995": [
+   "Khoidum",
+   1878,
+   0
+  ],
+  "270005": [
+   "Laphupat",
+   1878,
+   0
+  ],
+  "269993": [
+   "Kharungpat",
+   1878,
+   0
+  ],
+  "269999": [
+   "Langmeidong",
+   1878,
+   0
+  ],
+  "269998": [
+   "Laimanai",
+   1878,
+   0
+  ],
+  "269997": [
+   "Mayenglamjao",
+   1878,
+   0
+  ],
+  "269988": [
+   "Irengband",
+   1878,
+   1
+  ],
+  "269989": [
+   "Loushipat",
+   1878,
+   1
+  ],
+  "269987": [
+   "Laijing",
+   1878,
+   1
+  ],
+  "269991": [
+   "Keirak",
+   1878,
+   0
+  ],
+  "269994": [
+   "Hiyanglam I",
+   1878,
+   0
+  ],
+  "269990": [
+   "Mantak",
+   1878,
+   0
+  ],
+  "801482": [
+   "Sugnu Np",
+   1878,
+   0
+  ],
+  "801483": [
+   "Kakching Khunou Np",
+   1878,
+   0
+  ],
+  "999999": [
+   "Pumlen Pat",
+   1878,
+   0
+  ],
+  "801484": [
+   "Kakching M Cl",
+   1878,
+   1
+  ]
+ },
+ "village_count_total": 42,
+ "village_count_assigned": 42
+}

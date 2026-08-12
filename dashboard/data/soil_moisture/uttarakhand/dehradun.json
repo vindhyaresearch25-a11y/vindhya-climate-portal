@@ -1,0 +1,4163 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Uttarakhand",
+  "district": "Dehradun",
+  "district_lgd": 49,
+  "observation_window": "2026-08-07T11:30Z to 2026-08-12T11:30Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3591,
+  "sm_surface_stddev": 0.0593,
+  "sm_rootzone_mean": 0.3728,
+  "sm_rootzone_stddev": 0.0679,
+  "n_cells": 28,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 29.9903,
+    "lon": 78.2118,
+    "sm_surface": 0.2681,
+    "sm_rootzone": 0.2846,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 1,
+    "lat": 30.0891,
+    "lon": 78.113,
+    "sm_surface": 0.3238,
+    "sm_rootzone": 0.3429,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 2,
+    "lat": 30.0891,
+    "lon": 78.2118,
+    "sm_surface": 0.328,
+    "sm_rootzone": 0.347,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 3,
+    "lat": 30.1879,
+    "lon": 78.0142,
+    "sm_surface": 0.3272,
+    "sm_rootzone": 0.347,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 4,
+    "lat": 30.1879,
+    "lon": 78.113,
+    "sm_surface": 0.3377,
+    "sm_rootzone": 0.3575,
+    "n_villages_sharing_cell": 21
+   },
+   {
+    "cell_index": 5,
+    "lat": 30.1879,
+    "lon": 78.2118,
+    "sm_surface": 0.3372,
+    "sm_rootzone": 0.3573,
+    "n_villages_sharing_cell": 29
+   },
+   {
+    "cell_index": 6,
+    "lat": 30.2867,
+    "lon": 77.8166,
+    "sm_surface": 0.2707,
+    "sm_rootzone": 0.2562,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 7,
+    "lat": 30.2867,
+    "lon": 77.9154,
+    "sm_surface": 0.2766,
+    "sm_rootzone": 0.2628,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 8,
+    "lat": 30.2867,
+    "lon": 78.0142,
+    "sm_surface": 0.3028,
+    "sm_rootzone": 0.3204,
+    "n_villages_sharing_cell": 24
+   },
+   {
+    "cell_index": 9,
+    "lat": 30.2867,
+    "lon": 78.113,
+    "sm_surface": 0.3466,
+    "sm_rootzone": 0.362,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 10,
+    "lat": 30.2867,
+    "lon": 78.2118,
+    "sm_surface": 0.3458,
+    "sm_rootzone": 0.3618,
+    "n_villages_sharing_cell": 32
+   },
+   {
+    "cell_index": 11,
+    "lat": 30.3855,
+    "lon": 77.7177,
+    "sm_surface": 0.2688,
+    "sm_rootzone": 0.2432,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 12,
+    "lat": 30.3855,
+    "lon": 77.8166,
+    "sm_surface": 0.3019,
+    "sm_rootzone": 0.3112,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 13,
+    "lat": 30.3855,
+    "lon": 77.9154,
+    "sm_surface": 0.3049,
+    "sm_rootzone": 0.3168,
+    "n_villages_sharing_cell": 35
+   },
+   {
+    "cell_index": 14,
+    "lat": 30.3855,
+    "lon": 78.0142,
+    "sm_surface": 0.3489,
+    "sm_rootzone": 0.3601,
+    "n_villages_sharing_cell": 35
+   },
+   {
+    "cell_index": 15,
+    "lat": 30.3855,
+    "lon": 78.113,
+    "sm_surface": 0.3541,
+    "sm_rootzone": 0.367,
+    "n_villages_sharing_cell": 78
+   },
+   {
+    "cell_index": 16,
+    "lat": 30.4843,
+    "lon": 77.8166,
+    "sm_surface": 0.3454,
+    "sm_rootzone": 0.3511,
+    "n_villages_sharing_cell": 34
+   },
+   {
+    "cell_index": 17,
+    "lat": 30.4843,
+    "lon": 77.9154,
+    "sm_surface": 0.346,
+    "sm_rootzone": 0.3542,
+    "n_villages_sharing_cell": 25
+   },
+   {
+    "cell_index": 18,
+    "lat": 30.5831,
+    "lon": 77.8166,
+    "sm_surface": 0.4305,
+    "sm_rootzone": 0.448,
+    "n_villages_sharing_cell": 39
+   },
+   {
+    "cell_index": 19,
+    "lat": 30.5831,
+    "lon": 77.9154,
+    "sm_surface": 0.4335,
+    "sm_rootzone": 0.4551,
+    "n_villages_sharing_cell": 102
+   },
+   {
+    "cell_index": 20,
+    "lat": 30.682,
+    "lon": 77.8166,
+    "sm_surface": 0.4307,
+    "sm_rootzone": 0.4485,
+    "n_villages_sharing_cell": 41
+   },
+   {
+    "cell_index": 21,
+    "lat": 30.682,
+    "lon": 77.9154,
+    "sm_surface": 0.4324,
+    "sm_rootzone": 0.4546,
+    "n_villages_sharing_cell": 38
+   },
+   {
+    "cell_index": 22,
+    "lat": 30.682,
+    "lon": 78.0142,
+    "sm_surface": 0.4337,
+    "sm_rootzone": 0.4587,
+    "n_villages_sharing_cell": 28
+   },
+   {
+    "cell_index": 23,
+    "lat": 30.7808,
+    "lon": 77.8166,
+    "sm_surface": 0.4289,
+    "sm_rootzone": 0.4465,
+    "n_villages_sharing_cell": 25
+   },
+   {
+    "cell_index": 24,
+    "lat": 30.7808,
+    "lon": 77.9154,
+    "sm_surface": 0.4327,
+    "sm_rootzone": 0.4552,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 25,
+    "lat": 30.7808,
+    "lon": 78.0142,
+    "sm_surface": 0.4329,
+    "sm_rootzone": 0.4586,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 26,
+    "lat": 30.8796,
+    "lon": 77.8166,
+    "sm_surface": 0.4318,
+    "sm_rootzone": 0.4536,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 27,
+    "lat": 30.8796,
+    "lon": 77.9154,
+    "sm_surface": 0.4323,
+    "sm_rootzone": 0.4564,
+    "n_villages_sharing_cell": 31
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3799,
+  "sm_surface_stddev": 0.0504,
+  "n_blocks": 6
+ },
+ "blocks": [
+  {
+   "block_name": "Chakrata",
+   "sdcode": 300,
+   "n_villages": 111,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.4322,
+   "sm_surface_stddev": 0.0012
+  },
+  {
+   "block_name": "Dehradun",
+   "sdcode": 304,
+   "n_villages": 166,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.3416,
+   "sm_surface_stddev": 0.0196
+  },
+  {
+   "block_name": "Kalsi",
+   "sdcode": 302,
+   "n_villages": 170,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.4254,
+   "sm_surface_stddev": 0.0239
+  },
+  {
+   "block_name": "Rishikesh",
+   "sdcode": 305,
+   "n_villages": 95,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.3335,
+   "sm_surface_stddev": 0.0182
+  },
+  {
+   "block_name": "Tyuni",
+   "sdcode": 301,
+   "n_villages": 84,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.4312,
+   "sm_surface_stddev": 0.0015
+  },
+  {
+   "block_name": "Vikas Nagar",
+   "sdcode": 303,
+   "n_villages": 145,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.3153,
+   "sm_surface_stddev": 0.0286
+  }
+ ],
+ "villages": {
+  "45358": [
+   "Motichur Range",
+   305,
+   0
+  ],
+  "45315": [
+   "Bishan Garh",
+   305,
+   5
+  ],
+  "45253": [
+   "Missar Wala Kala",
+   304,
+   4
+  ],
+  "44680": [
+   "Kothi Bamtad",
+   300,
+   20
+  ],
+  "44838": [
+   "Bantuo",
+   302,
+   21
+  ],
+  "45363": [
+   "Pratitnagar CT",
+   305,
+   0
+  ],
+  "45035": [
+   "Hashanpur",
+   303,
+   12
+  ],
+  "45037": [
+   "Shisham Bara",
+   303,
+   7
+  ],
+  "45034": [
+   "Kalyanpur",
+   303,
+   12
+  ],
+  "45036": [
+   "Sherpur",
+   303,
+   12
+  ],
+  "45092": [
+   "Lakshmi Pur",
+   303,
+   12
+  ],
+  "45032": [
+   "Peerwala",
+   303,
+   12
+  ],
+  "45027": [
+   "Timali",
+   303,
+   11
+  ],
+  "45091": [
+   "Rampur Kala",
+   303,
+   12
+  ],
+  "45033": [
+   "Sabhawala",
+   303,
+   12
+  ],
+  "45109": [
+   "Malhan Range",
+   303,
+   6
+  ],
+  "45107": [
+   "Langha Range",
+   303,
+   6
+  ],
+  "45353": [
+   "Khandraiwala",
+   305,
+   0
+  ],
+  "45347": [
+   "Jogiwala Mafi",
+   305,
+   2
+  ],
+  "45339": [
+   "Mazri Grant",
+   305,
+   2
+  ],
+  "45337": [
+   "Jeevan Wala",
+   305,
+   4
+  ],
+  "45354": [
+   "Raiwala",
+   305,
+   0
+  ],
+  "45348": [
+   "Sahab Nagar",
+   305,
+   2
+  ],
+  "45344": [
+   "Garhimay Chak",
+   305,
+   2
+  ],
+  "45350": [
+   "Khairi Khurd",
+   305,
+   2
+  ],
+  "45338": [
+   "Fatehpur Danda",
+   305,
+   4
+  ],
+  "45346": [
+   "Chak Jogi Wala",
+   305,
+   2
+  ],
+  "45357": [
+   "Kasron Range",
+   305,
+   1
+  ],
+  "45355": [
+   "Barkot Range",
+   305,
+   2
+  ],
+  "45351": [
+   "Thakurpur",
+   305,
+   2
+  ],
+  "45256": [
+   "Ghissar Pari",
+   304,
+   4
+  ],
+  "45342": [
+   "Shyampur",
+   305,
+   2
+  ],
+  "45343": [
+   "Bibiwala",
+   305,
+   2
+  ],
+  "45341": [
+   "Birpur Khurd",
+   305,
+   2
+  ],
+  "45340": [
+   "Bhattowala",
+   305,
+   2
+  ],
+  "248434": [
+   "Rishikesh Npp",
+   305,
+   2
+  ],
+  "45266": [
+   "Ramgarh Range",
+   304,
+   3
+  ],
+  "45349": [
+   "Khairi Kalan",
+   305,
+   2
+  ],
+  "45257": [
+   "Doiwala",
+   304,
+   4
+  ],
+  "45345": [
+   "Shiddar Wala",
+   305,
+   2
+  ],
+  "45352": [
+   "Gohri Mafi",
+   305,
+   0
+  ],
+  "45255": [
+   "Markham Grant",
+   304,
+   4
+  ],
+  "45076": [
+   "Gujrara Karan Pur",
+   303,
+   14
+  ],
+  "45081": [
+   "Kolhupani",
+   303,
+   13
+  ],
+  "45326": [
+   "Kaluwala",
+   305,
+   4
+  ],
+  "45084": [
+   "Banshiwala",
+   303,
+   13
+  ],
+  "45087": [
+   "Dhulkot Mafi",
+   303,
+   13
+  ],
+  "45053": [
+   "Bishanpur",
+   303,
+   13
+  ],
+  "45083": [
+   "Jhajra",
+   303,
+   13
+  ],
+  "45080": [
+   "Kotra Santaur",
+   303,
+   14
+  ],
+  "45082": [
+   "Sudhauwala",
+   303,
+   13
+  ],
+  "45103": [
+   "Malhangrant",
+   303,
+   7
+  ],
+  "45101": [
+   "Polio Nathuwala",
+   303,
+   7
+  ],
+  "45148": [
+   "Bilas Pur Kandali",
+   304,
+   14
+  ],
+  "45151": [
+   "Randharwala",
+   304,
+   14
+  ],
+  "45104": [
+   "Karbari Grant",
+   303,
+   7
+  ],
+  "45086": [
+   "Mehreka Gaun",
+   303,
+   13
+  ],
+  "45077": [
+   "Phulsani",
+   303,
+   14
+  ],
+  "45222": [
+   "Banjarewala Mafi",
+   304,
+   8
+  ],
+  "45102": [
+   "East Hopetown",
+   303,
+   7
+  ],
+  "45085": [
+   "Dhulkotkhalsa",
+   303,
+   13
+  ],
+  "45150": [
+   "Shahpur Santore",
+   304,
+   14
+  ],
+  "45213": [
+   "Mangaluwala",
+   304,
+   9
+  ],
+  "45108": [
+   "Jhajra Range",
+   303,
+   13
+  ],
+  "45245": [
+   "Mohammadpur Barkali",
+   304,
+   8
+  ],
+  "45231": [
+   "Shewala Khurd",
+   304,
+   8
+  ],
+  "45187": [
+   "Danda Lakhaur",
+   304,
+   15
+  ],
+  "45227": [
+   "Harbans Wala",
+   304,
+   8
+  ],
+  "45246": [
+   "Phanduwala",
+   304,
+   8
+  ],
+  "45240": [
+   "Mohkam Pur Khurd",
+   304,
+   9
+  ],
+  "45212": [
+   "Haryawala",
+   304,
+   9
+  ],
+  "45201": [
+   "Bajhet",
+   304,
+   15
+  ],
+  "45210": [
+   "Ladpur",
+   304,
+   9
+  ],
+  "45154": [
+   "Khemadoj",
+   304,
+   8
+  ],
+  "45189": [
+   "Danda Dhoran",
+   304,
+   15
+  ],
+  "45155": [
+   "Arcadia Grant",
+   304,
+   7
+  ],
+  "45239": [
+   "Mohkam Pur Kala",
+   304,
+   9
+  ],
+  "45209": [
+   "Amwala Tarala",
+   304,
+   15
+  ],
+  "45202": [
+   "Tibbanala Pani",
+   304,
+   15
+  ],
+  "45228": [
+   "Harbhaj Wala",
+   304,
+   7
+  ],
+  "45237": [
+   "Balawala",
+   304,
+   9
+  ],
+  "45183": [
+   "Kirsali",
+   304,
+   15
+  ],
+  "45190": [
+   "Danda Nooriwala",
+   304,
+   15
+  ],
+  "45152": [
+   "Mitt Behti",
+   304,
+   7
+  ],
+  "45225": [
+   "Haripur",
+   304,
+   8
+  ],
+  "45233": [
+   "Chandrvani Grant",
+   304,
+   8
+  ],
+  "45226": [
+   "Nawada",
+   304,
+   8
+  ],
+  "45242": [
+   "Harrawala",
+   304,
+   9
+  ],
+  "45204": [
+   "Amwala Karanpur",
+   304,
+   15
+  ],
+  "45153": [
+   "Malukawala",
+   304,
+   8
+  ],
+  "45248": [
+   "Nagal Bulandawala",
+   304,
+   3
+  ],
+  "45235": [
+   "Asarori",
+   304,
+   8
+  ],
+  "45203": [
+   "Hatwalgaon",
+   304,
+   15
+  ],
+  "45205": [
+   "Amwala Uparla",
+   304,
+   15
+  ],
+  "45196": [
+   "Gujrami",
+   304,
+   15
+  ],
+  "45236": [
+   "Chaktonwala Grant",
+   304,
+   9
+  ],
+  "45188": [
+   "Danda Khudanewala",
+   304,
+   15
+  ],
+  "45234": [
+   "Mohabbey Wala",
+   304,
+   8
+  ],
+  "45241": [
+   "Majari Mafi",
+   304,
+   9
+  ],
+  "45247": [
+   "Dudhali",
+   304,
+   8
+  ],
+  "45244": [
+   "Kuwan Wala",
+   304,
+   9
+  ],
+  "45206": [
+   "Amwala Manjhala",
+   304,
+   15
+  ],
+  "45211": [
+   "Sunderwala",
+   304,
+   9
+  ],
+  "45195": [
+   "Kalagaon",
+   304,
+   15
+  ],
+  "45229": [
+   "Pitthuwala",
+   304,
+   8
+  ],
+  "45207": [
+   "Saundhauwali Mansingh",
+   304,
+   15
+  ],
+  "45230": [
+   "Shewala Kala",
+   304,
+   8
+  ],
+  "45224": [
+   "Badripur",
+   304,
+   8
+  ],
+  "45111": [
+   "Central Hope Town CT",
+   303,
+   12
+  ],
+  "45364": [
+   "Haripur Kalan CT",
+   305,
+   0
+  ],
+  "45360": [
+   "Rishikesh CT",
+   305,
+   2
+  ],
+  "800314": [
+   "Virbhadra Idpl Its",
+   305,
+   2
+  ],
+  "45361": [
+   "Gumaniwala CT",
+   305,
+   2
+  ],
+  "45362": [
+   "Kharak Mafi CT",
+   305,
+   2
+  ],
+  "45251": [
+   "Simlas Grant",
+   304,
+   3
+  ],
+  "45249": [
+   "Kishan Pur",
+   304,
+   3
+  ],
+  "45265": [
+   "Ashkrodi Range",
+   304,
+   3
+  ],
+  "45185": [
+   "Gujrara Mansingh",
+   304,
+   15
+  ],
+  "45197": [
+   "Asthal",
+   304,
+   15
+  ],
+  "45223": [
+   "Motharo Wala",
+   304,
+   8
+  ],
+  "45208": [
+   "Nanur Khera",
+   304,
+   9
+  ],
+  "45238": [
+   "Miyanwala",
+   304,
+   9
+  ],
+  "45221": [
+   "Chakbanjarewala",
+   304,
+   8
+  ],
+  "248430": [
+   "Dehradun M Corp",
+   304,
+   8
+  ],
+  "45099": [
+   "Donkwala",
+   303,
+   7
+  ],
+  "45186": [
+   "Jagatkhana",
+   304,
+   15
+  ],
+  "45098": [
+   "Ambiwala",
+   303,
+   7
+  ],
+  "45250": [
+   "Nagal Jwalapur",
+   304,
+   3
+  ],
+  "45100": [
+   "Keshowala",
+   303,
+   7
+  ],
+  "45232": [
+   "Chandrwani Khalsa",
+   304,
+   8
+  ],
+  "45156": [
+   "Chandrabani",
+   304,
+   8
+  ],
+  "45264": [
+   "Lachhiwala Range",
+   304,
+   4
+  ],
+  "45149": [
+   "Gopiwala",
+   304,
+   14
+  ],
+  "45332": [
+   "Sangatiya Walakhurd",
+   305,
+   5
+  ],
+  "45277": [
+   "Kairwan Malkot",
+   305,
+   10
+  ],
+  "45218": [
+   "Barasi Grant",
+   304,
+   10
+  ],
+  "45291": [
+   "Baderana Majhala",
+   305,
+   10
+  ],
+  "45303": [
+   "Kudhal",
+   305,
+   5
+  ],
+  "45313": [
+   "Badogal",
+   305,
+   5
+  ],
+  "45305": [
+   "Kaudasi",
+   305,
+   5
+  ],
+  "45293": [
+   "Katkot Khurd",
+   305,
+   10
+  ],
+  "45258": [
+   "Hansuwala",
+   304,
+   4
+  ],
+  "45335": [
+   "Athhoorwala",
+   305,
+   4
+  ],
+  "45220": [
+   "Paw Wala Soda",
+   304,
+   10
+  ],
+  "45243": [
+   "Nakraunda",
+   304,
+   9
+  ],
+  "45328": [
+   "Bhaglana",
+   305,
+   4
+  ],
+  "45325": [
+   "Rainapur Grant",
+   305,
+   5
+  ],
+  "45320": [
+   "Falsuwa",
+   305,
+   5
+  ],
+  "45311": [
+   "Rakhwal Gaon",
+   305,
+   5
+  ],
+  "45217": [
+   "Kalimati",
+   304,
+   10
+  ],
+  "45321": [
+   "Barkot Mafi",
+   305,
+   5
+  ],
+  "45281": [
+   "Sindhwal Gaon",
+   305,
+   10
+  ],
+  "45318": [
+   "Bhogpur",
+   305,
+   5
+  ],
+  "45298": [
+   "Kaknawamaychak Talai",
+   305,
+   10
+  ],
+  "45280": [
+   "Sangaon",
+   305,
+   10
+  ],
+  "45301": [
+   "Ramnagar Danda",
+   305,
+   5
+  ],
+  "45302": [
+   "Kandogal",
+   305,
+   5
+  ],
+  "45336": [
+   "Bhaniya Wala",
+   305,
+   4
+  ],
+  "45304": [
+   "Gadool",
+   305,
+   10
+  ],
+  "45307": [
+   "Khaldhar",
+   305,
+   5
+  ],
+  "44927": [
+   "Kuitha",
+   302,
+   19
+  ],
+  "45309": [
+   "Bangai",
+   305,
+   5
+  ],
+  "45331": [
+   "Jauligrant",
+   305,
+   5
+  ],
+  "45292": [
+   "Kuthar",
+   305,
+   10
+  ],
+  "45314": [
+   "Fagsi",
+   305,
+   5
+  ],
+  "45300": [
+   "Kotimay Chak",
+   305,
+   10
+  ],
+  "45310": [
+   "Naurtuwala",
+   305,
+   5
+  ],
+  "45278": [
+   "Jakar",
+   305,
+   10
+  ],
+  "45329": [
+   "Badowala",
+   305,
+   4
+  ],
+  "45295": [
+   "Siron",
+   305,
+   10
+  ],
+  "45312": [
+   "Govind Wala",
+   305,
+   5
+  ],
+  "45308": [
+   "Bagi",
+   305,
+   5
+  ],
+  "45219": [
+   "Bhopalpani Grant",
+   304,
+   9
+  ],
+  "45319": [
+   "Chakbarkot",
+   305,
+   5
+  ],
+  "45282": [
+   "Kotala",
+   305,
+   10
+  ],
+  "45316": [
+   "Bairagada",
+   305,
+   5
+  ],
+  "45279": [
+   "Farti",
+   305,
+   10
+  ],
+  "45323": [
+   "Mauja Rani Pokhari",
+   305,
+   5
+  ],
+  "45327": [
+   "Sangatiya Walakala",
+   305,
+   4
+  ],
+  "45296": [
+   "Ghandol",
+   305,
+   10
+  ],
+  "45324": [
+   "Listrabad",
+   305,
+   5
+  ],
+  "45306": [
+   "Pali",
+   305,
+   5
+  ],
+  "45317": [
+   "Sarangdharwala",
+   305,
+   5
+  ],
+  "45322": [
+   "Rani Pokhari Grant",
+   305,
+   5
+  ],
+  "45334": [
+   "Kanhar Wala",
+   305,
+   4
+  ],
+  "45297": [
+   "Chauki",
+   305,
+   10
+  ],
+  "45356": [
+   "Hrishikesh",
+   305,
+   5
+  ],
+  "45294": [
+   "Katkot Kalan",
+   305,
+   10
+  ],
+  "45330": [
+   "Baruwala Grant",
+   305,
+   5
+  ],
+  "45333": [
+   "Baksar Wala",
+   305,
+   4
+  ],
+  "45359": [
+   "Thano Range",
+   305,
+   4
+  ],
+  "248433": [
+   "Doiwala Np",
+   304,
+   4
+  ],
+  "45252": [
+   "Lachhi Wala",
+   304,
+   4
+  ],
+  "45259": [
+   "Daiswala",
+   304,
+   4
+  ],
+  "45254": [
+   "Missar Wala Khurd",
+   304,
+   4
+  ],
+  "45299": [
+   "Thano",
+   305,
+   5
+  ],
+  "45284": [
+   "Baderha Kalan",
+   305,
+   10
+  ],
+  "45200": [
+   "Thewa",
+   304,
+   15
+  ],
+  "45274": [
+   "Nahi Kalan",
+   305,
+   10
+  ],
+  "45272": [
+   "Landwakot",
+   305,
+   10
+  ],
+  "45198": [
+   "Reniwala",
+   304,
+   15
+  ],
+  "45290": [
+   "Simiyanah",
+   305,
+   10
+  ],
+  "45276": [
+   "Raithwan Gaon",
+   305,
+   10
+  ],
+  "45215": [
+   "Akhandwali Bhilang",
+   304,
+   9
+  ],
+  "45214": [
+   "Dwara",
+   304,
+   9
+  ],
+  "45275": [
+   "Sataili Gairwal",
+   305,
+   10
+  ],
+  "45289": [
+   "Dharkot",
+   305,
+   10
+  ],
+  "45199": [
+   "Seraki",
+   304,
+   15
+  ],
+  "45172": [
+   "Sarkhet",
+   304,
+   15
+  ],
+  "45192": [
+   "Pustari",
+   304,
+   15
+  ],
+  "45194": [
+   "Kheri Mansingh",
+   304,
+   15
+  ],
+  "45216": [
+   "Sodasaroli",
+   304,
+   9
+  ],
+  "45283": [
+   "Nahikhurd",
+   305,
+   10
+  ],
+  "45193": [
+   "Banvtha",
+   304,
+   15
+  ],
+  "45285": [
+   "Baderna Khurd",
+   305,
+   10
+  ],
+  "45273": [
+   "Haldwari",
+   305,
+   10
+  ],
+  "45288": [
+   "Talai",
+   305,
+   10
+  ],
+  "45286": [
+   "Tamoli Garh",
+   305,
+   10
+  ],
+  "45287": [
+   "Playd",
+   305,
+   10
+  ],
+  "45026": [
+   "Kulhan Matak Majri",
+   303,
+   11
+  ],
+  "45025": [
+   "Kunja",
+   303,
+   11
+  ],
+  "44904": [
+   "Saradi",
+   302,
+   18
+  ],
+  "45021": [
+   "Dharmawala",
+   303,
+   11
+  ],
+  "44974": [
+   "Danda Jungle",
+   303,
+   16
+  ],
+  "44971": [
+   "Ambari T K Jungle",
+   303,
+   16
+  ],
+  "44900": [
+   "Atliyo",
+   302,
+   18
+  ],
+  "44925": [
+   "Sairi",
+   302,
+   18
+  ],
+  "44902": [
+   "Danda",
+   302,
+   18
+  ],
+  "45031": [
+   "Tiparpur",
+   303,
+   12
+  ],
+  "44910": [
+   "Kophati",
+   302,
+   19
+  ],
+  "45090": [
+   "Atakfarm",
+   303,
+   13
+  ],
+  "44976": [
+   "Prithvipur Jungle",
+   303,
+   16
+  ],
+  "44897": [
+   "Dimau",
+   302,
+   18
+  ],
+  "45014": [
+   "Chandpur Kala",
+   303,
+   12
+  ],
+  "45022": [
+   "Shahpur Kalyanpur",
+   303,
+   11
+  ],
+  "44937": [
+   "Hari Pur",
+   302,
+   16
+  ],
+  "45095": [
+   "Dhakimay Chak",
+   303,
+   12
+  ],
+  "248428": [
+   "Herbertpur Np",
+   303,
+   11
+  ],
+  "44938": [
+   "Jokala",
+   302,
+   16
+  ],
+  "44988": [
+   "Jamni Pur",
+   303,
+   16
+  ],
+  "45015": [
+   "Kedarawala",
+   303,
+   16
+  ],
+  "44939": [
+   "Basan",
+   302,
+   17
+  ],
+  "248427": [
+   "Vikasnagar Npp",
+   303,
+   16
+  ],
+  "44924": [
+   "Dhoira",
+   302,
+   18
+  ],
+  "44909": [
+   "Bhugtari",
+   302,
+   19
+  ],
+  "45065": [
+   "Podwala",
+   303,
+   13
+  ],
+  "44903": [
+   "Pihani",
+   302,
+   18
+  ],
+  "44931": [
+   "Kauthi Bhaundi",
+   302,
+   19
+  ],
+  "44926": [
+   "Thaina",
+   302,
+   19
+  ],
+  "44975": [
+   "Ambari Jungle",
+   303,
+   16
+  ],
+  "44973": [
+   "Mehunwala Khalsa",
+   303,
+   16
+  ],
+  "45005": [
+   "Tauli",
+   303,
+   17
+  ],
+  "45006": [
+   "Dhartawala Khalsa",
+   303,
+   16
+  ],
+  "45013": [
+   "Chandpur Khurd",
+   303,
+   12
+  ],
+  "44968": [
+   "River Range",
+   302,
+   18
+  ],
+  "45023": [
+   "Aduwala",
+   303,
+   11
+  ],
+  "44980": [
+   "Nawabgarh",
+   303,
+   16
+  ],
+  "44918": [
+   "Semaha",
+   302,
+   19
+  ],
+  "44991": [
+   "Mandi Gang Mewa",
+   303,
+   11
+  ],
+  "44905": [
+   "Nichhiya",
+   302,
+   18
+  ],
+  "44919": [
+   "Khatar",
+   302,
+   19
+  ],
+  "44896": [
+   "Jadana",
+   302,
+   18
+  ],
+  "44920": [
+   "Dadhau",
+   302,
+   18
+  ],
+  "45016": [
+   "Baluwala",
+   303,
+   12
+  ],
+  "45094": [
+   "Sahas Pur",
+   303,
+   12
+  ],
+  "45061": [
+   "Kutubpur",
+   303,
+   13
+  ],
+  "44989": [
+   "Athan Bagh",
+   303,
+   16
+  ],
+  "45018": [
+   "Lakhanwala Khash",
+   303,
+   11
+  ],
+  "44907": [
+   "Bansar",
+   302,
+   18
+  ],
+  "44993": [
+   "Bentwali Mandi",
+   303,
+   11
+  ],
+  "44970": [
+   "Anfield Jungle T K Jangal",
+   303,
+   16
+  ],
+  "44992": [
+   "Fatehpur",
+   303,
+   16
+  ],
+  "44997": [
+   "Katapatthar",
+   303,
+   16
+  ],
+  "44986": [
+   "Khera Pahuwa",
+   303,
+   16
+  ],
+  "44936": [
+   "Vyas Nahri",
+   302,
+   16
+  ],
+  "45020": [
+   "Parteetpur Kalyanpur",
+   303,
+   11
+  ],
+  "44934": [
+   "Tilwari",
+   302,
+   16
+  ],
+  "44977": [
+   "Bulaki Wala",
+   303,
+   16
+  ],
+  "45024": [
+   "Kunja Grant",
+   303,
+   11
+  ],
+  "45030": [
+   "Jatowala",
+   303,
+   12
+  ],
+  "44921": [
+   "Chapanu",
+   302,
+   18
+  ],
+  "44922": [
+   "Amraha",
+   302,
+   18
+  ],
+  "44995": [
+   "Mirzapur Urf Dhalipur",
+   303,
+   11
+  ],
+  "44895": [
+   "Desau",
+   302,
+   18
+  ],
+  "44969": [
+   "Dumet",
+   303,
+   16
+  ],
+  "44985": [
+   "Prithvipur",
+   303,
+   16
+  ],
+  "44901": [
+   "Rupau",
+   302,
+   18
+  ],
+  "45011": [
+   "Sorna",
+   303,
+   17
+  ],
+  "44933": [
+   "Kalasi",
+   302,
+   18
+  ],
+  "45028": [
+   "Mednipur Badripur",
+   303,
+   11
+  ],
+  "45019": [
+   "Jassowala",
+   303,
+   12
+  ],
+  "44984": [
+   "Bahadur Garh",
+   303,
+   16
+  ],
+  "44983": [
+   "Badam Wala",
+   303,
+   16
+  ],
+  "44935": [
+   "Vyas Bhood",
+   302,
+   16
+  ],
+  "44972": [
+   "Ambari",
+   303,
+   16
+  ],
+  "45097": [
+   "Khushal Pur",
+   303,
+   12
+  ],
+  "44923": [
+   "Jhutaya",
+   302,
+   18
+  ],
+  "45007": [
+   "Rudra Pur",
+   303,
+   17
+  ],
+  "45012": [
+   "Horawala",
+   303,
+   13
+  ],
+  "44906": [
+   "Thurau",
+   302,
+   18
+  ],
+  "44932": [
+   "Bijau",
+   302,
+   19
+  ],
+  "45029": [
+   "Majri",
+   303,
+   12
+  ],
+  "45017": [
+   "Bairagiwala",
+   303,
+   11
+  ],
+  "45106": [
+   "Timli Range",
+   303,
+   11
+  ],
+  "45105": [
+   "Choharpur Range",
+   303,
+   16
+  ],
+  "45089": [
+   "Shankerpur Hakumatpur",
+   303,
+   12
+  ],
+  "45088": [
+   "Chharba",
+   303,
+   12
+  ],
+  "44994": [
+   "Dhakrani Dehat",
+   303,
+   11
+  ],
+  "45093": [
+   "Indripur",
+   303,
+   12
+  ],
+  "44996": [
+   "Lakhanwala Nevat",
+   303,
+   12
+  ],
+  "44990": [
+   "Dhummipur Gang Mewa",
+   303,
+   16
+  ],
+  "45096": [
+   "Ghamauli",
+   303,
+   12
+  ],
+  "44987": [
+   "Jaman Khata",
+   303,
+   16
+  ],
+  "44908": [
+   "Panjiya",
+   302,
+   18
+  ],
+  "44982": [
+   "Babugarh",
+   303,
+   16
+  ],
+  "44979": [
+   "Bheemawala",
+   303,
+   16
+  ],
+  "44981": [
+   "Rasulpur",
+   303,
+   16
+  ],
+  "44978": [
+   "Dakpathar",
+   303,
+   16
+  ],
+  "44619": [
+   "Gamari",
+   300,
+   20
+  ],
+  "44696": [
+   "Nithala",
+   300,
+   21
+  ],
+  "44856": [
+   "Malaitha",
+   302,
+   19
+  ],
+  "44842": [
+   "Udapalta",
+   302,
+   19
+  ],
+  "44631": [
+   "Mohana",
+   300,
+   21
+  ],
+  "44793": [
+   "Buraila",
+   301,
+   23
+  ],
+  "44688": [
+   "Koruwa",
+   300,
+   20
+  ],
+  "44791": [
+   "Masak",
+   301,
+   23
+  ],
+  "44841": [
+   "Rani",
+   302,
+   21
+  ],
+  "44625": [
+   "Kandar",
+   300,
+   24
+  ],
+  "44611": [
+   "Haja",
+   300,
+   20
+  ],
+  "44606": [
+   "Jadi",
+   300,
+   23
+  ],
+  "44784": [
+   "Undawa",
+   301,
+   23
+  ],
+  "44890": [
+   "Tikau",
+   302,
+   18
+  ],
+  "44877": [
+   "Sainj Chandau",
+   302,
+   18
+  ],
+  "44620": [
+   "Gawaila",
+   300,
+   20
+  ],
+  "44871": [
+   "Tipau",
+   302,
+   20
+  ],
+  "44883": [
+   "Kakari",
+   302,
+   19
+  ],
+  "44886": [
+   "Deu",
+   302,
+   18
+  ],
+  "44891": [
+   "Parihar",
+   302,
+   18
+  ],
+  "44882": [
+   "Gharana Urf Jisyou",
+   302,
+   18
+  ],
+  "44866": [
+   "Khamrauli Chibhau",
+   302,
+   20
+  ],
+  "44615": [
+   "Kota Kuwanu",
+   300,
+   20
+  ],
+  "44612": [
+   "Daduwa",
+   300,
+   20
+  ],
+  "44607": [
+   "Mungad",
+   300,
+   20
+  ],
+  "44879": [
+   "Ubhrau",
+   302,
+   18
+  ],
+  "44605": [
+   "Lohari",
+   300,
+   23
+  ],
+  "44899": [
+   "Kherwa",
+   302,
+   18
+  ],
+  "44782": [
+   "Bagani",
+   301,
+   23
+  ],
+  "44618": [
+   "Daudha",
+   300,
+   20
+  ],
+  "44624": [
+   "Maletha",
+   300,
+   20
+  ],
+  "44868": [
+   "Timara",
+   302,
+   20
+  ],
+  "44608": [
+   "Sijla",
+   300,
+   20
+  ],
+  "44870": [
+   "Dilau",
+   302,
+   20
+  ],
+  "44712": [
+   "Bohaa",
+   300,
+   20
+  ],
+  "44872": [
+   "Supau",
+   302,
+   20
+  ],
+  "44623": [
+   "Dunawa",
+   300,
+   20
+  ],
+  "44874": [
+   "Khoi",
+   302,
+   18
+  ],
+  "44848": [
+   "Nevi",
+   302,
+   19
+  ],
+  "44629": [
+   "Sawara",
+   300,
+   24
+  ],
+  "44889": [
+   "Koti",
+   302,
+   18
+  ],
+  "44630": [
+   "Indroli",
+   300,
+   24
+  ],
+  "44709": [
+   "Jamuwa",
+   300,
+   20
+  ],
+  "44693": [
+   "Tikri Khera",
+   300,
+   21
+  ],
+  "44778": [
+   "Gorchha",
+   301,
+   23
+  ],
+  "44786": [
+   "Asoi",
+   301,
+   23
+  ],
+  "44783": [
+   "Bulad",
+   301,
+   23
+  ],
+  "44781": [
+   "Baigi",
+   301,
+   23
+  ],
+  "44894": [
+   "Pata",
+   302,
+   18
+  ],
+  "44690": [
+   "Bisoi",
+   300,
+   21
+  ],
+  "44621": [
+   "Maghgaon Kwanu",
+   300,
+   20
+  ],
+  "44898": [
+   "Dau Bisahal",
+   302,
+   18
+  ],
+  "44687": [
+   "Tungra",
+   300,
+   21
+  ],
+  "44885": [
+   "Bhanajra",
+   302,
+   18
+  ],
+  "44609": [
+   "Matiyana",
+   300,
+   20
+  ],
+  "44622": [
+   "Mailoth Kuwanu",
+   300,
+   20
+  ],
+  "44881": [
+   "Suryo",
+   302,
+   18
+  ],
+  "44785": [
+   "Bayala",
+   301,
+   23
+  ],
+  "44792": [
+   "Tuna",
+   301,
+   23
+  ],
+  "44869": [
+   "Ara",
+   302,
+   20
+  ],
+  "44892": [
+   "Semog",
+   302,
+   18
+  ],
+  "44893": [
+   "Lelta",
+   302,
+   18
+  ],
+  "44710": [
+   "Hajta",
+   300,
+   20
+  ],
+  "44788": [
+   "Hartar Santar",
+   301,
+   23
+  ],
+  "44686": [
+   "Thana",
+   300,
+   21
+  ],
+  "44887": [
+   "Alsi",
+   302,
+   19
+  ],
+  "44682": [
+   "Hoda",
+   300,
+   20
+  ],
+  "44875": [
+   "Chandau",
+   302,
+   20
+  ],
+  "44610": [
+   "Dasau",
+   300,
+   20
+  ],
+  "44614": [
+   "Sunoda",
+   300,
+   20
+  ],
+  "44711": [
+   "Naraya",
+   300,
+   20
+  ],
+  "44681": [
+   "Astad",
+   300,
+   20
+  ],
+  "44679": [
+   "Lorli",
+   300,
+   20
+  ],
+  "44613": [
+   "Kitrauli",
+   300,
+   20
+  ],
+  "44884": [
+   "Kanbua",
+   302,
+   19
+  ],
+  "44685": [
+   "Kwarana",
+   300,
+   20
+  ],
+  "44888": [
+   "Sakani",
+   302,
+   19
+  ],
+  "44692": [
+   "Rikhar",
+   300,
+   21
+  ],
+  "44695": [
+   "Sainj",
+   300,
+   21
+  ],
+  "44880": [
+   "Mandauli",
+   302,
+   18
+  ],
+  "44694": [
+   "Sainsa",
+   300,
+   20
+  ],
+  "44873": [
+   "Keshau",
+   302,
+   20
+  ],
+  "44683": [
+   "Mangrauli",
+   300,
+   20
+  ],
+  "44616": [
+   "Bhoopau",
+   300,
+   20
+  ],
+  "44689": [
+   "Koti Bamtad",
+   300,
+   20
+  ],
+  "44867": [
+   "Kothatarli",
+   302,
+   18
+  ],
+  "44876": [
+   "Malhau",
+   302,
+   18
+  ],
+  "44684": [
+   "Dakerna",
+   300,
+   20
+  ],
+  "44617": [
+   "Matad",
+   300,
+   20
+  ],
+  "44794": [
+   "Jagthan",
+   301,
+   23
+  ],
+  "44787": [
+   "Rajanu",
+   301,
+   23
+  ],
+  "44790": [
+   "Mangtar",
+   301,
+   23
+  ],
+  "44713": [
+   "Salga",
+   300,
+   20
+  ],
+  "44878": [
+   "Kharaya",
+   302,
+   18
+  ],
+  "45060": [
+   "Binaspur",
+   303,
+   13
+  ],
+  "45066": [
+   "Kharakhet",
+   303,
+   14
+  ],
+  "45050": [
+   "Bhanwala",
+   303,
+   13
+  ],
+  "45067": [
+   "Chauki",
+   303,
+   14
+  ],
+  "45039": [
+   "Bakrana",
+   303,
+   14
+  ],
+  "45044": [
+   "Kotra Kalyanpur",
+   303,
+   17
+  ],
+  "45041": [
+   "Kanswali Kothari",
+   303,
+   13
+  ],
+  "45038": [
+   "Misraspatti",
+   303,
+   17
+  ],
+  "45043": [
+   "Nadh",
+   303,
+   17
+  ],
+  "45042": [
+   "Dudhai",
+   303,
+   13
+  ],
+  "45055": [
+   "Baronwala",
+   303,
+   13
+  ],
+  "45068": [
+   "Birabari",
+   303,
+   14
+  ],
+  "45052": [
+   "Manduwala",
+   303,
+   13
+  ],
+  "45058": [
+   "Karimpur",
+   303,
+   13
+  ],
+  "45073": [
+   "Dhaulas",
+   303,
+   14
+  ],
+  "45056": [
+   "Rampur Khurd",
+   303,
+   13
+  ],
+  "45010": [
+   "Koti",
+   303,
+   17
+  ],
+  "45057": [
+   "Tilwari",
+   303,
+   13
+  ],
+  "45047": [
+   "Ramshahwala",
+   303,
+   13
+  ],
+  "45062": [
+   "Abdullapur",
+   303,
+   13
+  ],
+  "45079": [
+   "Pondha",
+   303,
+   14
+  ],
+  "45063": [
+   "Bakhtawarpur Grant",
+   303,
+   13
+  ],
+  "45059": [
+   "Dhoomnagar",
+   303,
+   13
+  ],
+  "45145": [
+   "Hariyawala Khurd",
+   304,
+   14
+  ],
+  "45048": [
+   "Jagatpur",
+   303,
+   13
+  ],
+  "45049": [
+   "Rampur Bhauwala",
+   303,
+   13
+  ],
+  "45008": [
+   "Barwa",
+   303,
+   17
+  ],
+  "45051": [
+   "Chaknugaon",
+   303,
+   13
+  ],
+  "45116": [
+   "Khala Gaon",
+   304,
+   15
+  ],
+  "45071": [
+   "Hariyawala Kalan",
+   303,
+   14
+  ],
+  "45072": [
+   "Majhaun",
+   303,
+   14
+  ],
+  "45064": [
+   "Rajawala",
+   303,
+   13
+  ],
+  "45046": [
+   "Bhagwanpur Julo",
+   303,
+   13
+  ],
+  "45045": [
+   "Birsani",
+   303,
+   13
+  ],
+  "45054": [
+   "Navgaon",
+   303,
+   13
+  ],
+  "45009": [
+   "Dhalani",
+   303,
+   17
+  ],
+  "45040": [
+   "Bidhauli",
+   303,
+   13
+  ],
+  "45075": [
+   "Aamwala",
+   303,
+   14
+  ],
+  "45137": [
+   "Gajiawala",
+   304,
+   14
+  ],
+  "45078": [
+   "Kandhauli",
+   303,
+   13
+  ],
+  "45074": [
+   "Harnaul",
+   303,
+   14
+  ],
+  "45004": [
+   "Langhaf",
+   303,
+   17
+  ],
+  "45118": [
+   "Dumal Gaon",
+   304,
+   15
+  ],
+  "45120": [
+   "Kuthal Gaon",
+   304,
+   15
+  ],
+  "45123": [
+   "Bhagwant Pur",
+   304,
+   15
+  ],
+  "45177": [
+   "Nagalhat Nala",
+   304,
+   15
+  ],
+  "45179": [
+   "Chalang",
+   304,
+   15
+  ],
+  "45112": [
+   "Rikhauli",
+   304,
+   14
+  ],
+  "45184": [
+   "Tarla Nagal",
+   304,
+   15
+  ],
+  "45182": [
+   "Kulhan Mansingh",
+   304,
+   15
+  ],
+  "45128": [
+   "Utari Gaon",
+   304,
+   15
+  ],
+  "45136": [
+   "Galajwari",
+   304,
+   14
+  ],
+  "45178": [
+   "Khuranwa",
+   304,
+   15
+  ],
+  "45176": [
+   "Marautha",
+   304,
+   15
+  ],
+  "45125": [
+   "Kheragopiwala",
+   304,
+   14
+  ],
+  "45122": [
+   "Salan Gaon",
+   304,
+   15
+  ],
+  "45135": [
+   "Bisht Gaon",
+   304,
+   14
+  ],
+  "45180": [
+   "Sindhauwali Dhauran",
+   304,
+   15
+  ],
+  "45133": [
+   "Guniyal Gaon",
+   304,
+   15
+  ],
+  "45134": [
+   "Saloniwala",
+   304,
+   15
+  ],
+  "45146": [
+   "Ghanghora",
+   304,
+   14
+  ],
+  "45141": [
+   "Johari",
+   304,
+   15
+  ],
+  "45130": [
+   "Makka Wala",
+   304,
+   15
+  ],
+  "45139": [
+   "Jamoliwala",
+   304,
+   15
+  ],
+  "45181": [
+   "Kulhan Karanpur",
+   304,
+   15
+  ],
+  "45131": [
+   "Danion Ka Danda",
+   304,
+   15
+  ],
+  "45173": [
+   "Kairwan Karanpur",
+   304,
+   15
+  ],
+  "45143": [
+   "Vijepur Gopiwala",
+   304,
+   14
+  ],
+  "45144": [
+   "Vijepur Hathibarkala",
+   304,
+   15
+  ],
+  "45138": [
+   "Gangole Pandit Wari",
+   304,
+   14
+  ],
+  "45124": [
+   "Punkal Gaon",
+   304,
+   15
+  ],
+  "45127": [
+   "Jamniwala",
+   304,
+   14
+  ],
+  "45129": [
+   "Brahman Gaon",
+   304,
+   15
+  ],
+  "45117": [
+   "Bhandar Gaon",
+   304,
+   15
+  ],
+  "45119": [
+   "Kirsali Gaon",
+   304,
+   15
+  ],
+  "45140": [
+   "Sinaula",
+   304,
+   15
+  ],
+  "45114": [
+   "Kyar Kuli Bhatta",
+   304,
+   15
+  ],
+  "45115": [
+   "Doom Gaon",
+   304,
+   15
+  ],
+  "45113": [
+   "Bhitar Wali",
+   304,
+   14
+  ],
+  "45069": [
+   "Saliyawala",
+   303,
+   14
+  ],
+  "45070": [
+   "Chaksaliya Wala",
+   303,
+   14
+  ],
+  "45126": [
+   "Sigli",
+   304,
+   14
+  ],
+  "45121": [
+   "Bagral Gaon",
+   304,
+   15
+  ],
+  "45142": [
+   "Chandrothi",
+   304,
+   14
+  ],
+  "248429": [
+   "Mussoorie Npp",
+   304,
+   15
+  ],
+  "45147": [
+   "Purohit Wala",
+   304,
+   14
+  ],
+  "45132": [
+   "Malsi",
+   304,
+   15
+  ],
+  "45169": [
+   "Sera Goan",
+   304,
+   15
+  ],
+  "44929": [
+   "Kaha Nehra Punagh",
+   302,
+   19
+  ],
+  "44943": [
+   "Dhiroi",
+   302,
+   19
+  ],
+  "44930": [
+   "Khani",
+   302,
+   19
+  ],
+  "44940": [
+   "Loharna",
+   302,
+   19
+  ],
+  "44833": [
+   "Ludhera",
+   302,
+   19
+  ],
+  "44836": [
+   "Lacchha",
+   302,
+   19
+  ],
+  "44966": [
+   "Jakhnoj Bhisto",
+   302,
+   17
+  ],
+  "44914": [
+   "Sarsona",
+   302,
+   19
+  ],
+  "44824": [
+   "Kandoi",
+   302,
+   19
+  ],
+  "44915": [
+   "Patiyana",
+   302,
+   19
+  ],
+  "44951": [
+   "Pingiri",
+   302,
+   19
+  ],
+  "44916": [
+   "Utail",
+   302,
+   19
+  ],
+  "45269": [
+   "Mehu Wala Mafi CT",
+   304,
+   8
+  ],
+  "45268": [
+   "Natthan Pur CT",
+   304,
+   9
+  ],
+  "45270": [
+   "Natthuwa Wala CT",
+   304,
+   9
+  ],
+  "45271": [
+   "Bharuwal Grant",
+   304,
+   8
+  ],
+  "45267": [
+   "Raipur CT",
+   304,
+   9
+  ],
+  "800311": [
+   "Clement Town Cb",
+   304,
+   8
+  ],
+  "800304": [
+   "Chakrata Cb",
+   300,
+   21
+  ],
+  "44965": [
+   "Lohari Lakhwar",
+   302,
+   17
+  ],
+  "800310": [
+   "Dehradun Cb",
+   304,
+   14
+  ],
+  "45110": [
+   "Jiwangarh CT",
+   303,
+   16
+  ],
+  "44834": [
+   "Sariyana",
+   302,
+   19
+  ],
+  "44967": [
+   "Dhanpau",
+   302,
+   17
+  ],
+  "44949": [
+   "Thalin",
+   302,
+   19
+  ],
+  "44911": [
+   "Bhandrauta",
+   302,
+   19
+  ],
+  "44954": [
+   "Lakasyar",
+   302,
+   19
+  ],
+  "44827": [
+   "Chichrar",
+   302,
+   19
+  ],
+  "44955": [
+   "Kenota",
+   302,
+   19
+  ],
+  "44832": [
+   "Mahasasa",
+   302,
+   19
+  ],
+  "44964": [
+   "Bihar",
+   302,
+   17
+  ],
+  "44953": [
+   "Luhan",
+   302,
+   19
+  ],
+  "44928": [
+   "Badhana",
+   302,
+   19
+  ],
+  "44819": [
+   "Chirtad",
+   302,
+   19
+  ],
+  "44825": [
+   "Dwina",
+   302,
+   19
+  ],
+  "44948": [
+   "Gadaura Sakraula",
+   302,
+   19
+  ],
+  "44942": [
+   "Lohari Phartad",
+   302,
+   19
+  ],
+  "44956": [
+   "Lakhwar",
+   302,
+   17
+  ],
+  "44958": [
+   "Ghaman Gaon",
+   302,
+   19
+  ],
+  "44944": [
+   "Singouta",
+   302,
+   19
+  ],
+  "44835": [
+   "Gadoul",
+   302,
+   19
+  ],
+  "44941": [
+   "Khadin",
+   302,
+   19
+  ],
+  "44830": [
+   "Sila",
+   302,
+   19
+  ],
+  "44961": [
+   "Dindal",
+   302,
+   17
+  ],
+  "44831": [
+   "Bisoi",
+   302,
+   19
+  ],
+  "44823": [
+   "Kyari",
+   302,
+   19
+  ],
+  "44826": [
+   "Kwasa",
+   302,
+   19
+  ],
+  "44913": [
+   "Balanu",
+   302,
+   19
+  ],
+  "44837": [
+   "Chila",
+   302,
+   19
+  ],
+  "44962": [
+   "Gaski",
+   302,
+   17
+  ],
+  "44946": [
+   "Chunau",
+   302,
+   19
+  ],
+  "44950": [
+   "Munshi",
+   302,
+   19
+  ],
+  "44960": [
+   "Chunho",
+   302,
+   19
+  ],
+  "44947": [
+   "Kamla",
+   302,
+   19
+  ],
+  "44829": [
+   "Rampur",
+   302,
+   19
+  ],
+  "44917": [
+   "Baitha",
+   302,
+   19
+  ],
+  "44828": [
+   "Mundhan",
+   302,
+   19
+  ],
+  "44957": [
+   "Sawara",
+   302,
+   19
+  ],
+  "44945": [
+   "Khari",
+   302,
+   19
+  ],
+  "44959": [
+   "Bansu",
+   302,
+   19
+  ],
+  "44963": [
+   "Bago",
+   302,
+   17
+  ],
+  "44952": [
+   "Bardhait",
+   302,
+   19
+  ],
+  "45001": [
+   "Madarsu",
+   303,
+   17
+  ],
+  "44822": [
+   "Khunna Alman",
+   302,
+   19
+  ],
+  "45000": [
+   "Bhaler",
+   303,
+   17
+  ],
+  "44999": [
+   "Papdiyan",
+   303,
+   17
+  ],
+  "45002": [
+   "Bavandhar",
+   303,
+   17
+  ],
+  "44998": [
+   "Pasta",
+   303,
+   17
+  ],
+  "45003": [
+   "Matogi",
+   303,
+   17
+  ],
+  "45168": [
+   "Motidhar",
+   304,
+   15
+  ],
+  "45166": [
+   "Majhara",
+   304,
+   15
+  ],
+  "45159": [
+   "Simiyari",
+   304,
+   15
+  ],
+  "45171": [
+   "Timilimansingh",
+   304,
+   15
+  ],
+  "45174": [
+   "Dhanaula",
+   304,
+   15
+  ],
+  "45262": [
+   "Mussorie Range",
+   304,
+   15
+  ],
+  "45175": [
+   "Bandawali",
+   304,
+   15
+  ],
+  "45165": [
+   "Karliguard",
+   304,
+   15
+  ],
+  "45162": [
+   "Sarauna",
+   304,
+   15
+  ],
+  "45167": [
+   "Chamasari",
+   304,
+   15
+  ],
+  "45164": [
+   "Bhaiswargaon",
+   304,
+   15
+  ],
+  "45161": [
+   "Naliwala",
+   304,
+   15
+  ],
+  "45158": [
+   "Kiwara",
+   304,
+   15
+  ],
+  "45157": [
+   "Silla",
+   304,
+   15
+  ],
+  "45191": [
+   "Bhandariwala",
+   304,
+   15
+  ],
+  "45170": [
+   "Bagradhauran",
+   304,
+   15
+  ],
+  "45261": [
+   "Raipur Range",
+   304,
+   15
+  ],
+  "45160": [
+   "Fuleta",
+   304,
+   15
+  ],
+  "45163": [
+   "Chhamroli",
+   304,
+   15
+  ],
+  "44853": [
+   "Damta",
+   302,
+   19
+  ],
+  "44809": [
+   "Latau",
+   302,
+   19
+  ],
+  "44703": [
+   "Ghighau",
+   300,
+   21
+  ],
+  "44642": [
+   "Chunauti",
+   300,
+   22
+  ],
+  "44640": [
+   "Bijanu",
+   300,
+   22
+  ],
+  "44634": [
+   "Samog",
+   300,
+   21
+  ],
+  "44646": [
+   "Pati",
+   300,
+   21
+  ],
+  "44637": [
+   "Punaha Pokhari",
+   300,
+   25
+  ],
+  "44807": [
+   "Bajau",
+   302,
+   19
+  ],
+  "44852": [
+   "Bamrar",
+   302,
+   19
+  ],
+  "44801": [
+   "Dagura",
+   302,
+   19
+  ],
+  "44626": [
+   "Baniyana",
+   300,
+   24
+  ],
+  "44671": [
+   "Kandi Chamagata",
+   300,
+   22
+  ],
+  "44820": [
+   "Rakhatad",
+   302,
+   19
+  ],
+  "44858": [
+   "Datanu",
+   302,
+   19
+  ],
+  "44697": [
+   "Chhatau",
+   300,
+   21
+  ],
+  "44675": [
+   "Guthar",
+   300,
+   22
+  ],
+  "44857": [
+   "Badanu",
+   302,
+   19
+  ],
+  "44663": [
+   "Bisau",
+   300,
+   22
+  ],
+  "44649": [
+   "Mahrawna",
+   300,
+   21
+  ],
+  "44799": [
+   "Ratar",
+   302,
+   19
+  ],
+  "44628": [
+   "Mendal",
+   300,
+   24
+  ],
+  "44636": [
+   "Kharsi",
+   300,
+   25
+  ],
+  "44849": [
+   "Khatasa",
+   302,
+   19
+  ],
+  "44699": [
+   "Hayotagari",
+   300,
+   21
+  ],
+  "44844": [
+   "Thatyou",
+   302,
+   19
+  ],
+  "44652": [
+   "Dabla",
+   300,
+   22
+  ],
+  "44659": [
+   "Kotuwa",
+   300,
+   22
+  ],
+  "44815": [
+   "Khati",
+   302,
+   19
+  ],
+  "44641": [
+   "Birpa",
+   300,
+   22
+  ],
+  "44817": [
+   "Singhor",
+   302,
+   19
+  ],
+  "44669": [
+   "Chhultar",
+   300,
+   25
+  ],
+  "44808": [
+   "Dabra",
+   302,
+   19
+  ],
+  "44667": [
+   "Lawari Datrota",
+   300,
+   25
+  ],
+  "44802": [
+   "Chhau Saily",
+   302,
+   22
+  ],
+  "44811": [
+   "Kachata",
+   302,
+   22
+  ],
+  "44804": [
+   "Marloh Khokta",
+   302,
+   19
+  ],
+  "44676": [
+   "Megar",
+   300,
+   22
+  ],
+  "44660": [
+   "Silamu",
+   300,
+   22
+  ],
+  "44658": [
+   "Kolaha",
+   300,
+   21
+  ],
+  "44860": [
+   "Basaha",
+   302,
+   19
+  ],
+  "44653": [
+   "Jashta",
+   300,
+   22
+  ],
+  "44656": [
+   "Mahpavata",
+   300,
+   21
+  ],
+  "44678": [
+   "Kunna",
+   300,
+   22
+  ],
+  "44805": [
+   "Sawai",
+   302,
+   19
+  ],
+  "44647": [
+   "Rawana",
+   300,
+   21
+  ],
+  "44670": [
+   "Kondoi Bondar",
+   300,
+   25
+  ],
+  "44865": [
+   "Gothan Joshi",
+   302,
+   19
+  ],
+  "44814": [
+   "Bhunau",
+   302,
+   19
+  ],
+  "44638": [
+   "Siribarkoti",
+   300,
+   22
+  ],
+  "44645": [
+   "Thanta",
+   300,
+   21
+  ],
+  "44635": [
+   "Khatuwa",
+   300,
+   24
+  ],
+  "44707": [
+   "Dohajhusau",
+   300,
+   22
+  ],
+  "44627": [
+   "Manjhgaon Dwar",
+   300,
+   24
+  ],
+  "44847": [
+   "Kurouli",
+   302,
+   19
+  ],
+  "44672": [
+   "Mauthi",
+   300,
+   22
+  ],
+  "44639": [
+   "Rangeu",
+   300,
+   22
+  ],
+  "44644": [
+   "Jogio",
+   300,
+   21
+  ],
+  "44701": [
+   "Shibau",
+   300,
+   21
+  ],
+  "44665": [
+   "Derio",
+   300,
+   22
+  ],
+  "44813": [
+   "Kusyou",
+   302,
+   19
+  ],
+  "44708": [
+   "Kaknoi",
+   300,
+   22
+  ],
+  "44816": [
+   "Jaindau",
+   302,
+   19
+  ],
+  "44650": [
+   "Bangoti",
+   300,
+   21
+  ],
+  "44698": [
+   "Chor Kunawa",
+   300,
+   21
+  ],
+  "44859": [
+   "Gadaita",
+   302,
+   19
+  ],
+  "44810": [
+   "Gangro",
+   302,
+   19
+  ],
+  "44674": [
+   "Lakha Mandal",
+   300,
+   25
+  ],
+  "44812": [
+   "Asta",
+   302,
+   19
+  ],
+  "44864": [
+   "Hamarau",
+   302,
+   19
+  ],
+  "44643": [
+   "Kandidhar",
+   300,
+   22
+  ],
+  "44632": [
+   "Sujau",
+   300,
+   21
+  ],
+  "44840": [
+   "Uprauli",
+   302,
+   21
+  ],
+  "44839": [
+   "Binou",
+   302,
+   21
+  ],
+  "44668": [
+   "Bhatar Chhautar",
+   300,
+   25
+  ],
+  "44854": [
+   "Samalta Dadauli",
+   302,
+   19
+  ],
+  "44851": [
+   "Ichhala",
+   302,
+   19
+  ],
+  "44862": [
+   "Mathyau",
+   302,
+   19
+  ],
+  "44863": [
+   "Lalau",
+   302,
+   19
+  ],
+  "44662": [
+   "Sahiya",
+   300,
+   22
+  ],
+  "44702": [
+   "Kaitri",
+   300,
+   21
+  ],
+  "44673": [
+   "Dhaura Pudia",
+   300,
+   25
+  ],
+  "44806": [
+   "Tiprara",
+   302,
+   19
+  ],
+  "44912": [
+   "Bhoda",
+   302,
+   19
+  ],
+  "44855": [
+   "Panuwa",
+   302,
+   19
+  ],
+  "44818": [
+   "Badhau",
+   302,
+   19
+  ],
+  "44843": [
+   "Bohari",
+   302,
+   19
+  ],
+  "44666": [
+   "Nada",
+   300,
+   25
+  ],
+  "44651": [
+   "Shirba",
+   300,
+   21
+  ],
+  "44648": [
+   "Buraswa",
+   300,
+   21
+  ],
+  "44861": [
+   "Masrad",
+   302,
+   19
+  ],
+  "44846": [
+   "Pata Samalta",
+   302,
+   19
+  ],
+  "44677": [
+   "Myudha",
+   300,
+   22
+  ],
+  "44700": [
+   "Kyawa",
+   300,
+   21
+  ],
+  "44850": [
+   "Jusau Bhakrou",
+   302,
+   19
+  ],
+  "44657": [
+   "Bahmoo",
+   300,
+   21
+  ],
+  "44821": [
+   "Ubhau",
+   302,
+   19
+  ],
+  "44845": [
+   "Phatyou",
+   302,
+   19
+  ],
+  "44664": [
+   "Ghanta",
+   300,
+   22
+  ],
+  "44704": [
+   "Nagou",
+   300,
+   21
+  ],
+  "44691": [
+   "Birmau",
+   300,
+   21
+  ],
+  "44803": [
+   "Budula",
+   302,
+   22
+  ],
+  "44800": [
+   "Kunna",
+   302,
+   19
+  ],
+  "44661": [
+   "Rampur Sharna",
+   300,
+   22
+  ],
+  "44655": [
+   "Kharwi Khabou",
+   300,
+   22
+  ],
+  "44705": [
+   "Makhti",
+   300,
+   21
+  ],
+  "44706": [
+   "Matiyawa",
+   300,
+   21
+  ],
+  "44654": [
+   "Kota Taplad",
+   300,
+   22
+  ],
+  "44633": [
+   "Kurar Khanarsichar",
+   300,
+   21
+  ],
+  "44798": [
+   "Kanaser Range",
+   301,
+   24
+  ],
+  "800308": [
+   "Landaur Cb",
+   304,
+   15
+  ],
+  "44769": [
+   "Bhandroli",
+   301,
+   26
+  ],
+  "44739": [
+   "Pheirij",
+   301,
+   26
+  ],
+  "44777": [
+   "Kunwa",
+   301,
+   23
+  ],
+  "44772": [
+   "Dimich",
+   301,
+   23
+  ],
+  "44773": [
+   "Penuwa",
+   301,
+   23
+  ],
+  "44770": [
+   "Silaura",
+   301,
+   26
+  ],
+  "44774": [
+   "Kaba Khera",
+   301,
+   23
+  ],
+  "44760": [
+   "Banachilar",
+   301,
+   26
+  ],
+  "44779": [
+   "Punig",
+   301,
+   23
+  ],
+  "44780": [
+   "Kandoi",
+   301,
+   23
+  ],
+  "44766": [
+   "Kharaura",
+   301,
+   24
+  ],
+  "44771": [
+   "Chanjoi",
+   301,
+   26
+  ],
+  "44775": [
+   "Thartha",
+   301,
+   23
+  ],
+  "44761": [
+   "Sunoi",
+   301,
+   27
+  ],
+  "44768": [
+   "Dungri",
+   301,
+   26
+  ],
+  "44737": [
+   "Anu",
+   301,
+   26
+  ],
+  "44745": [
+   "Phanar",
+   301,
+   27
+  ],
+  "44767": [
+   "Amarad Jhabrad",
+   301,
+   27
+  ],
+  "44765": [
+   "Raitad",
+   301,
+   24
+  ],
+  "44738": [
+   "Sainj",
+   301,
+   26
+  ],
+  "44789": [
+   "Koti Kanasar",
+   301,
+   23
+  ],
+  "44741": [
+   "Tiutad",
+   301,
+   26
+  ],
+  "44776": [
+   "Pinguwa",
+   301,
+   23
+  ],
+  "44740": [
+   "Hartal",
+   301,
+   26
+  ],
+  "44764": [
+   "Kholara",
+   301,
+   24
+  ],
+  "44734": [
+   "Mundhola",
+   301,
+   26
+  ],
+  "44733": [
+   "Pivnal",
+   301,
+   26
+  ],
+  "44730": [
+   "Chhumara",
+   301,
+   26
+  ],
+  "44721": [
+   "Brinad Bastil",
+   301,
+   26
+  ],
+  "44729": [
+   "Kanda",
+   301,
+   26
+  ],
+  "44718": [
+   "Bhagawat",
+   301,
+   26
+  ],
+  "44723": [
+   "Bagi",
+   301,
+   27
+  ],
+  "44736": [
+   "Radu",
+   301,
+   26
+  ],
+  "44722": [
+   "Kuna",
+   301,
+   27
+  ],
+  "44719": [
+   "Seriya",
+   301,
+   26
+  ],
+  "44732": [
+   "Derasa",
+   301,
+   26
+  ],
+  "44735": [
+   "Kulaha",
+   301,
+   26
+  ],
+  "44731": [
+   "Raigi",
+   301,
+   26
+  ],
+  "44795": [
+   "Devdhar Range",
+   301,
+   26
+  ],
+  "44720": [
+   "Meghatu",
+   301,
+   26
+  ],
+  "44728": [
+   "Koti Babar",
+   301,
+   27
+  ],
+  "44716": [
+   "Jhitand",
+   301,
+   26
+  ],
+  "44717": [
+   "Bhatgarhi",
+   301,
+   26
+  ],
+  "44753": [
+   "Bhunar",
+   301,
+   27
+  ],
+  "44715": [
+   "Banpur",
+   301,
+   26
+  ],
+  "44757": [
+   "Sarni",
+   301,
+   27
+  ],
+  "44742": [
+   "Chausal",
+   301,
+   27
+  ],
+  "44744": [
+   "Purtad",
+   301,
+   27
+  ],
+  "44726": [
+   "Chatra",
+   301,
+   27
+  ],
+  "44758": [
+   "Paturi",
+   301,
+   27
+  ],
+  "44756": [
+   "Sunir",
+   301,
+   27
+  ],
+  "44762": [
+   "Sainj",
+   301,
+   27
+  ],
+  "44752": [
+   "Bhattar",
+   301,
+   27
+  ],
+  "44755": [
+   "Kistur",
+   301,
+   27
+  ],
+  "44751": [
+   "Chhajar Hartad",
+   301,
+   27
+  ],
+  "44754": [
+   "Karardie",
+   301,
+   27
+  ],
+  "44747": [
+   "Obraser",
+   301,
+   27
+  ],
+  "44727": [
+   "Ninus",
+   301,
+   27
+  ],
+  "44724": [
+   "Maindrath",
+   301,
+   27
+  ],
+  "44763": [
+   "Kunaun",
+   301,
+   27
+  ],
+  "44743": [
+   "Darmigar",
+   301,
+   27
+  ],
+  "44750": [
+   "Nimaga",
+   301,
+   27
+  ],
+  "44749": [
+   "Bhoot",
+   301,
+   27
+  ],
+  "44746": [
+   "Bagoor",
+   301,
+   27
+  ],
+  "44725": [
+   "Hanol",
+   301,
+   27
+  ],
+  "44748": [
+   "Dirnad",
+   301,
+   27
+  ],
+  "44759": [
+   "Eithan",
+   301,
+   27
+  ],
+  "44797": [
+   "Babar Range",
+   301,
+   27
+  ],
+  "44796": [
+   "Malta Range",
+   301,
+   27
+  ],
+  "45263": [
+   "Thano Range",
+   304,
+   9
+  ],
+  "45260": [
+   "Mussorie Range",
+   304,
+   14
+  ],
+  "44714": [
+   "Rikhnad Range",
+   300,
+   25
+  ]
+ },
+ "village_count_total": 771,
+ "village_count_assigned": 771
+}

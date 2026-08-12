@@ -1,0 +1,920 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Haryana",
+  "district": "Rohtak",
+  "district_lgd": 73,
+  "observation_window": "2026-08-07T11:08Z to 2026-08-12T11:08Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2649,
+  "sm_surface_stddev": 0.004,
+  "sm_rootzone_mean": 0.2244,
+  "sm_rootzone_stddev": 0.0047,
+  "n_cells": 15,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 28.8045,
+    "lon": 76.4332,
+    "sm_surface": 0.2714,
+    "sm_rootzone": 0.2328,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 1,
+    "lat": 28.8045,
+    "lon": 76.532,
+    "sm_surface": 0.272,
+    "sm_rootzone": 0.2301,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 2,
+    "lat": 28.8045,
+    "lon": 76.6308,
+    "sm_surface": 0.2696,
+    "sm_rootzone": 0.2311,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 3,
+    "lat": 28.8045,
+    "lon": 76.7296,
+    "sm_surface": 0.2682,
+    "sm_rootzone": 0.2303,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 4,
+    "lat": 28.8045,
+    "lon": 76.8284,
+    "sm_surface": 0.2692,
+    "sm_rootzone": 0.2297,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 5,
+    "lat": 28.9033,
+    "lon": 76.3343,
+    "sm_surface": 0.2611,
+    "sm_rootzone": 0.2197,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 6,
+    "lat": 28.9033,
+    "lon": 76.4332,
+    "sm_surface": 0.261,
+    "sm_rootzone": 0.222,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 7,
+    "lat": 28.9033,
+    "lon": 76.532,
+    "sm_surface": 0.2634,
+    "sm_rootzone": 0.2218,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 8,
+    "lat": 28.9033,
+    "lon": 76.6308,
+    "sm_surface": 0.2645,
+    "sm_rootzone": 0.2211,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 9,
+    "lat": 28.9033,
+    "lon": 76.7296,
+    "sm_surface": 0.259,
+    "sm_rootzone": 0.2198,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 10,
+    "lat": 29.0021,
+    "lon": 76.3343,
+    "sm_surface": 0.2634,
+    "sm_rootzone": 0.2208,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 11,
+    "lat": 29.0021,
+    "lon": 76.4332,
+    "sm_surface": 0.2623,
+    "sm_rootzone": 0.2199,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 12,
+    "lat": 29.0021,
+    "lon": 76.532,
+    "sm_surface": 0.261,
+    "sm_rootzone": 0.2209,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 13,
+    "lat": 29.0021,
+    "lon": 76.6308,
+    "sm_surface": 0.266,
+    "sm_rootzone": 0.2241,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 14,
+    "lat": 29.0021,
+    "lon": 76.7296,
+    "sm_surface": 0.2621,
+    "sm_rootzone": 0.222,
+    "n_villages_sharing_cell": 4
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2648,
+  "sm_surface_stddev": 0.0018,
+  "n_blocks": 3
+ },
+ "blocks": [
+  {
+   "block_name": "Maham",
+   "sdcode": 404,
+   "n_villages": 32,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.2623,
+   "sm_surface_stddev": 0.001
+  },
+  {
+   "block_name": "Rohtak",
+   "sdcode": 405,
+   "n_villages": 93,
+   "n_cells_spanned": 12,
+   "sm_surface_mean": 0.2658,
+   "sm_surface_stddev": 0.0046
+  },
+  {
+   "block_name": "Sampla",
+   "sdcode": 406,
+   "n_villages": 23,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.2664,
+   "sm_surface_stddev": 0.004
+  }
+ ],
+ "villages": {
+  "61594": [
+   "Jindran Kalan",
+   405,
+   0
+  ],
+  "800413": [
+   "Meham",
+   404,
+   10
+  ],
+  "61585": [
+   "Muradpur Tekna",
+   404,
+   6
+  ],
+  "61588": [
+   "Mokhra Kheri",
+   404,
+   6
+  ],
+  "61625": [
+   "Dobh",
+   405,
+   7
+  ],
+  "61598": [
+   "Maroudi Rangran",
+   405,
+   1
+  ],
+  "61604": [
+   "Anwal",
+   405,
+   0
+  ],
+  "61590": [
+   "Saimpal",
+   405,
+   5
+  ],
+  "61595": [
+   "Lahli",
+   405,
+   6
+  ],
+  "61597": [
+   "Baniyani",
+   405,
+   1
+  ],
+  "61599": [
+   "Maroudi Jatan",
+   405,
+   1
+  ],
+  "61603": [
+   "Patwapur",
+   405,
+   1
+  ],
+  "61591": [
+   "Kherari",
+   405,
+   0
+  ],
+  "61602": [
+   "Ballab",
+   405,
+   1
+  ],
+  "61613": [
+   "Taimurpur",
+   405,
+   1
+  ],
+  "61612": [
+   "Garhi Ballab",
+   405,
+   1
+  ],
+  "61606": [
+   "Gudhan",
+   405,
+   0
+  ],
+  "61616": [
+   "Matana",
+   405,
+   1
+  ],
+  "61614": [
+   "Sundana",
+   405,
+   1
+  ],
+  "61605": [
+   "Nigana",
+   405,
+   0
+  ],
+  "61611": [
+   "Kahnaur",
+   405,
+   1
+  ],
+  "61607": [
+   "Katesra",
+   405,
+   0
+  ],
+  "61615": [
+   "Masudpur",
+   405,
+   1
+  ],
+  "61610": [
+   "Sanga Hera",
+   405,
+   0
+  ],
+  "61609": [
+   "Pilana",
+   405,
+   0
+  ],
+  "61593": [
+   "Kalanaur Kalan Part",
+   405,
+   0
+  ],
+  "61592": [
+   "Kalanaur Khurd Part",
+   405,
+   0
+  ],
+  "61608": [
+   "Manjha",
+   405,
+   0
+  ],
+  "61565": [
+   "Chandi",
+   404,
+   12
+  ],
+  "61579": [
+   "Bharan",
+   404,
+   11
+  ],
+  "61582": [
+   "Nidana",
+   404,
+   11
+  ],
+  "61560": [
+   "Farmana Khas",
+   404,
+   10
+  ],
+  "61558": [
+   "Seman",
+   404,
+   10
+  ],
+  "61559": [
+   "Bedwa",
+   404,
+   10
+  ],
+  "61567": [
+   "Bainsi",
+   404,
+   11
+  ],
+  "61563": [
+   "Kharak Jatan",
+   404,
+   11
+  ],
+  "61562": [
+   "Gugaheri",
+   404,
+   11
+  ],
+  "61561": [
+   "Farmana Badshahpur",
+   404,
+   10
+  ],
+  "61564": [
+   "Lakhan Majra",
+   404,
+   11
+  ],
+  "61569": [
+   "Bhaini Chanderpal",
+   404,
+   10
+  ],
+  "61570": [
+   "Bhaini Surjan",
+   404,
+   10
+  ],
+  "61568": [
+   "Nindana",
+   404,
+   10
+  ],
+  "61566": [
+   "Kherainti",
+   404,
+   11
+  ],
+  "61571": [
+   "Bhaini Maharajpur",
+   404,
+   10
+  ],
+  "61575": [
+   "Kheri Maham",
+   404,
+   10
+  ],
+  "61574": [
+   "Maham Rural Part",
+   404,
+   5
+  ],
+  "61584": [
+   "Madina Kaursan",
+   404,
+   6
+  ],
+  "61586": [
+   "Mokhra Khas",
+   404,
+   6
+  ],
+  "61572": [
+   "Bhaini Bharon",
+   404,
+   10
+  ],
+  "61581": [
+   "Gorawar",
+   404,
+   11
+  ],
+  "61580": [
+   "Ajaib",
+   404,
+   11
+  ],
+  "61576": [
+   "Shekhupur Titri",
+   404,
+   10
+  ],
+  "61577": [
+   "Bahlba",
+   404,
+   5
+  ],
+  "61583": [
+   "Madina Gindhran",
+   404,
+   6
+  ],
+  "61573": [
+   "Sisar Khas",
+   404,
+   5
+  ],
+  "61578": [
+   "Kharkhra",
+   404,
+   6
+  ],
+  "61643": [
+   "Chiri",
+   405,
+   12
+  ],
+  "61644": [
+   "Nandal",
+   405,
+   11
+  ],
+  "61642": [
+   "Garauthi",
+   405,
+   12
+  ],
+  "61638": [
+   "Bhagotipur",
+   405,
+   12
+  ],
+  "61637": [
+   "Samar Gopalpur",
+   405,
+   12
+  ],
+  "61635": [
+   "Bahu Akberpur",
+   405,
+   6
+  ],
+  "61636": [
+   "Singhpura",
+   405,
+   7
+  ],
+  "61634": [
+   "Bahu Jamalpur",
+   405,
+   7
+  ],
+  "61589": [
+   "Basana",
+   405,
+   5
+  ],
+  "61633": [
+   "Taja Majra",
+   405,
+   7
+  ],
+  "61632": [
+   "Gaddi Kheri",
+   405,
+   7
+  ],
+  "61596": [
+   "Bhali Anandpur",
+   405,
+   7
+  ],
+  "61631": [
+   "Kutana Part",
+   405,
+   7
+  ],
+  "61645": [
+   "Kharak Churangla",
+   405,
+   12
+  ],
+  "61587": [
+   "Mokhra Kheri Rojh",
+   404,
+   6
+  ],
+  "800415": [
+   "Kalanaur",
+   405,
+   0
+  ],
+  "61684": [
+   "Kisranti",
+   406,
+   9
+  ],
+  "61682": [
+   "Nonond",
+   406,
+   9
+  ],
+  "61685": [
+   "Morkheri",
+   406,
+   9
+  ],
+  "61681": [
+   "Kheri Sadh",
+   406,
+   8
+  ],
+  "61627": [
+   "Kanheli Part",
+   405,
+   8
+  ],
+  "61624": [
+   "Sunari Khurd",
+   405,
+   1
+  ],
+  "61622": [
+   "Pahrawar",
+   405,
+   2
+  ],
+  "61686": [
+   "Samchana",
+   406,
+   4
+  ],
+  "61693": [
+   "Atail",
+   406,
+   3
+  ],
+  "61623": [
+   "Maina",
+   405,
+   2
+  ],
+  "61695": [
+   "Kharawar",
+   406,
+   3
+  ],
+  "61696": [
+   "Karor",
+   406,
+   2
+  ],
+  "61694": [
+   "Gandhra",
+   406,
+   3
+  ],
+  "61600": [
+   "Garnawathi",
+   405,
+   1
+  ],
+  "61619": [
+   "Baland",
+   405,
+   2
+  ],
+  "61621": [
+   "Simli",
+   405,
+   2
+  ],
+  "61620": [
+   "Karountha",
+   405,
+   2
+  ],
+  "61692": [
+   "Dataur",
+   406,
+   3
+  ],
+  "61691": [
+   "Gijji",
+   406,
+   3
+  ],
+  "61697": [
+   "Chulliana",
+   406,
+   3
+  ],
+  "61601": [
+   "Kakrana",
+   405,
+   1
+  ],
+  "61689": [
+   "Bhainsru Khurd",
+   406,
+   4
+  ],
+  "61688": [
+   "Bhainsru Kalan",
+   406,
+   4
+  ],
+  "61698": [
+   "Ismaila 11B",
+   406,
+   3
+  ],
+  "61700": [
+   "Ismaila 9 B",
+   406,
+   3
+  ],
+  "61690": [
+   "Naya Bans",
+   406,
+   4
+  ],
+  "61618": [
+   "Ritauli",
+   405,
+   1
+  ],
+  "61701": [
+   "Garhi Sampla",
+   406,
+   3
+  ],
+  "61699": [
+   "Kultana",
+   406,
+   3
+  ],
+  "61617": [
+   "Kabulpur",
+   405,
+   1
+  ],
+  "61626": [
+   "Jalalpur",
+   405,
+   7
+  ],
+  "61687": [
+   "Hassangarh",
+   406,
+   4
+  ],
+  "61646": [
+   "Katwara",
+   405,
+   12
+  ],
+  "61654": [
+   "Ghilor Khurd",
+   405,
+   13
+  ],
+  "61647": [
+   "Sanghi",
+   405,
+   13
+  ],
+  "61652": [
+   "Sahan Majra",
+   405,
+   13
+  ],
+  "61653": [
+   "Jassia",
+   405,
+   13
+  ],
+  "61648": [
+   "Khidwali",
+   405,
+   12
+  ],
+  "61656": [
+   "Kahni 7",
+   405,
+   14
+  ],
+  "61649": [
+   "Ghuskani",
+   405,
+   12
+  ],
+  "61650": [
+   "Jindran",
+   405,
+   12
+  ],
+  "61641": [
+   "Titoli",
+   405,
+   12
+  ],
+  "61661": [
+   "Dhamar",
+   405,
+   13
+  ],
+  "61659": [
+   "Rithal Narwal",
+   405,
+   14
+  ],
+  "61651": [
+   "Bahmanwas",
+   405,
+   13
+  ],
+  "61662": [
+   "Basantpur",
+   405,
+   13
+  ],
+  "61660": [
+   "Kiloi Khas",
+   405,
+   9
+  ],
+  "61664": [
+   "Chamaria",
+   405,
+   13
+  ],
+  "61640": [
+   "Sasrauli",
+   405,
+   12
+  ],
+  "61663": [
+   "Makrouli Kalan",
+   405,
+   8
+  ],
+  "61669": [
+   "Ladhot",
+   405,
+   8
+  ],
+  "61672": [
+   "Polangi",
+   405,
+   14
+  ],
+  "61639": [
+   "Sunderpur",
+   405,
+   7
+  ],
+  "61665": [
+   "Nasirpur",
+   405,
+   7
+  ],
+  "61670": [
+   "Kiloi Dopana",
+   405,
+   9
+  ],
+  "61666": [
+   "Sarai Ahmed",
+   405,
+   8
+  ],
+  "61671": [
+   "Rurki",
+   405,
+   9
+  ],
+  "61673": [
+   "Mungan",
+   405,
+   9
+  ],
+  "61667": [
+   "Makrouli Khurd",
+   405,
+   8
+  ],
+  "61668": [
+   "Bhaiyan Pur",
+   405,
+   8
+  ],
+  "61678": [
+   "Bhalot",
+   405,
+   9
+  ],
+  "61677": [
+   "Assan",
+   405,
+   9
+  ],
+  "61674": [
+   "Bakheta",
+   405,
+   9
+  ],
+  "61629": [
+   "Bohar Part",
+   405,
+   8
+  ],
+  "61675": [
+   "Humayunpur",
+   405,
+   9
+  ],
+  "61680": [
+   "Baliana",
+   406,
+   9
+  ],
+  "61676": [
+   "Kansala",
+   405,
+   9
+  ],
+  "61683": [
+   "Pakasma",
+   406,
+   9
+  ],
+  "61655": [
+   "Ghilor Kalan",
+   405,
+   13
+  ],
+  "61657": [
+   "Rithal Phogat",
+   405,
+   14
+  ],
+  "61658": [
+   "Kahni 1",
+   405,
+   13
+  ],
+  "61630": [
+   "Rohtak Rural Part",
+   405,
+   7
+  ],
+  "61628": [
+   "Garhi Bohar",
+   405,
+   8
+  ],
+  "800416": [
+   "Sampla",
+   406,
+   4
+  ],
+  "61679": [
+   "Sunari Kalan CT",
+   405,
+   8
+  ],
+  "800414": [
+   "Rohtak",
+   405,
+   8
+  ]
+ },
+ "village_count_total": 148,
+ "village_count_assigned": 148
+}

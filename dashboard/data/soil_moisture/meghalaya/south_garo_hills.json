@@ -1,0 +1,4203 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Meghalaya",
+  "district": "South Garo Hills",
+  "district_lgd": 277,
+  "observation_window": "2026-08-07T11:18Z to 2026-08-12T11:18Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.4273,
+  "sm_surface_stddev": 0.0146,
+  "sm_rootzone_mean": 0.4449,
+  "sm_rootzone_stddev": 0.0149,
+  "n_cells": 15,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 25.2472,
+    "lon": 90.366,
+    "sm_surface": 0.3906,
+    "sm_rootzone": 0.4061,
+    "n_villages_sharing_cell": 113
+   },
+   {
+    "cell_index": 1,
+    "lat": 25.2472,
+    "lon": 90.4648,
+    "sm_surface": 0.4316,
+    "sm_rootzone": 0.4513,
+    "n_villages_sharing_cell": 96
+   },
+   {
+    "cell_index": 2,
+    "lat": 25.2472,
+    "lon": 90.5637,
+    "sm_surface": 0.4347,
+    "sm_rootzone": 0.455,
+    "n_villages_sharing_cell": 45
+   },
+   {
+    "cell_index": 3,
+    "lat": 25.2472,
+    "lon": 90.6625,
+    "sm_surface": 0.443,
+    "sm_rootzone": 0.4589,
+    "n_villages_sharing_cell": 56
+   },
+   {
+    "cell_index": 4,
+    "lat": 25.2472,
+    "lon": 90.7613,
+    "sm_surface": 0.4454,
+    "sm_rootzone": 0.4598,
+    "n_villages_sharing_cell": 54
+   },
+   {
+    "cell_index": 5,
+    "lat": 25.2472,
+    "lon": 90.8601,
+    "sm_surface": 0.4444,
+    "sm_rootzone": 0.4587,
+    "n_villages_sharing_cell": 47
+   },
+   {
+    "cell_index": 6,
+    "lat": 25.346,
+    "lon": 90.366,
+    "sm_surface": 0.434,
+    "sm_rootzone": 0.4509,
+    "n_villages_sharing_cell": 135
+   },
+   {
+    "cell_index": 7,
+    "lat": 25.346,
+    "lon": 90.4648,
+    "sm_surface": 0.4332,
+    "sm_rootzone": 0.4533,
+    "n_villages_sharing_cell": 92
+   },
+   {
+    "cell_index": 8,
+    "lat": 25.346,
+    "lon": 90.5637,
+    "sm_surface": 0.433,
+    "sm_rootzone": 0.4529,
+    "n_villages_sharing_cell": 31
+   },
+   {
+    "cell_index": 9,
+    "lat": 25.346,
+    "lon": 90.6625,
+    "sm_surface": 0.434,
+    "sm_rootzone": 0.4534,
+    "n_villages_sharing_cell": 25
+   },
+   {
+    "cell_index": 10,
+    "lat": 25.346,
+    "lon": 90.7613,
+    "sm_surface": 0.4163,
+    "sm_rootzone": 0.4341,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 11,
+    "lat": 25.4448,
+    "lon": 90.366,
+    "sm_surface": 0.4174,
+    "sm_rootzone": 0.4341,
+    "n_villages_sharing_cell": 41
+   },
+   {
+    "cell_index": 12,
+    "lat": 25.4448,
+    "lon": 90.4648,
+    "sm_surface": 0.4123,
+    "sm_rootzone": 0.4307,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 13,
+    "lat": 25.4448,
+    "lon": 90.6625,
+    "sm_surface": 0.4096,
+    "sm_rootzone": 0.4256,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 14,
+    "lat": 25.5436,
+    "lon": 90.7613,
+    "sm_surface": 0.4304,
+    "sm_rootzone": 0.4493,
+    "n_villages_sharing_cell": 18
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.4276,
+  "sm_surface_stddev": 0.0131,
+  "n_blocks": 4
+ },
+ "blocks": [
+  {
+   "block_name": "Baghmara",
+   "sdcode": 1977,
+   "n_villages": 172,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.432,
+   "sm_surface_stddev": 0.0093
+  },
+  {
+   "block_name": "Chokpot",
+   "sdcode": 1975,
+   "n_villages": 310,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.43,
+   "sm_surface_stddev": 0.007
+  },
+  {
+   "block_name": "Gasuapara",
+   "sdcode": 1976,
+   "n_villages": 181,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.4063,
+   "sm_surface_stddev": 0.0202
+  },
+  {
+   "block_name": "Rongara",
+   "sdcode": 1978,
+   "n_villages": 143,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.442,
+   "sm_surface_stddev": 0.0075
+  }
+ ],
+ "villages": {
+  "275867": [
+   "Cherengpara I",
+   1976,
+   0
+  ],
+  "275878": [
+   "Konapara",
+   1976,
+   0
+  ],
+  "275954": [
+   "Tinak Songgital",
+   1976,
+   1
+  ],
+  "275692": [
+   "Bolchim Songgital",
+   1975,
+   6
+  ],
+  "275884": [
+   "Ronsigre",
+   1976,
+   0
+  ],
+  "275851": [
+   "Damalgre",
+   1976,
+   0
+  ],
+  "275841": [
+   "Mengnabari",
+   1976,
+   0
+  ],
+  "275786": [
+   "Mitap Megapgiri",
+   1975,
+   1
+  ],
+  "275946": [
+   "Bolmapara",
+   1976,
+   0
+  ],
+  "275615": [
+   "Rimrang Asimgre",
+   1975,
+   6
+  ],
+  "275655": [
+   "Rongkeragre",
+   1975,
+   6
+  ],
+  "276160": [
+   "Badima",
+   1977,
+   1
+  ],
+  "276173": [
+   "Dabram",
+   1977,
+   2
+  ],
+  "275757": [
+   "Bolchim Songgital",
+   1975,
+   7
+  ],
+  "276004": [
+   "Sibbari Old Bazar",
+   1976,
+   1
+  ],
+  "275824": [
+   "Bremgre",
+   1975,
+   1
+  ],
+  "276081": [
+   "Seel Adugre",
+   1977,
+   8
+  ],
+  "276236": [
+   "Sijubari",
+   1978,
+   5
+  ],
+  "999999": [
+   "Data Partially Available",
+   1978,
+   4
+  ],
+  "275826": [
+   "Atesia Nokat",
+   1976,
+   0
+  ],
+  "275827": [
+   "Dangsugri",
+   1976,
+   0
+  ],
+  "275828": [
+   "Dimapara",
+   1976,
+   0
+  ],
+  "275829": [
+   "Makaburipara",
+   1976,
+   0
+  ],
+  "275830": [
+   "Rongsugri",
+   1976,
+   0
+  ],
+  "275831": [
+   "Megua Abagiri",
+   1976,
+   0
+  ],
+  "275837": [
+   "Enggokgre",
+   1976,
+   0
+  ],
+  "275856": [
+   "Siwalkhosigre",
+   1976,
+   0
+  ],
+  "275858": [
+   "Dindinnigri",
+   1976,
+   0
+  ],
+  "275859": [
+   "Gaijanggri",
+   1976,
+   0
+  ],
+  "275860": [
+   "Meka Adu",
+   1976,
+   0
+  ],
+  "275861": [
+   "Mineng",
+   1976,
+   0
+  ],
+  "275862": [
+   "Doragre",
+   1976,
+   0
+  ],
+  "275863": [
+   "Sempara",
+   1976,
+   0
+  ],
+  "275864": [
+   "Jatrakona I",
+   1976,
+   0
+  ],
+  "275865": [
+   "New Jatrakona",
+   1976,
+   0
+  ],
+  "275866": [
+   "Bandapara",
+   1976,
+   0
+  ],
+  "275868": [
+   "Chereng Keragittim",
+   1976,
+   0
+  ],
+  "275869": [
+   "Silbaripara",
+   1976,
+   0
+  ],
+  "275870": [
+   "Nagrajora",
+   1976,
+   0
+  ],
+  "275871": [
+   "Charipara",
+   1976,
+   0
+  ],
+  "275872": [
+   "Gandhibor",
+   1976,
+   0
+  ],
+  "275873": [
+   "Konagittim",
+   1976,
+   0
+  ],
+  "275874": [
+   "Kadimboka",
+   1976,
+   0
+  ],
+  "275875": [
+   "Upper Gasuapara",
+   1976,
+   0
+  ],
+  "275876": [
+   "Lower Gasuapara",
+   1976,
+   0
+  ],
+  "275877": [
+   "Rongsepgri",
+   1976,
+   0
+  ],
+  "275838": [
+   "Shrikagre",
+   1976,
+   0
+  ],
+  "275857": [
+   "Araligop",
+   1976,
+   0
+  ],
+  "275850": [
+   "Rongsigre",
+   1976,
+   0
+  ],
+  "275879": [
+   "Rangajhora",
+   1976,
+   0
+  ],
+  "275883": [
+   "Rakipara",
+   1976,
+   0
+  ],
+  "275885": [
+   "Gobrakura",
+   1976,
+   0
+  ],
+  "275887": [
+   "Fakirkona",
+   1976,
+   0
+  ],
+  "275988": [
+   "Ampangdamgiri",
+   1976,
+   1
+  ],
+  "275989": [
+   "Namchapara",
+   1976,
+   1
+  ],
+  "275990": [
+   "Kujolgiri",
+   1976,
+   0
+  ],
+  "275991": [
+   "Kolapara",
+   1976,
+   0
+  ],
+  "275992": [
+   "Bilkona",
+   1976,
+   1
+  ],
+  "275993": [
+   "Dumnikura",
+   1976,
+   1
+  ],
+  "275994": [
+   "Ramchengga",
+   1976,
+   1
+  ],
+  "275996": [
+   "Kapasipara",
+   1976,
+   1
+  ],
+  "275997": [
+   "Jatapara",
+   1976,
+   1
+  ],
+  "275886": [
+   "Tanaikhona",
+   1976,
+   0
+  ],
+  "275847": [
+   "Rongbokgre",
+   1976,
+   0
+  ],
+  "275848": [
+   "Damal Nokat",
+   1976,
+   0
+  ],
+  "275849": [
+   "Kondok",
+   1976,
+   0
+  ],
+  "275852": [
+   "Attesia Songmong",
+   1976,
+   0
+  ],
+  "275855": [
+   "Rongsanggre",
+   1976,
+   0
+  ],
+  "275880": [
+   "Angratuli",
+   1976,
+   0
+  ],
+  "275882": [
+   "Telikali",
+   1976,
+   0
+  ],
+  "275881": [
+   "Dahapara",
+   1976,
+   0
+  ],
+  "275854": [
+   "Molmegre I Gasuapara Gs Circle",
+   1976,
+   0
+  ],
+  "275853": [
+   "Molmegre Ii",
+   1976,
+   0
+  ],
+  "275839": [
+   "Dakolgiri",
+   1976,
+   0
+  ],
+  "275840": [
+   "Narongkolgri",
+   1976,
+   0
+  ],
+  "275842": [
+   "Dagandagre",
+   1976,
+   0
+  ],
+  "275843": [
+   "Songkalakgre",
+   1976,
+   0
+  ],
+  "275844": [
+   "Rongronggre",
+   1976,
+   0
+  ],
+  "275845": [
+   "Gungre",
+   1976,
+   0
+  ],
+  "275846": [
+   "Somongre",
+   1976,
+   0
+  ],
+  "275939": [
+   "Pikapara",
+   1976,
+   0
+  ],
+  "275949": [
+   "Betdigre",
+   1976,
+   1
+  ],
+  "275959": [
+   "Rongdikgiri",
+   1976,
+   1
+  ],
+  "275960": [
+   "Balmoragre",
+   1976,
+   1
+  ],
+  "275961": [
+   "Sawekolgiri",
+   1976,
+   0
+  ],
+  "275962": [
+   "Atabenga",
+   1976,
+   0
+  ],
+  "275963": [
+   "Buga Dongram",
+   1976,
+   1
+  ],
+  "275964": [
+   "Andamari",
+   1976,
+   1
+  ],
+  "275965": [
+   "Bremgre",
+   1976,
+   1
+  ],
+  "275967": [
+   "Somegre",
+   1976,
+   1
+  ],
+  "275968": [
+   "Tebisokgre",
+   1976,
+   1
+  ],
+  "275969": [
+   "Nilwasagiri",
+   1976,
+   1
+  ],
+  "275970": [
+   "Darit Betigre",
+   1976,
+   1
+  ],
+  "275971": [
+   "Watregre",
+   1976,
+   1
+  ],
+  "275972": [
+   "Rongchonggre",
+   1976,
+   1
+  ],
+  "275973": [
+   "Darit Simragittim",
+   1976,
+   1
+  ],
+  "275974": [
+   "Tebokgre",
+   1976,
+   1
+  ],
+  "275975": [
+   "Wakskogre",
+   1976,
+   1
+  ],
+  "275977": [
+   "Darokgiri",
+   1976,
+   1
+  ],
+  "275978": [
+   "Aritakgiri",
+   1976,
+   1
+  ],
+  "275979": [
+   "Chambil Tolejang",
+   1976,
+   1
+  ],
+  "275980": [
+   "Jadugiri",
+   1976,
+   0
+  ],
+  "275981": [
+   "Chimagre",
+   1976,
+   0
+  ],
+  "275982": [
+   "Rongmasugittim",
+   1976,
+   0
+  ],
+  "275966": [
+   "Brenggre",
+   1976,
+   1
+  ],
+  "275832": [
+   "Mangkenggre Songmong",
+   1976,
+   0
+  ],
+  "275833": [
+   "Chirenpara",
+   1976,
+   0
+  ],
+  "275834": [
+   "Gandugri",
+   1976,
+   0
+  ],
+  "275835": [
+   "Mangkeng Nokat",
+   1976,
+   0
+  ],
+  "275836": [
+   "Pilnigri",
+   1976,
+   0
+  ],
+  "275888": [
+   "Dasinggiri",
+   1976,
+   6
+  ],
+  "275889": [
+   "Domiagre",
+   1976,
+   6
+  ],
+  "275890": [
+   "Dasing Nokat",
+   1976,
+   6
+  ],
+  "275891": [
+   "Boldamgre",
+   1976,
+   6
+  ],
+  "275892": [
+   "Dompaigiri",
+   1976,
+   6
+  ],
+  "275894": [
+   "Tojanang Daruda",
+   1976,
+   6
+  ],
+  "275895": [
+   "Upper Rangmai",
+   1976,
+   6
+  ],
+  "275896": [
+   "Goripara",
+   1976,
+   6
+  ],
+  "275897": [
+   "Silki Adu",
+   1976,
+   6
+  ],
+  "275898": [
+   "Galwangittok",
+   1976,
+   6
+  ],
+  "275899": [
+   "Molmigre",
+   1976,
+   6
+  ],
+  "275900": [
+   "Karawenggiri",
+   1976,
+   6
+  ],
+  "275911": [
+   "Rongmai Jongjanggittim",
+   1976,
+   0
+  ],
+  "275912": [
+   "Ruatsogiri",
+   1976,
+   6
+  ],
+  "275913": [
+   "Chittilonggiri",
+   1976,
+   6
+  ],
+  "275914": [
+   "Drong Songmong",
+   1976,
+   6
+  ],
+  "275915": [
+   "Ruga Nokatgiri",
+   1976,
+   6
+  ],
+  "275916": [
+   "Drong Walbakgiri",
+   1976,
+   0
+  ],
+  "275917": [
+   "Donigre",
+   1976,
+   0
+  ],
+  "275918": [
+   "Ruga Makbilkol",
+   1976,
+   0
+  ],
+  "275919": [
+   "Ruga Doldoma",
+   1976,
+   0
+  ],
+  "275921": [
+   "Ruga Songmong",
+   1976,
+   0
+  ],
+  "275922": [
+   "Ruga Ading",
+   1976,
+   0
+  ],
+  "275923": [
+   "Ruga Reginggittim",
+   1976,
+   0
+  ],
+  "275925": [
+   "Chitompagre",
+   1976,
+   0
+  ],
+  "275926": [
+   "Megua Songmong",
+   1976,
+   0
+  ],
+  "275927": [
+   "Dopagre",
+   1976,
+   0
+  ],
+  "275929": [
+   "Rangra Kantalu",
+   1976,
+   0
+  ],
+  "275930": [
+   "Rangrachi",
+   1976,
+   0
+  ],
+  "275611": [
+   "Rongkugiri",
+   1975,
+   6
+  ],
+  "275612": [
+   "Adugre",
+   1975,
+   6
+  ],
+  "275613": [
+   "Rongkanggittim",
+   1975,
+   6
+  ],
+  "275614": [
+   "Satilokgiri",
+   1975,
+   6
+  ],
+  "275676": [
+   "Alla Rongpakgre",
+   1975,
+   6
+  ],
+  "275677": [
+   "Nokatgre",
+   1975,
+   6
+  ],
+  "275678": [
+   "Dajigre",
+   1975,
+   6
+  ],
+  "275679": [
+   "Wangmagre Darinanggre",
+   1975,
+   6
+  ],
+  "275680": [
+   "Noranggiri",
+   1975,
+   6
+  ],
+  "275681": [
+   "Rimrang Adinggiri",
+   1975,
+   6
+  ],
+  "275682": [
+   "Allagre",
+   1975,
+   6
+  ],
+  "275683": [
+   "Ashugre",
+   1975,
+   6
+  ],
+  "275684": [
+   "Anigre",
+   1975,
+   6
+  ],
+  "275685": [
+   "Asinanggre",
+   1975,
+   6
+  ],
+  "275689": [
+   "Chandigiri",
+   1975,
+   6
+  ],
+  "275731": [
+   "Sonaramgre",
+   1975,
+   6
+  ],
+  "275764": [
+   "Mibonpara",
+   1975,
+   6
+  ],
+  "275920": [
+   "Chimengkari",
+   1976,
+   0
+  ],
+  "275924": [
+   "Ruga Denigre",
+   1976,
+   0
+  ],
+  "275928": [
+   "Rongra",
+   1976,
+   0
+  ],
+  "275688": [
+   "Chandi Rongdigre",
+   1975,
+   6
+  ],
+  "275893": [
+   "Rangmai Songmong",
+   1976,
+   6
+  ],
+  "275901": [
+   "Inchagiri",
+   1976,
+   6
+  ],
+  "275902": [
+   "Genabra",
+   1976,
+   0
+  ],
+  "275903": [
+   "Wagebokgre",
+   1976,
+   0
+  ],
+  "275904": [
+   "Dilnigre",
+   1976,
+   0
+  ],
+  "275905": [
+   "Dabingre",
+   1976,
+   6
+  ],
+  "275909": [
+   "Rangra Jalang",
+   1976,
+   6
+  ],
+  "275910": [
+   "Rengguagre",
+   1976,
+   6
+  ],
+  "275931": [
+   "Kasigiri",
+   1976,
+   0
+  ],
+  "275932": [
+   "Rangmai Aruak",
+   1976,
+   0
+  ],
+  "275933": [
+   "Rangmai Songgital",
+   1976,
+   0
+  ],
+  "275934": [
+   "Waibagre",
+   1976,
+   0
+  ],
+  "275935": [
+   "Dasing Bibra",
+   1976,
+   0
+  ],
+  "275936": [
+   "Rangmai Chigitchak",
+   1976,
+   0
+  ],
+  "275937": [
+   "Silanggiri",
+   1976,
+   0
+  ],
+  "275938": [
+   "Wasagiri",
+   1976,
+   0
+  ],
+  "275940": [
+   "Gnengkolsi Songgitcham",
+   1976,
+   0
+  ],
+  "275941": [
+   "Dabin Songgital",
+   1976,
+   0
+  ],
+  "275942": [
+   "Dabin Songmong",
+   1976,
+   0
+  ],
+  "275943": [
+   "Somolgre",
+   1976,
+   0
+  ],
+  "275944": [
+   "Konchikolgre",
+   1976,
+   0
+  ],
+  "275945": [
+   "Kalsigiri",
+   1976,
+   0
+  ],
+  "275947": [
+   "Chigitchakgiri",
+   1976,
+   1
+  ],
+  "275948": [
+   "Rangra Nokatgre",
+   1976,
+   1
+  ],
+  "275950": [
+   "Bamon Bajra",
+   1976,
+   1
+  ],
+  "275952": [
+   "Dollongre",
+   1976,
+   0
+  ],
+  "275953": [
+   "Chawek Chibanda",
+   1976,
+   0
+  ],
+  "275955": [
+   "Ginengkolsigre",
+   1976,
+   0
+  ],
+  "275956": [
+   "Aringakolgiri",
+   1976,
+   0
+  ],
+  "275957": [
+   "Tenakgre",
+   1976,
+   0
+  ],
+  "275958": [
+   "Tenak Songgitcham",
+   1976,
+   1
+  ],
+  "275906": [
+   "Kallanggre",
+   1976,
+   0
+  ],
+  "275907": [
+   "Walkamgre",
+   1976,
+   0
+  ],
+  "275908": [
+   "Dabin Somol",
+   1976,
+   0
+  ],
+  "275951": [
+   "Bolma Chiringre",
+   1976,
+   1
+  ],
+  "275762": [
+   "Agalgre",
+   1975,
+   6
+  ],
+  "275763": [
+   "Makbilkolgre",
+   1975,
+   6
+  ],
+  "275766": [
+   "Balsiragre",
+   1975,
+   6
+  ],
+  "275767": [
+   "Gaturagre",
+   1975,
+   6
+  ],
+  "275768": [
+   "Mon Songmong",
+   1975,
+   6
+  ],
+  "275770": [
+   "Chitimgre",
+   1975,
+   7
+  ],
+  "275787": [
+   "Megapgre",
+   1975,
+   1
+  ],
+  "275788": [
+   "Mitap Bodola",
+   1975,
+   7
+  ],
+  "275789": [
+   "Guripatal",
+   1975,
+   7
+  ],
+  "275790": [
+   "Mitap Songmong",
+   1975,
+   7
+  ],
+  "275791": [
+   "Galwanggre",
+   1975,
+   1
+  ],
+  "275792": [
+   "Babilbanda",
+   1975,
+   6
+  ],
+  "275793": [
+   "Dadinggiri",
+   1975,
+   6
+  ],
+  "275795": [
+   "Genduagre",
+   1975,
+   6
+  ],
+  "275797": [
+   "Mon Bangamgre",
+   1975,
+   1
+  ],
+  "275798": [
+   "Rongjajonggre",
+   1975,
+   1
+  ],
+  "275799": [
+   "Tebilgiri",
+   1975,
+   1
+  ],
+  "275814": [
+   "Kokigre",
+   1975,
+   1
+  ],
+  "275817": [
+   "Ronganggre",
+   1975,
+   1
+  ],
+  "275765": [
+   "Galwanggitok",
+   1975,
+   6
+  ],
+  "275769": [
+   "Adanggiri",
+   1975,
+   7
+  ],
+  "275794": [
+   "Chandigre",
+   1975,
+   6
+  ],
+  "275796": [
+   "Dumindigre",
+   1975,
+   1
+  ],
+  "275818": [
+   "Silkigiri",
+   1975,
+   1
+  ],
+  "275616": [
+   "Sangknigiri",
+   1975,
+   6
+  ],
+  "275618": [
+   "Chigisimgre",
+   1975,
+   6
+  ],
+  "275619": [
+   "Digranggre",
+   1975,
+   6
+  ],
+  "275620": [
+   "Rombagiri",
+   1975,
+   6
+  ],
+  "275621": [
+   "Rontragiri",
+   1975,
+   6
+  ],
+  "275660": [
+   "Dorek Asim",
+   1975,
+   6
+  ],
+  "275665": [
+   "Ganchikalak",
+   1975,
+   6
+  ],
+  "275666": [
+   "Raja Ronggat",
+   1975,
+   6
+  ],
+  "275667": [
+   "Waidagiri",
+   1975,
+   6
+  ],
+  "275669": [
+   "Dokananggiri",
+   1975,
+   6
+  ],
+  "275670": [
+   "Rongrak Teksragre",
+   1975,
+   6
+  ],
+  "275671": [
+   "Nachi Adugiri",
+   1975,
+   6
+  ],
+  "275673": [
+   "Chigranggre",
+   1975,
+   6
+  ],
+  "275674": [
+   "Alla Nokatgre",
+   1975,
+   6
+  ],
+  "275686": [
+   "Dagalgiri",
+   1975,
+   6
+  ],
+  "275687": [
+   "Ganchigre",
+   1975,
+   6
+  ],
+  "275690": [
+   "Dibandagre",
+   1975,
+   6
+  ],
+  "275691": [
+   "Dikigre",
+   1975,
+   6
+  ],
+  "275693": [
+   "Bangguagre",
+   1975,
+   6
+  ],
+  "275695": [
+   "Asimgre",
+   1975,
+   6
+  ],
+  "275720": [
+   "Ranigre",
+   1975,
+   6
+  ],
+  "275721": [
+   "Rongrak Asimgre",
+   1975,
+   6
+  ],
+  "275722": [
+   "Dendamgiri",
+   1975,
+   6
+  ],
+  "275723": [
+   "Rongsimagiri",
+   1975,
+   6
+  ],
+  "275724": [
+   "Rongtrakusik",
+   1975,
+   6
+  ],
+  "275725": [
+   "Eldimiramgre",
+   1975,
+   6
+  ],
+  "275726": [
+   "Tejagre",
+   1975,
+   6
+  ],
+  "275727": [
+   "Bolchimdagre",
+   1975,
+   6
+  ],
+  "275728": [
+   "Bolchimda Songgitcham",
+   1975,
+   6
+  ],
+  "275729": [
+   "Imaragre",
+   1975,
+   6
+  ],
+  "275730": [
+   "Kama Anegre",
+   1975,
+   6
+  ],
+  "275732": [
+   "Bakatagre",
+   1975,
+   6
+  ],
+  "275664": [
+   "Duragiri",
+   1975,
+   6
+  ],
+  "275668": [
+   "Noranggre",
+   1975,
+   6
+  ],
+  "275672": [
+   "Roriagre Chigranggre",
+   1975,
+   6
+  ],
+  "275675": [
+   "Boldam Sangkni",
+   1975,
+   6
+  ],
+  "275694": [
+   "Mekragiri",
+   1975,
+   6
+  ],
+  "275733": [
+   "Gagagre",
+   1975,
+   6
+  ],
+  "275734": [
+   "Darenanggre",
+   1975,
+   6
+  ],
+  "275735": [
+   "Wainabenggre",
+   1975,
+   6
+  ],
+  "275736": [
+   "Watregiri",
+   1975,
+   6
+  ],
+  "275738": [
+   "Magapagre",
+   1975,
+   6
+  ],
+  "275761": [
+   "Daramgre",
+   1975,
+   6
+  ],
+  "275714": [
+   "Bolchugre",
+   1975,
+   7
+  ],
+  "275715": [
+   "Damet Rongsnagre",
+   1975,
+   7
+  ],
+  "275716": [
+   "Mon Adanggre",
+   1975,
+   7
+  ],
+  "275719": [
+   "Aggittinggre",
+   1975,
+   6
+  ],
+  "275737": [
+   "Bakwenanggre",
+   1975,
+   6
+  ],
+  "275739": [
+   "Dibaigre",
+   1975,
+   6
+  ],
+  "275740": [
+   "Sabeagre",
+   1975,
+   7
+  ],
+  "275756": [
+   "Sonawarigre",
+   1975,
+   7
+  ],
+  "275758": [
+   "Dagalgre",
+   1975,
+   7
+  ],
+  "275759": [
+   "Rompagiri",
+   1975,
+   6
+  ],
+  "275760": [
+   "Janeagre",
+   1975,
+   6
+  ],
+  "275659": [
+   "Chokpotgre",
+   1975,
+   6
+  ],
+  "275661": [
+   "Daringgre",
+   1975,
+   7
+  ],
+  "275663": [
+   "Daji Teksragre",
+   1975,
+   6
+  ],
+  "275696": [
+   "Dagal Nokatgiri",
+   1975,
+   6
+  ],
+  "275697": [
+   "Dagal Songgital",
+   1975,
+   6
+  ],
+  "275698": [
+   "Wagebokgre",
+   1975,
+   6
+  ],
+  "275717": [
+   "Dametgre",
+   1975,
+   7
+  ],
+  "275718": [
+   "Dagal Songmong",
+   1975,
+   7
+  ],
+  "275699": [
+   "Bibragre",
+   1975,
+   7
+  ],
+  "275651": [
+   "Warimagiri",
+   1975,
+   7
+  ],
+  "275643": [
+   "Warima Chokkela",
+   1975,
+   7
+  ],
+  "275700": [
+   "Mitap Bodola",
+   1975,
+   7
+  ],
+  "275638": [
+   "Dobagre",
+   1975,
+   7
+  ],
+  "275639": [
+   "Dindingre",
+   1975,
+   7
+  ],
+  "275640": [
+   "Damet Bugakolgre",
+   1975,
+   7
+  ],
+  "275644": [
+   "Bolsal Ading",
+   1975,
+   7
+  ],
+  "275645": [
+   "Warima Dooldu",
+   1975,
+   7
+  ],
+  "275646": [
+   "Daji Boldakgre",
+   1975,
+   7
+  ],
+  "275642": [
+   "Chokpot Bazar",
+   1975,
+   7
+  ],
+  "275650": [
+   "Dajinggre",
+   1975,
+   7
+  ],
+  "275517": [
+   "Durabanda Agitok",
+   1975,
+   11
+  ],
+  "275518": [
+   "Dura Dobagre",
+   1975,
+   11
+  ],
+  "275519": [
+   "Durabanda Chambugong",
+   1975,
+   11
+  ],
+  "275520": [
+   "Awegre",
+   1975,
+   11
+  ],
+  "275521": [
+   "Anchigre",
+   1975,
+   11
+  ],
+  "275523": [
+   "Wage Chiringgre",
+   1975,
+   11
+  ],
+  "275524": [
+   "Dana Adugre",
+   1975,
+   11
+  ],
+  "275525": [
+   "Dobagre",
+   1975,
+   11
+  ],
+  "275526": [
+   "Mekalpara",
+   1975,
+   11
+  ],
+  "275527": [
+   "Mikadogre",
+   1975,
+   11
+  ],
+  "275528": [
+   "Rongdigiri",
+   1975,
+   11
+  ],
+  "275529": [
+   "Rongdi Anchenggre",
+   1975,
+   11
+  ],
+  "275530": [
+   "Bramagre",
+   1975,
+   11
+  ],
+  "275531": [
+   "Rongdi Adinggre",
+   1975,
+   11
+  ],
+  "275533": [
+   "Semenanggre",
+   1975,
+   11
+  ],
+  "275534": [
+   "Sasatgiri",
+   1975,
+   11
+  ],
+  "275535": [
+   "Marakapara",
+   1975,
+   11
+  ],
+  "275536": [
+   "Kalsinpara",
+   1975,
+   11
+  ],
+  "275537": [
+   "Dapgiri",
+   1975,
+   11
+  ],
+  "275538": [
+   "Rekonanggre",
+   1975,
+   11
+  ],
+  "275539": [
+   "Karijhoragre",
+   1975,
+   11
+  ],
+  "275540": [
+   "Dap Asakgre",
+   1975,
+   11
+  ],
+  "275541": [
+   "Bolkongpara",
+   1975,
+   6
+  ],
+  "275542": [
+   "Soksomarenggre",
+   1975,
+   6
+  ],
+  "275543": [
+   "Rongsigre",
+   1975,
+   6
+  ],
+  "275545": [
+   "Dura Asimgiri",
+   1975,
+   11
+  ],
+  "275546": [
+   "Romba Songgitalgre",
+   1975,
+   11
+  ],
+  "275547": [
+   "Songsak Nokatgiri",
+   1975,
+   11
+  ],
+  "275549": [
+   "Bandaregre",
+   1975,
+   11
+  ],
+  "275550": [
+   "Sandong",
+   1975,
+   11
+  ],
+  "275551": [
+   "Gandak Nawepilgiri",
+   1975,
+   11
+  ],
+  "275552": [
+   "Ruabangagre",
+   1975,
+   11
+  ],
+  "275553": [
+   "Dagal Songgital",
+   1975,
+   11
+  ],
+  "275554": [
+   "Damalgre",
+   1975,
+   11
+  ],
+  "275555": [
+   "Budugre",
+   1975,
+   11
+  ],
+  "275556": [
+   "Ganchi Rondigre",
+   1975,
+   11
+  ],
+  "275557": [
+   "Bugigre",
+   1975,
+   11
+  ],
+  "275558": [
+   "Akoksigre",
+   1975,
+   11
+  ],
+  "275559": [
+   "Anchenggre",
+   1975,
+   11
+  ],
+  "275560": [
+   "Rongpakgre",
+   1975,
+   6
+  ],
+  "275561": [
+   "Rongmegre",
+   1975,
+   12
+  ],
+  "275562": [
+   "Kalbang Rongbilbanggre",
+   1975,
+   12
+  ],
+  "275563": [
+   "Rongasigre",
+   1975,
+   12
+  ],
+  "275564": [
+   "Chiringmagre",
+   1975,
+   12
+  ],
+  "275565": [
+   "Rongru Asim",
+   1975,
+   12
+  ],
+  "275566": [
+   "Songsanggre",
+   1975,
+   12
+  ],
+  "275568": [
+   "Rongru Watregiri",
+   1975,
+   12
+  ],
+  "275569": [
+   "Kalbanggiri",
+   1975,
+   12
+  ],
+  "275571": [
+   "Sembu Rongtolgittim",
+   1975,
+   12
+  ],
+  "275586": [
+   "Rampragre",
+   1975,
+   7
+  ],
+  "275588": [
+   "Minchi Chiringgre",
+   1975,
+   7
+  ],
+  "275589": [
+   "Kama Minchi Chiringgre",
+   1975,
+   7
+  ],
+  "275592": [
+   "Rongdenggre",
+   1975,
+   6
+  ],
+  "275593": [
+   "Darengsagiri",
+   1975,
+   6
+  ],
+  "275594": [
+   "Chibokgre",
+   1975,
+   6
+  ],
+  "275595": [
+   "Adilmagre",
+   1975,
+   6
+  ],
+  "275596": [
+   "Rongtonggre",
+   1975,
+   6
+  ],
+  "275597": [
+   "Nokatgiri",
+   1975,
+   11
+  ],
+  "275598": [
+   "Gangugre",
+   1975,
+   6
+  ],
+  "275599": [
+   "Deku Bazar",
+   1975,
+   6
+  ],
+  "275600": [
+   "Dorangre",
+   1975,
+   6
+  ],
+  "275601": [
+   "Dopananggre",
+   1975,
+   6
+  ],
+  "275602": [
+   "Dangjinggre",
+   1975,
+   6
+  ],
+  "275603": [
+   "Asimgiri",
+   1975,
+   6
+  ],
+  "275605": [
+   "Allekapara",
+   1975,
+   6
+  ],
+  "275606": [
+   "Dankipara",
+   1975,
+   6
+  ],
+  "275607": [
+   "Depotagre",
+   1975,
+   11
+  ],
+  "275608": [
+   "Kalupara",
+   1975,
+   6
+  ],
+  "275609": [
+   "Dumindigiri",
+   1975,
+   6
+  ],
+  "275610": [
+   "Dawagiri",
+   1975,
+   6
+  ],
+  "275617": [
+   "Simkalanggiri",
+   1975,
+   6
+  ],
+  "275622": [
+   "Bikinggre",
+   1975,
+   6
+  ],
+  "275623": [
+   "Gandinanggiri",
+   1975,
+   6
+  ],
+  "275624": [
+   "Kenegre Dobogre",
+   1975,
+   6
+  ],
+  "275625": [
+   "Chiangalgre",
+   1975,
+   6
+  ],
+  "275626": [
+   "Duragre",
+   1975,
+   6
+  ],
+  "275627": [
+   "Wakjapakre",
+   1975,
+   6
+  ],
+  "275628": [
+   "Daji Rongkuakgre",
+   1975,
+   7
+  ],
+  "275629": [
+   "Chisrenggre",
+   1975,
+   7
+  ],
+  "275630": [
+   "Waro Songgitcham",
+   1975,
+   7
+  ],
+  "275631": [
+   "Waro Songgital",
+   1975,
+   7
+  ],
+  "275632": [
+   "Daji Rongbinggre",
+   1975,
+   7
+  ],
+  "275633": [
+   "Dingbinggre",
+   1975,
+   7
+  ],
+  "275641": [
+   "Daji Badima",
+   1975,
+   7
+  ],
+  "275647": [
+   "Songma Matchokgre",
+   1975,
+   7
+  ],
+  "275648": [
+   "Sembu Jingjanggitim",
+   1975,
+   7
+  ],
+  "275649": [
+   "Sembu Singronggittim",
+   1975,
+   7
+  ],
+  "275652": [
+   "Warima Duragre",
+   1975,
+   7
+  ],
+  "275653": [
+   "Sembu Rongsnagiri",
+   1975,
+   7
+  ],
+  "275654": [
+   "Sembu Nokatgiri",
+   1975,
+   7
+  ],
+  "275656": [
+   "Sembu Jakinggittim",
+   1975,
+   7
+  ],
+  "275657": [
+   "Sembu Jibongittim",
+   1975,
+   7
+  ],
+  "275658": [
+   "Dasamgiri",
+   1975,
+   7
+  ],
+  "275662": [
+   "Abendagre",
+   1975,
+   6
+  ],
+  "275522": [
+   "Rongdi Anchenggiri",
+   1975,
+   11
+  ],
+  "275532": [
+   "Rebodotgiri",
+   1975,
+   11
+  ],
+  "275544": [
+   "Nokatgiri",
+   1975,
+   6
+  ],
+  "275548": [
+   "Rongsimagiri",
+   1975,
+   11
+  ],
+  "275567": [
+   "Rongma Kakijagre",
+   1975,
+   12
+  ],
+  "275590": [
+   "Rongbinggre",
+   1975,
+   7
+  ],
+  "275591": [
+   "Daji Adugre",
+   1975,
+   7
+  ],
+  "275604": [
+   "Tepotagiri",
+   1975,
+   6
+  ],
+  "276142": [
+   "Gitinggre",
+   1977,
+   3
+  ],
+  "276209": [
+   "Bul Awe",
+   1978,
+   3
+  ],
+  "276220": [
+   "Dawek Gittim",
+   1978,
+   3
+  ],
+  "276221": [
+   "Alokpang Dabrek",
+   1978,
+   3
+  ],
+  "276222": [
+   "Angkema",
+   1978,
+   3
+  ],
+  "276223": [
+   "Alokpang Nokalgre",
+   1978,
+   3
+  ],
+  "276225": [
+   "Wasogittim",
+   1978,
+   3
+  ],
+  "276227": [
+   "Karwani",
+   1978,
+   3
+  ],
+  "276228": [
+   "Reserve Gittim",
+   1978,
+   3
+  ],
+  "276249": [
+   "Meata",
+   1978,
+   3
+  ],
+  "276250": [
+   "Bubanipur",
+   1978,
+   3
+  ],
+  "276251": [
+   "Bilkona",
+   1978,
+   3
+  ],
+  "276252": [
+   "Rangasora",
+   1978,
+   3
+  ],
+  "276289": [
+   "Nolbari",
+   1978,
+   3
+  ],
+  "276224": [
+   "Rongkrekgittim",
+   1978,
+   3
+  ],
+  "276226": [
+   "Pilot Project",
+   1978,
+   3
+  ],
+  "276113": [
+   "Balkal Dongrugittim",
+   1977,
+   3
+  ],
+  "276114": [
+   "Dawakol",
+   1977,
+   3
+  ],
+  "276115": [
+   "Rongrengpal",
+   1977,
+   3
+  ],
+  "276116": [
+   "Tainang Songmong",
+   1977,
+   3
+  ],
+  "276122": [
+   "Rompa Asim",
+   1977,
+   2
+  ],
+  "276123": [
+   "Mindikgre",
+   1977,
+   2
+  ],
+  "276124": [
+   "Bamon Wakchol",
+   1977,
+   2
+  ],
+  "276125": [
+   "Chengbagre",
+   1977,
+   1
+  ],
+  "276126": [
+   "Waramgre",
+   1977,
+   1
+  ],
+  "276127": [
+   "Bamongre",
+   1977,
+   2
+  ],
+  "276129": [
+   "Dipogre",
+   1977,
+   1
+  ],
+  "276130": [
+   "Adapgre",
+   1977,
+   1
+  ],
+  "276131": [
+   "Dokgre",
+   1977,
+   2
+  ],
+  "276132": [
+   "Lower Dosogre",
+   1977,
+   2
+  ],
+  "276133": [
+   "Wamisenggre",
+   1977,
+   2
+  ],
+  "276134": [
+   "Rongbatgittim",
+   1977,
+   2
+  ],
+  "276135": [
+   "Upper Dosogre",
+   1977,
+   2
+  ],
+  "276136": [
+   "Namisikgre",
+   1977,
+   2
+  ],
+  "276138": [
+   "Tainang Matcha Nokpante",
+   1977,
+   3
+  ],
+  "276139": [
+   "Gokapepchandal",
+   1977,
+   3
+  ],
+  "276140": [
+   "Goka Imika",
+   1977,
+   3
+  ],
+  "276141": [
+   "Chibrenggre",
+   1977,
+   3
+  ],
+  "276144": [
+   "Mikpak Balsrigittim",
+   1977,
+   3
+  ],
+  "276145": [
+   "Agronggre",
+   1977,
+   3
+  ],
+  "276146": [
+   "Goka Wakchol",
+   1977,
+   3
+  ],
+  "276147": [
+   "Lotnagar",
+   1977,
+   3
+  ],
+  "276148": [
+   "Masighat",
+   1977,
+   3
+  ],
+  "276149": [
+   "Dabi Songgital",
+   1977,
+   3
+  ],
+  "276150": [
+   "Agimpal Nokma Colony",
+   1977,
+   2
+  ],
+  "276153": [
+   "Dubagre",
+   1977,
+   2
+  ],
+  "276154": [
+   "Jaksongram Songgital",
+   1977,
+   2
+  ],
+  "276155": [
+   "Asokgre",
+   1977,
+   2
+  ],
+  "276156": [
+   "Gandragre",
+   1977,
+   2
+  ],
+  "276157": [
+   "Lower Rongdotchi",
+   1977,
+   2
+  ],
+  "276158": [
+   "Upper Rongdotchi",
+   1977,
+   2
+  ],
+  "276159": [
+   "Eringgre",
+   1977,
+   1
+  ],
+  "276161": [
+   "Sibbari",
+   1977,
+   1
+  ],
+  "276163": [
+   "Banajuri",
+   1977,
+   2
+  ],
+  "276164": [
+   "Domdoma",
+   1977,
+   2
+  ],
+  "276165": [
+   "Baniagre",
+   1977,
+   2
+  ],
+  "276166": [
+   "Upper Chambil Badimagre",
+   1977,
+   2
+  ],
+  "276167": [
+   "Bedolboi",
+   1977,
+   2
+  ],
+  "276169": [
+   "Nilwagre",
+   1977,
+   2
+  ],
+  "276170": [
+   "Nilwa Adinggre",
+   1977,
+   2
+  ],
+  "276171": [
+   "Rangchikip",
+   1977,
+   2
+  ],
+  "276172": [
+   "Netri",
+   1977,
+   2
+  ],
+  "276174": [
+   "Dasanggre",
+   1977,
+   2
+  ],
+  "276176": [
+   "Jaksongram",
+   1977,
+   3
+  ],
+  "276177": [
+   "Dabigre",
+   1977,
+   3
+  ],
+  "275976": [
+   "Darit Wakcholgre",
+   1976,
+   1
+  ],
+  "275983": [
+   "Baman Jadugiri",
+   1976,
+   1
+  ],
+  "275984": [
+   "Onajora",
+   1976,
+   1
+  ],
+  "275985": [
+   "Dimagiri",
+   1976,
+   1
+  ],
+  "275986": [
+   "Dima Chigitchak",
+   1976,
+   1
+  ],
+  "275987": [
+   "Chengkali",
+   1976,
+   1
+  ],
+  "275995": [
+   "Batabari",
+   1976,
+   1
+  ],
+  "275998": [
+   "Defuliapara",
+   1976,
+   1
+  ],
+  "275999": [
+   "Konkona",
+   1976,
+   1
+  ],
+  "276000": [
+   "Gosegaon",
+   1976,
+   1
+  ],
+  "276001": [
+   "Mandanggre",
+   1976,
+   1
+  ],
+  "276002": [
+   "Baigonkona",
+   1976,
+   1
+  ],
+  "276003": [
+   "Sibbari New Market",
+   1976,
+   1
+  ],
+  "276005": [
+   "Daldamgre",
+   1976,
+   1
+  ],
+  "276128": [
+   "Damakgir",
+   1977,
+   1
+  ],
+  "276143": [
+   "Dabit Songital",
+   1977,
+   3
+  ],
+  "276151": [
+   "Dabit Ampangdam",
+   1977,
+   2
+  ],
+  "276152": [
+   "Dabit Gonganagar",
+   1977,
+   2
+  ],
+  "276175": [
+   "Arapara",
+   1977,
+   2
+  ],
+  "275811": [
+   "Chidabetgre",
+   1975,
+   1
+  ],
+  "275819": [
+   "Bolasinggre",
+   1975,
+   1
+  ],
+  "275820": [
+   "Kemranggiri",
+   1975,
+   1
+  ],
+  "275821": [
+   "Rongrikimgre",
+   1975,
+   1
+  ],
+  "275822": [
+   "Silki Achakchiring",
+   1975,
+   1
+  ],
+  "275823": [
+   "Bolma Chiringgre",
+   1975,
+   1
+  ],
+  "275825": [
+   "Boldamgre",
+   1975,
+   1
+  ],
+  "249809": [
+   "Baghmara",
+   1977,
+   3
+  ],
+  "276066": [
+   "Aruak Songgitcham",
+   1977,
+   8
+  ],
+  "276068": [
+   "Eman Marakgittim",
+   1977,
+   8
+  ],
+  "276069": [
+   "Eman Doku Awe",
+   1977,
+   8
+  ],
+  "276070": [
+   "Emangre",
+   1977,
+   8
+  ],
+  "276071": [
+   "Eman Prang Ading",
+   1977,
+   8
+  ],
+  "276072": [
+   "Eman Warima",
+   1977,
+   8
+  ],
+  "276065": [
+   "Chignap",
+   1977,
+   8
+  ],
+  "276067": [
+   "Eman Rompagre",
+   1977,
+   8
+  ],
+  "276078": [
+   "Eman Gatabil",
+   1977,
+   8
+  ],
+  "276079": [
+   "Ringramgre",
+   1977,
+   8
+  ],
+  "276080": [
+   "Megadop",
+   1977,
+   8
+  ],
+  "276083": [
+   "Rongmatma",
+   1977,
+   8
+  ],
+  "276096": [
+   "Baladinggre",
+   1977,
+   2
+  ],
+  "276097": [
+   "Ruthagre",
+   1977,
+   2
+  ],
+  "276098": [
+   "Dikgronggre",
+   1977,
+   2
+  ],
+  "276099": [
+   "Denggagre",
+   1977,
+   2
+  ],
+  "276100": [
+   "Bajragre",
+   1977,
+   1
+  ],
+  "276101": [
+   "Gara Samka",
+   1977,
+   2
+  ],
+  "276102": [
+   "Dangsu Colony",
+   1977,
+   2
+  ],
+  "276103": [
+   "Gare Songgital",
+   1977,
+   2
+  ],
+  "275636": [
+   "Jalegre",
+   1975,
+   7
+  ],
+  "275637": [
+   "Dobogre",
+   1975,
+   7
+  ],
+  "275701": [
+   "Dagal Asimgre",
+   1975,
+   7
+  ],
+  "275702": [
+   "Dagal Gopgre",
+   1975,
+   7
+  ],
+  "275703": [
+   "Kenegre",
+   1975,
+   7
+  ],
+  "275704": [
+   "Kilbolmagre",
+   1975,
+   7
+  ],
+  "275705": [
+   "Kilbolma Asimgre",
+   1975,
+   7
+  ],
+  "275706": [
+   "Agolgre",
+   1975,
+   7
+  ],
+  "275707": [
+   "Papa Asakgre",
+   1975,
+   8
+  ],
+  "275708": [
+   "Papa Songmong",
+   1975,
+   7
+  ],
+  "275709": [
+   "Papa Songgital",
+   1975,
+   7
+  ],
+  "275710": [
+   "Kilbolma Damalgre",
+   1975,
+   7
+  ],
+  "275711": [
+   "Kene Chaneagre",
+   1975,
+   7
+  ],
+  "275712": [
+   "Nodonggiri",
+   1975,
+   7
+  ],
+  "275713": [
+   "Bilgre",
+   1975,
+   7
+  ],
+  "275741": [
+   "Mon Rongsnagre",
+   1975,
+   7
+  ],
+  "275742": [
+   "Jongkolgiri",
+   1975,
+   7
+  ],
+  "275743": [
+   "Ringkap Songgital",
+   1975,
+   7
+  ],
+  "275744": [
+   "Kene Anchenggiri",
+   1975,
+   7
+  ],
+  "275745": [
+   "Papa Dajinggre",
+   1975,
+   7
+  ],
+  "275746": [
+   "Kantasigre",
+   1975,
+   7
+  ],
+  "275747": [
+   "Radigre",
+   1975,
+   7
+  ],
+  "275748": [
+   "Dasolgiri",
+   1975,
+   8
+  ],
+  "275749": [
+   "Kene Badimagiri",
+   1975,
+   7
+  ],
+  "275750": [
+   "Tepantogre",
+   1975,
+   7
+  ],
+  "275751": [
+   "Damikchigre",
+   1975,
+   7
+  ],
+  "275752": [
+   "Kimdegonggre",
+   1975,
+   7
+  ],
+  "275753": [
+   "Nanil Songgittal",
+   1975,
+   7
+  ],
+  "275754": [
+   "Narongkolgre",
+   1975,
+   7
+  ],
+  "275755": [
+   "Ringkap Sonawari",
+   1975,
+   7
+  ],
+  "275771": [
+   "Ringkap Songmong",
+   1975,
+   7
+  ],
+  "275772": [
+   "Balwat Rongchanggre",
+   1975,
+   7
+  ],
+  "275773": [
+   "Daldogre",
+   1975,
+   7
+  ],
+  "275774": [
+   "Nanil Songmong",
+   1975,
+   7
+  ],
+  "275775": [
+   "Mandang Redinggre",
+   1975,
+   7
+  ],
+  "275776": [
+   "Betramgre",
+   1975,
+   7
+  ],
+  "275777": [
+   "Duchinggiri",
+   1975,
+   7
+  ],
+  "275778": [
+   "Dasol Chigitchak",
+   1975,
+   1
+  ],
+  "275779": [
+   "Palwalgiri",
+   1975,
+   1
+  ],
+  "275780": [
+   "Songgotagiri",
+   1975,
+   7
+  ],
+  "275781": [
+   "Rongbilbanggre",
+   1975,
+   1
+  ],
+  "275782": [
+   "Daramgre",
+   1975,
+   1
+  ],
+  "275783": [
+   "Balwatgre",
+   1975,
+   1
+  ],
+  "275784": [
+   "Gilmatkolgre",
+   1975,
+   1
+  ],
+  "275785": [
+   "Rongrakgre",
+   1975,
+   1
+  ],
+  "275800": [
+   "Gongganggre",
+   1975,
+   1
+  ],
+  "275801": [
+   "Silki Betagiri",
+   1975,
+   1
+  ],
+  "275802": [
+   "Darik Banajuri",
+   1975,
+   1
+  ],
+  "275803": [
+   "Samkagre",
+   1975,
+   1
+  ],
+  "275804": [
+   "Chigitchakgiri",
+   1975,
+   1
+  ],
+  "275805": [
+   "Tengki Songmong",
+   1975,
+   1
+  ],
+  "275806": [
+   "Dangilgre",
+   1975,
+   1
+  ],
+  "275807": [
+   "Mon Dobakolgre",
+   1975,
+   1
+  ],
+  "275808": [
+   "Silki Christiangittim",
+   1975,
+   1
+  ],
+  "275809": [
+   "Asimdikgre",
+   1975,
+   1
+  ],
+  "275810": [
+   "Tengki Badimagiri",
+   1975,
+   1
+  ],
+  "275813": [
+   "Chambuagre",
+   1975,
+   1
+  ],
+  "275815": [
+   "Silki Rongsibogre",
+   1975,
+   1
+  ],
+  "275816": [
+   "Silki Ampangdamgiri",
+   1975,
+   1
+  ],
+  "275812": [
+   "Wagebokgiri",
+   1975,
+   1
+  ],
+  "276183": [
+   "Dajonggittim",
+   1978,
+   9
+  ],
+  "276184": [
+   "Rewak Daburam",
+   1978,
+   9
+  ],
+  "276185": [
+   "Rewak Watregittim",
+   1978,
+   9
+  ],
+  "276186": [
+   "Rewak Songmong",
+   1978,
+   9
+  ],
+  "276187": [
+   "Rongjakgittim",
+   1978,
+   3
+  ],
+  "276082": [
+   "Mandang",
+   1977,
+   8
+  ],
+  "276084": [
+   "Nengkongdorotgittim",
+   1977,
+   8
+  ],
+  "276085": [
+   "Wakgru Ading",
+   1977,
+   2
+  ],
+  "276086": [
+   "Nengkong Songmong",
+   1977,
+   8
+  ],
+  "276091": [
+   "Janthagre",
+   1977,
+   9
+  ],
+  "276092": [
+   "Ronchekgre",
+   1977,
+   3
+  ],
+  "276093": [
+   "Bunakol",
+   1977,
+   3
+  ],
+  "276094": [
+   "Matmagittik",
+   1977,
+   2
+  ],
+  "276095": [
+   "Chramgre",
+   1977,
+   2
+  ],
+  "276104": [
+   "Balkal Asim",
+   1977,
+   2
+  ],
+  "276105": [
+   "Darit Asim",
+   1977,
+   2
+  ],
+  "276106": [
+   "Choklokgittim",
+   1977,
+   3
+  ],
+  "276107": [
+   "Karukol Adinggre",
+   1977,
+   3
+  ],
+  "276108": [
+   "Nojimpagittim",
+   1977,
+   3
+  ],
+  "276109": [
+   "Karukol Matchok Gaakram",
+   1977,
+   3
+  ],
+  "276110": [
+   "Karukol Jalaigre",
+   1977,
+   3
+  ],
+  "276111": [
+   "Tainang Bugakol",
+   1977,
+   3
+  ],
+  "276117": [
+   "Alokpang Songgitcham",
+   1977,
+   3
+  ],
+  "276118": [
+   "Alokpang Bobragittim",
+   1977,
+   3
+  ],
+  "276119": [
+   "Balkal Watre",
+   1977,
+   3
+  ],
+  "276120": [
+   "Karukol Konagittim",
+   1977,
+   2
+  ],
+  "276121": [
+   "Chigitchakgre",
+   1977,
+   2
+  ],
+  "276137": [
+   "Goka Songmong",
+   1977,
+   3
+  ],
+  "276112": [
+   "Karukol Tainang",
+   1977,
+   3
+  ],
+  "276063": [
+   "Siju Nengru Gittim",
+   1977,
+   9
+  ],
+  "276064": [
+   "Aruak Nokatgre",
+   1977,
+   8
+  ],
+  "276073": [
+   "Dadugre",
+   1977,
+   8
+  ],
+  "276087": [
+   "Chibegre",
+   1977,
+   8
+  ],
+  "276088": [
+   "Chibe Songganget",
+   1977,
+   8
+  ],
+  "276089": [
+   "Asimgre",
+   1977,
+   8
+  ],
+  "276090": [
+   "Nengruth",
+   1977,
+   8
+  ],
+  "276182": [
+   "Siju Arteka",
+   1978,
+   9
+  ],
+  "276077": [
+   "Siju Dobakol",
+   1977,
+   9
+  ],
+  "276076": [
+   "Siju Rongkenggittim",
+   1977,
+   9
+  ],
+  "276062": [
+   "Siju Garugittim",
+   1977,
+   9
+  ],
+  "276074": [
+   "Siju Duramong",
+   1977,
+   9
+  ],
+  "276075": [
+   "Siju Asakbanda",
+   1977,
+   9
+  ],
+  "276210": [
+   "Rongru Asim",
+   1978,
+   3
+  ],
+  "276212": [
+   "Rongreng Bibra",
+   1978,
+   4
+  ],
+  "276213": [
+   "Halwa Atong",
+   1978,
+   4
+  ],
+  "276214": [
+   "Matchakal Naweram",
+   1978,
+   4
+  ],
+  "276215": [
+   "Kunchung",
+   1978,
+   4
+  ],
+  "276216": [
+   "Dambuk Jonkol",
+   1978,
+   4
+  ],
+  "276217": [
+   "Taidang",
+   1978,
+   4
+  ],
+  "276218": [
+   "Kasarisora",
+   1978,
+   4
+  ],
+  "276219": [
+   "Halwa Ambeng",
+   1978,
+   4
+  ],
+  "276229": [
+   "Ampanggre",
+   1978,
+   3
+  ],
+  "276230": [
+   "Dambuk Atong",
+   1978,
+   4
+  ],
+  "276231": [
+   "Halwa Bilda",
+   1978,
+   4
+  ],
+  "276232": [
+   "Nengsara",
+   1978,
+   4
+  ],
+  "276233": [
+   "Seelpang",
+   1978,
+   4
+  ],
+  "276234": [
+   "Rona Agal",
+   1978,
+   4
+  ],
+  "276235": [
+   "Gulpani Songmong",
+   1978,
+   4
+  ],
+  "276237": [
+   "Rongmin Chiring",
+   1978,
+   5
+  ],
+  "276238": [
+   "Rantanggre",
+   1978,
+   5
+  ],
+  "276240": [
+   "Rantangsora",
+   1978,
+   5
+  ],
+  "276241": [
+   "Teptepa",
+   1978,
+   5
+  ],
+  "276242": [
+   "Kosigre",
+   1978,
+   5
+  ],
+  "276243": [
+   "Donala Nokat",
+   1978,
+   5
+  ],
+  "276244": [
+   "Gulpani Nokat",
+   1978,
+   4
+  ],
+  "276245": [
+   "Rongjol Songgital",
+   1978,
+   4
+  ],
+  "276246": [
+   "Inolgre",
+   1978,
+   4
+  ],
+  "276247": [
+   "Bolbokgre",
+   1978,
+   4
+  ],
+  "276248": [
+   "Panda Bolsilgre",
+   1978,
+   4
+  ],
+  "276253": [
+   "Panda Chikasin",
+   1978,
+   3
+  ],
+  "276254": [
+   "Dambuk Aga",
+   1978,
+   4
+  ],
+  "276255": [
+   "Dambuk Ading",
+   1978,
+   4
+  ],
+  "276256": [
+   "Bolchugiri",
+   1978,
+   4
+  ],
+  "276257": [
+   "Dilsinggiri",
+   1978,
+   4
+  ],
+  "276258": [
+   "Gaobari",
+   1978,
+   4
+  ],
+  "276259": [
+   "Amonggre",
+   1978,
+   4
+  ],
+  "276260": [
+   "Dagalgittim",
+   1978,
+   4
+  ],
+  "276261": [
+   "Rongtotma",
+   1978,
+   4
+  ],
+  "276262": [
+   "New Rongara",
+   1978,
+   4
+  ],
+  "276263": [
+   "Dobakol",
+   1978,
+   5
+  ],
+  "276264": [
+   "Bolgisigittim",
+   1978,
+   4
+  ],
+  "276265": [
+   "Rompa Ading",
+   1978,
+   5
+  ],
+  "276266": [
+   "Rompa Songmong",
+   1978,
+   5
+  ],
+  "276272": [
+   "Mohadeo Songmong",
+   1978,
+   5
+  ],
+  "276273": [
+   "New Rompa",
+   1978,
+   5
+  ],
+  "276274": [
+   "Hatisia",
+   1978,
+   5
+  ],
+  "276275": [
+   "New Bonbera",
+   1978,
+   5
+  ],
+  "276276": [
+   "Sanbana",
+   1978,
+   5
+  ],
+  "276277": [
+   "Lower Galasora",
+   1978,
+   5
+  ],
+  "276278": [
+   "Makbiljora",
+   1978,
+   4
+  ],
+  "276279": [
+   "Jiranggittim",
+   1978,
+   4
+  ],
+  "276280": [
+   "Malikona",
+   1978,
+   4
+  ],
+  "276281": [
+   "Potchismile",
+   1978,
+   4
+  ],
+  "276282": [
+   "Gulpani Bibra",
+   1978,
+   4
+  ],
+  "276283": [
+   "Dimchanggittim",
+   1978,
+   4
+  ],
+  "276284": [
+   "Wachal Chiring",
+   1978,
+   4
+  ],
+  "276285": [
+   "Wage Kona",
+   1978,
+   4
+  ],
+  "276286": [
+   "Agatchikona",
+   1978,
+   4
+  ],
+  "276287": [
+   "New Gajipur",
+   1978,
+   4
+  ],
+  "276288": [
+   "Bolchu Ading",
+   1978,
+   3
+  ],
+  "276290": [
+   "Taraibari",
+   1978,
+   3
+  ],
+  "276291": [
+   "Badimbari",
+   1978,
+   3
+  ],
+  "276292": [
+   "Horipur",
+   1978,
+   3
+  ],
+  "276293": [
+   "Dambuk Apal",
+   1978,
+   4
+  ],
+  "276294": [
+   "Simakona",
+   1978,
+   4
+  ],
+  "276295": [
+   "Rubber Gittim",
+   1978,
+   4
+  ],
+  "276296": [
+   "Toklekbari",
+   1978,
+   4
+  ],
+  "276297": [
+   "Imbloka",
+   1978,
+   4
+  ],
+  "276298": [
+   "Matchakol",
+   1978,
+   4
+  ],
+  "276299": [
+   "Gramkol",
+   1978,
+   4
+  ],
+  "276300": [
+   "Nadangkol",
+   1978,
+   5
+  ],
+  "276301": [
+   "Chenggni Songgital",
+   1978,
+   5
+  ],
+  "276302": [
+   "Chenggni Champa",
+   1978,
+   5
+  ],
+  "276303": [
+   "Upper Galasora",
+   1978,
+   5
+  ],
+  "276305": [
+   "Kanai",
+   1978,
+   5
+  ],
+  "276306": [
+   "Hatibel",
+   1978,
+   5
+  ],
+  "276307": [
+   "Dulbeta",
+   1978,
+   5
+  ],
+  "276308": [
+   "Adachepa",
+   1978,
+   5
+  ],
+  "276309": [
+   "Bonberra",
+   1978,
+   5
+  ],
+  "276310": [
+   "Batlaban",
+   1978,
+   5
+  ],
+  "276311": [
+   "Nikwatgre",
+   1978,
+   5
+  ],
+  "276312": [
+   "Mohadeo Warima",
+   1978,
+   5
+  ],
+  "276313": [
+   "Warima Konagittim",
+   1978,
+   5
+  ],
+  "276178": [
+   "Siju Songital",
+   1978,
+   9
+  ],
+  "276179": [
+   "Rongsu Agal",
+   1978,
+   10
+  ],
+  "276180": [
+   "Kalu Songmong",
+   1978,
+   10
+  ],
+  "276181": [
+   "Rongsu Rongregittim",
+   1978,
+   10
+  ],
+  "276188": [
+   "Dakopgre",
+   1978,
+   9
+  ],
+  "276189": [
+   "Rewak Kambepal",
+   1978,
+   9
+  ],
+  "276190": [
+   "Mallengma",
+   1978,
+   10
+  ],
+  "276191": [
+   "Rongsu Mongbitgittim",
+   1978,
+   10
+  ],
+  "276192": [
+   "Rongsu Rongwak",
+   1978,
+   10
+  ],
+  "276199": [
+   "Mongmabel",
+   1978,
+   4
+  ],
+  "276200": [
+   "Chutmang Songmong",
+   1978,
+   10
+  ],
+  "276201": [
+   "Chandra Suk",
+   1978,
+   10
+  ],
+  "276202": [
+   "Rongaigittim",
+   1978,
+   4
+  ],
+  "276203": [
+   "Naweram Asim",
+   1978,
+   3
+  ],
+  "276204": [
+   "Matchirampat",
+   1978,
+   4
+  ],
+  "276208": [
+   "Samangittim",
+   1978,
+   4
+  ],
+  "276211": [
+   "Moradam",
+   1978,
+   4
+  ],
+  "276060": [
+   "Siju Songmong",
+   1977,
+   9
+  ],
+  "276061": [
+   "Siju Ganga Awe",
+   1977,
+   9
+  ],
+  "276194": [
+   "Medugittim",
+   1978,
+   5
+  ],
+  "276195": [
+   "Meengittim",
+   1978,
+   5
+  ],
+  "276196": [
+   "Dallenggittim",
+   1978,
+   5
+  ],
+  "276197": [
+   "Gongagittim",
+   1978,
+   4
+  ],
+  "276198": [
+   "Chutmang Gonggrot",
+   1978,
+   10
+  ],
+  "276205": [
+   "Rongchenggre",
+   1978,
+   5
+  ],
+  "276206": [
+   "Chimitap",
+   1978,
+   5
+  ],
+  "276207": [
+   "Teksragittim",
+   1978,
+   4
+  ],
+  "276193": [
+   "Hangsapal",
+   1978,
+   10
+  ],
+  "276033": [
+   "Nengbrekgittim",
+   1977,
+   13
+  ],
+  "276035": [
+   "Darang Dajugittim",
+   1977,
+   13
+  ],
+  "276045": [
+   "Badri Rongdong",
+   1977,
+   13
+  ],
+  "276046": [
+   "Siju Tengkigittim",
+   1977,
+   13
+  ],
+  "276049": [
+   "Siju Damik Gittim",
+   1977,
+   9
+  ],
+  "276050": [
+   "Siju Medical Colony",
+   1977,
+   9
+  ],
+  "276051": [
+   "Rangpinram",
+   1977,
+   9
+  ],
+  "276052": [
+   "Dochetgittim",
+   1977,
+   9
+  ],
+  "276053": [
+   "Tolegre",
+   1977,
+   8
+  ],
+  "276054": [
+   "Tolebrugittim",
+   1977,
+   8
+  ],
+  "276055": [
+   "Aruakgre Songgital",
+   1977,
+   8
+  ],
+  "276056": [
+   "Gongjagre",
+   1977,
+   8
+  ],
+  "276057": [
+   "Siju Jadi Gindam",
+   1977,
+   9
+  ],
+  "276058": [
+   "Siju Taikumgittim",
+   1977,
+   9
+  ],
+  "275570": [
+   "Jetragiri",
+   1975,
+   12
+  ],
+  "275572": [
+   "Darengiri",
+   1975,
+   12
+  ],
+  "275573": [
+   "Paromgre",
+   1975,
+   12
+  ],
+  "275574": [
+   "Rongma Paromgiri",
+   1975,
+   12
+  ],
+  "275575": [
+   "Dabalgre",
+   1975,
+   8
+  ],
+  "275576": [
+   "Emandurabangda",
+   1975,
+   8
+  ],
+  "275577": [
+   "Ganchikalak Dobagre",
+   1975,
+   8
+  ],
+  "275578": [
+   "Kakijagiri",
+   1975,
+   12
+  ],
+  "275581": [
+   "Rongma Rekmanggre",
+   1975,
+   12
+  ],
+  "275582": [
+   "Tokrok Anchenggre",
+   1975,
+   7
+  ],
+  "275583": [
+   "Budu Watregiri",
+   1975,
+   7
+  ],
+  "275584": [
+   "Reni Adinggre",
+   1975,
+   7
+  ],
+  "275585": [
+   "Reni Badima",
+   1975,
+   12
+  ],
+  "275587": [
+   "Simbu Raongkiragiri",
+   1975,
+   7
+  ],
+  "275634": [
+   "Bugakolgre",
+   1975,
+   7
+  ],
+  "275635": [
+   "Budu Asimgre",
+   1975,
+   7
+  ],
+  "275579": [
+   "Gopgiri",
+   1975,
+   7
+  ],
+  "275580": [
+   "Redingsi Songgital",
+   1975,
+   12
+  ],
+  "276006": [
+   "Sudugre",
+   1977,
+   14
+  ],
+  "276007": [
+   "Gare Songmong",
+   1977,
+   14
+  ],
+  "276008": [
+   "Sudu Boldak",
+   1977,
+   14
+  ],
+  "276009": [
+   "Sudu Nengjaring",
+   1977,
+   14
+  ],
+  "276010": [
+   "Gare Nengjabing",
+   1977,
+   14
+  ],
+  "276011": [
+   "Gare Chigitchak",
+   1977,
+   14
+  ],
+  "276012": [
+   "Rongkandi Dengjama",
+   1977,
+   14
+  ],
+  "276013": [
+   "Rongkandi Bolsalgittim",
+   1977,
+   14
+  ],
+  "276014": [
+   "Chekwe",
+   1977,
+   14
+  ],
+  "276015": [
+   "Rongkandi Songgital",
+   1977,
+   13
+  ],
+  "276016": [
+   "Jangkalgittim Awe",
+   1977,
+   14
+  ],
+  "276017": [
+   "Nongalbibra Bazar",
+   1977,
+   14
+  ],
+  "276018": [
+   "Dobakol Changgalgittim",
+   1977,
+   14
+  ],
+  "276019": [
+   "Nongalbibra",
+   1977,
+   14
+  ],
+  "276267": [
+   "Rantangre",
+   1978,
+   5
+  ],
+  "276020": [
+   "Imbikgittim",
+   1977,
+   14
+  ],
+  "276021": [
+   "Lower Patalgittim",
+   1977,
+   14
+  ],
+  "276022": [
+   "Darang Boldak",
+   1977,
+   13
+  ],
+  "276023": [
+   "Darang Chiga",
+   1977,
+   13
+  ],
+  "276024": [
+   "Dobakol Nengja",
+   1977,
+   13
+  ],
+  "276025": [
+   "Gare Ringdigittim",
+   1977,
+   13
+  ],
+  "276026": [
+   "Jongsinggittim",
+   1977,
+   14
+  ],
+  "276027": [
+   "Nongal Colony",
+   1977,
+   14
+  ],
+  "276028": [
+   "Dobakol Awemong",
+   1977,
+   14
+  ],
+  "276029": [
+   "Agrenggitim",
+   1977,
+   10
+  ],
+  "276030": [
+   "Era Aning",
+   1977,
+   13
+  ],
+  "276031": [
+   "Pattal Gittim",
+   1977,
+   13
+  ],
+  "276032": [
+   "Darang Akep",
+   1977,
+   13
+  ],
+  "276034": [
+   "Nengsranggittim",
+   1977,
+   13
+  ],
+  "276036": [
+   "Jadigittim",
+   1977,
+   13
+  ],
+  "276037": [
+   "Coal India Colony",
+   1977,
+   13
+  ],
+  "276038": [
+   "Mengkulgittim",
+   1977,
+   13
+  ],
+  "276039": [
+   "Rongsa Awe",
+   1977,
+   10
+  ],
+  "276040": [
+   "Jaisrugittim",
+   1977,
+   10
+  ],
+  "276041": [
+   "Badri Rongdong Kamagittim",
+   1977,
+   10
+  ],
+  "276042": [
+   "Badri Rongding Awe",
+   1977,
+   10
+  ],
+  "276043": [
+   "Darang Dura",
+   1977,
+   10
+  ],
+  "276044": [
+   "Badri Watregittim",
+   1977,
+   13
+  ],
+  "276047": [
+   "Badri Maidugittim",
+   1977,
+   10
+  ],
+  "276059": [
+   "Siju Rongmikgittim",
+   1977,
+   9
+  ],
+  "276048": [
+   "Badri Rongdimgittim",
+   1977,
+   10
+  ],
+  "276268": [
+   "Gandigre",
+   1978,
+   5
+  ],
+  "276269": [
+   "Lower Nekora",
+   1978,
+   5
+  ],
+  "276270": [
+   "Moheskola",
+   1978,
+   5
+  ],
+  "276271": [
+   "Upper Nekkora",
+   1978,
+   5
+  ],
+  "276314": [
+   "Ailatuli",
+   1978,
+   5
+  ],
+  "276316": [
+   "Upper Pasgao",
+   1978,
+   5
+  ],
+  "276317": [
+   "Bandrasora",
+   1978,
+   5
+  ],
+  "276318": [
+   "Lower Pasgao",
+   1978,
+   5
+  ],
+  "276320": [
+   "Rambil Gittim",
+   1978,
+   5
+  ],
+  "276239": [
+   "Rangtang Songmong",
+   1978,
+   5
+  ],
+  "276315": [
+   "Betgora",
+   1978,
+   5
+  ],
+  "276319": [
+   "Sapaisora",
+   1978,
+   5
+  ]
+ },
+ "village_count_total": 806,
+ "village_count_assigned": 806
+}

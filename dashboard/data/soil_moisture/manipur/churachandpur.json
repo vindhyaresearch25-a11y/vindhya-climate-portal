@@ -1,0 +1,2819 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Manipur",
+  "district": "Churachandpur",
+  "district_lgd": 254,
+  "observation_window": "2026-08-07T11:18Z to 2026-08-12T11:18Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3803,
+  "sm_surface_stddev": 0.0279,
+  "sm_rootzone_mean": 0.3906,
+  "sm_rootzone_stddev": 0.0411,
+  "n_cells": 23,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 23.9626,
+    "lon": 93.5281,
+    "sm_surface": 0.3981,
+    "sm_rootzone": 0.4155,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 1,
+    "lat": 24.0614,
+    "lon": 93.4293,
+    "sm_surface": 0.3983,
+    "sm_rootzone": 0.4152,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 2,
+    "lat": 24.0614,
+    "lon": 93.5281,
+    "sm_surface": 0.3988,
+    "sm_rootzone": 0.4162,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 3,
+    "lat": 24.0614,
+    "lon": 93.6269,
+    "sm_surface": 0.4018,
+    "sm_rootzone": 0.4158,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 4,
+    "lat": 24.0614,
+    "lon": 93.7257,
+    "sm_surface": 0.3802,
+    "sm_rootzone": 0.396,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 5,
+    "lat": 24.1602,
+    "lon": 93.4293,
+    "sm_surface": 0.3975,
+    "sm_rootzone": 0.4147,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 6,
+    "lat": 24.1602,
+    "lon": 93.5281,
+    "sm_surface": 0.3947,
+    "sm_rootzone": 0.4112,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 7,
+    "lat": 24.1602,
+    "lon": 93.6269,
+    "sm_surface": 0.4133,
+    "sm_rootzone": 0.4283,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 8,
+    "lat": 24.1602,
+    "lon": 93.7257,
+    "sm_surface": 0.3926,
+    "sm_rootzone": 0.4086,
+    "n_villages_sharing_cell": 24
+   },
+   {
+    "cell_index": 9,
+    "lat": 24.259,
+    "lon": 93.5281,
+    "sm_surface": 0.397,
+    "sm_rootzone": 0.4159,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 10,
+    "lat": 24.259,
+    "lon": 93.6269,
+    "sm_surface": 0.4136,
+    "sm_rootzone": 0.4302,
+    "n_villages_sharing_cell": 30
+   },
+   {
+    "cell_index": 11,
+    "lat": 24.259,
+    "lon": 93.7257,
+    "sm_surface": 0.3924,
+    "sm_rootzone": 0.4105,
+    "n_villages_sharing_cell": 30
+   },
+   {
+    "cell_index": 12,
+    "lat": 24.259,
+    "lon": 93.8245,
+    "sm_surface": 0.3782,
+    "sm_rootzone": 0.3875,
+    "n_villages_sharing_cell": 40
+   },
+   {
+    "cell_index": 13,
+    "lat": 24.3578,
+    "lon": 93.5281,
+    "sm_surface": 0.3902,
+    "sm_rootzone": 0.4084,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 14,
+    "lat": 24.3578,
+    "lon": 93.6269,
+    "sm_surface": 0.3893,
+    "sm_rootzone": 0.4028,
+    "n_villages_sharing_cell": 40
+   },
+   {
+    "cell_index": 15,
+    "lat": 24.3578,
+    "lon": 93.7257,
+    "sm_surface": 0.3388,
+    "sm_rootzone": 0.3322,
+    "n_villages_sharing_cell": 102
+   },
+   {
+    "cell_index": 16,
+    "lat": 24.3578,
+    "lon": 93.8245,
+    "sm_surface": 0.3429,
+    "sm_rootzone": 0.3354,
+    "n_villages_sharing_cell": 36
+   },
+   {
+    "cell_index": 17,
+    "lat": 24.4566,
+    "lon": 93.4293,
+    "sm_surface": 0.3885,
+    "sm_rootzone": 0.4075,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 18,
+    "lat": 24.4566,
+    "lon": 93.5281,
+    "sm_surface": 0.3851,
+    "sm_rootzone": 0.4049,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 19,
+    "lat": 24.4566,
+    "lon": 93.6269,
+    "sm_surface": 0.3537,
+    "sm_rootzone": 0.3597,
+    "n_villages_sharing_cell": 31
+   },
+   {
+    "cell_index": 20,
+    "lat": 24.5554,
+    "lon": 93.5281,
+    "sm_surface": 0.3626,
+    "sm_rootzone": 0.3714,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 21,
+    "lat": 24.5554,
+    "lon": 93.6269,
+    "sm_surface": 0.3459,
+    "sm_rootzone": 0.3487,
+    "n_villages_sharing_cell": 25
+   },
+   {
+    "cell_index": 22,
+    "lat": 24.5554,
+    "lon": 93.7257,
+    "sm_surface": 0.2935,
+    "sm_rootzone": 0.2478,
+    "n_villages_sharing_cell": 32
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3774,
+  "sm_surface_stddev": 0.0179,
+  "n_blocks": 3
+ },
+ "blocks": [
+  {
+   "block_name": "Churachandpur",
+   "sdcode": 1871,
+   "n_villages": 327,
+   "n_cells_spanned": 9,
+   "sm_surface_mean": 0.3585,
+   "sm_surface_stddev": 0.0322
+  },
+  {
+   "block_name": "Singngat",
+   "sdcode": 1872,
+   "n_villages": 66,
+   "n_cells_spanned": 11,
+   "sm_surface_mean": 0.4015,
+   "sm_surface_stddev": 0.0088
+  },
+  {
+   "block_name": "Tuibong",
+   "sdcode": 1870,
+   "n_villages": 124,
+   "n_cells_spanned": 10,
+   "sm_surface_mean": 0.3721,
+   "sm_surface_stddev": 0.0223
+  }
+ ],
+ "villages": {
+  "999999": [
+   "Data Partially Available",
+   1871,
+   15
+  ],
+  "269578": [
+   "Chengkonpang",
+   1871,
+   15
+  ],
+  "269800": [
+   "Zenhang Lamka CT",
+   1871,
+   15
+  ],
+  "269846": [
+   "Hiangtam V",
+   1872,
+   2
+  ],
+  "269847": [
+   "Behjang V",
+   1872,
+   0
+  ],
+  "269848": [
+   "Behiang T",
+   1872,
+   0
+  ],
+  "269849": [
+   "Tonjang",
+   1872,
+   0
+  ],
+  "269850": [
+   "S Sehken",
+   1872,
+   0
+  ],
+  "269851": [
+   "Suangphu",
+   1872,
+   0
+  ],
+  "269853": [
+   "Ngaljang",
+   1872,
+   2
+  ],
+  "269852": [
+   "Hangsum",
+   1872,
+   0
+  ],
+  "269857": [
+   "Enpum",
+   1872,
+   1
+  ],
+  "269805": [
+   "T Singtam",
+   1872,
+   5
+  ],
+  "269803": [
+   "Allusingtam",
+   1872,
+   6
+  ],
+  "269804": [
+   "P Suahzahau",
+   1872,
+   6
+  ],
+  "269806": [
+   "Zabellei",
+   1872,
+   6
+  ],
+  "269807": [
+   "Vokbual M",
+   1872,
+   9
+  ],
+  "269808": [
+   "Vokbual L",
+   1872,
+   5
+  ],
+  "269809": [
+   "Tonglon K",
+   1872,
+   9
+  ],
+  "269810": [
+   "Tonglon D",
+   1872,
+   9
+  ],
+  "269811": [
+   "Tonglon P",
+   1872,
+   9
+  ],
+  "269812": [
+   "Tonglon T",
+   1872,
+   9
+  ],
+  "269813": [
+   "Hiangmual",
+   1872,
+   10
+  ],
+  "269815": [
+   "Buksau",
+   1872,
+   10
+  ],
+  "269816": [
+   "Simbuk",
+   1872,
+   6
+  ],
+  "269817": [
+   "Molbungjang",
+   1872,
+   9
+  ],
+  "269818": [
+   "New Laizang",
+   1872,
+   6
+  ],
+  "269832": [
+   "S Belpuan",
+   1872,
+   7
+  ],
+  "269833": [
+   "Sumchinvum",
+   1872,
+   7
+  ],
+  "269834": [
+   "Singngat",
+   1872,
+   7
+  ],
+  "269845": [
+   "Likhai",
+   1872,
+   2
+  ],
+  "269844": [
+   "Tangpijol",
+   1872,
+   6
+  ],
+  "269854": [
+   "Lungchin",
+   1872,
+   1
+  ],
+  "269855": [
+   "Tuikuimuallum",
+   1872,
+   1
+  ],
+  "269856": [
+   "Suangdoh",
+   1872,
+   2
+  ],
+  "269867": [
+   "Hengjang",
+   1872,
+   2
+  ],
+  "269866": [
+   "Maokot",
+   1872,
+   6
+  ],
+  "269860": [
+   "Lungthul E",
+   1872,
+   1
+  ],
+  "269858": [
+   "Lungthul T",
+   1872,
+   1
+  ],
+  "269859": [
+   "Lungthul L",
+   1872,
+   5
+  ],
+  "269861": [
+   "Kangkap",
+   1872,
+   1
+  ],
+  "269862": [
+   "Sialbu",
+   1872,
+   5
+  ],
+  "269863": [
+   "Chiangpi",
+   1872,
+   5
+  ],
+  "269865": [
+   "Mongken",
+   1872,
+   6
+  ],
+  "269864": [
+   "Changlei",
+   1872,
+   6
+  ],
+  "269362": [
+   "Molkhang",
+   1870,
+   17
+  ],
+  "269363": [
+   "Sainoulien",
+   1870,
+   17
+  ],
+  "269438": [
+   "Teijang",
+   1870,
+   14
+  ],
+  "269440": [
+   "Zongmakot",
+   1870,
+   13
+  ],
+  "269454": [
+   "Lhanjang",
+   1870,
+   10
+  ],
+  "269458": [
+   "Lungchong",
+   1870,
+   13
+  ],
+  "269459": [
+   "V Munlai",
+   1870,
+   13
+  ],
+  "269460": [
+   "Munpi",
+   1870,
+   9
+  ],
+  "269461": [
+   "Chongkhojou",
+   1870,
+   9
+  ],
+  "269462": [
+   "Thingken",
+   1870,
+   13
+  ],
+  "269457": [
+   "K Tuiliphai",
+   1870,
+   9
+  ],
+  "269463": [
+   "Tuilumjang",
+   1870,
+   13
+  ],
+  "269464": [
+   "P Sejol",
+   1870,
+   13
+  ],
+  "269466": [
+   "N Pansang",
+   1870,
+   14
+  ],
+  "269465": [
+   "Hengkom",
+   1870,
+   9
+  ],
+  "269469": [
+   "Vungbuk",
+   1870,
+   10
+  ],
+  "269470": [
+   "Tuilaphai",
+   1870,
+   10
+  ],
+  "269475": [
+   "Phaihel",
+   1870,
+   10
+  ],
+  "269474": [
+   "D Loupum",
+   1870,
+   9
+  ],
+  "269472": [
+   "Singmun",
+   1870,
+   13
+  ],
+  "269471": [
+   "T Gangpijang",
+   1870,
+   14
+  ],
+  "269467": [
+   "Phiran",
+   1870,
+   13
+  ],
+  "269468": [
+   "P Molcham",
+   1870,
+   13
+  ],
+  "269354": [
+   "Chongchin",
+   1870,
+   17
+  ],
+  "269355": [
+   "Phaibatang",
+   1870,
+   17
+  ],
+  "269356": [
+   "Saihum",
+   1870,
+   17
+  ],
+  "269357": [
+   "Konpi",
+   1870,
+   17
+  ],
+  "269358": [
+   "Santing",
+   1870,
+   17
+  ],
+  "269361": [
+   "Saichang",
+   1870,
+   17
+  ],
+  "269360": [
+   "Maomual",
+   1870,
+   17
+  ],
+  "269364": [
+   "Lailong L",
+   1870,
+   17
+  ],
+  "269367": [
+   "Nungsai",
+   1870,
+   17
+  ],
+  "269368": [
+   "Aina",
+   1870,
+   13
+  ],
+  "269425": [
+   "Kamkeilon",
+   1870,
+   17
+  ],
+  "269445": [
+   "Kolhen",
+   1870,
+   13
+  ],
+  "269455": [
+   "Damjawl",
+   1870,
+   18
+  ],
+  "269456": [
+   "Moldak",
+   1870,
+   18
+  ],
+  "269422": [
+   "Gouthang",
+   1870,
+   18
+  ],
+  "269428": [
+   "Dahtum",
+   1870,
+   18
+  ],
+  "269418": [
+   "Golenkot",
+   1870,
+   18
+  ],
+  "269421": [
+   "Ukha Loikhai",
+   1870,
+   19
+  ],
+  "269430": [
+   "L Khaopijang",
+   1870,
+   19
+  ],
+  "269439": [
+   "Mongken",
+   1870,
+   13
+  ],
+  "269442": [
+   "Moljen",
+   1870,
+   18
+  ],
+  "269443": [
+   "Songpha",
+   1870,
+   18
+  ],
+  "269444": [
+   "D Munlui",
+   1870,
+   13
+  ],
+  "269446": [
+   "Dohjang",
+   1870,
+   13
+  ],
+  "269447": [
+   "Bungkot",
+   1870,
+   18
+  ],
+  "269448": [
+   "B Mongjang",
+   1870,
+   18
+  ],
+  "269449": [
+   "Songkot",
+   1870,
+   13
+  ],
+  "269451": [
+   "Tongkhojou",
+   1870,
+   19
+  ],
+  "269452": [
+   "M Phaijang",
+   1870,
+   13
+  ],
+  "269366": [
+   "Phaisat",
+   1870,
+   14
+  ],
+  "269431": [
+   "Chothe Munpi",
+   1870,
+   18
+  ],
+  "269453": [
+   "Humkot",
+   1870,
+   18
+  ],
+  "269359": [
+   "Santing L",
+   1870,
+   17
+  ],
+  "269365": [
+   "Lailong S",
+   1870,
+   17
+  ],
+  "269369": [
+   "Sanglel",
+   1870,
+   17
+  ],
+  "269370": [
+   "Naopanglon",
+   1870,
+   17
+  ],
+  "269371": [
+   "Phaibong",
+   1870,
+   20
+  ],
+  "269372": [
+   "Vantungbung",
+   1870,
+   17
+  ],
+  "269373": [
+   "Songkong",
+   1870,
+   20
+  ],
+  "269374": [
+   "Mamong",
+   1870,
+   20
+  ],
+  "269375": [
+   "Chingmei Kuki",
+   1870,
+   17
+  ],
+  "269377": [
+   "Ainujang",
+   1870,
+   18
+  ],
+  "269378": [
+   "Mollen",
+   1870,
+   20
+  ],
+  "269379": [
+   "Songphu",
+   1870,
+   20
+  ],
+  "269380": [
+   "Bolkot",
+   1870,
+   18
+  ],
+  "269381": [
+   "K Hengcham",
+   1870,
+   20
+  ],
+  "269382": [
+   "Kolchung",
+   1870,
+   20
+  ],
+  "269383": [
+   "Majuron Kuki",
+   1870,
+   20
+  ],
+  "269384": [
+   "L Thingphai",
+   1870,
+   20
+  ],
+  "269376": [
+   "Khanpi",
+   1870,
+   20
+  ],
+  "269476": [
+   "Molcham",
+   1870,
+   20
+  ],
+  "269386": [
+   "L Phaikholum",
+   1870,
+   20
+  ],
+  "269387": [
+   "L Phailen",
+   1870,
+   20
+  ],
+  "269389": [
+   "L Khengjang",
+   1870,
+   21
+  ],
+  "269390": [
+   "Phoipi",
+   1870,
+   21
+  ],
+  "269420": [
+   "Phaipijang",
+   1870,
+   19
+  ],
+  "269403": [
+   "K Songjang",
+   1870,
+   21
+  ],
+  "269423": [
+   "Najang",
+   1870,
+   18
+  ],
+  "269424": [
+   "Selvung Napphou",
+   1870,
+   17
+  ],
+  "269426": [
+   "Henglep",
+   1870,
+   18
+  ],
+  "269427": [
+   "N Saikot",
+   1870,
+   18
+  ],
+  "269434": [
+   "Leisanbung",
+   1870,
+   21
+  ],
+  "269747": [
+   "Govajang",
+   1871,
+   8
+  ],
+  "269745": [
+   "Hita Khunou",
+   1871,
+   8
+  ],
+  "269625": [
+   "Haopi",
+   1871,
+   8
+  ],
+  "269746": [
+   "Tuidam",
+   1871,
+   8
+  ],
+  "269748": [
+   "New Khuakual",
+   1871,
+   8
+  ],
+  "269749": [
+   "S Gelbung",
+   1871,
+   8
+  ],
+  "269744": [
+   "Phaisan",
+   1871,
+   8
+  ],
+  "269742": [
+   "T Khuangkhai",
+   1871,
+   8
+  ],
+  "269743": [
+   "W Joujang",
+   1871,
+   8
+  ],
+  "269741": [
+   "Tuisomjang",
+   1871,
+   8
+  ],
+  "269740": [
+   "Singheu",
+   1871,
+   8
+  ],
+  "269739": [
+   "Walkhu",
+   1871,
+   8
+  ],
+  "269733": [
+   "Zalenkot",
+   1871,
+   8
+  ],
+  "269734": [
+   "Khuangkhaijang",
+   1871,
+   8
+  ],
+  "269732": [
+   "Khaukual Khuman",
+   1871,
+   8
+  ],
+  "269731": [
+   "Suanggual",
+   1871,
+   8
+  ],
+  "269730": [
+   "Saiboh",
+   1871,
+   8
+  ],
+  "269735": [
+   "Dutezol",
+   1871,
+   8
+  ],
+  "269736": [
+   "Khoinoi",
+   1871,
+   8
+  ],
+  "269738": [
+   "Teisaljang",
+   1871,
+   8
+  ],
+  "269737": [
+   "Jangmun",
+   1871,
+   8
+  ],
+  "269677": [
+   "S Mongkot",
+   1871,
+   8
+  ],
+  "269678": [
+   "Songpeh",
+   1871,
+   11
+  ],
+  "269799": [
+   "Luihoihmolcham",
+   1871,
+   8
+  ],
+  "269681": [
+   "G Khonuam",
+   1871,
+   11
+  ],
+  "269682": [
+   "B Salvaphai",
+   1871,
+   11
+  ],
+  "269683": [
+   "Chaljang",
+   1871,
+   11
+  ],
+  "269684": [
+   "G Monglian",
+   1871,
+   11
+  ],
+  "269685": [
+   "Tuitengjang",
+   1871,
+   11
+  ],
+  "269653": [
+   "Bohlui",
+   1871,
+   11
+  ],
+  "269651": [
+   "Sehken",
+   1871,
+   11
+  ],
+  "269655": [
+   "Sumtuhphai",
+   1871,
+   11
+  ],
+  "269654": [
+   "M Semol",
+   1871,
+   11
+  ],
+  "269704": [
+   "Tuivelmual",
+   1871,
+   12
+  ],
+  "269705": [
+   "T Khonom",
+   1871,
+   12
+  ],
+  "269707": [
+   "Zobethel",
+   1871,
+   12
+  ],
+  "269708": [
+   "L Gangpimual",
+   1871,
+   12
+  ],
+  "269695": [
+   "Lhangnom",
+   1871,
+   12
+  ],
+  "269679": [
+   "Mongnelphai",
+   1871,
+   11
+  ],
+  "269680": [
+   "B Pangmual",
+   1871,
+   11
+  ],
+  "269626": [
+   "Lamzang",
+   1871,
+   10
+  ],
+  "269629": [
+   "Zoumun",
+   1871,
+   10
+  ],
+  "269814": [
+   "Chahnou",
+   1872,
+   10
+  ],
+  "269819": [
+   "Kullian",
+   1872,
+   10
+  ],
+  "269820": [
+   "M Lunmual",
+   1872,
+   10
+  ],
+  "269822": [
+   "Panglian",
+   1872,
+   7
+  ],
+  "269823": [
+   "M Tanglian",
+   1872,
+   7
+  ],
+  "269825": [
+   "Belbing",
+   1872,
+   7
+  ],
+  "269821": [
+   "Hiangdung",
+   1872,
+   10
+  ],
+  "269824": [
+   "S Munhoi",
+   1872,
+   10
+  ],
+  "269826": [
+   "S Geltui",
+   1872,
+   7
+  ],
+  "269827": [
+   "Zezaw",
+   1872,
+   7
+  ],
+  "269828": [
+   "L Phaimol",
+   1872,
+   7
+  ],
+  "269829": [
+   "Bongbal",
+   1872,
+   10
+  ],
+  "269830": [
+   "Muallum",
+   1872,
+   7
+  ],
+  "269831": [
+   "T Khajang",
+   1872,
+   8
+  ],
+  "269835": [
+   "Zalenphai",
+   1872,
+   7
+  ],
+  "269837": [
+   "Teikot",
+   1872,
+   3
+  ],
+  "269836": [
+   "Lanchah",
+   1872,
+   4
+  ],
+  "269840": [
+   "Mongjang",
+   1872,
+   4
+  ],
+  "269838": [
+   "Suangkuang",
+   1872,
+   4
+  ],
+  "269839": [
+   "Saichang",
+   1872,
+   7
+  ],
+  "269841": [
+   "Sialnah",
+   1872,
+   3
+  ],
+  "269842": [
+   "Hiangtam K",
+   1872,
+   3
+  ],
+  "269843": [
+   "Theigotang",
+   1872,
+   3
+  ],
+  "269729": [
+   "M Phaimol",
+   1871,
+   12
+  ],
+  "269723": [
+   "Lunggil",
+   1871,
+   12
+  ],
+  "269728": [
+   "Hengken",
+   1871,
+   12
+  ],
+  "269724": [
+   "Molzol",
+   1871,
+   12
+  ],
+  "269725": [
+   "L Happyland",
+   1871,
+   12
+  ],
+  "269727": [
+   "Dongjang",
+   1871,
+   12
+  ],
+  "269700": [
+   "Sangaikot",
+   1871,
+   12
+  ],
+  "269701": [
+   "Matijang",
+   1871,
+   12
+  ],
+  "269702": [
+   "Langvon",
+   1871,
+   12
+  ],
+  "269703": [
+   "Mongbung",
+   1871,
+   12
+  ],
+  "269706": [
+   "Goupibung",
+   1871,
+   12
+  ],
+  "269726": [
+   "L Khonomphai",
+   1871,
+   12
+  ],
+  "269699": [
+   "Muizol",
+   1871,
+   12
+  ],
+  "269698": [
+   "Tuitum J",
+   1871,
+   12
+  ],
+  "269697": [
+   "K Jangnomphai",
+   1871,
+   12
+  ],
+  "269709": [
+   "Molvom Srs",
+   1871,
+   12
+  ],
+  "269710": [
+   "Kuwan",
+   1871,
+   12
+  ],
+  "269550": [
+   "Gamnom",
+   1871,
+   15
+  ],
+  "269568": [
+   "Hmarveng",
+   1871,
+   14
+  ],
+  "269574": [
+   "Zoumunnuam",
+   1871,
+   14
+  ],
+  "269567": [
+   "Tuibong",
+   1871,
+   14
+  ],
+  "269581": [
+   "Bungmual",
+   1871,
+   15
+  ],
+  "269607": [
+   "T Jouzang",
+   1871,
+   14
+  ],
+  "269611": [
+   "Telsing Bazar",
+   1871,
+   14
+  ],
+  "269604": [
+   "Gelmon Khuman",
+   1871,
+   14
+  ],
+  "269609": [
+   "Mata Lambulane",
+   1871,
+   14
+  ],
+  "269617": [
+   "Hengkot",
+   1871,
+   14
+  ],
+  "269795": [
+   "New Bijang",
+   1871,
+   15
+  ],
+  "269570": [
+   "Sielmat",
+   1871,
+   15
+  ],
+  "269563": [
+   "Bethel",
+   1871,
+   15
+  ],
+  "269569": [
+   "Bijang",
+   1871,
+   15
+  ],
+  "269579": [
+   "Ccpur H Q",
+   1871,
+   15
+  ],
+  "269528": [
+   "Maichammun",
+   1871,
+   15
+  ],
+  "269620": [
+   "Sabual",
+   1871,
+   14
+  ],
+  "269613": [
+   "Mission Compound Ccp",
+   1871,
+   14
+  ],
+  "269610": [
+   "Pearson",
+   1871,
+   14
+  ],
+  "269600": [
+   "Lhangnom",
+   1871,
+   14
+  ],
+  "269616": [
+   "Songpi Kholui",
+   1871,
+   14
+  ],
+  "269599": [
+   "S Molcham",
+   1871,
+   14
+  ],
+  "269598": [
+   "Leijangkhopi",
+   1871,
+   14
+  ],
+  "269606": [
+   "Thinghangjang",
+   1871,
+   14
+  ],
+  "269624": [
+   "Salva Lhanbung",
+   1871,
+   10
+  ],
+  "269618": [
+   "Khotuh",
+   1871,
+   10
+  ],
+  "269619": [
+   "T Lhangnom",
+   1871,
+   10
+  ],
+  "269622": [
+   "Takvom",
+   1871,
+   10
+  ],
+  "269623": [
+   "Lenglakot",
+   1871,
+   10
+  ],
+  "269612": [
+   "Songpi",
+   1871,
+   10
+  ],
+  "269630": [
+   "Gelzang",
+   1871,
+   10
+  ],
+  "269798": [
+   "Vaozang",
+   1871,
+   10
+  ],
+  "269577": [
+   "Salem Veng",
+   1871,
+   10
+  ],
+  "269576": [
+   "S Monglenjang",
+   1871,
+   10
+  ],
+  "269640": [
+   "Suongsibok",
+   1871,
+   10
+  ],
+  "269605": [
+   "S Khaomunnom",
+   1871,
+   14
+  ],
+  "269797": [
+   "L Muncham",
+   1871,
+   12
+  ],
+  "269694": [
+   "Tuiningkhal",
+   1871,
+   12
+  ],
+  "269692": [
+   "Tuining",
+   1871,
+   12
+  ],
+  "269693": [
+   "Zomi Zion",
+   1871,
+   12
+  ],
+  "269691": [
+   "P N Khovong",
+   1871,
+   12
+  ],
+  "269628": [
+   "Ngoiphai",
+   1871,
+   10
+  ],
+  "269690": [
+   "T Bongpijang",
+   1871,
+   12
+  ],
+  "269689": [
+   "Dumlian Salem",
+   1871,
+   15
+  ],
+  "269687": [
+   "B Kaljang",
+   1871,
+   16
+  ],
+  "269686": [
+   "Tuinuphai",
+   1871,
+   11
+  ],
+  "269659": [
+   "Tuikham",
+   1871,
+   11
+  ],
+  "269658": [
+   "Mualsan",
+   1871,
+   11
+  ],
+  "269650": [
+   "Benazou",
+   1871,
+   11
+  ],
+  "269648": [
+   "Saipum",
+   1871,
+   11
+  ],
+  "269649": [
+   "Misao Lhavom",
+   1871,
+   11
+  ],
+  "269773": [
+   "Thampilian",
+   1871,
+   12
+  ],
+  "269774": [
+   "Khonomphai",
+   1871,
+   12
+  ],
+  "269775": [
+   "Tuiringphaisen",
+   1871,
+   16
+  ],
+  "269790": [
+   "Nungthang Tampak",
+   1871,
+   12
+  ],
+  "269716": [
+   "G Songgel",
+   1871,
+   16
+  ],
+  "269713": [
+   "Leisen Tampak",
+   1871,
+   16
+  ],
+  "269529": [
+   "B Kholmun",
+   1871,
+   16
+  ],
+  "269714": [
+   "Patjang",
+   1871,
+   16
+  ],
+  "269789": [
+   "Theikakpi",
+   1871,
+   16
+  ],
+  "269776": [
+   "Sihjang Srs",
+   1871,
+   16
+  ],
+  "269715": [
+   "Khodang",
+   1871,
+   16
+  ],
+  "269777": [
+   "Maojang",
+   1871,
+   16
+  ],
+  "269766": [
+   "Nomjang Srs",
+   1871,
+   16
+  ],
+  "269767": [
+   "S Gotengjang",
+   1871,
+   16
+  ],
+  "269768": [
+   "Khongjanglok",
+   1871,
+   16
+  ],
+  "269765": [
+   "Haotak Keirap",
+   1871,
+   15
+  ],
+  "269763": [
+   "Lhungjang",
+   1871,
+   15
+  ],
+  "269761": [
+   "T Molkot",
+   1871,
+   15
+  ],
+  "269762": [
+   "T Kananphai",
+   1871,
+   15
+  ],
+  "269770": [
+   "M Kananphai",
+   1871,
+   15
+  ],
+  "269769": [
+   "H Kotlian",
+   1871,
+   15
+  ],
+  "269760": [
+   "Changpikot",
+   1871,
+   15
+  ],
+  "269783": [
+   "H Vajang Khuman",
+   1871,
+   16
+  ],
+  "269784": [
+   "Haotak Khullen Srs",
+   1871,
+   16
+  ],
+  "269781": [
+   "Bonglusi",
+   1871,
+   16
+  ],
+  "269780": [
+   "Lailampat",
+   1871,
+   16
+  ],
+  "269779": [
+   "Pumkot Minzang",
+   1871,
+   16
+  ],
+  "269778": [
+   "Lhangnomphai",
+   1871,
+   16
+  ],
+  "269627": [
+   "Phaibem",
+   1871,
+   10
+  ],
+  "269631": [
+   "Matamualtam",
+   1871,
+   10
+  ],
+  "269632": [
+   "Buallian",
+   1871,
+   11
+  ],
+  "269634": [
+   "Ngaloimol",
+   1871,
+   11
+  ],
+  "269633": [
+   "Mata",
+   1871,
+   11
+  ],
+  "269638": [
+   "Tualnuam",
+   1871,
+   11
+  ],
+  "269639": [
+   "Tangmual",
+   1871,
+   11
+  ],
+  "269637": [
+   "Lingsiphai",
+   1871,
+   11
+  ],
+  "269635": [
+   "Bishanmual",
+   1871,
+   10
+  ],
+  "269636": [
+   "Phaihel",
+   1871,
+   10
+  ],
+  "269641": [
+   "Thingkangphai",
+   1871,
+   11
+  ],
+  "269643": [
+   "Pangjol",
+   1871,
+   11
+  ],
+  "269644": [
+   "Tangnuam",
+   1871,
+   15
+  ],
+  "269645": [
+   "Lanva",
+   1871,
+   15
+  ],
+  "269657": [
+   "Mualpi",
+   1871,
+   11
+  ],
+  "269660": [
+   "Khuangnung",
+   1871,
+   11
+  ],
+  "269661": [
+   "Ngurte",
+   1871,
+   15
+  ],
+  "269662": [
+   "Tuikham Daizang",
+   1871,
+   15
+  ],
+  "269663": [
+   "Thenmuol",
+   1871,
+   15
+  ],
+  "269664": [
+   "Tuibul",
+   1871,
+   15
+  ],
+  "269665": [
+   "Tuaitengphai",
+   1871,
+   15
+  ],
+  "269666": [
+   "Dumsaumual",
+   1871,
+   15
+  ],
+  "269667": [
+   "Mualbem",
+   1871,
+   15
+  ],
+  "269668": [
+   "Khopuibung",
+   1871,
+   15
+  ],
+  "269670": [
+   "Valpakot",
+   1871,
+   15
+  ],
+  "269671": [
+   "Hmuntha Tampak",
+   1871,
+   15
+  ],
+  "269675": [
+   "Saidan",
+   1871,
+   15
+  ],
+  "269669": [
+   "G Tonjang",
+   1871,
+   15
+  ],
+  "269676": [
+   "Thingchom",
+   1871,
+   15
+  ],
+  "269674": [
+   "Tuithapi",
+   1871,
+   15
+  ],
+  "269575": [
+   "Hiangtam Lamka",
+   1871,
+   15
+  ],
+  "269672": [
+   "Saikot",
+   1871,
+   15
+  ],
+  "269656": [
+   "Mualkot",
+   1871,
+   11
+  ],
+  "269642": [
+   "Konpui",
+   1871,
+   15
+  ],
+  "269647": [
+   "Ngathal",
+   1871,
+   15
+  ],
+  "269646": [
+   "Gangpimual",
+   1871,
+   15
+  ],
+  "269603": [
+   "Tuinom Khopi",
+   1871,
+   11
+  ],
+  "269601": [
+   "Kotsohoi",
+   1871,
+   15
+  ],
+  "269602": [
+   "Lhangjol",
+   1871,
+   15
+  ],
+  "269593": [
+   "Tonglal",
+   1871,
+   15
+  ],
+  "269597": [
+   "Kingkin",
+   1871,
+   15
+  ],
+  "269688": [
+   "S Moldung",
+   1871,
+   15
+  ],
+  "269580": [
+   "D Phailian",
+   1871,
+   15
+  ],
+  "269592": [
+   "D M Veng",
+   1871,
+   15
+  ],
+  "269591": [
+   "S Haijang",
+   1871,
+   15
+  ],
+  "269571": [
+   "Zomicolony",
+   1871,
+   15
+  ],
+  "269595": [
+   "L Semol",
+   1871,
+   15
+  ],
+  "269594": [
+   "Seilal Veng",
+   1871,
+   15
+  ],
+  "269573": [
+   "New Zoveng",
+   1871,
+   15
+  ],
+  "269532": [
+   "T Thingjang",
+   1871,
+   15
+  ],
+  "269582": [
+   "Hmuia Veng",
+   1871,
+   15
+  ],
+  "269583": [
+   "Vengnuam",
+   1871,
+   15
+  ],
+  "269584": [
+   "College Veng",
+   1871,
+   15
+  ],
+  "269673": [
+   "Mualvaphei",
+   1871,
+   15
+  ],
+  "269564": [
+   "M Ramthar",
+   1871,
+   15
+  ],
+  "269585": [
+   "Dorcas Veng",
+   1871,
+   15
+  ],
+  "269586": [
+   "Gouchinkhup Veng",
+   1871,
+   15
+  ],
+  "269587": [
+   "Elim Veng",
+   1871,
+   15
+  ],
+  "269588": [
+   "Lailam Veng",
+   1871,
+   15
+  ],
+  "269589": [
+   "Sim Veng",
+   1871,
+   15
+  ],
+  "269590": [
+   "Hebron Veng",
+   1871,
+   15
+  ],
+  "269572": [
+   "Hiangzo",
+   1871,
+   15
+  ],
+  "269508": [
+   "Laikamolsau",
+   1871,
+   19
+  ],
+  "269415": [
+   "N Ningthiching",
+   1870,
+   19
+  ],
+  "269416": [
+   "N Chingphei",
+   1870,
+   19
+  ],
+  "269432": [
+   "Loilamkot",
+   1870,
+   19
+  ],
+  "269433": [
+   "Mollungthu",
+   1870,
+   19
+  ],
+  "269429": [
+   "Thinghejang",
+   1870,
+   19
+  ],
+  "269435": [
+   "Molphei Tampak",
+   1870,
+   14
+  ],
+  "269436": [
+   "Tonglhang",
+   1870,
+   14
+  ],
+  "269437": [
+   "S Nabil",
+   1870,
+   19
+  ],
+  "269419": [
+   "Zounoi",
+   1870,
+   19
+  ],
+  "269441": [
+   "Nabil Khuman",
+   1870,
+   19
+  ],
+  "269450": [
+   "Monglham",
+   1870,
+   14
+  ],
+  "269391": [
+   "Thangsi",
+   1870,
+   19
+  ],
+  "269510": [
+   "Mualngat",
+   1871,
+   19
+  ],
+  "269511": [
+   "Bijang Gangte",
+   1871,
+   19
+  ],
+  "269512": [
+   "Thoroilok",
+   1871,
+   19
+  ],
+  "269513": [
+   "P Geljang",
+   1871,
+   19
+  ],
+  "269514": [
+   "Phoisanbung",
+   1871,
+   19
+  ],
+  "269515": [
+   "Pholjang",
+   1871,
+   19
+  ],
+  "269516": [
+   "Ukhatampak",
+   1871,
+   15
+  ],
+  "269517": [
+   "Songdo",
+   1871,
+   19
+  ],
+  "269518": [
+   "Phoisenphai",
+   1871,
+   15
+  ],
+  "269519": [
+   "Gothol",
+   1871,
+   15
+  ],
+  "269558": [
+   "Mongjang Tampak",
+   1871,
+   19
+  ],
+  "269559": [
+   "T Champhai",
+   1871,
+   19
+  ],
+  "269614": [
+   "Molhoi S",
+   1871,
+   19
+  ],
+  "269615": [
+   "N Molhoi",
+   1871,
+   19
+  ],
+  "269534": [
+   "Torbung Loklaiphai",
+   1871,
+   15
+  ],
+  "269524": [
+   "Mualhoih",
+   1871,
+   15
+  ],
+  "269525": [
+   "New Zalenphai",
+   1871,
+   15
+  ],
+  "269526": [
+   "Torbung",
+   1871,
+   15
+  ],
+  "269521": [
+   "Kangvai",
+   1871,
+   15
+  ],
+  "269523": [
+   "K Kotlian",
+   1871,
+   15
+  ],
+  "269541": [
+   "Tollen",
+   1871,
+   15
+  ],
+  "269543": [
+   "Yangnomphai",
+   1871,
+   15
+  ],
+  "269538": [
+   "Kaprang",
+   1871,
+   14
+  ],
+  "269540": [
+   "Monglianphai",
+   1871,
+   15
+  ],
+  "269539": [
+   "Leisang",
+   1871,
+   15
+  ],
+  "269544": [
+   "Vajing",
+   1871,
+   15
+  ],
+  "269527": [
+   "Matijang",
+   1871,
+   14
+  ],
+  "269547": [
+   "Zanglenphai",
+   1871,
+   15
+  ],
+  "269509": [
+   "Mualsang",
+   1871,
+   15
+  ],
+  "269562": [
+   "K Salbung Srs",
+   1871,
+   15
+  ],
+  "269546": [
+   "Zaolen",
+   1871,
+   15
+  ],
+  "269561": [
+   "Lajangphai",
+   1871,
+   15
+  ],
+  "269565": [
+   "Molnom",
+   1871,
+   15
+  ],
+  "269596": [
+   "M Songgel",
+   1871,
+   15
+  ],
+  "269557": [
+   "Kholmun",
+   1871,
+   19
+  ],
+  "269542": [
+   "Zolzam",
+   1871,
+   19
+  ],
+  "269531": [
+   "Pengjang",
+   1871,
+   14
+  ],
+  "269530": [
+   "Kangoi Paolian",
+   1871,
+   14
+  ],
+  "269555": [
+   "T Bollen",
+   1871,
+   14
+  ],
+  "269533": [
+   "V Kolmun",
+   1871,
+   14
+  ],
+  "269554": [
+   "Teiseng",
+   1871,
+   14
+  ],
+  "269556": [
+   "Khaopijang",
+   1871,
+   14
+  ],
+  "269549": [
+   "Lairik Vaison",
+   1871,
+   14
+  ],
+  "269537": [
+   "Jikpi Tampak",
+   1871,
+   14
+  ],
+  "269608": [
+   "Tolphei",
+   1871,
+   14
+  ],
+  "269536": [
+   "S Bualjang",
+   1871,
+   14
+  ],
+  "269522": [
+   "K Khomunnom",
+   1871,
+   14
+  ],
+  "269551": [
+   "Gangpichai",
+   1871,
+   14
+  ],
+  "269553": [
+   "Hengjang",
+   1871,
+   14
+  ],
+  "269520": [
+   "G Mongjang",
+   1871,
+   15
+  ],
+  "269548": [
+   "Khengjang",
+   1871,
+   14
+  ],
+  "269535": [
+   "S Kotlian",
+   1871,
+   15
+  ],
+  "269560": [
+   "Kumbi Pukhri",
+   1871,
+   15
+  ],
+  "269566": [
+   "Khomoi Srs",
+   1871,
+   15
+  ],
+  "269764": [
+   "Saikul",
+   1871,
+   15
+  ],
+  "269545": [
+   "Boljol",
+   1871,
+   15
+  ],
+  "269759": [
+   "Siden",
+   1871,
+   15
+  ],
+  "269758": [
+   "Khuangmun",
+   1871,
+   15
+  ],
+  "269756": [
+   "Gotengphai",
+   1871,
+   15
+  ],
+  "269755": [
+   "T Munnomjang",
+   1871,
+   15
+  ],
+  "269752": [
+   "Saiton Khunou Seitual",
+   1871,
+   15
+  ],
+  "269753": [
+   "Saiton Khullen",
+   1871,
+   15
+  ],
+  "269754": [
+   "Kulbung",
+   1871,
+   15
+  ],
+  "269757": [
+   "Dopkon",
+   1871,
+   15
+  ],
+  "269751": [
+   "Moirang Mantak",
+   1871,
+   16
+  ],
+  "269750": [
+   "Ngairong",
+   1871,
+   16
+  ],
+  "269796": [
+   "New Boljang",
+   1871,
+   16
+  ],
+  "269621": [
+   "T Boljang",
+   1871,
+   16
+  ],
+  "269552": [
+   "Khochijang",
+   1871,
+   16
+  ],
+  "269652": [
+   "Tolyangkuki",
+   1871,
+   16
+  ],
+  "269782": [
+   "H Gelbung",
+   1871,
+   16
+  ],
+  "269696": [
+   "Moldenphai",
+   1871,
+   12
+  ],
+  "269711": [
+   "Lamlai",
+   1871,
+   12
+  ],
+  "269721": [
+   "Pantha",
+   1871,
+   12
+  ],
+  "269720": [
+   "M B Saichang",
+   1871,
+   12
+  ],
+  "269719": [
+   "Makhao Tampak",
+   1871,
+   12
+  ],
+  "269718": [
+   "Makhao Mollum",
+   1871,
+   16
+  ],
+  "269717": [
+   "Makhao Bungmual",
+   1871,
+   12
+  ],
+  "269712": [
+   "Khengmual",
+   1871,
+   12
+  ],
+  "269771": [
+   "Bungsanglian",
+   1871,
+   12
+  ],
+  "269786": [
+   "Lukhumbi",
+   1871,
+   16
+  ],
+  "269785": [
+   "Haotak Phailen",
+   1871,
+   16
+  ],
+  "269772": [
+   "Dampi",
+   1871,
+   16
+  ],
+  "269794": [
+   "Molamphai",
+   1871,
+   16
+  ],
+  "269793": [
+   "Chinglangmei",
+   1871,
+   16
+  ],
+  "269792": [
+   "Samulamlan",
+   1871,
+   16
+  ],
+  "269788": [
+   "Lalambung",
+   1871,
+   16
+  ],
+  "269787": [
+   "Sagang",
+   1871,
+   16
+  ],
+  "269791": [
+   "Lamngsei Tampak",
+   1871,
+   16
+  ],
+  "269722": [
+   "Makhao H",
+   1871,
+   12
+  ],
+  "269385": [
+   "Tumjangphai",
+   1870,
+   21
+  ],
+  "269392": [
+   "Silen",
+   1870,
+   21
+  ],
+  "269393": [
+   "L Boljol",
+   1870,
+   21
+  ],
+  "269394": [
+   "Hengmol",
+   1870,
+   21
+  ],
+  "269388": [
+   "K Thenjang",
+   1870,
+   21
+  ],
+  "269395": [
+   "Bongphajol",
+   1870,
+   21
+  ],
+  "269396": [
+   "Kukimun",
+   1870,
+   21
+  ],
+  "269397": [
+   "L Gamnomphai",
+   1870,
+   21
+  ],
+  "269398": [
+   "Lamdan Kuki",
+   1870,
+   21
+  ],
+  "269399": [
+   "Gamnomphai",
+   1870,
+   21
+  ],
+  "269402": [
+   "K Lhangnom",
+   1870,
+   22
+  ],
+  "269401": [
+   "Ingourok",
+   1870,
+   21
+  ],
+  "269404": [
+   "Kungpinaosen",
+   1870,
+   22
+  ],
+  "269405": [
+   "New Kungpi",
+   1870,
+   21
+  ],
+  "269407": [
+   "Tokpa Kabui",
+   1870,
+   21
+  ],
+  "269408": [
+   "Kokodan Dahlon",
+   1870,
+   21
+  ],
+  "269409": [
+   "Kokodan Khullen",
+   1870,
+   21
+  ],
+  "269410": [
+   "Majuron Kabui",
+   1870,
+   21
+  ],
+  "269411": [
+   "Sadu Khoiroi",
+   1870,
+   19
+  ],
+  "269412": [
+   "Charoi Khullen",
+   1870,
+   21
+  ],
+  "269414": [
+   "Ningthiching",
+   1870,
+   19
+  ],
+  "269413": [
+   "Nahlon",
+   1870,
+   21
+  ],
+  "269417": [
+   "Hengkapkot",
+   1870,
+   19
+  ],
+  "269473": [
+   "Pakol",
+   1870,
+   21
+  ],
+  "269406": [
+   "Lamdan Kabui",
+   1870,
+   21
+  ],
+  "269477": [
+   "Ngarian",
+   1871,
+   22
+  ],
+  "269479": [
+   "Chaiba",
+   1871,
+   22
+  ],
+  "269480": [
+   "Varok",
+   1871,
+   22
+  ],
+  "269481": [
+   "Dimdunlung",
+   1871,
+   22
+  ],
+  "269482": [
+   "Thengjang",
+   1871,
+   22
+  ],
+  "269483": [
+   "Chehjang",
+   1871,
+   22
+  ],
+  "269484": [
+   "Louchulbung",
+   1871,
+   22
+  ],
+  "269485": [
+   "Aimol",
+   1871,
+   22
+  ],
+  "269486": [
+   "Keirap Khunthak",
+   1871,
+   22
+  ],
+  "269487": [
+   "Keirap Khunkha",
+   1871,
+   22
+  ],
+  "269478": [
+   "Zaingang Khuman",
+   1871,
+   22
+  ],
+  "269488": [
+   "Laimanai Kabui",
+   1871,
+   22
+  ],
+  "269489": [
+   "K Geljang",
+   1871,
+   22
+  ],
+  "269490": [
+   "Thumkhonglok",
+   1871,
+   22
+  ],
+  "269491": [
+   "Laimanai Kuki",
+   1871,
+   22
+  ],
+  "269492": [
+   "Pangjang",
+   1871,
+   22
+  ],
+  "269493": [
+   "L Semol",
+   1871,
+   22
+  ],
+  "269495": [
+   "Langjingmanbi",
+   1871,
+   22
+  ],
+  "269497": [
+   "Khoirentak Khuman",
+   1871,
+   22
+  ],
+  "269498": [
+   "Khoirentak Khunou",
+   1871,
+   22
+  ],
+  "269499": [
+   "Khousabung",
+   1871,
+   22
+  ],
+  "269501": [
+   "Kangathei",
+   1871,
+   22
+  ],
+  "269502": [
+   "Hermontang",
+   1871,
+   22
+  ],
+  "269500": [
+   "Bunglon",
+   1871,
+   22
+  ],
+  "269503": [
+   "Senpangjang",
+   1871,
+   22
+  ],
+  "269494": [
+   "Keirap Khullen",
+   1871,
+   22
+  ],
+  "269496": [
+   "Heichanglok",
+   1871,
+   22
+  ],
+  "269504": [
+   "Pungchongjang",
+   1871,
+   22
+  ],
+  "269505": [
+   "Ujungmakhong",
+   1871,
+   22
+  ],
+  "269802": [
+   "Hill Town CT",
+   1871,
+   15
+  ],
+  "269801": [
+   "Rengkai CT",
+   1871,
+   15
+  ],
+  "269506": [
+   "P Gelmolkhunou",
+   1871,
+   22
+  ],
+  "269507": [
+   "Bijang Tampak",
+   1871,
+   19
+  ],
+  "269400": [
+   "Changlei",
+   1870,
+   21
+  ]
+ },
+ "village_count_total": 517,
+ "village_count_assigned": 517
+}

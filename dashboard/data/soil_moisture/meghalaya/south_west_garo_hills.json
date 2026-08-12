@@ -1,0 +1,2248 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Meghalaya",
+  "district": "South West Garo Hills",
+  "district_lgd": 663,
+  "observation_window": "2026-08-07T11:19Z to 2026-08-12T11:19Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3589,
+  "sm_surface_stddev": 0.0071,
+  "sm_rootzone_mean": 0.359,
+  "sm_rootzone_stddev": 0.0181,
+  "n_cells": 7,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 25.346,
+    "lon": 89.872,
+    "sm_surface": 0.3526,
+    "sm_rootzone": 0.3352,
+    "n_villages_sharing_cell": 89
+   },
+   {
+    "cell_index": 1,
+    "lat": 25.346,
+    "lon": 89.9708,
+    "sm_surface": 0.3653,
+    "sm_rootzone": 0.3496,
+    "n_villages_sharing_cell": 46
+   },
+   {
+    "cell_index": 2,
+    "lat": 25.4448,
+    "lon": 89.872,
+    "sm_surface": 0.356,
+    "sm_rootzone": 0.3794,
+    "n_villages_sharing_cell": 75
+   },
+   {
+    "cell_index": 3,
+    "lat": 25.4448,
+    "lon": 89.9708,
+    "sm_surface": 0.3609,
+    "sm_rootzone": 0.3437,
+    "n_villages_sharing_cell": 51
+   },
+   {
+    "cell_index": 4,
+    "lat": 25.4448,
+    "lon": 90.0696,
+    "sm_surface": 0.3658,
+    "sm_rootzone": 0.3479,
+    "n_villages_sharing_cell": 58
+   },
+   {
+    "cell_index": 5,
+    "lat": 25.5436,
+    "lon": 89.9708,
+    "sm_surface": 0.3461,
+    "sm_rootzone": 0.3723,
+    "n_villages_sharing_cell": 74
+   },
+   {
+    "cell_index": 6,
+    "lat": 25.5436,
+    "lon": 90.0696,
+    "sm_surface": 0.3655,
+    "sm_rootzone": 0.385,
+    "n_villages_sharing_cell": 36
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3573,
+  "sm_surface_stddev": 0.0001,
+  "n_blocks": 2
+ },
+ "blocks": [
+  {
+   "block_name": "Betasing",
+   "sdcode": 1966,
+   "n_villages": 205,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.3574,
+   "sm_surface_stddev": 0.0088
+  },
+  {
+   "block_name": "Zikzak",
+   "sdcode": 1967,
+   "n_villages": 224,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.3572,
+   "sm_surface_stddev": 0.005
+  }
+ ],
+ "villages": {
+  "273876": [
+   "Chelapara",
+   1967,
+   3
+  ],
+  "273762": [
+   "Indik Noketgri",
+   1966,
+   4
+  ],
+  "273922": [
+   "Chopapara",
+   1967,
+   1
+  ],
+  "273932": [
+   "Bhoirakupi Beltuli",
+   1967,
+   1
+  ],
+  "273944": [
+   "Ghilajuri",
+   1967,
+   0
+  ],
+  "273945": [
+   "Lokaichar",
+   1967,
+   0
+  ],
+  "273946": [
+   "Kaligaon",
+   1967,
+   0
+  ],
+  "273947": [
+   "Kodaldhowa",
+   1967,
+   0
+  ],
+  "273948": [
+   "Dahagulipara",
+   1967,
+   0
+  ],
+  "273949": [
+   "Paglipara",
+   1967,
+   0
+  ],
+  "273950": [
+   "Kisanpara",
+   1967,
+   0
+  ],
+  "273952": [
+   "Gorbhuipara",
+   1967,
+   0
+  ],
+  "273954": [
+   "Kalaipara",
+   1967,
+   0
+  ],
+  "273955": [
+   "Dhola Agia",
+   1967,
+   0
+  ],
+  "273956": [
+   "Noonmati",
+   1967,
+   0
+  ],
+  "273957": [
+   "Tongnapara",
+   1967,
+   0
+  ],
+  "273958": [
+   "Ulubaripara",
+   1967,
+   0
+  ],
+  "273959": [
+   "Gofraigaon",
+   1967,
+   0
+  ],
+  "273960": [
+   "Patijora",
+   1967,
+   0
+  ],
+  "273961": [
+   "Kongbangpara",
+   1967,
+   0
+  ],
+  "273962": [
+   "Dathbanga Koch",
+   1967,
+   0
+  ],
+  "273963": [
+   "Dathbanga Garo",
+   1967,
+   1
+  ],
+  "273964": [
+   "Boirakupi Duapara",
+   1967,
+   0
+  ],
+  "273965": [
+   "Paglapara",
+   1967,
+   1
+  ],
+  "273966": [
+   "Danganatong",
+   1967,
+   1
+  ],
+  "273967": [
+   "Hullukona",
+   1967,
+   1
+  ],
+  "273968": [
+   "Upper Hulukona",
+   1967,
+   1
+  ],
+  "273969": [
+   "Kangkanggre",
+   1967,
+   1
+  ],
+  "273970": [
+   "Rongsepgre",
+   1967,
+   1
+  ],
+  "273971": [
+   "Santangpara",
+   1967,
+   1
+  ],
+  "273972": [
+   "Rimtangpara",
+   1967,
+   1
+  ],
+  "273973": [
+   "Ritekpara",
+   1967,
+   1
+  ],
+  "273974": [
+   "Dingampara",
+   1967,
+   1
+  ],
+  "273975": [
+   "Josipara",
+   1967,
+   1
+  ],
+  "273976": [
+   "Damdilaka",
+   1967,
+   1
+  ],
+  "273977": [
+   "Gongrapara",
+   1967,
+   1
+  ],
+  "273978": [
+   "Songmagiri",
+   1967,
+   0
+  ],
+  "273979": [
+   "Demdemakona",
+   1967,
+   0
+  ],
+  "273980": [
+   "Dhoromchas",
+   1967,
+   0
+  ],
+  "273981": [
+   "Nogorpara",
+   1967,
+   0
+  ],
+  "273982": [
+   "Dorgapara",
+   1967,
+   0
+  ],
+  "273983": [
+   "Chapahati I",
+   1967,
+   0
+  ],
+  "273984": [
+   "Chapahati Iii",
+   1967,
+   0
+  ],
+  "273985": [
+   "Silkona",
+   1967,
+   0
+  ],
+  "273986": [
+   "Bagicha",
+   1967,
+   0
+  ],
+  "273987": [
+   "Nandichar I",
+   1967,
+   0
+  ],
+  "273988": [
+   "Beparipara",
+   1967,
+   0
+  ],
+  "273989": [
+   "Daspara",
+   1967,
+   0
+  ],
+  "273990": [
+   "Malipara",
+   1967,
+   0
+  ],
+  "273991": [
+   "Ghegapara",
+   1967,
+   0
+  ],
+  "273992": [
+   "Paulpara",
+   1967,
+   0
+  ],
+  "273993": [
+   "Nandichar Ii",
+   1967,
+   0
+  ],
+  "273994": [
+   "Malidaspara",
+   1967,
+   0
+  ],
+  "273995": [
+   "Dhulipara",
+   1967,
+   0
+  ],
+  "273996": [
+   "Nayapara",
+   1967,
+   0
+  ],
+  "273997": [
+   "Tosildarpara",
+   1967,
+   0
+  ],
+  "273998": [
+   "Patelipara",
+   1967,
+   0
+  ],
+  "273999": [
+   "Basya Raypara",
+   1967,
+   0
+  ],
+  "274000": [
+   "Robidaspara Ii",
+   1967,
+   0
+  ],
+  "274001": [
+   "Mahendraganj Bazar",
+   1967,
+   0
+  ],
+  "274003": [
+   "Fakirpara",
+   1967,
+   0
+  ],
+  "274004": [
+   "Julapara",
+   1967,
+   0
+  ],
+  "274005": [
+   "Babupara",
+   1967,
+   0
+  ],
+  "274006": [
+   "Mondolpara",
+   1967,
+   0
+  ],
+  "274007": [
+   "Mothergaon",
+   1967,
+   0
+  ],
+  "274008": [
+   "Rabidaspara I",
+   1967,
+   0
+  ],
+  "274009": [
+   "Majherchar Ii Barmanpara",
+   1967,
+   0
+  ],
+  "274010": [
+   "Modokpara",
+   1967,
+   0
+  ],
+  "274011": [
+   "Kajipara",
+   1967,
+   0
+  ],
+  "274012": [
+   "Kulupara",
+   1967,
+   0
+  ],
+  "274013": [
+   "Gugrakandi",
+   1967,
+   0
+  ],
+  "274014": [
+   "Majerchar Barman",
+   1967,
+   0
+  ],
+  "274015": [
+   "Tungrurchar",
+   1967,
+   0
+  ],
+  "274016": [
+   "Bortola",
+   1967,
+   0
+  ],
+  "274017": [
+   "Kamampara",
+   1967,
+   0
+  ],
+  "274018": [
+   "Karipara",
+   1967,
+   0
+  ],
+  "274019": [
+   "Melapara",
+   1967,
+   0
+  ],
+  "274020": [
+   "Malmua",
+   1967,
+   0
+  ],
+  "274021": [
+   "Kukurmua",
+   1967,
+   0
+  ],
+  "274022": [
+   "Amtuli",
+   1967,
+   0
+  ],
+  "274023": [
+   "Bidukura",
+   1967,
+   0
+  ],
+  "274024": [
+   "Chapahati Ii",
+   1967,
+   0
+  ],
+  "274025": [
+   "Bonbanga",
+   1967,
+   0
+  ],
+  "274026": [
+   "Aragittim",
+   1967,
+   0
+  ],
+  "274027": [
+   "Chibonggre",
+   1967,
+   0
+  ],
+  "274028": [
+   "Kentrikona",
+   1967,
+   0
+  ],
+  "274029": [
+   "Tarapara",
+   1967,
+   0
+  ],
+  "274031": [
+   "Silghaguri",
+   1967,
+   0
+  ],
+  "274032": [
+   "Baksapara",
+   1967,
+   0
+  ],
+  "274033": [
+   "Debajani",
+   1967,
+   0
+  ],
+  "274035": [
+   "Bildoba",
+   1967,
+   1
+  ],
+  "274036": [
+   "Gujangpara",
+   1967,
+   1
+  ],
+  "274037": [
+   "Torangpara",
+   1967,
+   1
+  ],
+  "274038": [
+   "Durapara",
+   1967,
+   1
+  ],
+  "274039": [
+   "Bakdagiri",
+   1967,
+   1
+  ],
+  "274040": [
+   "Jengrinpara",
+   1967,
+   1
+  ],
+  "274041": [
+   "Kawahagra",
+   1967,
+   1
+  ],
+  "274042": [
+   "Marengpara",
+   1967,
+   1
+  ],
+  "274043": [
+   "Rapangpanggiri",
+   1967,
+   1
+  ],
+  "274044": [
+   "Gopinathkilla",
+   1967,
+   1
+  ],
+  "274045": [
+   "Sanjangpara",
+   1967,
+   1
+  ],
+  "274002": [
+   "Majherchar I",
+   1967,
+   0
+  ],
+  "274030": [
+   "Bettola",
+   1967,
+   0
+  ],
+  "274034": [
+   "Bahadurkutta",
+   1967,
+   0
+  ],
+  "273823": [
+   "Boldamgiri",
+   1967,
+   2
+  ],
+  "273824": [
+   "Upper Boldamgiri",
+   1967,
+   2
+  ],
+  "273825": [
+   "Katuligiri Garo",
+   1967,
+   2
+  ],
+  "273826": [
+   "Katuligiri Arahura",
+   1967,
+   2
+  ],
+  "273840": [
+   "Kuligaon Koch",
+   1967,
+   2
+  ],
+  "273841": [
+   "Boldmakongiri",
+   1967,
+   2
+  ],
+  "273842": [
+   "Jangre",
+   1967,
+   2
+  ],
+  "273843": [
+   "Jangre Samalchiring",
+   1967,
+   2
+  ],
+  "273844": [
+   "Gandigiri Garo",
+   1967,
+   2
+  ],
+  "273845": [
+   "Gandigiri Barman",
+   1967,
+   2
+  ],
+  "273846": [
+   "Wadagiri",
+   1967,
+   2
+  ],
+  "273847": [
+   "Kalaicharpara",
+   1967,
+   2
+  ],
+  "273848": [
+   "Lower Kalaichar",
+   1967,
+   2
+  ],
+  "273850": [
+   "Wananggiri I",
+   1967,
+   2
+  ],
+  "273851": [
+   "Wananggiri Ii",
+   1967,
+   2
+  ],
+  "273852": [
+   "Sokbokgre",
+   1967,
+   2
+  ],
+  "273853": [
+   "Boldamsonggitalgre",
+   1967,
+   2
+  ],
+  "273854": [
+   "Dinangpara",
+   1967,
+   2
+  ],
+  "273855": [
+   "Jonjonagiri",
+   1967,
+   2
+  ],
+  "273856": [
+   "Satboni",
+   1967,
+   2
+  ],
+  "273857": [
+   "Dangsinpara",
+   1967,
+   2
+  ],
+  "273858": [
+   "Kuligiri",
+   1967,
+   2
+  ],
+  "273859": [
+   "Kalaigoan Tillapara",
+   1967,
+   2
+  ],
+  "273860": [
+   "Kalaigaon Mondolpara",
+   1967,
+   2
+  ],
+  "273861": [
+   "Kalaigaon Bilipara",
+   1967,
+   2
+  ],
+  "273862": [
+   "Kalaigaon Dakdakipara",
+   1967,
+   2
+  ],
+  "273863": [
+   "Kalaigaon Nayapara",
+   1967,
+   2
+  ],
+  "273864": [
+   "Kalaigaon Katabaripara",
+   1967,
+   2
+  ],
+  "273865": [
+   "Kalaigaon Kasipara",
+   1967,
+   2
+  ],
+  "273866": [
+   "Upper Kalaichar",
+   1967,
+   2
+  ],
+  "273867": [
+   "Kalaicher Bazar",
+   1967,
+   2
+  ],
+  "273868": [
+   "Bollonggiri I",
+   1967,
+   2
+  ],
+  "273869": [
+   "Bollonggiri A Diglakona",
+   1967,
+   2
+  ],
+  "273870": [
+   "Bollonggiri B",
+   1967,
+   2
+  ],
+  "273871": [
+   "Boldorenggiri",
+   1967,
+   2
+  ],
+  "273872": [
+   "Tewaligre",
+   1967,
+   2
+  ],
+  "273873": [
+   "Pagolpara",
+   1967,
+   2
+  ],
+  "273874": [
+   "Dengnagre",
+   1967,
+   2
+  ],
+  "273896": [
+   "Radangpara",
+   1967,
+   2
+  ],
+  "273897": [
+   "Sentpara",
+   1967,
+   2
+  ],
+  "273898": [
+   "Bolchugre",
+   1967,
+   2
+  ],
+  "273899": [
+   "Aruagre",
+   1967,
+   2
+  ],
+  "273900": [
+   "Digligre",
+   1967,
+   2
+  ],
+  "273901": [
+   "Marahalipara",
+   1967,
+   2
+  ],
+  "273902": [
+   "Garagre",
+   1967,
+   2
+  ],
+  "273903": [
+   "Bollonggiri Ii",
+   1967,
+   2
+  ],
+  "273904": [
+   "Balughat",
+   1967,
+   2
+  ],
+  "273905": [
+   "Balughat B",
+   1967,
+   2
+  ],
+  "273906": [
+   "Banangpara",
+   1967,
+   2
+  ],
+  "273907": [
+   "Hatibelpara",
+   1967,
+   2
+  ],
+  "273909": [
+   "Mekdual Adinggre",
+   1967,
+   0
+  ],
+  "273910": [
+   "Mekdual",
+   1967,
+   0
+  ],
+  "273911": [
+   "Anchengggre Silakona",
+   1967,
+   0
+  ],
+  "273912": [
+   "Ganggikona",
+   1967,
+   2
+  ],
+  "273942": [
+   "Koraitola",
+   1967,
+   0
+  ],
+  "273943": [
+   "Merengipara",
+   1967,
+   0
+  ],
+  "273849": [
+   "Mondolpara",
+   1967,
+   2
+  ],
+  "273908": [
+   "Borbhoipara",
+   1967,
+   0
+  ],
+  "273951": [
+   "Silbaripara",
+   1967,
+   0
+  ],
+  "273953": [
+   "Baghana",
+   1967,
+   0
+  ],
+  "273742": [
+   "Batajolgaon",
+   1966,
+   2
+  ],
+  "273743": [
+   "Sagaltana",
+   1966,
+   2
+  ],
+  "273936": [
+   "Agongittim",
+   1967,
+   1
+  ],
+  "273937": [
+   "Zikzak",
+   1967,
+   0
+  ],
+  "273938": [
+   "Jigatalpara",
+   1967,
+   0
+  ],
+  "273939": [
+   "Bhorikupi Lutubari",
+   1967,
+   0
+  ],
+  "273940": [
+   "Magurmari",
+   1967,
+   0
+  ],
+  "273941": [
+   "Salampara",
+   1967,
+   0
+  ],
+  "273935": [
+   "Rakhaldubi",
+   1967,
+   1
+  ],
+  "273933": [
+   "Bhoirakupi Nolbari",
+   1967,
+   1
+  ],
+  "273934": [
+   "Bhoirakupi Marahali",
+   1967,
+   1
+  ],
+  "273913": [
+   "Ponchapara",
+   1967,
+   3
+  ],
+  "273930": [
+   "Rongkaigiri Chambugong Gittim",
+   1967,
+   1
+  ],
+  "273875": [
+   "Aningpara",
+   1967,
+   2
+  ],
+  "273890": [
+   "Matrongkolgre",
+   1967,
+   3
+  ],
+  "273892": [
+   "Chipra",
+   1967,
+   3
+  ],
+  "273894": [
+   "Domapara",
+   1967,
+   2
+  ],
+  "273895": [
+   "Phuljuri",
+   1967,
+   2
+  ],
+  "273893": [
+   "Tallimggre",
+   1967,
+   3
+  ],
+  "273877": [
+   "Anangpara Christian",
+   1967,
+   3
+  ],
+  "273880": [
+   "Bengdapara",
+   1967,
+   3
+  ],
+  "273886": [
+   "Dinapara",
+   1967,
+   3
+  ],
+  "273887": [
+   "Nachilpara",
+   1967,
+   3
+  ],
+  "273888": [
+   "Chepagre",
+   1967,
+   3
+  ],
+  "273889": [
+   "Anangpara Songsarek",
+   1967,
+   3
+  ],
+  "273891": [
+   "Mandalgre",
+   1967,
+   3
+  ],
+  "273914": [
+   "Rongchungre",
+   1967,
+   3
+  ],
+  "273915": [
+   "Rukolpara",
+   1967,
+   1
+  ],
+  "273916": [
+   "Wadagre",
+   1967,
+   1
+  ],
+  "273917": [
+   "Bolgakgre",
+   1967,
+   3
+  ],
+  "273918": [
+   "Damalgre",
+   1967,
+   1
+  ],
+  "273923": [
+   "Nokatgre",
+   1967,
+   1
+  ],
+  "273924": [
+   "Dolsigre",
+   1967,
+   1
+  ],
+  "273925": [
+   "Nagolpara",
+   1967,
+   1
+  ],
+  "273926": [
+   "Wagepara",
+   1967,
+   1
+  ],
+  "273927": [
+   "Dombagre",
+   1967,
+   1
+  ],
+  "273928": [
+   "Banangpara",
+   1967,
+   1
+  ],
+  "273929": [
+   "Rongkaigre",
+   1967,
+   1
+  ],
+  "273931": [
+   "Bhoirakupi",
+   1967,
+   1
+  ],
+  "273827": [
+   "Katuli Bazari",
+   1967,
+   2
+  ],
+  "273828": [
+   "Katuligaon",
+   1967,
+   2
+  ],
+  "273829": [
+   "Katchegaon",
+   1967,
+   2
+  ],
+  "273830": [
+   "Dufrigaon",
+   1967,
+   3
+  ],
+  "273831": [
+   "Dufrigaon Koch",
+   1967,
+   3
+  ],
+  "273832": [
+   "Chelapara",
+   1967,
+   3
+  ],
+  "273833": [
+   "Kambakpara",
+   1967,
+   2
+  ],
+  "273834": [
+   "Kambakpara Songgitchm",
+   1967,
+   2
+  ],
+  "273835": [
+   "Dimiligre",
+   1967,
+   2
+  ],
+  "273836": [
+   "Kambakpara Ameshgittim",
+   1967,
+   2
+  ],
+  "273837": [
+   "Satihari",
+   1967,
+   2
+  ],
+  "273838": [
+   "Dangsapara",
+   1967,
+   2
+  ],
+  "273839": [
+   "Kuligaon Hajong",
+   1967,
+   2
+  ],
+  "273878": [
+   "Menggongpara",
+   1967,
+   3
+  ],
+  "273879": [
+   "Darugre",
+   1967,
+   3
+  ],
+  "273744": [
+   "Murikhati",
+   1966,
+   2
+  ],
+  "273746": [
+   "Sulguri A",
+   1966,
+   3
+  ],
+  "273747": [
+   "Sulguri B",
+   1966,
+   3
+  ],
+  "273748": [
+   "Betasing Hajongpara",
+   1966,
+   3
+  ],
+  "273749": [
+   "Ampatigri",
+   1966,
+   3
+  ],
+  "273750": [
+   "Muji Agalgre",
+   1966,
+   3
+  ],
+  "273751": [
+   "Parengpara",
+   1966,
+   3
+  ],
+  "273752": [
+   "Bokmagre",
+   1966,
+   3
+  ],
+  "273753": [
+   "Adugre",
+   1966,
+   3
+  ],
+  "273755": [
+   "Wadagre",
+   1966,
+   3
+  ],
+  "273771": [
+   "Dalbotpara",
+   1966,
+   3
+  ],
+  "273772": [
+   "Taktaki",
+   1966,
+   3
+  ],
+  "273773": [
+   "Hatisil",
+   1966,
+   3
+  ],
+  "273774": [
+   "Chipra Kama",
+   1966,
+   3
+  ],
+  "273775": [
+   "Belbupara",
+   1966,
+   3
+  ],
+  "273776": [
+   "Chelipara Songma",
+   1966,
+   3
+  ],
+  "273777": [
+   "Chelipara Nokat",
+   1966,
+   3
+  ],
+  "273778": [
+   "Jangnapara",
+   1966,
+   3
+  ],
+  "273779": [
+   "Simsang Bokmangre",
+   1966,
+   3
+  ],
+  "273780": [
+   "Gara Bokmangre",
+   1966,
+   3
+  ],
+  "273781": [
+   "Bollonggre",
+   1966,
+   3
+  ],
+  "273782": [
+   "Goldatgre",
+   1966,
+   3
+  ],
+  "273783": [
+   "Katalbari",
+   1966,
+   3
+  ],
+  "273784": [
+   "Damdama",
+   1966,
+   3
+  ],
+  "273798": [
+   "Bollonggre Ii",
+   1966,
+   3
+  ],
+  "273810": [
+   "Chengkompara",
+   1966,
+   3
+  ],
+  "273745": [
+   "Peskarbita",
+   1966,
+   2
+  ],
+  "273619": [
+   "Bansali",
+   1966,
+   5
+  ],
+  "273709": [
+   "Bandrikona",
+   1966,
+   2
+  ],
+  "273625": [
+   "Belbari",
+   1966,
+   5
+  ],
+  "273626": [
+   "Badagre",
+   1966,
+   5
+  ],
+  "273673": [
+   "Dakupara",
+   1966,
+   5
+  ],
+  "273674": [
+   "Dingjor",
+   1966,
+   5
+  ],
+  "273675": [
+   "Chondonpara",
+   1966,
+   5
+  ],
+  "273676": [
+   "Deokashra",
+   1966,
+   5
+  ],
+  "273677": [
+   "Morkona",
+   1966,
+   5
+  ],
+  "273706": [
+   "Kharugaon",
+   1966,
+   5
+  ],
+  "273707": [
+   "Betasing Block Hq",
+   1966,
+   5
+  ],
+  "273708": [
+   "Sagorkona",
+   1966,
+   5
+  ],
+  "273710": [
+   "Kumli",
+   1966,
+   2
+  ],
+  "273711": [
+   "Sipra Kumli",
+   1966,
+   2
+  ],
+  "273712": [
+   "Samati",
+   1966,
+   5
+  ],
+  "273713": [
+   "Betasing Bazar",
+   1966,
+   5
+  ],
+  "273738": [
+   "Betasing Kongpara",
+   1966,
+   5
+  ],
+  "273739": [
+   "Sipragaon",
+   1966,
+   2
+  ],
+  "273740": [
+   "Jolgaon",
+   1966,
+   2
+  ],
+  "273741": [
+   "Jolgaon Songsarek",
+   1966,
+   2
+  ],
+  "273704": [
+   "Bandoraja",
+   1966,
+   5
+  ],
+  "273705": [
+   "Nagrasket",
+   1966,
+   5
+  ],
+  "273714": [
+   "Purasingga",
+   1966,
+   5
+  ],
+  "273735": [
+   "Arenggre",
+   1966,
+   3
+  ],
+  "273736": [
+   "Marpara",
+   1966,
+   5
+  ],
+  "273737": [
+   "Marpara Koch",
+   1966,
+   3
+  ],
+  "273754": [
+   "Bainapara Koch",
+   1966,
+   3
+  ],
+  "273756": [
+   "Jelbongpara",
+   1966,
+   3
+  ],
+  "273715": [
+   "Bolsa Dobokgre",
+   1966,
+   5
+  ],
+  "273734": [
+   "Bainapara",
+   1966,
+   5
+  ],
+  "273671": [
+   "Bashbari",
+   1966,
+   5
+  ],
+  "273672": [
+   "Watregre Ii",
+   1966,
+   5
+  ],
+  "273678": [
+   "Ulubari",
+   1966,
+   5
+  ],
+  "273679": [
+   "Watregre",
+   1966,
+   5
+  ],
+  "273680": [
+   "Sonamite",
+   1966,
+   5
+  ],
+  "273681": [
+   "Alekapara",
+   1966,
+   5
+  ],
+  "273682": [
+   "Saptoka",
+   1966,
+   5
+  ],
+  "273695": [
+   "Lutubari",
+   1966,
+   5
+  ],
+  "273696": [
+   "Jenggichakgre",
+   1966,
+   5
+  ],
+  "273698": [
+   "Chidekgre",
+   1966,
+   5
+  ],
+  "273699": [
+   "Chalitabari",
+   1966,
+   5
+  ],
+  "273697": [
+   "Nirghini",
+   1966,
+   5
+  ],
+  "273700": [
+   "Chiringpara",
+   1966,
+   5
+  ],
+  "273702": [
+   "Mohesbatanpara",
+   1966,
+   5
+  ],
+  "273703": [
+   "Ajonggre",
+   1966,
+   5
+  ],
+  "273716": [
+   "Malchapara",
+   1966,
+   5
+  ],
+  "273717": [
+   "Jelbongpara Noket",
+   1966,
+   5
+  ],
+  "273620": [
+   "Chondon Noket",
+   1966,
+   5
+  ],
+  "273621": [
+   "Borkona",
+   1966,
+   5
+  ],
+  "273622": [
+   "Joyfar",
+   1966,
+   5
+  ],
+  "273623": [
+   "Kashra",
+   1966,
+   5
+  ],
+  "273624": [
+   "Kashra Hajong",
+   1966,
+   5
+  ],
+  "273627": [
+   "Brojopara",
+   1966,
+   5
+  ],
+  "273628": [
+   "Hajonggre",
+   1966,
+   5
+  ],
+  "273629": [
+   "Monabari",
+   1966,
+   5
+  ],
+  "273630": [
+   "Talbari",
+   1966,
+   5
+  ],
+  "273631": [
+   "Galmara",
+   1966,
+   5
+  ],
+  "273632": [
+   "Rongramgre",
+   1966,
+   5
+  ],
+  "273633": [
+   "Rangapani",
+   1966,
+   5
+  ],
+  "273634": [
+   "Ishakuri",
+   1966,
+   5
+  ],
+  "273635": [
+   "Takuranbari",
+   1966,
+   5
+  ],
+  "273636": [
+   "Teporpara",
+   1966,
+   5
+  ],
+  "273637": [
+   "Teporpara Upper",
+   1966,
+   5
+  ],
+  "273638": [
+   "New Teporpara",
+   1966,
+   5
+  ],
+  "273639": [
+   "Tangabari",
+   1966,
+   5
+  ],
+  "273640": [
+   "Gandhipara Koch",
+   1966,
+   5
+  ],
+  "273641": [
+   "Boiragipara",
+   1966,
+   5
+  ],
+  "273643": [
+   "Gandhipara Hajong",
+   1966,
+   5
+  ],
+  "273644": [
+   "Putimari",
+   1966,
+   5
+  ],
+  "273645": [
+   "Tiksali",
+   1966,
+   5
+  ],
+  "273646": [
+   "Gandhipara Garo",
+   1966,
+   5
+  ],
+  "273647": [
+   "Rangatari",
+   1966,
+   5
+  ],
+  "273666": [
+   "Kongpara",
+   1966,
+   5
+  ],
+  "273667": [
+   "Katalbari",
+   1966,
+   5
+  ],
+  "273668": [
+   "Sonabil",
+   1966,
+   5
+  ],
+  "273669": [
+   "Marakkapara",
+   1966,
+   5
+  ],
+  "273670": [
+   "Sonamite Koch",
+   1966,
+   5
+  ],
+  "999999": [
+   "Data Partially Available",
+   1966,
+   5
+  ],
+  "273881": [
+   "Kimdegre",
+   1967,
+   4
+  ],
+  "273882": [
+   "Okchokgre",
+   1967,
+   4
+  ],
+  "273883": [
+   "Sindilgre",
+   1967,
+   4
+  ],
+  "273884": [
+   "Kidapara",
+   1967,
+   4
+  ],
+  "273885": [
+   "Kirupara",
+   1967,
+   4
+  ],
+  "273919": [
+   "Salmanpara",
+   1967,
+   1
+  ],
+  "273920": [
+   "Megapgre",
+   1967,
+   1
+  ],
+  "273921": [
+   "Santogre",
+   1967,
+   1
+  ],
+  "273757": [
+   "Jongchetpara Nokat",
+   1966,
+   4
+  ],
+  "273758": [
+   "Rongsang Abagre",
+   1966,
+   4
+  ],
+  "273759": [
+   "Wakagre",
+   1966,
+   4
+  ],
+  "273760": [
+   "Uppar Damalgre",
+   1966,
+   4
+  ],
+  "273761": [
+   "New Upper Damalgre",
+   1966,
+   4
+  ],
+  "273764": [
+   "Lower Rongbakgre",
+   1966,
+   4
+  ],
+  "273763": [
+   "Rongbakgre",
+   1966,
+   4
+  ],
+  "273765": [
+   "Lower Damalgre",
+   1966,
+   4
+  ],
+  "273766": [
+   "Naragre",
+   1966,
+   4
+  ],
+  "273767": [
+   "Sasatbolgre",
+   1966,
+   4
+  ],
+  "273768": [
+   "Nepalgre",
+   1966,
+   4
+  ],
+  "273769": [
+   "Jongchetpara Christian",
+   1966,
+   4
+  ],
+  "273770": [
+   "Bandalkona",
+   1966,
+   4
+  ],
+  "273785": [
+   "Amjana Korkora",
+   1966,
+   3
+  ],
+  "273786": [
+   "Gasura",
+   1966,
+   4
+  ],
+  "273787": [
+   "Kolkatola",
+   1966,
+   4
+  ],
+  "273788": [
+   "Murchapani",
+   1966,
+   4
+  ],
+  "273789": [
+   "Murchapani Koch",
+   1966,
+   4
+  ],
+  "273790": [
+   "Jewilgre",
+   1966,
+   4
+  ],
+  "273791": [
+   "Molmegre",
+   1966,
+   4
+  ],
+  "273793": [
+   "Chikimilgre",
+   1966,
+   4
+  ],
+  "273795": [
+   "Chimisenggre",
+   1966,
+   4
+  ],
+  "273796": [
+   "Bolchugre",
+   1966,
+   4
+  ],
+  "273797": [
+   "Chigitchakgre",
+   1966,
+   4
+  ],
+  "273799": [
+   "Kebolpara",
+   1966,
+   4
+  ],
+  "273800": [
+   "Chisregre",
+   1966,
+   4
+  ],
+  "273801": [
+   "Balalgre",
+   1966,
+   4
+  ],
+  "273802": [
+   "Wakka Akongre",
+   1966,
+   4
+  ],
+  "273804": [
+   "Wakka Kama",
+   1966,
+   4
+  ],
+  "273805": [
+   "Rerapara",
+   1966,
+   4
+  ],
+  "273806": [
+   "Bongpara",
+   1966,
+   4
+  ],
+  "273807": [
+   "Adugre",
+   1966,
+   4
+  ],
+  "273808": [
+   "Agalgre",
+   1966,
+   4
+  ],
+  "273809": [
+   "Latrigre",
+   1966,
+   3
+  ],
+  "273811": [
+   "Bolsalgre",
+   1966,
+   3
+  ],
+  "273812": [
+   "Borolatri",
+   1966,
+   4
+  ],
+  "273813": [
+   "Bangkapara",
+   1966,
+   4
+  ],
+  "273814": [
+   "Bongpara Noket",
+   1966,
+   4
+  ],
+  "273815": [
+   "Wakantagre",
+   1966,
+   4
+  ],
+  "273816": [
+   "Asinagre",
+   1966,
+   4
+  ],
+  "273817": [
+   "Dilnigre",
+   1966,
+   4
+  ],
+  "273818": [
+   "Jamanggre",
+   1966,
+   4
+  ],
+  "273819": [
+   "Bolgangre",
+   1966,
+   4
+  ],
+  "273820": [
+   "Dorambokgre",
+   1966,
+   4
+  ],
+  "273821": [
+   "Bangre",
+   1966,
+   4
+  ],
+  "273822": [
+   "Rongchadenggre",
+   1966,
+   4
+  ],
+  "273792": [
+   "Ballonggre",
+   1966,
+   4
+  ],
+  "273803": [
+   "Gambagre",
+   1966,
+   4
+  ],
+  "273794": [
+   "Lower Damalgre",
+   1966,
+   4
+  ],
+  "273642": [
+   "Ambari",
+   1966,
+   5
+  ],
+  "273648": [
+   "Balapara",
+   1966,
+   5
+  ],
+  "273649": [
+   "Garodoba",
+   1966,
+   6
+  ],
+  "273650": [
+   "Baispara",
+   1966,
+   6
+  ],
+  "273651": [
+   "Dumnigaon",
+   1966,
+   6
+  ],
+  "273652": [
+   "Golagre",
+   1966,
+   6
+  ],
+  "273653": [
+   "Rangsakona",
+   1966,
+   6
+  ],
+  "273654": [
+   "Anchenggre",
+   1966,
+   6
+  ],
+  "273655": [
+   "Matchokpara",
+   1966,
+   6
+  ],
+  "273656": [
+   "Akinpara",
+   1966,
+   6
+  ],
+  "273657": [
+   "Jaluagre",
+   1966,
+   6
+  ],
+  "273658": [
+   "Tallanggre",
+   1966,
+   6
+  ],
+  "273659": [
+   "Manggagre",
+   1966,
+   6
+  ],
+  "273660": [
+   "Bisindagre",
+   1966,
+   6
+  ],
+  "273661": [
+   "Gondugre",
+   1966,
+   6
+  ],
+  "273662": [
+   "Chigitchakgre",
+   1966,
+   6
+  ],
+  "273663": [
+   "Dolbari",
+   1966,
+   6
+  ],
+  "273664": [
+   "Rangsagre",
+   1966,
+   6
+  ],
+  "273665": [
+   "Duguripara",
+   1966,
+   6
+  ],
+  "273683": [
+   "Tokonchi",
+   1966,
+   5
+  ],
+  "273684": [
+   "Masalgre",
+   1966,
+   6
+  ],
+  "273685": [
+   "Gittimgre",
+   1966,
+   6
+  ],
+  "273686": [
+   "Misikona",
+   1966,
+   6
+  ],
+  "273687": [
+   "Jongdikgre",
+   1966,
+   6
+  ],
+  "273688": [
+   "Jaranggre",
+   1966,
+   6
+  ],
+  "273689": [
+   "Okkapara Apalgre",
+   1966,
+   6
+  ],
+  "273690": [
+   "Dengnakpara",
+   1966,
+   6
+  ],
+  "273691": [
+   "Asanggre",
+   1966,
+   6
+  ],
+  "273692": [
+   "Gimbilgre",
+   1966,
+   6
+  ],
+  "273693": [
+   "Rongsang Songma",
+   1966,
+   6
+  ],
+  "273694": [
+   "Mokapara",
+   1966,
+   5
+  ],
+  "273701": [
+   "Skagre",
+   1966,
+   6
+  ],
+  "273718": [
+   "Golmangre",
+   1966,
+   5
+  ],
+  "273719": [
+   "Bollonggitok",
+   1966,
+   6
+  ],
+  "273720": [
+   "Baladinggre",
+   1966,
+   6
+  ],
+  "273721": [
+   "Baladinggre Christian",
+   1966,
+   6
+  ],
+  "273722": [
+   "Sonamite Ajrigre",
+   1966,
+   6
+  ],
+  "273723": [
+   "Godalgre",
+   1966,
+   4
+  ],
+  "273724": [
+   "Noa Bolsalgre",
+   1966,
+   6
+  ],
+  "273725": [
+   "Dombagre",
+   1966,
+   6
+  ],
+  "273726": [
+   "Grenggandi",
+   1966,
+   6
+  ],
+  "273727": [
+   "Bolchugre",
+   1966,
+   6
+  ],
+  "273728": [
+   "Noagre",
+   1966,
+   4
+  ],
+  "273729": [
+   "Rongsang Abrenggre",
+   1966,
+   4
+  ],
+  "273730": [
+   "Mangsanggre",
+   1966,
+   4
+  ],
+  "273731": [
+   "Kasibil",
+   1966,
+   4
+  ],
+  "273732": [
+   "Jongchetpara Songma",
+   1966,
+   4
+  ],
+  "273733": [
+   "Salbari",
+   1966,
+   5
+  ]
+ },
+ "village_count_total": 429,
+ "village_count_assigned": 429
+}

@@ -1,0 +1,1261 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Haryana",
+  "district": "Panchkula",
+  "district_lgd": 70,
+  "observation_window": "2026-08-07T11:08Z to 2026-08-12T11:08Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2053,
+  "sm_surface_stddev": 0.0197,
+  "sm_rootzone_mean": 0.1909,
+  "sm_rootzone_stddev": 0.0122,
+  "n_cells": 8,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 30.5831,
+    "lon": 76.9272,
+    "sm_surface": 0.1907,
+    "sm_rootzone": 0.1764,
+    "n_villages_sharing_cell": 30
+   },
+   {
+    "cell_index": 1,
+    "lat": 30.5831,
+    "lon": 77.026,
+    "sm_surface": 0.2228,
+    "sm_rootzone": 0.2042,
+    "n_villages_sharing_cell": 41
+   },
+   {
+    "cell_index": 2,
+    "lat": 30.5831,
+    "lon": 77.1249,
+    "sm_surface": 0.2283,
+    "sm_rootzone": 0.1964,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 3,
+    "lat": 30.682,
+    "lon": 76.9272,
+    "sm_surface": 0.1782,
+    "sm_rootzone": 0.2079,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 4,
+    "lat": 30.682,
+    "lon": 77.026,
+    "sm_surface": 0.2124,
+    "sm_rootzone": 0.1791,
+    "n_villages_sharing_cell": 21
+   },
+   {
+    "cell_index": 5,
+    "lat": 30.682,
+    "lon": 77.1249,
+    "sm_surface": 0.2286,
+    "sm_rootzone": 0.1933,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 6,
+    "lat": 30.7808,
+    "lon": 76.9272,
+    "sm_surface": 0.1782,
+    "sm_rootzone": 0.1965,
+    "n_villages_sharing_cell": 78
+   },
+   {
+    "cell_index": 7,
+    "lat": 30.8796,
+    "lon": 76.8284,
+    "sm_surface": 0.2031,
+    "sm_rootzone": 0.1733,
+    "n_villages_sharing_cell": 24
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.195,
+  "sm_surface_stddev": 0.0102,
+  "n_blocks": 2
+ },
+ "blocks": [
+  {
+   "block_name": "Kalka",
+   "sdcode": 356,
+   "n_villages": 106,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.1848,
+   "sm_surface_stddev": 0.0114
+  },
+  {
+   "block_name": "Panchkula",
+   "sdcode": 357,
+   "n_villages": 125,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.2052,
+   "sm_surface_stddev": 0.0188
+  }
+ ],
+ "villages": {
+  "57142": [
+   "Bhanvli",
+   357,
+   1
+  ],
+  "57045": [
+   "Hmt Pinjore CT",
+   356,
+   6
+  ],
+  "57001": [
+   "Bitna",
+   356,
+   6
+  ],
+  "56964": [
+   "Banoi Khuda Bax",
+   356,
+   7
+  ],
+  "57054": [
+   "Jhiwriwala",
+   357,
+   3
+  ],
+  "56997": [
+   "Nagal Sodhian",
+   356,
+   6
+  ],
+  "57086": [
+   "Rehore",
+   357,
+   0
+  ],
+  "57087": [
+   "Khatauli",
+   357,
+   0
+  ],
+  "57074": [
+   "Jalouli",
+   357,
+   0
+  ],
+  "57075": [
+   "Sultanpur",
+   357,
+   0
+  ],
+  "57088": [
+   "Dhandardu",
+   357,
+   1
+  ],
+  "57076": [
+   "Kami",
+   357,
+   0
+  ],
+  "57078": [
+   "Raipur Alias Sunderpur",
+   357,
+   0
+  ],
+  "57079": [
+   "Jitpur",
+   357,
+   0
+  ],
+  "57148": [
+   "Kheri",
+   357,
+   1
+  ],
+  "57080": [
+   "Barwala",
+   357,
+   0
+  ],
+  "57149": [
+   "Haripur",
+   357,
+   1
+  ],
+  "57081": [
+   "Bhareli",
+   357,
+   0
+  ],
+  "57085": [
+   "Bataur",
+   357,
+   0
+  ],
+  "57158": [
+   "Tabar",
+   357,
+   0
+  ],
+  "57082": [
+   "Sangrana",
+   357,
+   0
+  ],
+  "57084": [
+   "Bhagwanpur",
+   357,
+   0
+  ],
+  "57156": [
+   "Mauli",
+   357,
+   0
+  ],
+  "57157": [
+   "Sarakpur",
+   357,
+   1
+  ],
+  "57159": [
+   "Nawagaon Urf Khader",
+   357,
+   0
+  ],
+  "57083": [
+   "Fatehpur Viran",
+   357,
+   0
+  ],
+  "57160": [
+   "Natwal",
+   357,
+   0
+  ],
+  "57161": [
+   "Behbalpur",
+   357,
+   1
+  ],
+  "57155": [
+   "Golpura",
+   357,
+   1
+  ],
+  "57164": [
+   "Kakrali",
+   357,
+   0
+  ],
+  "57163": [
+   "Bagwala",
+   357,
+   1
+  ],
+  "57165": [
+   "Toda",
+   357,
+   0
+  ],
+  "57166": [
+   "Jaspur",
+   357,
+   0
+  ],
+  "57077": [
+   "Palasra",
+   357,
+   0
+  ],
+  "57042": [
+   "Gumthala",
+   356,
+   3
+  ],
+  "57043": [
+   "Bhagwanpur",
+   356,
+   6
+  ],
+  "57024": [
+   "Jodhpur",
+   356,
+   6
+  ],
+  "57039": [
+   "Raipur",
+   356,
+   6
+  ],
+  "57028": [
+   "Miranpur Bakhshiwala",
+   356,
+   6
+  ],
+  "57038": [
+   "Dera Guru",
+   356,
+   6
+  ],
+  "57030": [
+   "Kharkua",
+   356,
+   6
+  ],
+  "57031": [
+   "Haripur Harisingh",
+   356,
+   6
+  ],
+  "56990": [
+   "Manakpur Devilal",
+   356,
+   6
+  ],
+  "56991": [
+   "Manakpur Nanak Chand",
+   356,
+   6
+  ],
+  "57007": [
+   "Dakrog",
+   356,
+   6
+  ],
+  "56992": [
+   "Manakpur Thakar Dass",
+   356,
+   6
+  ],
+  "57008": [
+   "Janouli",
+   356,
+   6
+  ],
+  "57016": [
+   "Dhato Ghran",
+   356,
+   6
+  ],
+  "57014": [
+   "Nala Domehar",
+   356,
+   6
+  ],
+  "57015": [
+   "Kajiyana",
+   356,
+   6
+  ],
+  "56995": [
+   "Rajipur Part",
+   356,
+   6
+  ],
+  "57017": [
+   "Ganeshpur Bhorian",
+   356,
+   6
+  ],
+  "57026": [
+   "Patan",
+   356,
+   6
+  ],
+  "57019": [
+   "Nala Bloug",
+   356,
+   6
+  ],
+  "57018": [
+   "Nala Dakrog",
+   356,
+   6
+  ],
+  "57025": [
+   "Haripur Chopahar",
+   356,
+   6
+  ],
+  "56996": [
+   "Rampur Seori Part",
+   356,
+   6
+  ],
+  "57027": [
+   "Islamnagar",
+   356,
+   6
+  ],
+  "57029": [
+   "Chikan",
+   356,
+   6
+  ],
+  "57035": [
+   "Nandpur",
+   356,
+   6
+  ],
+  "57034": [
+   "Kedarpur",
+   356,
+   4
+  ],
+  "57037": [
+   "Fatehpur Diwanwala",
+   356,
+   6
+  ],
+  "57040": [
+   "Burj Kotian",
+   356,
+   6
+  ],
+  "57036": [
+   "Jalla",
+   356,
+   3
+  ],
+  "57047": [
+   "Suketri",
+   357,
+   6
+  ],
+  "57109": [
+   "Bhoj Matour",
+   357,
+   4
+  ],
+  "57052": [
+   "Chaunki",
+   357,
+   3
+  ],
+  "57060": [
+   "Aasrewali",
+   357,
+   3
+  ],
+  "57053": [
+   "Nada",
+   357,
+   3
+  ],
+  "57056": [
+   "Nadian",
+   357,
+   3
+  ],
+  "57055": [
+   "Nagal Moginand",
+   357,
+   3
+  ],
+  "57065": [
+   "Bunga",
+   357,
+   3
+  ],
+  "57108": [
+   "Sabilpur",
+   357,
+   4
+  ],
+  "57106": [
+   "Khet Purali",
+   357,
+   4
+  ],
+  "57107": [
+   "Tibbi",
+   357,
+   3
+  ],
+  "57061": [
+   "Bihla",
+   357,
+   3
+  ],
+  "57058": [
+   "Manka",
+   357,
+   3
+  ],
+  "57066": [
+   "Dabkauri",
+   357,
+   3
+  ],
+  "57067": [
+   "Kot",
+   357,
+   3
+  ],
+  "57068": [
+   "Kanauli",
+   357,
+   0
+  ],
+  "57063": [
+   "Bhanoo",
+   357,
+   0
+  ],
+  "57093": [
+   "Amrala",
+   357,
+   1
+  ],
+  "57092": [
+   "Shamtoo",
+   357,
+   0
+  ],
+  "57069": [
+   "Khangesra",
+   357,
+   0
+  ],
+  "57091": [
+   "Toka",
+   357,
+   0
+  ],
+  "57070": [
+   "Alipur",
+   357,
+   0
+  ],
+  "57090": [
+   "Sukh Darshanpur",
+   357,
+   1
+  ],
+  "57073": [
+   "Bir Babupur",
+   357,
+   0
+  ],
+  "57072": [
+   "Nagal",
+   357,
+   0
+  ],
+  "57089": [
+   "Batwal",
+   357,
+   1
+  ],
+  "57041": [
+   "Bansghati",
+   356,
+   3
+  ],
+  "57071": [
+   "Bir Ferozari",
+   357,
+   0
+  ],
+  "56993": [
+   "Manakpur Kholgaman",
+   356,
+   6
+  ],
+  "57044": [
+   "Kuranwala",
+   356,
+   6
+  ],
+  "57048": [
+   "Dara Kharoni",
+   357,
+   6
+  ],
+  "57050": [
+   "Bilaspur",
+   357,
+   3
+  ],
+  "57049": [
+   "Soorajpur",
+   357,
+   3
+  ],
+  "57051": [
+   "Judian Part",
+   357,
+   3
+  ],
+  "57059": [
+   "Shimlipur",
+   357,
+   3
+  ],
+  "57057": [
+   "Koiwali",
+   357,
+   3
+  ],
+  "57062": [
+   "Lana",
+   357,
+   3
+  ],
+  "56994": [
+   "Surajpur",
+   356,
+   6
+  ],
+  "57064": [
+   "Jaswantgarh",
+   357,
+   3
+  ],
+  "56998": [
+   "Bhogpur",
+   356,
+   6
+  ],
+  "56999": [
+   "Damdama",
+   356,
+   6
+  ],
+  "57000": [
+   "Bhuwana",
+   356,
+   6
+  ],
+  "57134": [
+   "Sultanpur",
+   357,
+   1
+  ],
+  "57135": [
+   "Garhi Kotaha",
+   357,
+   1
+  ],
+  "57145": [
+   "Barauna Chhota",
+   357,
+   1
+  ],
+  "57146": [
+   "Tibi Majra",
+   357,
+   1
+  ],
+  "57126": [
+   "Debar",
+   357,
+   1
+  ],
+  "57125": [
+   "Ganauli",
+   357,
+   2
+  ],
+  "57147": [
+   "Barauna Kalan",
+   357,
+   1
+  ],
+  "57124": [
+   "Bhud",
+   357,
+   2
+  ],
+  "57136": [
+   "Dandlawar",
+   357,
+   1
+  ],
+  "57123": [
+   "Mandlai",
+   357,
+   2
+  ],
+  "57143": [
+   "Shahjahanpur",
+   357,
+   1
+  ],
+  "57151": [
+   "Haryoli",
+   357,
+   1
+  ],
+  "57144": [
+   "Samlehri",
+   357,
+   1
+  ],
+  "57137": [
+   "Pyarewala",
+   357,
+   2
+  ],
+  "57150": [
+   "Bazidpur",
+   357,
+   1
+  ],
+  "57138": [
+   "Qasampur",
+   357,
+   1
+  ],
+  "57152": [
+   "Hangoli",
+   357,
+   1
+  ],
+  "57141": [
+   "Hangola",
+   357,
+   1
+  ],
+  "57139": [
+   "Bhagpur",
+   357,
+   1
+  ],
+  "57153": [
+   "Samanwa",
+   357,
+   1
+  ],
+  "57154": [
+   "Tharwa",
+   357,
+   1
+  ],
+  "57140": [
+   "Firozpur",
+   357,
+   1
+  ],
+  "57162": [
+   "Bagwali",
+   357,
+   1
+  ],
+  "57167": [
+   "Chandi Mandir CT",
+   357,
+   6
+  ],
+  "800362": [
+   "Pinjore Mc",
+   356,
+   6
+  ],
+  "57168": [
+   "Bir Ghaghar CT",
+   357,
+   3
+  ],
+  "57169": [
+   "Ram Garh CT",
+   357,
+   3
+  ],
+  "999999": [
+   "Unsurvey Area",
+   356,
+   7
+  ],
+  "800363": [
+   "Panchkula",
+   357,
+   3
+  ],
+  "57012": [
+   "Gawahi",
+   356,
+   6
+  ],
+  "57023": [
+   "Malla",
+   356,
+   6
+  ],
+  "57032": [
+   "Malpur",
+   356,
+   4
+  ],
+  "57013": [
+   "Jabrot",
+   356,
+   6
+  ],
+  "57020": [
+   "Dhamsoo",
+   356,
+   6
+  ],
+  "57021": [
+   "Tibi",
+   356,
+   6
+  ],
+  "57022": [
+   "Ber Ghati",
+   356,
+   6
+  ],
+  "57113": [
+   "Bhoj Tipra",
+   357,
+   4
+  ],
+  "57115": [
+   "Bhoj Koti",
+   357,
+   5
+  ],
+  "57112": [
+   "Bhoj Naita",
+   357,
+   4
+  ],
+  "57111": [
+   "Bhoj Dharti",
+   357,
+   4
+  ],
+  "57120": [
+   "Bhoj Kothi",
+   357,
+   5
+  ],
+  "57116": [
+   "Bhoj Balag",
+   357,
+   4
+  ],
+  "57117": [
+   "Bhoj Ponta",
+   357,
+   4
+  ],
+  "57121": [
+   "Bhoj Nagal",
+   357,
+   5
+  ],
+  "57110": [
+   "Bhoj Plasra",
+   357,
+   4
+  ],
+  "57119": [
+   "Bhoj Jabyal",
+   357,
+   5
+  ],
+  "57103": [
+   "Dullopur",
+   357,
+   4
+  ],
+  "57102": [
+   "Trilokpur",
+   357,
+   4
+  ],
+  "57104": [
+   "Ganeshpur",
+   357,
+   4
+  ],
+  "57101": [
+   "Bhud",
+   357,
+   4
+  ],
+  "57118": [
+   "Bhoj Kudana",
+   357,
+   5
+  ],
+  "57132": [
+   "Narainpur",
+   357,
+   1
+  ],
+  "57122": [
+   "Bhoj Rajpura",
+   357,
+   2
+  ],
+  "57098": [
+   "Kaimbwala",
+   357,
+   4
+  ],
+  "57099": [
+   "Taparian",
+   357,
+   4
+  ],
+  "57094": [
+   "Manak Tabra",
+   357,
+   1
+  ],
+  "57097": [
+   "Bharauli",
+   357,
+   1
+  ],
+  "57096": [
+   "Kazampur",
+   357,
+   1
+  ],
+  "57131": [
+   "Rampur",
+   357,
+   1
+  ],
+  "57130": [
+   "Badhaur",
+   357,
+   1
+  ],
+  "57129": [
+   "Gobindpur",
+   357,
+   1
+  ],
+  "57095": [
+   "Shahpur",
+   357,
+   1
+  ],
+  "57127": [
+   "Masumpur",
+   357,
+   2
+  ],
+  "57128": [
+   "Rehna",
+   357,
+   1
+  ],
+  "57033": [
+   "Sandaspur",
+   356,
+   4
+  ],
+  "57133": [
+   "Alipur",
+   357,
+   1
+  ],
+  "57105": [
+   "Rattewali",
+   357,
+   4
+  ],
+  "57100": [
+   "Kherwali Palwala",
+   357,
+   4
+  ],
+  "57114": [
+   "Bhoj Darda",
+   357,
+   4
+  ],
+  "57170": [
+   "Raipur Rani CT",
+   357,
+   1
+  ],
+  "56959": [
+   "Ramnagar",
+   356,
+   7
+  ],
+  "56958": [
+   "Khol Albala",
+   356,
+   7
+  ],
+  "56960": [
+   "Karanpur",
+   356,
+   7
+  ],
+  "56948": [
+   "Nawannagar",
+   356,
+   7
+  ],
+  "56950": [
+   "Sitoo Majra",
+   356,
+   7
+  ],
+  "56955": [
+   "Khol Mola",
+   356,
+   7
+  ],
+  "56947": [
+   "Khokhra",
+   356,
+   7
+  ],
+  "56949": [
+   "Gorakhnath",
+   356,
+   7
+  ],
+  "56952": [
+   "Maranwala",
+   356,
+   7
+  ],
+  "56951": [
+   "Lehroundi",
+   356,
+   7
+  ],
+  "56953": [
+   "Kona",
+   356,
+   7
+  ],
+  "56954": [
+   "Rampur Jangi",
+   356,
+   7
+  ],
+  "56957": [
+   "Nanakpur",
+   356,
+   7
+  ],
+  "56961": [
+   "Johlowal",
+   356,
+   7
+  ],
+  "56956": [
+   "Khol Fatehsingh",
+   356,
+   7
+  ],
+  "56962": [
+   "Charnian",
+   356,
+   7
+  ],
+  "56972": [
+   "Kiratpur",
+   356,
+   7
+  ],
+  "56973": [
+   "Gariran",
+   356,
+   7
+  ],
+  "56970": [
+   "Nagal Bhaga",
+   356,
+   6
+  ],
+  "56980": [
+   "Basawal",
+   356,
+   6
+  ],
+  "56981": [
+   "Majri Jattan",
+   356,
+   6
+  ],
+  "56988": [
+   "Prem Pura",
+   356,
+   6
+  ],
+  "56968": [
+   "Bar",
+   356,
+   6
+  ],
+  "56969": [
+   "Pargian",
+   356,
+   6
+  ],
+  "56971": [
+   "Paploha",
+   356,
+   6
+  ],
+  "56975": [
+   "Kandiala",
+   356,
+   6
+  ],
+  "56974": [
+   "Majra Mehtab",
+   356,
+   6
+  ],
+  "56982": [
+   "Khera",
+   356,
+   6
+  ],
+  "56986": [
+   "Basdevpura",
+   356,
+   6
+  ],
+  "56987": [
+   "Dhamala",
+   356,
+   6
+  ],
+  "56989": [
+   "Lohgarh",
+   356,
+   6
+  ],
+  "57005": [
+   "Noulta",
+   356,
+   6
+  ],
+  "57009": [
+   "Toran",
+   356,
+   6
+  ],
+  "57010": [
+   "Khoi",
+   356,
+   6
+  ],
+  "57006": [
+   "Jaithal",
+   356,
+   6
+  ],
+  "56976": [
+   "Orian",
+   356,
+   6
+  ],
+  "56979": [
+   "Tagra Kangan",
+   356,
+   6
+  ],
+  "56984": [
+   "Tagra Hasua",
+   356,
+   6
+  ],
+  "56983": [
+   "Tagra Sahoo",
+   356,
+   6
+  ],
+  "56985": [
+   "Tagra Hakimpur",
+   356,
+   6
+  ],
+  "57003": [
+   "Bharon Ki Ser Part",
+   356,
+   6
+  ],
+  "57002": [
+   "Kanguwala Part",
+   356,
+   6
+  ],
+  "57004": [
+   "Tipra",
+   356,
+   6
+  ],
+  "56978": [
+   "Tagra Hari Singh",
+   356,
+   6
+  ],
+  "56977": [
+   "Tagra Kali Ram",
+   356,
+   6
+  ],
+  "56965": [
+   "Banoi Sanwalia",
+   356,
+   7
+  ],
+  "56963": [
+   "Kheranwali",
+   356,
+   7
+  ],
+  "56967": [
+   "Nagal Rootal",
+   356,
+   7
+  ],
+  "800361": [
+   "Kalka",
+   356,
+   6
+  ],
+  "57046": [
+   "Khera Sita Ram OG",
+   356,
+   6
+  ],
+  "56966": [
+   "Thane Ki Ser",
+   356,
+   6
+  ],
+  "56946": [
+   "Shahpur",
+   356,
+   7
+  ],
+  "57011": [
+   "Bagharni",
+   356,
+   6
+  ]
+ },
+ "village_count_total": 231,
+ "village_count_assigned": 231
+}

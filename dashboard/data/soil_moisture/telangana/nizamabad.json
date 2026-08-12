@@ -1,0 +1,2732 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Telangana",
+  "district": "Nizamabad",
+  "district_lgd": 516,
+  "observation_window": "2026-08-07T11:25Z to 2026-08-12T11:25Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.421,
+  "sm_surface_stddev": 0.025,
+  "sm_rootzone_mean": 0.4321,
+  "sm_rootzone_stddev": 0.0277,
+  "n_cells": 38,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 18.5278,
+    "lon": 77.8166,
+    "sm_surface": 0.4323,
+    "sm_rootzone": 0.4431,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 1,
+    "lat": 18.5278,
+    "lon": 77.9154,
+    "sm_surface": 0.4379,
+    "sm_rootzone": 0.4481,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 2,
+    "lat": 18.5278,
+    "lon": 78.0142,
+    "sm_surface": 0.3638,
+    "sm_rootzone": 0.3666,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 3,
+    "lat": 18.5278,
+    "lon": 78.113,
+    "sm_surface": 0.3611,
+    "sm_rootzone": 0.3626,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 4,
+    "lat": 18.5278,
+    "lon": 78.2118,
+    "sm_surface": 0.4394,
+    "sm_rootzone": 0.451,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 5,
+    "lat": 18.5278,
+    "lon": 78.3106,
+    "sm_surface": 0.4583,
+    "sm_rootzone": 0.4752,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 6,
+    "lat": 18.5278,
+    "lon": 78.4094,
+    "sm_surface": 0.4642,
+    "sm_rootzone": 0.4833,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 7,
+    "lat": 18.5278,
+    "lon": 78.5083,
+    "sm_surface": 0.4603,
+    "sm_rootzone": 0.4811,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 8,
+    "lat": 18.6266,
+    "lon": 77.8166,
+    "sm_surface": 0.4125,
+    "sm_rootzone": 0.4208,
+    "n_villages_sharing_cell": 24
+   },
+   {
+    "cell_index": 9,
+    "lat": 18.6266,
+    "lon": 77.9154,
+    "sm_surface": 0.4301,
+    "sm_rootzone": 0.4405,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 10,
+    "lat": 18.6266,
+    "lon": 78.0142,
+    "sm_surface": 0.4285,
+    "sm_rootzone": 0.4393,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 11,
+    "lat": 18.6266,
+    "lon": 78.113,
+    "sm_surface": 0.4294,
+    "sm_rootzone": 0.4414,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 12,
+    "lat": 18.6266,
+    "lon": 78.2118,
+    "sm_surface": 0.4205,
+    "sm_rootzone": 0.4306,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 13,
+    "lat": 18.6266,
+    "lon": 78.3106,
+    "sm_surface": 0.449,
+    "sm_rootzone": 0.4646,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 14,
+    "lat": 18.6266,
+    "lon": 78.4094,
+    "sm_surface": 0.4557,
+    "sm_rootzone": 0.473,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 15,
+    "lat": 18.6266,
+    "lon": 78.5083,
+    "sm_surface": 0.456,
+    "sm_rootzone": 0.4762,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 16,
+    "lat": 18.6266,
+    "lon": 78.6071,
+    "sm_surface": 0.4415,
+    "sm_rootzone": 0.4416,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 17,
+    "lat": 18.7254,
+    "lon": 77.8166,
+    "sm_surface": 0.3668,
+    "sm_rootzone": 0.3761,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 18,
+    "lat": 18.7254,
+    "lon": 77.9154,
+    "sm_surface": 0.4149,
+    "sm_rootzone": 0.4253,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 19,
+    "lat": 18.7254,
+    "lon": 78.0142,
+    "sm_surface": 0.417,
+    "sm_rootzone": 0.4297,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 20,
+    "lat": 18.7254,
+    "lon": 78.113,
+    "sm_surface": 0.4124,
+    "sm_rootzone": 0.4269,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 21,
+    "lat": 18.7254,
+    "lon": 78.2118,
+    "sm_surface": 0.4175,
+    "sm_rootzone": 0.4316,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 22,
+    "lat": 18.7254,
+    "lon": 78.3106,
+    "sm_surface": 0.4207,
+    "sm_rootzone": 0.4367,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 23,
+    "lat": 18.7254,
+    "lon": 78.4094,
+    "sm_surface": 0.4316,
+    "sm_rootzone": 0.4481,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 24,
+    "lat": 18.7254,
+    "lon": 78.5083,
+    "sm_surface": 0.4411,
+    "sm_rootzone": 0.4419,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 25,
+    "lat": 18.7254,
+    "lon": 78.6071,
+    "sm_surface": 0.4404,
+    "sm_rootzone": 0.4399,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 26,
+    "lat": 18.8242,
+    "lon": 77.9154,
+    "sm_surface": 0.4043,
+    "sm_rootzone": 0.4169,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 27,
+    "lat": 18.8242,
+    "lon": 78.0142,
+    "sm_surface": 0.4049,
+    "sm_rootzone": 0.4176,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 28,
+    "lat": 18.8242,
+    "lon": 78.113,
+    "sm_surface": 0.4018,
+    "sm_rootzone": 0.4164,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 29,
+    "lat": 18.8242,
+    "lon": 78.2118,
+    "sm_surface": 0.4036,
+    "sm_rootzone": 0.4182,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 30,
+    "lat": 18.8242,
+    "lon": 78.3106,
+    "sm_surface": 0.413,
+    "sm_rootzone": 0.4091,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 31,
+    "lat": 18.8242,
+    "lon": 78.4094,
+    "sm_surface": 0.4205,
+    "sm_rootzone": 0.4176,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 32,
+    "lat": 18.8242,
+    "lon": 78.5083,
+    "sm_surface": 0.429,
+    "sm_rootzone": 0.4454,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 33,
+    "lat": 18.923,
+    "lon": 78.113,
+    "sm_surface": 0.3919,
+    "sm_rootzone": 0.4072,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 34,
+    "lat": 18.923,
+    "lon": 78.2118,
+    "sm_surface": 0.3974,
+    "sm_rootzone": 0.4144,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 35,
+    "lat": 18.923,
+    "lon": 78.3106,
+    "sm_surface": 0.3964,
+    "sm_rootzone": 0.4131,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 36,
+    "lat": 18.923,
+    "lon": 78.4094,
+    "sm_surface": 0.4125,
+    "sm_rootzone": 0.4103,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 37,
+    "lat": 18.923,
+    "lon": 78.5083,
+    "sm_surface": 0.42,
+    "sm_rootzone": 0.4376,
+    "n_villages_sharing_cell": 6
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.4212,
+  "sm_surface_stddev": 0.017,
+  "n_blocks": 19
+ },
+ "blocks": [
+  {
+   "block_name": "Armoor",
+   "sdcode": 4360,
+   "n_villages": 23,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.4074,
+   "sm_surface_stddev": 0.007
+  },
+  {
+   "block_name": "Balkonda",
+   "sdcode": 4361,
+   "n_villages": 26,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.4076,
+   "sm_surface_stddev": 0.0084
+  },
+  {
+   "block_name": "Bheemgal",
+   "sdcode": 4364,
+   "n_villages": 24,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.4457,
+   "sm_surface_stddev": 0.0092
+  },
+  {
+   "block_name": "Bodhan",
+   "sdcode": 4370,
+   "n_villages": 40,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.4068,
+   "sm_surface_stddev": 0.0242
+  },
+  {
+   "block_name": "Dharpally",
+   "sdcode": 4378,
+   "n_villages": 15,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.4538,
+   "sm_surface_stddev": 0.0045
+  },
+  {
+   "block_name": "Dichpally",
+   "sdcode": 4377,
+   "n_villages": 20,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.4299,
+   "sm_surface_stddev": 0.012
+  },
+  {
+   "block_name": "Jakranpally",
+   "sdcode": 4366,
+   "n_villages": 16,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.4197,
+   "sm_surface_stddev": 0.0015
+  },
+  {
+   "block_name": "Kammarpally",
+   "sdcode": 4363,
+   "n_villages": 18,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.4395,
+   "sm_surface_stddev": 0.0108
+  },
+  {
+   "block_name": "Kotagiri",
+   "sdcode": 4371,
+   "n_villages": 39,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.4236,
+   "sm_surface_stddev": 0.0098
+  },
+  {
+   "block_name": "Makloor",
+   "sdcode": 4367,
+   "n_villages": 22,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.4086,
+   "sm_surface_stddev": 0.0069
+  },
+  {
+   "block_name": "Morthad",
+   "sdcode": 4362,
+   "n_villages": 17,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.4216,
+   "sm_surface_stddev": 0.0059
+  },
+  {
+   "block_name": "Nandipet",
+   "sdcode": 4359,
+   "n_villages": 32,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.397,
+   "sm_surface_stddev": 0.0035
+  },
+  {
+   "block_name": "Navipet",
+   "sdcode": 4358,
+   "n_villages": 32,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.4062,
+   "sm_surface_stddev": 0.0068
+  },
+  {
+   "block_name": "Nizamabad North",
+   "sdcode": 4368,
+   "n_villages": 36,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.4082,
+   "sm_surface_stddev": 0.0259
+  },
+  {
+   "block_name": "Renjal",
+   "sdcode": 4357,
+   "n_villages": 10,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.4126,
+   "sm_surface_stddev": 0.0055
+  },
+  {
+   "block_name": "Sirikonda",
+   "sdcode": 4379,
+   "n_villages": 22,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.4592,
+   "sm_surface_stddev": 0.0051
+  },
+  {
+   "block_name": "Vailpoor",
+   "sdcode": 4365,
+   "n_villages": 16,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.4242,
+   "sm_surface_stddev": 0.006
+  },
+  {
+   "block_name": "Varni",
+   "sdcode": 4376,
+   "n_villages": 28,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.4092,
+   "sm_surface_stddev": 0.034
+  },
+  {
+   "block_name": "Yedapally",
+   "sdcode": 4369,
+   "n_villages": 12,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.4215,
+   "sm_surface_stddev": 0.0065
+  }
+ ],
+ "villages": {
+  "571042": [
+   "Baswapur",
+   4371,
+   0
+  ],
+  "571239": [
+   "Ghanpur CT",
+   4377,
+   12
+  ],
+  "570845": [
+   "Babapur",
+   4364,
+   24
+  ],
+  "570924": [
+   "Jalalpur",
+   4368,
+   20
+  ],
+  "570727": [
+   "Ananthagiri",
+   4358,
+   19
+  ],
+  "570905": [
+   "Lakhmapur",
+   4367,
+   28
+  ],
+  "571045": [
+   "Sudlam",
+   4371,
+   0
+  ],
+  "571039": [
+   "Kallur",
+   4371,
+   0
+  ],
+  "571043": [
+   "Bareedpur",
+   4371,
+   0
+  ],
+  "571040": [
+   "Gannavaram",
+   4371,
+   0
+  ],
+  "571041": [
+   "Lingapur",
+   4371,
+   0
+  ],
+  "571008": [
+   "Sompur",
+   4371,
+   8
+  ],
+  "571212": [
+   "Mallaram",
+   4376,
+   1
+  ],
+  "571044": [
+   "Adkas Palle",
+   4371,
+   0
+  ],
+  "570974": [
+   "Mavandi Khurd",
+   4370,
+   18
+  ],
+  "570973": [
+   "Kaldurthi",
+   4370,
+   17
+  ],
+  "570981": [
+   "Taggelli",
+   4370,
+   17
+  ],
+  "570979": [
+   "Rampur",
+   4370,
+   17
+  ],
+  "570978": [
+   "Mavandi Kalan",
+   4370,
+   18
+  ],
+  "570988": [
+   "Bhandarpalle",
+   4370,
+   18
+  ],
+  "570996": [
+   "Naganpalle",
+   4370,
+   8
+  ],
+  "571010": [
+   "Vallabhapur",
+   4371,
+   8
+  ],
+  "570985": [
+   "Saloora",
+   4370,
+   17
+  ],
+  "570980": [
+   "Fathepur",
+   4370,
+   17
+  ],
+  "570986": [
+   "Jadijamalpur",
+   4370,
+   17
+  ],
+  "570998": [
+   "Komanpalle",
+   4370,
+   8
+  ],
+  "570982": [
+   "Mandharna",
+   4370,
+   8
+  ],
+  "570983": [
+   "Hunsa",
+   4370,
+   8
+  ],
+  "570984": [
+   "Khajapur",
+   4370,
+   8
+  ],
+  "571009": [
+   "Takli",
+   4371,
+   8
+  ],
+  "570997": [
+   "Lakmapur",
+   4370,
+   9
+  ],
+  "570999": [
+   "Salampad",
+   4370,
+   8
+  ],
+  "571007": [
+   "Sunkini",
+   4371,
+   8
+  ],
+  "571000": [
+   "Penta Khurd",
+   4370,
+   8
+  ],
+  "571012": [
+   "Kollur",
+   4371,
+   8
+  ],
+  "571011": [
+   "Domaledgi",
+   4371,
+   8
+  ],
+  "571016": [
+   "Ethonda",
+   4371,
+   8
+  ],
+  "571018": [
+   "Raikur",
+   4371,
+   8
+  ],
+  "571015": [
+   "Yadgarpur",
+   4371,
+   8
+  ],
+  "571017": [
+   "Siddapur",
+   4371,
+   8
+  ],
+  "571014": [
+   "Hegdoli",
+   4371,
+   8
+  ],
+  "571192": [
+   "Rudrur",
+   4376,
+   9
+  ],
+  "571020": [
+   "Ramanpalle",
+   4371,
+   8
+  ],
+  "571026": [
+   "Karegoan",
+   4371,
+   8
+  ],
+  "571027": [
+   "Hangerga",
+   4371,
+   0
+  ],
+  "571028": [
+   "Tirmalapur",
+   4371,
+   0
+  ],
+  "571031": [
+   "Mirzapur",
+   4371,
+   0
+  ],
+  "571021": [
+   "Chikkadpally",
+   4371,
+   0
+  ],
+  "571029": [
+   "Pothangal",
+   4371,
+   0
+  ],
+  "571210": [
+   "Kondapur",
+   4376,
+   0
+  ],
+  "571193": [
+   "Akbar Nagar",
+   4376,
+   1
+  ],
+  "571032": [
+   "Eklaspur",
+   4371,
+   0
+  ],
+  "571209": [
+   "Ambam",
+   4376,
+   1
+  ],
+  "571034": [
+   "Rampur",
+   4371,
+   0
+  ],
+  "571038": [
+   "Kodcherla",
+   4371,
+   0
+  ],
+  "571037": [
+   "Jallapalle",
+   4371,
+   0
+  ],
+  "571211": [
+   "Taglepalle",
+   4376,
+   0
+  ],
+  "571036": [
+   "Kothapalle",
+   4371,
+   0
+  ],
+  "570987": [
+   "Machapur",
+   4370,
+   17
+  ],
+  "571001": [
+   "Nagora",
+   4370,
+   9
+  ],
+  "571002": [
+   "Ladmavandi",
+   4370,
+   9
+  ],
+  "571019": [
+   "Lingampalle",
+   4371,
+   9
+  ],
+  "571013": [
+   "Humnapur",
+   4371,
+   8
+  ],
+  "571035": [
+   "Fakeerabad",
+   4371,
+   0
+  ],
+  "571025": [
+   "Zainapur",
+   4371,
+   8
+  ],
+  "571023": [
+   "Amrapur",
+   4371,
+   8
+  ],
+  "571022": [
+   "Sailampur",
+   4371,
+   8
+  ],
+  "571030": [
+   "Malkapur",
+   4371,
+   0
+  ],
+  "571033": [
+   "Rozapur",
+   4371,
+   0
+  ],
+  "571024": [
+   "Kotgiri",
+   4371,
+   0
+  ],
+  "570951": [
+   "Kalpole",
+   4368,
+   2
+  ],
+  "571252": [
+   "Nallavalle",
+   4378,
+   5
+  ],
+  "571237": [
+   "Gannaram",
+   4377,
+   4
+  ],
+  "571213": [
+   "Jakore",
+   4376,
+   1
+  ],
+  "571217": [
+   "Medpalle",
+   4376,
+   2
+  ],
+  "570954": [
+   "Amrabad",
+   4368,
+   3
+  ],
+  "571253": [
+   "Sirnapalle",
+   4378,
+   5
+  ],
+  "571214": [
+   "Khunipur",
+   4376,
+   1
+  ],
+  "571216": [
+   "Sayeedpur",
+   4376,
+   2
+  ],
+  "571254": [
+   "Donkal",
+   4378,
+   5
+  ],
+  "570955": [
+   "Yellamkunta",
+   4368,
+   3
+  ],
+  "571215": [
+   "Jalalpur",
+   4376,
+   2
+  ],
+  "571218": [
+   "Siddapur",
+   4376,
+   2
+  ],
+  "571219": [
+   "Pedmal",
+   4376,
+   2
+  ],
+  "570883": [
+   "Munpalle",
+   4366,
+   21
+  ],
+  "570690": [
+   "Ranjal",
+   4357,
+   18
+  ],
+  "570886": [
+   "Argul",
+   4366,
+   22
+  ],
+  "570689": [
+   "Satapur",
+   4357,
+   18
+  ],
+  "570914": [
+   "Chinnapur",
+   4367,
+   21
+  ],
+  "570888": [
+   "Thorlikonda",
+   4366,
+   22
+  ],
+  "570926": [
+   "Tirmanpalle",
+   4368,
+   20
+  ],
+  "570694": [
+   "Kalyapur",
+   4357,
+   19
+  ],
+  "570913": [
+   "Mamidipalle",
+   4367,
+   21
+  ],
+  "570975": [
+   "Pegadpalle",
+   4370,
+   18
+  ],
+  "570885": [
+   "Narayanpet",
+   4366,
+   22
+  ],
+  "570915": [
+   "Singampalle",
+   4367,
+   20
+  ],
+  "570884": [
+   "Lakshmapur",
+   4366,
+   21
+  ],
+  "570725": [
+   "Abbapur M",
+   4358,
+   19
+  ],
+  "570927": [
+   "Kondur",
+   4368,
+   20
+  ],
+  "570726": [
+   "Dharmaram",
+   4358,
+   19
+  ],
+  "570923": [
+   "Laxmapur",
+   4368,
+   20
+  ],
+  "570921": [
+   "Malkapur",
+   4368,
+   19
+  ],
+  "570889": [
+   "Kolipaka",
+   4366,
+   22
+  ],
+  "570695": [
+   "Dupalle",
+   4357,
+   19
+  ],
+  "570976": [
+   "Penta Kalan",
+   4370,
+   18
+  ],
+  "570916": [
+   "Borgaon Kalan",
+   4367,
+   20
+  ],
+  "570928": [
+   "Kalur",
+   4368,
+   20
+  ],
+  "570917": [
+   "Manik Bhandar",
+   4367,
+   20
+  ],
+  "570890": [
+   "Jakranpalle",
+   4366,
+   22
+  ],
+  "570960": [
+   "Jankampet",
+   4369,
+   19
+  ],
+  "570922": [
+   "Gundaram",
+   4368,
+   19
+  ],
+  "570977": [
+   "Langadapur",
+   4370,
+   18
+  ],
+  "570957": [
+   "Brahammanpalle",
+   4369,
+   18
+  ],
+  "570918": [
+   "Amrad",
+   4367,
+   21
+  ],
+  "570896": [
+   "Manoharabad",
+   4366,
+   22
+  ],
+  "570958": [
+   "Jaithapur",
+   4369,
+   19
+  ],
+  "570929": [
+   "Mubaraknagar",
+   4368,
+   20
+  ],
+  "570959": [
+   "Pocharam",
+   4369,
+   19
+  ],
+  "570995": [
+   "Bodhan R",
+   4370,
+   18
+  ],
+  "570930": [
+   "Khanapur",
+   4368,
+   20
+  ],
+  "570897": [
+   "Kaligote",
+   4366,
+   22
+  ],
+  "570989": [
+   "Bardipur",
+   4370,
+   18
+  ],
+  "570962": [
+   "Jamlam",
+   4369,
+   19
+  ],
+  "570891": [
+   "Madhapur",
+   4366,
+   21
+  ],
+  "570920": [
+   "Madanpalle",
+   4367,
+   21
+  ],
+  "570893": [
+   "Sikindrapur",
+   4366,
+   21
+  ],
+  "570895": [
+   "Keshpalle",
+   4366,
+   22
+  ],
+  "570956": [
+   "Ambam",
+   4369,
+   18
+  ],
+  "570931": [
+   "Sarangapur",
+   4368,
+   19
+  ],
+  "570963": [
+   "Yedpalle",
+   4369,
+   18
+  ],
+  "570961": [
+   "Thanekalan",
+   4369,
+   10
+  ],
+  "570933": [
+   "Gopanpalle",
+   4368,
+   20
+  ],
+  "570934": [
+   "Keshapur",
+   4368,
+   20
+  ],
+  "570935": [
+   "Pangra",
+   4368,
+   11
+  ],
+  "248091": [
+   "Nizamabad",
+   4368,
+   11
+  ],
+  "570892": [
+   "Poppalpalle",
+   4366,
+   21
+  ],
+  "570990": [
+   "Narsapur",
+   4370,
+   18
+  ],
+  "570919": [
+   "Vaddatipalle",
+   4367,
+   21
+  ],
+  "571240": [
+   "Mailaram",
+   4378,
+   13
+  ],
+  "248092": [
+   "Bodhan",
+   4370,
+   9
+  ],
+  "570965": [
+   "Mangalpahad",
+   4369,
+   10
+  ],
+  "571228": [
+   "Koratpalle",
+   4377,
+   13
+  ],
+  "571222": [
+   "Mentrajpalle",
+   4377,
+   12
+  ],
+  "571221": [
+   "Bardipur",
+   4377,
+   11
+  ],
+  "570991": [
+   "Erajpalle",
+   4370,
+   9
+  ],
+  "571227": [
+   "Suddulam",
+   4377,
+   13
+  ],
+  "571226": [
+   "Yanampalle",
+   4377,
+   12
+  ],
+  "570967": [
+   "Kurnapalle",
+   4369,
+   10
+  ],
+  "570902": [
+   "Vallabhapur",
+   4367,
+   28
+  ],
+  "570936": [
+   "Borgaon P",
+   4368,
+   11
+  ],
+  "571244": [
+   "Kesaram",
+   4378,
+   13
+  ],
+  "570941": [
+   "Mallaram",
+   4368,
+   10
+  ],
+  "571245": [
+   "Ramadugu",
+   4378,
+   13
+  ],
+  "571223": [
+   "Amruthapur",
+   4377,
+   12
+  ],
+  "570994": [
+   "Achampalle R",
+   4370,
+   9
+  ],
+  "570939": [
+   "Nyalkal",
+   4368,
+   11
+  ],
+  "570993": [
+   "Amdapur",
+   4370,
+   9
+  ],
+  "571198": [
+   "Mosra",
+   4376,
+   10
+  ],
+  "570937": [
+   "Thana Khurd",
+   4368,
+   11
+  ],
+  "571225": [
+   "Suddepalle",
+   4377,
+   12
+  ],
+  "570938": [
+   "Mugpal",
+   4368,
+   11
+  ],
+  "571224": [
+   "Nadepalle",
+   4377,
+   12
+  ],
+  "570940": [
+   "Dharmaram",
+   4368,
+   11
+  ],
+  "571006": [
+   "Ootpalle",
+   4370,
+   9
+  ],
+  "571220": [
+   "Arepalle",
+   4377,
+   11
+  ],
+  "570946": [
+   "Mullangi",
+   4368,
+   12
+  ],
+  "570945": [
+   "Kanjar",
+   4368,
+   11
+  ],
+  "570942": [
+   "Muthakunta",
+   4368,
+   10
+  ],
+  "570944": [
+   "Sirpur",
+   4368,
+   11
+  ],
+  "571005": [
+   "Sangam",
+   4370,
+   9
+  ],
+  "571197": [
+   "Govoor",
+   4376,
+   9
+  ],
+  "570943": [
+   "Malkapur J",
+   4368,
+   10
+  ],
+  "571229": [
+   "Mittapalle",
+   4377,
+   12
+  ],
+  "571003": [
+   "Minarpalle",
+   4370,
+   9
+  ],
+  "570947": [
+   "Kulaspur",
+   4368,
+   11
+  ],
+  "571196": [
+   "Ghanpur",
+   4376,
+   9
+  ],
+  "571232": [
+   "Bibipur",
+   4377,
+   12
+  ],
+  "571234": [
+   "Doosgaon",
+   4377,
+   12
+  ],
+  "571231": [
+   "Kamalapur",
+   4377,
+   12
+  ],
+  "571199": [
+   "Chintakunta",
+   4376,
+   10
+  ],
+  "571233": [
+   "Dichpalle",
+   4377,
+   12
+  ],
+  "571247": [
+   "Lolam",
+   4378,
+   5
+  ],
+  "571004": [
+   "Bhavanipet",
+   4370,
+   9
+  ],
+  "571230": [
+   "Rampur",
+   4377,
+   5
+  ],
+  "570950": [
+   "Mudakpalle",
+   4368,
+   3
+  ],
+  "571201": [
+   "Bajidapur",
+   4376,
+   2
+  ],
+  "571206": [
+   "Chandur",
+   4376,
+   1
+  ],
+  "571235": [
+   "Indalwai",
+   4377,
+   4
+  ],
+  "571194": [
+   "Boppapur",
+   4376,
+   1
+  ],
+  "570949": [
+   "Badsi",
+   4368,
+   3
+  ],
+  "571236": [
+   "Thriambakpeta",
+   4377,
+   4
+  ],
+  "570948": [
+   "Chinnapur",
+   4368,
+   3
+  ],
+  "571195": [
+   "Humnapur",
+   4376,
+   1
+  ],
+  "571202": [
+   "Thimmapur",
+   4376,
+   2
+  ],
+  "571251": [
+   "Vengalpad",
+   4378,
+   5
+  ],
+  "570953": [
+   "Manchippa",
+   4368,
+   3
+  ],
+  "571246": [
+   "Konepalle",
+   4378,
+   13
+  ],
+  "571250": [
+   "Gouraram",
+   4378,
+   5
+  ],
+  "571203": [
+   "Karegaon",
+   4376,
+   2
+  ],
+  "571208": [
+   "Varni",
+   4376,
+   1
+  ],
+  "571238": [
+   "Mallapur",
+   4377,
+   4
+  ],
+  "571207": [
+   "Shankaoora",
+   4376,
+   1
+  ],
+  "571200": [
+   "Moulalipur",
+   4376,
+   10
+  ],
+  "570952": [
+   "Bhairapur",
+   4368,
+   3
+  ],
+  "571204": [
+   "Laxmapur",
+   4376,
+   2
+  ],
+  "571205": [
+   "Rajpet",
+   4376,
+   2
+  ],
+  "570932": [
+   "Seripur",
+   4368,
+   10
+  ],
+  "570964": [
+   "Ibrahimpur",
+   4369,
+   9
+  ],
+  "570992": [
+   "Mithapur",
+   4370,
+   9
+  ],
+  "570966": [
+   "Mallepahad",
+   4369,
+   9
+  ],
+  "570894": [
+   "Padkal",
+   4366,
+   22
+  ],
+  "570969": [
+   "Hangarga",
+   4370,
+   26
+  ],
+  "570968": [
+   "Bhiknalli",
+   4370,
+   17
+  ],
+  "570971": [
+   "Khandgaon",
+   4370,
+   17
+  ],
+  "570970": [
+   "Kopperga",
+   4370,
+   18
+  ],
+  "570972": [
+   "Siddapur",
+   4370,
+   17
+  ],
+  "570734": [
+   "Narkodh",
+   4359,
+   34
+  ],
+  "570733": [
+   "Sirpur",
+   4359,
+   34
+  ],
+  "570732": [
+   "Annaram",
+   4359,
+   34
+  ],
+  "570735": [
+   "Gadepalle",
+   4359,
+   34
+  ],
+  "570731": [
+   "Donkeshwar",
+   4359,
+   34
+  ],
+  "570730": [
+   "Nikalpur",
+   4359,
+   34
+  ],
+  "570729": [
+   "Badgoni",
+   4359,
+   33
+  ],
+  "570728": [
+   "Ummeda",
+   4359,
+   33
+  ],
+  "570738": [
+   "Noothpalle",
+   4359,
+   34
+  ],
+  "570743": [
+   "Komatpalle",
+   4359,
+   33
+  ],
+  "570701": [
+   "Naleshwar",
+   4358,
+   33
+  ],
+  "570740": [
+   "Marampalle",
+   4359,
+   34
+  ],
+  "570745": [
+   "C H Kondoor",
+   4359,
+   33
+  ],
+  "570739": [
+   "Gangasamundar",
+   4359,
+   34
+  ],
+  "570744": [
+   "Mayapur",
+   4359,
+   33
+  ],
+  "570742": [
+   "Shahpur",
+   4359,
+   34
+  ],
+  "570741": [
+   "Dattapur",
+   4359,
+   34
+  ],
+  "570792": [
+   "Jalalpur",
+   4361,
+   35
+  ],
+  "570794": [
+   "Nagapur",
+   4361,
+   35
+  ],
+  "570757": [
+   "Tondakur",
+   4359,
+   34
+  ],
+  "570752": [
+   "Bazarkothur",
+   4359,
+   33
+  ],
+  "570763": [
+   "Magdi",
+   4360,
+   34
+  ],
+  "570758": [
+   "Vannel Khurd",
+   4359,
+   34
+  ],
+  "570803": [
+   "Balkonda",
+   4361,
+   30
+  ],
+  "570765": [
+   "Komanpalle",
+   4360,
+   35
+  ],
+  "570766": [
+   "Khanapur",
+   4360,
+   35
+  ],
+  "570746": [
+   "Talveda",
+   4359,
+   33
+  ],
+  "570751": [
+   "Lakkampalle",
+   4359,
+   33
+  ],
+  "570700": [
+   "Tungini",
+   4358,
+   33
+  ],
+  "570759": [
+   "Siddapur",
+   4359,
+   34
+  ],
+  "570756": [
+   "Khudavandapur",
+   4359,
+   34
+  ],
+  "570753": [
+   "Nandipet",
+   4359,
+   28
+  ],
+  "570699": [
+   "Binola",
+   4358,
+   27
+  ],
+  "570760": [
+   "Macherla",
+   4360,
+   29
+  ],
+  "570750": [
+   "Chimrajpalle",
+   4359,
+   28
+  ],
+  "570767": [
+   "Surbiriyal",
+   4360,
+   30
+  ],
+  "570698": [
+   "Nandigaon",
+   4358,
+   27
+  ],
+  "570762": [
+   "Amdapur",
+   4360,
+   30
+  ],
+  "570697": [
+   "Alzapur",
+   4358,
+   27
+  ],
+  "570703": [
+   "Nizampur",
+   4358,
+   27
+  ],
+  "570755": [
+   "Joorpur",
+   4359,
+   29
+  ],
+  "570761": [
+   "Degaon",
+   4360,
+   29
+  ],
+  "570747": [
+   "Kamtam",
+   4359,
+   28
+  ],
+  "570696": [
+   "Yamcha",
+   4358,
+   27
+  ],
+  "570749": [
+   "Mallaram",
+   4359,
+   28
+  ],
+  "570713": [
+   "Mittapur",
+   4358,
+   26
+  ],
+  "570769": [
+   "Pipri",
+   4360,
+   30
+  ],
+  "570748": [
+   "Ailapur",
+   4359,
+   28
+  ],
+  "570770": [
+   "Manthani",
+   4360,
+   29
+  ],
+  "570704": [
+   "Lingapur",
+   4358,
+   27
+  ],
+  "570754": [
+   "Velmal",
+   4359,
+   28
+  ],
+  "570899": [
+   "Gunjali",
+   4367,
+   28
+  ],
+  "570768": [
+   "Fathepur",
+   4360,
+   30
+  ],
+  "570705": [
+   "Shaikhapur",
+   4358,
+   27
+  ],
+  "570709": [
+   "Abbapur B",
+   4358,
+   27
+  ],
+  "570772": [
+   "Aloor",
+   4360,
+   29
+  ],
+  "570771": [
+   "Mirdapally",
+   4360,
+   29
+  ],
+  "570706": [
+   "Shiranpalle",
+   4358,
+   27
+  ],
+  "570711": [
+   "Maddepalle",
+   4358,
+   27
+  ],
+  "570714": [
+   "Kosli",
+   4358,
+   27
+  ],
+  "570774": [
+   "Rampur",
+   4360,
+   29
+  ],
+  "570901": [
+   "Chikli",
+   4367,
+   28
+  ],
+  "570691": [
+   "Tadbiloli",
+   4357,
+   26
+  ],
+  "570900": [
+   "Dharmora",
+   4367,
+   28
+  ],
+  "570773": [
+   "Gaggupalle",
+   4360,
+   29
+  ],
+  "570687": [
+   "Kandakurthi",
+   4357,
+   26
+  ],
+  "570775": [
+   "Issapalle",
+   4360,
+   29
+  ],
+  "570688": [
+   "Boregaon",
+   4357,
+   26
+  ],
+  "570904": [
+   "Mamdapur",
+   4367,
+   28
+  ],
+  "570715": [
+   "Nagepur",
+   4358,
+   27
+  ],
+  "570707": [
+   "Jannipalle",
+   4358,
+   28
+  ],
+  "570708": [
+   "Pothangal",
+   4358,
+   27
+  ],
+  "570903": [
+   "Metpalle",
+   4367,
+   28
+  ],
+  "570907": [
+   "Gottimukkala",
+   4367,
+   28
+  ],
+  "570906": [
+   "Venkatapur",
+   4367,
+   28
+  ],
+  "570911": [
+   "Kalladi",
+   4367,
+   29
+  ],
+  "570716": [
+   "Fathenagar",
+   4358,
+   27
+  ],
+  "570717": [
+   "Rampur",
+   4358,
+   27
+  ],
+  "570778": [
+   "Kotha Armur",
+   4360,
+   30
+  ],
+  "570719": [
+   "Kamalapur",
+   4358,
+   27
+  ],
+  "570908": [
+   "Bonkanpalle",
+   4367,
+   28
+  ],
+  "570686": [
+   "Neela",
+   4357,
+   18
+  ],
+  "570720": [
+   "Narayanpur",
+   4358,
+   27
+  ],
+  "570718": [
+   "Navipet",
+   4358,
+   27
+  ],
+  "570912": [
+   "Gutpa",
+   4367,
+   21
+  ],
+  "570692": [
+   "Bhagepalle",
+   4357,
+   19
+  ],
+  "570910": [
+   "Makloor",
+   4367,
+   20
+  ],
+  "570776": [
+   "Ankapur",
+   4360,
+   21
+  ],
+  "570925": [
+   "Palda",
+   4368,
+   20
+  ],
+  "570887": [
+   "Brahmanpalle",
+   4366,
+   22
+  ],
+  "570909": [
+   "Mullangi Binala",
+   4367,
+   20
+  ],
+  "570724": [
+   "Dharyapur",
+   4358,
+   19
+  ],
+  "570722": [
+   "Mahantham",
+   4358,
+   19
+  ],
+  "570721": [
+   "Mokanpalle",
+   4358,
+   19
+  ],
+  "570723": [
+   "Abhangapatnam",
+   4358,
+   19
+  ],
+  "570693": [
+   "Kunepalle",
+   4357,
+   19
+  ],
+  "570736": [
+   "Kushtapur",
+   4359,
+   35
+  ],
+  "570789": [
+   "Ratnapur",
+   4361,
+   35
+  ],
+  "570737": [
+   "Srirampur",
+   4359,
+   35
+  ],
+  "570790": [
+   "Keshapur",
+   4361,
+   35
+  ],
+  "570791": [
+   "Kojan Kothur",
+   4361,
+   35
+  ],
+  "570764": [
+   "Bardipur",
+   4360,
+   35
+  ],
+  "570793": [
+   "Sangam",
+   4361,
+   35
+  ],
+  "570702": [
+   "Ankampalle",
+   4358,
+   33
+  ],
+  "570710": [
+   "Khadirabad",
+   4358,
+   27
+  ],
+  "570712": [
+   "Kandepalle",
+   4358,
+   27
+  ],
+  "248090": [
+   "Armoor",
+   4360,
+   30
+  ],
+  "571274": [
+   "Pakhal",
+   4379,
+   7
+  ],
+  "570840": [
+   "Gudilingapur",
+   4363,
+   7
+  ],
+  "571271": [
+   "Musheernagar",
+   4379,
+   6
+  ],
+  "571269": [
+   "Kotalapalle",
+   4379,
+   6
+  ],
+  "571275": [
+   "Thumpalle",
+   4379,
+   7
+  ],
+  "571270": [
+   "Kondapur",
+   4379,
+   6
+  ],
+  "570839": [
+   "Belur",
+   4363,
+   7
+  ],
+  "571276": [
+   "Gargepahad",
+   4379,
+   7
+  ],
+  "570781": [
+   "Perkit OG",
+   4360,
+   30
+  ],
+  "570780": [
+   "Mamidipalle OG",
+   4360,
+   30
+  ],
+  "570835": [
+   "Narsapur",
+   4363,
+   24
+  ],
+  "570874": [
+   "Mothe",
+   4365,
+   23
+  ],
+  "570879": [
+   "Narkhoda",
+   4365,
+   23
+  ],
+  "570878": [
+   "Janakampeta",
+   4365,
+   22
+  ],
+  "570847": [
+   "Kupkal",
+   4364,
+   24
+  ],
+  "570832": [
+   "Konasamandar",
+   4363,
+   24
+  ],
+  "570846": [
+   "Jagriyal",
+   4364,
+   23
+  ],
+  "570848": [
+   "Mendhora",
+   4364,
+   24
+  ],
+  "570834": [
+   "Dammanpet Ameernagar",
+   4363,
+   24
+  ],
+  "570882": [
+   "Aklur",
+   4365,
+   23
+  ],
+  "570833": [
+   "Lakshmapur",
+   4363,
+   24
+  ],
+  "570837": [
+   "Konapur",
+   4363,
+   25
+  ],
+  "570851": [
+   "Bheemgal",
+   4364,
+   23
+  ],
+  "570836": [
+   "Inayat Nagar",
+   4363,
+   25
+  ],
+  "570881": [
+   "Kothapalle",
+   4365,
+   22
+  ],
+  "570843": [
+   "Changal",
+   4364,
+   23
+  ],
+  "570849": [
+   "Babanagar",
+   4364,
+   24
+  ],
+  "570880": [
+   "Wadi",
+   4365,
+   23
+  ],
+  "570844": [
+   "Pedda Bheemgal",
+   4364,
+   23
+  ],
+  "570861": [
+   "Devan Palle",
+   4364,
+   24
+  ],
+  "570862": [
+   "Karepalle",
+   4364,
+   24
+  ],
+  "570898": [
+   "Chintalur",
+   4366,
+   22
+  ],
+  "570850": [
+   "Puranipet",
+   4364,
+   24
+  ],
+  "570842": [
+   "Manala",
+   4363,
+   16
+  ],
+  "570852": [
+   "Lingapurchouth",
+   4364,
+   24
+  ],
+  "570866": [
+   "Devakkapet",
+   4364,
+   16
+  ],
+  "570853": [
+   "Bejjora",
+   4364,
+   14
+  ],
+  "571241": [
+   "Challagarga",
+   4378,
+   13
+  ],
+  "570854": [
+   "Sikandrapur",
+   4364,
+   14
+  ],
+  "571242": [
+   "Dubbaka",
+   4378,
+   14
+  ],
+  "570865": [
+   "Thallapalle",
+   4364,
+   16
+  ],
+  "570860": [
+   "Pallikonda",
+   4364,
+   15
+  ],
+  "570859": [
+   "Bachanpalle",
+   4364,
+   15
+  ],
+  "570858": [
+   "Pipri",
+   4364,
+   15
+  ],
+  "570863": [
+   "Rahathnagar",
+   4364,
+   15
+  ],
+  "571255": [
+   "Rekulapalle",
+   4379,
+   14
+  ],
+  "570856": [
+   "Salampur",
+   4364,
+   14
+  ],
+  "570857": [
+   "Muchkur",
+   4364,
+   15
+  ],
+  "570864": [
+   "Gangarai",
+   4364,
+   15
+  ],
+  "570855": [
+   "Gongappul",
+   4364,
+   14
+  ],
+  "571243": [
+   "Dammannapet",
+   4378,
+   13
+  ],
+  "571260": [
+   "Ravutla",
+   4379,
+   15
+  ],
+  "571257": [
+   "Pothnur",
+   4379,
+   14
+  ],
+  "571259": [
+   "Nyavandi",
+   4379,
+   15
+  ],
+  "571258": [
+   "Chinna Walgot",
+   4379,
+   14
+  ],
+  "571256": [
+   "Pedda Walgot",
+   4379,
+   14
+  ],
+  "571249": [
+   "Dharpalle",
+   4378,
+   5
+  ],
+  "571248": [
+   "Govindpalle",
+   4378,
+   13
+  ],
+  "571261": [
+   "Thatpalle",
+   4379,
+   16
+  ],
+  "571266": [
+   "Kondur",
+   4379,
+   14
+  ],
+  "571264": [
+   "Mailaram",
+   4379,
+   7
+  ],
+  "571267": [
+   "Ramadugu",
+   4379,
+   6
+  ],
+  "571265": [
+   "Sirkonda",
+   4379,
+   7
+  ],
+  "571263": [
+   "Pandimadugu",
+   4379,
+   7
+  ],
+  "571273": [
+   "Hussainnagar",
+   4379,
+   6
+  ],
+  "571268": [
+   "Honnajipet",
+   4379,
+   6
+  ],
+  "571262": [
+   "Chimanpalle",
+   4379,
+   7
+  ],
+  "571272": [
+   "Gadkole",
+   4379,
+   6
+  ],
+  "570838": [
+   "Guntepalle",
+   4363,
+   15
+  ],
+  "570841": [
+   "Reachpalle",
+   4363,
+   16
+  ],
+  "570783": [
+   "Chakeriyal",
+   4361,
+   36
+  ],
+  "570784": [
+   "Kodicherla",
+   4361,
+   36
+  ],
+  "570782": [
+   "Doodgaon",
+   4361,
+   36
+  ],
+  "570785": [
+   "Savel",
+   4361,
+   36
+  ],
+  "570786": [
+   "Mendora",
+   4361,
+   36
+  ],
+  "570809": [
+   "Domchanda",
+   4362,
+   37
+  ],
+  "570788": [
+   "Nallur",
+   4361,
+   35
+  ],
+  "570787": [
+   "Bussapur",
+   4361,
+   36
+  ],
+  "570810": [
+   "Gumeriyal",
+   4362,
+   37
+  ],
+  "570808": [
+   "Tadpakal",
+   4362,
+   37
+  ],
+  "570813": [
+   "Battapur",
+   4362,
+   36
+  ],
+  "570811": [
+   "Tadla Rampur",
+   4362,
+   37
+  ],
+  "570797": [
+   "Velgatoor",
+   4361,
+   36
+  ],
+  "570795": [
+   "Mukpal",
+   4361,
+   36
+  ],
+  "570812": [
+   "Yergatla",
+   4362,
+   37
+  ],
+  "570796": [
+   "Kothapalle",
+   4361,
+   36
+  ],
+  "570800": [
+   "Nagampet",
+   4361,
+   36
+  ],
+  "570798": [
+   "Venchariyal",
+   4361,
+   36
+  ],
+  "570799": [
+   "Renjarla",
+   4361,
+   36
+  ],
+  "570814": [
+   "Thurat",
+   4362,
+   36
+  ],
+  "570801": [
+   "Vempalle",
+   4361,
+   36
+  ],
+  "570804": [
+   "Chittapur",
+   4361,
+   30
+  ],
+  "570825": [
+   "Uploor",
+   4363,
+   37
+  ],
+  "570815": [
+   "Shetpalle",
+   4362,
+   36
+  ],
+  "570802": [
+   "Kisannagar",
+   4361,
+   35
+  ],
+  "570819": [
+   "Thimmapur",
+   4362,
+   32
+  ],
+  "570805": [
+   "Bodepalle",
+   4361,
+   31
+  ],
+  "570818": [
+   "Palem",
+   4362,
+   31
+  ],
+  "570816": [
+   "Dharmora",
+   4362,
+   31
+  ],
+  "570827": [
+   "Nagapur",
+   4363,
+   32
+  ],
+  "570828": [
+   "Kammar Palle",
+   4363,
+   32
+  ],
+  "570826": [
+   "Dammannapet",
+   4363,
+   32
+  ],
+  "570806": [
+   "Vannel Bashirabad",
+   4361,
+   31
+  ],
+  "570869": [
+   "Pochampalle",
+   4365,
+   31
+  ],
+  "570817": [
+   "Donkal",
+   4362,
+   31
+  ],
+  "570868": [
+   "Padgal",
+   4365,
+   31
+  ],
+  "570877": [
+   "Sahebpet",
+   4365,
+   23
+  ],
+  "570820": [
+   "Mortad",
+   4362,
+   32
+  ],
+  "570870": [
+   "Anksapur",
+   4365,
+   31
+  ],
+  "570824": [
+   "Vaddiyat",
+   4362,
+   32
+  ],
+  "570777": [
+   "Chepur",
+   4360,
+   30
+  ],
+  "570829": [
+   "Hasakothur",
+   4363,
+   32
+  ],
+  "570871": [
+   "Kuknur",
+   4365,
+   31
+  ],
+  "570867": [
+   "Lakhora",
+   4365,
+   30
+  ],
+  "570821": [
+   "Sunkat",
+   4362,
+   31
+  ],
+  "570872": [
+   "Komanpalle",
+   4365,
+   31
+  ],
+  "570875": [
+   "Velpur",
+   4365,
+   23
+  ],
+  "570876": [
+   "Ameenapur",
+   4365,
+   31
+  ],
+  "570823": [
+   "Donpal",
+   4362,
+   32
+  ],
+  "570779": [
+   "Govindpet",
+   4360,
+   22
+  ],
+  "570830": [
+   "Choutupalle",
+   4363,
+   32
+  ],
+  "570831": [
+   "Basheerabad",
+   4363,
+   24
+  ],
+  "570873": [
+   "Venkatapur",
+   4365,
+   31
+  ],
+  "570822": [
+   "Ramannapet",
+   4362,
+   23
+  ],
+  "570807": [
+   "Soanpet CT",
+   4361,
+   35
+  ]
+ },
+ "village_count_total": 448,
+ "village_count_assigned": 448
+}

@@ -1,0 +1,2765 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Gujarat",
+  "district": "Tapi",
+  "district_lgd": 641,
+  "observation_window": "2026-08-07T11:07Z to 2026-08-12T11:07Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.4727,
+  "sm_surface_stddev": 0.048,
+  "sm_rootzone_mean": 0.4944,
+  "sm_rootzone_stddev": 0.0494,
+  "n_cells": 26,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 20.8993,
+    "lon": 73.3699,
+    "sm_surface": 0.4114,
+    "sm_rootzone": 0.4074,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 1,
+    "lat": 20.8993,
+    "lon": 73.4687,
+    "sm_surface": 0.4138,
+    "sm_rootzone": 0.4125,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 2,
+    "lat": 20.9981,
+    "lon": 73.2711,
+    "sm_surface": 0.5087,
+    "sm_rootzone": 0.5243,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 3,
+    "lat": 20.9981,
+    "lon": 73.3699,
+    "sm_surface": 0.5106,
+    "sm_rootzone": 0.5268,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 4,
+    "lat": 20.9981,
+    "lon": 73.4687,
+    "sm_surface": 0.4132,
+    "sm_rootzone": 0.412,
+    "n_villages_sharing_cell": 29
+   },
+   {
+    "cell_index": 5,
+    "lat": 20.9981,
+    "lon": 73.7652,
+    "sm_surface": 0.4033,
+    "sm_rootzone": 0.4224,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 6,
+    "lat": 21.0969,
+    "lon": 73.2711,
+    "sm_surface": 0.5093,
+    "sm_rootzone": 0.5306,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 7,
+    "lat": 21.0969,
+    "lon": 73.3699,
+    "sm_surface": 0.511,
+    "sm_rootzone": 0.5328,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 8,
+    "lat": 21.0969,
+    "lon": 73.4687,
+    "sm_surface": 0.5043,
+    "sm_rootzone": 0.5176,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 9,
+    "lat": 21.0969,
+    "lon": 73.5675,
+    "sm_surface": 0.5039,
+    "sm_rootzone": 0.517,
+    "n_villages_sharing_cell": 55
+   },
+   {
+    "cell_index": 10,
+    "lat": 21.0969,
+    "lon": 73.6663,
+    "sm_surface": 0.5043,
+    "sm_rootzone": 0.5176,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 11,
+    "lat": 21.1957,
+    "lon": 73.3699,
+    "sm_surface": 0.5026,
+    "sm_rootzone": 0.5285,
+    "n_villages_sharing_cell": 21
+   },
+   {
+    "cell_index": 12,
+    "lat": 21.1957,
+    "lon": 73.4687,
+    "sm_surface": 0.5043,
+    "sm_rootzone": 0.5299,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 13,
+    "lat": 21.1957,
+    "lon": 73.5675,
+    "sm_surface": 0.5039,
+    "sm_rootzone": 0.5293,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 14,
+    "lat": 21.1957,
+    "lon": 73.6663,
+    "sm_surface": 0.503,
+    "sm_rootzone": 0.5285,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 15,
+    "lat": 21.1957,
+    "lon": 73.7652,
+    "sm_surface": 0.4986,
+    "sm_rootzone": 0.5261,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 16,
+    "lat": 21.2946,
+    "lon": 73.4687,
+    "sm_surface": 0.5034,
+    "sm_rootzone": 0.5288,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 17,
+    "lat": 21.2946,
+    "lon": 73.5675,
+    "sm_surface": 0.5012,
+    "sm_rootzone": 0.5272,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 18,
+    "lat": 21.2946,
+    "lon": 73.6663,
+    "sm_surface": 0.4996,
+    "sm_rootzone": 0.5256,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 19,
+    "lat": 21.2946,
+    "lon": 73.7652,
+    "sm_surface": 0.4948,
+    "sm_rootzone": 0.5227,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 20,
+    "lat": 21.2946,
+    "lon": 73.864,
+    "sm_surface": 0.4852,
+    "sm_rootzone": 0.5158,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 21,
+    "lat": 21.3934,
+    "lon": 73.7652,
+    "sm_surface": 0.4903,
+    "sm_rootzone": 0.519,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 22,
+    "lat": 21.3934,
+    "lon": 73.864,
+    "sm_surface": 0.4778,
+    "sm_rootzone": 0.5097,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 23,
+    "lat": 21.4922,
+    "lon": 74.0616,
+    "sm_surface": 0.3945,
+    "sm_rootzone": 0.4267,
+    "n_villages_sharing_cell": 38
+   },
+   {
+    "cell_index": 24,
+    "lat": 21.4922,
+    "lon": 74.1604,
+    "sm_surface": 0.3788,
+    "sm_rootzone": 0.4137,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 25,
+    "lat": 21.4922,
+    "lon": 74.2592,
+    "sm_surface": 0.3584,
+    "sm_rootzone": 0.401,
+    "n_villages_sharing_cell": 19
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.455,
+  "sm_surface_stddev": 0.0494,
+  "n_blocks": 7
+ },
+ "blocks": [
+  {
+   "block_name": "Dolvan",
+   "sdcode": 6200,
+   "n_villages": 59,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.4307,
+   "sm_surface_stddev": 0.0379
+  },
+  {
+   "block_name": "Kukarmunda",
+   "sdcode": 6169,
+   "n_villages": 49,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3837,
+   "sm_surface_stddev": 0.0137
+  },
+  {
+   "block_name": "Nizar",
+   "sdcode": 3942,
+   "n_villages": 30,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.3877,
+   "sm_surface_stddev": 0.0336
+  },
+  {
+   "block_name": "Songadh",
+   "sdcode": 3944,
+   "n_villages": 185,
+   "n_cells_spanned": 12,
+   "sm_surface_mean": 0.4929,
+   "sm_surface_stddev": 0.0301
+  },
+  {
+   "block_name": "Uchchhal",
+   "sdcode": 3943,
+   "n_villages": 45,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.4936,
+   "sm_surface_stddev": 0.0091
+  },
+  {
+   "block_name": "Valod",
+   "sdcode": 3946,
+   "n_villages": 40,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.5087,
+   "sm_surface_stddev": 0.0014
+  },
+  {
+   "block_name": "Vyara",
+   "sdcode": 3945,
+   "n_villages": 91,
+   "n_cells_spanned": 10,
+   "sm_surface_mean": 0.4878,
+   "sm_surface_stddev": 0.0385
+  }
+ ],
+ "villages": {
+  "524437": [
+   "Itwai",
+   6169,
+   23
+  ],
+  "524431": [
+   "Modale",
+   6169,
+   23
+  ],
+  "524808": [
+   "Bagalpur",
+   6200,
+   2
+  ],
+  "524889": [
+   "Kosambiya",
+   3946,
+   2
+  ],
+  "524695": [
+   "Chikhalapada",
+   3944,
+   9
+  ],
+  "524791": [
+   "Nana Satsila",
+   3945,
+   9
+  ],
+  "524871": [
+   "Beldha",
+   3946,
+   6
+  ],
+  "524876": [
+   "Khambhla",
+   3946,
+   6
+  ],
+  "524618": [
+   "Ghanchikuva",
+   3944,
+   9
+  ],
+  "524590": [
+   "Amlipada",
+   3944,
+   13
+  ],
+  "524569": [
+   "Silatvel",
+   3944,
+   13
+  ],
+  "524547": [
+   "Gundi",
+   3944,
+   21
+  ],
+  "524452": [
+   "Hathode",
+   6169,
+   24
+  ],
+  "524418": [
+   "Chokhiamli",
+   6169,
+   23
+  ],
+  "524714": [
+   "Junai",
+   3944,
+   16
+  ],
+  "524817": [
+   "Vadpada",
+   3945,
+   4
+  ],
+  "524816": [
+   "Valotha",
+   3945,
+   4
+  ],
+  "524801": [
+   "Vandar Devi",
+   3945,
+   3
+  ],
+  "524880": [
+   "Inama",
+   3946,
+   6
+  ],
+  "524734": [
+   "Bhanavadi",
+   3945,
+   11
+  ],
+  "524743": [
+   "Khushalpura",
+   3945,
+   7
+  ],
+  "524742": [
+   "Indu",
+   3945,
+   7
+  ],
+  "524421": [
+   "Kevdamoi",
+   6169,
+   23
+  ],
+  "524678": [
+   "Temka",
+   3944,
+   9
+  ],
+  "524417": [
+   "Umja",
+   6169,
+   23
+  ],
+  "524420": [
+   "Borikuwa",
+   6169,
+   23
+  ],
+  "524768": [
+   "Dadakvan",
+   3945,
+   7
+  ],
+  "524766": [
+   "Chhirma",
+   3945,
+   3
+  ],
+  "524436": [
+   "Jhumkathi",
+   6169,
+   23
+  ],
+  "524765": [
+   "Khanpur",
+   3945,
+   3
+  ],
+  "524426": [
+   "Mataval",
+   6169,
+   24
+  ],
+  "524428": [
+   "Aste Tarfe Budhaval",
+   6169,
+   24
+  ],
+  "524425": [
+   "Chirmati",
+   6169,
+   24
+  ],
+  "524424": [
+   "Tulse",
+   6169,
+   23
+  ],
+  "524430": [
+   "Fulwadi",
+   6169,
+   24
+  ],
+  "524423": [
+   "Rajpur",
+   6169,
+   23
+  ],
+  "524422": [
+   "Balambe",
+   6169,
+   23
+  ],
+  "524427": [
+   "Amode Tarfe Talode",
+   6169,
+   24
+  ],
+  "524429": [
+   "Kelani",
+   6169,
+   24
+  ],
+  "524455": [
+   "Sadagvan",
+   6169,
+   25
+  ],
+  "524454": [
+   "Nimbhore",
+   6169,
+   25
+  ],
+  "524450": [
+   "Untavad",
+   6169,
+   24
+  ],
+  "524456": [
+   "Pishavar",
+   6169,
+   25
+  ],
+  "524807": [
+   "Beda Raypura",
+   6200,
+   2
+  ],
+  "524809": [
+   "Gangpur",
+   6200,
+   0
+  ],
+  "524827": [
+   "Rampura Dur",
+   6200,
+   0
+  ],
+  "524829": [
+   "Bhojpur Dur",
+   6200,
+   0
+  ],
+  "524830": [
+   "Vankla",
+   6200,
+   0
+  ],
+  "524843": [
+   "Panchol",
+   6200,
+   0
+  ],
+  "524833": [
+   "Pati",
+   6200,
+   0
+  ],
+  "524834": [
+   "Kumbhia",
+   6200,
+   0
+  ],
+  "524835": [
+   "Palasia",
+   6200,
+   0
+  ],
+  "524831": [
+   "Ghani",
+   6200,
+   0
+  ],
+  "524844": [
+   "Dolvan",
+   6200,
+   0
+  ],
+  "524832": [
+   "Bamnamal Dur",
+   6200,
+   0
+  ],
+  "524845": [
+   "Kakadva",
+   6200,
+   0
+  ],
+  "524846": [
+   "Kosamkuva",
+   6200,
+   0
+  ],
+  "524854": [
+   "Garpani",
+   6200,
+   0
+  ],
+  "524855": [
+   "Pathakwadi",
+   6200,
+   0
+  ],
+  "524857": [
+   "Varjakhan",
+   6200,
+   0
+  ],
+  "524856": [
+   "Umarvav Dur",
+   6200,
+   0
+  ],
+  "524828": [
+   "Rengan Kachchh",
+   6200,
+   0
+  ],
+  "524881": [
+   "Butwada",
+   3946,
+   6
+  ],
+  "524877": [
+   "Shiker",
+   3946,
+   6
+  ],
+  "524878": [
+   "Shahpor",
+   3946,
+   6
+  ],
+  "524885": [
+   "Valod",
+   3946,
+   6
+  ],
+  "524886": [
+   "Delwada",
+   3946,
+   6
+  ],
+  "524883": [
+   "Ambach",
+   3946,
+   3
+  ],
+  "524884": [
+   "Vedchhi",
+   3946,
+   2
+  ],
+  "524891": [
+   "Ranveri",
+   3946,
+   2
+  ],
+  "524888": [
+   "Bahej",
+   3946,
+   2
+  ],
+  "524887": [
+   "Mordevi",
+   3946,
+   2
+  ],
+  "524890": [
+   "Nalotha",
+   3946,
+   2
+  ],
+  "524892": [
+   "Kumbhiya",
+   3946,
+   2
+  ],
+  "524895": [
+   "Golan",
+   3946,
+   2
+  ],
+  "524898": [
+   "Dumkhal",
+   3946,
+   2
+  ],
+  "524893": [
+   "Kanajod",
+   3946,
+   2
+  ],
+  "524897": [
+   "Hathuka",
+   3946,
+   2
+  ],
+  "524894": [
+   "Bhimpor",
+   3946,
+   2
+  ],
+  "524896": [
+   "Dadariya",
+   3946,
+   2
+  ],
+  "524899": [
+   "Adyapor",
+   3946,
+   2
+  ],
+  "524902": [
+   "Goddha",
+   3946,
+   2
+  ],
+  "524903": [
+   "Andhatri",
+   3946,
+   2
+  ],
+  "524900": [
+   "Jamaniya",
+   3946,
+   2
+  ],
+  "524904": [
+   "Buhari",
+   3946,
+   2
+  ],
+  "524901": [
+   "Algat",
+   3946,
+   2
+  ],
+  "524905": [
+   "Pelad Buhari",
+   3946,
+   2
+  ],
+  "524906": [
+   "Virpor",
+   3946,
+   2
+  ],
+  "524764": [
+   "Rupvada",
+   3945,
+   7
+  ],
+  "524780": [
+   "Kelkui",
+   3945,
+   2
+  ],
+  "524784": [
+   "Bamnamal Najik",
+   3945,
+   3
+  ],
+  "524805": [
+   "Dharampura",
+   6200,
+   2
+  ],
+  "524760": [
+   "Kapura",
+   3945,
+   7
+  ],
+  "524810": [
+   "Kamlapor",
+   6200,
+   3
+  ],
+  "524778": [
+   "Kanjan",
+   3945,
+   3
+  ],
+  "524779": [
+   "Umarkui",
+   3945,
+   3
+  ],
+  "524785": [
+   "Khuntadiya",
+   3945,
+   3
+  ],
+  "524777": [
+   "Dhat",
+   3945,
+   3
+  ],
+  "524781": [
+   "Gheriyavav",
+   3945,
+   3
+  ],
+  "524782": [
+   "Kasvav",
+   3945,
+   3
+  ],
+  "524802": [
+   "Ambiya",
+   3945,
+   3
+  ],
+  "524803": [
+   "Jesingpur",
+   3945,
+   3
+  ],
+  "524813": [
+   "Umarvav Najik",
+   6200,
+   3
+  ],
+  "524812": [
+   "Gadat",
+   6200,
+   3
+  ],
+  "524806": [
+   "Kalakva",
+   6200,
+   2
+  ],
+  "524811": [
+   "Bedchit",
+   6200,
+   3
+  ],
+  "524767": [
+   "Malotha",
+   3945,
+   3
+  ],
+  "524804": [
+   "Umarkachchh",
+   6200,
+   3
+  ],
+  "524783": [
+   "Ramkuva",
+   3945,
+   3
+  ],
+  "524863": [
+   "Padam Dungari",
+   6200,
+   0
+  ],
+  "524861": [
+   "Halmundi",
+   6200,
+   1
+  ],
+  "524862": [
+   "Amania",
+   6200,
+   1
+  ],
+  "524865": [
+   "Chunawadi",
+   6200,
+   1
+  ],
+  "524860": [
+   "Raygadh",
+   6200,
+   1
+  ],
+  "524866": [
+   "Dungarda",
+   6200,
+   1
+  ],
+  "524864": [
+   "Borkachchh",
+   6200,
+   1
+  ],
+  "524840": [
+   "Haripura",
+   6200,
+   1
+  ],
+  "524842": [
+   "Andharvadi Dur",
+   6200,
+   0
+  ],
+  "524826": [
+   "Dhanturi",
+   6200,
+   3
+  ],
+  "524839": [
+   "Amonia",
+   6200,
+   1
+  ],
+  "524838": [
+   "Achhopalo",
+   6200,
+   4
+  ],
+  "524836": [
+   "Antapur",
+   6200,
+   1
+  ],
+  "524837": [
+   "Kalamkui",
+   6200,
+   1
+  ],
+  "524841": [
+   "Dholka",
+   6200,
+   1
+  ],
+  "524858": [
+   "Takiamba",
+   6200,
+   0
+  ],
+  "524859": [
+   "Besaniya",
+   6200,
+   1
+  ],
+  "524847": [
+   "Pithadara",
+   6200,
+   1
+  ],
+  "524848": [
+   "Jamalia",
+   6200,
+   1
+  ],
+  "524849": [
+   "Bardipada",
+   6200,
+   1
+  ],
+  "524850": [
+   "Pipalwada",
+   6200,
+   1
+  ],
+  "524852": [
+   "Karanjkhed",
+   6200,
+   1
+  ],
+  "524851": [
+   "Dhangdhar",
+   6200,
+   1
+  ],
+  "524853": [
+   "Kandha",
+   6200,
+   0
+  ],
+  "524821": [
+   "Barmada",
+   6200,
+   4
+  ],
+  "524666": [
+   "Gopalpura",
+   3944,
+   9
+  ],
+  "524656": [
+   "Vadpada P Umarda",
+   3944,
+   9
+  ],
+  "524665": [
+   "Bharadada",
+   3944,
+   10
+  ],
+  "524646": [
+   "Gatadi",
+   3944,
+   8
+  ],
+  "524668": [
+   "Amalgundi",
+   3944,
+   9
+  ],
+  "524647": [
+   "Tichakia",
+   3944,
+   8
+  ],
+  "524669": [
+   "Chakvan",
+   3944,
+   9
+  ],
+  "524652": [
+   "Sandhkuva",
+   3944,
+   9
+  ],
+  "524650": [
+   "Monghvan",
+   3944,
+   4
+  ],
+  "524651": [
+   "Maiyali",
+   3944,
+   9
+  ],
+  "524667": [
+   "Vanjhafali",
+   3944,
+   9
+  ],
+  "524648": [
+   "Hanmantiya",
+   3944,
+   8
+  ],
+  "524670": [
+   "Borkuva",
+   3944,
+   9
+  ],
+  "524649": [
+   "Mahudi",
+   3944,
+   4
+  ],
+  "524671": [
+   "Kalaghat",
+   3944,
+   9
+  ],
+  "524677": [
+   "Gunkhadi",
+   3944,
+   9
+  ],
+  "524676": [
+   "Taparvada",
+   3944,
+   9
+  ],
+  "524694": [
+   "Vadirupgadh",
+   3944,
+   9
+  ],
+  "524679": [
+   "Masanpada",
+   3944,
+   9
+  ],
+  "524673": [
+   "Ghodi Ruvali",
+   3944,
+   9
+  ],
+  "524672": [
+   "Mota Satsila",
+   3944,
+   9
+  ],
+  "524675": [
+   "Vadpada P Umarda",
+   3944,
+   9
+  ],
+  "524689": [
+   "Borpada",
+   3944,
+   9
+  ],
+  "524674": [
+   "Ghuntvel",
+   3944,
+   9
+  ],
+  "524691": [
+   "Mota Tarpada",
+   3944,
+   9
+  ],
+  "524690": [
+   "Khogal Gam",
+   3944,
+   9
+  ],
+  "524693": [
+   "Siraspada",
+   3944,
+   9
+  ],
+  "524770": [
+   "Chhindia",
+   3945,
+   7
+  ],
+  "524786": [
+   "Arkund",
+   3945,
+   4
+  ],
+  "524793": [
+   "Chhevdi",
+   3945,
+   9
+  ],
+  "524795": [
+   "Bhurivel",
+   3945,
+   4
+  ],
+  "524824": [
+   "Garvan",
+   6200,
+   4
+  ],
+  "524772": [
+   "Saraiya",
+   3945,
+   8
+  ],
+  "524798": [
+   "Karanjvel",
+   3945,
+   4
+  ],
+  "524792": [
+   "Dholia Umar",
+   3945,
+   9
+  ],
+  "524776": [
+   "Sankli",
+   3945,
+   3
+  ],
+  "524773": [
+   "Pervad",
+   3945,
+   4
+  ],
+  "524774": [
+   "Dolara",
+   3945,
+   4
+  ],
+  "524775": [
+   "Meghpur",
+   3945,
+   4
+  ],
+  "524769": [
+   "Magarkui",
+   3945,
+   7
+  ],
+  "524771": [
+   "Veldha",
+   3945,
+   8
+  ],
+  "524789": [
+   "Lakhali",
+   3945,
+   4
+  ],
+  "524788": [
+   "Khurdi",
+   3945,
+   4
+  ],
+  "524790": [
+   "Jhankhari",
+   3945,
+   4
+  ],
+  "524787": [
+   "Kapadvan",
+   3945,
+   4
+  ],
+  "524794": [
+   "Birbara",
+   3945,
+   4
+  ],
+  "524796": [
+   "Chichbardi",
+   3945,
+   4
+  ],
+  "524797": [
+   "Mirpur",
+   3945,
+   4
+  ],
+  "524800": [
+   "Balpur",
+   3945,
+   4
+  ],
+  "524799": [
+   "Katkui",
+   3945,
+   4
+  ],
+  "524818": [
+   "Rani Amba",
+   3945,
+   4
+  ],
+  "524819": [
+   "Dhongi Amba",
+   3945,
+   4
+  ],
+  "524822": [
+   "Ambapani",
+   6200,
+   4
+  ],
+  "524815": [
+   "Dhamandevi",
+   6200,
+   4
+  ],
+  "524814": [
+   "Mangalia",
+   6200,
+   3
+  ],
+  "524823": [
+   "Chakdhara",
+   6200,
+   4
+  ],
+  "524825": [
+   "Palavadi",
+   6200,
+   4
+  ],
+  "524820": [
+   "Kelvan",
+   6200,
+   4
+  ],
+  "524688": [
+   "Seljhar",
+   3944,
+   10
+  ],
+  "524698": [
+   "Virthava",
+   3944,
+   5
+  ],
+  "524660": [
+   "Nana Tarpada",
+   3944,
+   10
+  ],
+  "524661": [
+   "Ojhar",
+   3944,
+   10
+  ],
+  "524664": [
+   "Sadadvel",
+   3944,
+   10
+  ],
+  "524662": [
+   "Hindla",
+   3944,
+   10
+  ],
+  "524663": [
+   "Khadi",
+   3944,
+   10
+  ],
+  "524684": [
+   "Shravaniya",
+   3944,
+   10
+  ],
+  "524685": [
+   "Lavchali",
+   3944,
+   5
+  ],
+  "524680": [
+   "Dardi",
+   3944,
+   10
+  ],
+  "524682": [
+   "Dhanmauli",
+   3944,
+   10
+  ],
+  "524702": [
+   "Langad",
+   3944,
+   5
+  ],
+  "524683": [
+   "Amthava",
+   3944,
+   10
+  ],
+  "524686": [
+   "Chimer",
+   3944,
+   5
+  ],
+  "524681": [
+   "Umarda",
+   3944,
+   10
+  ],
+  "524687": [
+   "Kanti",
+   3944,
+   10
+  ],
+  "524696": [
+   "Khapatia",
+   3944,
+   5
+  ],
+  "524697": [
+   "Mohpada Malangdev",
+   3944,
+   5
+  ],
+  "524659": [
+   "Golan",
+   3944,
+   5
+  ],
+  "524700": [
+   "Malangdev",
+   3944,
+   5
+  ],
+  "524692": [
+   "Kapad Bandh",
+   3944,
+   10
+  ],
+  "524701": [
+   "Karvanda",
+   3944,
+   5
+  ],
+  "524707": [
+   "Pahadada",
+   3944,
+   5
+  ],
+  "524708": [
+   "Mal",
+   3944,
+   5
+  ],
+  "524867": [
+   "Bedkuva",
+   3946,
+   11
+  ],
+  "524868": [
+   "Dhamodla",
+   3946,
+   11
+  ],
+  "524869": [
+   "Kalamkui",
+   3946,
+   6
+  ],
+  "524870": [
+   "Kaher",
+   3946,
+   6
+  ],
+  "524872": [
+   "Syadla",
+   3946,
+   6
+  ],
+  "524873": [
+   "Titva",
+   3946,
+   6
+  ],
+  "524874": [
+   "Kamalchhod",
+   3946,
+   6
+  ],
+  "524882": [
+   "Degama",
+   3946,
+   6
+  ],
+  "524875": [
+   "Tokarva",
+   3946,
+   6
+  ],
+  "524879": [
+   "Nansad",
+   3946,
+   6
+  ],
+  "524719": [
+   "Kala Vyara",
+   3945,
+   16
+  ],
+  "524718": [
+   "Kanja",
+   3945,
+   11
+  ],
+  "524722": [
+   "Unchamala",
+   3945,
+   11
+  ],
+  "524723": [
+   "Limbarda",
+   3945,
+   11
+  ],
+  "524720": [
+   "Bedkuva Dur",
+   3945,
+   11
+  ],
+  "524724": [
+   "Vadkui",
+   3945,
+   11
+  ],
+  "524725": [
+   "Umarkuva",
+   3945,
+   11
+  ],
+  "524726": [
+   "Ghata",
+   3945,
+   11
+  ],
+  "524728": [
+   "Vanskui",
+   3945,
+   11
+  ],
+  "524727": [
+   "Katiskuva Dur",
+   3945,
+   11
+  ],
+  "524729": [
+   "Champavadi",
+   3945,
+   11
+  ],
+  "524732": [
+   "Dungargam",
+   3945,
+   11
+  ],
+  "524735": [
+   "Katasvan",
+   3945,
+   11
+  ],
+  "524736": [
+   "Chikhalvav",
+   3945,
+   11
+  ],
+  "524745": [
+   "Borkhadi",
+   3945,
+   6
+  ],
+  "524744": [
+   "Kohli",
+   3945,
+   7
+  ],
+  "524746": [
+   "Maypur",
+   3945,
+   7
+  ],
+  "524748": [
+   "Paniyari",
+   3945,
+   7
+  ],
+  "524761": [
+   "Andharvadi Najik",
+   3945,
+   7
+  ],
+  "524747": [
+   "Tichakpura",
+   3945,
+   7
+  ],
+  "524750": [
+   "Panvadi",
+   3945,
+   7
+  ],
+  "524763": [
+   "Shahpur",
+   3945,
+   7
+  ],
+  "524762": [
+   "Bhojpur Najik",
+   3945,
+   7
+  ],
+  "524737": [
+   "Rampura Najik",
+   3945,
+   11
+  ],
+  "524733": [
+   "Lotarva",
+   3945,
+   6
+  ],
+  "524759": [
+   "Jetvadi",
+   3945,
+   7
+  ],
+  "524749": [
+   "Bhatpur",
+   3945,
+   7
+  ],
+  "251244": [
+   "Vyara",
+   3945,
+   7
+  ],
+  "524595": [
+   "Agasvan",
+   3944,
+   12
+  ],
+  "524602": [
+   "Pokhran",
+   3944,
+   13
+  ],
+  "524619": [
+   "Khanjar",
+   3944,
+   9
+  ],
+  "524637": [
+   "Don",
+   3944,
+   10
+  ],
+  "524624": [
+   "Chikhli Khadka",
+   3944,
+   8
+  ],
+  "524625": [
+   "Dhamodi",
+   3944,
+   8
+  ],
+  "524643": [
+   "Vadpada P Tokarva",
+   3944,
+   9
+  ],
+  "524597": [
+   "Achhalva",
+   3944,
+   12
+  ],
+  "524598": [
+   "Sadadkuva",
+   3944,
+   13
+  ],
+  "524599": [
+   "Bedvan Khadka",
+   3944,
+   13
+  ],
+  "524603": [
+   "Kikakui",
+   3944,
+   12
+  ],
+  "524604": [
+   "Mandal",
+   3944,
+   12
+  ],
+  "524600": [
+   "Rampura Kothar",
+   3944,
+   13
+  ],
+  "524605": [
+   "Chakalia",
+   3944,
+   8
+  ],
+  "524613": [
+   "Gaisavar",
+   3944,
+   9
+  ],
+  "524610": [
+   "Chapaldhara",
+   3944,
+   9
+  ],
+  "524612": [
+   "Balamrai",
+   3944,
+   9
+  ],
+  "524608": [
+   "Kumkuva",
+   3944,
+   9
+  ],
+  "524606": [
+   "Khambhala",
+   3944,
+   8
+  ],
+  "524607": [
+   "Dosvada",
+   3944,
+   8
+  ],
+  "524611": [
+   "Raniamba",
+   3944,
+   9
+  ],
+  "524614": [
+   "Chimkuva",
+   3944,
+   9
+  ],
+  "524615": [
+   "Tokarva Segupada",
+   3944,
+   9
+  ],
+  "524609": [
+   "Rupvada",
+   3944,
+   9
+  ],
+  "524635": [
+   "Khokhsa",
+   3944,
+   9
+  ],
+  "524616": [
+   "Tokarva Jamankuva",
+   3944,
+   9
+  ],
+  "524623": [
+   "Chorvad",
+   3944,
+   8
+  ],
+  "524631": [
+   "Nana Bandharpada",
+   3944,
+   9
+  ],
+  "524617": [
+   "Kakad Kuva",
+   3944,
+   9
+  ],
+  "524620": [
+   "Kharsi",
+   3944,
+   8
+  ],
+  "524634": [
+   "Medhsingi",
+   3944,
+   9
+  ],
+  "524621": [
+   "Devalpada",
+   3944,
+   8
+  ],
+  "524632": [
+   "Jharali",
+   3944,
+   9
+  ],
+  "524633": [
+   "Nani Bhurvan",
+   3944,
+   9
+  ],
+  "524622": [
+   "Kanala",
+   3944,
+   8
+  ],
+  "524630": [
+   "Rampura Kanadevi",
+   3944,
+   9
+  ],
+  "524638": [
+   "Moti Bhurvan",
+   3944,
+   9
+  ],
+  "524642": [
+   "Kukadjhar",
+   3944,
+   9
+  ],
+  "524629": [
+   "Kanadevi",
+   3944,
+   9
+  ],
+  "524640": [
+   "Amba",
+   3944,
+   9
+  ],
+  "524657": [
+   "Jamkhadi",
+   3944,
+   10
+  ],
+  "524626": [
+   "Junvan",
+   3944,
+   8
+  ],
+  "524628": [
+   "Bedpada",
+   3944,
+   8
+  ],
+  "524639": [
+   "Hiravadi",
+   3944,
+   9
+  ],
+  "524641": [
+   "Kukradungri",
+   3944,
+   9
+  ],
+  "524627": [
+   "Galkuva",
+   3944,
+   8
+  ],
+  "524644": [
+   "Ghodchit",
+   3944,
+   9
+  ],
+  "524655": [
+   "Bedvan P Umarda",
+   3944,
+   9
+  ],
+  "524654": [
+   "Kakad Kuva P Umarda",
+   3944,
+   9
+  ],
+  "524653": [
+   "Tarsadi",
+   3944,
+   9
+  ],
+  "524645": [
+   "Bandharpada",
+   3944,
+   8
+  ],
+  "524519": [
+   "Pankhri",
+   3943,
+   13
+  ],
+  "524520": [
+   "Mirkot",
+   3943,
+   14
+  ],
+  "524730": [
+   "Vaghpani",
+   3945,
+   11
+  ],
+  "524731": [
+   "Sadadvan",
+   3945,
+   11
+  ],
+  "524738": [
+   "Katiskuva Najik",
+   3945,
+   11
+  ],
+  "524739": [
+   "Sarkuva",
+   3945,
+   12
+  ],
+  "524741": [
+   "Bedkuva Najik",
+   3945,
+   7
+  ],
+  "524740": [
+   "Katgadh",
+   3945,
+   8
+  ],
+  "524753": [
+   "Virpur",
+   3945,
+   8
+  ],
+  "524752": [
+   "Tadkuva",
+   3945,
+   7
+  ],
+  "524754": [
+   "Chikhli",
+   3945,
+   8
+  ],
+  "524751": [
+   "Kanpura",
+   3945,
+   7
+  ],
+  "524755": [
+   "Vaghjhari",
+   3945,
+   8
+  ],
+  "524756": [
+   "Chikhalda",
+   3945,
+   8
+  ],
+  "524757": [
+   "Musa",
+   3945,
+   7
+  ],
+  "524758": [
+   "Madav",
+   3945,
+   7
+  ],
+  "251230": [
+   "Songadh",
+   3944,
+   13
+  ],
+  "524596": [
+   "Nishana",
+   3944,
+   12
+  ],
+  "524559": [
+   "Ghasiya Medha",
+   3944,
+   16
+  ],
+  "524553": [
+   "Serulla",
+   3944,
+   17
+  ],
+  "524555": [
+   "Sar Jamli",
+   3944,
+   17
+  ],
+  "524558": [
+   "Khervada",
+   3944,
+   16
+  ],
+  "524554": [
+   "Limbi",
+   3944,
+   17
+  ],
+  "524556": [
+   "Nindvada",
+   3944,
+   16
+  ],
+  "524565": [
+   "Bori Savar",
+   3944,
+   17
+  ],
+  "524571": [
+   "Vadi Bhensrot",
+   3944,
+   17
+  ],
+  "524564": [
+   "Vekur",
+   3944,
+   16
+  ],
+  "524561": [
+   "Panch Pipla",
+   3944,
+   16
+  ],
+  "524573": [
+   "Vaghnera",
+   3944,
+   16
+  ],
+  "524563": [
+   "Jamapur",
+   3944,
+   16
+  ],
+  "524567": [
+   "Singal Khanch",
+   3944,
+   17
+  ],
+  "524572": [
+   "Singpur",
+   3944,
+   17
+  ],
+  "524593": [
+   "Amli",
+   3944,
+   12
+  ],
+  "524594": [
+   "Bedi",
+   3944,
+   12
+  ],
+  "524557": [
+   "Bhatvada",
+   3944,
+   16
+  ],
+  "524566": [
+   "Vadda P Bhensrot",
+   3944,
+   17
+  ],
+  "524560": [
+   "Sisor",
+   3944,
+   12
+  ],
+  "524570": [
+   "Patharda",
+   3944,
+   17
+  ],
+  "524574": [
+   "Dhajamba",
+   3944,
+   12
+  ],
+  "524562": [
+   "Bhanpur",
+   3944,
+   16
+  ],
+  "524582": [
+   "Pipalkuva",
+   3944,
+   13
+  ],
+  "524575": [
+   "Veljhar",
+   3944,
+   12
+  ],
+  "524584": [
+   "Nani Khervan",
+   3944,
+   13
+  ],
+  "524579": [
+   "Ukhalda",
+   3944,
+   12
+  ],
+  "524585": [
+   "Ghoda",
+   3944,
+   13
+  ],
+  "524577": [
+   "Vajharda",
+   3944,
+   12
+  ],
+  "524586": [
+   "Bhimpura",
+   3944,
+   13
+  ],
+  "524581": [
+   "Galkhadi",
+   3944,
+   12
+  ],
+  "524576": [
+   "Chikhli Bhensrot",
+   3944,
+   12
+  ],
+  "524583": [
+   "Moti Khervan",
+   3944,
+   13
+  ],
+  "524578": [
+   "Bedvan P Bhensrot",
+   3944,
+   12
+  ],
+  "524587": [
+   "Vagda",
+   3944,
+   13
+  ],
+  "524580": [
+   "Jhadpati",
+   3944,
+   12
+  ],
+  "524588": [
+   "Gunsada",
+   3944,
+   13
+  ],
+  "524591": [
+   "Kelai",
+   3944,
+   12
+  ],
+  "524589": [
+   "Dumda",
+   3944,
+   13
+  ],
+  "524592": [
+   "Kavla",
+   3944,
+   12
+  ],
+  "524512": [
+   "Thuti",
+   3943,
+   13
+  ],
+  "524518": [
+   "Parchuli",
+   3943,
+   14
+  ],
+  "524721": [
+   "Khod Talav",
+   3945,
+   11
+  ],
+  "524551": [
+   "Amalpada",
+   3944,
+   18
+  ],
+  "524636": [
+   "Kanji",
+   3944,
+   10
+  ],
+  "524699": [
+   "Ekva Golan",
+   3944,
+   10
+  ],
+  "524658": [
+   "Medha",
+   3944,
+   10
+  ],
+  "524538": [
+   "Tavli",
+   3943,
+   19
+  ],
+  "524513": [
+   "Chhapti",
+   3943,
+   20
+  ],
+  "524511": [
+   "Chikhli",
+   3943,
+   15
+  ],
+  "524514": [
+   "Babarghat",
+   3943,
+   15
+  ],
+  "524517": [
+   "Abhankuva",
+   3943,
+   14
+  ],
+  "524515": [
+   "Bhintkhurd",
+   3943,
+   15
+  ],
+  "524525": [
+   "Haripur",
+   3943,
+   15
+  ],
+  "524528": [
+   "Khabda",
+   3943,
+   15
+  ],
+  "524524": [
+   "Bhintbudrak",
+   3943,
+   15
+  ],
+  "524521": [
+   "Selud",
+   3943,
+   14
+  ],
+  "524523": [
+   "Sase",
+   3943,
+   14
+  ],
+  "524529": [
+   "Uchchhal",
+   3943,
+   15
+  ],
+  "524522": [
+   "Jamki",
+   3943,
+   14
+  ],
+  "524530": [
+   "Dhaj",
+   3943,
+   15
+  ],
+  "524531": [
+   "Sakarda",
+   3943,
+   15
+  ],
+  "524533": [
+   "Anandpur",
+   3943,
+   14
+  ],
+  "524532": [
+   "Bhad Bhunja",
+   3943,
+   14
+  ],
+  "524535": [
+   "Kataswan",
+   3943,
+   15
+  ],
+  "524534": [
+   "Jharanpada",
+   3943,
+   14
+  ],
+  "524526": [
+   "Manekpur",
+   3943,
+   15
+  ],
+  "524527": [
+   "Sundarpur",
+   3943,
+   15
+  ],
+  "524552": [
+   "Bavli",
+   3944,
+   18
+  ],
+  "524516": [
+   "Vadpatal",
+   3943,
+   14
+  ],
+  "524537": [
+   "Kanchli",
+   3943,
+   15
+  ],
+  "524568": [
+   "Bundha",
+   3944,
+   14
+  ],
+  "524543": [
+   "Otatokarva",
+   3944,
+   17
+  ],
+  "524542": [
+   "Singalvan",
+   3944,
+   16
+  ],
+  "524541": [
+   "Samarkuva",
+   3944,
+   16
+  ],
+  "524711": [
+   "Amaldi",
+   3944,
+   16
+  ],
+  "524712": [
+   "Ajvar",
+   3944,
+   16
+  ],
+  "524717": [
+   "Bhurivel CT",
+   3944,
+   13
+  ],
+  "524716": [
+   "Ukai CT",
+   3944,
+   17
+  ],
+  "524486": [
+   "Borde",
+   3942,
+   23
+  ],
+  "999999": [
+   "R F",
+   3944,
+   18
+  ],
+  "524544": [
+   "Ukai Resettlement Village No 3",
+   3944,
+   18
+  ],
+  "524549": [
+   "Satkashi",
+   3944,
+   18
+  ],
+  "524550": [
+   "Kuilivel",
+   3944,
+   18
+  ],
+  "524508": [
+   "Vadpada Nesu",
+   3943,
+   20
+  ],
+  "524509": [
+   "Jamli",
+   3943,
+   19
+  ],
+  "524500": [
+   "Gavan",
+   3943,
+   20
+  ],
+  "524545": [
+   "Borda",
+   3944,
+   21
+  ],
+  "524546": [
+   "Jhari Amba",
+   3944,
+   21
+  ],
+  "524548": [
+   "Vajpur",
+   3944,
+   21
+  ],
+  "524710": [
+   "Sinand",
+   3944,
+   5
+  ],
+  "524705": [
+   "Otta",
+   3944,
+   5
+  ],
+  "524706": [
+   "Rasmati",
+   3944,
+   5
+  ],
+  "524709": [
+   "Sadadun",
+   3944,
+   5
+  ],
+  "524703": [
+   "Ghusargam",
+   3944,
+   5
+  ],
+  "524704": [
+   "Bhorthava",
+   3944,
+   5
+  ],
+  "524503": [
+   "Sevti",
+   3943,
+   20
+  ],
+  "524507": [
+   "Vaghsepa Nana",
+   3943,
+   20
+  ],
+  "524510": [
+   "Chandapur",
+   3943,
+   20
+  ],
+  "524504": [
+   "Ukai Resettlement Village No 1",
+   3943,
+   20
+  ],
+  "524434": [
+   "Moramba",
+   6169,
+   23
+  ],
+  "524435": [
+   "Varpada",
+   6169,
+   23
+  ],
+  "524433": [
+   "Taranda",
+   6169,
+   23
+  ],
+  "524432": [
+   "Medhpur",
+   6169,
+   23
+  ],
+  "524438": [
+   "Ziribeda",
+   6169,
+   23
+  ],
+  "524440": [
+   "Dabriamba",
+   6169,
+   23
+  ],
+  "524494": [
+   "Lakshmi Kheda",
+   3942,
+   23
+  ],
+  "524493": [
+   "Gamdi",
+   3942,
+   23
+  ],
+  "524495": [
+   "Bhil Jamboli",
+   3942,
+   23
+  ],
+  "524490": [
+   "Shale",
+   3942,
+   22
+  ],
+  "524491": [
+   "Raygadh",
+   3942,
+   23
+  ],
+  "524487": [
+   "Bhil Bhavali",
+   3942,
+   23
+  ],
+  "524492": [
+   "Gujarpur",
+   3942,
+   23
+  ],
+  "524496": [
+   "Mogran",
+   3943,
+   22
+  ],
+  "524498": [
+   "Pati Bandhara",
+   3943,
+   22
+  ],
+  "524536": [
+   "Vadgam",
+   3943,
+   22
+  ],
+  "524502": [
+   "Karod",
+   3943,
+   20
+  ],
+  "524501": [
+   "Ful Umran",
+   3943,
+   20
+  ],
+  "524505": [
+   "Mohini",
+   3943,
+   20
+  ],
+  "524499": [
+   "Mohpada",
+   3943,
+   22
+  ],
+  "524470": [
+   "Hathnur Digar",
+   3942,
+   23
+  ],
+  "524444": [
+   "Amode Tarfe Satone",
+   6169,
+   23
+  ],
+  "524441": [
+   "Gangtha",
+   6169,
+   23
+  ],
+  "524443": [
+   "Ranaichi",
+   6169,
+   23
+  ],
+  "524439": [
+   "Parod",
+   6169,
+   23
+  ],
+  "524442": [
+   "Ashapur",
+   6169,
+   23
+  ],
+  "524467": [
+   "Jhapampi Alis Jhampa Amli",
+   6169,
+   23
+  ],
+  "524468": [
+   "Patipada",
+   6169,
+   23
+  ],
+  "524469": [
+   "Lekurvadi",
+   3942,
+   23
+  ],
+  "524488": [
+   "Arkund",
+   3942,
+   22
+  ],
+  "524489": [
+   "Deo Mogra Gaibiumar",
+   3942,
+   22
+  ],
+  "524497": [
+   "Ukai Resettlement Village No 2",
+   3943,
+   22
+  ],
+  "524539": [
+   "Vaghchhipa",
+   3943,
+   22
+  ],
+  "524453": [
+   "Bahurupa",
+   6169,
+   25
+  ],
+  "524461": [
+   "Balde",
+   6169,
+   25
+  ],
+  "524458": [
+   "Bhamsal",
+   6169,
+   25
+  ],
+  "524459": [
+   "Hol",
+   6169,
+   25
+  ],
+  "524460": [
+   "Satola",
+   6169,
+   25
+  ],
+  "524463": [
+   "Kothli Budrak",
+   3942,
+   24
+  ],
+  "524476": [
+   "Hingni Digar",
+   3942,
+   25
+  ],
+  "524483": [
+   "Nizar",
+   3942,
+   24
+  ],
+  "524472": [
+   "Mubarakpur",
+   3942,
+   24
+  ],
+  "524477": [
+   "Sulvade",
+   3942,
+   25
+  ],
+  "524484": [
+   "Kvelde",
+   3942,
+   24
+  ],
+  "524485": [
+   "Khodada",
+   3942,
+   23
+  ],
+  "524481": [
+   "Sarvale",
+   3942,
+   25
+  ],
+  "524471": [
+   "Adada",
+   3942,
+   23
+  ],
+  "524480": [
+   "Devala",
+   3942,
+   25
+  ],
+  "524479": [
+   "Piplod Tarfe Nizar",
+   3942,
+   25
+  ],
+  "524482": [
+   "Harduli Digar",
+   3942,
+   25
+  ],
+  "524448": [
+   "Gorasa",
+   6169,
+   24
+  ],
+  "524449": [
+   "Pimlas",
+   6169,
+   24
+  ],
+  "524445": [
+   "Pati",
+   6169,
+   23
+  ],
+  "524451": [
+   "Ashrava",
+   6169,
+   24
+  ],
+  "524447": [
+   "Kondraj",
+   6169,
+   24
+  ],
+  "524446": [
+   "Kukarmunda",
+   6169,
+   24
+  ],
+  "524466": [
+   "Bej",
+   6169,
+   23
+  ],
+  "524462": [
+   "Antruli",
+   3942,
+   24
+  ],
+  "524473": [
+   "Vanka",
+   3942,
+   25
+  ],
+  "524465": [
+   "Gadid",
+   6169,
+   23
+  ],
+  "524474": [
+   "Chinchoda",
+   3942,
+   25
+  ],
+  "524475": [
+   "Shelu",
+   3942,
+   25
+  ],
+  "524464": [
+   "Nevale",
+   3942,
+   24
+  ],
+  "524457": [
+   "Ubhad",
+   6169,
+   25
+  ],
+  "524478": [
+   "Vyaval",
+   3942,
+   25
+  ],
+  "524419": [
+   "Akkalutar",
+   6169,
+   23
+  ],
+  "524601": [
+   "Champavadi",
+   3944,
+   13
+  ],
+  "524715": [
+   "Songir",
+   3944,
+   12
+  ],
+  "524540": [
+   "Kumbhrad",
+   3943,
+   15
+  ],
+  "524713": [
+   "Mandvi Pani",
+   3944,
+   21
+  ],
+  "524506": [
+   "Vaghsepa Mota",
+   3943,
+   20
+  ]
+ },
+ "village_count_total": 499,
+ "village_count_assigned": 499
+}

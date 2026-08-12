@@ -1,0 +1,5272 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Uttar Pradesh",
+  "district": "Amethi",
+  "district_lgd": 640,
+  "observation_window": "2026-08-07T11:27Z to 2026-08-12T11:27Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2823,
+  "sm_surface_stddev": 0.0091,
+  "sm_rootzone_mean": 0.2976,
+  "sm_rootzone_stddev": 0.0194,
+  "n_cells": 23,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 26.1365,
+    "lon": 81.6703,
+    "sm_surface": 0.2758,
+    "sm_rootzone": 0.2793,
+    "n_villages_sharing_cell": 38
+   },
+   {
+    "cell_index": 1,
+    "lat": 26.1365,
+    "lon": 81.7691,
+    "sm_surface": 0.2793,
+    "sm_rootzone": 0.2855,
+    "n_villages_sharing_cell": 74
+   },
+   {
+    "cell_index": 2,
+    "lat": 26.1365,
+    "lon": 81.868,
+    "sm_surface": 0.2896,
+    "sm_rootzone": 0.2944,
+    "n_villages_sharing_cell": 69
+   },
+   {
+    "cell_index": 3,
+    "lat": 26.1365,
+    "lon": 81.9668,
+    "sm_surface": 0.3027,
+    "sm_rootzone": 0.3361,
+    "n_villages_sharing_cell": 102
+   },
+   {
+    "cell_index": 4,
+    "lat": 26.2353,
+    "lon": 81.3739,
+    "sm_surface": 0.2655,
+    "sm_rootzone": 0.2731,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 5,
+    "lat": 26.2353,
+    "lon": 81.4727,
+    "sm_surface": 0.2708,
+    "sm_rootzone": 0.2812,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 6,
+    "lat": 26.2353,
+    "lon": 81.6703,
+    "sm_surface": 0.2766,
+    "sm_rootzone": 0.2874,
+    "n_villages_sharing_cell": 54
+   },
+   {
+    "cell_index": 7,
+    "lat": 26.2353,
+    "lon": 81.7691,
+    "sm_surface": 0.2781,
+    "sm_rootzone": 0.2856,
+    "n_villages_sharing_cell": 60
+   },
+   {
+    "cell_index": 8,
+    "lat": 26.2353,
+    "lon": 81.868,
+    "sm_surface": 0.2891,
+    "sm_rootzone": 0.323,
+    "n_villages_sharing_cell": 37
+   },
+   {
+    "cell_index": 9,
+    "lat": 26.3341,
+    "lon": 81.3739,
+    "sm_surface": 0.2673,
+    "sm_rootzone": 0.2754,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 10,
+    "lat": 26.3341,
+    "lon": 81.4727,
+    "sm_surface": 0.2889,
+    "sm_rootzone": 0.3237,
+    "n_villages_sharing_cell": 35
+   },
+   {
+    "cell_index": 11,
+    "lat": 26.3341,
+    "lon": 81.5715,
+    "sm_surface": 0.2953,
+    "sm_rootzone": 0.3326,
+    "n_villages_sharing_cell": 45
+   },
+   {
+    "cell_index": 12,
+    "lat": 26.3341,
+    "lon": 81.6703,
+    "sm_surface": 0.2944,
+    "sm_rootzone": 0.3294,
+    "n_villages_sharing_cell": 35
+   },
+   {
+    "cell_index": 13,
+    "lat": 26.3341,
+    "lon": 81.7691,
+    "sm_surface": 0.2879,
+    "sm_rootzone": 0.3223,
+    "n_villages_sharing_cell": 81
+   },
+   {
+    "cell_index": 14,
+    "lat": 26.4329,
+    "lon": 81.4727,
+    "sm_surface": 0.2822,
+    "sm_rootzone": 0.2942,
+    "n_villages_sharing_cell": 44
+   },
+   {
+    "cell_index": 15,
+    "lat": 26.4329,
+    "lon": 81.5715,
+    "sm_surface": 0.2899,
+    "sm_rootzone": 0.3024,
+    "n_villages_sharing_cell": 49
+   },
+   {
+    "cell_index": 16,
+    "lat": 26.4329,
+    "lon": 81.6703,
+    "sm_surface": 0.2827,
+    "sm_rootzone": 0.293,
+    "n_villages_sharing_cell": 44
+   },
+   {
+    "cell_index": 17,
+    "lat": 26.4329,
+    "lon": 81.7691,
+    "sm_surface": 0.2702,
+    "sm_rootzone": 0.2744,
+    "n_villages_sharing_cell": 44
+   },
+   {
+    "cell_index": 18,
+    "lat": 26.5317,
+    "lon": 81.3739,
+    "sm_surface": 0.2773,
+    "sm_rootzone": 0.288,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 19,
+    "lat": 26.5317,
+    "lon": 81.4727,
+    "sm_surface": 0.2827,
+    "sm_rootzone": 0.2938,
+    "n_villages_sharing_cell": 27
+   },
+   {
+    "cell_index": 20,
+    "lat": 26.5317,
+    "lon": 81.5715,
+    "sm_surface": 0.2854,
+    "sm_rootzone": 0.2942,
+    "n_villages_sharing_cell": 32
+   },
+   {
+    "cell_index": 21,
+    "lat": 26.5317,
+    "lon": 81.6703,
+    "sm_surface": 0.2784,
+    "sm_rootzone": 0.2853,
+    "n_villages_sharing_cell": 49
+   },
+   {
+    "cell_index": 22,
+    "lat": 26.6306,
+    "lon": 81.5715,
+    "sm_surface": 0.2837,
+    "sm_rootzone": 0.2915,
+    "n_villages_sharing_cell": 15
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2844,
+  "sm_surface_stddev": 0.0039,
+  "n_blocks": 4
+ },
+ "blocks": [
+  {
+   "block_name": "Amethi",
+   "sdcode": 914,
+   "n_villages": 294,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.2909,
+   "sm_surface_stddev": 0.0096
+  },
+  {
+   "block_name": "Gauriganj",
+   "sdcode": 913,
+   "n_villages": 259,
+   "n_cells_spanned": 11,
+   "sm_surface_mean": 0.2836,
+   "sm_surface_stddev": 0.0077
+  },
+  {
+   "block_name": "Musafirkhana",
+   "sdcode": 912,
+   "n_villages": 251,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.282,
+   "sm_surface_stddev": 0.0065
+  },
+  {
+   "block_name": "Tiloi",
+   "sdcode": 824,
+   "n_villages": 200,
+   "n_cells_spanned": 10,
+   "sm_surface_mean": 0.281,
+   "sm_surface_stddev": 0.0084
+  }
+ ],
+ "villages": {
+  "169328": [
+   "Katra Raja Himmat Singh",
+   914,
+   1
+  ],
+  "169131": [
+   "Usrapur",
+   913,
+   13
+  ],
+  "169331": [
+   "Sarai Rajshah",
+   914,
+   2
+  ],
+  "169019": [
+   "Tiwari Pur",
+   912,
+   13
+  ],
+  "169117": [
+   "Govindapur",
+   913,
+   13
+  ],
+  "169160": [
+   "Kushbaira",
+   913,
+   7
+  ],
+  "168987": [
+   "Ramnagar Urf Nayakot",
+   912,
+   13
+  ],
+  "169387": [
+   "Poore Muhib Shah",
+   914,
+   1
+  ],
+  "144168": [
+   "Basauni",
+   824,
+   5
+  ],
+  "144154": [
+   "Brahmani",
+   824,
+   4
+  ],
+  "144178": [
+   "Tendva",
+   824,
+   5
+  ],
+  "144157": [
+   "Tarauna",
+   824,
+   4
+  ],
+  "144156": [
+   "Saimbasi",
+   824,
+   4
+  ],
+  "144179": [
+   "Fatehpur Mawaiya",
+   824,
+   5
+  ],
+  "144159": [
+   "Mohaiya Kesariya",
+   824,
+   4
+  ],
+  "144160": [
+   "Bhadaiya Mahmoodpur",
+   824,
+   4
+  ],
+  "144158": [
+   "Sarwan",
+   824,
+   4
+  ],
+  "144155": [
+   "Kisunpur Kewae",
+   824,
+   4
+  ],
+  "144161": [
+   "Khairahana",
+   824,
+   5
+  ],
+  "169232": [
+   "Palia",
+   913,
+   0
+  ],
+  "169248": [
+   "Biswan",
+   913,
+   0
+  ],
+  "169238": [
+   "Rampur Kurwa",
+   913,
+   6
+  ],
+  "169264": [
+   "Kharanwan",
+   913,
+   0
+  ],
+  "169439": [
+   "Narsingh Bhanpur",
+   914,
+   7
+  ],
+  "169254": [
+   "Paharpur",
+   913,
+   0
+  ],
+  "169359": [
+   "Aghar",
+   914,
+   1
+  ],
+  "144085": [
+   "Saidpur",
+   824,
+   9
+  ],
+  "144103": [
+   "Chetra Khurd",
+   824,
+   10
+  ],
+  "144102": [
+   "Pakar Gaon",
+   824,
+   10
+  ],
+  "169410": [
+   "Mohan Pur",
+   914,
+   2
+  ],
+  "144093": [
+   "Pure Manimanohar",
+   824,
+   10
+  ],
+  "144099": [
+   "Dhanhuwa",
+   824,
+   10
+  ],
+  "144084": [
+   "Kotwa",
+   824,
+   9
+  ],
+  "144164": [
+   "Urwa",
+   824,
+   10
+  ],
+  "144109": [
+   "Savitapur",
+   824,
+   10
+  ],
+  "144105": [
+   "Bardharme",
+   824,
+   10
+  ],
+  "144174": [
+   "Sarai Mahesha",
+   824,
+   5
+  ],
+  "144098": [
+   "Rajwapur",
+   824,
+   10
+  ],
+  "144094": [
+   "Pure Manga",
+   824,
+   10
+  ],
+  "144096": [
+   "Uttarpara",
+   824,
+   10
+  ],
+  "144165": [
+   "Kesariya Salimpur",
+   824,
+   5
+  ],
+  "144108": [
+   "Barkot",
+   824,
+   10
+  ],
+  "144095": [
+   "Baghauna",
+   824,
+   10
+  ],
+  "144152": [
+   "Khalispur",
+   824,
+   4
+  ],
+  "144153": [
+   "Jamalpur Rampur",
+   824,
+   4
+  ],
+  "144086": [
+   "Karaunka",
+   824,
+   9
+  ],
+  "144107": [
+   "Sangrampur",
+   824,
+   10
+  ],
+  "144101": [
+   "Ramae",
+   824,
+   10
+  ],
+  "144097": [
+   "Chaura",
+   824,
+   10
+  ],
+  "169343": [
+   "Gyan Chandra Pur",
+   914,
+   1
+  ],
+  "169203": [
+   "Hasram Pur",
+   913,
+   6
+  ],
+  "144163": [
+   "Nawawan",
+   824,
+   10
+  ],
+  "144169": [
+   "Daulatpur Sidhariya",
+   824,
+   10
+  ],
+  "144162": [
+   "Bhadehara",
+   824,
+   9
+  ],
+  "144100": [
+   "Satwa",
+   824,
+   10
+  ],
+  "144090": [
+   "Alaipur",
+   824,
+   9
+  ],
+  "144167": [
+   "Nigohan",
+   824,
+   5
+  ],
+  "144166": [
+   "Chak Dahira Mau",
+   824,
+   5
+  ],
+  "144170": [
+   "Fareedpur Parwar",
+   824,
+   10
+  ],
+  "144150": [
+   "Mahmoodpur",
+   824,
+   4
+  ],
+  "144087": [
+   "Pure Dwandi",
+   824,
+   9
+  ],
+  "144091": [
+   "Chhichha",
+   824,
+   9
+  ],
+  "144149": [
+   "Kotwar Mau",
+   824,
+   4
+  ],
+  "144089": [
+   "Ondeeh",
+   824,
+   9
+  ],
+  "144079": [
+   "Bhadmar",
+   824,
+   14
+  ],
+  "144151": [
+   "Pidhi",
+   824,
+   4
+  ],
+  "144088": [
+   "Sijni",
+   824,
+   9
+  ],
+  "144082": [
+   "Bhadsana",
+   824,
+   9
+  ],
+  "144080": [
+   "Revata Deeh",
+   824,
+   9
+  ],
+  "144072": [
+   "Satgawan",
+   824,
+   14
+  ],
+  "144027": [
+   "Singhpur",
+   824,
+   14
+  ],
+  "144083": [
+   "Ashapur Gari",
+   824,
+   9
+  ],
+  "144078": [
+   "Chingahi",
+   824,
+   14
+  ],
+  "144059": [
+   "Chiluli",
+   824,
+   14
+  ],
+  "144110": [
+   "Pashchim Tiloi",
+   824,
+   14
+  ],
+  "144052": [
+   "Dandupur",
+   824,
+   14
+  ],
+  "144068": [
+   "Semrauta",
+   824,
+   14
+  ],
+  "144026": [
+   "Ratwaliya Manjhar",
+   824,
+   14
+  ],
+  "144115": [
+   "Bhelai Khurad",
+   824,
+   10
+  ],
+  "144074": [
+   "Ramnagar",
+   824,
+   14
+  ],
+  "169413": [
+   "Ammar Pur",
+   914,
+   2
+  ],
+  "144070": [
+   "Basantpur",
+   824,
+   14
+  ],
+  "169358": [
+   "Saidpur",
+   914,
+   0
+  ],
+  "144076": [
+   "Pure Baheliya",
+   824,
+   14
+  ],
+  "144069": [
+   "Pure Laximan Dei",
+   824,
+   14
+  ],
+  "144112": [
+   "Tiloi",
+   824,
+   14
+  ],
+  "144092": [
+   "Besarwa",
+   824,
+   10
+  ],
+  "169414": [
+   "Joga Pur",
+   914,
+   2
+  ],
+  "144114": [
+   "Ashapur Ruru",
+   824,
+   10
+  ],
+  "144051": [
+   "Godhana",
+   824,
+   14
+  ],
+  "144111": [
+   "Devkali",
+   824,
+   14
+  ],
+  "144117": [
+   "Kutmara",
+   824,
+   14
+  ],
+  "144075": [
+   "Kisunpur",
+   824,
+   14
+  ],
+  "144113": [
+   "Sangipur",
+   824,
+   10
+  ],
+  "144071": [
+   "Rajapur Halim",
+   824,
+   14
+  ],
+  "144054": [
+   "Phoola",
+   824,
+   14
+  ],
+  "144053": [
+   "Jugrajpur",
+   824,
+   14
+  ],
+  "144077": [
+   "Kamae",
+   824,
+   14
+  ],
+  "144025": [
+   "Rampur Panwara",
+   824,
+   18
+  ],
+  "144067": [
+   "Maheshpur",
+   824,
+   14
+  ],
+  "144073": [
+   "Ambarpur Farsi",
+   824,
+   14
+  ],
+  "144081": [
+   "Biraj",
+   824,
+   9
+  ],
+  "144024": [
+   "Khekharuwa",
+   824,
+   18
+  ],
+  "169278": [
+   "Pandri",
+   913,
+   0
+  ],
+  "144066": [
+   "Thokarpur",
+   824,
+   18
+  ],
+  "169276": [
+   "Ismailpur",
+   913,
+   0
+  ],
+  "169416": [
+   "Banveer Pur",
+   914,
+   2
+  ],
+  "169222": [
+   "Madho Pur",
+   913,
+   6
+  ],
+  "169265": [
+   "Saintha",
+   913,
+   0
+  ],
+  "169362": [
+   "Kakwa",
+   914,
+   0
+  ],
+  "169277": [
+   "Chhitepur",
+   913,
+   0
+  ],
+  "169393": [
+   "Umaapur",
+   914,
+   2
+  ],
+  "169281": [
+   "Pure Udhao",
+   913,
+   0
+  ],
+  "169273": [
+   "Aintha",
+   913,
+   0
+  ],
+  "169365": [
+   "Mahmad Pur",
+   914,
+   0
+  ],
+  "169364": [
+   "Kohra",
+   914,
+   0
+  ],
+  "169275": [
+   "Pahar Ganj",
+   913,
+   0
+  ],
+  "169274": [
+   "Pathanpur",
+   913,
+   0
+  ],
+  "169363": [
+   "Dalashah Pur",
+   914,
+   0
+  ],
+  "169263": [
+   "Saripur",
+   913,
+   0
+  ],
+  "169229": [
+   "Bali Pur Khurdwan",
+   913,
+   6
+  ],
+  "144184": [
+   "Baghail",
+   824,
+   5
+  ],
+  "169255": [
+   "Raghipur",
+   913,
+   0
+  ],
+  "169252": [
+   "Lugri",
+   913,
+   0
+  ],
+  "169095": [
+   "Lalpur",
+   913,
+   6
+  ],
+  "169241": [
+   "Sultanpur",
+   913,
+   6
+  ],
+  "169261": [
+   "Sakrawan",
+   913,
+   0
+  ],
+  "169230": [
+   "Amiya",
+   913,
+   0
+  ],
+  "169250": [
+   "Dhanapur",
+   913,
+   0
+  ],
+  "169198": [
+   "Sarai Hirday Shah",
+   913,
+   6
+  ],
+  "169195": [
+   "Narauli",
+   913,
+   6
+  ],
+  "169231": [
+   "Chauhan Pur",
+   913,
+   0
+  ],
+  "169237": [
+   "Kaji Patti",
+   913,
+   6
+  ],
+  "169253": [
+   "Pachehri",
+   913,
+   6
+  ],
+  "169204": [
+   "Ana Pur",
+   913,
+   6
+  ],
+  "169243": [
+   "Paiga",
+   913,
+   6
+  ],
+  "169191": [
+   "Itaujapachhim",
+   913,
+   6
+  ],
+  "144182": [
+   "Mawai Alampur",
+   824,
+   5
+  ],
+  "169262": [
+   "Ramai Pur",
+   913,
+   0
+  ],
+  "144189": [
+   "Chak Malehra",
+   824,
+   5
+  ],
+  "169251": [
+   "Bhawan Shah Pur",
+   913,
+   0
+  ],
+  "144183": [
+   "Kharauli",
+   824,
+   5
+  ],
+  "169407": [
+   "Ammar Pur",
+   914,
+   2
+  ],
+  "169260": [
+   "Bahan Pur",
+   913,
+   0
+  ],
+  "169249": [
+   "Asura",
+   913,
+   0
+  ],
+  "169244": [
+   "Gujar Tolal",
+   913,
+   6
+  ],
+  "169257": [
+   "Ronhsi Buzurg",
+   913,
+   0
+  ],
+  "169233": [
+   "Argwan",
+   913,
+   0
+  ],
+  "169197": [
+   "Rohshi Khurd",
+   913,
+   6
+  ],
+  "169240": [
+   "Madhupur",
+   913,
+   6
+  ],
+  "169201": [
+   "Gauri Pur",
+   913,
+   6
+  ],
+  "169221": [
+   "Barna Tikar",
+   913,
+   6
+  ],
+  "169199": [
+   "Jagdishpur",
+   913,
+   6
+  ],
+  "169236": [
+   "Sembhue",
+   913,
+   6
+  ],
+  "169245": [
+   "Pure Fajil",
+   913,
+   6
+  ],
+  "169391": [
+   "Sonari Kanoo",
+   914,
+   2
+  ],
+  "144185": [
+   "Chak Bhoor",
+   824,
+   5
+  ],
+  "169200": [
+   "Bishundas Pur",
+   913,
+   6
+  ],
+  "169223": [
+   "Raj Garh",
+   913,
+   6
+  ],
+  "144190": [
+   "Tahirpur",
+   824,
+   5
+  ],
+  "169196": [
+   "Guwawan",
+   913,
+   6
+  ],
+  "169247": [
+   "Sogara",
+   913,
+   6
+  ],
+  "169242": [
+   "Jagmalpur",
+   913,
+   6
+  ],
+  "169192": [
+   "Mohanpur",
+   913,
+   6
+  ],
+  "169256": [
+   "Banwari Pur",
+   913,
+   0
+  ],
+  "169346": [
+   "Jamal Patti",
+   914,
+   2
+  ],
+  "169155": [
+   "Bahorikpur",
+   913,
+   6
+  ],
+  "168791": [
+   "Bechu Garh",
+   912,
+   16
+  ],
+  "169228": [
+   "Katra Lal Ganj",
+   913,
+   6
+  ],
+  "169239": [
+   "Senipur",
+   913,
+   6
+  ],
+  "144186": [
+   "Chak Mamha",
+   824,
+   5
+  ],
+  "144176": [
+   "Kasimpur",
+   824,
+   11
+  ],
+  "169096": [
+   "Aidhi",
+   913,
+   6
+  ],
+  "169246": [
+   "Dharu Pur",
+   913,
+   6
+  ],
+  "169259": [
+   "Atta Nagar",
+   913,
+   0
+  ],
+  "144187": [
+   "Bojhi Mula Mau",
+   824,
+   5
+  ],
+  "144188": [
+   "Behta Murtajapur",
+   824,
+   5
+  ],
+  "144175": [
+   "Nakdaiyapur",
+   824,
+   5
+  ],
+  "169258": [
+   "Chandai Pur",
+   913,
+   0
+  ],
+  "144180": [
+   "Odaree",
+   824,
+   5
+  ],
+  "168965": [
+   "Umapur",
+   912,
+   13
+  ],
+  "169314": [
+   "Nuwanwa",
+   914,
+   1
+  ],
+  "169361": [
+   "Biyasiya",
+   914,
+   1
+  ],
+  "169392": [
+   "Bhausinghpur",
+   914,
+   2
+  ],
+  "169371": [
+   "Jarauta",
+   914,
+   2
+  ],
+  "169390": [
+   "Saraiyya Kanoo",
+   914,
+   2
+  ],
+  "169319": [
+   "Saraiheermati",
+   914,
+   1
+  ],
+  "169317": [
+   "Korari Girdhar Shah",
+   914,
+   1
+  ],
+  "169344": [
+   "Mahson",
+   914,
+   1
+  ],
+  "169417": [
+   "Baghaura",
+   914,
+   2
+  ],
+  "169349": [
+   "Gangauli",
+   914,
+   1
+  ],
+  "169376": [
+   "Kasaara",
+   914,
+   2
+  ],
+  "169384": [
+   "Madhu Pur",
+   914,
+   1
+  ],
+  "169350": [
+   "Bhushari",
+   914,
+   1
+  ],
+  "169373": [
+   "Mandauli",
+   914,
+   2
+  ],
+  "169341": [
+   "Manipur Raghau",
+   914,
+   2
+  ],
+  "169375": [
+   "Tarapur",
+   914,
+   2
+  ],
+  "169405": [
+   "Shukl Pur",
+   914,
+   2
+  ],
+  "169351": [
+   "Himmatgarh",
+   914,
+   1
+  ],
+  "169360": [
+   "Maharajpur",
+   914,
+   1
+  ],
+  "169488": [
+   "Kamsin",
+   914,
+   2
+  ],
+  "169357": [
+   "Dehra",
+   914,
+   1
+  ],
+  "169412": [
+   "Chanderiya",
+   914,
+   2
+  ],
+  "169321": [
+   "Jhawnei",
+   914,
+   1
+  ],
+  "169368": [
+   "Purabgaon",
+   914,
+   1
+  ],
+  "169377": [
+   "Belkhari",
+   914,
+   2
+  ],
+  "169353": [
+   "Nainha",
+   914,
+   1
+  ],
+  "169484": [
+   "Bhretha",
+   914,
+   2
+  ],
+  "168964": [
+   "Chak Raghunandan",
+   912,
+   13
+  ],
+  "169406": [
+   "Karnayi Pur",
+   914,
+   2
+  ],
+  "169340": [
+   "Rebha",
+   914,
+   1
+  ],
+  "169318": [
+   "Mochwa",
+   914,
+   1
+  ],
+  "169323": [
+   "Pithi Pur",
+   914,
+   1
+  ],
+  "169408": [
+   "Sakar Mana Patti",
+   914,
+   2
+  ],
+  "169381": [
+   "Badgawn",
+   914,
+   1
+  ],
+  "169403": [
+   "Thegha",
+   914,
+   2
+  ],
+  "169339": [
+   "Birahim Pur",
+   914,
+   1
+  ],
+  "169324": [
+   "Ghaghu Ghar",
+   914,
+   1
+  ],
+  "169372": [
+   "Karaundi",
+   914,
+   2
+  ],
+  "169348": [
+   "Gareri",
+   914,
+   1
+  ],
+  "169345": [
+   "Jairam Pur",
+   914,
+   2
+  ],
+  "169354": [
+   "Bartali",
+   914,
+   1
+  ],
+  "169370": [
+   "Raja Pur Ameruwa",
+   914,
+   2
+  ],
+  "169280": [
+   "Sambhawa",
+   913,
+   0
+  ],
+  "169402": [
+   "Badla Pur",
+   914,
+   2
+  ],
+  "169352": [
+   "Ramgarh",
+   914,
+   1
+  ],
+  "169336": [
+   "Baghvariya",
+   914,
+   2
+  ],
+  "169401": [
+   "Mishauli Maafi",
+   914,
+   2
+  ],
+  "169342": [
+   "Mandhar Patti",
+   914,
+   1
+  ],
+  "169329": [
+   "Ray Day Pur",
+   914,
+   1
+  ],
+  "169499": [
+   "Baulhaa",
+   914,
+   2
+  ],
+  "169335": [
+   "Hathkila",
+   914,
+   2
+  ],
+  "169316": [
+   "Bariya Pur",
+   914,
+   1
+  ],
+  "169322": [
+   "Sultanpur",
+   914,
+   1
+  ],
+  "169382": [
+   "Sariyya Badgaon",
+   914,
+   1
+  ],
+  "169500": [
+   "Sonaari Kalan",
+   914,
+   3
+  ],
+  "169485": [
+   "Saraypan",
+   914,
+   2
+  ],
+  "169495": [
+   "Khaun Pur Gurudatt Garh",
+   914,
+   3
+  ],
+  "169315": [
+   "Mangal Pur",
+   914,
+   1
+  ],
+  "169490": [
+   "Mathkanaegiri",
+   914,
+   2
+  ],
+  "169347": [
+   "Deohapsaar",
+   914,
+   2
+  ],
+  "169380": [
+   "Itauri",
+   914,
+   1
+  ],
+  "169383": [
+   "Mishrauli Badgawn",
+   914,
+   1
+  ],
+  "169378": [
+   "Gorkha Pur",
+   914,
+   1
+  ],
+  "169397": [
+   "Kanoo",
+   914,
+   2
+  ],
+  "169327": [
+   "Bharti Pur",
+   914,
+   1
+  ],
+  "169385": [
+   "Ganga Pur",
+   914,
+   1
+  ],
+  "169379": [
+   "Bhairo Pur",
+   914,
+   1
+  ],
+  "169501": [
+   "Amtahi",
+   914,
+   3
+  ],
+  "169282": [
+   "Lal Shah Pur",
+   913,
+   1
+  ],
+  "169409": [
+   "Dhoyen",
+   914,
+   2
+  ],
+  "169487": [
+   "Gungwachh",
+   914,
+   2
+  ],
+  "169320": [
+   "Chaturbhuj Pur",
+   914,
+   1
+  ],
+  "169338": [
+   "Chachka Pur",
+   914,
+   1
+  ],
+  "169369": [
+   "Uttargaon",
+   914,
+   1
+  ],
+  "169356": [
+   "Kudwan Mahmadpur",
+   914,
+   1
+  ],
+  "169404": [
+   "Pataa Pur",
+   914,
+   2
+  ],
+  "169498": [
+   "Teekarma Phi",
+   914,
+   2
+  ],
+  "169332": [
+   "Parsauli",
+   914,
+   2
+  ],
+  "169386": [
+   "Kansa Pur",
+   914,
+   1
+  ],
+  "169395": [
+   "Gooji Pur",
+   914,
+   2
+  ],
+  "169355": [
+   "Rajapur Kohra",
+   914,
+   1
+  ],
+  "169396": [
+   "Sangram Pur",
+   914,
+   2
+  ],
+  "169394": [
+   "Sahjee Pur",
+   914,
+   2
+  ],
+  "169367": [
+   "Naraini",
+   914,
+   1
+  ],
+  "169399": [
+   "Raghai Pur",
+   914,
+   2
+  ],
+  "169415": [
+   "Bhawal Pur",
+   914,
+   2
+  ],
+  "169489": [
+   "Pathkhauli",
+   914,
+   2
+  ],
+  "169389": [
+   "Punn Pur",
+   914,
+   2
+  ],
+  "169398": [
+   "Newada Kanoo",
+   914,
+   2
+  ],
+  "169366": [
+   "Saraiya Duban",
+   914,
+   0
+  ],
+  "169388": [
+   "Keshav Pur",
+   914,
+   1
+  ],
+  "169400": [
+   "Kharethu",
+   914,
+   2
+  ],
+  "169234": [
+   "Tandawa",
+   913,
+   7
+  ],
+  "169418": [
+   "Dhaurahra",
+   914,
+   3
+  ],
+  "169411": [
+   "Khaunpur Buzurg",
+   914,
+   2
+  ],
+  "169440": [
+   "Rajapur Kalyan",
+   914,
+   8
+  ],
+  "169287": [
+   "Matyar Baghaura",
+   914,
+   7
+  ],
+  "169337": [
+   "Kherauna",
+   914,
+   2
+  ],
+  "169296": [
+   "Mahmoodpur",
+   914,
+   1
+  ],
+  "169298": [
+   "Balipur",
+   914,
+   2
+  ],
+  "169437": [
+   "Koryani",
+   914,
+   7
+  ],
+  "169444": [
+   "Sumerpur",
+   914,
+   8
+  ],
+  "169309": [
+   "Sundar Pur",
+   914,
+   1
+  ],
+  "169215": [
+   "Shahbaj Pur",
+   913,
+   7
+  ],
+  "169435": [
+   "Bhu Siyanwa",
+   914,
+   8
+  ],
+  "169448": [
+   "Naugirwa",
+   914,
+   8
+  ],
+  "169311": [
+   "Kushitali",
+   914,
+   1
+  ],
+  "169213": [
+   "Dhani Jalalpur",
+   913,
+   7
+  ],
+  "169212": [
+   "Suja Pur",
+   913,
+   7
+  ],
+  "169293": [
+   "Jangal Ramnagar",
+   914,
+   1
+  ],
+  "169486": [
+   "Baisra",
+   914,
+   2
+  ],
+  "169301": [
+   "Parsanwa",
+   914,
+   2
+  ],
+  "169174": [
+   "Dulapur Kalan",
+   913,
+   7
+  ],
+  "169284": [
+   "Teri",
+   914,
+   7
+  ],
+  "169326": [
+   "Loniyapur",
+   914,
+   1
+  ],
+  "169442": [
+   "Dharaimafi",
+   914,
+   8
+  ],
+  "169202": [
+   "Gopiya Pur",
+   913,
+   6
+  ],
+  "169455": [
+   "Amey Maphi",
+   914,
+   3
+  ],
+  "169425": [
+   "Sultanpur",
+   914,
+   8
+  ],
+  "169295": [
+   "Ramnagar Mafi",
+   914,
+   1
+  ],
+  "169483": [
+   "Alipur",
+   914,
+   2
+  ],
+  "169162": [
+   "Dewar Dewakali",
+   913,
+   7
+  ],
+  "169304": [
+   "Tala",
+   914,
+   1
+  ],
+  "169447": [
+   "Bandoiya",
+   914,
+   8
+  ],
+  "169219": [
+   "Sarai Barwand Singh",
+   913,
+   7
+  ],
+  "169480": [
+   "Arsahni",
+   914,
+   2
+  ],
+  "169288": [
+   "Dandupur",
+   914,
+   7
+  ],
+  "169427": [
+   "Bheera",
+   914,
+   8
+  ],
+  "169456": [
+   "Mayi",
+   914,
+   8
+  ],
+  "169177": [
+   "Nohre Pur",
+   913,
+   7
+  ],
+  "169481": [
+   "Gangahuwa",
+   914,
+   2
+  ],
+  "169312": [
+   "Umapur Gana Patti",
+   914,
+   1
+  ],
+  "169478": [
+   "Kadergaon",
+   914,
+   2
+  ],
+  "169333": [
+   "Katra Phool Kunwar",
+   914,
+   2
+  ],
+  "169497": [
+   "Pitambar Pur",
+   914,
+   2
+  ],
+  "169451": [
+   "Ghorha",
+   914,
+   8
+  ],
+  "169438": [
+   "Neodhiya",
+   914,
+   7
+  ],
+  "169169": [
+   "Paliya",
+   913,
+   7
+  ],
+  "169294": [
+   "Saray Khema",
+   914,
+   7
+  ],
+  "169164": [
+   "Kauhar",
+   913,
+   7
+  ],
+  "169218": [
+   "Baburi Tola",
+   913,
+   7
+  ],
+  "169310": [
+   "Haripur",
+   914,
+   1
+  ],
+  "169421": [
+   "Korari Lachchan Shah",
+   914,
+   8
+  ],
+  "169299": [
+   "Benipur",
+   914,
+   2
+  ],
+  "169297": [
+   "Marfapur",
+   914,
+   1
+  ],
+  "169209": [
+   "Madan Tikra",
+   913,
+   7
+  ],
+  "169163": [
+   "Rajapur Kauhar",
+   913,
+   7
+  ],
+  "169441": [
+   "Dhanapur",
+   914,
+   8
+  ],
+  "169292": [
+   "Banhapur",
+   914,
+   7
+  ],
+  "169226": [
+   "Mahima Pur",
+   913,
+   7
+  ],
+  "169303": [
+   "Jangal Tikari",
+   914,
+   1
+  ],
+  "169208": [
+   "Jethumawai",
+   913,
+   7
+  ],
+  "169449": [
+   "Peeparpur",
+   914,
+   8
+  ],
+  "169479": [
+   "Lokepur",
+   914,
+   2
+  ],
+  "169300": [
+   "Ramnathpur",
+   914,
+   1
+  ],
+  "169207": [
+   "Harakh Pur",
+   913,
+   6
+  ],
+  "169178": [
+   "Lonara",
+   913,
+   7
+  ],
+  "169206": [
+   "Jethauna",
+   913,
+   7
+  ],
+  "169482": [
+   "Bhetuwa",
+   914,
+   2
+  ],
+  "169334": [
+   "Jagi Patti",
+   914,
+   2
+  ],
+  "169216": [
+   "Garha Mafi",
+   913,
+   7
+  ],
+  "169224": [
+   "Misrauli",
+   913,
+   6
+  ],
+  "169313": [
+   "Katra Hulasi",
+   914,
+   1
+  ],
+  "169283": [
+   "Trilokpur",
+   914,
+   7
+  ],
+  "169445": [
+   "Manirampur",
+   914,
+   8
+  ],
+  "169429": [
+   "Dalshah Pur",
+   914,
+   8
+  ],
+  "169291": [
+   "Naugawa",
+   914,
+   7
+  ],
+  "169459": [
+   "Saraiyya Mohan",
+   914,
+   3
+  ],
+  "249402": [
+   "Amethi Amethi",
+   914,
+   1
+  ],
+  "169270": [
+   "Raja Patti",
+   913,
+   1
+  ],
+  "169454": [
+   "Bhimi",
+   914,
+   2
+  ],
+  "169159": [
+   "Bhaniyapur",
+   913,
+   6
+  ],
+  "169227": [
+   "Asaida Pur",
+   913,
+   6
+  ],
+  "169325": [
+   "Raipur Phulwari",
+   914,
+   1
+  ],
+  "169286": [
+   "Laukapur",
+   914,
+   7
+  ],
+  "169443": [
+   "Dalao",
+   914,
+   8
+  ],
+  "169272": [
+   "Anni Baijal",
+   913,
+   0
+  ],
+  "169161": [
+   "Gadiyan",
+   913,
+   7
+  ],
+  "169330": [
+   "Sarvan Pur",
+   914,
+   1
+  ],
+  "169211": [
+   "Laltikra",
+   913,
+   7
+  ],
+  "169307": [
+   "Sonpur Mankhanth",
+   914,
+   1
+  ],
+  "169434": [
+   "Tulsi Pur",
+   914,
+   8
+  ],
+  "169476": [
+   "Thaura",
+   914,
+   8
+  ],
+  "169305": [
+   "Loharta",
+   914,
+   1
+  ],
+  "169217": [
+   "Darpipur",
+   913,
+   7
+  ],
+  "169173": [
+   "Purab Gaon",
+   913,
+   7
+  ],
+  "169496": [
+   "Balipur Duhiya",
+   914,
+   3
+  ],
+  "169266": [
+   "Tikariya",
+   913,
+   7
+  ],
+  "169308": [
+   "Darkha",
+   914,
+   1
+  ],
+  "169175": [
+   "Garthauliya",
+   913,
+   7
+  ],
+  "169290": [
+   "Ramdaypur",
+   914,
+   7
+  ],
+  "169269": [
+   "Gundur",
+   913,
+   1
+  ],
+  "169285": [
+   "Katra Maharani",
+   914,
+   7
+  ],
+  "169453": [
+   "Sandeela",
+   914,
+   8
+  ],
+  "169426": [
+   "Ghatampur",
+   914,
+   8
+  ],
+  "169302": [
+   "Bhaganpur",
+   914,
+   1
+  ],
+  "169575": [
+   "Kurwa",
+   914,
+   8
+  ],
+  "169176": [
+   "Lohangpur",
+   913,
+   7
+  ],
+  "169210": [
+   "Belkhaur",
+   913,
+   1
+  ],
+  "169279": [
+   "Gudun Pur",
+   913,
+   0
+  ],
+  "169268": [
+   "Basaikpur",
+   913,
+   1
+  ],
+  "169431": [
+   "Purab Dwara",
+   914,
+   8
+  ],
+  "169165": [
+   "Juryapur",
+   913,
+   7
+  ],
+  "169214": [
+   "Basthan",
+   913,
+   7
+  ],
+  "169235": [
+   "Ujjaini",
+   913,
+   7
+  ],
+  "169446": [
+   "Katra Rani",
+   914,
+   8
+  ],
+  "169477": [
+   "Pindoriya",
+   914,
+   2
+  ],
+  "169289": [
+   "Bhupatipur",
+   914,
+   7
+  ],
+  "169306": [
+   "Ahirawal",
+   914,
+   1
+  ],
+  "169166": [
+   "Dulapur Khurd",
+   913,
+   6
+  ],
+  "169271": [
+   "Babupur",
+   913,
+   0
+  ],
+  "169450": [
+   "Tikree",
+   914,
+   8
+  ],
+  "169073": [
+   "Ram Bakshgarh",
+   913,
+   12
+  ],
+  "169452": [
+   "Shiv Garh Jalal Pur",
+   914,
+   8
+  ],
+  "169225": [
+   "Sarai Bhag Mani",
+   913,
+   7
+  ],
+  "169428": [
+   "Paschim Dwara",
+   914,
+   8
+  ],
+  "169436": [
+   "Rangwaria",
+   914,
+   8
+  ],
+  "169267": [
+   "Khajuri",
+   913,
+   1
+  ],
+  "169220": [
+   "Behta",
+   913,
+   7
+  ],
+  "169432": [
+   "Sanaha",
+   914,
+   8
+  ],
+  "169430": [
+   "Saruwanwa",
+   914,
+   8
+  ],
+  "169433": [
+   "Partosh Manik",
+   914,
+   8
+  ],
+  "144133": [
+   "Hanswa",
+   824,
+   10
+  ],
+  "169089": [
+   "Jodhanpur",
+   913,
+   6
+  ],
+  "169088": [
+   "Barauliya",
+   913,
+   11
+  ],
+  "144181": [
+   "Chak Baisana",
+   824,
+   5
+  ],
+  "169038": [
+   "Rajamau",
+   913,
+   11
+  ],
+  "169066": [
+   "Balbhaddarpur",
+   913,
+   12
+  ],
+  "169070": [
+   "Umaradih",
+   913,
+   12
+  ],
+  "169182": [
+   "Manjhwara",
+   913,
+   12
+  ],
+  "169094": [
+   "Talmasiyan",
+   913,
+   6
+  ],
+  "169068": [
+   "Bhawanigarh",
+   913,
+   11
+  ],
+  "144144": [
+   "Janapur",
+   824,
+   10
+  ],
+  "169186": [
+   "Tulsi Pur",
+   913,
+   6
+  ],
+  "169086": [
+   "Heruwa",
+   913,
+   11
+  ],
+  "144116": [
+   "Bhelai Kalan",
+   824,
+   10
+  ],
+  "169090": [
+   "Hardo",
+   913,
+   11
+  ],
+  "144141": [
+   "Narayanpur",
+   824,
+   11
+  ],
+  "169078": [
+   "Garhilal Shah",
+   913,
+   11
+  ],
+  "169060": [
+   "Jamo",
+   913,
+   12
+  ],
+  "169032": [
+   "Lalupur",
+   913,
+   11
+  ],
+  "169063": [
+   "Resi",
+   913,
+   12
+  ],
+  "169081": [
+   "Pure Chitai",
+   913,
+   11
+  ],
+  "169083": [
+   "Pure Alpi Misir",
+   913,
+   11
+  ],
+  "169184": [
+   "Benipur Baldeo",
+   913,
+   12
+  ],
+  "169187": [
+   "Mau",
+   913,
+   6
+  ],
+  "144147": [
+   "Tama Mau",
+   824,
+   11
+  ],
+  "169181": [
+   "Bastidai",
+   913,
+   12
+  ],
+  "144131": [
+   "Murtajapur",
+   824,
+   11
+  ],
+  "144137": [
+   "Ahuri",
+   824,
+   11
+  ],
+  "169190": [
+   "Basupur",
+   913,
+   6
+  ],
+  "169082": [
+   "Harkarnpur",
+   913,
+   11
+  ],
+  "169179": [
+   "Manmatipur",
+   913,
+   12
+  ],
+  "169064": [
+   "Biripur",
+   913,
+   12
+  ],
+  "169067": [
+   "Shahpur",
+   913,
+   11
+  ],
+  "169101": [
+   "Naupur",
+   913,
+   12
+  ],
+  "144146": [
+   "Bhagirathpur",
+   824,
+   11
+  ],
+  "169072": [
+   "Bhikhipur",
+   913,
+   12
+  ],
+  "169188": [
+   "Sarauli",
+   913,
+   6
+  ],
+  "144171": [
+   "Mohana",
+   824,
+   10
+  ],
+  "169061": [
+   "Lalupur Dhabiya",
+   913,
+   12
+  ],
+  "169093": [
+   "Rampur Naurangabad",
+   913,
+   6
+  ],
+  "169105": [
+   "Paras Rampur",
+   913,
+   12
+  ],
+  "169189": [
+   "Oripur",
+   913,
+   6
+  ],
+  "169193": [
+   "Gopalipur",
+   913,
+   6
+  ],
+  "169183": [
+   "Gulalpur",
+   913,
+   12
+  ],
+  "169104": [
+   "Sarme",
+   913,
+   12
+  ],
+  "169085": [
+   "Orra",
+   913,
+   11
+  ],
+  "169031": [
+   "Gopalpur",
+   913,
+   11
+  ],
+  "144106": [
+   "Saimbasi",
+   824,
+   10
+  ],
+  "144143": [
+   "Balapur",
+   824,
+   10
+  ],
+  "169087": [
+   "Duramau",
+   913,
+   11
+  ],
+  "169097": [
+   "Godipur",
+   913,
+   12
+  ],
+  "144173": [
+   "Mubarakpur Mukhatiya",
+   824,
+   5
+  ],
+  "144177": [
+   "Bahadurpur Da Jayas",
+   824,
+   5
+  ],
+  "169071": [
+   "Ramgarhi",
+   913,
+   12
+  ],
+  "169084": [
+   "Deosi Pur",
+   913,
+   11
+  ],
+  "144136": [
+   "Lihi",
+   824,
+   11
+  ],
+  "144104": [
+   "Chetra Bujurg",
+   824,
+   10
+  ],
+  "144135": [
+   "Dhorhanpur",
+   824,
+   11
+  ],
+  "169098": [
+   "Gogamau",
+   913,
+   12
+  ],
+  "169069": [
+   "Mawai",
+   913,
+   11
+  ],
+  "169024": [
+   "Adilpur",
+   913,
+   15
+  ],
+  "144138": [
+   "Meera Mau",
+   824,
+   11
+  ],
+  "169180": [
+   "Bhatgawan",
+   913,
+   12
+  ],
+  "144142": [
+   "Shah Mau",
+   824,
+   10
+  ],
+  "169146": [
+   "Afuia",
+   913,
+   6
+  ],
+  "169079": [
+   "Goriya Bad",
+   913,
+   11
+  ],
+  "169185": [
+   "Rauja",
+   913,
+   12
+  ],
+  "169099": [
+   "Bhoe",
+   913,
+   12
+  ],
+  "169080": [
+   "Puredhanesh Giri",
+   913,
+   11
+  ],
+  "169062": [
+   "Dalilpur",
+   913,
+   12
+  ],
+  "144139": [
+   "Berara",
+   824,
+   11
+  ],
+  "169194": [
+   "Sujanpur",
+   913,
+   6
+  ],
+  "169102": [
+   "Lorikpur",
+   913,
+   12
+  ],
+  "144148": [
+   "Belwa Hasanpur",
+   824,
+   11
+  ],
+  "144140": [
+   "Koora",
+   824,
+   10
+  ],
+  "169103": [
+   "Dhanepur",
+   913,
+   12
+  ],
+  "144134": [
+   "Asni",
+   824,
+   10
+  ],
+  "144172": [
+   "Pure Badyrai",
+   824,
+   5
+  ],
+  "144145": [
+   "Agauna",
+   824,
+   10
+  ],
+  "169075": [
+   "Kapasi",
+   913,
+   11
+  ],
+  "169091": [
+   "Bajgarhi",
+   913,
+   11
+  ],
+  "169076": [
+   "Ajabgarh",
+   913,
+   11
+  ],
+  "169077": [
+   "Suratgarh",
+   913,
+   11
+  ],
+  "169092": [
+   "Pure Ausan Singh",
+   913,
+   6
+  ],
+  "169074": [
+   "Janapur",
+   913,
+   11
+  ],
+  "144123": [
+   "Kamapur",
+   824,
+   10
+  ],
+  "249240": [
+   "Jais",
+   824,
+   11
+  ],
+  "169047": [
+   "Baghaiyapur",
+   913,
+   16
+  ],
+  "168809": [
+   "Jalal Pur Tiwari",
+   912,
+   15
+  ],
+  "144118": [
+   "Rajanpur",
+   824,
+   14
+  ],
+  "168824": [
+   "Rampur Gosai",
+   912,
+   15
+  ],
+  "144128": [
+   "Garehari",
+   824,
+   11
+  ],
+  "169026": [
+   "Majhgawan",
+   913,
+   15
+  ],
+  "168785": [
+   "Daulatpur Lonhat",
+   912,
+   16
+  ],
+  "144125": [
+   "Marhauna",
+   824,
+   15
+  ],
+  "169034": [
+   "Dakhinwara",
+   913,
+   11
+  ],
+  "169042": [
+   "Dulapur",
+   913,
+   15
+  ],
+  "168823": [
+   "Naudand",
+   912,
+   15
+  ],
+  "168772": [
+   "Mohuddinpur",
+   912,
+   16
+  ],
+  "144132": [
+   "Todarpur",
+   824,
+   11
+  ],
+  "169035": [
+   "Chituhala",
+   913,
+   15
+  ],
+  "168822": [
+   "Maddupur Umarwal",
+   912,
+   15
+  ],
+  "169030": [
+   "Basantpur",
+   913,
+   11
+  ],
+  "144063": [
+   "Khanapur Chapara",
+   824,
+   15
+  ],
+  "168749": [
+   "Dhudehri",
+   912,
+   15
+  ],
+  "168806": [
+   "Mangraura",
+   912,
+   15
+  ],
+  "144120": [
+   "Ariyawan",
+   824,
+   14
+  ],
+  "168800": [
+   "Bagahi",
+   912,
+   16
+  ],
+  "169043": [
+   "Digha Gopalpur",
+   913,
+   15
+  ],
+  "168825": [
+   "Babu Pur Sharia",
+   912,
+   15
+  ],
+  "168808": [
+   "Dulari Nagar",
+   912,
+   15
+  ],
+  "168801": [
+   "Sindhiyawan",
+   912,
+   16
+  ],
+  "169040": [
+   "Pure Dhanesh Dei",
+   913,
+   15
+  ],
+  "168805": [
+   "Malawa",
+   912,
+   15
+  ],
+  "168798": [
+   "Mohabbat Pur",
+   912,
+   16
+  ],
+  "168814": [
+   "Maraucha Tetarpur",
+   912,
+   15
+  ],
+  "169041": [
+   "Achal Pur",
+   913,
+   15
+  ],
+  "144062": [
+   "Mirzagarh",
+   824,
+   15
+  ],
+  "169059": [
+   "Alipur",
+   913,
+   12
+  ],
+  "144122": [
+   "Nasaratpur",
+   824,
+   14
+  ],
+  "168827": [
+   "Shekh Pur",
+   912,
+   15
+  ],
+  "144060": [
+   "Karan Gaon",
+   824,
+   15
+  ],
+  "168819": [
+   "Kapuripur",
+   912,
+   15
+  ],
+  "168756": [
+   "Niyawa",
+   912,
+   15
+  ],
+  "168829": [
+   "Hasan Pur Jareye",
+   912,
+   15
+  ],
+  "169053": [
+   "Rampurchaudhari",
+   913,
+   16
+  ],
+  "168755": [
+   "Utelwa",
+   912,
+   15
+  ],
+  "144047": [
+   "Shekhan Gaon",
+   824,
+   14
+  ],
+  "144049": [
+   "Rajapur",
+   824,
+   14
+  ],
+  "168834": [
+   "Gaimau",
+   912,
+   16
+  ],
+  "168792": [
+   "Tanda",
+   912,
+   16
+  ],
+  "168794": [
+   "Parwej Pur",
+   912,
+   16
+  ],
+  "144124": [
+   "Chathuwa",
+   824,
+   15
+  ],
+  "169046": [
+   "Samahai",
+   913,
+   16
+  ],
+  "168784": [
+   "Bhikhanpur",
+   912,
+   16
+  ],
+  "169044": [
+   "Kamalpur",
+   913,
+   16
+  ],
+  "168816": [
+   "Siryari",
+   912,
+   15
+  ],
+  "168818": [
+   "Mahmad Pur",
+   912,
+   15
+  ],
+  "168802": [
+   "Arifpur",
+   912,
+   16
+  ],
+  "169051": [
+   "Kalyanpur",
+   913,
+   16
+  ],
+  "168828": [
+   "Hasawa Surwn Pur",
+   912,
+   15
+  ],
+  "169049": [
+   "Ghatampur",
+   913,
+   11
+  ],
+  "168786": [
+   "Mahe Mau",
+   912,
+   16
+  ],
+  "168807": [
+   "Sarai Hetan",
+   912,
+   15
+  ],
+  "169028": [
+   "Katkarpur",
+   913,
+   15
+  ],
+  "169052": [
+   "Gaura",
+   913,
+   16
+  ],
+  "168812": [
+   "Mirapur Nisura",
+   912,
+   15
+  ],
+  "168795": [
+   "Mangauli",
+   912,
+   16
+  ],
+  "168799": [
+   "Misharauli",
+   912,
+   16
+  ],
+  "168831": [
+   "Dakkhin Gaon Mau",
+   912,
+   16
+  ],
+  "144055": [
+   "Rampur",
+   824,
+   14
+  ],
+  "144048": [
+   "Fatepur",
+   824,
+   14
+  ],
+  "168811": [
+   "Nisura",
+   912,
+   16
+  ],
+  "168787": [
+   "Husain Ganj Kalan",
+   912,
+   16
+  ],
+  "144126": [
+   "Khanapur Ban",
+   824,
+   14
+  ],
+  "168830": [
+   "Itraur",
+   912,
+   16
+  ],
+  "168804": [
+   "Garha",
+   912,
+   15
+  ],
+  "144129": [
+   "Jagdeeshpur",
+   824,
+   11
+  ],
+  "144064": [
+   "Mattepur",
+   824,
+   15
+  ],
+  "144065": [
+   "Usufnagar",
+   824,
+   14
+  ],
+  "144058": [
+   "Rasta Mau",
+   824,
+   14
+  ],
+  "168833": [
+   "Gunge Mau",
+   912,
+   16
+  ],
+  "168796": [
+   "Pur Sohrat Singh",
+   912,
+   16
+  ],
+  "144130": [
+   "Jamurwa",
+   824,
+   11
+  ],
+  "168817": [
+   "Saresar",
+   912,
+   15
+  ],
+  "168826": [
+   "Khau Pur",
+   912,
+   15
+  ],
+  "169039": [
+   "Ahad",
+   913,
+   15
+  ],
+  "144050": [
+   "Bhikhipur",
+   824,
+   14
+  ],
+  "169045": [
+   "Parbatpur",
+   913,
+   16
+  ],
+  "168821": [
+   "Badhauli",
+   912,
+   15
+  ],
+  "144119": [
+   "Lodhwariya",
+   824,
+   14
+  ],
+  "169054": [
+   "Purab Gaura",
+   913,
+   16
+  ],
+  "144056": [
+   "Hasanpur",
+   824,
+   14
+  ],
+  "168832": [
+   "Harimau",
+   912,
+   16
+  ],
+  "168803": [
+   "Loshan Pur",
+   912,
+   16
+  ],
+  "169037": [
+   "Maharajpur",
+   913,
+   11
+  ],
+  "169048": [
+   "Hargaon",
+   913,
+   16
+  ],
+  "169055": [
+   "Katari",
+   913,
+   16
+  ],
+  "168813": [
+   "Mubarakpur",
+   912,
+   15
+  ],
+  "168820": [
+   "Purab Gaon",
+   912,
+   15
+  ],
+  "169025": [
+   "Gautampur",
+   913,
+   15
+  ],
+  "168773": [
+   "Katehti",
+   912,
+   16
+  ],
+  "144121": [
+   "Saraiya",
+   824,
+   14
+  ],
+  "169036": [
+   "Debra",
+   913,
+   11
+  ],
+  "144127": [
+   "Raja Mau",
+   824,
+   14
+  ],
+  "168797": [
+   "Ranka Pur",
+   912,
+   16
+  ],
+  "169027": [
+   "Machharia",
+   913,
+   15
+  ],
+  "169050": [
+   "Babupur",
+   913,
+   12
+  ],
+  "169033": [
+   "Bahadurpur",
+   913,
+   11
+  ],
+  "169058": [
+   "Sukhi Baz Garh",
+   913,
+   12
+  ],
+  "144057": [
+   "Konchi",
+   824,
+   14
+  ],
+  "168810": [
+   "Urwa",
+   912,
+   16
+  ],
+  "168815": [
+   "Uttar Gaon",
+   912,
+   15
+  ],
+  "168774": [
+   "Ashrafpur",
+   912,
+   16
+  ],
+  "144061": [
+   "Bahua",
+   824,
+   15
+  ],
+  "168748": [
+   "Sitauli",
+   912,
+   15
+  ],
+  "169147": [
+   "Pure Ebadulla",
+   913,
+   12
+  ],
+  "169167": [
+   "Eksara",
+   913,
+   7
+  ],
+  "169118": [
+   "Jagaipur",
+   913,
+   13
+  ],
+  "169006": [
+   "Chakdohri",
+   912,
+   13
+  ],
+  "169150": [
+   "Sewainhem Garh",
+   913,
+   13
+  ],
+  "169141": [
+   "Keshopur",
+   913,
+   13
+  ],
+  "169128": [
+   "Ramshahpur",
+   913,
+   13
+  ],
+  "169138": [
+   "Paniyar",
+   913,
+   7
+  ],
+  "169144": [
+   "Soraon",
+   913,
+   8
+  ],
+  "169008": [
+   "Khargipur Madhaw",
+   912,
+   13
+  ],
+  "168967": [
+   "Ankhara",
+   912,
+   13
+  ],
+  "168973": [
+   "Kishundaspur",
+   912,
+   13
+  ],
+  "169145": [
+   "Jalama",
+   913,
+   7
+  ],
+  "169065": [
+   "Angrawan",
+   913,
+   12
+  ],
+  "168968": [
+   "Ankhari",
+   912,
+   13
+  ],
+  "169004": [
+   "Kasthuni Paschim",
+   912,
+   13
+  ],
+  "169007": [
+   "Khargipur Dubey",
+   912,
+   13
+  ],
+  "169119": [
+   "Dilipgarh",
+   913,
+   13
+  ],
+  "169132": [
+   "Nawada Kishun Garh",
+   913,
+   13
+  ],
+  "169143": [
+   "Parbhanpur",
+   913,
+   8
+  ],
+  "169139": [
+   "Bharatpur",
+   913,
+   7
+  ],
+  "169112": [
+   "Sirkhiri",
+   913,
+   12
+  ],
+  "169005": [
+   "Uttarpati",
+   912,
+   13
+  ],
+  "169114": [
+   "Ghosiyan",
+   913,
+   13
+  ],
+  "169154": [
+   "Dandupur",
+   913,
+   6
+  ],
+  "168990": [
+   "Keshaw Pur",
+   912,
+   13
+  ],
+  "169115": [
+   "Harkarnpur",
+   913,
+   13
+  ],
+  "169113": [
+   "Nimi",
+   913,
+   12
+  ],
+  "169171": [
+   "Kapoorpur",
+   913,
+   7
+  ],
+  "168985": [
+   "Khaudiya",
+   912,
+   13
+  ],
+  "169157": [
+   "Bahorakha",
+   913,
+   13
+  ],
+  "168966": [
+   "Manshahpur",
+   912,
+   13
+  ],
+  "169140": [
+   "Hariharpur",
+   913,
+   7
+  ],
+  "168995": [
+   "Barna",
+   912,
+   13
+  ],
+  "168977": [
+   "Palia Chand Pur",
+   912,
+   13
+  ],
+  "169003": [
+   "Sarai Sulemani",
+   912,
+   13
+  ],
+  "169120": [
+   "Tejgarh",
+   913,
+   13
+  ],
+  "169168": [
+   "Birrampur",
+   913,
+   7
+  ],
+  "168991": [
+   "Marha Sarswatigiri",
+   912,
+   13
+  ],
+  "169130": [
+   "Rajapur Kasrawan",
+   913,
+   13
+  ],
+  "168988": [
+   "Dharauli",
+   912,
+   13
+  ],
+  "169133": [
+   "Pachhela",
+   913,
+   13
+  ],
+  "169108": [
+   "Shahpur Resi",
+   913,
+   13
+  ],
+  "169142": [
+   "Karaiya",
+   913,
+   13
+  ],
+  "169151": [
+   "Chilbili",
+   913,
+   7
+  ],
+  "169121": [
+   "Purkhipur",
+   913,
+   13
+  ],
+  "169136": [
+   "Seewan Ka Gaon",
+   913,
+   7
+  ],
+  "169137": [
+   "Loniyapur",
+   913,
+   7
+  ],
+  "169135": [
+   "Kasrawan",
+   913,
+   7
+  ],
+  "168974": [
+   "Surpur Kashipur",
+   912,
+   13
+  ],
+  "169127": [
+   "Chandauki",
+   913,
+   13
+  ],
+  "169116": [
+   "Bagia Kailash",
+   913,
+   13
+  ],
+  "169420": [
+   "Kanak Singh Pur",
+   914,
+   8
+  ],
+  "169153": [
+   "Juthipur",
+   913,
+   6
+  ],
+  "169109": [
+   "Mayas",
+   913,
+   13
+  ],
+  "169122": [
+   "Hardoiya",
+   913,
+   13
+  ],
+  "169158": [
+   "Samsheria",
+   913,
+   13
+  ],
+  "169107": [
+   "Tikra",
+   913,
+   12
+  ],
+  "169134": [
+   "Dakkhin Gaon",
+   913,
+   7
+  ],
+  "169152": [
+   "Paharpur",
+   913,
+   6
+  ],
+  "169170": [
+   "Shahgarh",
+   913,
+   7
+  ],
+  "169110": [
+   "Nadiwan",
+   913,
+   13
+  ],
+  "169016": [
+   "Mana Madan Pur",
+   912,
+   13
+  ],
+  "169148": [
+   "Khakhardei",
+   913,
+   13
+  ],
+  "169156": [
+   "Kitiyawan",
+   913,
+   7
+  ],
+  "168975": [
+   "Bhikhipur",
+   912,
+   13
+  ],
+  "168993": [
+   "Nandaur",
+   912,
+   13
+  ],
+  "168989": [
+   "Besara Paschim",
+   912,
+   13
+  ],
+  "169111": [
+   "Atrauli",
+   913,
+   13
+  ],
+  "168986": [
+   "Ramraipur",
+   912,
+   13
+  ],
+  "169149": [
+   "Chhariyawan",
+   913,
+   13
+  ],
+  "169126": [
+   "Purehirbal",
+   913,
+   13
+  ],
+  "169129": [
+   "Tarsara",
+   913,
+   13
+  ],
+  "169172": [
+   "Nawwadih",
+   913,
+   7
+  ],
+  "169123": [
+   "Pichhaura",
+   913,
+   13
+  ],
+  "169424": [
+   "Maderika",
+   914,
+   8
+  ],
+  "168992": [
+   "Besara Purab",
+   912,
+   13
+  ],
+  "169124": [
+   "Kishundaspur",
+   913,
+   13
+  ],
+  "169018": [
+   "Nathupur",
+   912,
+   13
+  ],
+  "168994": [
+   "Rudauli",
+   912,
+   13
+  ],
+  "169009": [
+   "Tikra",
+   912,
+   13
+  ],
+  "168996": [
+   "Mubarakpur",
+   912,
+   13
+  ],
+  "169010": [
+   "Pure Beijnath",
+   912,
+   13
+  ],
+  "169011": [
+   "Majhagawaan",
+   912,
+   13
+  ],
+  "169020": [
+   "Kasthuni Purab",
+   912,
+   13
+  ],
+  "169017": [
+   "Karpiya",
+   912,
+   13
+  ],
+  "169125": [
+   "Ulra",
+   913,
+   13
+  ],
+  "169422": [
+   "Korari Heer Shah",
+   914,
+   8
+  ],
+  "169423": [
+   "Semra",
+   914,
+   8
+  ],
+  "168976": [
+   "Pindara Thakur",
+   912,
+   13
+  ],
+  "168949": [
+   "Ranjitpur",
+   912,
+   17
+  ],
+  "168948": [
+   "Bhaidpur",
+   912,
+   17
+  ],
+  "168979": [
+   "Paliya Purab",
+   912,
+   13
+  ],
+  "168789": [
+   "Kaima",
+   912,
+   16
+  ],
+  "168981": [
+   "Pure Parwani",
+   912,
+   17
+  ],
+  "168958": [
+   "Matha Bhusanda",
+   912,
+   17
+  ],
+  "168790": [
+   "Imli Gaon",
+   912,
+   17
+  ],
+  "168943": [
+   "Kanjas",
+   912,
+   17
+  ],
+  "168938": [
+   "Kadipur",
+   912,
+   17
+  ],
+  "169000": [
+   "Pure Jorai",
+   912,
+   13
+  ],
+  "168969": [
+   "Pure Prem Shah",
+   912,
+   17
+  ],
+  "168936": [
+   "Nara Adhanpur",
+   912,
+   17
+  ],
+  "168962": [
+   "Bhagupur",
+   912,
+   13
+  ],
+  "168945": [
+   "Sadipur",
+   912,
+   17
+  ],
+  "168983": [
+   "Pure Mohammad Newaj",
+   912,
+   13
+  ],
+  "168782": [
+   "Purab Gaon",
+   912,
+   16
+  ],
+  "168781": [
+   "Alinagar",
+   912,
+   16
+  ],
+  "168953": [
+   "Kodaili",
+   912,
+   17
+  ],
+  "168956": [
+   "Pure Pahlwan",
+   912,
+   17
+  ],
+  "168978": [
+   "Saraiya Talukedadra",
+   912,
+   17
+  ],
+  "168997": [
+   "Chak Jangali",
+   912,
+   17
+  ],
+  "168970": [
+   "Kapoorchand Pur",
+   912,
+   13
+  ],
+  "168957": [
+   "Dadra",
+   912,
+   17
+  ],
+  "168950": [
+   "Chandipur",
+   912,
+   17
+  ],
+  "249401": [
+   "Musafirkhana",
+   912,
+   13
+  ],
+  "168971": [
+   "Pindra Maharaj",
+   912,
+   13
+  ],
+  "168940": [
+   "Gangerwa",
+   912,
+   17
+  ],
+  "169002": [
+   "Jamuwari",
+   912,
+   13
+  ],
+  "168937": [
+   "Mahesh Pur",
+   912,
+   17
+  ],
+  "168961": [
+   "Gunnaur",
+   912,
+   17
+  ],
+  "168955": [
+   "Bharatpur",
+   912,
+   17
+  ],
+  "168972": [
+   "Pindarakarnai",
+   912,
+   13
+  ],
+  "168946": [
+   "Saraiya Sabal Shah",
+   912,
+   17
+  ],
+  "168941": [
+   "Salpur",
+   912,
+   17
+  ],
+  "169057": [
+   "Munghi",
+   913,
+   12
+  ],
+  "169056": [
+   "Richhaura",
+   913,
+   17
+  ],
+  "168944": [
+   "Newada",
+   912,
+   17
+  ],
+  "168939": [
+   "Mawai",
+   912,
+   17
+  ],
+  "169001": [
+   "Pure Siddhi",
+   912,
+   17
+  ],
+  "168960": [
+   "Rampur Lok Raipur",
+   912,
+   17
+  ],
+  "168959": [
+   "Chak Bahor",
+   912,
+   17
+  ],
+  "168998": [
+   "Muhiuddinpur",
+   912,
+   17
+  ],
+  "168963": [
+   "Mishra Pur",
+   912,
+   13
+  ],
+  "168896": [
+   "Asrafpur",
+   912,
+   17
+  ],
+  "168982": [
+   "Jakha Shiwa Pur",
+   912,
+   17
+  ],
+  "169106": [
+   "Barehti",
+   913,
+   13
+  ],
+  "168952": [
+   "Bhaddaur",
+   912,
+   17
+  ],
+  "168942": [
+   "Kankupur",
+   912,
+   17
+  ],
+  "168999": [
+   "Aurangabad",
+   912,
+   13
+  ],
+  "168984": [
+   "Bhanauli",
+   912,
+   13
+  ],
+  "168783": [
+   "Jalalpur Mafi",
+   912,
+   16
+  ],
+  "168780": [
+   "Dichauli",
+   912,
+   17
+  ],
+  "168935": [
+   "Kotwa",
+   912,
+   17
+  ],
+  "168947": [
+   "Gajanpur Duwariya",
+   912,
+   17
+  ],
+  "169012": [
+   "Kondri",
+   912,
+   17
+  ],
+  "168954": [
+   "Nijamuddinpur",
+   912,
+   17
+  ],
+  "169013": [
+   "Rasulabad",
+   912,
+   17
+  ],
+  "168951": [
+   "Kailashpur",
+   912,
+   17
+  ],
+  "169015": [
+   "Chitai Pur",
+   912,
+   13
+  ],
+  "168934": [
+   "Kochhit",
+   912,
+   17
+  ],
+  "169014": [
+   "Pipri Amirgiri",
+   912,
+   17
+  ],
+  "168980": [
+   "Musafirkhana",
+   912,
+   17
+  ],
+  "169023": [
+   "Nihal Garh Chak Jangla CT",
+   912,
+   15
+  ],
+  "169549": [
+   "Beeghapur",
+   914,
+   3
+  ],
+  "169550": [
+   "Dahiyawa",
+   914,
+   3
+  ],
+  "169503": [
+   "Ghorha",
+   914,
+   3
+  ],
+  "169558": [
+   "Agresar",
+   914,
+   3
+  ],
+  "169515": [
+   "Bahadur Pur",
+   914,
+   3
+  ],
+  "169522": [
+   "Bhojpur",
+   914,
+   3
+  ],
+  "169563": [
+   "Demaa",
+   914,
+   3
+  ],
+  "169506": [
+   "Bhava Pur",
+   914,
+   3
+  ],
+  "169528": [
+   "Ngardeeh",
+   914,
+   3
+  ],
+  "169556": [
+   "Tiwaripur",
+   914,
+   3
+  ],
+  "169548": [
+   "Piper Pur",
+   914,
+   3
+  ],
+  "169531": [
+   "Sigthee",
+   914,
+   3
+  ],
+  "169508": [
+   "Bhadar",
+   914,
+   3
+  ],
+  "169523": [
+   "Mallepur",
+   914,
+   3
+  ],
+  "169529": [
+   "Madapur",
+   914,
+   3
+  ],
+  "169504": [
+   "Paschim Pur",
+   914,
+   3
+  ],
+  "169514": [
+   "Mavaiya",
+   914,
+   3
+  ],
+  "169559": [
+   "Pathkhauli",
+   914,
+   3
+  ],
+  "169554": [
+   "Khargipur",
+   914,
+   3
+  ],
+  "169507": [
+   "Gara Pur",
+   914,
+   3
+  ],
+  "169561": [
+   "Songarha",
+   914,
+   3
+  ],
+  "169525": [
+   "Kharg Pur",
+   914,
+   3
+  ],
+  "169560": [
+   "Ramchandra Pur",
+   914,
+   3
+  ],
+  "169557": [
+   "Sonari",
+   914,
+   3
+  ],
+  "169505": [
+   "Gokula",
+   914,
+   3
+  ],
+  "169510": [
+   "Rata Pur",
+   914,
+   3
+  ],
+  "169555": [
+   "Sangapur",
+   914,
+   3
+  ],
+  "169516": [
+   "Gopalapur",
+   914,
+   3
+  ],
+  "169502": [
+   "Keshav Pur",
+   914,
+   3
+  ],
+  "169494": [
+   "Saraiyya",
+   914,
+   3
+  ],
+  "169527": [
+   "Neudhya",
+   914,
+   3
+  ],
+  "169509": [
+   "Gaji Pur",
+   914,
+   3
+  ],
+  "169532": [
+   "Roopi Pur",
+   914,
+   3
+  ],
+  "169551": [
+   "Marui",
+   914,
+   3
+  ],
+  "169530": [
+   "Guduri",
+   914,
+   3
+  ],
+  "169524": [
+   "Bhewyi",
+   914,
+   3
+  ],
+  "169553": [
+   "Rampur",
+   914,
+   3
+  ],
+  "169526": [
+   "Nonkhar",
+   914,
+   3
+  ],
+  "169564": [
+   "Bhaisaha",
+   914,
+   3
+  ],
+  "169419": [
+   "Chhachha",
+   914,
+   3
+  ],
+  "169512": [
+   "Parsoyia",
+   914,
+   3
+  ],
+  "169565": [
+   "Alampur",
+   914,
+   3
+  ],
+  "169571": [
+   "Gani Pur",
+   914,
+   3
+  ],
+  "169511": [
+   "Narhar Pur",
+   914,
+   3
+  ],
+  "169562": [
+   "Trilok Pur",
+   914,
+   3
+  ],
+  "169513": [
+   "Mangra",
+   914,
+   3
+  ],
+  "169568": [
+   "Trishundi",
+   914,
+   3
+  ],
+  "169572": [
+   "Sansari Pur",
+   914,
+   3
+  ],
+  "169573": [
+   "Dulhin Pur",
+   914,
+   3
+  ],
+  "169546": [
+   "Narbahan Pur",
+   914,
+   3
+  ],
+  "169574": [
+   "Bhagi Pur",
+   914,
+   3
+  ],
+  "169570": [
+   "Raypur",
+   914,
+   3
+  ],
+  "169567": [
+   "Cheera",
+   914,
+   3
+  ],
+  "169566": [
+   "Vasdevpur",
+   914,
+   3
+  ],
+  "169552": [
+   "Kurang",
+   914,
+   3
+  ],
+  "169545": [
+   "Durga Pur",
+   914,
+   3
+  ],
+  "169541": [
+   "Khoodipur",
+   914,
+   3
+  ],
+  "169537": [
+   "Rawatpur",
+   914,
+   3
+  ],
+  "169521": [
+   "Rewra",
+   914,
+   3
+  ],
+  "169474": [
+   "Uskaa",
+   914,
+   3
+  ],
+  "169517": [
+   "Ismail Pur",
+   914,
+   3
+  ],
+  "169492": [
+   "Kastoori Pur",
+   914,
+   3
+  ],
+  "169457": [
+   "Sahri",
+   914,
+   3
+  ],
+  "169468": [
+   "Madanpur",
+   914,
+   3
+  ],
+  "169534": [
+   "Rawani Pur",
+   914,
+   3
+  ],
+  "169491": [
+   "Pitambarpur",
+   914,
+   3
+  ],
+  "169465": [
+   "Heerapur",
+   914,
+   3
+  ],
+  "169533": [
+   "Baidhik Pur",
+   914,
+   3
+  ],
+  "169472": [
+   "Haripur",
+   914,
+   3
+  ],
+  "169467": [
+   "Parshurampur",
+   914,
+   3
+  ],
+  "169470": [
+   "Kotwaa",
+   914,
+   3
+  ],
+  "169518": [
+   "Karnai Pur",
+   914,
+   3
+  ],
+  "169535": [
+   "Kalyanpur",
+   914,
+   3
+  ],
+  "169466": [
+   "Mahnaa",
+   914,
+   3
+  ],
+  "169461": [
+   "Ghatkaur",
+   914,
+   3
+  ],
+  "169458": [
+   "Pure Kumar Shah",
+   914,
+   3
+  ],
+  "169519": [
+   "Ray Pur",
+   914,
+   3
+  ],
+  "169539": [
+   "Dasaipur",
+   914,
+   3
+  ],
+  "169471": [
+   "Balchandra Pur",
+   914,
+   3
+  ],
+  "169475": [
+   "Sakra Ramnagar",
+   914,
+   3
+  ],
+  "169463": [
+   "Bas00 Pur",
+   914,
+   3
+  ],
+  "169520": [
+   "Khajha",
+   914,
+   3
+  ],
+  "169493": [
+   "Sawangee",
+   914,
+   3
+  ],
+  "169473": [
+   "Manga Gopalpur",
+   914,
+   3
+  ],
+  "169538": [
+   "Maheshi Pur",
+   914,
+   3
+  ],
+  "169536": [
+   "Bhadaw",
+   914,
+   3
+  ],
+  "169462": [
+   "Bashoo",
+   914,
+   3
+  ],
+  "169464": [
+   "Khadhar",
+   914,
+   3
+  ],
+  "169542": [
+   "Lahna",
+   914,
+   3
+  ],
+  "169543": [
+   "Khandhar",
+   914,
+   3
+  ],
+  "169469": [
+   "Gairik Pur",
+   914,
+   3
+  ],
+  "169540": [
+   "Mochwa",
+   914,
+   3
+  ],
+  "169547": [
+   "Tilak Chhuwa",
+   914,
+   3
+  ],
+  "169460": [
+   "Tikawar",
+   914,
+   8
+  ],
+  "169544": [
+   "Beeka Pur",
+   914,
+   3
+  ],
+  "144031": [
+   "Gopalpur",
+   824,
+   19
+  ],
+  "143994": [
+   "Kusumbhi",
+   824,
+   18
+  ],
+  "143996": [
+   "Kukaha Rampur",
+   824,
+   18
+  ],
+  "144020": [
+   "Jehta Usarha",
+   824,
+   18
+  ],
+  "144008": [
+   "Sultanpur Bahengi",
+   824,
+   19
+  ],
+  "144014": [
+   "Kotwa",
+   824,
+   19
+  ],
+  "143992": [
+   "Kharawa",
+   824,
+   18
+  ],
+  "144033": [
+   "Ramganj",
+   824,
+   19
+  ],
+  "144001": [
+   "Lauli",
+   824,
+   18
+  ],
+  "144003": [
+   "Jaitpur",
+   824,
+   18
+  ],
+  "144000": [
+   "Hathrohana",
+   824,
+   18
+  ],
+  "143997": [
+   "Mahiya Senduriya",
+   824,
+   18
+  ],
+  "143995": [
+   "Tikari",
+   824,
+   18
+  ],
+  "144016": [
+   "Bhanipur",
+   824,
+   19
+  ],
+  "144019": [
+   "Khara",
+   824,
+   19
+  ],
+  "144036": [
+   "Dangi Barwaliya",
+   824,
+   19
+  ],
+  "144018": [
+   "Ahorwa Bhwani",
+   824,
+   19
+  ],
+  "144004": [
+   "Tedhai",
+   824,
+   18
+  ],
+  "143993": [
+   "Sighhawapur",
+   824,
+   18
+  ],
+  "143999": [
+   "Nagiya Mou",
+   824,
+   18
+  ],
+  "144032": [
+   "Dhirapur",
+   824,
+   19
+  ],
+  "144030": [
+   "Bhawanipur",
+   824,
+   19
+  ],
+  "144007": [
+   "Mahimanpur",
+   824,
+   19
+  ],
+  "144029": [
+   "Patti Bakshi",
+   824,
+   19
+  ],
+  "144028": [
+   "Panhauna",
+   824,
+   14
+  ],
+  "144006": [
+   "Raja Patti",
+   824,
+   18
+  ],
+  "144002": [
+   "Sakatpur",
+   824,
+   18
+  ],
+  "144009": [
+   "Naukhera",
+   824,
+   19
+  ],
+  "144013": [
+   "Chilauli",
+   824,
+   19
+  ],
+  "144011": [
+   "Anguri",
+   824,
+   19
+  ],
+  "144015": [
+   "Satan Purwa",
+   824,
+   19
+  ],
+  "144012": [
+   "Ashrafpur",
+   824,
+   19
+  ],
+  "144021": [
+   "Kharagpur",
+   824,
+   18
+  ],
+  "144017": [
+   "Gadhi Mahabal",
+   824,
+   19
+  ],
+  "144005": [
+   "Jagatpur",
+   824,
+   18
+  ],
+  "144035": [
+   "Saraiya Salarpur",
+   824,
+   19
+  ],
+  "144010": [
+   "Dubeypur",
+   824,
+   19
+  ],
+  "144022": [
+   "Perariya",
+   824,
+   18
+  ],
+  "144023": [
+   "Perara",
+   824,
+   18
+  ],
+  "143998": [
+   "Goyan",
+   824,
+   18
+  ],
+  "168735": [
+   "Sauna",
+   912,
+   20
+  ],
+  "168740": [
+   "Vishambher Patti",
+   912,
+   21
+  ],
+  "168706": [
+   "Sidhana Mau",
+   912,
+   21
+  ],
+  "168731": [
+   "Sahabgarh",
+   912,
+   21
+  ],
+  "168759": [
+   "Shahpur Allad Husain",
+   912,
+   21
+  ],
+  "168771": [
+   "Nihal Pur",
+   912,
+   16
+  ],
+  "168746": [
+   "Rondawa",
+   912,
+   21
+  ],
+  "168713": [
+   "Bhandara Shekh Pur",
+   912,
+   21
+  ],
+  "168715": [
+   "Laliha Mau",
+   912,
+   21
+  ],
+  "168701": [
+   "Khalish Bahadur Pur",
+   912,
+   20
+  ],
+  "168699": [
+   "Pure Dayagir",
+   912,
+   20
+  ],
+  "168764": [
+   "Daulatpur Nisura",
+   912,
+   21
+  ],
+  "168737": [
+   "Tetar Pur",
+   912,
+   21
+  ],
+  "168705": [
+   "Nirhi Garh",
+   912,
+   20
+  ],
+  "168752": [
+   "Koilara Mubaraqpur",
+   912,
+   20
+  ],
+  "168700": [
+   "Unch Gaon",
+   912,
+   20
+  ],
+  "168734": [
+   "Barsanda",
+   912,
+   20
+  ],
+  "168754": [
+   "Kamrauli",
+   912,
+   20
+  ],
+  "168718": [
+   "Banarpur",
+   912,
+   21
+  ],
+  "144037": [
+   "Inhauna",
+   824,
+   19
+  ],
+  "168765": [
+   "Pure Moti Shukul",
+   912,
+   21
+  ],
+  "144045": [
+   "Jiyapur",
+   824,
+   14
+  ],
+  "168750": [
+   "Rajkheta",
+   912,
+   20
+  ],
+  "168692": [
+   "Sidhauli",
+   912,
+   20
+  ],
+  "168728": [
+   "Bhatmau",
+   912,
+   21
+  ],
+  "168702": [
+   "Gayas Pur",
+   912,
+   20
+  ],
+  "168696": [
+   "Nimpur",
+   912,
+   20
+  ],
+  "144041": [
+   "Mahmood Sarai",
+   824,
+   19
+  ],
+  "144043": [
+   "Ahmadabad Pipari",
+   824,
+   19
+  ],
+  "168717": [
+   "Jodil Mau",
+   912,
+   21
+  ],
+  "168691": [
+   "Husen Pur",
+   912,
+   20
+  ],
+  "144039": [
+   "Sadhiya",
+   824,
+   20
+  ],
+  "168745": [
+   "Fazil Pur",
+   912,
+   21
+  ],
+  "168698": [
+   "Nihal Garh Saida Patti",
+   912,
+   20
+  ],
+  "168738": [
+   "Hasanpur Tiwari",
+   912,
+   21
+  ],
+  "168769": [
+   "Mau Atwara",
+   912,
+   21
+  ],
+  "168733": [
+   "Byaure Mau",
+   912,
+   20
+  ],
+  "168711": [
+   "Shahpur Shamshul Haque",
+   912,
+   21
+  ],
+  "168719": [
+   "Mardanpur",
+   912,
+   20
+  ],
+  "168766": [
+   "Mirapur",
+   912,
+   21
+  ],
+  "168709": [
+   "Mahauna Purab",
+   912,
+   20
+  ],
+  "168729": [
+   "Jalali",
+   912,
+   21
+  ],
+  "168751": [
+   "Palia Paschim",
+   912,
+   20
+  ],
+  "168695": [
+   "Sewara",
+   912,
+   20
+  ],
+  "168768": [
+   "Deokali",
+   912,
+   21
+  ],
+  "168757": [
+   "Sarai Alam",
+   912,
+   15
+  ],
+  "168693": [
+   "Daranagar",
+   912,
+   20
+  ],
+  "168793": [
+   "Khairatpur",
+   912,
+   16
+  ],
+  "144044": [
+   "Jijauli",
+   824,
+   19
+  ],
+  "168736": [
+   "Rasul Pur",
+   912,
+   20
+  ],
+  "168743": [
+   "Mandwa",
+   912,
+   21
+  ],
+  "168689": [
+   "Indriya",
+   912,
+   22
+  ],
+  "168722": [
+   "Puredip Chand",
+   912,
+   21
+  ],
+  "144046": [
+   "Otiya",
+   824,
+   14
+  ],
+  "168762": [
+   "Rasta Mau",
+   912,
+   21
+  ],
+  "168761": [
+   "Bagmira",
+   912,
+   21
+  ],
+  "168744": [
+   "Virahim Baj Garh",
+   912,
+   21
+  ],
+  "168716": [
+   "Badal Garh",
+   912,
+   21
+  ],
+  "168690": [
+   "Ekkatajpur",
+   912,
+   22
+  ],
+  "144034": [
+   "Jainagara",
+   824,
+   14
+  ],
+  "168727": [
+   "Phundan Pur",
+   912,
+   21
+  ],
+  "168694": [
+   "Harkhu Mau",
+   912,
+   20
+  ],
+  "168753": [
+   "Sendurwa",
+   912,
+   20
+  ],
+  "144038": [
+   "Sarai Madho",
+   824,
+   19
+  ],
+  "168697": [
+   "Newaj Bhadar Garh",
+   912,
+   20
+  ],
+  "168704": [
+   "Ashis Pur",
+   912,
+   20
+  ],
+  "168758": [
+   "Ankara",
+   912,
+   21
+  ],
+  "168721": [
+   "Baharpur",
+   912,
+   21
+  ],
+  "168720": [
+   "Sujanpur",
+   912,
+   21
+  ],
+  "168732": [
+   "Sariya Pirjada",
+   912,
+   20
+  ],
+  "168708": [
+   "Mahauna Paschim",
+   912,
+   20
+  ],
+  "168739": [
+   "Jamuwari",
+   912,
+   21
+  ],
+  "168703": [
+   "Kaji Pur",
+   912,
+   20
+  ],
+  "168763": [
+   "Lakhanipur",
+   912,
+   21
+  ],
+  "168707": [
+   "Fatte Pur",
+   912,
+   20
+  ],
+  "168767": [
+   "Gadriya Dih",
+   912,
+   21
+  ],
+  "168723": [
+   "Bakhtawar Nagar",
+   912,
+   21
+  ],
+  "168742": [
+   "Tarai",
+   912,
+   21
+  ],
+  "168712": [
+   "Nadi",
+   912,
+   21
+  ],
+  "168724": [
+   "Muhiuddin Pur",
+   912,
+   21
+  ],
+  "144040": [
+   "Azadpur",
+   824,
+   19
+  ],
+  "168760": [
+   "Mangrauli",
+   912,
+   21
+  ],
+  "168730": [
+   "Balapur",
+   912,
+   21
+  ],
+  "168726": [
+   "Para",
+   912,
+   21
+  ],
+  "168725": [
+   "Chhajju Pur",
+   912,
+   21
+  ],
+  "168741": [
+   "Sathin",
+   912,
+   21
+  ],
+  "168710": [
+   "Kisuni",
+   912,
+   21
+  ],
+  "168714": [
+   "Makhdum Kalan",
+   912,
+   21
+  ],
+  "144042": [
+   "Miyan Ganj",
+   824,
+   19
+  ],
+  "168747": [
+   "Banbhariya",
+   912,
+   20
+  ],
+  "168679": [
+   "Tendua",
+   912,
+   22
+  ],
+  "168680": [
+   "Dakkhin Gaon Kyar",
+   912,
+   22
+  ],
+  "168687": [
+   "Dhanesha Rajput",
+   912,
+   22
+  ],
+  "168686": [
+   "Ahamadpur",
+   912,
+   22
+  ],
+  "168688": [
+   "Mawaiya Rahmat Garh",
+   912,
+   22
+  ],
+  "168681": [
+   "Shivali",
+   912,
+   22
+  ],
+  "169021": [
+   "Kathaura CT",
+   912,
+   20
+  ],
+  "168685": [
+   "Bubupur",
+   912,
+   22
+  ],
+  "168678": [
+   "Khemmau",
+   912,
+   22
+  ],
+  "168682": [
+   "Pali",
+   912,
+   22
+  ],
+  "168677": [
+   "Sansarpur",
+   912,
+   22
+  ],
+  "168684": [
+   "Tenwasi",
+   912,
+   22
+  ],
+  "168676": [
+   "Manjh Gaon",
+   912,
+   22
+  ],
+  "168683": [
+   "Urer Mau",
+   912,
+   22
+  ],
+  "168770": [
+   "Makhdum Pur",
+   912,
+   21
+  ],
+  "168777": [
+   "Nasirabad",
+   912,
+   21
+  ],
+  "168779": [
+   "Thauri",
+   912,
+   17
+  ],
+  "168778": [
+   "Kachnaaw",
+   912,
+   21
+  ],
+  "168776": [
+   "Pichhuti",
+   912,
+   21
+  ],
+  "168775": [
+   "Matiyari Kalan",
+   912,
+   21
+  ],
+  "169374": [
+   "Chakrdhar Pur",
+   914,
+   2
+  ],
+  "169205": [
+   "Dost Pur",
+   913,
+   6
+  ],
+  "169100": [
+   "Ramshahpur",
+   913,
+   12
+  ],
+  "168788": [
+   "Namadar Pur",
+   912,
+   16
+  ],
+  "169029": [
+   "Lakhnapur",
+   913,
+   15
+  ],
+  "169022": [
+   "Palpur CT",
+   912,
+   16
+  ],
+  "169569": [
+   "Vishundas Pur",
+   914,
+   3
+  ]
+ },
+ "village_count_total": 1004,
+ "village_count_assigned": 1004
+}

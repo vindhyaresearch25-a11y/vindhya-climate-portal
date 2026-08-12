@@ -1,0 +1,861 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Jammu & Kashmir",
+  "district": "Ramban",
+  "district_lgd": 621,
+  "observation_window": "2026-08-07T11:10Z to 2026-08-12T11:10Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3758,
+  "sm_surface_stddev": 0.046,
+  "sm_rootzone_mean": 0.3904,
+  "sm_rootzone_stddev": 0.0526,
+  "n_cells": 13,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 33.1523,
+    "lon": 75.2474,
+    "sm_surface": 0.4104,
+    "sm_rootzone": 0.4313,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 1,
+    "lat": 33.1523,
+    "lon": 75.3462,
+    "sm_surface": 0.3973,
+    "sm_rootzone": 0.4141,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 2,
+    "lat": 33.2511,
+    "lon": 75.0498,
+    "sm_surface": 0.4189,
+    "sm_rootzone": 0.4415,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 3,
+    "lat": 33.2511,
+    "lon": 75.1486,
+    "sm_surface": 0.4137,
+    "sm_rootzone": 0.4347,
+    "n_villages_sharing_cell": 24
+   },
+   {
+    "cell_index": 4,
+    "lat": 33.2511,
+    "lon": 75.2474,
+    "sm_surface": 0.4066,
+    "sm_rootzone": 0.4246,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 5,
+    "lat": 33.2511,
+    "lon": 75.3462,
+    "sm_surface": 0.3815,
+    "sm_rootzone": 0.3818,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 6,
+    "lat": 33.35,
+    "lon": 75.0498,
+    "sm_surface": 0.3203,
+    "sm_rootzone": 0.3367,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 7,
+    "lat": 33.35,
+    "lon": 75.1486,
+    "sm_surface": 0.4095,
+    "sm_rootzone": 0.4289,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 8,
+    "lat": 33.35,
+    "lon": 75.2474,
+    "sm_surface": 0.4041,
+    "sm_rootzone": 0.423,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 9,
+    "lat": 33.35,
+    "lon": 75.3462,
+    "sm_surface": 0.2891,
+    "sm_rootzone": 0.2768,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 10,
+    "lat": 33.4488,
+    "lon": 75.0498,
+    "sm_surface": 0.3174,
+    "sm_rootzone": 0.3313,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 11,
+    "lat": 33.4488,
+    "lon": 75.1486,
+    "sm_surface": 0.4083,
+    "sm_rootzone": 0.428,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 12,
+    "lat": 33.4488,
+    "lon": 75.2474,
+    "sm_surface": 0.308,
+    "sm_rootzone": 0.322,
+    "n_villages_sharing_cell": 6
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3775,
+  "sm_surface_stddev": 0.0297,
+  "n_blocks": 7
+ },
+ "blocks": [
+  {
+   "block_name": "Banihal",
+   "sdcode": 66,
+   "n_villages": 26,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.3801,
+   "sm_surface_stddev": 0.0455
+  },
+  {
+   "block_name": "Batote",
+   "sdcode": 6761,
+   "n_villages": 17,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3996,
+   "sm_surface_stddev": 0.005
+  },
+  {
+   "block_name": "Gool",
+   "sdcode": 6763,
+   "n_villages": 19,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.4014,
+   "sm_surface_stddev": 0.0352
+  },
+  {
+   "block_name": "Khari",
+   "sdcode": 6759,
+   "n_villages": 3,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3184,
+   "sm_surface_stddev": 0.0014
+  },
+  {
+   "block_name": "Pogal Paristan",
+   "sdcode": 6760,
+   "n_villages": 9,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3505,
+   "sm_surface_stddev": 0.0553
+  },
+  {
+   "block_name": "Rajgarh",
+   "sdcode": 6762,
+   "n_villages": 10,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3862,
+   "sm_surface_stddev": 0.0072
+  },
+  {
+   "block_name": "Ramban",
+   "sdcode": 67,
+   "n_villages": 54,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.4062,
+   "sm_surface_stddev": 0.0101
+  }
+ ],
+ "villages": {
+  "4621": [
+   "Chakka",
+   67,
+   3
+  ],
+  "4620": [
+   "Sarbagni",
+   67,
+   3
+  ],
+  "4623": [
+   "Digdole",
+   67,
+   3
+  ],
+  "4622": [
+   "Marog",
+   67,
+   3
+  ],
+  "4551": [
+   "Bajmasta",
+   67,
+   3
+  ],
+  "4567": [
+   "Duthan",
+   67,
+   0
+  ],
+  "4565": [
+   "Banera",
+   67,
+   3
+  ],
+  "4564": [
+   "Pari",
+   67,
+   3
+  ],
+  "4566": [
+   "Kothi",
+   67,
+   3
+  ],
+  "4607": [
+   "Gool",
+   6763,
+   2
+  ],
+  "4608": [
+   "Dheeda",
+   6763,
+   2
+  ],
+  "4563": [
+   "Tanger",
+   67,
+   3
+  ],
+  "4562": [
+   "Kanga",
+   67,
+   3
+  ],
+  "4561": [
+   "Badhole",
+   67,
+   3
+  ],
+  "4560": [
+   "Gandhari",
+   67,
+   3
+  ],
+  "4559": [
+   "Batli",
+   67,
+   3
+  ],
+  "4619": [
+   "Ind",
+   6763,
+   2
+  ],
+  "4618": [
+   "Chhachhwan",
+   6763,
+   2
+  ],
+  "4617": [
+   "Famrote",
+   6763,
+   3
+  ],
+  "4610": [
+   "Mahakund",
+   6763,
+   2
+  ],
+  "4611": [
+   "Thatharka",
+   6763,
+   2
+  ],
+  "4616": [
+   "Seripura",
+   6763,
+   3
+  ],
+  "4615": [
+   "Ashmar",
+   6763,
+   3
+  ],
+  "4609": [
+   "Dalwah",
+   6763,
+   2
+  ],
+  "4612": [
+   "Bandan",
+   6763,
+   3
+  ],
+  "4613": [
+   "Sangaldan",
+   6763,
+   3
+  ],
+  "4614": [
+   "Movelkote",
+   6763,
+   3
+  ],
+  "4625": [
+   "Harog",
+   67,
+   3
+  ],
+  "4624": [
+   "Somber",
+   67,
+   3
+  ],
+  "4605": [
+   "Dharam",
+   6763,
+   2
+  ],
+  "4606": [
+   "Wanding",
+   6763,
+   2
+  ],
+  "4546": [
+   "Bangara",
+   6760,
+   5
+  ],
+  "4548": [
+   "Senabathi",
+   6760,
+   9
+  ],
+  "4553": [
+   "Gam",
+   67,
+   4
+  ],
+  "4628": [
+   "Narthyal",
+   67,
+   4
+  ],
+  "4627": [
+   "Balihote",
+   67,
+   4
+  ],
+  "4554": [
+   "Damote",
+   67,
+   4
+  ],
+  "4629": [
+   "Ganote",
+   67,
+   5
+  ],
+  "4585": [
+   "Thopal",
+   6761,
+   1
+  ],
+  "4595": [
+   "Barthal",
+   6761,
+   1
+  ],
+  "4596": [
+   "Dharalta",
+   6761,
+   1
+  ],
+  "4601": [
+   "Rakhjarog",
+   6761,
+   1
+  ],
+  "4600": [
+   "Chackwa",
+   6761,
+   1
+  ],
+  "4599": [
+   "Ladwal",
+   6761,
+   1
+  ],
+  "4597": [
+   "Kothri",
+   6761,
+   1
+  ],
+  "4594": [
+   "Bendhere",
+   6761,
+   1
+  ],
+  "248039": [
+   "Municipal Committee Batote",
+   6761,
+   1
+  ],
+  "4593": [
+   "Beruni Batote",
+   6761,
+   1
+  ],
+  "4592": [
+   "Tringla",
+   6761,
+   1
+  ],
+  "4591": [
+   "Chilla",
+   6761,
+   0
+  ],
+  "4590": [
+   "Sanasar",
+   6761,
+   0
+  ],
+  "4589": [
+   "Sanna",
+   6761,
+   0
+  ],
+  "4552": [
+   "Telli",
+   67,
+   4
+  ],
+  "4634": [
+   "Gandhote",
+   67,
+   4
+  ],
+  "4633": [
+   "Seri",
+   67,
+   4
+  ],
+  "4557": [
+   "Beruni Ramban",
+   67,
+   4
+  ],
+  "4556": [
+   "Adhwa",
+   67,
+   4
+  ],
+  "4588": [
+   "Dalwas",
+   67,
+   0
+  ],
+  "4587": [
+   "Papria",
+   67,
+   0
+  ],
+  "4586": [
+   "Champa",
+   6761,
+   1
+  ],
+  "4584": [
+   "Kundi",
+   6762,
+   1
+  ],
+  "4574": [
+   "Tanger",
+   6762,
+   1
+  ],
+  "4642": [
+   "Kumate",
+   6762,
+   5
+  ],
+  "4577": [
+   "Deswal",
+   6762,
+   1
+  ],
+  "4575": [
+   "Rajgarh",
+   6762,
+   5
+  ],
+  "4576": [
+   "Dramen",
+   6762,
+   5
+  ],
+  "4641": [
+   "Hillar",
+   6762,
+   5
+  ],
+  "4573": [
+   "Ghari",
+   6762,
+   5
+  ],
+  "4640": [
+   "Jhatgali",
+   6762,
+   5
+  ],
+  "4639": [
+   "Dukson",
+   67,
+   5
+  ],
+  "4638": [
+   "Haila",
+   67,
+   5
+  ],
+  "4637": [
+   "Dandrath",
+   67,
+   5
+  ],
+  "4572": [
+   "Dhar",
+   67,
+   5
+  ],
+  "4578": [
+   "Chander Kote",
+   67,
+   0
+  ],
+  "4579": [
+   "Billawat",
+   67,
+   0
+  ],
+  "4580": [
+   "Sawani",
+   67,
+   0
+  ],
+  "4581": [
+   "Kunfer",
+   67,
+   1
+  ],
+  "4582": [
+   "Karma",
+   67,
+   0
+  ],
+  "4583": [
+   "Dharmound",
+   6761,
+   1
+  ],
+  "4632": [
+   "Dharli",
+   67,
+   4
+  ],
+  "248037": [
+   "Municipal Council Ramban",
+   67,
+   4
+  ],
+  "4631": [
+   "Sildhar",
+   67,
+   4
+  ],
+  "4555": [
+   "Kanthi",
+   67,
+   4
+  ],
+  "4570": [
+   "Sencha",
+   67,
+   4
+  ],
+  "4635": [
+   "Maitra",
+   67,
+   0
+  ],
+  "4568": [
+   "Bhatan",
+   67,
+   0
+  ],
+  "4569": [
+   "Kabbi",
+   67,
+   0
+  ],
+  "4558": [
+   "Pernote",
+   67,
+   4
+  ],
+  "4571": [
+   "Neera",
+   67,
+   4
+  ],
+  "4598": [
+   "Dharshivgarh",
+   6761,
+   1
+  ],
+  "999999": [
+   "Forest Block",
+   66,
+   9
+  ],
+  "4527": [
+   "Kaskoot",
+   66,
+   11
+  ],
+  "4517": [
+   "Trigam",
+   6759,
+   10
+  ],
+  "4549": [
+   "Forest Block Un Inhabited",
+   66,
+   7
+  ],
+  "4537": [
+   "Khari",
+   6759,
+   6
+  ],
+  "4536": [
+   "Gund Adulkote",
+   66,
+   7
+  ],
+  "4538": [
+   "Chamalwas",
+   66,
+   7
+  ],
+  "4526": [
+   "Krawa",
+   66,
+   11
+  ],
+  "4518": [
+   "Chachal",
+   66,
+   11
+  ],
+  "4516": [
+   "Mangit",
+   6759,
+   10
+  ],
+  "4519": [
+   "Asher",
+   66,
+   11
+  ],
+  "4521": [
+   "Nowgam",
+   66,
+   11
+  ],
+  "4522": [
+   "Gund Tethar",
+   66,
+   11
+  ],
+  "4520": [
+   "Charel Lamber",
+   66,
+   11
+  ],
+  "4525": [
+   "Zanihal",
+   66,
+   11
+  ],
+  "4550": [
+   "Shagan",
+   67,
+   7
+  ],
+  "4602": [
+   "Kalimasta",
+   6763,
+   6
+  ],
+  "4603": [
+   "Gundi",
+   6763,
+   6
+  ],
+  "4604": [
+   "Bhimdassa",
+   6763,
+   6
+  ],
+  "4535": [
+   "Bankoot",
+   66,
+   11
+  ],
+  "4524": [
+   "Jagir Namdar",
+   66,
+   11
+  ],
+  "4534": [
+   "Mahu",
+   66,
+   8
+  ],
+  "4543": [
+   "Sujmatna",
+   6760,
+   8
+  ],
+  "4544": [
+   "Panchal",
+   6760,
+   8
+  ],
+  "4545": [
+   "Hochak",
+   6760,
+   9
+  ],
+  "4547": [
+   "Paristan",
+   6760,
+   9
+  ],
+  "4539": [
+   "Chacknarwah",
+   66,
+   8
+  ],
+  "4540": [
+   "Neel",
+   66,
+   8
+  ],
+  "4542": [
+   "Alinbass",
+   6760,
+   8
+  ],
+  "4541": [
+   "Pogal Khaas",
+   6760,
+   9
+  ],
+  "4532": [
+   "Dhanmasta",
+   6760,
+   8
+  ],
+  "4533": [
+   "Bohardar",
+   66,
+   8
+  ],
+  "4531": [
+   "Doligam",
+   66,
+   12
+  ],
+  "4530": [
+   "Nagam",
+   66,
+   12
+  ],
+  "4529": [
+   "Chanjloo",
+   66,
+   12
+  ],
+  "4528": [
+   "Devgole",
+   66,
+   12
+  ],
+  "248036": [
+   "Municipal Committee Banihal",
+   66,
+   12
+  ],
+  "4523": [
+   "Tethar",
+   66,
+   12
+  ],
+  "4636": [
+   "Tatarsoo",
+   67,
+   4
+  ],
+  "4626": [
+   "Jawari",
+   67,
+   3
+  ],
+  "4630": [
+   "Nangal",
+   67,
+   5
+  ],
+  "4643": [
+   "Dhandela",
+   6762,
+   5
+  ],
+  "4644": [
+   "Forest Block",
+   67,
+   0
+  ]
+ },
+ "village_count_total": 138,
+ "village_count_assigned": 138
+}

@@ -1,0 +1,369 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Manipur",
+  "district": "Bishnupur",
+  "district_lgd": 252,
+  "observation_window": "2026-08-07T11:18Z to 2026-08-12T11:18Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3024,
+  "sm_surface_stddev": 0.0044,
+  "sm_rootzone_mean": 0.2567,
+  "sm_rootzone_stddev": 0.004,
+  "n_cells": 3,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 24.4566,
+    "lon": 93.7257,
+    "sm_surface": 0.3047,
+    "sm_rootzone": 0.2539,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 1,
+    "lat": 24.4566,
+    "lon": 93.8245,
+    "sm_surface": 0.3062,
+    "sm_rootzone": 0.2539,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 2,
+    "lat": 24.5554,
+    "lon": 93.8245,
+    "sm_surface": 0.2962,
+    "sm_rootzone": 0.2623,
+    "n_villages_sharing_cell": 33
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2994,
+  "sm_surface_stddev": 0.0035,
+  "n_blocks": 3
+ },
+ "blocks": [
+  {
+   "block_name": "Bishnupur",
+   "sdcode": 1874,
+   "n_villages": 16,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.2978,
+   "sm_surface_stddev": 0.0033
+  },
+  {
+   "block_name": "Moirang",
+   "sdcode": 1875,
+   "n_villages": 27,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3043,
+   "sm_surface_stddev": 0.0034
+  },
+  {
+   "block_name": "Nambol",
+   "sdcode": 1873,
+   "n_villages": 16,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.2962,
+   "sm_surface_stddev": 0.0
+  }
+ ],
+ "villages": {
+  "269902": [
+   "Ithing",
+   1875,
+   1
+  ],
+  "269871": [
+   "Lourembam",
+   1873,
+   2
+  ],
+  "269881": [
+   "Ngaikhong Khunou",
+   1873,
+   2
+  ],
+  "269900": [
+   "Saiton",
+   1875,
+   0
+  ],
+  "269905": [
+   "Sagang",
+   1875,
+   1
+  ],
+  "269906": [
+   "Wangoo Keirap",
+   1875,
+   1
+  ],
+  "269907": [
+   "Torbung",
+   1875,
+   0
+  ],
+  "269898": [
+   "Kwakta Pt",
+   1875,
+   0
+  ],
+  "269904": [
+   "Kumbi Pt",
+   1875,
+   1
+  ],
+  "269912": [
+   "Tangjeng",
+   1875,
+   1
+  ],
+  "269911": [
+   "Kasom Tampak",
+   1875,
+   1
+  ],
+  "269909": [
+   "Wangoo Ahallup",
+   1875,
+   1
+  ],
+  "269908": [
+   "Ithai",
+   1875,
+   1
+  ],
+  "269914": [
+   "Wapokpi",
+   1875,
+   1
+  ],
+  "269915": [
+   "Nongmaikhong",
+   1875,
+   1
+  ],
+  "269910": [
+   "Chairen",
+   1875,
+   1
+  ],
+  "269916": [
+   "Khordak",
+   1875,
+   1
+  ],
+  "269882": [
+   "Tengkhal Khunou",
+   1874,
+   2
+  ],
+  "269897": [
+   "Ngangkha Lawai",
+   1875,
+   0
+  ],
+  "269896": [
+   "Thamnapokpi",
+   1875,
+   0
+  ],
+  "269894": [
+   "Naranseina",
+   1874,
+   0
+  ],
+  "269893": [
+   "Sunusiphai",
+   1874,
+   0
+  ],
+  "269892": [
+   "Phubala",
+   1874,
+   0
+  ],
+  "269891": [
+   "Thinungei",
+   1874,
+   2
+  ],
+  "269888": [
+   "Potsangbam",
+   1874,
+   2
+  ],
+  "269890": [
+   "Ningthoukhong Kha Pt",
+   1874,
+   2
+  ],
+  "269883": [
+   "Ngaikhong Khullen",
+   1874,
+   2
+  ],
+  "269884": [
+   "Toubul",
+   1874,
+   2
+  ],
+  "269885": [
+   "Khoijuman Khullen",
+   1874,
+   2
+  ],
+  "269886": [
+   "Khoijuman Khunou",
+   1874,
+   2
+  ],
+  "269887": [
+   "Nachou",
+   1874,
+   2
+  ],
+  "269878": [
+   "Irengbam",
+   1873,
+   2
+  ],
+  "269879": [
+   "Yumnam Khunou",
+   1873,
+   2
+  ],
+  "269880": [
+   "Keinou",
+   1873,
+   2
+  ],
+  "269873": [
+   "Leimapokpam",
+   1873,
+   2
+  ],
+  "269872": [
+   "Pukhrambam",
+   1873,
+   2
+  ],
+  "269874": [
+   "Ishok",
+   1873,
+   2
+  ],
+  "269913": [
+   "Champu Khangpok",
+   1875,
+   2
+  ],
+  "269901": [
+   "Karang",
+   1875,
+   2
+  ],
+  "269895": [
+   "Khoirentak",
+   1875,
+   0
+  ],
+  "269903": [
+   "Thanga",
+   1875,
+   2
+  ],
+  "269899": [
+   "Kha Thingungei",
+   1875,
+   1
+  ],
+  "269889": [
+   "Ningthoukhong Awang Pt",
+   1874,
+   2
+  ],
+  "801474": [
+   "Kwakta Np",
+   1875,
+   0
+  ],
+  "801475": [
+   "Kumbi Np",
+   1875,
+   1
+  ],
+  "999999": [
+   "Loktak Lake",
+   1874,
+   2
+  ],
+  "801473": [
+   "Moirang Mci",
+   1875,
+   0
+  ],
+  "801472": [
+   "Ningthoukhong Np",
+   1874,
+   2
+  ],
+  "801471": [
+   "Bishnupur Mci",
+   1874,
+   2
+  ],
+  "801470": [
+   "Oinam Np",
+   1873,
+   2
+  ],
+  "269875": [
+   "Sadu Koireng",
+   1873,
+   2
+  ],
+  "269876": [
+   "Leimaram",
+   1873,
+   2
+  ],
+  "269877": [
+   "Namoikhul",
+   1873,
+   2
+  ],
+  "269868": [
+   "Utlou",
+   1873,
+   2
+  ],
+  "269869": [
+   "Kakyai Langpok",
+   1873,
+   2
+  ],
+  "269870": [
+   "Thiyam",
+   1873,
+   2
+  ],
+  "801469": [
+   "Nambol Mci",
+   1873,
+   2
+  ]
+ },
+ "village_count_total": 59,
+ "village_count_assigned": 59
+}

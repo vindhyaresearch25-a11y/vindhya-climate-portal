@@ -1,0 +1,5245 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Jharkhand",
+  "district": "Gumla",
+  "district_lgd": 331,
+  "observation_window": "2026-08-07T11:10Z to 2026-08-12T11:10Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3506,
+  "sm_surface_stddev": 0.0505,
+  "sm_rootzone_mean": 0.3299,
+  "sm_rootzone_stddev": 0.0532,
+  "n_cells": 46,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 22.7768,
+    "lon": 84.3383,
+    "sm_surface": 0.3297,
+    "sm_rootzone": 0.3169,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 1,
+    "lat": 22.7768,
+    "lon": 84.6348,
+    "sm_surface": 0.3374,
+    "sm_rootzone": 0.3028,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 2,
+    "lat": 22.7768,
+    "lon": 84.8324,
+    "sm_surface": 0.4157,
+    "sm_rootzone": 0.3963,
+    "n_villages_sharing_cell": 30
+   },
+   {
+    "cell_index": 3,
+    "lat": 22.8756,
+    "lon": 84.4371,
+    "sm_surface": 0.325,
+    "sm_rootzone": 0.2925,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 4,
+    "lat": 22.8756,
+    "lon": 84.536,
+    "sm_surface": 0.3283,
+    "sm_rootzone": 0.2933,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 5,
+    "lat": 22.8756,
+    "lon": 84.6348,
+    "sm_surface": 0.3362,
+    "sm_rootzone": 0.3027,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 6,
+    "lat": 22.8756,
+    "lon": 84.7336,
+    "sm_surface": 0.4028,
+    "sm_rootzone": 0.3807,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 7,
+    "lat": 22.8756,
+    "lon": 84.8324,
+    "sm_surface": 0.4145,
+    "sm_rootzone": 0.3949,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 8,
+    "lat": 22.8756,
+    "lon": 84.9312,
+    "sm_surface": 0.4203,
+    "sm_rootzone": 0.4047,
+    "n_villages_sharing_cell": 32
+   },
+   {
+    "cell_index": 9,
+    "lat": 22.9744,
+    "lon": 84.4371,
+    "sm_surface": 0.2736,
+    "sm_rootzone": 0.2314,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 10,
+    "lat": 22.9744,
+    "lon": 84.536,
+    "sm_surface": 0.2765,
+    "sm_rootzone": 0.2318,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 11,
+    "lat": 22.9744,
+    "lon": 84.6348,
+    "sm_surface": 0.3933,
+    "sm_rootzone": 0.3715,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 12,
+    "lat": 22.9744,
+    "lon": 84.7336,
+    "sm_surface": 0.4014,
+    "sm_rootzone": 0.3798,
+    "n_villages_sharing_cell": 27
+   },
+   {
+    "cell_index": 13,
+    "lat": 22.9744,
+    "lon": 84.8324,
+    "sm_surface": 0.4132,
+    "sm_rootzone": 0.394,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 14,
+    "lat": 22.9744,
+    "lon": 84.9312,
+    "sm_surface": 0.4206,
+    "sm_rootzone": 0.4081,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 15,
+    "lat": 23.0732,
+    "lon": 84.1407,
+    "sm_surface": 0.329,
+    "sm_rootzone": 0.3215,
+    "n_villages_sharing_cell": 24
+   },
+   {
+    "cell_index": 16,
+    "lat": 23.0732,
+    "lon": 84.2395,
+    "sm_surface": 0.278,
+    "sm_rootzone": 0.254,
+    "n_villages_sharing_cell": 34
+   },
+   {
+    "cell_index": 17,
+    "lat": 23.0732,
+    "lon": 84.3383,
+    "sm_surface": 0.2779,
+    "sm_rootzone": 0.2544,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 18,
+    "lat": 23.0732,
+    "lon": 84.4371,
+    "sm_surface": 0.3234,
+    "sm_rootzone": 0.2934,
+    "n_villages_sharing_cell": 21
+   },
+   {
+    "cell_index": 19,
+    "lat": 23.0732,
+    "lon": 84.536,
+    "sm_surface": 0.3883,
+    "sm_rootzone": 0.3679,
+    "n_villages_sharing_cell": 25
+   },
+   {
+    "cell_index": 20,
+    "lat": 23.0732,
+    "lon": 84.6348,
+    "sm_surface": 0.3932,
+    "sm_rootzone": 0.3722,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 21,
+    "lat": 23.0732,
+    "lon": 84.7336,
+    "sm_surface": 0.4002,
+    "sm_rootzone": 0.3793,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 22,
+    "lat": 23.0732,
+    "lon": 84.8324,
+    "sm_surface": 0.4113,
+    "sm_rootzone": 0.3922,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 23,
+    "lat": 23.172,
+    "lon": 84.0419,
+    "sm_surface": 0.307,
+    "sm_rootzone": 0.2935,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 24,
+    "lat": 23.172,
+    "lon": 84.1407,
+    "sm_surface": 0.3216,
+    "sm_rootzone": 0.3125,
+    "n_villages_sharing_cell": 29
+   },
+   {
+    "cell_index": 25,
+    "lat": 23.172,
+    "lon": 84.2395,
+    "sm_surface": 0.2754,
+    "sm_rootzone": 0.2512,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 26,
+    "lat": 23.172,
+    "lon": 84.3383,
+    "sm_surface": 0.3265,
+    "sm_rootzone": 0.3172,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 27,
+    "lat": 23.172,
+    "lon": 84.4371,
+    "sm_surface": 0.3278,
+    "sm_rootzone": 0.2956,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 28,
+    "lat": 23.172,
+    "lon": 84.536,
+    "sm_surface": 0.3944,
+    "sm_rootzone": 0.3738,
+    "n_villages_sharing_cell": 25
+   },
+   {
+    "cell_index": 29,
+    "lat": 23.172,
+    "lon": 84.6348,
+    "sm_surface": 0.399,
+    "sm_rootzone": 0.3789,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 30,
+    "lat": 23.172,
+    "lon": 84.7336,
+    "sm_surface": 0.4031,
+    "sm_rootzone": 0.3832,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 31,
+    "lat": 23.172,
+    "lon": 84.8324,
+    "sm_surface": 0.4077,
+    "sm_rootzone": 0.3887,
+    "n_villages_sharing_cell": 29
+   },
+   {
+    "cell_index": 32,
+    "lat": 23.2709,
+    "lon": 84.1407,
+    "sm_surface": 0.2688,
+    "sm_rootzone": 0.2441,
+    "n_villages_sharing_cell": 21
+   },
+   {
+    "cell_index": 33,
+    "lat": 23.2709,
+    "lon": 84.2395,
+    "sm_surface": 0.3214,
+    "sm_rootzone": 0.3121,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 34,
+    "lat": 23.2709,
+    "lon": 84.3383,
+    "sm_surface": 0.3251,
+    "sm_rootzone": 0.3163,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 35,
+    "lat": 23.2709,
+    "lon": 84.4371,
+    "sm_surface": 0.3265,
+    "sm_rootzone": 0.295,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 36,
+    "lat": 23.2709,
+    "lon": 84.536,
+    "sm_surface": 0.3928,
+    "sm_rootzone": 0.3727,
+    "n_villages_sharing_cell": 38
+   },
+   {
+    "cell_index": 37,
+    "lat": 23.2709,
+    "lon": 84.6348,
+    "sm_surface": 0.3983,
+    "sm_rootzone": 0.3788,
+    "n_villages_sharing_cell": 30
+   },
+   {
+    "cell_index": 38,
+    "lat": 23.2709,
+    "lon": 84.7336,
+    "sm_surface": 0.4028,
+    "sm_rootzone": 0.3856,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 39,
+    "lat": 23.2709,
+    "lon": 84.8324,
+    "sm_surface": 0.406,
+    "sm_rootzone": 0.386,
+    "n_villages_sharing_cell": 25
+   },
+   {
+    "cell_index": 40,
+    "lat": 23.3697,
+    "lon": 84.3383,
+    "sm_surface": 0.3198,
+    "sm_rootzone": 0.3113,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 41,
+    "lat": 23.3697,
+    "lon": 84.4371,
+    "sm_surface": 0.3183,
+    "sm_rootzone": 0.2868,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 42,
+    "lat": 23.4685,
+    "lon": 84.3383,
+    "sm_surface": 0.3151,
+    "sm_rootzone": 0.3081,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 43,
+    "lat": 23.4685,
+    "lon": 84.4371,
+    "sm_surface": 0.3214,
+    "sm_rootzone": 0.3154,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 44,
+    "lat": 23.5673,
+    "lon": 84.3383,
+    "sm_surface": 0.2541,
+    "sm_rootzone": 0.2299,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 45,
+    "lat": 23.5673,
+    "lon": 84.4371,
+    "sm_surface": 0.3053,
+    "sm_rootzone": 0.3021,
+    "n_villages_sharing_cell": 3
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3535,
+  "sm_surface_stddev": 0.047,
+  "n_blocks": 12
+ },
+ "blocks": [
+  {
+   "block_name": "Albert Ekka(Jari)",
+   "sdcode": 2715,
+   "n_villages": 52,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.2976,
+   "sm_surface_stddev": 0.0248
+  },
+  {
+   "block_name": "Basia",
+   "sdcode": 2711,
+   "n_villages": 88,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.4101,
+   "sm_surface_stddev": 0.0061
+  },
+  {
+   "block_name": "Bharno",
+   "sdcode": 2709,
+   "n_villages": 69,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.4082,
+   "sm_surface_stddev": 0.0021
+  },
+  {
+   "block_name": "Bishunpur",
+   "sdcode": 2706,
+   "n_villages": 68,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.3153,
+   "sm_surface_stddev": 0.0137
+  },
+  {
+   "block_name": "Chainpur",
+   "sdcode": 2713,
+   "n_villages": 85,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.3036,
+   "sm_surface_stddev": 0.024
+  },
+  {
+   "block_name": "Dumri",
+   "sdcode": 2714,
+   "n_villages": 63,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.3012,
+   "sm_surface_stddev": 0.0246
+  },
+  {
+   "block_name": "Ghaghra",
+   "sdcode": 2707,
+   "n_villages": 120,
+   "n_cells_spanned": 9,
+   "sm_surface_mean": 0.3701,
+   "sm_surface_stddev": 0.0337
+  },
+  {
+   "block_name": "Gumla",
+   "sdcode": 2712,
+   "n_villages": 109,
+   "n_cells_spanned": 10,
+   "sm_surface_mean": 0.3726,
+   "sm_surface_stddev": 0.0386
+  },
+  {
+   "block_name": "Kamdara",
+   "sdcode": 2710,
+   "n_villages": 73,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.4186,
+   "sm_surface_stddev": 0.0028
+  },
+  {
+   "block_name": "Palkot",
+   "sdcode": 2717,
+   "n_villages": 73,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.3469,
+   "sm_surface_stddev": 0.0348
+  },
+  {
+   "block_name": "Raidih",
+   "sdcode": 2716,
+   "n_villages": 61,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.2962,
+   "sm_surface_stddev": 0.0255
+  },
+  {
+   "block_name": "Sisai",
+   "sdcode": 2708,
+   "n_villages": 88,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.4016,
+   "sm_surface_stddev": 0.0025
+  }
+ ],
+ "villages": {
+  "376146": [
+   "Bomhni",
+   2713,
+   16
+  ],
+  "375698": [
+   "Parriya",
+   2708,
+   30
+  ],
+  "376074": [
+   "Bhagwanpur",
+   2713,
+   25
+  ],
+  "376187": [
+   "Bherital",
+   2714,
+   24
+  ],
+  "375997": [
+   "Chaha",
+   2712,
+   19
+  ],
+  "375541": [
+   "Barang",
+   2707,
+   35
+  ],
+  "376303": [
+   "Karang",
+   2716,
+   4
+  ],
+  "376311": [
+   "Rengola",
+   2716,
+   3
+  ],
+  "376317": [
+   "Ramdega",
+   2716,
+   0
+  ],
+  "376314": [
+   "Mokra",
+   2716,
+   3
+  ],
+  "376315": [
+   "Kasira",
+   2716,
+   0
+  ],
+  "376316": [
+   "Konkel",
+   2716,
+   0
+  ],
+  "376321": [
+   "Kondra",
+   2716,
+   0
+  ],
+  "376318": [
+   "Taraloya",
+   2716,
+   0
+  ],
+  "376322": [
+   "Katasaru",
+   2716,
+   0
+  ],
+  "376320": [
+   "Bamalkera",
+   2716,
+   0
+  ],
+  "376336": [
+   "Danipani",
+   2717,
+   5
+  ],
+  "376306": [
+   "Jarjata",
+   2716,
+   3
+  ],
+  "376338": [
+   "Dahupani",
+   2717,
+   4
+  ],
+  "376304": [
+   "Saneakona",
+   2716,
+   3
+  ],
+  "376305": [
+   "Salkaia",
+   2716,
+   3
+  ],
+  "376310": [
+   "Birkera",
+   2716,
+   3
+  ],
+  "376340": [
+   "Ladhudera",
+   2717,
+   4
+  ],
+  "376335": [
+   "Gonmer",
+   2717,
+   5
+  ],
+  "376341": [
+   "Akhrakona",
+   2717,
+   4
+  ],
+  "376334": [
+   "Kasira",
+   2717,
+   5
+  ],
+  "376337": [
+   "Kharpani",
+   2717,
+   4
+  ],
+  "376339": [
+   "Kutuadih",
+   2717,
+   4
+  ],
+  "376351": [
+   "Lotwa",
+   2717,
+   4
+  ],
+  "376342": [
+   "Kharwadih",
+   2717,
+   4
+  ],
+  "376343": [
+   "Bhaunratoli",
+   2717,
+   3
+  ],
+  "376347": [
+   "Sundridih",
+   2717,
+   4
+  ],
+  "376352": [
+   "Tetartoli",
+   2717,
+   5
+  ],
+  "376349": [
+   "Bajra",
+   2717,
+   4
+  ],
+  "376353": [
+   "Kesidih",
+   2717,
+   5
+  ],
+  "376312": [
+   "Sursang",
+   2716,
+   3
+  ],
+  "376346": [
+   "Kandebewra",
+   2717,
+   4
+  ],
+  "376344": [
+   "Keratoli",
+   2717,
+   3
+  ],
+  "376348": [
+   "Koinardanr",
+   2717,
+   4
+  ],
+  "376313": [
+   "Kobja",
+   2716,
+   3
+  ],
+  "376345": [
+   "Sanaidih",
+   2717,
+   4
+  ],
+  "376350": [
+   "Rokedega",
+   2717,
+   4
+  ],
+  "376354": [
+   "Jaldega",
+   2717,
+   5
+  ],
+  "376356": [
+   "Pithartoli",
+   2717,
+   4
+  ],
+  "376355": [
+   "Konrekera",
+   2717,
+   5
+  ],
+  "376357": [
+   "Sijang",
+   2717,
+   1
+  ],
+  "376358": [
+   "Bilingbira",
+   2717,
+   4
+  ],
+  "376319": [
+   "Ramja",
+   2716,
+   0
+  ],
+  "376360": [
+   "Sarubera",
+   2717,
+   1
+  ],
+  "376363": [
+   "Bhusunditoli",
+   2717,
+   1
+  ],
+  "376362": [
+   "Obira",
+   2717,
+   1
+  ],
+  "376359": [
+   "Dombabira",
+   2717,
+   1
+  ],
+  "376361": [
+   "Banaidega",
+   2717,
+   1
+  ],
+  "376214": [
+   "Tetartoli",
+   2715,
+   15
+  ],
+  "376259": [
+   "Dumartoli",
+   2715,
+   15
+  ],
+  "376260": [
+   "Tigra",
+   2715,
+   15
+  ],
+  "376261": [
+   "Gobindpur",
+   2715,
+   15
+  ],
+  "376205": [
+   "Ratasilli",
+   2714,
+   24
+  ],
+  "376206": [
+   "Hathlada",
+   2714,
+   15
+  ],
+  "376202": [
+   "Asta",
+   2714,
+   15
+  ],
+  "376203": [
+   "Lowabar",
+   2714,
+   15
+  ],
+  "376215": [
+   "Parsa",
+   2715,
+   15
+  ],
+  "376216": [
+   "Bichhra",
+   2715,
+   15
+  ],
+  "376217": [
+   "Dhobri",
+   2715,
+   15
+  ],
+  "376220": [
+   "Banrotoli",
+   2715,
+   15
+  ],
+  "376219": [
+   "Panchi",
+   2715,
+   15
+  ],
+  "376218": [
+   "Sarangadih",
+   2715,
+   15
+  ],
+  "376257": [
+   "Koda",
+   2715,
+   15
+  ],
+  "376256": [
+   "Jadunathpur",
+   2715,
+   15
+  ],
+  "376255": [
+   "Rudarpur",
+   2715,
+   15
+  ],
+  "376258": [
+   "Barkadih",
+   2715,
+   15
+  ],
+  "376147": [
+   "Hisri",
+   2714,
+   32
+  ],
+  "376148": [
+   "Dabu",
+   2714,
+   32
+  ],
+  "376170": [
+   "Chandawal",
+   2714,
+   32
+  ],
+  "376149": [
+   "Irawal",
+   2714,
+   32
+  ],
+  "376169": [
+   "Kutlu",
+   2714,
+   32
+  ],
+  "376171": [
+   "Hotap",
+   2714,
+   32
+  ],
+  "376153": [
+   "Kathgaon",
+   2714,
+   32
+  ],
+  "376150": [
+   "Jurmu",
+   2714,
+   32
+  ],
+  "376151": [
+   "Sakhu",
+   2714,
+   32
+  ],
+  "376168": [
+   "Jairagi",
+   2714,
+   32
+  ],
+  "376161": [
+   "Dahkul",
+   2714,
+   32
+  ],
+  "376152": [
+   "Dina",
+   2714,
+   32
+  ],
+  "376167": [
+   "Nauhatta",
+   2714,
+   32
+  ],
+  "376166": [
+   "Anabiri",
+   2714,
+   32
+  ],
+  "376174": [
+   "Galu",
+   2714,
+   32
+  ],
+  "376175": [
+   "Akasi",
+   2714,
+   32
+  ],
+  "376165": [
+   "Kanji",
+   2714,
+   32
+  ],
+  "376164": [
+   "Natawal",
+   2714,
+   32
+  ],
+  "376179": [
+   "Nichitpur",
+   2714,
+   24
+  ],
+  "376154": [
+   "Kothi",
+   2714,
+   23
+  ],
+  "376163": [
+   "Batawal",
+   2714,
+   32
+  ],
+  "376162": [
+   "Lathatoli",
+   2714,
+   32
+  ],
+  "376158": [
+   "Tati",
+   2714,
+   24
+  ],
+  "376159": [
+   "Ekamba",
+   2714,
+   24
+  ],
+  "376069": [
+   "Kereng",
+   2713,
+   24
+  ],
+  "376156": [
+   "Majhgaon",
+   2714,
+   24
+  ],
+  "376160": [
+   "Bartoli",
+   2714,
+   24
+  ],
+  "376155": [
+   "Mahuadih",
+   2714,
+   23
+  ],
+  "376157": [
+   "Dumardanr",
+   2714,
+   24
+  ],
+  "376070": [
+   "Haradipa",
+   2713,
+   24
+  ],
+  "376193": [
+   "Naugain",
+   2714,
+   23
+  ],
+  "376194": [
+   "Karamdon",
+   2714,
+   23
+  ],
+  "376178": [
+   "Baghmariya",
+   2714,
+   24
+  ],
+  "376192": [
+   "Bandua",
+   2714,
+   24
+  ],
+  "376195": [
+   "Birgaon",
+   2714,
+   23
+  ],
+  "376191": [
+   "Katari",
+   2714,
+   24
+  ],
+  "376189": [
+   "Dumri",
+   2714,
+   24
+  ],
+  "376180": [
+   "Nawadihkataitoli",
+   2714,
+   24
+  ],
+  "376190": [
+   "Shekhpura",
+   2714,
+   24
+  ],
+  "376182": [
+   "Birri",
+   2714,
+   24
+  ],
+  "376181": [
+   "Jonkidohar",
+   2714,
+   24
+  ],
+  "376196": [
+   "Lonhra",
+   2714,
+   23
+  ],
+  "376186": [
+   "Harsari",
+   2714,
+   24
+  ],
+  "376198": [
+   "Chiraiyan",
+   2714,
+   23
+  ],
+  "376199": [
+   "Kararwani",
+   2714,
+   24
+  ],
+  "376185": [
+   "Khetli",
+   2714,
+   24
+  ],
+  "376188": [
+   "Chhotakatra",
+   2714,
+   24
+  ],
+  "376201": [
+   "Barkakatra",
+   2714,
+   24
+  ],
+  "376197": [
+   "Karni",
+   2714,
+   23
+  ],
+  "376200": [
+   "Suali",
+   2714,
+   24
+  ],
+  "376204": [
+   "Dauna",
+   2714,
+   24
+  ],
+  "376103": [
+   "Chitarpur",
+   2713,
+   17
+  ],
+  "376139": [
+   "Harra",
+   2713,
+   17
+  ],
+  "376071": [
+   "Bukma",
+   2713,
+   16
+  ],
+  "376208": [
+   "Perwantoli",
+   2714,
+   25
+  ],
+  "376134": [
+   "Roghadih",
+   2713,
+   17
+  ],
+  "376141": [
+   "Chhatarpur",
+   2713,
+   16
+  ],
+  "376102": [
+   "Lalganj",
+   2713,
+   17
+  ],
+  "376129": [
+   "Ghusri",
+   2713,
+   18
+  ],
+  "376209": [
+   "Bartoli",
+   2714,
+   16
+  ],
+  "376207": [
+   "Saintoli",
+   2714,
+   15
+  ],
+  "376142": [
+   "Sarkhi",
+   2713,
+   16
+  ],
+  "376211": [
+   "Hutar",
+   2715,
+   15
+  ],
+  "376230": [
+   "Santra Alias Srinagar",
+   2715,
+   16
+  ],
+  "376210": [
+   "Tetardanr",
+   2715,
+   16
+  ],
+  "376143": [
+   "Bendora",
+   2713,
+   16
+  ],
+  "376137": [
+   "Nadawal",
+   2713,
+   17
+  ],
+  "376144": [
+   "Koting",
+   2713,
+   17
+  ],
+  "376135": [
+   "Brahmpur",
+   2713,
+   17
+  ],
+  "376138": [
+   "Simlabartoli",
+   2713,
+   17
+  ],
+  "376212": [
+   "Tilhaitoli",
+   2715,
+   15
+  ],
+  "376224": [
+   "Sisikaramtoli",
+   2715,
+   16
+  ],
+  "376221": [
+   "Barwadih",
+   2715,
+   15
+  ],
+  "376229": [
+   "Kori",
+   2715,
+   16
+  ],
+  "376213": [
+   "Jarda",
+   2715,
+   15
+  ],
+  "376267": [
+   "Nichdumri",
+   2716,
+   17
+  ],
+  "376136": [
+   "Kurkel",
+   2713,
+   17
+  ],
+  "376231": [
+   "Chatakpur",
+   2715,
+   16
+  ],
+  "376266": [
+   "Jadi",
+   2716,
+   17
+  ],
+  "376265": [
+   "Kasir",
+   2716,
+   17
+  ],
+  "376232": [
+   "Togo",
+   2715,
+   16
+  ],
+  "376228": [
+   "Kokdih",
+   2715,
+   16
+  ],
+  "376227": [
+   "Asro",
+   2715,
+   16
+  ],
+  "376233": [
+   "Harratoli",
+   2715,
+   16
+  ],
+  "376268": [
+   "Uparkhatanga",
+   2716,
+   18
+  ],
+  "376145": [
+   "Natapol",
+   2713,
+   17
+  ],
+  "376262": [
+   "Khursuta",
+   2716,
+   17
+  ],
+  "376234": [
+   "Jarmana",
+   2715,
+   16
+  ],
+  "376223": [
+   "Jari",
+   2715,
+   16
+  ],
+  "376222": [
+   "Hariharpur",
+   2715,
+   15
+  ],
+  "376236": [
+   "Bumtel",
+   2715,
+   16
+  ],
+  "376254": [
+   "Bhikhampur",
+   2715,
+   15
+  ],
+  "376269": [
+   "Murumkela",
+   2716,
+   17
+  ],
+  "376226": [
+   "Ponri",
+   2715,
+   16
+  ],
+  "376235": [
+   "Dumartoli",
+   2715,
+   16
+  ],
+  "376263": [
+   "Kanchora",
+   2716,
+   17
+  ],
+  "376237": [
+   "Sikri",
+   2715,
+   16
+  ],
+  "376253": [
+   "Betri",
+   2715,
+   16
+  ],
+  "376270": [
+   "Masgaon",
+   2716,
+   17
+  ],
+  "376238": [
+   "Katimba",
+   2715,
+   16
+  ],
+  "376239": [
+   "Bardih",
+   2715,
+   16
+  ],
+  "376264": [
+   "Kemte",
+   2716,
+   17
+  ],
+  "376240": [
+   "Amgaon",
+   2715,
+   17
+  ],
+  "376252": [
+   "Rengnitoli",
+   2715,
+   16
+  ],
+  "376249": [
+   "Aunratoli",
+   2715,
+   16
+  ],
+  "376274": [
+   "Hesag",
+   2716,
+   9
+  ],
+  "376251": [
+   "Pakartoli",
+   2715,
+   16
+  ],
+  "376244": [
+   "Banjhar",
+   2715,
+   16
+  ],
+  "376241": [
+   "Kitam",
+   2715,
+   17
+  ],
+  "376273": [
+   "Tururma",
+   2716,
+   9
+  ],
+  "376271": [
+   "Latu",
+   2716,
+   17
+  ],
+  "376250": [
+   "Khuntitoli",
+   2715,
+   16
+  ],
+  "376242": [
+   "Saktar",
+   2715,
+   17
+  ],
+  "376245": [
+   "Pulung",
+   2715,
+   16
+  ],
+  "376247": [
+   "Chirodih",
+   2715,
+   16
+  ],
+  "376248": [
+   "Birkera",
+   2715,
+   16
+  ],
+  "376272": [
+   "Keradih",
+   2716,
+   9
+  ],
+  "376123": [
+   "Kukurunja",
+   2713,
+   18
+  ],
+  "376246": [
+   "Debidih",
+   2715,
+   16
+  ],
+  "376243": [
+   "Miral",
+   2715,
+   17
+  ],
+  "376291": [
+   "Katkaia",
+   2716,
+   9
+  ],
+  "375988": [
+   "Chhotkaloro",
+   2712,
+   19
+  ],
+  "376309": [
+   "Tulmunga",
+   2716,
+   3
+  ],
+  "376225": [
+   "Sinhpur",
+   2715,
+   16
+  ],
+  "376117": [
+   "Uru",
+   2713,
+   18
+  ],
+  "376020": [
+   "Phori",
+   2712,
+   20
+  ],
+  "376118": [
+   "Marwa",
+   2713,
+   27
+  ],
+  "375989": [
+   "Barkaloro",
+   2712,
+   19
+  ],
+  "376018": [
+   "Mokro",
+   2712,
+   19
+  ],
+  "376119": [
+   "Kuiya",
+   2713,
+   18
+  ],
+  "375974": [
+   "Chuglu",
+   2712,
+   19
+  ],
+  "375975": [
+   "Murumsokra",
+   2712,
+   19
+  ],
+  "376120": [
+   "Keragani",
+   2713,
+   18
+  ],
+  "375965": [
+   "Jana",
+   2712,
+   18
+  ],
+  "375966": [
+   "Dumardih",
+   2712,
+   18
+  ],
+  "375991": [
+   "Nawadih",
+   2712,
+   19
+  ],
+  "375967": [
+   "Hurhuriya",
+   2712,
+   19
+  ],
+  "375990": [
+   "Phathi",
+   2712,
+   19
+  ],
+  "375968": [
+   "Jilinga",
+   2712,
+   18
+  ],
+  "376024": [
+   "Khora",
+   2712,
+   20
+  ],
+  "376121": [
+   "Kochagani",
+   2713,
+   18
+  ],
+  "375973": [
+   "Sakarpur",
+   2712,
+   19
+  ],
+  "375992": [
+   "Kasitoli",
+   2712,
+   19
+  ],
+  "375972": [
+   "Gambhariya",
+   2712,
+   19
+  ],
+  "376122": [
+   "Bardih",
+   2713,
+   18
+  ],
+  "376015": [
+   "Naditoli",
+   2712,
+   20
+  ],
+  "376017": [
+   "Asni",
+   2712,
+   19
+  ],
+  "376016": [
+   "Barisa",
+   2712,
+   19
+  ],
+  "376128": [
+   "Tabela",
+   2713,
+   18
+  ],
+  "375993": [
+   "Chandali",
+   2712,
+   19
+  ],
+  "375969": [
+   "Kirki",
+   2712,
+   19
+  ],
+  "375971": [
+   "Joradanr",
+   2712,
+   19
+  ],
+  "375970": [
+   "Ghatgaon",
+   2712,
+   18
+  ],
+  "375994": [
+   "Nimtoli",
+   2712,
+   19
+  ],
+  "376127": [
+   "Dumri",
+   2713,
+   18
+  ],
+  "376014": [
+   "Bamhni",
+   2712,
+   20
+  ],
+  "375995": [
+   "Bhaldamchatti",
+   2712,
+   19
+  ],
+  "375996": [
+   "Soso",
+   2712,
+   19
+  ],
+  "376126": [
+   "Kewna",
+   2713,
+   18
+  ],
+  "375998": [
+   "Paharpanari",
+   2712,
+   19
+  ],
+  "376124": [
+   "Kolda",
+   2713,
+   18
+  ],
+  "376034": [
+   "Kumharia",
+   2712,
+   20
+  ],
+  "248057": [
+   "Gumla",
+   2712,
+   19
+  ],
+  "375999": [
+   "Katasaru",
+   2712,
+   18
+  ],
+  "376035": [
+   "Dhodhra",
+   2712,
+   20
+  ],
+  "376013": [
+   "Pugu",
+   2712,
+   19
+  ],
+  "376125": [
+   "Sokrahatu",
+   2713,
+   18
+  ],
+  "376000": [
+   "Garhsaru",
+   2712,
+   19
+  ],
+  "376275": [
+   "Luru",
+   2716,
+   18
+  ],
+  "376012": [
+   "Armai",
+   2712,
+   19
+  ],
+  "376036": [
+   "Domandih",
+   2712,
+   20
+  ],
+  "376283": [
+   "Bansdih",
+   2716,
+   18
+  ],
+  "376282": [
+   "Parsa",
+   2716,
+   18
+  ],
+  "376001": [
+   "Telgaon",
+   2712,
+   10
+  ],
+  "376276": [
+   "Unchdih",
+   2716,
+   9
+  ],
+  "376281": [
+   "Raghunathpur",
+   2716,
+   9
+  ],
+  "376007": [
+   "Phasia",
+   2712,
+   10
+  ],
+  "376008": [
+   "Tarri",
+   2712,
+   10
+  ],
+  "376037": [
+   "Bangru",
+   2712,
+   20
+  ],
+  "376011": [
+   "Urmi",
+   2712,
+   11
+  ],
+  "376006": [
+   "Karaundi",
+   2712,
+   10
+  ],
+  "376010": [
+   "Dumardih",
+   2712,
+   10
+  ],
+  "376038": [
+   "Mahugaon",
+   2712,
+   11
+  ],
+  "376002": [
+   "Belgaon",
+   2712,
+   10
+  ],
+  "376285": [
+   "Simartoli",
+   2716,
+   9
+  ],
+  "376284": [
+   "Tetardih",
+   2716,
+   9
+  ],
+  "376043": [
+   "Taisra",
+   2712,
+   11
+  ],
+  "376042": [
+   "Bargaon",
+   2712,
+   11
+  ],
+  "376277": [
+   "Pogra",
+   2716,
+   9
+  ],
+  "376004": [
+   "Tirra",
+   2712,
+   10
+  ],
+  "376009": [
+   "Brinda",
+   2712,
+   10
+  ],
+  "376003": [
+   "Haslata",
+   2712,
+   10
+  ],
+  "376325": [
+   "Gurma",
+   2717,
+   10
+  ],
+  "376280": [
+   "Telea",
+   2716,
+   9
+  ],
+  "376286": [
+   "Bokta",
+   2716,
+   9
+  ],
+  "376005": [
+   "Jorag",
+   2712,
+   10
+  ],
+  "376297": [
+   "Pakartoli",
+   2716,
+   10
+  ],
+  "376296": [
+   "Sikoi",
+   2716,
+   9
+  ],
+  "376287": [
+   "Turidih",
+   2716,
+   9
+  ],
+  "376044": [
+   "Koinara",
+   2712,
+   11
+  ],
+  "376279": [
+   "Karida",
+   2716,
+   9
+  ],
+  "376278": [
+   "Sipringabartoli",
+   2716,
+   9
+  ],
+  "376288": [
+   "Kapudih",
+   2716,
+   9
+  ],
+  "376298": [
+   "Silam",
+   2716,
+   10
+  ],
+  "376290": [
+   "Parasima",
+   2716,
+   9
+  ],
+  "376327": [
+   "Semra",
+   2717,
+   11
+  ],
+  "376299": [
+   "Ludamkothatoli",
+   2716,
+   10
+  ],
+  "376289": [
+   "Lunga",
+   2716,
+   9
+  ],
+  "376295": [
+   "Kulmunda",
+   2716,
+   10
+  ],
+  "376293": [
+   "Nawagarh",
+   2716,
+   9
+  ],
+  "376326": [
+   "Kharwadih",
+   2717,
+   10
+  ],
+  "376292": [
+   "Kurochhatarpur",
+   2716,
+   9
+  ],
+  "375538": [
+   "Jalka",
+   2707,
+   35
+  ],
+  "376330": [
+   "Kolang",
+   2717,
+   10
+  ],
+  "376323": [
+   "Kulbir",
+   2717,
+   10
+  ],
+  "376324": [
+   "Chirodih",
+   2717,
+   10
+  ],
+  "376329": [
+   "Umra",
+   2717,
+   11
+  ],
+  "376333": [
+   "Goja",
+   2717,
+   5
+  ],
+  "376300": [
+   "Loki",
+   2716,
+   10
+  ],
+  "376294": [
+   "Marda",
+   2716,
+   9
+  ],
+  "376302": [
+   "Pibo",
+   2716,
+   4
+  ],
+  "376332": [
+   "Litim",
+   2717,
+   5
+  ],
+  "376307": [
+   "Raidih",
+   2716,
+   9
+  ],
+  "376308": [
+   "Aranda",
+   2716,
+   3
+  ],
+  "376301": [
+   "Jamgain",
+   2716,
+   4
+  ],
+  "376331": [
+   "Kurum",
+   2717,
+   4
+  ],
+  "375487": [
+   "Gurdari",
+   2706,
+   33
+  ],
+  "375507": [
+   "Dipadih",
+   2706,
+   40
+  ],
+  "375494": [
+   "Chirodih",
+   2706,
+   40
+  ],
+  "375497": [
+   "Longa",
+   2706,
+   40
+  ],
+  "375495": [
+   "Champatoli",
+   2706,
+   40
+  ],
+  "375505": [
+   "Helta",
+   2706,
+   40
+  ],
+  "375523": [
+   "Saraidih",
+   2707,
+   34
+  ],
+  "376062": [
+   "Katabil",
+   2713,
+   33
+  ],
+  "375496": [
+   "Koenartoli",
+   2706,
+   40
+  ],
+  "375493": [
+   "Chatam",
+   2706,
+   34
+  ],
+  "376080": [
+   "Dokapat",
+   2713,
+   33
+  ],
+  "376173": [
+   "Udni",
+   2714,
+   32
+  ],
+  "375492": [
+   "Sato",
+   2706,
+   34
+  ],
+  "375489": [
+   "Kujam",
+   2706,
+   34
+  ],
+  "376068": [
+   "Sugasarwa",
+   2713,
+   24
+  ],
+  "375490": [
+   "Dewragani",
+   2706,
+   34
+  ],
+  "376063": [
+   "Rajadera",
+   2713,
+   33
+  ],
+  "375491": [
+   "Kota",
+   2706,
+   34
+  ],
+  "375488": [
+   "Ambakona",
+   2706,
+   33
+  ],
+  "376105": [
+   "Darkana",
+   2713,
+   26
+  ],
+  "375525": [
+   "Gutuajokari",
+   2707,
+   34
+  ],
+  "375516": [
+   "Tendar",
+   2707,
+   34
+  ],
+  "375524": [
+   "Hushir",
+   2707,
+   34
+  ],
+  "376064": [
+   "Dipadih",
+   2713,
+   33
+  ],
+  "376172": [
+   "Naugain",
+   2714,
+   33
+  ],
+  "376079": [
+   "Janawal",
+   2713,
+   33
+  ],
+  "376176": [
+   "Putrangi",
+   2714,
+   33
+  ],
+  "376177": [
+   "Sirsi",
+   2714,
+   33
+  ],
+  "375522": [
+   "Kedli",
+   2707,
+   34
+  ],
+  "375517": [
+   "Dirgaon",
+   2707,
+   34
+  ],
+  "376081": [
+   "Lupungpat",
+   2713,
+   33
+  ],
+  "375521": [
+   "Tusgaon",
+   2707,
+   34
+  ],
+  "376082": [
+   "Ghorhatti",
+   2713,
+   33
+  ],
+  "375520": [
+   "Hedmi",
+   2707,
+   34
+  ],
+  "376078": [
+   "Chhichhuwani",
+   2713,
+   33
+  ],
+  "376083": [
+   "Mahuatoli",
+   2713,
+   33
+  ],
+  "375519": [
+   "Salami",
+   2707,
+   26
+  ],
+  "376065": [
+   "Dargaon",
+   2713,
+   25
+  ],
+  "376084": [
+   "Karaku",
+   2713,
+   25
+  ],
+  "376088": [
+   "Besna",
+   2713,
+   26
+  ],
+  "376077": [
+   "Shukri",
+   2713,
+   25
+  ],
+  "376087": [
+   "Loramba",
+   2713,
+   25
+  ],
+  "375518": [
+   "Kanrasili",
+   2707,
+   26
+  ],
+  "376085": [
+   "Katkahi",
+   2713,
+   25
+  ],
+  "376066": [
+   "Bishunpur",
+   2713,
+   25
+  ],
+  "376108": [
+   "Chandgo",
+   2713,
+   27
+  ],
+  "376107": [
+   "Oramar",
+   2713,
+   26
+  ],
+  "376086": [
+   "Chachali",
+   2713,
+   25
+  ],
+  "376098": [
+   "Malam",
+   2713,
+   26
+  ],
+  "376089": [
+   "Tilwari",
+   2713,
+   25
+  ],
+  "376076": [
+   "Kerabar",
+   2713,
+   25
+  ],
+  "376099": [
+   "Ratugamhariya",
+   2713,
+   26
+  ],
+  "376106": [
+   "Kurumgarh",
+   2713,
+   26
+  ],
+  "376075": [
+   "Barwenagar",
+   2713,
+   25
+  ],
+  "376113": [
+   "Bamda",
+   2713,
+   26
+  ],
+  "376094": [
+   "Bhatauli",
+   2713,
+   25
+  ],
+  "376090": [
+   "Jaipur",
+   2713,
+   25
+  ],
+  "376067": [
+   "Bhelwatola",
+   2713,
+   24
+  ],
+  "376092": [
+   "Maheshpur",
+   2713,
+   25
+  ],
+  "376091": [
+   "Jamgain",
+   2713,
+   25
+  ],
+  "376093": [
+   "Silfari",
+   2713,
+   25
+  ],
+  "376183": [
+   "Sankhsardih",
+   2714,
+   24
+  ],
+  "376131": [
+   "Kotam",
+   2713,
+   26
+  ],
+  "376114": [
+   "Luru",
+   2713,
+   27
+  ],
+  "376132": [
+   "Jirmi",
+   2713,
+   26
+  ],
+  "376097": [
+   "Dahudargaon",
+   2713,
+   25
+  ],
+  "376104": [
+   "Manatu",
+   2713,
+   26
+  ],
+  "376095": [
+   "Rampur",
+   2713,
+   25
+  ],
+  "376073": [
+   "Jhargaon",
+   2713,
+   25
+  ],
+  "376184": [
+   "Sirmi",
+   2714,
+   24
+  ],
+  "376100": [
+   "Tigawal",
+   2713,
+   26
+  ],
+  "376101": [
+   "Datra",
+   2713,
+   26
+  ],
+  "376096": [
+   "Chainpur",
+   2713,
+   25
+  ],
+  "376130": [
+   "Sibil",
+   2713,
+   27
+  ],
+  "376072": [
+   "Kunrkel",
+   2713,
+   25
+  ],
+  "376133": [
+   "Sakra",
+   2713,
+   26
+  ],
+  "376140": [
+   "Tintangar",
+   2713,
+   25
+  ],
+  "375544": [
+   "Paunri",
+   2707,
+   41
+  ],
+  "375546": [
+   "Salgi",
+   2707,
+   41
+  ],
+  "375550": [
+   "Chulhamati",
+   2707,
+   41
+  ],
+  "375551": [
+   "Labsor",
+   2707,
+   41
+  ],
+  "375552": [
+   "Nathpur",
+   2707,
+   36
+  ],
+  "375555": [
+   "Icha",
+   2707,
+   36
+  ],
+  "375506": [
+   "Mundar",
+   2706,
+   41
+  ],
+  "375543": [
+   "Jilingsira",
+   2707,
+   35
+  ],
+  "375557": [
+   "Chundri",
+   2707,
+   36
+  ],
+  "375549": [
+   "Sarango",
+   2707,
+   36
+  ],
+  "375558": [
+   "Leha",
+   2707,
+   36
+  ],
+  "375556": [
+   "Mahugaon",
+   2707,
+   36
+  ],
+  "375559": [
+   "Chama",
+   2707,
+   36
+  ],
+  "375599": [
+   "Bala Khatanga",
+   2707,
+   37
+  ],
+  "375547": [
+   "Malgo",
+   2707,
+   35
+  ],
+  "375560": [
+   "Mael",
+   2707,
+   36
+  ],
+  "375561": [
+   "Beti",
+   2707,
+   36
+  ],
+  "375598": [
+   "Gamhariya",
+   2707,
+   37
+  ],
+  "375597": [
+   "Happamuni",
+   2707,
+   36
+  ],
+  "375596": [
+   "Hahri",
+   2707,
+   36
+  ],
+  "375562": [
+   "Dewaki",
+   2707,
+   36
+  ],
+  "375526": [
+   "Bimarla",
+   2707,
+   35
+  ],
+  "375548": [
+   "Adar",
+   2707,
+   35
+  ],
+  "375595": [
+   "Naudiha",
+   2707,
+   36
+  ],
+  "375600": [
+   "Chanchi",
+   2707,
+   37
+  ],
+  "375594": [
+   "Kothamati",
+   2707,
+   36
+  ],
+  "375563": [
+   "Itkiri",
+   2707,
+   36
+  ],
+  "375565": [
+   "Ajiyatu",
+   2707,
+   35
+  ],
+  "375542": [
+   "Korle",
+   2707,
+   35
+  ],
+  "375566": [
+   "Chhota Ajiyatu",
+   2707,
+   35
+  ],
+  "375564": [
+   "Nawadih",
+   2707,
+   36
+  ],
+  "375527": [
+   "Ghaghra",
+   2707,
+   35
+  ],
+  "375602": [
+   "Khatanga",
+   2707,
+   37
+  ],
+  "375601": [
+   "Gutua",
+   2707,
+   37
+  ],
+  "375567": [
+   "Porha",
+   2707,
+   35
+  ],
+  "375569": [
+   "Chatti",
+   2707,
+   35
+  ],
+  "375584": [
+   "Kugaon",
+   2707,
+   36
+  ],
+  "375568": [
+   "Ghutti",
+   2707,
+   35
+  ],
+  "375570": [
+   "Kurag",
+   2707,
+   36
+  ],
+  "375528": [
+   "Beyar",
+   2707,
+   35
+  ],
+  "375637": [
+   "Sahijana",
+   2708,
+   37
+  ],
+  "375586": [
+   "Ranhe",
+   2707,
+   36
+  ],
+  "375603": [
+   "Tangarsikwar",
+   2707,
+   36
+  ],
+  "375585": [
+   "Charheya",
+   2707,
+   36
+  ],
+  "375606": [
+   "Kotri",
+   2707,
+   37
+  ],
+  "375540": [
+   "Monatu",
+   2707,
+   35
+  ],
+  "375571": [
+   "Pathakpur",
+   2707,
+   35
+  ],
+  "375539": [
+   "Ruki",
+   2707,
+   35
+  ],
+  "375537": [
+   "Lalpur",
+   2707,
+   35
+  ],
+  "375617": [
+   "Dhobni",
+   2707,
+   37
+  ],
+  "375604": [
+   "Patagain R",
+   2707,
+   36
+  ],
+  "375583": [
+   "Sanso",
+   2707,
+   36
+  ],
+  "375582": [
+   "Serjama",
+   2707,
+   36
+  ],
+  "375572": [
+   "Kundo",
+   2707,
+   35
+  ],
+  "375529": [
+   "Khukhradih",
+   2707,
+   35
+  ],
+  "375593": [
+   "Chapka",
+   2707,
+   36
+  ],
+  "375618": [
+   "Badri",
+   2707,
+   37
+  ],
+  "375587": [
+   "Bansari",
+   2707,
+   36
+  ],
+  "375592": [
+   "Dherhauli",
+   2707,
+   36
+  ],
+  "375605": [
+   "Baniyadih",
+   2707,
+   36
+  ],
+  "375536": [
+   "Shiwserang",
+   2707,
+   35
+  ],
+  "375588": [
+   "Bahdura",
+   2707,
+   36
+  ],
+  "375581": [
+   "Nauni",
+   2707,
+   36
+  ],
+  "375616": [
+   "Panwari",
+   2707,
+   37
+  ],
+  "375530": [
+   "Bhelwadih",
+   2707,
+   35
+  ],
+  "375531": [
+   "Lowadag",
+   2707,
+   35
+  ],
+  "375573": [
+   "Turiyadih",
+   2707,
+   36
+  ],
+  "375607": [
+   "Ghoratangar",
+   2707,
+   36
+  ],
+  "375532": [
+   "Sehal",
+   2707,
+   35
+  ],
+  "375625": [
+   "Puto",
+   2707,
+   37
+  ],
+  "375589": [
+   "Anadhradih",
+   2707,
+   36
+  ],
+  "375535": [
+   "Goryadih",
+   2707,
+   35
+  ],
+  "375591": [
+   "Makra",
+   2707,
+   36
+  ],
+  "375615": [
+   "Sirkot",
+   2707,
+   37
+  ],
+  "375580": [
+   "Dardag",
+   2707,
+   36
+  ],
+  "375624": [
+   "Tilsiri",
+   2707,
+   29
+  ],
+  "375574": [
+   "Hutar",
+   2707,
+   36
+  ],
+  "375590": [
+   "Kasporeya",
+   2707,
+   28
+  ],
+  "375954": [
+   "Barkani",
+   2712,
+   27
+  ],
+  "375533": [
+   "Chatamdag",
+   2707,
+   35
+  ],
+  "376109": [
+   "Pakni",
+   2713,
+   27
+  ],
+  "375957": [
+   "Sisi",
+   2712,
+   27
+  ],
+  "375575": [
+   "Tunjo",
+   2707,
+   28
+  ],
+  "375579": [
+   "Chechepat",
+   2707,
+   28
+  ],
+  "375614": [
+   "Baradih",
+   2707,
+   29
+  ],
+  "375608": [
+   "Halmati",
+   2707,
+   28
+  ],
+  "375578": [
+   "Dodang",
+   2707,
+   28
+  ],
+  "375576": [
+   "Shiwrajpur",
+   2707,
+   28
+  ],
+  "375534": [
+   "Barrang",
+   2707,
+   27
+  ],
+  "376110": [
+   "Jairagi",
+   2713,
+   27
+  ],
+  "375626": [
+   "Bandabar",
+   2707,
+   29
+  ],
+  "375955": [
+   "Kita",
+   2712,
+   27
+  ],
+  "375635": [
+   "Ghagra CT",
+   2707,
+   36
+  ],
+  "375628": [
+   "Chumnu",
+   2707,
+   29
+  ],
+  "375627": [
+   "Khambha",
+   2707,
+   29
+  ],
+  "375577": [
+   "Totambi",
+   2707,
+   28
+  ],
+  "375956": [
+   "Chuhru",
+   2712,
+   27
+  ],
+  "375609": [
+   "Belagara",
+   2707,
+   28
+  ],
+  "375958": [
+   "Katri",
+   2712,
+   27
+  ],
+  "375613": [
+   "Gomat",
+   2707,
+   29
+  ],
+  "375612": [
+   "Goya",
+   2707,
+   28
+  ],
+  "375629": [
+   "Taragutu",
+   2707,
+   29
+  ],
+  "376112": [
+   "Sargaon",
+   2713,
+   27
+  ],
+  "375961": [
+   "Hethjori",
+   2712,
+   27
+  ],
+  "375983": [
+   "Luto",
+   2712,
+   28
+  ],
+  "375960": [
+   "Patgachha",
+   2712,
+   27
+  ],
+  "376111": [
+   "Uparjori",
+   2713,
+   27
+  ],
+  "375959": [
+   "Kotam",
+   2712,
+   27
+  ],
+  "375610": [
+   "Bushu",
+   2707,
+   28
+  ],
+  "375984": [
+   "Kharka",
+   2712,
+   28
+  ],
+  "375982": [
+   "Panso",
+   2712,
+   28
+  ],
+  "376115": [
+   "Saksari",
+   2713,
+   27
+  ],
+  "375630": [
+   "Kuhipat",
+   2707,
+   29
+  ],
+  "375611": [
+   "Guniya",
+   2707,
+   28
+  ],
+  "375962": [
+   "Marwa",
+   2712,
+   27
+  ],
+  "375963": [
+   "Kulhi",
+   2712,
+   27
+  ],
+  "375980": [
+   "Debidih",
+   2712,
+   28
+  ],
+  "375985": [
+   "Sawariya",
+   2712,
+   28
+  ],
+  "375981": [
+   "Dumarla",
+   2712,
+   28
+  ],
+  "376116": [
+   "Kutvan",
+   2713,
+   27
+  ],
+  "376019": [
+   "Basua",
+   2712,
+   28
+  ],
+  "375986": [
+   "Iro Phatakpur",
+   2712,
+   28
+  ],
+  "375987": [
+   "Jhargaon",
+   2712,
+   28
+  ],
+  "375964": [
+   "Anjan",
+   2712,
+   27
+  ],
+  "375979": [
+   "Rampur",
+   2712,
+   28
+  ],
+  "375978": [
+   "Pokma",
+   2712,
+   28
+  ],
+  "375977": [
+   "Barakhatanga",
+   2712,
+   28
+  ],
+  "376021": [
+   "Tigra",
+   2712,
+   29
+  ],
+  "375976": [
+   "Chhotakhatanga",
+   2712,
+   28
+  ],
+  "375448": [
+   "Nirasi",
+   2706,
+   44
+  ],
+  "375455": [
+   "Barkadoharaliasdomkom",
+   2706,
+   44
+  ],
+  "375453": [
+   "Borang",
+   2706,
+   45
+  ],
+  "375454": [
+   "Gobarsela",
+   2706,
+   44
+  ],
+  "375457": [
+   "Banalat",
+   2706,
+   42
+  ],
+  "375456": [
+   "Jori",
+   2706,
+   42
+  ],
+  "375460": [
+   "Dardag",
+   2706,
+   42
+  ],
+  "375458": [
+   "Rehaldag",
+   2706,
+   42
+  ],
+  "375459": [
+   "Hakajang",
+   2706,
+   42
+  ],
+  "375461": [
+   "Chorkakhar",
+   2706,
+   42
+  ],
+  "375463": [
+   "Bethat",
+   2706,
+   43
+  ],
+  "375462": [
+   "Lapu",
+   2706,
+   42
+  ],
+  "375515": [
+   "Birjiatoli",
+   2706,
+   42
+  ],
+  "375468": [
+   "Morwai",
+   2706,
+   42
+  ],
+  "375466": [
+   "Labga",
+   2706,
+   42
+  ],
+  "375469": [
+   "Range",
+   2706,
+   42
+  ],
+  "375467": [
+   "Tithi",
+   2706,
+   42
+  ],
+  "375472": [
+   "Beti",
+   2706,
+   42
+  ],
+  "375474": [
+   "Salam Nawatoli",
+   2706,
+   42
+  ],
+  "375470": [
+   "Langratanr",
+   2706,
+   42
+  ],
+  "375476": [
+   "Jahupkokotoli",
+   2706,
+   42
+  ],
+  "375473": [
+   "Chatakpur",
+   2706,
+   42
+  ],
+  "375475": [
+   "Banari",
+   2706,
+   42
+  ],
+  "375471": [
+   "Balatu",
+   2706,
+   42
+  ],
+  "375478": [
+   "Holang",
+   2706,
+   41
+  ],
+  "375485": [
+   "Narma",
+   2706,
+   40
+  ],
+  "375477": [
+   "Hasrag",
+   2706,
+   40
+  ],
+  "375484": [
+   "Ankuri",
+   2706,
+   40
+  ],
+  "375479": [
+   "Chipri",
+   2706,
+   40
+  ],
+  "375480": [
+   "Chingri",
+   2706,
+   40
+  ],
+  "375481": [
+   "Barkisamdari",
+   2706,
+   40
+  ],
+  "375499": [
+   "Bahagara",
+   2706,
+   40
+  ],
+  "375501": [
+   "Tumse",
+   2706,
+   40
+  ],
+  "375482": [
+   "Chhotkisamdari",
+   2706,
+   40
+  ],
+  "375483": [
+   "Bendi",
+   2706,
+   40
+  ],
+  "375486": [
+   "Amtipani",
+   2706,
+   40
+  ],
+  "375502": [
+   "Bishunpur",
+   2706,
+   40
+  ],
+  "375510": [
+   "Rehe",
+   2706,
+   41
+  ],
+  "375500": [
+   "Arangloya",
+   2706,
+   40
+  ],
+  "375504": [
+   "Jehangutua",
+   2706,
+   40
+  ],
+  "375503": [
+   "Chenri",
+   2706,
+   40
+  ],
+  "375498": [
+   "Oreya",
+   2706,
+   40
+  ],
+  "375513": [
+   "Jalim",
+   2706,
+   41
+  ],
+  "375450": [
+   "Jamti",
+   2706,
+   45
+  ],
+  "375451": [
+   "Katiya",
+   2706,
+   43
+  ],
+  "375452": [
+   "Ghaghra",
+   2706,
+   43
+  ],
+  "375464": [
+   "Hapad",
+   2706,
+   43
+  ],
+  "375465": [
+   "Hisir",
+   2706,
+   43
+  ],
+  "375512": [
+   "Hanrup",
+   2706,
+   41
+  ],
+  "375511": [
+   "Serka",
+   2706,
+   41
+  ],
+  "375514": [
+   "Kachki",
+   2706,
+   41
+  ],
+  "375545": [
+   "Serangdag",
+   2707,
+   41
+  ],
+  "375509": [
+   "Chappatoli",
+   2706,
+   41
+  ],
+  "375508": [
+   "Manjira",
+   2706,
+   41
+  ],
+  "375554": [
+   "Burju",
+   2707,
+   36
+  ],
+  "375553": [
+   "Jamgain",
+   2707,
+   41
+  ],
+  "376061": [
+   "Toto CT",
+   2712,
+   28
+  ],
+  "375449": [
+   "Kumari",
+   2706,
+   45
+  ],
+  "375915": [
+   "Pantha",
+   2711,
+   7
+  ],
+  "376385": [
+   "Palkot",
+   2717,
+   5
+  ],
+  "375936": [
+   "Majkera",
+   2711,
+   6
+  ],
+  "375897": [
+   "Jakjor",
+   2711,
+   7
+  ],
+  "375886": [
+   "Basiya",
+   2711,
+   7
+  ],
+  "376384": [
+   "Nathpur",
+   2717,
+   6
+  ],
+  "375935": [
+   "Tetra",
+   2711,
+   6
+  ],
+  "375914": [
+   "Lalpur",
+   2711,
+   7
+  ],
+  "375916": [
+   "Solangbira",
+   2711,
+   7
+  ],
+  "376380": [
+   "Satkhari",
+   2717,
+   6
+  ],
+  "375920": [
+   "Bhagidera",
+   2711,
+   7
+  ],
+  "375887": [
+   "Suturbula",
+   2711,
+   7
+  ],
+  "376382": [
+   "Petsera",
+   2717,
+   6
+  ],
+  "375917": [
+   "Saitola",
+   2711,
+   6
+  ],
+  "376366": [
+   "Kura",
+   2717,
+   5
+  ],
+  "376367": [
+   "Bangru",
+   2717,
+   5
+  ],
+  "375921": [
+   "Konbir",
+   2711,
+   7
+  ],
+  "376383": [
+   "Koenjali",
+   2717,
+   5
+  ],
+  "375919": [
+   "Sidma",
+   2711,
+   7
+  ],
+  "375885": [
+   "Bambiari",
+   2711,
+   7
+  ],
+  "375918": [
+   "Siribira",
+   2711,
+   6
+  ],
+  "375934": [
+   "Saruda",
+   2711,
+   6
+  ],
+  "375922": [
+   "Guram",
+   2711,
+   7
+  ],
+  "375933": [
+   "Kelga",
+   2711,
+   6
+  ],
+  "376381": [
+   "Rengola",
+   2717,
+   6
+  ],
+  "375931": [
+   "Morang",
+   2711,
+   6
+  ],
+  "375932": [
+   "Launga",
+   2711,
+   6
+  ],
+  "376364": [
+   "Kullukera",
+   2717,
+   1
+  ],
+  "376365": [
+   "Panisani",
+   2717,
+   5
+  ],
+  "375930": [
+   "Raykera",
+   2711,
+   6
+  ],
+  "375925": [
+   "Areya",
+   2711,
+   2
+  ],
+  "375924": [
+   "Saraidih",
+   2711,
+   7
+  ],
+  "376379": [
+   "Jina",
+   2717,
+   6
+  ],
+  "376368": [
+   "Damkara",
+   2717,
+   1
+  ],
+  "376378": [
+   "Deogaon",
+   2717,
+   6
+  ],
+  "376369": [
+   "Pojenga",
+   2717,
+   1
+  ],
+  "375927": [
+   "Patura",
+   2711,
+   2
+  ],
+  "375929": [
+   "Matardega",
+   2711,
+   6
+  ],
+  "375926": [
+   "Kurdega",
+   2711,
+   2
+  ],
+  "375928": [
+   "Kindarkela",
+   2711,
+   6
+  ],
+  "375880": [
+   "Dalmadih",
+   2711,
+   2
+  ],
+  "375879": [
+   "Kochedega",
+   2711,
+   2
+  ],
+  "376377": [
+   "Lodhma",
+   2717,
+   1
+  ],
+  "375878": [
+   "Sakia",
+   2711,
+   2
+  ],
+  "376375": [
+   "Rewra",
+   2717,
+   6
+  ],
+  "376376": [
+   "Bardih",
+   2717,
+   1
+  ],
+  "375867": [
+   "Kurum",
+   2711,
+   2
+  ],
+  "375877": [
+   "Gundardih",
+   2711,
+   2
+  ],
+  "376373": [
+   "Tapkara",
+   2717,
+   1
+  ],
+  "376370": [
+   "Jhikirma",
+   2717,
+   1
+  ],
+  "375875": [
+   "Bartoli",
+   2711,
+   2
+  ],
+  "376374": [
+   "Khatgaon",
+   2717,
+   1
+  ],
+  "375868": [
+   "Sasia",
+   2711,
+   2
+  ],
+  "375876": [
+   "Takarma",
+   2711,
+   2
+  ],
+  "375869": [
+   "Khat Khura",
+   2711,
+   2
+  ],
+  "375874": [
+   "Kurlaga",
+   2711,
+   2
+  ],
+  "375871": [
+   "Dolongsera",
+   2711,
+   2
+  ],
+  "376372": [
+   "Orbenga",
+   2717,
+   1
+  ],
+  "375870": [
+   "Itam",
+   2711,
+   2
+  ],
+  "375873": [
+   "Kinirkela",
+   2711,
+   2
+  ],
+  "376371": [
+   "Solga",
+   2717,
+   1
+  ],
+  "375872": [
+   "Turbunga",
+   2711,
+   2
+  ],
+  "375865": [
+   "Gara",
+   2710,
+   7
+  ],
+  "375826": [
+   "Garai",
+   2710,
+   8
+  ],
+  "375812": [
+   "Poje",
+   2710,
+   8
+  ],
+  "375824": [
+   "Loenga",
+   2710,
+   7
+  ],
+  "375827": [
+   "Bamandih",
+   2710,
+   8
+  ],
+  "375814": [
+   "Buruhatu Alias Pahargaon Ali",
+   2710,
+   8
+  ],
+  "375888": [
+   "Tirra",
+   2711,
+   7
+  ],
+  "375823": [
+   "Murga",
+   2710,
+   7
+  ],
+  "375825": [
+   "Kamta",
+   2710,
+   8
+  ],
+  "375811": [
+   "Bongda",
+   2710,
+   8
+  ],
+  "375817": [
+   "Bikma",
+   2710,
+   8
+  ],
+  "375815": [
+   "Hanjara",
+   2710,
+   8
+  ],
+  "375816": [
+   "Salegutu",
+   2710,
+   8
+  ],
+  "375808": [
+   "Pakra",
+   2710,
+   8
+  ],
+  "375822": [
+   "Akra",
+   2710,
+   7
+  ],
+  "375818": [
+   "Chhotkoili Alias Danrkoili",
+   2710,
+   8
+  ],
+  "375809": [
+   "Titi Alias Titihi",
+   2710,
+   8
+  ],
+  "375810": [
+   "Kisni",
+   2710,
+   8
+  ],
+  "375819": [
+   "Barkoili",
+   2710,
+   8
+  ],
+  "375820": [
+   "Jharo",
+   2710,
+   7
+  ],
+  "375821": [
+   "Porhotoli",
+   2710,
+   7
+  ],
+  "375807": [
+   "Surua",
+   2710,
+   8
+  ],
+  "375794": [
+   "Pimpi Alias Pipi",
+   2710,
+   8
+  ],
+  "375923": [
+   "Sukurda",
+   2711,
+   2
+  ],
+  "375793": [
+   "Sarita",
+   2710,
+   8
+  ],
+  "375884": [
+   "Kanaskeli",
+   2711,
+   2
+  ],
+  "375806": [
+   "Betarkera",
+   2710,
+   8
+  ],
+  "375805": [
+   "Ichagutu",
+   2710,
+   2
+  ],
+  "375797": [
+   "Gurjumdih",
+   2710,
+   8
+  ],
+  "375881": [
+   "Unchdih",
+   2711,
+   2
+  ],
+  "375796": [
+   "Kulburu",
+   2710,
+   8
+  ],
+  "375795": [
+   "Khijri",
+   2710,
+   8
+  ],
+  "375883": [
+   "Kadamdih",
+   2711,
+   2
+  ],
+  "375798": [
+   "Kurkura",
+   2710,
+   8
+  ],
+  "375882": [
+   "Ramdih",
+   2711,
+   2
+  ],
+  "375866": [
+   "Amdega",
+   2711,
+   2
+  ],
+  "375800": [
+   "Jamdih",
+   2710,
+   2
+  ],
+  "375799": [
+   "Tati",
+   2710,
+   2
+  ],
+  "375804": [
+   "Loyangkel",
+   2710,
+   2
+  ],
+  "375802": [
+   "Khambhoa",
+   2710,
+   2
+  ],
+  "375803": [
+   "Panruloya",
+   2710,
+   2
+  ],
+  "375801": [
+   "Rampur",
+   2710,
+   2
+  ],
+  "375686": [
+   "Nagfeni",
+   2708,
+   20
+  ],
+  "375685": [
+   "Ghaghra",
+   2708,
+   21
+  ],
+  "376023": [
+   "Bhandariya",
+   2712,
+   20
+  ],
+  "375779": [
+   "Karondajor",
+   2709,
+   22
+  ],
+  "375694": [
+   "Samal",
+   2708,
+   21
+  ],
+  "375703": [
+   "Nagar",
+   2708,
+   21
+  ],
+  "375695": [
+   "Songra",
+   2708,
+   21
+  ],
+  "375696": [
+   "Birkera",
+   2708,
+   21
+  ],
+  "376026": [
+   "Silaphari",
+   2712,
+   20
+  ],
+  "375701": [
+   "Kapilnath",
+   2708,
+   21
+  ],
+  "375702": [
+   "Samaidh",
+   2708,
+   21
+  ],
+  "375778": [
+   "Londra",
+   2709,
+   22
+  ],
+  "375692": [
+   "Gokhulpur",
+   2708,
+   21
+  ],
+  "375687": [
+   "Porha",
+   2708,
+   21
+  ],
+  "375688": [
+   "Asro",
+   2708,
+   21
+  ],
+  "375693": [
+   "Semra",
+   2708,
+   21
+  ],
+  "376025": [
+   "Bharda",
+   2712,
+   20
+  ],
+  "376027": [
+   "Lanji",
+   2712,
+   20
+  ],
+  "376028": [
+   "Chauli",
+   2712,
+   20
+  ],
+  "375780": [
+   "Goyelkera",
+   2709,
+   22
+  ],
+  "375787": [
+   "Kanarowa",
+   2709,
+   22
+  ],
+  "376029": [
+   "Kulabira",
+   2712,
+   20
+  ],
+  "376031": [
+   "Pabea",
+   2712,
+   20
+  ],
+  "375781": [
+   "Kunjali",
+   2709,
+   22
+  ],
+  "375689": [
+   "Korekera",
+   2708,
+   21
+  ],
+  "376030": [
+   "Karaunda",
+   2712,
+   20
+  ],
+  "375786": [
+   "Batkuri",
+   2709,
+   22
+  ],
+  "376050": [
+   "Patia",
+   2712,
+   21
+  ],
+  "375690": [
+   "Amkuli",
+   2708,
+   21
+  ],
+  "375790": [
+   "Karanj",
+   2709,
+   22
+  ],
+  "375785": [
+   "Omesera",
+   2709,
+   22
+  ],
+  "375784": [
+   "Jauli",
+   2709,
+   22
+  ],
+  "375953": [
+   "Bataloya",
+   2711,
+   21
+  ],
+  "376049": [
+   "Kasira",
+   2712,
+   20
+  ],
+  "376032": [
+   "Bhabhri",
+   2712,
+   20
+  ],
+  "375952": [
+   "Okba",
+   2711,
+   21
+  ],
+  "375783": [
+   "Olmora",
+   2709,
+   22
+  ],
+  "375691": [
+   "Olmunda",
+   2708,
+   21
+  ],
+  "376051": [
+   "Koenjara",
+   2712,
+   21
+  ],
+  "375782": [
+   "Joreya",
+   2709,
+   22
+  ],
+  "376033": [
+   "Dhangaon",
+   2712,
+   20
+  ],
+  "375791": [
+   "Kathaitkura",
+   2709,
+   22
+  ],
+  "375948": [
+   "Kedli",
+   2711,
+   21
+  ],
+  "375947": [
+   "Dakeya",
+   2711,
+   22
+  ],
+  "376048": [
+   "Amboa",
+   2712,
+   20
+  ],
+  "376052": [
+   "Keluga",
+   2712,
+   12
+  ],
+  "375890": [
+   "Maharajganj",
+   2711,
+   22
+  ],
+  "376047": [
+   "Dherhauli",
+   2712,
+   11
+  ],
+  "375889": [
+   "Borekera",
+   2711,
+   13
+  ],
+  "376039": [
+   "Bankir",
+   2712,
+   20
+  ],
+  "376056": [
+   "Rakamsera",
+   2712,
+   12
+  ],
+  "375951": [
+   "Tengra",
+   2711,
+   12
+  ],
+  "375891": [
+   "Karaloya",
+   2711,
+   13
+  ],
+  "376040": [
+   "Sursuria",
+   2712,
+   11
+  ],
+  "376055": [
+   "Samsera",
+   2712,
+   12
+  ],
+  "375896": [
+   "Gangra",
+   2711,
+   13
+  ],
+  "375949": [
+   "Mamarla",
+   2711,
+   12
+  ],
+  "376054": [
+   "Bela",
+   2712,
+   12
+  ],
+  "375946": [
+   "Chintaman Kura",
+   2711,
+   13
+  ],
+  "376053": [
+   "Kutasi",
+   2712,
+   12
+  ],
+  "376041": [
+   "Gindra",
+   2712,
+   11
+  ],
+  "375892": [
+   "Tangarjariya",
+   2711,
+   13
+  ],
+  "375945": [
+   "Lalpur",
+   2711,
+   12
+  ],
+  "375950": [
+   "Bongaloya",
+   2711,
+   12
+  ],
+  "376058": [
+   "Kotengsera",
+   2712,
+   12
+  ],
+  "375895": [
+   "Nawadih",
+   2711,
+   13
+  ],
+  "376059": [
+   "Rekma",
+   2712,
+   12
+  ],
+  "376057": [
+   "Murkunda",
+   2712,
+   11
+  ],
+  "376046": [
+   "Kolambi",
+   2712,
+   11
+  ],
+  "375944": [
+   "Narekela",
+   2711,
+   12
+  ],
+  "375893": [
+   "Lohri",
+   2711,
+   13
+  ],
+  "375894": [
+   "Bangarkela",
+   2711,
+   13
+  ],
+  "376395": [
+   "Tirra",
+   2717,
+   12
+  ],
+  "375941": [
+   "Jolo",
+   2711,
+   12
+  ],
+  "376045": [
+   "Charkatangar",
+   2712,
+   11
+  ],
+  "375942": [
+   "Bantariya",
+   2711,
+   12
+  ],
+  "376060": [
+   "Kutua",
+   2712,
+   12
+  ],
+  "375904": [
+   "Pokta",
+   2711,
+   13
+  ],
+  "375901": [
+   "Banai",
+   2711,
+   13
+  ],
+  "376387": [
+   "Gurgura",
+   2717,
+   11
+  ],
+  "375902": [
+   "Tangartoli",
+   2711,
+   13
+  ],
+  "375943": [
+   "Kiringloya",
+   2711,
+   12
+  ],
+  "376388": [
+   "Marda",
+   2717,
+   12
+  ],
+  "375940": [
+   "Lungtu",
+   2711,
+   12
+  ],
+  "376394": [
+   "Malai",
+   2717,
+   12
+  ],
+  "375903": [
+   "Ramjari",
+   2711,
+   13
+  ],
+  "376386": [
+   "Baghma",
+   2717,
+   11
+  ],
+  "376328": [
+   "Hansdoin",
+   2717,
+   11
+  ],
+  "375905": [
+   "Barai",
+   2711,
+   12
+  ],
+  "376393": [
+   "Bagesara",
+   2717,
+   12
+  ],
+  "375906": [
+   "Jamdang",
+   2711,
+   12
+  ],
+  "375900": [
+   "Ghunsera",
+   2711,
+   13
+  ],
+  "375909": [
+   "Kumhari",
+   2711,
+   13
+  ],
+  "375908": [
+   "Tukai",
+   2711,
+   12
+  ],
+  "375939": [
+   "Kulusera",
+   2711,
+   12
+  ],
+  "375907": [
+   "Talesera",
+   2711,
+   12
+  ],
+  "375899": [
+   "Pharsama",
+   2711,
+   13
+  ],
+  "376389": [
+   "Alangkera",
+   2717,
+   5
+  ],
+  "375910": [
+   "Surujpur",
+   2711,
+   12
+  ],
+  "375938": [
+   "Ninai",
+   2711,
+   6
+  ],
+  "376392": [
+   "Tengariya",
+   2717,
+   6
+  ],
+  "375911": [
+   "Sonmer",
+   2711,
+   7
+  ],
+  "375912": [
+   "Banagutu",
+   2711,
+   7
+  ],
+  "376390": [
+   "Kaimba",
+   2717,
+   6
+  ],
+  "375898": [
+   "Lotwa",
+   2711,
+   7
+  ],
+  "375937": [
+   "Lauakera",
+   2711,
+   6
+  ],
+  "376391": [
+   "Chainpur",
+   2717,
+   6
+  ],
+  "375768": [
+   "Parwal",
+   2709,
+   22
+  ],
+  "375767": [
+   "Reme",
+   2709,
+   22
+  ],
+  "375775": [
+   "Korekera",
+   2709,
+   22
+  ],
+  "375776": [
+   "Paharbangru",
+   2709,
+   22
+  ],
+  "375777": [
+   "Chitgutu",
+   2709,
+   22
+  ],
+  "375788": [
+   "Tetarbira",
+   2709,
+   22
+  ],
+  "375789": [
+   "Salkeya",
+   2709,
+   22
+  ],
+  "375853": [
+   "Narsinghpur",
+   2710,
+   22
+  ],
+  "375792": [
+   "Maladon",
+   2709,
+   22
+  ],
+  "375852": [
+   "Nawadih",
+   2710,
+   14
+  ],
+  "375856": [
+   "Parhi",
+   2710,
+   13
+  ],
+  "375851": [
+   "Renrwa",
+   2710,
+   14
+  ],
+  "375850": [
+   "Murumkela",
+   2710,
+   14
+  ],
+  "375854": [
+   "Dharnapur",
+   2710,
+   13
+  ],
+  "375849": [
+   "Latra",
+   2710,
+   14
+  ],
+  "375855": [
+   "Sursang",
+   2710,
+   13
+  ],
+  "375848": [
+   "Konsa",
+   2710,
+   14
+  ],
+  "375857": [
+   "Banpur",
+   2710,
+   13
+  ],
+  "375847": [
+   "Arahara",
+   2710,
+   14
+  ],
+  "375858": [
+   "Haphu",
+   2710,
+   14
+  ],
+  "375839": [
+   "Ramtoleya",
+   2710,
+   14
+  ],
+  "375846": [
+   "Chatakpur",
+   2710,
+   14
+  ],
+  "375838": [
+   "Kenaloya",
+   2710,
+   14
+  ],
+  "375859": [
+   "Kajra",
+   2710,
+   13
+  ],
+  "375860": [
+   "Raiba",
+   2710,
+   14
+  ],
+  "375844": [
+   "Kotbo",
+   2710,
+   14
+  ],
+  "375845": [
+   "Sonmer",
+   2710,
+   14
+  ],
+  "375837": [
+   "Chitapiri",
+   2710,
+   14
+  ],
+  "375840": [
+   "Kuli",
+   2710,
+   14
+  ],
+  "375841": [
+   "Bamhani",
+   2710,
+   14
+  ],
+  "375861": [
+   "Turbul",
+   2710,
+   14
+  ],
+  "375835": [
+   "Pakut",
+   2710,
+   14
+  ],
+  "375843": [
+   "Roykera",
+   2710,
+   14
+  ],
+  "375862": [
+   "Surhu",
+   2710,
+   7
+  ],
+  "375833": [
+   "Kurmul",
+   2710,
+   8
+  ],
+  "375834": [
+   "Urugutu",
+   2710,
+   8
+  ],
+  "375836": [
+   "Urminja",
+   2710,
+   8
+  ],
+  "375828": [
+   "Kamdara",
+   2710,
+   8
+  ],
+  "375842": [
+   "Karakel",
+   2710,
+   8
+  ],
+  "375832": [
+   "Pokla",
+   2710,
+   8
+  ],
+  "375864": [
+   "Karichuan",
+   2710,
+   7
+  ],
+  "375813": [
+   "Turundu",
+   2710,
+   8
+  ],
+  "375830": [
+   "Korekera",
+   2710,
+   8
+  ],
+  "375829": [
+   "Jariya",
+   2710,
+   8
+  ],
+  "375831": [
+   "Kuda",
+   2710,
+   8
+  ],
+  "375863": [
+   "Nawatoli",
+   2710,
+   7
+  ],
+  "375661": [
+   "Sursa",
+   2708,
+   38
+  ],
+  "375660": [
+   "Mada",
+   2708,
+   38
+  ],
+  "375645": [
+   "Kulkuppi",
+   2708,
+   37
+  ],
+  "375646": [
+   "Leranga",
+   2708,
+   37
+  ],
+  "375659": [
+   "Bando",
+   2708,
+   38
+  ],
+  "375663": [
+   "Arko",
+   2708,
+   38
+  ],
+  "375643": [
+   "Chanpi",
+   2708,
+   37
+  ],
+  "375636": [
+   "Larango",
+   2708,
+   37
+  ],
+  "375658": [
+   "Garwali",
+   2708,
+   38
+  ],
+  "375647": [
+   "Ekamba",
+   2708,
+   38
+  ],
+  "375644": [
+   "Dahidon",
+   2708,
+   37
+  ],
+  "375648": [
+   "Gutua",
+   2708,
+   37
+  ],
+  "375662": [
+   "Hesagutu",
+   2708,
+   38
+  ],
+  "375735": [
+   "Dipinglonga",
+   2709,
+   39
+  ],
+  "375649": [
+   "Nijma",
+   2708,
+   37
+  ],
+  "375734": [
+   "Paharkesa",
+   2709,
+   39
+  ],
+  "375650": [
+   "Puso",
+   2708,
+   38
+  ],
+  "375664": [
+   "Pahamu",
+   2708,
+   38
+  ],
+  "375641": [
+   "Lohanjra",
+   2708,
+   37
+  ],
+  "375657": [
+   "Khera",
+   2708,
+   38
+  ],
+  "375666": [
+   "Banpur",
+   2708,
+   38
+  ],
+  "375665": [
+   "Panilata",
+   2708,
+   38
+  ],
+  "375667": [
+   "Bhurso",
+   2708,
+   38
+  ],
+  "375651": [
+   "Dari",
+   2708,
+   38
+  ],
+  "375733": [
+   "Danrkesa",
+   2709,
+   39
+  ],
+  "375639": [
+   "Barri",
+   2708,
+   37
+  ],
+  "375729": [
+   "Baranda",
+   2709,
+   39
+  ],
+  "375732": [
+   "Pabeya",
+   2709,
+   39
+  ],
+  "375723": [
+   "Latdag",
+   2708,
+   38
+  ],
+  "375652": [
+   "Kocha",
+   2708,
+   37
+  ],
+  "375670": [
+   "Chegri",
+   2708,
+   38
+  ],
+  "375669": [
+   "Lawagain",
+   2708,
+   38
+  ],
+  "375638": [
+   "Lada",
+   2708,
+   37
+  ],
+  "375640": [
+   "Harri",
+   2708,
+   37
+  ],
+  "375668": [
+   "Semra",
+   2708,
+   38
+  ],
+  "375653": [
+   "Ghaghra",
+   2708,
+   37
+  ],
+  "375722": [
+   "Chharda",
+   2708,
+   38
+  ],
+  "375730": [
+   "Longa",
+   2709,
+   39
+  ],
+  "375731": [
+   "Batkuri",
+   2709,
+   39
+  ],
+  "375656": [
+   "Kurgi",
+   2708,
+   38
+  ],
+  "375655": [
+   "Gamhariya",
+   2708,
+   38
+  ],
+  "375728": [
+   "Makra",
+   2709,
+   39
+  ],
+  "375671": [
+   "Shiwnathpur",
+   2708,
+   38
+  ],
+  "375619": [
+   "Khapiya",
+   2707,
+   37
+  ],
+  "375673": [
+   "Siyang",
+   2708,
+   38
+  ],
+  "375620": [
+   "Cheigari",
+   2707,
+   37
+  ],
+  "375654": [
+   "Jalka",
+   2708,
+   37
+  ],
+  "375727": [
+   "Mahadewchegri",
+   2709,
+   39
+  ],
+  "375621": [
+   "Sikwar",
+   2707,
+   37
+  ],
+  "375672": [
+   "Parrani",
+   2708,
+   38
+  ],
+  "375720": [
+   "Baghni",
+   2708,
+   38
+  ],
+  "375716": [
+   "Manglo",
+   2708,
+   39
+  ],
+  "375721": [
+   "Langtapabeya",
+   2708,
+   38
+  ],
+  "375717": [
+   "Burka",
+   2708,
+   30
+  ],
+  "375622": [
+   "Duko",
+   2707,
+   29
+  ],
+  "375674": [
+   "Koredag",
+   2708,
+   30
+  ],
+  "375726": [
+   "Atakora",
+   2709,
+   31
+  ],
+  "375623": [
+   "Lodgo",
+   2707,
+   29
+  ],
+  "375719": [
+   "Sainda",
+   2708,
+   30
+  ],
+  "375760": [
+   "Dumbo",
+   2709,
+   31
+  ],
+  "375676": [
+   "Bargaon",
+   2708,
+   30
+  ],
+  "375718": [
+   "Karkari",
+   2708,
+   30
+  ],
+  "375632": [
+   "Arangi",
+   2707,
+   29
+  ],
+  "375675": [
+   "Kulangkeri",
+   2708,
+   30
+  ],
+  "375710": [
+   "Sisai",
+   2708,
+   30
+  ],
+  "375711": [
+   "Kudra",
+   2708,
+   30
+  ],
+  "375677": [
+   "Makunda",
+   2708,
+   29
+  ],
+  "375762": [
+   "Jura",
+   2709,
+   31
+  ],
+  "375725": [
+   "Bhargaon",
+   2709,
+   31
+  ],
+  "375713": [
+   "Jaira",
+   2708,
+   31
+  ],
+  "375761": [
+   "Nagra",
+   2709,
+   31
+  ],
+  "375712": [
+   "Gurugaon",
+   2708,
+   30
+  ],
+  "375633": [
+   "Kachapara",
+   2707,
+   29
+  ],
+  "375631": [
+   "Palma",
+   2707,
+   29
+  ],
+  "375678": [
+   "Songra",
+   2708,
+   29
+  ],
+  "375642": [
+   "Pahladpur",
+   2708,
+   37
+  ],
+  "375714": [
+   "Nimra",
+   2708,
+   31
+  ],
+  "375715": [
+   "Darha",
+   2708,
+   31
+  ],
+  "375763": [
+   "Algori",
+   2709,
+   31
+  ],
+  "375682": [
+   "Pilkhi",
+   2708,
+   30
+  ],
+  "375706": [
+   "Sakrauli",
+   2708,
+   31
+  ],
+  "375700": [
+   "Dahudih",
+   2708,
+   30
+  ],
+  "375679": [
+   "Murgu",
+   2708,
+   29
+  ],
+  "375709": [
+   "Bhadauli",
+   2708,
+   30
+  ],
+  "375708": [
+   "Lakea",
+   2708,
+   30
+  ],
+  "375770": [
+   "Domba",
+   2709,
+   31
+  ],
+  "375634": [
+   "Khambhiya",
+   2707,
+   29
+  ],
+  "375771": [
+   "Amboa",
+   2709,
+   31
+  ],
+  "375680": [
+   "Kamta",
+   2708,
+   29
+  ],
+  "375707": [
+   "Potro",
+   2708,
+   30
+  ],
+  "375683": [
+   "Mahunda",
+   2708,
+   30
+  ],
+  "375681": [
+   "Rerwa",
+   2708,
+   30
+  ],
+  "375705": [
+   "Bisrampur",
+   2708,
+   30
+  ],
+  "375704": [
+   "Jamgain",
+   2708,
+   30
+  ],
+  "375773": [
+   "Datiya",
+   2709,
+   31
+  ],
+  "376022": [
+   "Atariya",
+   2712,
+   29
+  ],
+  "375684": [
+   "Lawagain",
+   2708,
+   30
+  ],
+  "375697": [
+   "Digdon",
+   2708,
+   30
+  ],
+  "375772": [
+   "Ambera",
+   2709,
+   31
+  ],
+  "375699": [
+   "Lulhua",
+   2708,
+   30
+  ],
+  "375724": [
+   "Supa",
+   2709,
+   31
+  ],
+  "375758": [
+   "Kusumbha",
+   2709,
+   31
+  ],
+  "375747": [
+   "Bharno",
+   2709,
+   39
+  ],
+  "375745": [
+   "Morgaon",
+   2709,
+   39
+  ],
+  "375752": [
+   "Kamalpur",
+   2709,
+   31
+  ],
+  "375750": [
+   "Turiamba",
+   2709,
+   39
+  ],
+  "375746": [
+   "Malgo",
+   2709,
+   39
+  ],
+  "375751": [
+   "Masiya",
+   2709,
+   31
+  ],
+  "375756": [
+   "Khatko",
+   2709,
+   31
+  ],
+  "375755": [
+   "Marasili",
+   2709,
+   31
+  ],
+  "375754": [
+   "Mahugaon",
+   2709,
+   31
+  ],
+  "375759": [
+   "Singrauli",
+   2709,
+   31
+  ],
+  "375753": [
+   "Khartanga",
+   2709,
+   31
+  ],
+  "375764": [
+   "Madanpur",
+   2709,
+   31
+  ],
+  "375765": [
+   "Sargaon",
+   2709,
+   31
+  ],
+  "375769": [
+   "Jirhul",
+   2709,
+   31
+  ],
+  "375774": [
+   "Duriya",
+   2709,
+   31
+  ],
+  "375766": [
+   "Bangru",
+   2709,
+   31
+  ],
+  "375739": [
+   "Bantoli",
+   2709,
+   39
+  ],
+  "375738": [
+   "Amliya Kalyanpur",
+   2709,
+   39
+  ],
+  "375737": [
+   "Kharka",
+   2709,
+   39
+  ],
+  "375736": [
+   "Jatargari",
+   2709,
+   39
+  ],
+  "375740": [
+   "Raykera",
+   2709,
+   39
+  ],
+  "375741": [
+   "Samsera",
+   2709,
+   39
+  ],
+  "375742": [
+   "Sukurhutu",
+   2709,
+   39
+  ],
+  "375743": [
+   "Supa",
+   2709,
+   39
+  ],
+  "375744": [
+   "Burhipat",
+   2709,
+   39
+  ],
+  "375748": [
+   "Parsa",
+   2709,
+   39
+  ],
+  "375749": [
+   "Cheto",
+   2709,
+   39
+  ],
+  "375913": [
+   "Turibira",
+   2711,
+   7
+  ],
+  "375757": [
+   "Kumbhro",
+   2709,
+   31
+  ]
+ },
+ "village_count_total": 949,
+ "village_count_assigned": 949
+}

@@ -1,0 +1,986 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Nagaland",
+  "district": "Mon",
+  "district_lgd": 247,
+  "observation_window": "2026-08-07T11:19Z to 2026-08-12T11:19Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3868,
+  "sm_surface_stddev": 0.0134,
+  "sm_rootzone_mean": 0.4001,
+  "sm_rootzone_stddev": 0.0193,
+  "n_cells": 21,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 26.3341,
+    "lon": 94.9115,
+    "sm_surface": 0.3998,
+    "sm_rootzone": 0.4184,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 1,
+    "lat": 26.3341,
+    "lon": 95.0103,
+    "sm_surface": 0.3792,
+    "sm_rootzone": 0.3973,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 2,
+    "lat": 26.4329,
+    "lon": 94.9115,
+    "sm_surface": 0.3886,
+    "sm_rootzone": 0.402,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 3,
+    "lat": 26.4329,
+    "lon": 95.0103,
+    "sm_surface": 0.3802,
+    "sm_rootzone": 0.4001,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 4,
+    "lat": 26.5317,
+    "lon": 94.9115,
+    "sm_surface": 0.3861,
+    "sm_rootzone": 0.3976,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 5,
+    "lat": 26.5317,
+    "lon": 95.0103,
+    "sm_surface": 0.3774,
+    "sm_rootzone": 0.3916,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 6,
+    "lat": 26.5317,
+    "lon": 95.1091,
+    "sm_surface": 0.3857,
+    "sm_rootzone": 0.4059,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 7,
+    "lat": 26.6306,
+    "lon": 94.8127,
+    "sm_surface": 0.4012,
+    "sm_rootzone": 0.4172,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 8,
+    "lat": 26.6306,
+    "lon": 94.9115,
+    "sm_surface": 0.4022,
+    "sm_rootzone": 0.4201,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 9,
+    "lat": 26.6306,
+    "lon": 95.0103,
+    "sm_surface": 0.3995,
+    "sm_rootzone": 0.4179,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 10,
+    "lat": 26.6306,
+    "lon": 95.1091,
+    "sm_surface": 0.3857,
+    "sm_rootzone": 0.406,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 11,
+    "lat": 26.7294,
+    "lon": 94.9115,
+    "sm_surface": 0.4014,
+    "sm_rootzone": 0.4193,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 12,
+    "lat": 26.7294,
+    "lon": 95.0103,
+    "sm_surface": 0.3993,
+    "sm_rootzone": 0.4174,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 13,
+    "lat": 26.7294,
+    "lon": 95.1091,
+    "sm_surface": 0.385,
+    "sm_rootzone": 0.4044,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 14,
+    "lat": 26.7294,
+    "lon": 95.2079,
+    "sm_surface": 0.3766,
+    "sm_rootzone": 0.3937,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 15,
+    "lat": 26.8282,
+    "lon": 94.9115,
+    "sm_surface": 0.3736,
+    "sm_rootzone": 0.3685,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 16,
+    "lat": 26.8282,
+    "lon": 95.0103,
+    "sm_surface": 0.3555,
+    "sm_rootzone": 0.3516,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 17,
+    "lat": 26.8282,
+    "lon": 95.1091,
+    "sm_surface": 0.4059,
+    "sm_rootzone": 0.4223,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 18,
+    "lat": 26.927,
+    "lon": 94.9115,
+    "sm_surface": 0.3604,
+    "sm_rootzone": 0.3592,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 19,
+    "lat": 26.927,
+    "lon": 95.1091,
+    "sm_surface": 0.3846,
+    "sm_rootzone": 0.3918,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 20,
+    "lat": 26.927,
+    "lon": 95.2079,
+    "sm_surface": 0.3958,
+    "sm_rootzone": 0.4007,
+    "n_villages_sharing_cell": 11
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3867,
+  "sm_surface_stddev": 0.0067,
+  "n_blocks": 14
+ },
+ "blocks": [
+  {
+   "block_name": "Aboi",
+   "sdcode": 1750,
+   "n_villages": 9,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.3912,
+   "sm_surface_stddev": 0.0108
+  },
+  {
+   "block_name": "Angjangyang",
+   "sdcode": 1754,
+   "n_villages": 12,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3856,
+   "sm_surface_stddev": 0.0026
+  },
+  {
+   "block_name": "Chen",
+   "sdcode": 1753,
+   "n_villages": 10,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.3846,
+   "sm_surface_stddev": 0.0062
+  },
+  {
+   "block_name": "Hunta",
+   "sdcode": 1746,
+   "n_villages": 11,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.3958,
+   "sm_surface_stddev": 0.0
+  },
+  {
+   "block_name": "Longshen",
+   "sdcode": 1751,
+   "n_villages": 8,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3855,
+   "sm_surface_stddev": 0.0003
+  },
+  {
+   "block_name": "Mon Sadar",
+   "sdcode": 1748,
+   "n_villages": 20,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.3908,
+   "sm_surface_stddev": 0.0166
+  },
+  {
+   "block_name": "Monyakshu",
+   "sdcode": 1757,
+   "n_villages": 13,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.38,
+   "sm_surface_stddev": 0.0004
+  },
+  {
+   "block_name": "Mopong",
+   "sdcode": 1755,
+   "n_villages": 10,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3827,
+   "sm_surface_stddev": 0.0038
+  },
+  {
+   "block_name": "Naginimora",
+   "sdcode": 1744,
+   "n_villages": 8,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3754,
+   "sm_surface_stddev": 0.0107
+  },
+  {
+   "block_name": "Phomching",
+   "sdcode": 1752,
+   "n_villages": 8,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3777,
+   "sm_surface_stddev": 0.003
+  },
+  {
+   "block_name": "Shangnyu",
+   "sdcode": 1747,
+   "n_villages": 6,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3892,
+   "sm_surface_stddev": 0.0123
+  },
+  {
+   "block_name": "Tizit",
+   "sdcode": 1745,
+   "n_villages": 17,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3862,
+   "sm_surface_stddev": 0.0143
+  },
+  {
+   "block_name": "Tobu",
+   "sdcode": 1756,
+   "n_villages": 5,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3874,
+   "sm_surface_stddev": 0.0101
+  },
+  {
+   "block_name": "Wakching",
+   "sdcode": 1749,
+   "n_villages": 10,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.4015,
+   "sm_surface_stddev": 0.0003
+  }
+ ],
+ "villages": {
+  "266990": [
+   "Joboka",
+   1746,
+   20
+  ],
+  "266989": [
+   "Nokzang",
+   1746,
+   20
+  ],
+  "267077": [
+   "Yakshu",
+   1755,
+   3
+  ],
+  "267080": [
+   "Ukha",
+   1755,
+   2
+  ],
+  "267072": [
+   "Jakphang",
+   1754,
+   2
+  ],
+  "267085": [
+   "Tobu Village",
+   1756,
+   0
+  ],
+  "267084": [
+   "Tobu Hq",
+   1756,
+   0
+  ],
+  "267079": [
+   "Mopong Hq",
+   1755,
+   2
+  ],
+  "267076": [
+   "Kenjenshu",
+   1755,
+   3
+  ],
+  "267075": [
+   "Changnyu",
+   1755,
+   3
+  ],
+  "267074": [
+   "Yonghong",
+   1755,
+   3
+  ],
+  "267073": [
+   "Yei",
+   1755,
+   3
+  ],
+  "267083": [
+   "Shamnyu",
+   1756,
+   1
+  ],
+  "267082": [
+   "Tamkong",
+   1756,
+   1
+  ],
+  "267095": [
+   "Yongkhao",
+   1757,
+   1
+  ],
+  "267093": [
+   "Pesao",
+   1757,
+   3
+  ],
+  "267094": [
+   "Changlu",
+   1757,
+   3
+  ],
+  "267092": [
+   "Bumei S Comp",
+   1757,
+   3
+  ],
+  "267090": [
+   "Changlangshu",
+   1757,
+   3
+  ],
+  "267089": [
+   "Monyakshu Hq",
+   1757,
+   3
+  ],
+  "267088": [
+   "Monyakshu Village",
+   1757,
+   3
+  ],
+  "267028": [
+   "Wanching",
+   1749,
+   7
+  ],
+  "267030": [
+   "Chingphoi",
+   1749,
+   8
+  ],
+  "267029": [
+   "Chingtang",
+   1749,
+   8
+  ],
+  "267026": [
+   "Wakching",
+   1749,
+   11
+  ],
+  "267031": [
+   "Chinglong",
+   1750,
+   8
+  ],
+  "267034": [
+   "Aopao Changle",
+   1750,
+   8
+  ],
+  "267035": [
+   "Ao Pao",
+   1750,
+   4
+  ],
+  "267064": [
+   "Sowa Changle",
+   1754,
+   4
+  ],
+  "267065": [
+   "Sowa",
+   1754,
+   4
+  ],
+  "267066": [
+   "Longching Village",
+   1754,
+   4
+  ],
+  "267067": [
+   "Longching Hq",
+   1754,
+   4
+  ],
+  "266967": [
+   "Tiru Lower",
+   1744,
+   18
+  ],
+  "266968": [
+   "Tiru Upper",
+   1744,
+   15
+  ],
+  "266969": [
+   "Namthai",
+   1744,
+   15
+  ],
+  "266970": [
+   "Hotahoti",
+   1744,
+   15
+  ],
+  "266972": [
+   "Kongon",
+   1744,
+   11
+  ],
+  "253203": [
+   "Naginimora Town Council",
+   1744,
+   15
+  ],
+  "267024": [
+   "Shiyong",
+   1749,
+   11
+  ],
+  "267022": [
+   "Tanhai",
+   1749,
+   11
+  ],
+  "267027": [
+   "Wakching Chingla Vill",
+   1749,
+   11
+  ],
+  "267025": [
+   "Lampong Wakching Ur",
+   1749,
+   11
+  ],
+  "267023": [
+   "Wakching Hq",
+   1749,
+   11
+  ],
+  "267021": [
+   "Totokchingkho",
+   1748,
+   9
+  ],
+  "267019": [
+   "Totok Chinglem Ur",
+   1748,
+   9
+  ],
+  "267018": [
+   "Totokchingnyu",
+   1748,
+   9
+  ],
+  "267020": [
+   "Totokchingha",
+   1748,
+   9
+  ],
+  "267017": [
+   "Chui",
+   1748,
+   12
+  ],
+  "267033": [
+   "Aboi Hq",
+   1750,
+   9
+  ],
+  "267032": [
+   "Langmeang",
+   1750,
+   9
+  ],
+  "267037": [
+   "Chuhachinglen",
+   1750,
+   5
+  ],
+  "267036": [
+   "Ngangching",
+   1750,
+   5
+  ],
+  "267038": [
+   "Chuhachingnyu",
+   1750,
+   5
+  ],
+  "267040": [
+   "Yuting",
+   1751,
+   13
+  ],
+  "267041": [
+   "Longshen Hq",
+   1751,
+   10
+  ],
+  "267042": [
+   "Shianghatangteh",
+   1751,
+   10
+  ],
+  "267044": [
+   "Shianghamokok",
+   1751,
+   10
+  ],
+  "267045": [
+   "Shianghawamsa",
+   1751,
+   10
+  ],
+  "267043": [
+   "Shianghachingnyu",
+   1751,
+   10
+  ],
+  "267050": [
+   "Nyahnyu",
+   1752,
+   10
+  ],
+  "267052": [
+   "Longwa Wasa",
+   1752,
+   14
+  ],
+  "267051": [
+   "Longwa",
+   1752,
+   14
+  ],
+  "267049": [
+   "Phomching Hq",
+   1752,
+   14
+  ],
+  "267061": [
+   "Wangti",
+   1753,
+   6
+  ],
+  "267059": [
+   "Chingkao Chingnyu",
+   1753,
+   5
+  ],
+  "267060": [
+   "Chingkao Chingha",
+   1753,
+   5
+  ],
+  "267057": [
+   "Chenloisho",
+   1753,
+   6
+  ],
+  "267056": [
+   "Chenwetnyu",
+   1753,
+   10
+  ],
+  "267055": [
+   "Chenmoho",
+   1753,
+   10
+  ],
+  "267054": [
+   "Chen Hq",
+   1753,
+   10
+  ],
+  "267053": [
+   "Choknyu",
+   1753,
+   9
+  ],
+  "267063": [
+   "Mohung",
+   1754,
+   4
+  ],
+  "267068": [
+   "Changlang",
+   1754,
+   4
+  ],
+  "267070": [
+   "Angjangyang Vill",
+   1754,
+   4
+  ],
+  "267071": [
+   "Angjangyang Hq",
+   1754,
+   4
+  ],
+  "267069": [
+   "Angphang",
+   1754,
+   5
+  ],
+  "266981": [
+   "Longlem",
+   1745,
+   16
+  ],
+  "266978": [
+   "Tekun Ur",
+   1745,
+   16
+  ],
+  "266979": [
+   "Lapa",
+   1745,
+   19
+  ],
+  "266980": [
+   "Lapalampong Ur",
+   1745,
+   19
+  ],
+  "266982": [
+   "Tizit Village",
+   1745,
+   19
+  ],
+  "266976": [
+   "Tela",
+   1745,
+   19
+  ],
+  "266984": [
+   "Old Sangsa Ur",
+   1745,
+   17
+  ],
+  "266985": [
+   "Sangsa",
+   1745,
+   17
+  ],
+  "266987": [
+   "Ngangting",
+   1745,
+   17
+  ],
+  "266988": [
+   "Zakho",
+   1745,
+   17
+  ],
+  "266996": [
+   "Longting",
+   1746,
+   20
+  ],
+  "267003": [
+   "Longpho",
+   1747,
+   13
+  ],
+  "267002": [
+   "Shangnyu",
+   1747,
+   13
+  ],
+  "267004": [
+   "Oting",
+   1748,
+   15
+  ],
+  "267012": [
+   "Pongkong",
+   1748,
+   11
+  ],
+  "267008": [
+   "Tuimei",
+   1748,
+   17
+  ],
+  "267009": [
+   "Phuktong",
+   1748,
+   17
+  ],
+  "267010": [
+   "Lampongsheanghah",
+   1748,
+   13
+  ],
+  "267011": [
+   "Hongphoi",
+   1748,
+   16
+  ],
+  "267006": [
+   "Wangla",
+   1748,
+   16
+  ],
+  "267014": [
+   "Leangnyu",
+   1748,
+   12
+  ],
+  "249715": [
+   "Mon Town Council",
+   1748,
+   12
+  ],
+  "267007": [
+   "Goching",
+   1748,
+   12
+  ],
+  "267015": [
+   "Mon Village",
+   1748,
+   13
+  ],
+  "267016": [
+   "Leangha",
+   1748,
+   12
+  ],
+  "267013": [
+   "Longkai",
+   1748,
+   12
+  ],
+  "267039": [
+   "Tang",
+   1751,
+   13
+  ],
+  "266993": [
+   "Yannyu Laishan Ur",
+   1746,
+   20
+  ],
+  "266998": [
+   "Yannyu",
+   1746,
+   20
+  ],
+  "266997": [
+   "Nokyan",
+   1746,
+   20
+  ],
+  "267001": [
+   "Nyasha",
+   1747,
+   14
+  ],
+  "267000": [
+   "Zangkham",
+   1747,
+   14
+  ],
+  "266999": [
+   "Zangkham Tingsa",
+   1747,
+   17
+  ],
+  "267047": [
+   "Longzang",
+   1752,
+   14
+  ],
+  "267048": [
+   "Wetting",
+   1752,
+   14
+  ],
+  "267046": [
+   "Pukha",
+   1752,
+   14
+  ],
+  "266977": [
+   "Tizit Hq",
+   1745,
+   19
+  ],
+  "266973": [
+   "Laokhun",
+   1745,
+   19
+  ],
+  "266974": [
+   "Tingalibam Sakho",
+   1745,
+   19
+  ],
+  "266975": [
+   "Yanpan",
+   1745,
+   19
+  ],
+  "266991": [
+   "Neitong",
+   1746,
+   20
+  ],
+  "266994": [
+   "Laokhu",
+   1746,
+   20
+  ],
+  "266992": [
+   "Hunta Hq",
+   1746,
+   20
+  ],
+  "999999": [
+   "Data Partially Available",
+   1746,
+   20
+  ],
+  "267081": [
+   "Changkhoang Ur",
+   1755,
+   2
+  ],
+  "267078": [
+   "Angchen Ur",
+   1755,
+   3
+  ],
+  "267097": [
+   "Shinnyu",
+   1757,
+   1
+  ],
+  "267096": [
+   "Eyiang Ur",
+   1757,
+   1
+  ],
+  "267091": [
+   "Changsha Ur",
+   1757,
+   3
+  ],
+  "267086": [
+   "Thannyak Ur",
+   1757,
+   3
+  ],
+  "267087": [
+   "Meinchangle",
+   1757,
+   3
+  ],
+  "266971": [
+   "Mahung Ur",
+   1744,
+   15
+  ],
+  "267058": [
+   "Chingpong Ur",
+   1753,
+   5
+  ],
+  "267062": [
+   "Changai Hongnyu Ur",
+   1754,
+   4
+  ],
+  "266986": [
+   "Ngangtan Ur",
+   1745,
+   19
+  ],
+  "266983": [
+   "Tekang Ur",
+   1745,
+   19
+  ],
+  "267005": [
+   "Tekuk Ur",
+   1748,
+   16
+  ],
+  "266995": [
+   "Old Jaboka Ur",
+   1746,
+   20
+  ]
+ },
+ "village_count_total": 147,
+ "village_count_assigned": 147
+}

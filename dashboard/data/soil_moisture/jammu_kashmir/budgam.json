@@ -1,0 +1,2662 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Jammu & Kashmir",
+  "district": "Budgam",
+  "district_lgd": 2,
+  "observation_window": "2026-08-07T11:09Z to 2026-08-12T11:09Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2797,
+  "sm_surface_stddev": 0.0477,
+  "sm_rootzone_mean": 0.3033,
+  "sm_rootzone_stddev": 0.0414,
+  "n_cells": 13,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 33.7452,
+    "lon": 74.5557,
+    "sm_surface": 0.362,
+    "sm_rootzone": 0.3738,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 1,
+    "lat": 33.844,
+    "lon": 74.4569,
+    "sm_surface": 0.3293,
+    "sm_rootzone": 0.3522,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 2,
+    "lat": 33.844,
+    "lon": 74.5557,
+    "sm_surface": 0.3244,
+    "sm_rootzone": 0.3454,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 3,
+    "lat": 33.844,
+    "lon": 74.6545,
+    "sm_surface": 0.3343,
+    "sm_rootzone": 0.3558,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 4,
+    "lat": 33.844,
+    "lon": 74.7533,
+    "sm_surface": 0.3361,
+    "sm_rootzone": 0.3424,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 5,
+    "lat": 33.9428,
+    "lon": 74.5557,
+    "sm_surface": 0.2585,
+    "sm_rootzone": 0.2859,
+    "n_villages_sharing_cell": 61
+   },
+   {
+    "cell_index": 6,
+    "lat": 33.9428,
+    "lon": 74.6545,
+    "sm_surface": 0.268,
+    "sm_rootzone": 0.2878,
+    "n_villages_sharing_cell": 60
+   },
+   {
+    "cell_index": 7,
+    "lat": 33.9428,
+    "lon": 74.7533,
+    "sm_surface": 0.2542,
+    "sm_rootzone": 0.2755,
+    "n_villages_sharing_cell": 63
+   },
+   {
+    "cell_index": 8,
+    "lat": 33.9428,
+    "lon": 74.8521,
+    "sm_surface": 0.2507,
+    "sm_rootzone": 0.273,
+    "n_villages_sharing_cell": 37
+   },
+   {
+    "cell_index": 9,
+    "lat": 34.0417,
+    "lon": 74.5557,
+    "sm_surface": 0.2312,
+    "sm_rootzone": 0.2637,
+    "n_villages_sharing_cell": 58
+   },
+   {
+    "cell_index": 10,
+    "lat": 34.0417,
+    "lon": 74.6545,
+    "sm_surface": 0.2354,
+    "sm_rootzone": 0.2682,
+    "n_villages_sharing_cell": 86
+   },
+   {
+    "cell_index": 11,
+    "lat": 34.0417,
+    "lon": 74.7533,
+    "sm_surface": 0.23,
+    "sm_rootzone": 0.264,
+    "n_villages_sharing_cell": 42
+   },
+   {
+    "cell_index": 12,
+    "lat": 34.0417,
+    "lon": 74.8521,
+    "sm_surface": 0.2224,
+    "sm_rootzone": 0.255,
+    "n_villages_sharing_cell": 33
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2545,
+  "sm_surface_stddev": 0.0273,
+  "n_blocks": 9
+ },
+ "blocks": [
+  {
+   "block_name": "Beerwah",
+   "sdcode": 5,
+   "n_villages": 74,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.2444,
+   "sm_surface_stddev": 0.0133
+  },
+  {
+   "block_name": "Bk Pora",
+   "sdcode": 6815,
+   "n_villages": 39,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.2269,
+   "sm_surface_stddev": 0.0102
+  },
+  {
+   "block_name": "Budgam",
+   "sdcode": 7,
+   "n_villages": 93,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.2368,
+   "sm_surface_stddev": 0.0103
+  },
+  {
+   "block_name": "Chadoora",
+   "sdcode": 8,
+   "n_villages": 78,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.2641,
+   "sm_surface_stddev": 0.0291
+  },
+  {
+   "block_name": "Charar- E- Shrief",
+   "sdcode": 9,
+   "n_villages": 18,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.3188,
+   "sm_surface_stddev": 0.0364
+  },
+  {
+   "block_name": "Khag",
+   "sdcode": 4,
+   "n_villages": 45,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.2548,
+   "sm_surface_stddev": 0.0293
+  },
+  {
+   "block_name": "Khansahib",
+   "sdcode": 6,
+   "n_villages": 99,
+   "n_cells_spanned": 7,
+   "sm_surface_mean": 0.2764,
+   "sm_surface_stddev": 0.0266
+  },
+  {
+   "block_name": "Magam",
+   "sdcode": 6814,
+   "n_villages": 27,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.2326,
+   "sm_surface_stddev": 0.002
+  },
+  {
+   "block_name": "Narbal",
+   "sdcode": 6813,
+   "n_villages": 17,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.2354,
+   "sm_surface_stddev": 0.0
+  }
+ ],
+ "villages": {
+  "613": [
+   "Check Qadoos",
+   6,
+   6
+  ],
+  "538": [
+   "Nandpora",
+   6,
+   2
+  ],
+  "574": [
+   "Nuner",
+   6,
+   6
+  ],
+  "588": [
+   "Bug Chill",
+   6,
+   6
+  ],
+  "495": [
+   "Kali Pora",
+   5,
+   5
+  ],
+  "808": [
+   "Muher Pora Kuchloo",
+   8,
+   7
+  ],
+  "774": [
+   "Leng Panzen",
+   8,
+   7
+  ],
+  "780": [
+   "Yarikalan",
+   8,
+   7
+  ],
+  "847": [
+   "Forest Block",
+   9,
+   0
+  ],
+  "836": [
+   "Chilan Chotinar",
+   9,
+   4
+  ],
+  "837": [
+   "Darwan Nowgam",
+   9,
+   4
+  ],
+  "838": [
+   "Bran Pathri",
+   9,
+   4
+  ],
+  "417": [
+   "Sitharan",
+   4,
+   1
+  ],
+  "416": [
+   "Sochal Pathri",
+   4,
+   1
+  ],
+  "418": [
+   "Khaipora",
+   4,
+   1
+  ],
+  "412": [
+   "Chaker Pora",
+   4,
+   5
+  ],
+  "823": [
+   "Bonenn",
+   8,
+   3
+  ],
+  "820": [
+   "Kutbal",
+   8,
+   3
+  ],
+  "824": [
+   "Shereen Pora Pahadi Pora",
+   8,
+   3
+  ],
+  "827": [
+   "Shandar Pora Wat Kulu",
+   8,
+   4
+  ],
+  "825": [
+   "Gogjipathri",
+   8,
+   3
+  ],
+  "818": [
+   "Kanikoot",
+   8,
+   4
+  ],
+  "826": [
+   "Laden",
+   8,
+   4
+  ],
+  "819": [
+   "Buzgoo Lachkalan",
+   8,
+   4
+  ],
+  "817": [
+   "Loolipora",
+   8,
+   4
+  ],
+  "813": [
+   "Changund",
+   8,
+   7
+  ],
+  "816": [
+   "Brinjan",
+   8,
+   7
+  ],
+  "822": [
+   "Brenwar",
+   8,
+   3
+  ],
+  "821": [
+   "Sursyar",
+   8,
+   6
+  ],
+  "551": [
+   "Rakahi",
+   6,
+   1
+  ],
+  "603": [
+   "Frastwar",
+   6,
+   7
+  ],
+  "605": [
+   "Nari Gund",
+   6,
+   6
+  ],
+  "607": [
+   "Rakh Katch Razgeer",
+   6,
+   6
+  ],
+  "620": [
+   "Utra Dalabal",
+   6,
+   6
+  ],
+  "608": [
+   "Raithan",
+   6,
+   6
+  ],
+  "622": [
+   "Forest Block",
+   6,
+   2
+  ],
+  "621": [
+   "Kachwari",
+   6,
+   3
+  ],
+  "619": [
+   "Lani Laleb",
+   6,
+   3
+  ],
+  "609": [
+   "Gurwait Kalan",
+   6,
+   6
+  ],
+  "616": [
+   "Riyar Ich",
+   6,
+   6
+  ],
+  "618": [
+   "Kralpathri",
+   6,
+   6
+  ],
+  "617": [
+   "Trajkhel",
+   6,
+   6
+  ],
+  "614": [
+   "Gojithaji",
+   6,
+   5
+  ],
+  "615": [
+   "Riyar Beeru",
+   6,
+   5
+  ],
+  "533": [
+   "Rekh Wachoo",
+   6,
+   5
+  ],
+  "534": [
+   "Parraypora Sifullah",
+   6,
+   5
+  ],
+  "537": [
+   "Rawalpora",
+   6,
+   2
+  ],
+  "546": [
+   "Danger Pora",
+   6,
+   2
+  ],
+  "547": [
+   "Machi Pora",
+   6,
+   2
+  ],
+  "549": [
+   "Zampora",
+   6,
+   1
+  ],
+  "548": [
+   "Khud Rawatpora",
+   6,
+   2
+  ],
+  "550": [
+   "Gutlipora",
+   6,
+   1
+  ],
+  "553": [
+   "Arizal",
+   6,
+   1
+  ],
+  "552": [
+   "Jagu Kharen",
+   6,
+   1
+  ],
+  "554": [
+   "Ringzbul",
+   6,
+   1
+  ],
+  "536": [
+   "Wachoo",
+   6,
+   5
+  ],
+  "545": [
+   "Khospora",
+   6,
+   2
+  ],
+  "544": [
+   "Gund Shagoo Tiploo",
+   6,
+   2
+  ],
+  "540": [
+   "Qumroo",
+   6,
+   1
+  ],
+  "543": [
+   "Hardu Panzoo",
+   6,
+   1
+  ],
+  "542": [
+   "Chill",
+   6,
+   1
+  ],
+  "541": [
+   "Brass",
+   6,
+   1
+  ],
+  "539": [
+   "Warahgam",
+   6,
+   5
+  ],
+  "535": [
+   "Chritoo",
+   6,
+   5
+  ],
+  "815": [
+   "Nowhar",
+   8,
+   7
+  ],
+  "999999": [
+   "Forest Block",
+   6,
+   6
+  ],
+  "415": [
+   "Utter Khud Lassipora",
+   4,
+   1
+  ],
+  "398": [
+   "Malpora",
+   4,
+   5
+  ],
+  "376": [
+   "Badran",
+   6814,
+   9
+  ],
+  "372": [
+   "Gund Dalwash",
+   4,
+   9
+  ],
+  "374": [
+   "Bon Gund",
+   4,
+   9
+  ],
+  "375": [
+   "Bonshahran",
+   4,
+   9
+  ],
+  "371": [
+   "Malwah",
+   4,
+   9
+  ],
+  "377": [
+   "Bamurada",
+   4,
+   9
+  ],
+  "378": [
+   "Pallpora",
+   4,
+   9
+  ],
+  "394": [
+   "Hamchi Pora",
+   4,
+   9
+  ],
+  "395": [
+   "Nagabel",
+   4,
+   5
+  ],
+  "396": [
+   "Abandar",
+   4,
+   5
+  ],
+  "391": [
+   "Ramdar Chakpora",
+   4,
+   9
+  ],
+  "404": [
+   "Koeker Bagh",
+   4,
+   5
+  ],
+  "403": [
+   "Sugen Yarinaar",
+   4,
+   5
+  ],
+  "405": [
+   "Shungli Pora",
+   4,
+   5
+  ],
+  "406": [
+   "Habar Daradlasi Pora",
+   4,
+   5
+  ],
+  "407": [
+   "Drang",
+   4,
+   5
+  ],
+  "414": [
+   "Lachmanpora",
+   4,
+   5
+  ],
+  "408": [
+   "Cheerhaar",
+   4,
+   5
+  ],
+  "410": [
+   "Khanday Pora",
+   4,
+   5
+  ],
+  "409": [
+   "Khan Pora",
+   4,
+   5
+  ],
+  "411": [
+   "Kangri Pora",
+   4,
+   5
+  ],
+  "400": [
+   "Zagi Pora",
+   4,
+   5
+  ],
+  "401": [
+   "Kanchati Pora",
+   4,
+   5
+  ],
+  "399": [
+   "Rawathpora",
+   4,
+   5
+  ],
+  "402": [
+   "Khawja Gund",
+   4,
+   5
+  ],
+  "387": [
+   "Alam Nag",
+   4,
+   9
+  ],
+  "386": [
+   "Poshker",
+   4,
+   9
+  ],
+  "397": [
+   "Awanpora",
+   4,
+   5
+  ],
+  "392": [
+   "Khag",
+   4,
+   5
+  ],
+  "385": [
+   "Dalwash Khurd",
+   4,
+   9
+  ],
+  "381": [
+   "Ichama",
+   5,
+   9
+  ],
+  "379": [
+   "Peerpora",
+   5,
+   9
+  ],
+  "380": [
+   "Iskenderpora",
+   5,
+   9
+  ],
+  "496": [
+   "Nursinghpora",
+   5,
+   5
+  ],
+  "390": [
+   "Nasar Pora",
+   4,
+   9
+  ],
+  "393": [
+   "Lawhipora",
+   4,
+   9
+  ],
+  "382": [
+   "Hardu Suresh",
+   4,
+   9
+  ],
+  "383": [
+   "Lokipora",
+   4,
+   9
+  ],
+  "384": [
+   "Peth Sharan",
+   4,
+   9
+  ],
+  "388": [
+   "Trapay",
+   4,
+   9
+  ],
+  "389": [
+   "Punj Yari",
+   4,
+   9
+  ],
+  "373": [
+   "Larkipora",
+   4,
+   9
+  ],
+  "413": [
+   "Batpora Drang",
+   4,
+   5
+  ],
+  "449": [
+   "Idnina",
+   6814,
+   9
+  ],
+  "419": [
+   "Sozeth Gori Pora",
+   6813,
+   10
+  ],
+  "421": [
+   "Nar Bal",
+   6813,
+   10
+  ],
+  "422": [
+   "Gund I Khalil",
+   6813,
+   10
+  ],
+  "420": [
+   "Gagar Pora",
+   6813,
+   10
+  ],
+  "423": [
+   "Yarigund",
+   6813,
+   10
+  ],
+  "424": [
+   "Kawoosa Jager",
+   6813,
+   10
+  ],
+  "425": [
+   "Kawoosa Khalisa",
+   6813,
+   10
+  ],
+  "426": [
+   "Lawharcheck",
+   6813,
+   10
+  ],
+  "428": [
+   "Nowpora Payeen",
+   6813,
+   10
+  ],
+  "427": [
+   "Hardewaminw",
+   6813,
+   10
+  ],
+  "515": [
+   "Madhnoon",
+   5,
+   5
+  ],
+  "513": [
+   "Pakherpora",
+   5,
+   5
+  ],
+  "514": [
+   "Peth Zanigam",
+   5,
+   5
+  ],
+  "519": [
+   "Hanji Guroo",
+   5,
+   5
+  ],
+  "522": [
+   "Aalam Guchoo",
+   5,
+   5
+  ],
+  "518": [
+   "Pandow Pora",
+   5,
+   5
+  ],
+  "508": [
+   "Larbel",
+   5,
+   5
+  ],
+  "511": [
+   "Bon Zanigam",
+   5,
+   5
+  ],
+  "521": [
+   "Pehtkoot",
+   5,
+   5
+  ],
+  "507": [
+   "Otter Pora",
+   5,
+   5
+  ],
+  "510": [
+   "Hardu Latinoo",
+   5,
+   5
+  ],
+  "509": [
+   "Chair Khun",
+   5,
+   5
+  ],
+  "516": [
+   "Dachan",
+   5,
+   5
+  ],
+  "517": [
+   "Ganj Lalpora",
+   5,
+   5
+  ],
+  "520": [
+   "Zabgulla",
+   5,
+   5
+  ],
+  "471": [
+   "Lassipora",
+   5,
+   10
+  ],
+  "470": [
+   "Gund Mumdar",
+   5,
+   10
+  ],
+  "502": [
+   "Najan",
+   5,
+   5
+  ],
+  "485": [
+   "Churmujroo",
+   5,
+   9
+  ],
+  "479": [
+   "Paharthan",
+   5,
+   6
+  ],
+  "504": [
+   "Chanthan",
+   5,
+   5
+  ],
+  "480": [
+   "Chak Danas",
+   5,
+   6
+  ],
+  "512": [
+   "Sail",
+   5,
+   5
+  ],
+  "500": [
+   "Kandoora",
+   5,
+   5
+  ],
+  "499": [
+   "Gori Pora",
+   5,
+   5
+  ],
+  "498": [
+   "Kanigund",
+   5,
+   5
+  ],
+  "248158": [
+   "Municipal Committee Beerwah",
+   5,
+   9
+  ],
+  "486": [
+   "Attina",
+   5,
+   9
+  ],
+  "501": [
+   "Rankipora",
+   5,
+   5
+  ],
+  "503": [
+   "Sholigund",
+   5,
+   5
+  ],
+  "494": [
+   "Nasoo",
+   5,
+   9
+  ],
+  "493": [
+   "Gumboora",
+   5,
+   9
+  ],
+  "492": [
+   "Kandhama",
+   5,
+   9
+  ],
+  "491": [
+   "Aripanthan",
+   5,
+   9
+  ],
+  "497": [
+   "Lalpora",
+   5,
+   9
+  ],
+  "490": [
+   "Arwah",
+   5,
+   9
+  ],
+  "487": [
+   "Sonpah",
+   5,
+   9
+  ],
+  "477": [
+   "Mallpora",
+   5,
+   10
+  ],
+  "478": [
+   "Danas",
+   5,
+   10
+  ],
+  "468": [
+   "Saihama",
+   5,
+   10
+  ],
+  "475": [
+   "Mam Gund",
+   5,
+   10
+  ],
+  "476": [
+   "Rani Pora",
+   5,
+   10
+  ],
+  "474": [
+   "Sochen Bonet",
+   5,
+   10
+  ],
+  "482": [
+   "Uttligam",
+   5,
+   10
+  ],
+  "473": [
+   "Gam Pora",
+   5,
+   10
+  ],
+  "472": [
+   "Bopeth",
+   5,
+   10
+  ],
+  "467": [
+   "Bonhama",
+   5,
+   10
+  ],
+  "462": [
+   "Charan Gam",
+   5,
+   10
+  ],
+  "465": [
+   "Ponuch Gund",
+   5,
+   10
+  ],
+  "464": [
+   "Hanji Lawaypora",
+   5,
+   10
+  ],
+  "466": [
+   "Nijloo",
+   5,
+   10
+  ],
+  "463": [
+   "Deji Malik Gund",
+   5,
+   10
+  ],
+  "439": [
+   "Watalpora",
+   6814,
+   10
+  ],
+  "440": [
+   "Bundgam",
+   6814,
+   10
+  ],
+  "438": [
+   "Rusoo",
+   6813,
+   10
+  ],
+  "459": [
+   "Meripora",
+   5,
+   10
+  ],
+  "456": [
+   "Dragger",
+   5,
+   9
+  ],
+  "458": [
+   "Wanihama",
+   5,
+   9
+  ],
+  "457": [
+   "Chak Deewan Lachmandas",
+   5,
+   9
+  ],
+  "461": [
+   "Mulshula",
+   5,
+   10
+  ],
+  "460": [
+   "Mal Mach Hama",
+   5,
+   10
+  ],
+  "437": [
+   "Aqilpora",
+   6814,
+   10
+  ],
+  "442": [
+   "Chairhara",
+   6814,
+   10
+  ],
+  "441": [
+   "Panches",
+   6814,
+   10
+  ],
+  "435": [
+   "Kantbagh",
+   6814,
+   10
+  ],
+  "434": [
+   "Ship Pora",
+   6814,
+   9
+  ],
+  "436": [
+   "S K Pora",
+   6814,
+   10
+  ],
+  "443": [
+   "Hardu Malpora",
+   6814,
+   10
+  ],
+  "444": [
+   "Chairgune",
+   6814,
+   9
+  ],
+  "445": [
+   "Mati Pora",
+   6814,
+   9
+  ],
+  "452": [
+   "Rathsun",
+   5,
+   9
+  ],
+  "454": [
+   "Bonmakhama",
+   6814,
+   9
+  ],
+  "451": [
+   "Peth Makhama",
+   6814,
+   9
+  ],
+  "453": [
+   "Hanjibugh",
+   6814,
+   9
+  ],
+  "448": [
+   "Peth Kanihama",
+   6814,
+   9
+  ],
+  "446": [
+   "Sehpora",
+   6814,
+   9
+  ],
+  "450": [
+   "Pari Pora",
+   6814,
+   9
+  ],
+  "447": [
+   "Wata Magam",
+   6814,
+   9
+  ],
+  "431": [
+   "Mani Hama",
+   6814,
+   9
+  ],
+  "429": [
+   "Mazhama",
+   6814,
+   10
+  ],
+  "432": [
+   "Batpora Kanihama",
+   6814,
+   9
+  ],
+  "248157": [
+   "Municipal Committee Magam",
+   6814,
+   9
+  ],
+  "430": [
+   "Kenihama",
+   6814,
+   9
+  ],
+  "489": [
+   "Ohengam",
+   5,
+   9
+  ],
+  "488": [
+   "Chewdara",
+   5,
+   9
+  ],
+  "484": [
+   "Hayat Pora",
+   5,
+   9
+  ],
+  "483": [
+   "Narwara",
+   5,
+   9
+  ],
+  "481": [
+   "Gundi Pora",
+   5,
+   10
+  ],
+  "433": [
+   "Roshnabad",
+   6814,
+   9
+  ],
+  "804": [
+   "Shoukat Pora Kari Gund",
+   8,
+   7
+  ],
+  "814": [
+   "Dadompora",
+   8,
+   7
+  ],
+  "795": [
+   "Shumnagh",
+   8,
+   7
+  ],
+  "794": [
+   "Gul Moor Kaner",
+   8,
+   7
+  ],
+  "796": [
+   "Hanjoora",
+   8,
+   7
+  ],
+  "248159": [
+   "Municipal Council Budgam",
+   7,
+   11
+  ],
+  "631": [
+   "Shopribagh",
+   7,
+   10
+  ],
+  "629": [
+   "Chewa",
+   6813,
+   10
+  ],
+  "630": [
+   "Chak Wazir Pora",
+   7,
+   10
+  ],
+  "632": [
+   "Wahabpora",
+   7,
+   10
+  ],
+  "628": [
+   "Wadwan",
+   6813,
+   10
+  ],
+  "625": [
+   "Dahermuna",
+   7,
+   10
+  ],
+  "633": [
+   "Nadigam",
+   6813,
+   10
+  ],
+  "634": [
+   "Sofipora",
+   7,
+   10
+  ],
+  "655": [
+   "Garend Khurd",
+   7,
+   10
+  ],
+  "635": [
+   "Chatbug",
+   6813,
+   10
+  ],
+  "638": [
+   "Alowpora",
+   7,
+   10
+  ],
+  "639": [
+   "Kamohpora",
+   7,
+   10
+  ],
+  "636": [
+   "Shahpora",
+   7,
+   10
+  ],
+  "660": [
+   "Sahratpora",
+   7,
+   10
+  ],
+  "658": [
+   "Bata Pora",
+   7,
+   10
+  ],
+  "661": [
+   "Chandpora",
+   7,
+   10
+  ],
+  "657": [
+   "Surnhal",
+   7,
+   10
+  ],
+  "637": [
+   "Garien Kalan",
+   7,
+   10
+  ],
+  "656": [
+   "Nendvendpora",
+   7,
+   10
+  ],
+  "693": [
+   "Choon",
+   7,
+   11
+  ],
+  "705": [
+   "Ratnipora",
+   7,
+   7
+  ],
+  "706": [
+   "Karhama",
+   7,
+   11
+  ],
+  "704": [
+   "Kargam Palchati",
+   7,
+   7
+  ],
+  "702": [
+   "Sonergund",
+   7,
+   7
+  ],
+  "703": [
+   "Ichkoot",
+   7,
+   7
+  ],
+  "707": [
+   "Handjen",
+   7,
+   7
+  ],
+  "716": [
+   "Shoga Pora",
+   7,
+   6
+  ],
+  "718": [
+   "Hayat Pora",
+   7,
+   6
+  ],
+  "719": [
+   "Kishtwar",
+   7,
+   6
+  ],
+  "717": [
+   "Tilnpora",
+   7,
+   6
+  ],
+  "708": [
+   "Bandybagh",
+   7,
+   11
+  ],
+  "711": [
+   "Zuzbugh Dalwan",
+   7,
+   10
+  ],
+  "713": [
+   "Jawal Pora",
+   7,
+   10
+  ],
+  "677": [
+   "Harji Gund",
+   7,
+   11
+  ],
+  "694": [
+   "Zooribagh",
+   7,
+   11
+  ],
+  "678": [
+   "Zoorigund",
+   7,
+   11
+  ],
+  "691": [
+   "Razwen",
+   7,
+   11
+  ],
+  "692": [
+   "Nadire Kah",
+   7,
+   11
+  ],
+  "679": [
+   "Huroo",
+   7,
+   11
+  ],
+  "680": [
+   "Thokerpora",
+   7,
+   11
+  ],
+  "681": [
+   "Dardpora",
+   7,
+   11
+  ],
+  "682": [
+   "Sarad",
+   7,
+   11
+  ],
+  "690": [
+   "Mamat",
+   7,
+   11
+  ],
+  "688": [
+   "Hewoder",
+   7,
+   10
+  ],
+  "683": [
+   "Johama",
+   7,
+   11
+  ],
+  "689": [
+   "Patwaw",
+   7,
+   10
+  ],
+  "714": [
+   "Udroo",
+   7,
+   10
+  ],
+  "710": [
+   "Sondipora",
+   7,
+   10
+  ],
+  "712": [
+   "Gojra",
+   7,
+   10
+  ],
+  "659": [
+   "Parisabad",
+   7,
+   10
+  ],
+  "666": [
+   "Waternai",
+   7,
+   10
+  ],
+  "662": [
+   "Labertal",
+   7,
+   10
+  ],
+  "664": [
+   "Bata Bagh",
+   7,
+   10
+  ],
+  "654": [
+   "Kakan Murn",
+   7,
+   10
+  ],
+  "663": [
+   "Putli Bagh",
+   7,
+   10
+  ],
+  "687": [
+   "Sholi Pora",
+   7,
+   10
+  ],
+  "686": [
+   "Dousnar",
+   7,
+   10
+  ],
+  "685": [
+   "Lakhri Pora",
+   7,
+   10
+  ],
+  "684": [
+   "Mahawara",
+   7,
+   10
+  ],
+  "665": [
+   "Dednia",
+   7,
+   10
+  ],
+  "624": [
+   "Soibugh",
+   7,
+   10
+  ],
+  "667": [
+   "Paller",
+   7,
+   11
+  ],
+  "643": [
+   "Hakermulla",
+   7,
+   11
+  ],
+  "652": [
+   "Karipora",
+   7,
+   11
+  ],
+  "642": [
+   "Haripora",
+   7,
+   11
+  ],
+  "641": [
+   "Warsangam",
+   7,
+   10
+  ],
+  "640": [
+   "Paymus",
+   7,
+   10
+  ],
+  "653": [
+   "Nasrulapora",
+   7,
+   10
+  ],
+  "668": [
+   "Dafpora",
+   7,
+   11
+  ],
+  "649": [
+   "Galwan Pora",
+   7,
+   11
+  ],
+  "650": [
+   "Warapora",
+   7,
+   11
+  ],
+  "651": [
+   "Takipora",
+   7,
+   11
+  ],
+  "669": [
+   "Bodan",
+   7,
+   11
+  ],
+  "670": [
+   "Mirgund",
+   7,
+   11
+  ],
+  "671": [
+   "Reshi Pora",
+   7,
+   11
+  ],
+  "673": [
+   "Sebden",
+   7,
+   11
+  ],
+  "672": [
+   "Chowdribagh",
+   7,
+   11
+  ],
+  "647": [
+   "Chak Kali Khan",
+   7,
+   11
+  ],
+  "646": [
+   "Dooru",
+   7,
+   11
+  ],
+  "648": [
+   "Hakermulla",
+   7,
+   11
+  ],
+  "645": [
+   "Dandoosa",
+   7,
+   11
+  ],
+  "644": [
+   "Gundhanjek",
+   7,
+   11
+  ],
+  "709": [
+   "Gazergund",
+   7,
+   11
+  ],
+  "559": [
+   "Gund Arjun",
+   6,
+   7
+  ],
+  "557": [
+   "Wager",
+   6,
+   7
+  ],
+  "556": [
+   "Harnioo",
+   6,
+   7
+  ],
+  "558": [
+   "Kulbugh",
+   6,
+   7
+  ],
+  "555": [
+   "Nambelhaar",
+   6,
+   7
+  ],
+  "564": [
+   "Falchel",
+   6,
+   7
+  ],
+  "565": [
+   "Babpora",
+   6,
+   7
+  ],
+  "599": [
+   "Gurwait Khurd",
+   6,
+   6
+  ],
+  "600": [
+   "Arigam",
+   6,
+   6
+  ],
+  "602": [
+   "Shalinaar",
+   6,
+   7
+  ],
+  "606": [
+   "Katch Razgeer",
+   6,
+   6
+  ],
+  "469": [
+   "Basi Pora",
+   5,
+   10
+  ],
+  "506": [
+   "Chak Parhtarn",
+   5,
+   6
+  ],
+  "505": [
+   "Sangram Pora",
+   5,
+   5
+  ],
+  "715": [
+   "Chak Gojra",
+   7,
+   6
+  ],
+  "569": [
+   "Driygam Pati Khasipora",
+   6,
+   7
+  ],
+  "584": [
+   "Sheikh Wadipora",
+   6,
+   6
+  ],
+  "561": [
+   "Gund I Ali Nayik",
+   6,
+   6
+  ],
+  "563": [
+   "Harduwail",
+   6,
+   6
+  ],
+  "562": [
+   "Waterhail",
+   6,
+   6
+  ],
+  "582": [
+   "Mullnaroo",
+   6,
+   6
+  ],
+  "581": [
+   "Takya Farooq Shah",
+   6,
+   6
+  ],
+  "585": [
+   "Batapora",
+   6,
+   6
+  ],
+  "583": [
+   "Kenorra",
+   6,
+   6
+  ],
+  "590": [
+   "Gutipora",
+   6,
+   6
+  ],
+  "591": [
+   "Fajipora",
+   6,
+   6
+  ],
+  "593": [
+   "Khudpora",
+   6,
+   6
+  ],
+  "592": [
+   "Shenipora",
+   6,
+   6
+  ],
+  "594": [
+   "Kharipora",
+   6,
+   6
+  ],
+  "248160": [
+   "Municipal Committee Khansahib",
+   6,
+   6
+  ],
+  "580": [
+   "Yarisathoo",
+   6,
+   6
+  ],
+  "576": [
+   "Shuroo",
+   6,
+   6
+  ],
+  "567": [
+   "Kremshore",
+   6,
+   7
+  ],
+  "568": [
+   "Banderpora",
+   6,
+   7
+  ],
+  "566": [
+   "Parnewa",
+   6,
+   7
+  ],
+  "575": [
+   "Nuchgam",
+   6,
+   6
+  ],
+  "595": [
+   "Dabipora",
+   6,
+   6
+  ],
+  "596": [
+   "Khai Pora",
+   6,
+   6
+  ],
+  "597": [
+   "Balpora",
+   6,
+   6
+  ],
+  "579": [
+   "Kalshi Pora",
+   6,
+   6
+  ],
+  "598": [
+   "Dooru",
+   6,
+   6
+  ],
+  "578": [
+   "Bararipora",
+   6,
+   6
+  ],
+  "577": [
+   "Hawoora",
+   6,
+   6
+  ],
+  "573": [
+   "Shamas Abad Later Chadura",
+   6,
+   6
+  ],
+  "572": [
+   "Yagbug",
+   6,
+   6
+  ],
+  "570": [
+   "Bugroo",
+   6,
+   7
+  ],
+  "601": [
+   "Lanoora",
+   6,
+   7
+  ],
+  "612": [
+   "Soznipora",
+   6,
+   6
+  ],
+  "611": [
+   "Kharpora",
+   6,
+   6
+  ],
+  "610": [
+   "Yarikaha",
+   6,
+   6
+  ],
+  "589": [
+   "Kachipurn",
+   6,
+   6
+  ],
+  "587": [
+   "Check Sheera",
+   6,
+   6
+  ],
+  "525": [
+   "Chak Hokalatri",
+   6,
+   6
+  ],
+  "524": [
+   "Huklittri",
+   5,
+   6
+  ],
+  "527": [
+   "Chanumpora",
+   6,
+   5
+  ],
+  "526": [
+   "Kulama",
+   5,
+   5
+  ],
+  "530": [
+   "Gund Darvesh Hatrwanan",
+   6,
+   5
+  ],
+  "529": [
+   "Gamgulla",
+   6,
+   5
+  ],
+  "560": [
+   "Brail",
+   6,
+   10
+  ],
+  "586": [
+   "Talpora",
+   6,
+   6
+  ],
+  "532": [
+   "Kralnewa",
+   6,
+   5
+  ],
+  "531": [
+   "Gund Panha",
+   6,
+   5
+  ],
+  "626": [
+   "Gutpora",
+   6813,
+   10
+  ],
+  "623": [
+   "Rakheh Arath",
+   7,
+   11
+  ],
+  "627": [
+   "Arth",
+   6813,
+   10
+  ],
+  "675": [
+   "Sheikh Pora",
+   7,
+   11
+  ],
+  "455": [
+   "Radbugh",
+   6814,
+   9
+  ],
+  "604": [
+   "Madnoha Nohar",
+   6,
+   6
+  ],
+  "571": [
+   "Bagh Baqaya",
+   6,
+   6
+  ],
+  "528": [
+   "Check Chanumpora",
+   6,
+   5
+  ],
+  "720": [
+   "Ichgam",
+   7,
+   11
+  ],
+  "834": [
+   "Alamdar Pora Chrawn",
+   9,
+   8
+  ],
+  "833": [
+   "Mal Pora Dard Pora",
+   9,
+   8
+  ],
+  "835": [
+   "Tilsara",
+   9,
+   4
+  ],
+  "839": [
+   "Gund Shamus",
+   9,
+   4
+  ],
+  "846": [
+   "Chararipora",
+   9,
+   4
+  ],
+  "841": [
+   "Carpora",
+   9,
+   4
+  ],
+  "840": [
+   "Hardu Dalwan Footlipora",
+   9,
+   4
+  ],
+  "842": [
+   "Shankerpora",
+   9,
+   4
+  ],
+  "843": [
+   "Pakherpora",
+   9,
+   4
+  ],
+  "844": [
+   "Mehndpora",
+   9,
+   4
+  ],
+  "832": [
+   "Charar E Shrief",
+   9,
+   4
+  ],
+  "248161": [
+   "Municipal Committee Chrari Sharief",
+   9,
+   7
+  ],
+  "810": [
+   "Shivpora",
+   8,
+   4
+  ],
+  "812": [
+   "Bhanagund",
+   8,
+   7
+  ],
+  "806": [
+   "Nowpora",
+   8,
+   7
+  ],
+  "811": [
+   "Chowdirigund",
+   8,
+   7
+  ],
+  "809": [
+   "Jawahar Pora Hafroo Bat Pora",
+   8,
+   7
+  ],
+  "845": [
+   "Manz Gam",
+   9,
+   4
+  ],
+  "831": [
+   "Azad Pora Check Goindjoo Dhar",
+   9,
+   8
+  ],
+  "733": [
+   "Rakehshalina",
+   6815,
+   12
+  ],
+  "807": [
+   "Badi Pora",
+   8,
+   7
+  ],
+  "803": [
+   "Kralwari",
+   8,
+   7
+  ],
+  "805": [
+   "Barwa",
+   8,
+   7
+  ],
+  "792": [
+   "Qangopora",
+   8,
+   7
+  ],
+  "791": [
+   "Wagam",
+   8,
+   7
+  ],
+  "793": [
+   "Hushroo",
+   8,
+   7
+  ],
+  "797": [
+   "Patrigam",
+   8,
+   7
+  ],
+  "798": [
+   "Ranger",
+   8,
+   7
+  ],
+  "790": [
+   "Sogam",
+   8,
+   7
+  ],
+  "800": [
+   "Gund I Maqsood",
+   8,
+   7
+  ],
+  "802": [
+   "Mahanoor",
+   8,
+   7
+  ],
+  "801": [
+   "Gund I Wali",
+   8,
+   7
+  ],
+  "253136": [
+   "Municipal Committee Chadoora",
+   8,
+   8
+  ],
+  "777": [
+   "Kthergund",
+   8,
+   7
+  ],
+  "773": [
+   "Porwara",
+   8,
+   7
+  ],
+  "776": [
+   "Gopalsaif",
+   8,
+   7
+  ],
+  "787": [
+   "Hayatpora",
+   8,
+   8
+  ],
+  "789": [
+   "Chak Mehanjoo Dher",
+   8,
+   8
+  ],
+  "786": [
+   "Qazipora",
+   8,
+   8
+  ],
+  "782": [
+   "Reshipora Hamchipora",
+   8,
+   8
+  ],
+  "785": [
+   "Dharmshala Singan",
+   8,
+   8
+  ],
+  "783": [
+   "Check Demjoo Gunjoo",
+   8,
+   8
+  ],
+  "771": [
+   "Hassipora",
+   8,
+   8
+  ],
+  "757": [
+   "Bagh I Buchroo",
+   8,
+   8
+  ],
+  "764": [
+   "Rangeen Kultreh",
+   8,
+   8
+  ],
+  "749": [
+   "Wagoora",
+   6815,
+   8
+  ],
+  "747": [
+   "Chinar Bagh Puhroo",
+   6815,
+   12
+  ],
+  "748": [
+   "Gund Checkpora",
+   6815,
+   12
+  ],
+  "746": [
+   "Chattergam",
+   6815,
+   12
+  ],
+  "760": [
+   "Bugam Batapora",
+   8,
+   8
+  ],
+  "756": [
+   "Kaisermullaha",
+   8,
+   8
+  ],
+  "755": [
+   "Dooni Wari",
+   8,
+   8
+  ],
+  "753": [
+   "Sanzipora",
+   6815,
+   8
+  ],
+  "754": [
+   "Zoonipora",
+   6815,
+   8
+  ],
+  "762": [
+   "Gowherpora",
+   8,
+   8
+  ],
+  "763": [
+   "Kuzwera",
+   8,
+   8
+  ],
+  "752": [
+   "Khanda",
+   6815,
+   8
+  ],
+  "751": [
+   "Suthsu Kalan",
+   6815,
+   8
+  ],
+  "744": [
+   "Malikgund",
+   6815,
+   12
+  ],
+  "745": [
+   "Zolwaha",
+   8,
+   12
+  ],
+  "736": [
+   "Kothipora",
+   6815,
+   12
+  ],
+  "743": [
+   "Check No 2",
+   6815,
+   12
+  ],
+  "735": [
+   "Gangipora",
+   6815,
+   12
+  ],
+  "742": [
+   "Shahzab Pora Dangar Pora",
+   6815,
+   12
+  ],
+  "738": [
+   "Gogi Bagh",
+   6815,
+   12
+  ],
+  "737": [
+   "Check Pora Kalan",
+   6815,
+   12
+  ],
+  "732": [
+   "Zooni Pora",
+   6815,
+   12
+  ],
+  "731": [
+   "Bagh I Shookr Shah",
+   6815,
+   12
+  ],
+  "739": [
+   "Gulab Bagh Zangi Bagh",
+   6815,
+   12
+  ],
+  "799": [
+   "Zooham Khandaypora",
+   8,
+   7
+  ],
+  "779": [
+   "Qumer Pora Marbal",
+   8,
+   7
+  ],
+  "781": [
+   "Auli Pora",
+   8,
+   8
+  ],
+  "758": [
+   "Ganji Bagh",
+   8,
+   8
+  ],
+  "759": [
+   "Buchroo",
+   8,
+   8
+  ],
+  "770": [
+   "Dawletpora",
+   8,
+   8
+  ],
+  "829": [
+   "Nagam",
+   8,
+   7
+  ],
+  "830": [
+   "Kral Pora CT",
+   6815,
+   12
+  ],
+  "761": [
+   "Nowbugh",
+   8,
+   8
+  ],
+  "769": [
+   "Awanpora",
+   8,
+   8
+  ],
+  "768": [
+   "Wadipora",
+   8,
+   8
+  ],
+  "784": [
+   "Wanpora Nagam",
+   8,
+   8
+  ],
+  "767": [
+   "Brarigund",
+   8,
+   8
+  ],
+  "765": [
+   "Behrampora",
+   8,
+   8
+  ],
+  "766": [
+   "Bagh I Hyder",
+   8,
+   8
+  ],
+  "775": [
+   "Chill Ich",
+   8,
+   7
+  ],
+  "778": [
+   "Panzen",
+   8,
+   7
+  ],
+  "772": [
+   "Namthal Pora Roopore Numtihall",
+   8,
+   7
+  ],
+  "698": [
+   "Lalgam",
+   7,
+   7
+  ],
+  "701": [
+   "Munnpapy",
+   7,
+   7
+  ],
+  "695": [
+   "Naroo",
+   7,
+   11
+  ],
+  "700": [
+   "Chitru Danger Pora",
+   7,
+   7
+  ],
+  "696": [
+   "Gudsathoo",
+   7,
+   7
+  ],
+  "697": [
+   "Bagh Sahib Ram",
+   7,
+   11
+  ],
+  "699": [
+   "Lal Gund",
+   7,
+   7
+  ],
+  "676": [
+   "Gogoo",
+   7,
+   11
+  ],
+  "788": [
+   "Cheke Nasarabad Check Chadura",
+   8,
+   8
+  ],
+  "750": [
+   "Gund Kuzwera",
+   6815,
+   8
+  ],
+  "734": [
+   "Tarazi Khud",
+   6815,
+   12
+  ],
+  "674": [
+   "Nambal Narkara",
+   7,
+   11
+  ],
+  "730": [
+   "Seerbagh",
+   6815,
+   12
+  ],
+  "728": [
+   "Sumerbugh",
+   6815,
+   12
+  ],
+  "729": [
+   "Shalina",
+   6815,
+   12
+  ],
+  "727": [
+   "Kanihama",
+   6815,
+   12
+  ],
+  "726": [
+   "Check Fath Din",
+   6815,
+   12
+  ],
+  "740": [
+   "Goniwar Magen Wagi",
+   6815,
+   12
+  ],
+  "725": [
+   "Check No 1",
+   6815,
+   12
+  ],
+  "721": [
+   "Qasim Bagh Rakh Suthoo",
+   6815,
+   12
+  ],
+  "722": [
+   "Gulab Pora Sathoo Khatr Bagh",
+   6815,
+   12
+  ],
+  "248156": [
+   "Srinagar Municipal Corporation",
+   6815,
+   12
+  ],
+  "741": [
+   "Wangi Pora",
+   6815,
+   12
+  ],
+  "724": [
+   "Kanipora Kalidar",
+   6815,
+   12
+  ],
+  "723": [
+   "Bagati Kani Pora",
+   6815,
+   12
+  ],
+  "828": [
+   "Hanji Gund Chadura",
+   8,
+   7
+  ],
+  "2837": [
+   "Shankerpora",
+   8,
+   8
+  ],
+  "2839": [
+   "Dhermbugh",
+   6815,
+   12
+  ],
+  "2840": [
+   "Gopal Pora",
+   6815,
+   12
+  ],
+  "2838": [
+   "Mochwa",
+   6815,
+   11
+  ],
+  "2841": [
+   "Wathoora",
+   6815,
+   12
+  ],
+  "523": [
+   "Forest Block",
+   4,
+   1
+  ]
+ },
+ "village_count_total": 490,
+ "village_count_assigned": 490
+}

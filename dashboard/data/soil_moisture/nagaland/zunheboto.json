@@ -1,0 +1,1198 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Nagaland",
+  "district": "Zunheboto",
+  "district_lgd": 251,
+  "observation_window": "2026-08-07T11:19Z to 2026-08-12T11:19Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.3942,
+  "sm_surface_stddev": 0.0181,
+  "sm_rootzone_mean": 0.4079,
+  "sm_rootzone_stddev": 0.0245,
+  "n_cells": 11,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 25.84,
+    "lon": 94.3186,
+    "sm_surface": 0.396,
+    "sm_rootzone": 0.4117,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 1,
+    "lat": 25.84,
+    "lon": 94.5162,
+    "sm_surface": 0.3926,
+    "sm_rootzone": 0.4087,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 2,
+    "lat": 25.9389,
+    "lon": 94.3186,
+    "sm_surface": 0.3999,
+    "sm_rootzone": 0.4145,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 3,
+    "lat": 25.9389,
+    "lon": 94.4174,
+    "sm_surface": 0.398,
+    "sm_rootzone": 0.4134,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 4,
+    "lat": 25.9389,
+    "lon": 94.5162,
+    "sm_surface": 0.3383,
+    "sm_rootzone": 0.3313,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 5,
+    "lat": 26.0377,
+    "lon": 94.4174,
+    "sm_surface": 0.4034,
+    "sm_rootzone": 0.4187,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 6,
+    "lat": 26.0377,
+    "lon": 94.5162,
+    "sm_surface": 0.3986,
+    "sm_rootzone": 0.4145,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 7,
+    "lat": 26.0377,
+    "lon": 94.6151,
+    "sm_surface": 0.3966,
+    "sm_rootzone": 0.4132,
+    "n_villages_sharing_cell": 26
+   },
+   {
+    "cell_index": 8,
+    "lat": 26.1365,
+    "lon": 94.4174,
+    "sm_surface": 0.4066,
+    "sm_rootzone": 0.4222,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 9,
+    "lat": 26.1365,
+    "lon": 94.5162,
+    "sm_surface": 0.4033,
+    "sm_rootzone": 0.4196,
+    "n_villages_sharing_cell": 27
+   },
+   {
+    "cell_index": 10,
+    "lat": 26.1365,
+    "lon": 94.6151,
+    "sm_surface": 0.4025,
+    "sm_rootzone": 0.4191,
+    "n_villages_sharing_cell": 35
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.3978,
+  "sm_surface_stddev": 0.0072,
+  "n_blocks": 13
+ },
+ "blocks": [
+  {
+   "block_name": "Aghunato",
+   "sdcode": 1771,
+   "n_villages": 29,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3843,
+   "sm_surface_stddev": 0.0235
+  },
+  {
+   "block_name": "Akuhaito",
+   "sdcode": 1774,
+   "n_villages": 6,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.4039,
+   "sm_surface_stddev": 0.0012
+  },
+  {
+   "block_name": "Akuluto",
+   "sdcode": 1768,
+   "n_villages": 11,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.4036,
+   "sm_surface_stddev": 0.0009
+  },
+  {
+   "block_name": "Asuto",
+   "sdcode": 1770,
+   "n_villages": 27,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.4018,
+   "sm_surface_stddev": 0.0019
+  },
+  {
+   "block_name": "Atoizu",
+   "sdcode": 1773,
+   "n_villages": 18,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.4024,
+   "sm_surface_stddev": 0.0022
+  },
+  {
+   "block_name": "Ghathashi",
+   "sdcode": 1776,
+   "n_villages": 14,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3974,
+   "sm_surface_stddev": 0.0016
+  },
+  {
+   "block_name": "Pughoboto",
+   "sdcode": 1775,
+   "n_villages": 11,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.3985,
+   "sm_surface_stddev": 0.0019
+  },
+  {
+   "block_name": "Saptiqa",
+   "sdcode": 1778,
+   "n_villages": 6,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.4007,
+   "sm_surface_stddev": 0.0027
+  },
+  {
+   "block_name": "Satakha",
+   "sdcode": 1777,
+   "n_villages": 21,
+   "n_cells_spanned": 3,
+   "sm_surface_mean": 0.3828,
+   "sm_surface_stddev": 0.0249
+  },
+  {
+   "block_name": "Satoi",
+   "sdcode": 1779,
+   "n_villages": 12,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.3926,
+   "sm_surface_stddev": 0.0
+  },
+  {
+   "block_name": "Suruhuto",
+   "sdcode": 1769,
+   "n_villages": 16,
+   "n_cells_spanned": 2,
+   "sm_surface_mean": 0.4028,
+   "sm_surface_stddev": 0.0004
+  },
+  {
+   "block_name": "V.K.",
+   "sdcode": 1767,
+   "n_villages": 10,
+   "n_cells_spanned": 1,
+   "sm_surface_mean": 0.4066,
+   "sm_surface_stddev": 0.0
+  },
+  {
+   "block_name": "Zunheboto Sadar",
+   "sdcode": 1772,
+   "n_villages": 25,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.394,
+   "sm_surface_stddev": 0.0165
+  }
+ ],
+ "villages": {
+  "267362": [
+   "Ighanumi",
+   1776,
+   0
+  ],
+  "267349": [
+   "Phuyeqa Ur",
+   1775,
+   0
+  ],
+  "267347": [
+   "Mishilimi",
+   1775,
+   0
+  ],
+  "267348": [
+   "Lazami",
+   1775,
+   0
+  ],
+  "267334": [
+   "Sukomi",
+   1773,
+   5
+  ],
+  "267309": [
+   "Kulhopu",
+   1772,
+   6
+  ],
+  "267310": [
+   "Nikuto",
+   1772,
+   5
+  ],
+  "267311": [
+   "Ghukiye",
+   1772,
+   5
+  ],
+  "267312": [
+   "Xukhepu",
+   1772,
+   6
+  ],
+  "267313": [
+   "Zungti",
+   1772,
+   6
+  ],
+  "267350": [
+   "Kichilimi",
+   1776,
+   2
+  ],
+  "267351": [
+   "Awohumi",
+   1776,
+   2
+  ],
+  "267352": [
+   "Shesulimi",
+   1776,
+   2
+  ],
+  "267353": [
+   "Mukalimi",
+   1776,
+   0
+  ],
+  "267354": [
+   "Chishilimi",
+   1776,
+   3
+  ],
+  "267355": [
+   "Chisholomi",
+   1776,
+   3
+  ],
+  "267356": [
+   "Khughutomi",
+   1776,
+   3
+  ],
+  "267357": [
+   "Kilomi",
+   1776,
+   3
+  ],
+  "267358": [
+   "Ghathashi Hq",
+   1776,
+   0
+  ],
+  "267359": [
+   "Iphonumi",
+   1776,
+   0
+  ],
+  "267360": [
+   "Hebolimi",
+   1776,
+   0
+  ],
+  "267361": [
+   "Tukuliqa",
+   1776,
+   0
+  ],
+  "267383": [
+   "Sena Old",
+   1778,
+   5
+  ],
+  "267384": [
+   "Sena New",
+   1778,
+   5
+  ],
+  "267385": [
+   "Saptiqa",
+   1778,
+   3
+  ],
+  "267386": [
+   "Zhevishe",
+   1778,
+   3
+  ],
+  "267387": [
+   "Usutomi",
+   1778,
+   3
+  ],
+  "267363": [
+   "Nunumi",
+   1777,
+   3
+  ],
+  "267364": [
+   "Shoipu",
+   1777,
+   3
+  ],
+  "267365": [
+   "Momi",
+   1777,
+   3
+  ],
+  "267366": [
+   "Shoixe",
+   1777,
+   4
+  ],
+  "267368": [
+   "Aghuhito S Comp",
+   1777,
+   4
+  ],
+  "267369": [
+   "Satakha Vill",
+   1777,
+   3
+  ],
+  "267370": [
+   "Hoishe",
+   1777,
+   3
+  ],
+  "267371": [
+   "Tukunasami",
+   1777,
+   3
+  ],
+  "267372": [
+   "Khukiye",
+   1777,
+   3
+  ],
+  "267373": [
+   "Lukhai",
+   1777,
+   3
+  ],
+  "267374": [
+   "Zhekiye",
+   1777,
+   4
+  ],
+  "267376": [
+   "Kilo Old",
+   1777,
+   3
+  ],
+  "267377": [
+   "Xuivi",
+   1777,
+   3
+  ],
+  "267379": [
+   "Vishepu",
+   1777,
+   1
+  ],
+  "267380": [
+   "Kivikhu",
+   1777,
+   1
+  ],
+  "267340": [
+   "Tsaphimi",
+   1775,
+   2
+  ],
+  "267341": [
+   "Kitami",
+   1775,
+   2
+  ],
+  "267343": [
+   "Asukiqa",
+   1775,
+   2
+  ],
+  "267344": [
+   "Ghokimi",
+   1775,
+   2
+  ],
+  "267345": [
+   "Natsumi",
+   1775,
+   2
+  ],
+  "267346": [
+   "Pughoboto Hq",
+   1775,
+   0
+  ],
+  "267382": [
+   "Satakha Hq CT",
+   1777,
+   3
+  ],
+  "999999": [
+   "Data Partially Available",
+   1769,
+   10
+  ],
+  "267337": [
+   "Roto New",
+   1774,
+   5
+  ],
+  "267207": [
+   "Izheto",
+   1767,
+   8
+  ],
+  "267208": [
+   "Sastami",
+   1767,
+   8
+  ],
+  "267209": [
+   "V K Hq",
+   1767,
+   8
+  ],
+  "267210": [
+   "Ajiqami",
+   1767,
+   8
+  ],
+  "267211": [
+   "Maromi",
+   1767,
+   8
+  ],
+  "267212": [
+   "Litta Old",
+   1767,
+   8
+  ],
+  "267213": [
+   "Litta New",
+   1767,
+   8
+  ],
+  "267215": [
+   "Mukhami",
+   1767,
+   8
+  ],
+  "267324": [
+   "Mapulumi",
+   1773,
+   8
+  ],
+  "267330": [
+   "Khelhoshe Polytechnic Atoizu",
+   1773,
+   6
+  ],
+  "267332": [
+   "Emlomi",
+   1773,
+   6
+  ],
+  "267333": [
+   "Litsami",
+   1773,
+   6
+  ],
+  "267331": [
+   "Yesholutomi",
+   1773,
+   6
+  ],
+  "267335": [
+   "Khrimtomi",
+   1774,
+   8
+  ],
+  "267336": [
+   "Akuhaito Eac Hq",
+   1774,
+   5
+  ],
+  "267338": [
+   "Philimi",
+   1774,
+   5
+  ],
+  "267339": [
+   "Roto Old",
+   1774,
+   5
+  ],
+  "267217": [
+   "Zaphumi",
+   1768,
+   9
+  ],
+  "267218": [
+   "Lumami",
+   1768,
+   9
+  ],
+  "267219": [
+   "Alaphumi",
+   1768,
+   9
+  ],
+  "267221": [
+   "Akuluto",
+   1768,
+   9
+  ],
+  "267224": [
+   "Lotisami New",
+   1768,
+   9
+  ],
+  "267225": [
+   "Lotisami Old",
+   1768,
+   8
+  ],
+  "267395": [
+   "Tsutoho",
+   1779,
+   1
+  ],
+  "267396": [
+   "Thakiye",
+   1779,
+   1
+  ],
+  "267397": [
+   "Khuvuxu",
+   1779,
+   1
+  ],
+  "267398": [
+   "Hokiye",
+   1779,
+   1
+  ],
+  "267289": [
+   "Khewoto",
+   1771,
+   4
+  ],
+  "267290": [
+   "Hoshepu",
+   1771,
+   4
+  ],
+  "267291": [
+   "Hoshepu S Comp",
+   1771,
+   4
+  ],
+  "267292": [
+   "Khekiye",
+   1771,
+   4
+  ],
+  "267293": [
+   "Nihoshe S",
+   1771,
+   1
+  ],
+  "267294": [
+   "Tsutha Hydel Project",
+   1771,
+   1
+  ],
+  "267375": [
+   "Ghukhuyi",
+   1777,
+   4
+  ],
+  "267378": [
+   "Sukhai",
+   1777,
+   1
+  ],
+  "267381": [
+   "Xanuboto S Comp",
+   1777,
+   1
+  ],
+  "267388": [
+   "Ikiye",
+   1779,
+   1
+  ],
+  "267389": [
+   "Itovi",
+   1779,
+   1
+  ],
+  "267390": [
+   "Ghokhuvi",
+   1779,
+   1
+  ],
+  "267391": [
+   "Satoi Vill",
+   1779,
+   1
+  ],
+  "267392": [
+   "Satoi Hq",
+   1779,
+   1
+  ],
+  "267393": [
+   "Tsuruhu",
+   1779,
+   1
+  ],
+  "267394": [
+   "Kheshito",
+   1779,
+   1
+  ],
+  "267270": [
+   "Lukhuyimi",
+   1771,
+   7
+  ],
+  "267271": [
+   "Zheishe",
+   1771,
+   7
+  ],
+  "267272": [
+   "Shevishe",
+   1771,
+   7
+  ],
+  "267275": [
+   "Lukikhe",
+   1771,
+   7
+  ],
+  "267276": [
+   "Ghokishe",
+   1771,
+   7
+  ],
+  "267277": [
+   "Aghunato Hq",
+   1771,
+   7
+  ],
+  "267278": [
+   "Luvishe Old",
+   1771,
+   7
+  ],
+  "267279": [
+   "Thokihimi",
+   1771,
+   7
+  ],
+  "267280": [
+   "Tsukomi",
+   1771,
+   7
+  ],
+  "267281": [
+   "Luvishe New",
+   1771,
+   7
+  ],
+  "267282": [
+   "Viyilho",
+   1771,
+   7
+  ],
+  "267283": [
+   "Viyixe",
+   1771,
+   7
+  ],
+  "267284": [
+   "Tokiye",
+   1771,
+   7
+  ],
+  "267285": [
+   "Khukishe",
+   1771,
+   4
+  ],
+  "267286": [
+   "Yezashimi",
+   1771,
+   7
+  ],
+  "267287": [
+   "Aghiyilimi",
+   1771,
+   7
+  ],
+  "267288": [
+   "Khetoi",
+   1771,
+   4
+  ],
+  "267302": [
+   "Lizu Naghuto",
+   1772,
+   6
+  ],
+  "267305": [
+   "Kawoto",
+   1772,
+   6
+  ],
+  "267306": [
+   "Baimho",
+   1772,
+   6
+  ],
+  "267307": [
+   "Shotomi",
+   1772,
+   6
+  ],
+  "267308": [
+   "Natha New",
+   1772,
+   6
+  ],
+  "267314": [
+   "Natha Old",
+   1772,
+   6
+  ],
+  "267315": [
+   "Sheipu",
+   1772,
+   6
+  ],
+  "267316": [
+   "Sukhalu",
+   1772,
+   4
+  ],
+  "267317": [
+   "Yemishe",
+   1772,
+   4
+  ],
+  "249718": [
+   "Zunheboto",
+   1772,
+   6
+  ],
+  "267367": [
+   "Kiyekhu",
+   1777,
+   4
+  ],
+  "267235": [
+   "Phuye Old",
+   1769,
+   9
+  ],
+  "267236": [
+   "Aichi Saghami",
+   1769,
+   10
+  ],
+  "267237": [
+   "Phuye New",
+   1769,
+   9
+  ],
+  "267238": [
+   "Vedami",
+   1769,
+   10
+  ],
+  "267239": [
+   "Naltoqa",
+   1769,
+   10
+  ],
+  "267249": [
+   "Yevishe",
+   1770,
+   10
+  ],
+  "267250": [
+   "Nihoshe N",
+   1770,
+   10
+  ],
+  "267251": [
+   "Achikuchu B",
+   1770,
+   10
+  ],
+  "267252": [
+   "Achikuchu A",
+   1770,
+   10
+  ],
+  "267253": [
+   "Asuto Hq",
+   1770,
+   10
+  ],
+  "267254": [
+   "Asuto Vill",
+   1770,
+   10
+  ],
+  "267256": [
+   "Tazuhumi",
+   1770,
+   10
+  ],
+  "267257": [
+   "Tuzuhumi",
+   1770,
+   10
+  ],
+  "267258": [
+   "Sahuboto S Comp",
+   1770,
+   10
+  ],
+  "267259": [
+   "Koiboto",
+   1770,
+   10
+  ],
+  "267260": [
+   "Kitahumi",
+   1770,
+   10
+  ],
+  "267261": [
+   "Satami",
+   1770,
+   10
+  ],
+  "267262": [
+   "Lizutomi",
+   1770,
+   10
+  ],
+  "267263": [
+   "Aghulitomi",
+   1770,
+   10
+  ],
+  "267264": [
+   "Nizhevi",
+   1770,
+   7
+  ],
+  "267265": [
+   "Ngozubomi",
+   1770,
+   7
+  ],
+  "267266": [
+   "Melahumi",
+   1770,
+   7
+  ],
+  "267267": [
+   "Phuleshetomi",
+   1771,
+   7
+  ],
+  "267268": [
+   "Luthsumi",
+   1771,
+   7
+  ],
+  "267269": [
+   "Keltomi",
+   1771,
+   7
+  ],
+  "267322": [
+   "Naghuto Old",
+   1773,
+   9
+  ],
+  "267323": [
+   "Naghuto New",
+   1773,
+   9
+  ],
+  "267325": [
+   "Atoizu Hq",
+   1773,
+   9
+  ],
+  "267326": [
+   "Kitsakita Ur",
+   1773,
+   9
+  ],
+  "267327": [
+   "Vekuho New",
+   1773,
+   9
+  ],
+  "267328": [
+   "Vekuho Old",
+   1773,
+   9
+  ],
+  "267329": [
+   "Asukhuto",
+   1773,
+   9
+  ],
+  "267295": [
+   "Asukhomi",
+   1772,
+   6
+  ],
+  "267296": [
+   "Lochomi",
+   1772,
+   6
+  ],
+  "267297": [
+   "Yezami",
+   1772,
+   7
+  ],
+  "267299": [
+   "Lizu Aviqato",
+   1772,
+   6
+  ],
+  "267300": [
+   "Lizu New",
+   1772,
+   6
+  ],
+  "267301": [
+   "Lizu Old",
+   1772,
+   6
+  ],
+  "267303": [
+   "Hekiye",
+   1772,
+   6
+  ],
+  "267304": [
+   "New Land",
+   1772,
+   6
+  ],
+  "267226": [
+   "Lithsami",
+   1769,
+   10
+  ],
+  "267227": [
+   "Sapotimi",
+   1769,
+   9
+  ],
+  "267228": [
+   "Tichipami",
+   1769,
+   10
+  ],
+  "267229": [
+   "Zhekuto",
+   1769,
+   9
+  ],
+  "267230": [
+   "Kholeboto",
+   1769,
+   10
+  ],
+  "267231": [
+   "Kiyetha",
+   1769,
+   10
+  ],
+  "267232": [
+   "Surumi",
+   1769,
+   9
+  ],
+  "267233": [
+   "Suruhuto Hq",
+   1769,
+   10
+  ],
+  "267234": [
+   "Yehemi",
+   1769,
+   10
+  ],
+  "267240": [
+   "Akhakhu",
+   1770,
+   10
+  ],
+  "267241": [
+   "Khumishi B",
+   1770,
+   10
+  ],
+  "267242": [
+   "Khumishi A Y Khel",
+   1770,
+   10
+  ],
+  "267243": [
+   "Atunakugha",
+   1770,
+   10
+  ],
+  "267244": [
+   "Khumishi A",
+   1770,
+   10
+  ],
+  "267245": [
+   "T Island S Comp",
+   1770,
+   10
+  ],
+  "267246": [
+   "Kathara",
+   1770,
+   10
+  ],
+  "267247": [
+   "Yeshito",
+   1770,
+   10
+  ],
+  "267248": [
+   "Kikhevi",
+   1769,
+   10
+  ],
+  "267318": [
+   "Lokobomi",
+   1773,
+   9
+  ],
+  "267319": [
+   "Apukito Ur",
+   1773,
+   9
+  ],
+  "267320": [
+   "Aizuto Mission Centre Ur",
+   1773,
+   9
+  ],
+  "267321": [
+   "Awotsakilimi",
+   1773,
+   9
+  ],
+  "267220": [
+   "Lumthsami",
+   1768,
+   9
+  ],
+  "267223": [
+   "Shichimi",
+   1768,
+   9
+  ],
+  "267342": [
+   "Puneboqa",
+   1775,
+   2
+  ],
+  "267214": [
+   "Phushumi",
+   1767,
+   8
+  ],
+  "267216": [
+   "Sumi Settsu",
+   1768,
+   9
+  ],
+  "267222": [
+   "Sutemi",
+   1768,
+   9
+  ],
+  "267273": [
+   "Akubani New",
+   1771,
+   7
+  ],
+  "267274": [
+   "Akubani Old",
+   1771,
+   7
+  ],
+  "267255": [
+   "Tokiye",
+   1770,
+   10
+  ],
+  "267298": [
+   "Kheshepu",
+   1772,
+   7
+  ]
+ },
+ "village_count_total": 206,
+ "village_count_assigned": 206
+}

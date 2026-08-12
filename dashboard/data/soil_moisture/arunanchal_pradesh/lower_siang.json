@@ -1,0 +1,163 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Arunanchal Pradesh",
+  "district": "Lower Siang",
+  "district_lgd": 719,
+  "observation_window": "2026-08-07T10:43Z to 2026-08-12T10:43Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "unavailable (HTTP Error 404: Not Found)"
+ },
+ "district": {
+  "sm_surface_mean": 0.4552,
+  "sm_surface_stddev": 0.0506,
+  "sm_rootzone_mean": 0.4656,
+  "sm_rootzone_stddev": 0.0591,
+  "n_cells": 19,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 27.6187,
+    "lon": 94.2198,
+    "sm_surface": 0.485,
+    "sm_rootzone": 0.5015
+   },
+   {
+    "cell_index": 1,
+    "lat": 27.6187,
+    "lon": 94.3186,
+    "sm_surface": 0.4823,
+    "sm_rootzone": 0.5014
+   },
+   {
+    "cell_index": 2,
+    "lat": 27.6187,
+    "lon": 94.4174,
+    "sm_surface": 0.3494,
+    "sm_rootzone": 0.3459
+   },
+   {
+    "cell_index": 3,
+    "lat": 27.6187,
+    "lon": 94.5162,
+    "sm_surface": 0.4849,
+    "sm_rootzone": 0.5011
+   },
+   {
+    "cell_index": 4,
+    "lat": 27.7175,
+    "lon": 94.4174,
+    "sm_surface": 0.4833,
+    "sm_rootzone": 0.502
+   },
+   {
+    "cell_index": 5,
+    "lat": 27.7175,
+    "lon": 94.5162,
+    "sm_surface": 0.4812,
+    "sm_rootzone": 0.4993
+   },
+   {
+    "cell_index": 6,
+    "lat": 27.7175,
+    "lon": 94.6151,
+    "sm_surface": 0.4875,
+    "sm_rootzone": 0.5036
+   },
+   {
+    "cell_index": 7,
+    "lat": 27.7175,
+    "lon": 94.7139,
+    "sm_surface": 0.4913,
+    "sm_rootzone": 0.4898
+   },
+   {
+    "cell_index": 8,
+    "lat": 27.7175,
+    "lon": 94.8127,
+    "sm_surface": 0.3813,
+    "sm_rootzone": 0.3898
+   },
+   {
+    "cell_index": 9,
+    "lat": 27.8163,
+    "lon": 94.5162,
+    "sm_surface": 0.4824,
+    "sm_rootzone": 0.5003
+   },
+   {
+    "cell_index": 10,
+    "lat": 27.8163,
+    "lon": 94.6151,
+    "sm_surface": 0.4896,
+    "sm_rootzone": 0.5061
+   },
+   {
+    "cell_index": 11,
+    "lat": 27.8163,
+    "lon": 94.7139,
+    "sm_surface": 0.4951,
+    "sm_rootzone": 0.5034
+   },
+   {
+    "cell_index": 12,
+    "lat": 27.8163,
+    "lon": 94.9115,
+    "sm_surface": 0.352,
+    "sm_rootzone": 0.3466
+   },
+   {
+    "cell_index": 13,
+    "lat": 27.8163,
+    "lon": 95.0103,
+    "sm_surface": 0.3771,
+    "sm_rootzone": 0.3863
+   },
+   {
+    "cell_index": 14,
+    "lat": 27.8163,
+    "lon": 95.1091,
+    "sm_surface": 0.4042,
+    "sm_rootzone": 0.373
+   },
+   {
+    "cell_index": 15,
+    "lat": 27.9151,
+    "lon": 94.9115,
+    "sm_surface": 0.4723,
+    "sm_rootzone": 0.4939
+   },
+   {
+    "cell_index": 16,
+    "lat": 27.9151,
+    "lon": 95.0103,
+    "sm_surface": 0.4873,
+    "sm_rootzone": 0.5025
+   },
+   {
+    "cell_index": 17,
+    "lat": 28.014,
+    "lon": 94.9115,
+    "sm_surface": 0.4732,
+    "sm_rootzone": 0.4955
+   },
+   {
+    "cell_index": 18,
+    "lat": 28.014,
+    "lon": 95.0103,
+    "sm_surface": 0.4889,
+    "sm_rootzone": 0.5047
+   }
+  ]
+ },
+ "district_block_rollup": null,
+ "blocks": [],
+ "villages": {},
+ "village_count_total": 0,
+ "village_count_assigned": 0
+}

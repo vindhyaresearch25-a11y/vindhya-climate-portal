@@ -1,0 +1,890 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Tamil Nadu",
+  "district": "Theni",
+  "district_lgd": 588,
+  "observation_window": "2026-08-07T11:24Z to 2026-08-12T11:24Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2295,
+  "sm_surface_stddev": 0.0687,
+  "sm_rootzone_mean": 0.2358,
+  "sm_rootzone_stddev": 0.0599,
+  "n_cells": 23,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 9.6344,
+    "lon": 77.2237,
+    "sm_surface": 0.3955,
+    "sm_rootzone": 0.3961,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 1,
+    "lat": 9.6344,
+    "lon": 77.3225,
+    "sm_surface": 0.2774,
+    "sm_rootzone": 0.2659,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 2,
+    "lat": 9.6344,
+    "lon": 77.4213,
+    "sm_surface": 0.2194,
+    "sm_rootzone": 0.2178,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 3,
+    "lat": 9.7332,
+    "lon": 77.2237,
+    "sm_surface": 0.3881,
+    "sm_rootzone": 0.381,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 4,
+    "lat": 9.7332,
+    "lon": 77.3225,
+    "sm_surface": 0.284,
+    "sm_rootzone": 0.2727,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 5,
+    "lat": 9.7332,
+    "lon": 77.4213,
+    "sm_surface": 0.1895,
+    "sm_rootzone": 0.1947,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 6,
+    "lat": 9.7332,
+    "lon": 77.5201,
+    "sm_surface": 0.1538,
+    "sm_rootzone": 0.1753,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 7,
+    "lat": 9.8321,
+    "lon": 77.3225,
+    "sm_surface": 0.2817,
+    "sm_rootzone": 0.2728,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 8,
+    "lat": 9.8321,
+    "lon": 77.4213,
+    "sm_surface": 0.1958,
+    "sm_rootzone": 0.1989,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 9,
+    "lat": 9.8321,
+    "lon": 77.5201,
+    "sm_surface": 0.1559,
+    "sm_rootzone": 0.1753,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 10,
+    "lat": 9.8321,
+    "lon": 77.6189,
+    "sm_surface": 0.1403,
+    "sm_rootzone": 0.1571,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 11,
+    "lat": 9.9309,
+    "lon": 77.3225,
+    "sm_surface": 0.282,
+    "sm_rootzone": 0.2739,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 12,
+    "lat": 9.9309,
+    "lon": 77.4213,
+    "sm_surface": 0.2311,
+    "sm_rootzone": 0.2424,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 13,
+    "lat": 9.9309,
+    "lon": 77.5201,
+    "sm_surface": 0.1603,
+    "sm_rootzone": 0.1782,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 14,
+    "lat": 9.9309,
+    "lon": 77.6189,
+    "sm_surface": 0.1454,
+    "sm_rootzone": 0.1585,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 15,
+    "lat": 10.0297,
+    "lon": 77.3225,
+    "sm_surface": 0.2741,
+    "sm_rootzone": 0.266,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 16,
+    "lat": 10.0297,
+    "lon": 77.4213,
+    "sm_surface": 0.227,
+    "sm_rootzone": 0.2209,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 17,
+    "lat": 10.0297,
+    "lon": 77.5201,
+    "sm_surface": 0.198,
+    "sm_rootzone": 0.2235,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 18,
+    "lat": 10.0297,
+    "lon": 77.6189,
+    "sm_surface": 0.1852,
+    "sm_rootzone": 0.216,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 19,
+    "lat": 10.1285,
+    "lon": 77.3225,
+    "sm_surface": 0.2904,
+    "sm_rootzone": 0.2775,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 20,
+    "lat": 10.1285,
+    "lon": 77.4213,
+    "sm_surface": 0.2151,
+    "sm_rootzone": 0.2305,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 21,
+    "lat": 10.1285,
+    "lon": 77.5201,
+    "sm_surface": 0.1976,
+    "sm_rootzone": 0.2222,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 22,
+    "lat": 10.1285,
+    "lon": 77.6189,
+    "sm_surface": 0.1909,
+    "sm_rootzone": 0.2071,
+    "n_villages_sharing_cell": 13
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2206,
+  "sm_surface_stddev": 0.0433,
+  "n_blocks": 5
+ },
+ "blocks": [
+  {
+   "block_name": "Andipatti",
+   "sdcode": 5846,
+   "n_villages": 25,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.1618,
+   "sm_surface_stddev": 0.0206
+  },
+  {
+   "block_name": "Bodinayakanur",
+   "sdcode": 5842,
+   "n_villages": 16,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.257,
+   "sm_surface_stddev": 0.0271
+  },
+  {
+   "block_name": "Periyakulam",
+   "sdcode": 5843,
+   "n_villages": 22,
+   "n_cells_spanned": 4,
+   "sm_surface_mean": 0.1926,
+   "sm_surface_stddev": 0.0039
+  },
+  {
+   "block_name": "Theni",
+   "sdcode": 5844,
+   "n_villages": 17,
+   "n_cells_spanned": 5,
+   "sm_surface_mean": 0.21,
+   "sm_surface_stddev": 0.0266
+  },
+  {
+   "block_name": "Uthamapalayam",
+   "sdcode": 5845,
+   "n_villages": 46,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.2814,
+   "sm_surface_stddev": 0.0585
+  }
+ ],
+ "villages": {
+  "641074": [
+   "Ahamalai",
+   5842,
+   20
+  ],
+  "641164": [
+   "Vallalnathi",
+   5846,
+   9
+  ],
+  "252897": [
+   "Bodinayakanur M",
+   5842,
+   15
+  ],
+  "641138": [
+   "Koothanatchiyar Rf",
+   5845,
+   1
+  ],
+  "641143": [
+   "Perumalkoil Karadu Rf",
+   5845,
+   0
+  ],
+  "641117": [
+   "Veppampatti",
+   5845,
+   8
+  ],
+  "252908": [
+   "Thevaram Tp",
+   5845,
+   11
+  ],
+  "252596": [
+   "Gudalur M",
+   5845,
+   0
+  ],
+  "252921": [
+   "Highways Tp",
+   5845,
+   1
+  ],
+  "641139": [
+   "Suranganur Rf",
+   5845,
+   0
+  ],
+  "641134": [
+   "Keelagudalur",
+   5845,
+   0
+  ],
+  "641145": [
+   "Vannathiparai Rf",
+   5845,
+   1
+  ],
+  "641140": [
+   "Poovuthukaradu R F",
+   5845,
+   1
+  ],
+  "641141": [
+   "Suruli Rf",
+   5845,
+   1
+  ],
+  "641144": [
+   "Melagudalur Rf",
+   5845,
+   0
+  ],
+  "641142": [
+   "Pandarathurai Rf",
+   5845,
+   1
+  ],
+  "641108": [
+   "Poomalaikundu",
+   5844,
+   12
+  ],
+  "641127": [
+   "Mallingapuram",
+   5845,
+   4
+  ],
+  "641083": [
+   "Rasingapuram",
+   5842,
+   11
+  ],
+  "641106": [
+   "Kottur",
+   5844,
+   12
+  ],
+  "641082": [
+   "Kulaiyanur",
+   5842,
+   12
+  ],
+  "641107": [
+   "Seelayampatty",
+   5844,
+   8
+  ],
+  "641118": [
+   "Seepalakottai",
+   5845,
+   8
+  ],
+  "641133": [
+   "Erasakkanayackanur Hills",
+   5845,
+   5
+  ],
+  "252913": [
+   "Chinnamanur M",
+   5845,
+   8
+  ],
+  "641128": [
+   "Gokilapuram",
+   5845,
+   4
+  ],
+  "641131": [
+   "Erasakkanayackanur",
+   5845,
+   5
+  ],
+  "641129": [
+   "Royappanpatti",
+   5845,
+   4
+  ],
+  "641130": [
+   "Chinnaovalapuram",
+   5845,
+   4
+  ],
+  "641132": [
+   "Kanniservaipatti",
+   5845,
+   5
+  ],
+  "641126": [
+   "Muthulapuram",
+   5845,
+   7
+  ],
+  "641125": [
+   "Alagapuri",
+   5845,
+   8
+  ],
+  "252914": [
+   "Odaipatti Tp",
+   5845,
+   8
+  ],
+  "252912": [
+   "Kombai Tp",
+   5845,
+   7
+  ],
+  "252909": [
+   "Kuchanur Tp",
+   5845,
+   7
+  ],
+  "252917": [
+   "Pudupatti Tp",
+   5845,
+   3
+  ],
+  "641135": [
+   "Narayanathevanpatti",
+   5845,
+   4
+  ],
+  "252916": [
+   "Hanumanthampatti Tp",
+   5845,
+   4
+  ],
+  "641124": [
+   "Uthamapalayam",
+   5845,
+   7
+  ],
+  "641114": [
+   "Pottipuram",
+   5845,
+   11
+  ],
+  "252910": [
+   "Markayankottai Tp",
+   5845,
+   7
+  ],
+  "641120": [
+   "Markeyankottai",
+   5845,
+   7
+  ],
+  "641119": [
+   "Pulanandapuram",
+   5845,
+   8
+  ],
+  "641115": [
+   "Thevaram",
+   5845,
+   11
+  ],
+  "641122": [
+   "T Meenakshipuram",
+   5845,
+   7
+  ],
+  "252911": [
+   "Pannaipuram Tp",
+   5845,
+   7
+  ],
+  "641123": [
+   "Pannaipuram",
+   5845,
+   7
+  ],
+  "641121": [
+   "Pulikkuthi",
+   5845,
+   7
+  ],
+  "641116": [
+   "Sankarapuram",
+   5845,
+   11
+  ],
+  "252919": [
+   "Kamayagoundanpatti Tp",
+   5845,
+   4
+  ],
+  "252918": [
+   "Kambam M",
+   5845,
+   4
+  ],
+  "252915": [
+   "Uthamapalayam Tp",
+   5845,
+   7
+  ],
+  "252895": [
+   "Boothipuram Tp",
+   5842,
+   16
+  ],
+  "641136": [
+   "Thevaram Hills",
+   5845,
+   11
+  ],
+  "641137": [
+   "Kombai Rf",
+   5845,
+   3
+  ],
+  "641076": [
+   "Meenakshipuram Bodi",
+   5842,
+   16
+  ],
+  "641073": [
+   "Bodi Hill North",
+   5842,
+   19
+  ],
+  "641072": [
+   "Kottagudi",
+   5842,
+   19
+  ],
+  "641077": [
+   "Bodinayackanur",
+   5842,
+   15
+  ],
+  "641075": [
+   "Kodangipatti",
+   5842,
+   16
+  ],
+  "252896": [
+   "B Meenakshipuram Tp",
+   5842,
+   15
+  ],
+  "641078": [
+   "Silamalai",
+   5842,
+   11
+  ],
+  "641079": [
+   "Ammapatti Bodi",
+   5842,
+   11
+  ],
+  "641080": [
+   "Dombucheri",
+   5842,
+   12
+  ],
+  "641081": [
+   "Uppukottai",
+   5842,
+   12
+  ],
+  "641105": [
+   "Upparpatty",
+   5844,
+   12
+  ],
+  "252898": [
+   "Melachokkanathapuram Tp",
+   5842,
+   15
+  ],
+  "641110": [
+   "Koduvilarpatty Rf",
+   5844,
+   16
+  ],
+  "641167": [
+   "Megamalai",
+   5846,
+   2
+  ],
+  "641153": [
+   "G Usilampatti",
+   5846,
+   13
+  ],
+  "641103": [
+   "Thadicheri",
+   5844,
+   12
+  ],
+  "641104": [
+   "Thappukundu",
+   5844,
+   12
+  ],
+  "641159": [
+   "Rajadhani",
+   5846,
+   14
+  ],
+  "641102": [
+   "Govindanagaram",
+   5844,
+   13
+  ],
+  "641158": [
+   "Palayakottai",
+   5846,
+   14
+  ],
+  "641160": [
+   "Chittarpatti",
+   5846,
+   14
+  ],
+  "641163": [
+   "Palakombai",
+   5846,
+   14
+  ],
+  "641155": [
+   "Kottapatti",
+   5846,
+   14
+  ],
+  "641109": [
+   "Jangalpatty",
+   5844,
+   13
+  ],
+  "641162": [
+   "Ramakrishnapuram",
+   5846,
+   14
+  ],
+  "252626": [
+   "Veerapandi Tp",
+   5844,
+   12
+  ],
+  "641161": [
+   "Theppanpatti",
+   5846,
+   10
+  ],
+  "641084": [
+   "Vadagarai",
+   5843,
+   21
+  ],
+  "641165": [
+   "Kadamalaikundu",
+   5846,
+   9
+  ],
+  "641090": [
+   "Kamatchipuram",
+   5843,
+   22
+  ],
+  "641166": [
+   "Myaladumparai",
+   5846,
+   6
+  ],
+  "641089": [
+   "Silvarpatty",
+   5843,
+   22
+  ],
+  "252899": [
+   "Devadanapatti Tp",
+   5843,
+   22
+  ],
+  "641085": [
+   "Keelavadagarai",
+   5843,
+   21
+  ],
+  "641086": [
+   "E Pudukottai",
+   5843,
+   22
+  ],
+  "641091": [
+   "Endapuli",
+   5843,
+   22
+  ],
+  "252903": [
+   "Thenkarai Tp",
+   5843,
+   21
+  ],
+  "641088": [
+   "D Vadipatty",
+   5843,
+   22
+  ],
+  "641094": [
+   "Jeyamangalam",
+   5843,
+   22
+  ],
+  "252904": [
+   "Vadugapatti Tp",
+   5843,
+   22
+  ],
+  "641095": [
+   "Gullapuram",
+   5843,
+   18
+  ],
+  "641150": [
+   "Kunnur",
+   5846,
+   13
+  ],
+  "641092": [
+   "Thamarai Kulam",
+   5843,
+   17
+  ],
+  "641093": [
+   "Melmangalam",
+   5843,
+   18
+  ],
+  "252906": [
+   "Palani Chettipatti Tp",
+   5844,
+   16
+  ],
+  "641096": [
+   "Vadaveeranaickenpatty",
+   5843,
+   17
+  ],
+  "641100": [
+   "Unjampatty",
+   5844,
+   17
+  ],
+  "641101": [
+   "Koduvilarpatty",
+   5844,
+   13
+  ],
+  "641147": [
+   "Timmarasanayakkanur",
+   5846,
+   18
+  ],
+  "641151": [
+   "Marikkundu",
+   5846,
+   13
+  ],
+  "252905": [
+   "Theni Allinagaram M",
+   5844,
+   16
+  ],
+  "641148": [
+   "Kovilpatti",
+   5846,
+   18
+  ],
+  "641149": [
+   "Shanmugasundarapuram",
+   5846,
+   17
+  ],
+  "252922": [
+   "Andipatti Jakkampatti Tp",
+   5846,
+   18
+  ],
+  "641156": [
+   "Kodaluthu",
+   5846,
+   14
+  ],
+  "641157": [
+   "Andipatti",
+   5846,
+   14
+  ],
+  "641154": [
+   "Mottanuthu",
+   5846,
+   14
+  ],
+  "641152": [
+   "Tekkampatti",
+   5846,
+   13
+  ],
+  "252902": [
+   "Periyakulam M",
+   5843,
+   21
+  ],
+  "252901": [
+   "Thamaraikulam Tp",
+   5843,
+   21
+  ],
+  "641097": [
+   "Murugamalai Rf",
+   5843,
+   22
+  ],
+  "641098": [
+   "Mullaikaradu Block Rf",
+   5843,
+   22
+  ],
+  "641099": [
+   "Parambikaradu",
+   5843,
+   22
+  ],
+  "641111": [
+   "Valkaradu Rf",
+   5844,
+   17
+  ],
+  "641169": [
+   "Andipatti Southern Block Rf",
+   5846,
+   14
+  ],
+  "641112": [
+   "Perumalkoilkarudu Rf",
+   5844,
+   17
+  ],
+  "641113": [
+   "Perumalkoilkarudu Exten Rf",
+   5844,
+   12
+  ],
+  "252900": [
+   "Ganguvarpatti Tp",
+   5843,
+   22
+  ],
+  "641146": [
+   "Pulimancombai",
+   5846,
+   18
+  ],
+  "641168": [
+   "Andipatti Notheren Block Rf",
+   5846,
+   18
+  ],
+  "641087": [
+   "Genguvarpatty",
+   5843,
+   22
+  ]
+ },
+ "village_count_total": 126,
+ "village_count_assigned": 126
+}

@@ -1,0 +1,3783 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Karnataka",
+  "district": "Bagalkote",
+  "district_lgd": 524,
+  "observation_window": "2026-08-07T11:11Z to 2026-08-12T11:11Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2396,
+  "sm_surface_stddev": 0.0233,
+  "sm_rootzone_mean": 0.2977,
+  "sm_rootzone_stddev": 0.0265,
+  "n_cells": 60,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 15.8598,
+    "lon": 75.5438,
+    "sm_surface": 0.2699,
+    "sm_rootzone": 0.3169,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 1,
+    "lat": 15.8598,
+    "lon": 75.6426,
+    "sm_surface": 0.271,
+    "sm_rootzone": 0.3034,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 2,
+    "lat": 15.8598,
+    "lon": 75.7415,
+    "sm_surface": 0.2686,
+    "sm_rootzone": 0.3024,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 3,
+    "lat": 15.8598,
+    "lon": 75.8403,
+    "sm_surface": 0.2141,
+    "sm_rootzone": 0.2271,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 4,
+    "lat": 15.9586,
+    "lon": 75.445,
+    "sm_surface": 0.2679,
+    "sm_rootzone": 0.3066,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 5,
+    "lat": 15.9586,
+    "lon": 75.5438,
+    "sm_surface": 0.253,
+    "sm_rootzone": 0.3092,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 6,
+    "lat": 15.9586,
+    "lon": 75.6426,
+    "sm_surface": 0.2485,
+    "sm_rootzone": 0.307,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 7,
+    "lat": 15.9586,
+    "lon": 75.7415,
+    "sm_surface": 0.1931,
+    "sm_rootzone": 0.2391,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 8,
+    "lat": 15.9586,
+    "lon": 75.8403,
+    "sm_surface": 0.1941,
+    "sm_rootzone": 0.2421,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 9,
+    "lat": 15.9586,
+    "lon": 75.9391,
+    "sm_surface": 0.1946,
+    "sm_rootzone": 0.2458,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 10,
+    "lat": 15.9586,
+    "lon": 76.1367,
+    "sm_surface": 0.1849,
+    "sm_rootzone": 0.2466,
+    "n_villages_sharing_cell": 22
+   },
+   {
+    "cell_index": 11,
+    "lat": 15.9586,
+    "lon": 76.2355,
+    "sm_surface": 0.1841,
+    "sm_rootzone": 0.2303,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 12,
+    "lat": 16.0574,
+    "lon": 75.445,
+    "sm_surface": 0.1977,
+    "sm_rootzone": 0.2445,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 13,
+    "lat": 16.0574,
+    "lon": 75.5438,
+    "sm_surface": 0.1907,
+    "sm_rootzone": 0.2411,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 14,
+    "lat": 16.0574,
+    "lon": 75.6426,
+    "sm_surface": 0.1885,
+    "sm_rootzone": 0.24,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 15,
+    "lat": 16.0574,
+    "lon": 75.7415,
+    "sm_surface": 0.2422,
+    "sm_rootzone": 0.308,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 16,
+    "lat": 16.0574,
+    "lon": 75.8403,
+    "sm_surface": 0.2431,
+    "sm_rootzone": 0.3111,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 17,
+    "lat": 16.0574,
+    "lon": 75.9391,
+    "sm_surface": 0.2392,
+    "sm_rootzone": 0.3111,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 18,
+    "lat": 16.0574,
+    "lon": 76.0379,
+    "sm_surface": 0.2344,
+    "sm_rootzone": 0.3097,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 19,
+    "lat": 16.0574,
+    "lon": 76.1367,
+    "sm_surface": 0.2308,
+    "sm_rootzone": 0.3099,
+    "n_villages_sharing_cell": 19
+   },
+   {
+    "cell_index": 20,
+    "lat": 16.0574,
+    "lon": 76.2355,
+    "sm_surface": 0.2374,
+    "sm_rootzone": 0.3056,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 21,
+    "lat": 16.1562,
+    "lon": 75.3462,
+    "sm_surface": 0.2021,
+    "sm_rootzone": 0.2449,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 22,
+    "lat": 16.1562,
+    "lon": 75.445,
+    "sm_surface": 0.2548,
+    "sm_rootzone": 0.3146,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 23,
+    "lat": 16.1562,
+    "lon": 75.5438,
+    "sm_surface": 0.2471,
+    "sm_rootzone": 0.309,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 24,
+    "lat": 16.1562,
+    "lon": 75.6426,
+    "sm_surface": 0.2436,
+    "sm_rootzone": 0.3069,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 25,
+    "lat": 16.1562,
+    "lon": 75.7415,
+    "sm_surface": 0.2411,
+    "sm_rootzone": 0.3081,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 26,
+    "lat": 16.1562,
+    "lon": 75.8403,
+    "sm_surface": 0.2412,
+    "sm_rootzone": 0.3105,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 27,
+    "lat": 16.1562,
+    "lon": 75.9391,
+    "sm_surface": 0.237,
+    "sm_rootzone": 0.3113,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 28,
+    "lat": 16.1562,
+    "lon": 76.0379,
+    "sm_surface": 0.2358,
+    "sm_rootzone": 0.3118,
+    "n_villages_sharing_cell": 16
+   },
+   {
+    "cell_index": 29,
+    "lat": 16.1562,
+    "lon": 76.1367,
+    "sm_surface": 0.2395,
+    "sm_rootzone": 0.3078,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 30,
+    "lat": 16.1562,
+    "lon": 76.2355,
+    "sm_surface": 0.2437,
+    "sm_rootzone": 0.309,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 31,
+    "lat": 16.255,
+    "lon": 75.2474,
+    "sm_surface": 0.2649,
+    "sm_rootzone": 0.3219,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 32,
+    "lat": 16.255,
+    "lon": 75.3462,
+    "sm_surface": 0.2564,
+    "sm_rootzone": 0.3143,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 33,
+    "lat": 16.255,
+    "lon": 75.445,
+    "sm_surface": 0.254,
+    "sm_rootzone": 0.3121,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 34,
+    "lat": 16.255,
+    "lon": 75.5438,
+    "sm_surface": 0.2478,
+    "sm_rootzone": 0.3075,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 35,
+    "lat": 16.255,
+    "lon": 75.6426,
+    "sm_surface": 0.2428,
+    "sm_rootzone": 0.3038,
+    "n_villages_sharing_cell": 14
+   },
+   {
+    "cell_index": 36,
+    "lat": 16.255,
+    "lon": 75.7415,
+    "sm_surface": 0.2373,
+    "sm_rootzone": 0.3034,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 37,
+    "lat": 16.255,
+    "lon": 75.8403,
+    "sm_surface": 0.2383,
+    "sm_rootzone": 0.307,
+    "n_villages_sharing_cell": 20
+   },
+   {
+    "cell_index": 38,
+    "lat": 16.255,
+    "lon": 75.9391,
+    "sm_surface": 0.2349,
+    "sm_rootzone": 0.311,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 39,
+    "lat": 16.255,
+    "lon": 76.0379,
+    "sm_surface": 0.2368,
+    "sm_rootzone": 0.3097,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 40,
+    "lat": 16.3538,
+    "lon": 75.0498,
+    "sm_surface": 0.2793,
+    "sm_rootzone": 0.3328,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 41,
+    "lat": 16.3538,
+    "lon": 75.1486,
+    "sm_surface": 0.2689,
+    "sm_rootzone": 0.325,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 42,
+    "lat": 16.3538,
+    "lon": 75.2474,
+    "sm_surface": 0.2605,
+    "sm_rootzone": 0.3177,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 43,
+    "lat": 16.3538,
+    "lon": 75.3462,
+    "sm_surface": 0.2541,
+    "sm_rootzone": 0.311,
+    "n_villages_sharing_cell": 5
+   },
+   {
+    "cell_index": 44,
+    "lat": 16.3538,
+    "lon": 75.445,
+    "sm_surface": 0.2543,
+    "sm_rootzone": 0.3104,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 45,
+    "lat": 16.3538,
+    "lon": 75.5438,
+    "sm_surface": 0.2478,
+    "sm_rootzone": 0.3048,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 46,
+    "lat": 16.3538,
+    "lon": 75.6426,
+    "sm_surface": 0.2426,
+    "sm_rootzone": 0.3017,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 47,
+    "lat": 16.3538,
+    "lon": 75.7415,
+    "sm_surface": 0.2341,
+    "sm_rootzone": 0.2999,
+    "n_villages_sharing_cell": 18
+   },
+   {
+    "cell_index": 48,
+    "lat": 16.4526,
+    "lon": 75.0498,
+    "sm_surface": 0.2722,
+    "sm_rootzone": 0.3132,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 49,
+    "lat": 16.4526,
+    "lon": 75.1486,
+    "sm_surface": 0.2635,
+    "sm_rootzone": 0.3069,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 50,
+    "lat": 16.4526,
+    "lon": 75.2474,
+    "sm_surface": 0.2542,
+    "sm_rootzone": 0.3112,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 51,
+    "lat": 16.4526,
+    "lon": 75.3462,
+    "sm_surface": 0.2484,
+    "sm_rootzone": 0.3047,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 52,
+    "lat": 16.4526,
+    "lon": 75.445,
+    "sm_surface": 0.2491,
+    "sm_rootzone": 0.3059,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 53,
+    "lat": 16.4526,
+    "lon": 75.5438,
+    "sm_surface": 0.2434,
+    "sm_rootzone": 0.3018,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 54,
+    "lat": 16.5515,
+    "lon": 75.2474,
+    "sm_surface": 0.2547,
+    "sm_rootzone": 0.3026,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 55,
+    "lat": 16.5515,
+    "lon": 75.3462,
+    "sm_surface": 0.2473,
+    "sm_rootzone": 0.297,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 56,
+    "lat": 16.5515,
+    "lon": 75.445,
+    "sm_surface": 0.2459,
+    "sm_rootzone": 0.3094,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 57,
+    "lat": 16.6503,
+    "lon": 75.3462,
+    "sm_surface": 0.241,
+    "sm_rootzone": 0.2986,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 58,
+    "lat": 16.6503,
+    "lon": 75.445,
+    "sm_surface": 0.2409,
+    "sm_rootzone": 0.3125,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 59,
+    "lat": 16.7491,
+    "lon": 75.445,
+    "sm_surface": 0.2282,
+    "sm_rootzone": 0.3152,
+    "n_villages_sharing_cell": 3
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2385,
+  "sm_surface_stddev": 0.017,
+  "n_blocks": 9
+ },
+ "blocks": [
+  {
+   "block_name": "Badami",
+   "sdcode": 5446,
+   "n_villages": 113,
+   "n_cells_spanned": 15,
+   "sm_surface_mean": 0.2383,
+   "sm_surface_stddev": 0.0325
+  },
+  {
+   "block_name": "Bagalkot",
+   "sdcode": 5447,
+   "n_villages": 97,
+   "n_cells_spanned": 15,
+   "sm_surface_mean": 0.2408,
+   "sm_surface_stddev": 0.0049
+  },
+  {
+   "block_name": "Bilgi",
+   "sdcode": 5444,
+   "n_villages": 72,
+   "n_cells_spanned": 11,
+   "sm_surface_mean": 0.2434,
+   "sm_surface_stddev": 0.0063
+  },
+  {
+   "block_name": "Guledgudda",
+   "sdcode": 7061,
+   "n_villages": 39,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.2177,
+   "sm_surface_stddev": 0.0257
+  },
+  {
+   "block_name": "Hungund",
+   "sdcode": 5448,
+   "n_villages": 90,
+   "n_cells_spanned": 10,
+   "sm_surface_mean": 0.2373,
+   "sm_surface_stddev": 0.0035
+  },
+  {
+   "block_name": "Ilkal",
+   "sdcode": 7062,
+   "n_villages": 74,
+   "n_cells_spanned": 8,
+   "sm_surface_mean": 0.2061,
+   "sm_surface_stddev": 0.0238
+  },
+  {
+   "block_name": "Jamkhandi",
+   "sdcode": 5443,
+   "n_villages": 51,
+   "n_cells_spanned": 9,
+   "sm_surface_mean": 0.2469,
+   "sm_surface_stddev": 0.0069
+  },
+  {
+   "block_name": "Mudhol",
+   "sdcode": 5445,
+   "n_villages": 69,
+   "n_cells_spanned": 9,
+   "sm_surface_mean": 0.246,
+   "sm_surface_stddev": 0.0245
+  },
+  {
+   "block_name": "Rabakavi Banahatti",
+   "sdcode": 7063,
+   "n_villages": 34,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.2697,
+   "sm_surface_stddev": 0.007
+  }
+ ],
+ "villages": {
+  "598721": [
+   "Kulageri",
+   5446,
+   0
+  ],
+  "598726": [
+   "Beeranur",
+   5446,
+   0
+  ],
+  "598682": [
+   "Konkanakoppa",
+   7061,
+   14
+  ],
+  "598651": [
+   "Mattikatti",
+   5446,
+   13
+  ],
+  "598486": [
+   "Ramapratappa Nagar",
+   5444,
+   45
+  ],
+  "598606": [
+   "Junnur",
+   5445,
+   33
+  ],
+  "598409": [
+   "Hipparagi",
+   7063,
+   54
+  ],
+  "598482": [
+   "Budihal S G",
+   5444,
+   53
+  ],
+  "598703": [
+   "Neelagund",
+   5446,
+   5
+  ],
+  "598702": [
+   "Karadigudda S A",
+   5446,
+   5
+  ],
+  "598714": [
+   "Muttalageri",
+   5446,
+   6
+  ],
+  "598710": [
+   "Chirlakoppa",
+   5446,
+   4
+  ],
+  "598711": [
+   "Khanapur S K",
+   5446,
+   5
+  ],
+  "598722": [
+   "Karalakoppa",
+   5446,
+   4
+  ],
+  "598712": [
+   "Somanakoppa",
+   5446,
+   5
+  ],
+  "598723": [
+   "Haganur",
+   5446,
+   4
+  ],
+  "598724": [
+   "Alur S K",
+   5446,
+   4
+  ],
+  "598720": [
+   "Narasapur",
+   5446,
+   0
+  ],
+  "598713": [
+   "Aladakatti",
+   5446,
+   5
+  ],
+  "598725": [
+   "Talakawad",
+   5446,
+   4
+  ],
+  "598719": [
+   "Timmapur S N",
+   5446,
+   0
+  ],
+  "598718": [
+   "Bankaneri",
+   5446,
+   0
+  ],
+  "598727": [
+   "Govanakoppa",
+   5446,
+   0
+  ],
+  "598717": [
+   "Belawalakoppa",
+   5446,
+   0
+  ],
+  "598715": [
+   "Mallapur",
+   5446,
+   1
+  ],
+  "598728": [
+   "Wadawatti",
+   5446,
+   0
+  ],
+  "598716": [
+   "Lakhamapur",
+   5446,
+   1
+  ],
+  "598730": [
+   "Kittali",
+   5446,
+   0
+  ],
+  "598729": [
+   "Kalas",
+   5446,
+   0
+  ],
+  "598731": [
+   "Sulla",
+   5446,
+   0
+  ],
+  "598732": [
+   "Hebballi",
+   5446,
+   1
+  ],
+  "598733": [
+   "Mumaraddikoppa",
+   5446,
+   1
+  ],
+  "598758": [
+   "Budihal",
+   5446,
+   1
+  ],
+  "598550": [
+   "Belagali",
+   5445,
+   41
+  ],
+  "598549": [
+   "Mahalingapur Rural",
+   7063,
+   41
+  ],
+  "598547": [
+   "Kesrakoppa",
+   7063,
+   40
+  ],
+  "598546": [
+   "Bisanal",
+   7063,
+   40
+  ],
+  "251830": [
+   "Mahalingpur",
+   7063,
+   41
+  ],
+  "598548": [
+   "Budni P D",
+   7063,
+   40
+  ],
+  "598544": [
+   "Saidapur",
+   7063,
+   40
+  ],
+  "598545": [
+   "Madhabhavi",
+   7063,
+   40
+  ],
+  "598562": [
+   "Dhavaleshwar",
+   7063,
+   40
+  ],
+  "598560": [
+   "Sanganatti",
+   7063,
+   40
+  ],
+  "598559": [
+   "Nandagavi",
+   7063,
+   41
+  ],
+  "598557": [
+   "Nagaral",
+   5445,
+   41
+  ],
+  "598558": [
+   "Akkimaradi",
+   5445,
+   41
+  ],
+  "598561": [
+   "Marapur",
+   7063,
+   40
+  ],
+  "598566": [
+   "Channal",
+   5445,
+   41
+  ],
+  "598565": [
+   "Vantigodi",
+   5445,
+   41
+  ],
+  "598564": [
+   "Mirji",
+   5445,
+   41
+  ],
+  "598563": [
+   "Mallapur P J",
+   5445,
+   41
+  ],
+  "598797": [
+   "Simikeri",
+   5447,
+   23
+  ],
+  "598610": [
+   "Kanasageri",
+   5445,
+   21
+  ],
+  "598801": [
+   "Chickka Shellikeri",
+   5447,
+   23
+  ],
+  "598609": [
+   "Naganapur",
+   5445,
+   21
+  ],
+  "598800": [
+   "Kalasakopp",
+   5447,
+   23
+  ],
+  "598803": [
+   "Durganagar",
+   5447,
+   24
+  ],
+  "598615": [
+   "Lokapur",
+   5445,
+   21
+  ],
+  "598616": [
+   "Jalikatti B K",
+   5445,
+   22
+  ],
+  "598802": [
+   "Hire Shellikeri",
+   5447,
+   23
+  ],
+  "598623": [
+   "Hanamaneri Inam",
+   5446,
+   22
+  ],
+  "598631": [
+   "Hoolageri",
+   5446,
+   24
+  ],
+  "598611": [
+   "Dadanatti",
+   5445,
+   21
+  ],
+  "598614": [
+   "Laxanatti",
+   5445,
+   21
+  ],
+  "598612": [
+   "Hosakoti",
+   5445,
+   21
+  ],
+  "598624": [
+   "Yandigeri",
+   5446,
+   22
+  ],
+  "598628": [
+   "Kerakalamatti",
+   5446,
+   23
+  ],
+  "598629": [
+   "Kagalagomba",
+   5446,
+   24
+  ],
+  "598627": [
+   "Ganganabudihal",
+   5446,
+   23
+  ],
+  "598619": [
+   "Palkimanya",
+   5445,
+   21
+  ],
+  "598661": [
+   "Katageri",
+   7061,
+   14
+  ],
+  "598621": [
+   "Jalikatti K D",
+   5445,
+   22
+  ],
+  "598622": [
+   "Kadarakoppa",
+   5446,
+   22
+  ],
+  "598625": [
+   "Karadigudd S A",
+   5446,
+   23
+  ],
+  "598617": [
+   "Jadar Aralikatti",
+   5445,
+   21
+  ],
+  "598639": [
+   "Sheeparamatti",
+   5446,
+   12
+  ],
+  "598626": [
+   "Neerabudihal",
+   5446,
+   23
+  ],
+  "598613": [
+   "Mallapur P L",
+   5445,
+   21
+  ],
+  "598634": [
+   "Jalageri",
+   5446,
+   23
+  ],
+  "598618": [
+   "Varchagal",
+   5445,
+   21
+  ],
+  "598636": [
+   "Anawal",
+   5446,
+   22
+  ],
+  "598632": [
+   "Bandakeri",
+   5446,
+   13
+  ],
+  "598620": [
+   "Byadar Aralikatti",
+   5445,
+   22
+  ],
+  "598633": [
+   "Krishnapur",
+   7061,
+   13
+  ],
+  "598635": [
+   "Kalabandakeri",
+   5446,
+   13
+  ],
+  "598638": [
+   "Kainakatti",
+   5446,
+   12
+  ],
+  "598637": [
+   "Hosakoti",
+   5446,
+   12
+  ],
+  "598646": [
+   "Yaragoppa Inam",
+   5446,
+   13
+  ],
+  "598660": [
+   "Hulasageri",
+   7061,
+   14
+  ],
+  "598681": [
+   "Lakkasakoppa",
+   7061,
+   14
+  ],
+  "598659": [
+   "Jammanakatti",
+   7061,
+   14
+  ],
+  "598645": [
+   "Malagi",
+   5446,
+   13
+  ],
+  "598640": [
+   "Jangawad",
+   5446,
+   12
+  ],
+  "598644": [
+   "Narenur",
+   5446,
+   13
+  ],
+  "598643": [
+   "Fakeerabudihal",
+   5446,
+   12
+  ],
+  "598642": [
+   "Hawalakhod",
+   5446,
+   12
+  ],
+  "598647": [
+   "Agasarakoppa",
+   5446,
+   13
+  ],
+  "598656": [
+   "Kadapatti S K",
+   5446,
+   13
+  ],
+  "598648": [
+   "Yankanchi",
+   5446,
+   13
+  ],
+  "598653": [
+   "Saganur",
+   5446,
+   12
+  ],
+  "598650": [
+   "Maninagar",
+   5446,
+   14
+  ],
+  "598652": [
+   "Kerur Rural",
+   5446,
+   13
+  ],
+  "598649": [
+   "Gubberakoppa",
+   5446,
+   14
+  ],
+  "598641": [
+   "Bellikindi",
+   5446,
+   12
+  ],
+  "598654": [
+   "Chinchalakatti",
+   5446,
+   12
+  ],
+  "598655": [
+   "Hanamaneri G",
+   5446,
+   13
+  ],
+  "598698": [
+   "Haligeri",
+   5446,
+   4
+  ],
+  "598700": [
+   "Ugalawat",
+   5446,
+   5
+  ],
+  "251836": [
+   "Kerur",
+   5446,
+   13
+  ],
+  "598657": [
+   "Hullikeri Inam",
+   5446,
+   6
+  ],
+  "598697": [
+   "Raddera Timmapur",
+   5446,
+   4
+  ],
+  "598699": [
+   "Halageri",
+   5446,
+   5
+  ],
+  "598696": [
+   "Neeralakeri",
+   5446,
+   4
+  ],
+  "598701": [
+   "Mustigeri",
+   5446,
+   5
+  ],
+  "598707": [
+   "Tappasakatti",
+   5446,
+   4
+  ],
+  "598704": [
+   "Mamatageri",
+   5446,
+   5
+  ],
+  "598708": [
+   "Kakanur",
+   5446,
+   4
+  ],
+  "598706": [
+   "Kallapur S K",
+   5446,
+   5
+  ],
+  "598709": [
+   "Chimmanakatti",
+   5446,
+   4
+  ],
+  "598705": [
+   "Hanamasagar",
+   5446,
+   5
+  ],
+  "598473": [
+   "Amalzari",
+   5444,
+   44
+  ],
+  "598487": [
+   "Nagaral",
+   5444,
+   45
+  ],
+  "598553": [
+   "Shirol",
+   5445,
+   42
+  ],
+  "598552": [
+   "Kulali",
+   5445,
+   42
+  ],
+  "598494": [
+   "Ballur",
+   5444,
+   45
+  ],
+  "598551": [
+   "Mugalkhod",
+   5445,
+   42
+  ],
+  "598554": [
+   "Malapur",
+   5445,
+   42
+  ],
+  "598495": [
+   "Kontikal",
+   5444,
+   45
+  ],
+  "598574": [
+   "Mantur",
+   5445,
+   43
+  ],
+  "598480": [
+   "Yadahalli",
+   5444,
+   44
+  ],
+  "598481": [
+   "Gulbal",
+   5444,
+   44
+  ],
+  "598573": [
+   "Budni P M",
+   5445,
+   43
+  ],
+  "598489": [
+   "Teggi",
+   5444,
+   45
+  ],
+  "598499": [
+   "Bilgi Rural",
+   5444,
+   46
+  ],
+  "598483": [
+   "Bisnal",
+   5444,
+   44
+  ],
+  "598572": [
+   "Mudhol Rural",
+   5445,
+   42
+  ],
+  "598488": [
+   "Siddapur",
+   5444,
+   45
+  ],
+  "598575": [
+   "Kishori",
+   5445,
+   44
+  ],
+  "598555": [
+   "Soragavi",
+   5445,
+   42
+  ],
+  "598576": [
+   "Melligeri",
+   5445,
+   44
+  ],
+  "598484": [
+   "Shaktinagar",
+   5444,
+   45
+  ],
+  "598577": [
+   "Halagali",
+   5445,
+   44
+  ],
+  "251834": [
+   "Bilgi",
+   5444,
+   46
+  ],
+  "598485": [
+   "Shivanagar",
+   5444,
+   45
+  ],
+  "598556": [
+   "Malali",
+   5445,
+   42
+  ],
+  "251835": [
+   "Mudhol",
+   5445,
+   42
+  ],
+  "598582": [
+   "Jeeragal",
+   5445,
+   32
+  ],
+  "598583": [
+   "Ingalagi",
+   5445,
+   32
+  ],
+  "598584": [
+   "Yadahalli",
+   5445,
+   43
+  ],
+  "598517": [
+   "Janamatti",
+   5444,
+   45
+  ],
+  "598585": [
+   "Baragi",
+   5445,
+   32
+  ],
+  "598586": [
+   "Marikatti",
+   5445,
+   43
+  ],
+  "598571": [
+   "Zunjarakopp",
+   5445,
+   43
+  ],
+  "598516": [
+   "Durgapura",
+   5444,
+   45
+  ],
+  "598518": [
+   "Sunaga",
+   5444,
+   35
+  ],
+  "598587": [
+   "Vajjaramatti",
+   5445,
+   33
+  ],
+  "598535": [
+   "Dattapura",
+   5444,
+   35
+  ],
+  "598777": [
+   "Chikk Sansi",
+   5447,
+   34
+  ],
+  "598515": [
+   "Arakeri",
+   5444,
+   34
+  ],
+  "598568": [
+   "Uttur",
+   5445,
+   31
+  ],
+  "598567": [
+   "Ranjanagi",
+   5445,
+   31
+  ],
+  "598569": [
+   "Jaliber",
+   5445,
+   31
+  ],
+  "598570": [
+   "Rugi",
+   5445,
+   31
+  ],
+  "598539": [
+   "Kovalli",
+   5444,
+   34
+  ],
+  "598537": [
+   "Kundargi",
+   5444,
+   34
+  ],
+  "598588": [
+   "Alagundi B K",
+   5445,
+   33
+  ],
+  "598538": [
+   "Bavalatti",
+   5444,
+   34
+  ],
+  "598510": [
+   "Algundi",
+   5444,
+   33
+  ],
+  "598536": [
+   "Venkatapura",
+   5444,
+   34
+  ],
+  "598511": [
+   "Koppa S K",
+   5444,
+   33
+  ],
+  "598589": [
+   "Budni B K",
+   5445,
+   33
+  ],
+  "598579": [
+   "Gulgal Jambagi",
+   5445,
+   31
+  ],
+  "598594": [
+   "Jambgi K D",
+   5445,
+   32
+  ],
+  "598541": [
+   "Anagawadi",
+   5444,
+   35
+  ],
+  "598542": [
+   "Kadapatti",
+   5444,
+   35
+  ],
+  "598512": [
+   "Katarki",
+   5444,
+   33
+  ],
+  "598580": [
+   "Chinchakhandi B K",
+   5445,
+   32
+  ],
+  "598540": [
+   "Budhihal S H",
+   5444,
+   35
+  ],
+  "598593": [
+   "Antapur",
+   5445,
+   32
+  ],
+  "598581": [
+   "Chinchakhandi K D",
+   5445,
+   32
+  ],
+  "598590": [
+   "Machaknur",
+   5445,
+   33
+  ],
+  "598595": [
+   "Kasba Jambgi B K",
+   5445,
+   32
+  ],
+  "598578": [
+   "Metgud",
+   5445,
+   31
+  ],
+  "598771": [
+   "Udagatti",
+   5447,
+   33
+  ],
+  "598513": [
+   "Lingapur S K",
+   5444,
+   34
+  ],
+  "598514": [
+   "Shiraguppi",
+   5444,
+   34
+  ],
+  "598592": [
+   "Bidri",
+   5445,
+   32
+  ],
+  "598784": [
+   "Honaralli",
+   5447,
+   35
+  ],
+  "598772": [
+   "Sharadal",
+   5447,
+   33
+  ],
+  "598776": [
+   "Hire Sansi",
+   5447,
+   34
+  ],
+  "598779": [
+   "Sokanadgi",
+   5447,
+   34
+  ],
+  "598780": [
+   "Chebbi",
+   5447,
+   34
+  ],
+  "598778": [
+   "Devanal",
+   5447,
+   34
+  ],
+  "598773": [
+   "Ankalagi",
+   5447,
+   33
+  ],
+  "598781": [
+   "Yadahalli",
+   5447,
+   35
+  ],
+  "598775": [
+   "Govindkopp",
+   5447,
+   23
+  ],
+  "598774": [
+   "Kaladgi",
+   5447,
+   22
+  ],
+  "598786": [
+   "Kesanur",
+   5447,
+   24
+  ],
+  "598597": [
+   "Petlur",
+   5445,
+   32
+  ],
+  "598591": [
+   "Budni Khurd",
+   5445,
+   32
+  ],
+  "598598": [
+   "Ningapur",
+   5445,
+   31
+  ],
+  "598601": [
+   "Timmapur",
+   5445,
+   21
+  ],
+  "598596": [
+   "Muddapur",
+   5445,
+   21
+  ],
+  "598783": [
+   "Bannidinni",
+   5447,
+   35
+  ],
+  "598607": [
+   "Badnur",
+   5445,
+   22
+  ],
+  "598604": [
+   "Chikkur",
+   5445,
+   22
+  ],
+  "598605": [
+   "Bhantnur",
+   5445,
+   22
+  ],
+  "598602": [
+   "Hebbal",
+   5445,
+   21
+  ],
+  "598782": [
+   "Anadinni",
+   5447,
+   24
+  ],
+  "598599": [
+   "Halaki",
+   5445,
+   31
+  ],
+  "598603": [
+   "Chitrabanukoti",
+   5445,
+   21
+  ],
+  "598798": [
+   "Tulasigeri",
+   5447,
+   23
+  ],
+  "598600": [
+   "Bommanbudni",
+   5445,
+   21
+  ],
+  "598796": [
+   "Gaddankeri",
+   5447,
+   24
+  ],
+  "598799": [
+   "Khajjidoni",
+   5447,
+   22
+  ],
+  "598608": [
+   "Chawadapur",
+   5445,
+   21
+  ],
+  "598425": [
+   "Shiraguppi",
+   5443,
+   54
+  ],
+  "598404": [
+   "Tamadaddi",
+   7063,
+   48
+  ],
+  "598403": [
+   "Terdal Rural",
+   7063,
+   48
+  ],
+  "598408": [
+   "Kulhalli",
+   7063,
+   49
+  ],
+  "598418": [
+   "Sasalatti",
+   7063,
+   48
+  ],
+  "598407": [
+   "Asangi",
+   7063,
+   49
+  ],
+  "598402": [
+   "Kalhatti",
+   7063,
+   48
+  ],
+  "598405": [
+   "Halingali",
+   7063,
+   48
+  ],
+  "598416": [
+   "Rabkavi Rural",
+   7063,
+   49
+  ],
+  "251831": [
+   "Terdal",
+   7063,
+   48
+  ],
+  "598412": [
+   "Yallatti",
+   7063,
+   49
+  ],
+  "598406": [
+   "Madanamatti",
+   7063,
+   49
+  ],
+  "598417": [
+   "Hangandi",
+   7063,
+   48
+  ],
+  "251833": [
+   "Rabkavi Banhatti",
+   7063,
+   49
+  ],
+  "598413": [
+   "Jagadal",
+   7063,
+   49
+  ],
+  "598415": [
+   "Hosur",
+   7063,
+   49
+  ],
+  "598414": [
+   "Banhatti Rural",
+   7063,
+   49
+  ],
+  "598423": [
+   "Navalgi",
+   7063,
+   49
+  ],
+  "598419": [
+   "Kaltippi",
+   7063,
+   48
+  ],
+  "598420": [
+   "Golbhavi",
+   7063,
+   48
+  ],
+  "598421": [
+   "Yaragatti",
+   7063,
+   48
+  ],
+  "598422": [
+   "Chimmad",
+   7063,
+   49
+  ],
+  "598432": [
+   "Sanal",
+   5443,
+   55
+  ],
+  "598453": [
+   "Gothe",
+   5443,
+   59
+  ],
+  "598452": [
+   "Kajibilgi",
+   5443,
+   59
+  ],
+  "598454": [
+   "Kalbilagi",
+   5443,
+   59
+  ],
+  "598450": [
+   "Tungal",
+   5443,
+   57
+  ],
+  "598451": [
+   "Kuragod",
+   5443,
+   57
+  ],
+  "598464": [
+   "Adihudi",
+   5443,
+   57
+  ],
+  "598457": [
+   "Savalagi",
+   5443,
+   57
+  ],
+  "598456": [
+   "Kannolli",
+   5443,
+   57
+  ],
+  "598455": [
+   "Gadyal",
+   5443,
+   58
+  ],
+  "598465": [
+   "Todalbagi",
+   5443,
+   58
+  ],
+  "598458": [
+   "Tubachi",
+   5443,
+   54
+  ],
+  "598466": [
+   "Hirepadasalgi",
+   5443,
+   57
+  ],
+  "598459": [
+   "Shurpali",
+   5443,
+   57
+  ],
+  "598428": [
+   "Kankanawadi",
+   5443,
+   54
+  ],
+  "598460": [
+   "Jambagi K D",
+   5443,
+   57
+  ],
+  "598468": [
+   "Chikkalaki",
+   5443,
+   56
+  ],
+  "598462": [
+   "Takkod",
+   5443,
+   57
+  ],
+  "598461": [
+   "Jambagi B K",
+   5443,
+   55
+  ],
+  "598463": [
+   "Takkalaki",
+   5443,
+   57
+  ],
+  "598426": [
+   "Maigur",
+   5443,
+   54
+  ],
+  "598427": [
+   "Muttur",
+   5443,
+   54
+  ],
+  "598467": [
+   "Naganur",
+   5443,
+   56
+  ],
+  "598433": [
+   "Alagur",
+   5443,
+   55
+  ],
+  "598431": [
+   "Kadakol",
+   5443,
+   54
+  ],
+  "598469": [
+   "Chikkapadasalgi",
+   5443,
+   56
+  ],
+  "598470": [
+   "Kavatagi",
+   5443,
+   56
+  ],
+  "598429": [
+   "Albal",
+   5443,
+   54
+  ],
+  "598471": [
+   "Janawad",
+   5443,
+   56
+  ],
+  "598472": [
+   "Bidari",
+   5443,
+   56
+  ],
+  "598430": [
+   "Hanchinal",
+   5443,
+   54
+  ],
+  "598410": [
+   "Madarkhandi",
+   5443,
+   50
+  ],
+  "598440": [
+   "Jakanur",
+   5443,
+   55
+  ],
+  "598436": [
+   "Jamkhandi Rural",
+   5443,
+   54
+  ],
+  "598434": [
+   "Kunchanur",
+   5443,
+   55
+  ],
+  "598479": [
+   "Mundaganur",
+   5444,
+   56
+  ],
+  "598441": [
+   "Chingundi",
+   5443,
+   56
+  ],
+  "598437": [
+   "Kadapatti",
+   5443,
+   54
+  ],
+  "251832": [
+   "Jamkhandi",
+   5443,
+   50
+  ],
+  "598438": [
+   "Hunnur",
+   5443,
+   54
+  ],
+  "598478": [
+   "Kolur",
+   5444,
+   52
+  ],
+  "598411": [
+   "Bandigani",
+   7063,
+   50
+  ],
+  "598442": [
+   "Linganur",
+   5443,
+   51
+  ],
+  "598477": [
+   "Chickhanchinal",
+   5444,
+   52
+  ],
+  "598447": [
+   "Konnur",
+   5443,
+   51
+  ],
+  "598439": [
+   "Ramateerth",
+   5443,
+   50
+  ],
+  "598445": [
+   "Siddapur",
+   5443,
+   50
+  ],
+  "598424": [
+   "Kalhalli",
+   5443,
+   50
+  ],
+  "598443": [
+   "Hunashikatti",
+   5443,
+   51
+  ],
+  "598444": [
+   "Hulyal",
+   5443,
+   51
+  ],
+  "598476": [
+   "Chowdapur",
+   5444,
+   52
+  ],
+  "598491": [
+   "Girgaon",
+   5444,
+   53
+  ],
+  "598475": [
+   "Rabkavi",
+   5444,
+   52
+  ],
+  "598490": [
+   "Badgi",
+   5444,
+   53
+  ],
+  "598449": [
+   "Budni",
+   5443,
+   51
+  ],
+  "598446": [
+   "Mareguddi",
+   5443,
+   51
+  ],
+  "598497": [
+   "Hosa Dhavaleshwar",
+   5444,
+   46
+  ],
+  "598496": [
+   "Sonna",
+   5444,
+   53
+  ],
+  "598492": [
+   "Gudadinni",
+   5444,
+   53
+  ],
+  "598498": [
+   "Hosa Garadadinni",
+   5444,
+   46
+  ],
+  "598448": [
+   "Gani",
+   5443,
+   52
+  ],
+  "598493": [
+   "Hanchinal Inam",
+   5444,
+   53
+  ],
+  "598474": [
+   "Galagali",
+   5444,
+   52
+  ],
+  "598435": [
+   "Kumbarhal",
+   5443,
+   55
+  ],
+  "598747": [
+   "Nelwagi",
+   5446,
+   7
+  ],
+  "598746": [
+   "Govanaki",
+   5446,
+   7
+  ],
+  "598749": [
+   "Kabbalageri",
+   5446,
+   6
+  ],
+  "598750": [
+   "Badami Rural",
+   5446,
+   6
+  ],
+  "598900": [
+   "Dammur",
+   7062,
+   9
+  ],
+  "598745": [
+   "Mangalur",
+   5446,
+   7
+  ],
+  "251837": [
+   "Badami",
+   5446,
+   6
+  ],
+  "599017": [
+   "Ishwarnagar",
+   7062,
+   10
+  ],
+  "598751": [
+   "Nagaral [S B",
+   5446,
+   2
+  ],
+  "598757": [
+   "Yaragoppa S B",
+   5446,
+   1
+  ],
+  "598752": [
+   "Navilahole",
+   5446,
+   2
+  ],
+  "598753": [
+   "Hosur",
+   5446,
+   3
+  ],
+  "598756": [
+   "Cholachagudda",
+   5446,
+   2
+  ],
+  "598899": [
+   "Gandal",
+   7062,
+   9
+  ],
+  "598755": [
+   "Chikkanasabi",
+   5446,
+   2
+  ],
+  "598754": [
+   "Hirenasabi",
+   5446,
+   2
+  ],
+  "598898": [
+   "Muradi",
+   7062,
+   9
+  ],
+  "598766": [
+   "Belur",
+   5446,
+   2
+  ],
+  "598767": [
+   "Jalihal",
+   5446,
+   2
+  ],
+  "598761": [
+   "Thaminal",
+   5446,
+   1
+  ],
+  "598763": [
+   "Khyad",
+   5446,
+   2
+  ],
+  "598762": [
+   "Katharaki",
+   5446,
+   1
+  ],
+  "598770": [
+   "Nasagunni",
+   5446,
+   3
+  ],
+  "598768": [
+   "Guddada Mallapur",
+   5446,
+   3
+  ],
+  "598765": [
+   "Dhanakashirur",
+   5446,
+   2
+  ],
+  "598760": [
+   "Neeralagi",
+   5446,
+   1
+  ],
+  "598764": [
+   "Manneri",
+   5446,
+   2
+  ],
+  "598769": [
+   "Anantagiri",
+   5446,
+   3
+  ],
+  "598759": [
+   "Jakanur",
+   5446,
+   1
+  ],
+  "599028": [
+   "Gudur S B",
+   7062,
+   9
+  ],
+  "599021": [
+   "Hirekodagali",
+   7062,
+   10
+  ],
+  "599012": [
+   "Gudur S C",
+   7062,
+   10
+  ],
+  "599020": [
+   "Chickkodagali",
+   7062,
+   10
+  ],
+  "599018": [
+   "Sankalapur",
+   7062,
+   10
+  ],
+  "599022": [
+   "Gugalmari",
+   7062,
+   10
+  ],
+  "599024": [
+   "Maratgeri",
+   7062,
+   11
+  ],
+  "599019": [
+   "Sevalalnagara",
+   7062,
+   10
+  ],
+  "598856": [
+   "Bhairamatti",
+   5447,
+   26
+  ],
+  "598920": [
+   "Iddalgi",
+   5448,
+   28
+  ],
+  "598859": [
+   "Honnakatti",
+   5447,
+   25
+  ],
+  "598854": [
+   "Choudapur",
+   5447,
+   27
+  ],
+  "598921": [
+   "Bisanalkoppa",
+   5448,
+   28
+  ],
+  "598874": [
+   "Budihal S K",
+   5448,
+   27
+  ],
+  "598922": [
+   "Belgal",
+   5448,
+   28
+  ],
+  "598858": [
+   "Mannikatti",
+   5447,
+   25
+  ],
+  "598868": [
+   "Kadiwal Kallapur",
+   5448,
+   26
+  ],
+  "598873": [
+   "Muganur",
+   5448,
+   27
+  ],
+  "598903": [
+   "Chickmagi",
+   5448,
+   27
+  ],
+  "598872": [
+   "Amblikoppa",
+   5448,
+   27
+  ],
+  "598904": [
+   "Khairwadgi",
+   5448,
+   27
+  ],
+  "598865": [
+   "Sirur",
+   5447,
+   26
+  ],
+  "598906": [
+   "Hiremalagavi",
+   5448,
+   27
+  ],
+  "598861": [
+   "Sigikeri",
+   5447,
+   25
+  ],
+  "598857": [
+   "Benakatti",
+   5447,
+   26
+  ],
+  "598923": [
+   "Medinapur",
+   5448,
+   28
+  ],
+  "598860": [
+   "Bevinamatti S Haveli",
+   5447,
+   25
+  ],
+  "598862": [
+   "Muchakhandi",
+   5447,
+   24
+  ],
+  "598863": [
+   "Durgadevinagar",
+   5447,
+   24
+  ],
+  "598867": [
+   "Basarikatti",
+   5448,
+   26
+  ],
+  "598870": [
+   "Suralikal",
+   5448,
+   27
+  ],
+  "598871": [
+   "Basawanal",
+   5448,
+   27
+  ],
+  "598878": [
+   "Madapur",
+   5448,
+   17
+  ],
+  "598855": [
+   "Ingalagi",
+   5447,
+   26
+  ],
+  "598869": [
+   "Yeranaikanal",
+   5448,
+   26
+  ],
+  "598907": [
+   "Chickmalagavi",
+   5448,
+   27
+  ],
+  "598924": [
+   "Hadagali",
+   5448,
+   28
+  ],
+  "598925": [
+   "Kirasur",
+   5448,
+   28
+  ],
+  "598927": [
+   "Chittaragi",
+   5448,
+   28
+  ],
+  "598864": [
+   "Niralkeri",
+   5447,
+   25
+  ],
+  "598875": [
+   "Budihal Inam",
+   5448,
+   27
+  ],
+  "598876": [
+   "Bevinal",
+   5448,
+   27
+  ],
+  "598679": [
+   "Teggi",
+   7061,
+   15
+  ],
+  "598942": [
+   "Hungund Rural",
+   5448,
+   18
+  ],
+  "598630": [
+   "Sulikeri",
+   5446,
+   24
+  ],
+  "598905": [
+   "Papathanal",
+   5448,
+   27
+  ],
+  "598866": [
+   "Neelanagar",
+   5447,
+   15
+  ],
+  "598926": [
+   "Timmapur",
+   5448,
+   18
+  ],
+  "598877": [
+   "Hiremagi",
+   5448,
+   17
+  ],
+  "598662": [
+   "Hangaragi",
+   7061,
+   14
+  ],
+  "598928": [
+   "Gangur",
+   5448,
+   17
+  ],
+  "598664": [
+   "Kelawadi",
+   7061,
+   15
+  ],
+  "598879": [
+   "Ramathal",
+   5448,
+   17
+  ],
+  "598665": [
+   "Lingapur",
+   7061,
+   15
+  ],
+  "598680": [
+   "Hirebudihal",
+   7061,
+   14
+  ],
+  "598669": [
+   "Budanagad",
+   7061,
+   16
+  ],
+  "598670": [
+   "Injanawari",
+   7061,
+   16
+  ],
+  "598929": [
+   "Huliginal",
+   5448,
+   17
+  ],
+  "598666": [
+   "Timasagar",
+   7061,
+   15
+  ],
+  "598667": [
+   "Kotikall",
+   7061,
+   15
+  ],
+  "598663": [
+   "Khazibudihal",
+   7061,
+   14
+  ],
+  "598671": [
+   "Haladur",
+   7061,
+   16
+  ],
+  "598931": [
+   "Bevinamatti",
+   5448,
+   18
+  ],
+  "598880": [
+   "Huvinahalli",
+   5448,
+   16
+  ],
+  "251840": [
+   "Hungund",
+   5448,
+   18
+  ],
+  "598668": [
+   "Haradolli",
+   7061,
+   16
+  ],
+  "598887": [
+   "Rakkasagi",
+   5448,
+   17
+  ],
+  "598884": [
+   "Ihole",
+   5448,
+   17
+  ],
+  "598941": [
+   "Hirebadawadgi",
+   5448,
+   18
+  ],
+  "598930": [
+   "Kalagonal",
+   5448,
+   17
+  ],
+  "598975": [
+   "Amarawati",
+   5448,
+   19
+  ],
+  "251838": [
+   "Guledgudda",
+   7061,
+   16
+  ],
+  "598678": [
+   "Thogunashi",
+   7061,
+   15
+  ],
+  "598881": [
+   "Mullur",
+   5448,
+   16
+  ],
+  "598677": [
+   "Murudi",
+   7061,
+   15
+  ],
+  "598932": [
+   "Hireyaranakeri",
+   5448,
+   18
+  ],
+  "598674": [
+   "Padanakatti",
+   7061,
+   16
+  ],
+  "598736": [
+   "Bedarabudihal",
+   5446,
+   14
+  ],
+  "598672": [
+   "Allur S P",
+   7061,
+   16
+  ],
+  "598933": [
+   "Chickyaranakeri",
+   5448,
+   17
+  ],
+  "598882": [
+   "Kalligudda",
+   5448,
+   16
+  ],
+  "598675": [
+   "Parwati",
+   7061,
+   16
+  ],
+  "598940": [
+   "Bannihatti",
+   5448,
+   18
+  ],
+  "598886": [
+   "Kunabenchi",
+   7062,
+   17
+  ],
+  "598938": [
+   "Chickbadawadgi",
+   5448,
+   18
+  ],
+  "598673": [
+   "Asangi",
+   7061,
+   16
+  ],
+  "598888": [
+   "Sulibhavi",
+   5448,
+   17
+  ],
+  "598937": [
+   "Chittawadgi",
+   5448,
+   18
+  ],
+  "598939": [
+   "Virapur",
+   5448,
+   18
+  ],
+  "598688": [
+   "Kotnalli",
+   7061,
+   16
+  ],
+  "598690": [
+   "Layadagundi",
+   7061,
+   16
+  ],
+  "598683": [
+   "Hansanoor",
+   7061,
+   15
+  ],
+  "598934": [
+   "Honnarahalli",
+   5448,
+   18
+  ],
+  "598676": [
+   "Khanapur S P",
+   7061,
+   15
+  ],
+  "598883": [
+   "Nimbalgundi",
+   5448,
+   16
+  ],
+  "598658": [
+   "Halakurki",
+   5446,
+   6
+  ],
+  "598689": [
+   "Kataginahalli",
+   7061,
+   8
+  ],
+  "598885": [
+   "Kyadiggeri",
+   7062,
+   17
+  ],
+  "598685": [
+   "Hanapur S P",
+   7061,
+   7
+  ],
+  "598936": [
+   "Yadahalli",
+   5448,
+   18
+  ],
+  "598935": [
+   "Nagur",
+   5448,
+   18
+  ],
+  "598891": [
+   "Kelur",
+   7062,
+   9
+  ],
+  "598691": [
+   "Subbalahunashi",
+   7061,
+   8
+  ],
+  "598892": [
+   "Chilapur",
+   7062,
+   9
+  ],
+  "598687": [
+   "Hullikeri S P",
+   7061,
+   7
+  ],
+  "598889": [
+   "Gorjnal",
+   7062,
+   9
+  ],
+  "598890": [
+   "Tallikeri",
+   7062,
+   9
+  ],
+  "598895": [
+   "Upnal S C",
+   7062,
+   8
+  ],
+  "598684": [
+   "Raghapur",
+   7061,
+   7
+  ],
+  "598893": [
+   "Benakanavari",
+   7062,
+   8
+  ],
+  "598737": [
+   "Kutakanakeri",
+   5446,
+   7
+  ],
+  "598734": [
+   "Hiremuchalagudda",
+   5446,
+   6
+  ],
+  "598692": [
+   "Nagaral S P",
+   7061,
+   8
+  ],
+  "598735": [
+   "Chikkamuchalagudda",
+   5446,
+   6
+  ],
+  "598686": [
+   "Saraswathinagar",
+   7061,
+   7
+  ],
+  "598738": [
+   "Kendur",
+   5446,
+   7
+  ],
+  "598894": [
+   "Siddanakolla",
+   7062,
+   8
+  ],
+  "598742": [
+   "Pattadakall",
+   5446,
+   8
+  ],
+  "598902": [
+   "Ilal",
+   7062,
+   9
+  ],
+  "598741": [
+   "Bachinagudd",
+   5446,
+   8
+  ],
+  "598694": [
+   "Mangalagudda",
+   7061,
+   8
+  ],
+  "598739": [
+   "Nandikeshwar",
+   5446,
+   7
+  ],
+  "598693": [
+   "Chimmalagi",
+   7061,
+   8
+  ],
+  "598740": [
+   "Bhadra Nayakan Jalihal",
+   5446,
+   7
+  ],
+  "598748": [
+   "Adagal",
+   5446,
+   6
+  ],
+  "598695": [
+   "Katapur",
+   7061,
+   8
+  ],
+  "599016": [
+   "Balakundi",
+   7062,
+   10
+  ],
+  "598901": [
+   "Vadageri",
+   7062,
+   9
+  ],
+  "598897": [
+   "Chikanal",
+   7062,
+   9
+  ],
+  "598896": [
+   "Bhimanagad",
+   7062,
+   8
+  ],
+  "598744": [
+   "Shirabadagi",
+   5446,
+   7
+  ],
+  "598743": [
+   "Gonal",
+   5446,
+   8
+  ],
+  "598503": [
+   "Hosa Takkalaki",
+   5444,
+   46
+  ],
+  "598501": [
+   "Hosa Govinadinni",
+   5444,
+   46
+  ],
+  "598504": [
+   "Rolli",
+   5444,
+   47
+  ],
+  "598502": [
+   "Badagandi",
+   5444,
+   46
+  ],
+  "598521": [
+   "Muttaladinni Rc",
+   5444,
+   47
+  ],
+  "598520": [
+   "Girisagar",
+   5444,
+   47
+  ],
+  "598522": [
+   "Koppa S R Rc",
+   5444,
+   47
+  ],
+  "598523": [
+   "Hadarihal",
+   5444,
+   47
+  ],
+  "598524": [
+   "Beerkabbi",
+   5444,
+   47
+  ],
+  "598811": [
+   "Hiregulabal",
+   5447,
+   37
+  ],
+  "598810": [
+   "Muttatti",
+   5447,
+   37
+  ],
+  "598813": [
+   "Chikkgulabal",
+   5447,
+   37
+  ],
+  "598815": [
+   "Alur",
+   5447,
+   37
+  ],
+  "598814": [
+   "Mastihal",
+   5447,
+   37
+  ],
+  "598507": [
+   "Lingapur S R Pu K",
+   5444,
+   47
+  ],
+  "598528": [
+   "Kandagal",
+   5444,
+   47
+  ],
+  "598529": [
+   "Honnihal",
+   5444,
+   47
+  ],
+  "598519": [
+   "Mannikeri",
+   5444,
+   46
+  ],
+  "598807": [
+   "Chick Hodlur",
+   5447,
+   47
+  ],
+  "598809": [
+   "Hiremuramatti",
+   5447,
+   37
+  ],
+  "598808": [
+   "Chikkmuramatti",
+   5447,
+   37
+  ],
+  "598818": [
+   "Sitimani",
+   5447,
+   38
+  ],
+  "598816": [
+   "Dharmnagar",
+   5447,
+   37
+  ],
+  "598819": [
+   "Rampur",
+   5447,
+   37
+  ],
+  "598829": [
+   "Manahalli",
+   5447,
+   38
+  ],
+  "598830": [
+   "Hosur",
+   5447,
+   38
+  ],
+  "598804": [
+   "Talagihal",
+   5447,
+   36
+  ],
+  "598534": [
+   "Tummarmatti",
+   5444,
+   35
+  ],
+  "598509": [
+   "Chinvalkoppa Pu K",
+   5444,
+   47
+  ],
+  "598805": [
+   "Ilal",
+   5447,
+   37
+  ],
+  "598831": [
+   "Nagasampagi",
+   5447,
+   38
+  ],
+  "598530": [
+   "Badardinni",
+   5444,
+   47
+  ],
+  "598817": [
+   "Chick Sitimani",
+   5447,
+   37
+  ],
+  "598508": [
+   "Godihal Pu K",
+   5444,
+   47
+  ],
+  "598533": [
+   "Tolamatti",
+   5444,
+   35
+  ],
+  "598812": [
+   "Basavanagar",
+   5447,
+   37
+  ],
+  "598806": [
+   "Hire Hodlur",
+   5447,
+   37
+  ],
+  "598832": [
+   "Nagaral",
+   5447,
+   38
+  ],
+  "598836": [
+   "Domanal",
+   5447,
+   39
+  ],
+  "598837": [
+   "Bommanagi",
+   5447,
+   39
+  ],
+  "598531": [
+   "Yettinatti",
+   5444,
+   36
+  ],
+  "598822": [
+   "Siraguppi",
+   5447,
+   36
+  ],
+  "598833": [
+   "Nainegali",
+   5447,
+   38
+  ],
+  "598835": [
+   "Sutagundar",
+   5447,
+   38
+  ],
+  "598834": [
+   "Mankani",
+   5447,
+   38
+  ],
+  "598821": [
+   "Jadramakunti",
+   5447,
+   37
+  ],
+  "598823": [
+   "Bennur",
+   5447,
+   36
+  ],
+  "598838": [
+   "Chick Myageri",
+   5447,
+   39
+  ],
+  "598532": [
+   "Herkal",
+   5444,
+   36
+  ],
+  "598506": [
+   "Heggur",
+   5444,
+   47
+  ],
+  "598820": [
+   "Timmapur",
+   5447,
+   37
+  ],
+  "598839": [
+   "Handaragala",
+   5447,
+   39
+  ],
+  "598841": [
+   "Mudavinkopp",
+   5447,
+   38
+  ],
+  "598505": [
+   "Gundanapalli Pu K",
+   5444,
+   47
+  ],
+  "598526": [
+   "Mangura Pu K",
+   5444,
+   47
+  ],
+  "598525": [
+   "Kamadal Pu K",
+   5444,
+   47
+  ],
+  "598527": [
+   "Chicksangam",
+   5444,
+   47
+  ],
+  "598840": [
+   "Hire Myageri",
+   5447,
+   39
+  ],
+  "598913": [
+   "Katagur",
+   5448,
+   39
+  ],
+  "598828": [
+   "Bilkerur",
+   5447,
+   37
+  ],
+  "598852": [
+   "Bodanayakdinni",
+   5447,
+   38
+  ],
+  "598842": [
+   "Chitaginakopp",
+   5447,
+   38
+  ],
+  "598826": [
+   "Lavaleshavar",
+   5447,
+   37
+  ],
+  "598543": [
+   "Yelligutti",
+   5444,
+   35
+  ],
+  "598849": [
+   "Mudapaljivi",
+   5447,
+   37
+  ],
+  "598827": [
+   "Achanur",
+   5447,
+   37
+  ],
+  "598790": [
+   "Yankachi",
+   5447,
+   36
+  ],
+  "598824": [
+   "Sangondi",
+   5447,
+   36
+  ],
+  "598785": [
+   "Sorakopp",
+   5447,
+   35
+  ],
+  "598843": [
+   "Devalapur S M",
+   5447,
+   38
+  ],
+  "598825": [
+   "Mugalalli",
+   5447,
+   36
+  ],
+  "598848": [
+   "Kadalimatti",
+   5447,
+   36
+  ],
+  "598914": [
+   "Turadagi",
+   5448,
+   39
+  ],
+  "598787": [
+   "Nakargundi",
+   5447,
+   35
+  ],
+  "598851": [
+   "Sangapur",
+   5447,
+   37
+  ],
+  "598853": [
+   "Bevoor",
+   5447,
+   27
+  ],
+  "598788": [
+   "Sindagi",
+   5447,
+   35
+  ],
+  "598915": [
+   "Bisaladinni",
+   5448,
+   39
+  ],
+  "598789": [
+   "Kadampur",
+   5447,
+   36
+  ],
+  "598791": [
+   "Sidnal",
+   5447,
+   36
+  ],
+  "598792": [
+   "Andamuranal",
+   5447,
+   36
+  ],
+  "598916": [
+   "Valakaladinni",
+   5448,
+   39
+  ],
+  "598850": [
+   "Hallur",
+   5447,
+   26
+  ],
+  "598847": [
+   "Bhagavati",
+   5447,
+   26
+  ],
+  "598918": [
+   "Sangum Archak Pu K",
+   5448,
+   28
+  ],
+  "598908": [
+   "Ganjihal",
+   5448,
+   27
+  ],
+  "598917": [
+   "Chowdakamaladinni",
+   5448,
+   28
+  ],
+  "598794": [
+   "Veerapur",
+   5447,
+   24
+  ],
+  "598846": [
+   "Kirasur",
+   5447,
+   25
+  ],
+  "598912": [
+   "Kengalkadapatti",
+   5448,
+   28
+  ],
+  "598793": [
+   "Salagundi",
+   5447,
+   25
+  ],
+  "598944": [
+   "Adihal",
+   5448,
+   28
+  ],
+  "598795": [
+   "Muranal",
+   5447,
+   24
+  ],
+  "598945": [
+   "Yemmihatti",
+   5448,
+   29
+  ],
+  "598911": [
+   "Varagodadinni",
+   5448,
+   28
+  ],
+  "251839": [
+   "Bagalkot",
+   5447,
+   24
+  ],
+  "598910": [
+   "Huvanur",
+   5448,
+   28
+  ],
+  "598845": [
+   "Mallapur",
+   5447,
+   25
+  ],
+  "598909": [
+   "Nandanoor",
+   5448,
+   28
+  ],
+  "598919": [
+   "Khajagal",
+   5448,
+   28
+  ],
+  "598943": [
+   "Kamadatta",
+   5448,
+   28
+  ],
+  "598844": [
+   "Bagalkot Rural",
+   5447,
+   24
+  ],
+  "599026": [
+   "Kamatgi CT",
+   5448,
+   16
+  ],
+  "599027": [
+   "Aminagad CT",
+   5448,
+   17
+  ],
+  "598946": [
+   "Dhannur",
+   5448,
+   29
+  ],
+  "598947": [
+   "Hullalli",
+   5448,
+   29
+  ],
+  "598948": [
+   "Koppa S M",
+   5448,
+   29
+  ],
+  "598949": [
+   "Marol",
+   5448,
+   29
+  ],
+  "598950": [
+   "Havaragi Pu K",
+   5448,
+   29
+  ],
+  "598951": [
+   "Koujaganur",
+   5448,
+   30
+  ],
+  "598952": [
+   "Anapakatti",
+   5448,
+   30
+  ],
+  "598953": [
+   "Indawar Pu K",
+   5448,
+   30
+  ],
+  "598954": [
+   "Islampur",
+   7062,
+   30
+  ],
+  "598955": [
+   "Amarawadgi",
+   7062,
+   30
+  ],
+  "598959": [
+   "Vadergonal",
+   5448,
+   30
+  ],
+  "598964": [
+   "Manmathanal",
+   5448,
+   30
+  ],
+  "598957": [
+   "Dasbal",
+   5448,
+   30
+  ],
+  "598974": [
+   "Ramawadgi",
+   5448,
+   19
+  ],
+  "598960": [
+   "Kamaladinni",
+   5448,
+   29
+  ],
+  "598958": [
+   "Kesarapenti",
+   5448,
+   30
+  ],
+  "598965": [
+   "Pochapur",
+   7062,
+   30
+  ],
+  "598956": [
+   "Chinnapur S K",
+   7062,
+   30
+  ],
+  "598962": [
+   "Jalakamaladinni",
+   5448,
+   19
+  ],
+  "598963": [
+   "Lavalasar",
+   5448,
+   29
+  ],
+  "598970": [
+   "Chintakamaladinni",
+   5448,
+   19
+  ],
+  "598961": [
+   "Kadiwal Inam",
+   5448,
+   29
+  ],
+  "598967": [
+   "Karadi",
+   7062,
+   20
+  ],
+  "598973": [
+   "Hagedal",
+   5448,
+   19
+  ],
+  "598966": [
+   "Kodihal",
+   7062,
+   20
+  ],
+  "598971": [
+   "Revadihal",
+   5448,
+   19
+  ],
+  "598972": [
+   "Bekamaladinni",
+   5448,
+   19
+  ],
+  "598968": [
+   "Palti",
+   7062,
+   20
+  ],
+  "598969": [
+   "Konnur",
+   7062,
+   19
+  ],
+  "598978": [
+   "Hemawadgi",
+   7062,
+   19
+  ],
+  "598977": [
+   "Ghattiganur",
+   5448,
+   19
+  ],
+  "598979": [
+   "Turamari",
+   7062,
+   19
+  ],
+  "598984": [
+   "Kambalihal",
+   7062,
+   20
+  ],
+  "598981": [
+   "Budihal S K",
+   7062,
+   20
+  ],
+  "598976": [
+   "Binjawadgi",
+   5448,
+   19
+  ],
+  "598982": [
+   "Benakanadoni",
+   7062,
+   20
+  ],
+  "598988": [
+   "Nidasanur",
+   7062,
+   19
+  ],
+  "598992": [
+   "Nandavadgi",
+   7062,
+   20
+  ],
+  "598987": [
+   "Malagihal",
+   7062,
+   19
+  ],
+  "598983": [
+   "Chamalapur",
+   7062,
+   20
+  ],
+  "598980": [
+   "Tariwal",
+   7062,
+   19
+  ],
+  "598986": [
+   "Chatnihal",
+   7062,
+   19
+  ],
+  "598991": [
+   "Chikadapur",
+   7062,
+   20
+  ],
+  "598985": [
+   "Hirehunakunti",
+   7062,
+   19
+  ],
+  "598993": [
+   "Harnapur",
+   7062,
+   20
+  ],
+  "598989": [
+   "Jambaladinni",
+   7062,
+   19
+  ],
+  "598997": [
+   "Kesarabhavi",
+   7062,
+   19
+  ],
+  "598990": [
+   "Gadisunkapur",
+   7062,
+   20
+  ],
+  "598994": [
+   "Hireadapur",
+   7062,
+   20
+  ],
+  "598995": [
+   "Hiresinganagutti",
+   7062,
+   11
+  ],
+  "598996": [
+   "Tumba",
+   7062,
+   10
+  ],
+  "598998": [
+   "Chinnapur S T",
+   7062,
+   10
+  ],
+  "599007": [
+   "Ingalgi",
+   7062,
+   10
+  ],
+  "599001": [
+   "Chicksinganagutti",
+   7062,
+   10
+  ],
+  "599002": [
+   "Krishnapur",
+   7062,
+   11
+  ],
+  "598999": [
+   "Herur",
+   7062,
+   10
+  ],
+  "599000": [
+   "Gopsani",
+   7062,
+   10
+  ],
+  "599003": [
+   "Gonal S K",
+   7062,
+   11
+  ],
+  "599004": [
+   "Kandgal",
+   7062,
+   11
+  ],
+  "599008": [
+   "Tondihal",
+   7062,
+   10
+  ],
+  "251841": [
+   "Ilkal",
+   7062,
+   10
+  ],
+  "599010": [
+   "Gorbal",
+   7062,
+   10
+  ],
+  "599006": [
+   "Vajjal",
+   7062,
+   10
+  ],
+  "599011": [
+   "Hire Otageri",
+   7062,
+   11
+  ],
+  "599005": [
+   "Chick Otageri",
+   7062,
+   11
+  ],
+  "599025": [
+   "Somalapur",
+   7062,
+   11
+  ],
+  "599014": [
+   "Gonal S B",
+   7062,
+   10
+  ],
+  "599013": [
+   "Hanamanal S T",
+   7062,
+   10
+  ],
+  "599015": [
+   "Hireupnal",
+   7062,
+   10
+  ],
+  "599023": [
+   "Gonal S T",
+   7062,
+   11
+  ],
+  "599009": [
+   "Ilkal Rural",
+   7062,
+   10
+  ],
+  "598500": [
+   "Hosa Korti",
+   5444,
+   46
+  ]
+ },
+ "village_count_total": 639,
+ "village_count_assigned": 639
+}

@@ -1,0 +1,3416 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Uttarakhand",
+  "district": "Haridwar",
+  "district_lgd": 50,
+  "observation_window": "2026-08-07T11:30Z to 2026-08-12T11:30Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2657,
+  "sm_surface_stddev": 0.0098,
+  "sm_rootzone_mean": 0.2646,
+  "sm_rootzone_stddev": 0.029,
+  "n_cells": 22,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 29.595,
+    "lon": 78.0142,
+    "sm_surface": 0.2606,
+    "sm_rootzone": 0.2327,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 1,
+    "lat": 29.6938,
+    "lon": 77.8166,
+    "sm_surface": 0.2638,
+    "sm_rootzone": 0.2367,
+    "n_villages_sharing_cell": 28
+   },
+   {
+    "cell_index": 2,
+    "lat": 29.6938,
+    "lon": 78.0142,
+    "sm_surface": 0.2637,
+    "sm_rootzone": 0.2365,
+    "n_villages_sharing_cell": 56
+   },
+   {
+    "cell_index": 3,
+    "lat": 29.6938,
+    "lon": 78.113,
+    "sm_surface": 0.2604,
+    "sm_rootzone": 0.2361,
+    "n_villages_sharing_cell": 32
+   },
+   {
+    "cell_index": 4,
+    "lat": 29.7926,
+    "lon": 77.8166,
+    "sm_surface": 0.278,
+    "sm_rootzone": 0.2849,
+    "n_villages_sharing_cell": 49
+   },
+   {
+    "cell_index": 5,
+    "lat": 29.7926,
+    "lon": 77.9154,
+    "sm_surface": 0.279,
+    "sm_rootzone": 0.2886,
+    "n_villages_sharing_cell": 54
+   },
+   {
+    "cell_index": 6,
+    "lat": 29.7926,
+    "lon": 78.0142,
+    "sm_surface": 0.2793,
+    "sm_rootzone": 0.3169,
+    "n_villages_sharing_cell": 63
+   },
+   {
+    "cell_index": 7,
+    "lat": 29.7926,
+    "lon": 78.113,
+    "sm_surface": 0.2608,
+    "sm_rootzone": 0.2378,
+    "n_villages_sharing_cell": 33
+   },
+   {
+    "cell_index": 8,
+    "lat": 29.7926,
+    "lon": 78.2118,
+    "sm_surface": 0.2652,
+    "sm_rootzone": 0.2794,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 9,
+    "lat": 29.7926,
+    "lon": 78.3106,
+    "sm_surface": 0.2494,
+    "sm_rootzone": 0.2822,
+    "n_villages_sharing_cell": 15
+   },
+   {
+    "cell_index": 10,
+    "lat": 29.8914,
+    "lon": 77.8166,
+    "sm_surface": 0.2642,
+    "sm_rootzone": 0.2429,
+    "n_villages_sharing_cell": 59
+   },
+   {
+    "cell_index": 11,
+    "lat": 29.8914,
+    "lon": 77.9154,
+    "sm_surface": 0.2772,
+    "sm_rootzone": 0.2906,
+    "n_villages_sharing_cell": 56
+   },
+   {
+    "cell_index": 12,
+    "lat": 29.8914,
+    "lon": 78.0142,
+    "sm_surface": 0.2861,
+    "sm_rootzone": 0.3209,
+    "n_villages_sharing_cell": 44
+   },
+   {
+    "cell_index": 13,
+    "lat": 29.8914,
+    "lon": 78.113,
+    "sm_surface": 0.2779,
+    "sm_rootzone": 0.2871,
+    "n_villages_sharing_cell": 27
+   },
+   {
+    "cell_index": 14,
+    "lat": 29.8914,
+    "lon": 78.2118,
+    "sm_surface": 0.2669,
+    "sm_rootzone": 0.2813,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 15,
+    "lat": 29.9903,
+    "lon": 77.8166,
+    "sm_surface": 0.2574,
+    "sm_rootzone": 0.2344,
+    "n_villages_sharing_cell": 35
+   },
+   {
+    "cell_index": 16,
+    "lat": 29.9903,
+    "lon": 77.9154,
+    "sm_surface": 0.2561,
+    "sm_rootzone": 0.2381,
+    "n_villages_sharing_cell": 23
+   },
+   {
+    "cell_index": 17,
+    "lat": 29.9903,
+    "lon": 78.0142,
+    "sm_surface": 0.2654,
+    "sm_rootzone": 0.2971,
+    "n_villages_sharing_cell": 17
+   },
+   {
+    "cell_index": 18,
+    "lat": 29.9903,
+    "lon": 78.113,
+    "sm_surface": 0.2614,
+    "sm_rootzone": 0.2768,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 19,
+    "lat": 30.0891,
+    "lon": 77.9154,
+    "sm_surface": 0.2544,
+    "sm_rootzone": 0.2326,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 20,
+    "lat": 30.0891,
+    "lon": 78.0142,
+    "sm_surface": 0.2503,
+    "sm_rootzone": 0.2302,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 21,
+    "lat": 30.1879,
+    "lon": 77.9154,
+    "sm_surface": 0.2681,
+    "sm_rootzone": 0.2567,
+    "n_villages_sharing_cell": 0
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.269,
+  "sm_surface_stddev": 0.0017,
+  "n_blocks": 3
+ },
+ "blocks": [
+  {
+   "block_name": "Hardwar",
+   "sdcode": 354,
+   "n_villages": 142,
+   "n_cells_spanned": 12,
+   "sm_surface_mean": 0.269,
+   "sm_surface_stddev": 0.0119
+  },
+  {
+   "block_name": "Laksar",
+   "sdcode": 355,
+   "n_villages": 167,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.267,
+   "sm_surface_stddev": 0.0079
+  },
+  {
+   "block_name": "Roorkee",
+   "sdcode": 353,
+   "n_villages": 327,
+   "n_cells_spanned": 10,
+   "sm_surface_mean": 0.2711,
+   "sm_surface_stddev": 0.0095
+  }
+ ],
+ "villages": {
+  "56470": [
+   "Balelpur Majra Harjauli Jhojha",
+   353,
+   4
+  ],
+  "56907": [
+   "Abdul Rahimpur",
+   355,
+   2
+  ],
+  "56829": [
+   "Maheshri",
+   355,
+   2
+  ],
+  "56871": [
+   "Shivpuri Aht",
+   355,
+   3
+  ],
+  "56528": [
+   "Khatki",
+   353,
+   11
+  ],
+  "56529": [
+   "Khatka Mu",
+   353,
+   11
+  ],
+  "56821": [
+   "Akaudha Aurangzebpur",
+   355,
+   2
+  ],
+  "56690": [
+   "Kasampur",
+   354,
+   12
+  ],
+  "56443": [
+   "Bichpari",
+   353,
+   12
+  ],
+  "56781": [
+   "Ladpur Kalan Aht",
+   355,
+   6
+  ],
+  "56777": [
+   "Rawali Mahdood CT",
+   354,
+   17
+  ],
+  "56413": [
+   "Gumma Wala",
+   353,
+   16
+  ],
+  "56581": [
+   "Raipur",
+   353,
+   1
+  ],
+  "56580": [
+   "Rasoolpur Nithari",
+   353,
+   1
+  ],
+  "56576": [
+   "Mandawali",
+   353,
+   1
+  ],
+  "56565": [
+   "Nagla Salaroo",
+   353,
+   1
+  ],
+  "56583": [
+   "Chakbarampur",
+   353,
+   1
+  ],
+  "56562": [
+   "Susada",
+   353,
+   1
+  ],
+  "56567": [
+   "Ladpur Khurd",
+   353,
+   1
+  ],
+  "56570": [
+   "Jaitpur",
+   353,
+   1
+  ],
+  "56587": [
+   "Barampur",
+   353,
+   1
+  ],
+  "56584": [
+   "Mohammadpur Jat",
+   353,
+   1
+  ],
+  "56558": [
+   "Jathedi",
+   353,
+   1
+  ],
+  "56577": [
+   "Narsan Khurd",
+   353,
+   1
+  ],
+  "56568": [
+   "Kuvan Hedi",
+   353,
+   1
+  ],
+  "56572": [
+   "Ulheda",
+   353,
+   1
+  ],
+  "56622": [
+   "Nizampur",
+   353,
+   5
+  ],
+  "56561": [
+   "Susadikalan",
+   353,
+   1
+  ],
+  "56579": [
+   "Shekhupur",
+   353,
+   1
+  ],
+  "56566": [
+   "Narsan Kalan",
+   353,
+   1
+  ],
+  "56559": [
+   "Lakhnauta",
+   353,
+   1
+  ],
+  "56586": [
+   "Boodpur Jat",
+   353,
+   1
+  ],
+  "56560": [
+   "Susadikhurd",
+   353,
+   1
+  ],
+  "56563": [
+   "Tekaula Kalan",
+   353,
+   1
+  ],
+  "56578": [
+   "Nagala Koyal",
+   353,
+   1
+  ],
+  "56585": [
+   "Khanpur Jat",
+   353,
+   1
+  ],
+  "56571": [
+   "Kheda Jat",
+   353,
+   1
+  ],
+  "56762": [
+   "Bhudhiwala",
+   354,
+   9
+  ],
+  "56573": [
+   "Ulhedi",
+   353,
+   1
+  ],
+  "56569": [
+   "Sakauti",
+   353,
+   1
+  ],
+  "56574": [
+   "Mundiyaki",
+   353,
+   4
+  ],
+  "56523": [
+   "Talhedi",
+   353,
+   5
+  ],
+  "56538": [
+   "Kurdi",
+   353,
+   4
+  ],
+  "56537": [
+   "Saidpura",
+   353,
+   5
+  ],
+  "56489": [
+   "Latherdewa Shekh",
+   353,
+   4
+  ],
+  "56540": [
+   "Qasampur Khurd",
+   353,
+   5
+  ],
+  "56513": [
+   "Bood Pur Chauhan",
+   353,
+   4
+  ],
+  "56589": [
+   "Makhayali Dundi",
+   353,
+   5
+  ],
+  "56535": [
+   "Thithiki Qavadpur",
+   353,
+   4
+  ],
+  "56514": [
+   "Noorpur",
+   353,
+   4
+  ],
+  "56482": [
+   "Harjauli Jhojha",
+   353,
+   4
+  ],
+  "56575": [
+   "Dahiyaki",
+   353,
+   1
+  ],
+  "56512": [
+   "Jhabreri Kalan",
+   353,
+   4
+  ],
+  "56484": [
+   "Ahmadpur Sarwareki",
+   353,
+   4
+  ],
+  "56551": [
+   "Sadauli",
+   353,
+   4
+  ],
+  "56522": [
+   "Asaf Nagar",
+   353,
+   5
+  ],
+  "56872": [
+   "Ospur",
+   355,
+   3
+  ],
+  "56490": [
+   "Hathiya Thal",
+   353,
+   4
+  ],
+  "56485": [
+   "Kabadpur Lodiwala",
+   353,
+   4
+  ],
+  "56553": [
+   "Naharpur",
+   353,
+   4
+  ],
+  "56488": [
+   "Bahistipur",
+   353,
+   4
+  ],
+  "56483": [
+   "Akbarpur Jhojha",
+   353,
+   4
+  ],
+  "56409": [
+   "Bandakheri",
+   353,
+   10
+  ],
+  "56588": [
+   "Shimlauni",
+   353,
+   5
+  ],
+  "56510": [
+   "Kotwal Alampur",
+   353,
+   4
+  ],
+  "56554": [
+   "Lahvauli",
+   353,
+   4
+  ],
+  "56544": [
+   "Mundet",
+   353,
+   4
+  ],
+  "248482": [
+   "Manglaur Npp",
+   353,
+   5
+  ],
+  "56541": [
+   "Libbarhedi",
+   353,
+   5
+  ],
+  "56519": [
+   "Kumradi",
+   353,
+   4
+  ],
+  "56594": [
+   "Hazzarpur Ah",
+   353,
+   6
+  ],
+  "56477": [
+   "Bhagtowali Majra Dehat",
+   353,
+   4
+  ],
+  "56545": [
+   "Kumrada",
+   353,
+   4
+  ],
+  "56517": [
+   "Lathardeva Hoon",
+   353,
+   4
+  ],
+  "56546": [
+   "Udalheri",
+   353,
+   4
+  ],
+  "56479": [
+   "Samaspur Khundewali",
+   353,
+   4
+  ],
+  "248481": [
+   "Jhabrera Np",
+   353,
+   4
+  ],
+  "56476": [
+   "Kharkhari Dayala",
+   353,
+   4
+  ],
+  "56515": [
+   "Gadar Juddda",
+   353,
+   4
+  ],
+  "56564": [
+   "Manna Khedi",
+   353,
+   4
+  ],
+  "56509": [
+   "Sheetal Pur",
+   353,
+   4
+  ],
+  "56552": [
+   "Sadaula",
+   353,
+   4
+  ],
+  "56555": [
+   "Makhdoompur",
+   353,
+   4
+  ],
+  "56855": [
+   "Bahalpuri",
+   355,
+   3
+  ],
+  "56547": [
+   "Kulchandi",
+   353,
+   4
+  ],
+  "56548": [
+   "Kundi",
+   353,
+   5
+  ],
+  "56549": [
+   "Naseerpur Afzalpur",
+   353,
+   5
+  ],
+  "56478": [
+   "Sultanpur Sawatwali",
+   353,
+   4
+  ],
+  "56556": [
+   "Sherpur Khelmau",
+   353,
+   4
+  ],
+  "56402": [
+   "Khajoori",
+   353,
+   4
+  ],
+  "56536": [
+   "Gajraula",
+   353,
+   4
+  ],
+  "56518": [
+   "Basawa Khedi",
+   353,
+   4
+  ],
+  "56366": [
+   "Dheer Mazra M",
+   353,
+   15
+  ],
+  "56491": [
+   "Tanshipur",
+   353,
+   4
+  ],
+  "56487": [
+   "Salhapur",
+   353,
+   4
+  ],
+  "56516": [
+   "Jhabiran",
+   353,
+   4
+  ],
+  "56475": [
+   "Hoshangpur",
+   353,
+   4
+  ],
+  "56486": [
+   "Jhabaredikhurd",
+   353,
+   4
+  ],
+  "56543": [
+   "Thasaka",
+   353,
+   4
+  ],
+  "56550": [
+   "Hasampur",
+   353,
+   4
+  ],
+  "56520": [
+   "Nagala Sikandar",
+   353,
+   4
+  ],
+  "56511": [
+   "Khanampur Kasauli",
+   353,
+   4
+  ],
+  "56557": [
+   "Ramnagar",
+   353,
+   1
+  ],
+  "56935": [
+   "Idrispur",
+   355,
+   0
+  ],
+  "56480": [
+   "Delana",
+   353,
+   4
+  ],
+  "56539": [
+   "Mahpur",
+   353,
+   5
+  ],
+  "56542": [
+   "Nagla Aimad",
+   353,
+   4
+  ],
+  "56502": [
+   "Rampur",
+   353,
+   11
+  ],
+  "56492": [
+   "Ibrahimpurdeh",
+   353,
+   11
+  ],
+  "56368": [
+   "Dariyapur Dayalpur A H",
+   353,
+   11
+  ],
+  "56385": [
+   "Amarpur Qazi",
+   353,
+   10
+  ],
+  "56403": [
+   "Karaundi",
+   353,
+   10
+  ],
+  "56494": [
+   "Sarkadi Taharpur",
+   353,
+   10
+  ],
+  "56395": [
+   "Binarsi Urf Bulet",
+   353,
+   10
+  ],
+  "56464": [
+   "Iqbalpur Kamelpur",
+   353,
+   10
+  ],
+  "56393": [
+   "Chhachhrauli",
+   353,
+   10
+  ],
+  "56465": [
+   "Padliganda",
+   353,
+   10
+  ],
+  "56384": [
+   "Qadarpur",
+   353,
+   10
+  ],
+  "56386": [
+   "Baleki Yusufpur",
+   353,
+   10
+  ],
+  "56894": [
+   "Mathana",
+   355,
+   2
+  ],
+  "56363": [
+   "Dariyapur Dayalpur M",
+   353,
+   16
+  ],
+  "56468": [
+   "Naubatpur Mulewala",
+   353,
+   10
+  ],
+  "56404": [
+   "Kishanpur Jamalpur",
+   353,
+   10
+  ],
+  "56406": [
+   "Saliyer Salhapur",
+   353,
+   10
+  ],
+  "56355": [
+   "Khanpur",
+   353,
+   10
+  ],
+  "56399": [
+   "Behedeki Saidabad",
+   353,
+   10
+  ],
+  "56481": [
+   "Heerahedi",
+   353,
+   10
+  ],
+  "56407": [
+   "Nanheda Anantpur",
+   353,
+   10
+  ],
+  "56357": [
+   "Premrajpur",
+   353,
+   10
+  ],
+  "56379": [
+   "Sherpur",
+   353,
+   10
+  ],
+  "56389": [
+   "Maheshri",
+   353,
+   10
+  ],
+  "56392": [
+   "Bindu Kharak",
+   353,
+   10
+  ],
+  "56499": [
+   "Paneyala Chandapur",
+   353,
+   10
+  ],
+  "56376": [
+   "Sirchandi",
+   353,
+   10
+  ],
+  "56411": [
+   "Madhopur Hazaratpur",
+   353,
+   10
+  ],
+  "56498": [
+   "Raheempur",
+   353,
+   11
+  ],
+  "56415": [
+   "Mohanpur Majara Saliyal",
+   353,
+   11
+  ],
+  "56398": [
+   "Birsang Pur",
+   353,
+   10
+  ],
+  "56388": [
+   "Sunethi Alampur",
+   353,
+   10
+  ],
+  "56466": [
+   "Dharmpur",
+   353,
+   10
+  ],
+  "56495": [
+   "Safarpur",
+   353,
+   10
+  ],
+  "56471": [
+   "Nagala Kubada",
+   353,
+   10
+  ],
+  "56377": [
+   "Mohitpur",
+   353,
+   10
+  ],
+  "56382": [
+   "Sartheri Shahjahanpur",
+   353,
+   10
+  ],
+  "56899": [
+   "Jhinwar Hedi",
+   355,
+   2
+  ],
+  "56370": [
+   "Kalal Hati",
+   353,
+   10
+  ],
+  "56396": [
+   "Bhalaswa Gaj",
+   353,
+   10
+  ],
+  "56381": [
+   "Chudiyala Mohanpur",
+   353,
+   10
+  ],
+  "56405": [
+   "Puhana",
+   353,
+   10
+  ],
+  "56401": [
+   "Manakpur Adampur",
+   353,
+   10
+  ],
+  "56467": [
+   "Makanpur Devpur",
+   353,
+   10
+  ],
+  "56410": [
+   "Sohalpur Gada",
+   353,
+   10
+  ],
+  "56356": [
+   "Ruhalki Dayalpur",
+   353,
+   10
+  ],
+  "56469": [
+   "Akbarpur Fazilpur",
+   353,
+   10
+  ],
+  "56472": [
+   "Balelpur Majra Paniyala Chandapur",
+   353,
+   10
+  ],
+  "56473": [
+   "Mahmoodpur",
+   353,
+   10
+  ],
+  "56463": [
+   "Khata Kheri",
+   353,
+   10
+  ],
+  "56474": [
+   "Najumpur Paniyali",
+   353,
+   10
+  ],
+  "56400": [
+   "Harchand Pur Majara",
+   353,
+   10
+  ],
+  "56387": [
+   "Kunja Bahadurpur",
+   353,
+   10
+  ],
+  "56408": [
+   "Nalheri",
+   353,
+   10
+  ],
+  "56534": [
+   "Zaurasi Mu",
+   353,
+   5
+  ],
+  "56369": [
+   "Hakim Pur Turra",
+   353,
+   11
+  ],
+  "56496": [
+   "Rasoolpur",
+   353,
+   10
+  ],
+  "56493": [
+   "Matlabapur",
+   353,
+   10
+  ],
+  "56371": [
+   "Wahabpur Chaga Mazari",
+   353,
+   15
+  ],
+  "56397": [
+   "Molna",
+   353,
+   10
+  ],
+  "56533": [
+   "Zaurasi Ah",
+   353,
+   5
+  ],
+  "56391": [
+   "Fakkarhedi",
+   353,
+   10
+  ],
+  "56380": [
+   "Dadli",
+   353,
+   10
+  ],
+  "56378": [
+   "Khelpur Nasrullapur",
+   353,
+   10
+  ],
+  "56394": [
+   "Balupur",
+   353,
+   10
+  ],
+  "56904": [
+   "Dharmupur",
+   355,
+   2
+  ],
+  "56497": [
+   "Sahpur Salhapur",
+   353,
+   10
+  ],
+  "56367": [
+   "Dheer Mazra A H",
+   353,
+   15
+  ],
+  "56383": [
+   "Alipur Khataula",
+   353,
+   10
+  ],
+  "248478": [
+   "Roorkee Npp",
+   353,
+   11
+  ],
+  "56922": [
+   "Podowali",
+   355,
+   2
+  ],
+  "56593": [
+   "Hazzarpur Mu",
+   353,
+   6
+  ],
+  "56390": [
+   "Tejupur",
+   353,
+   10
+  ],
+  "56920": [
+   "Lalchandwala",
+   355,
+   2
+  ],
+  "56844": [
+   "Munda Khera Kalan",
+   355,
+   2
+  ],
+  "56850": [
+   "Kheri Khurd",
+   355,
+   2
+  ],
+  "56902": [
+   "Abdipur",
+   355,
+   2
+  ],
+  "56620": [
+   "Harjauli Jat",
+   353,
+   5
+  ],
+  "56929": [
+   "Khanpur",
+   355,
+   2
+  ],
+  "56915": [
+   "Alampur",
+   355,
+   2
+  ],
+  "56933": [
+   "Sherpur Bela Mahajee Hirdairam",
+   355,
+   0
+  ],
+  "56862": [
+   "Bhagatanpur Majra Niranjanpur",
+   355,
+   3
+  ],
+  "56853": [
+   "Netwala Saidabad",
+   355,
+   2
+  ],
+  "56897": [
+   "Ruhalki",
+   355,
+   2
+  ],
+  "56910": [
+   "Bharuwala",
+   355,
+   2
+  ],
+  "56900": [
+   "Saipur",
+   355,
+   2
+  ],
+  "56936": [
+   "Tugalpur",
+   355,
+   0
+  ],
+  "56937": [
+   "Bahadarpur",
+   355,
+   0
+  ],
+  "56898": [
+   "Ibrahimpur",
+   355,
+   2
+  ],
+  "56924": [
+   "Giddhawali",
+   355,
+   2
+  ],
+  "56917": [
+   "Balchand Wala",
+   355,
+   2
+  ],
+  "56826": [
+   "Kherimubarakpur",
+   355,
+   2
+  ],
+  "56901": [
+   "Sikanderpur",
+   355,
+   2
+  ],
+  "56909": [
+   "Rajpur",
+   355,
+   2
+  ],
+  "56930": [
+   "Mirzapur Mohnawala",
+   355,
+   2
+  ],
+  "56925": [
+   "Kalsia",
+   355,
+   0
+  ],
+  "56861": [
+   "Pratappur",
+   355,
+   3
+  ],
+  "56932": [
+   "Sherpur Belamahajeeteep",
+   355,
+   0
+  ],
+  "56582": [
+   "Nagala Saktoo",
+   353,
+   5
+  ],
+  "56624": [
+   "Kagwali",
+   353,
+   5
+  ],
+  "56845": [
+   "Keshowala Urf Ladoli",
+   355,
+   2
+  ],
+  "56926": [
+   "Raghunathpur Urf Balawali",
+   355,
+   3
+  ],
+  "56619": [
+   "Sikandarpur Mawal",
+   353,
+   5
+  ],
+  "56830": [
+   "Gangauli",
+   355,
+   2
+  ],
+  "56854": [
+   "Dargahapur",
+   355,
+   3
+  ],
+  "56939": [
+   "Chandpuri Bangar",
+   355,
+   0
+  ],
+  "56908": [
+   "Majri",
+   355,
+   2
+  ],
+  "56623": [
+   "Qavadpur",
+   353,
+   5
+  ],
+  "56860": [
+   "Purwala Birsangpur",
+   355,
+   3
+  ],
+  "56857": [
+   "Habibpur Koodi",
+   355,
+   3
+  ],
+  "56895": [
+   "Karanpur",
+   355,
+   2
+  ],
+  "56931": [
+   "Badshahpur",
+   355,
+   2
+  ],
+  "56873": [
+   "Ismailpur",
+   355,
+   3
+  ],
+  "56927": [
+   "Mansoorpur Urf Kapooro",
+   355,
+   3
+  ],
+  "56847": [
+   "Bichpari",
+   355,
+   3
+  ],
+  "56940": [
+   "Madabela",
+   355,
+   0
+  ],
+  "56867": [
+   "Mahrajpur Khurd",
+   355,
+   3
+  ],
+  "56842": [
+   "Kharanja Kutubpur",
+   355,
+   2
+  ],
+  "56918": [
+   "Nyamatpur",
+   355,
+   2
+  ],
+  "56916": [
+   "Tanda Jalalpur",
+   355,
+   2
+  ],
+  "56851": [
+   "Sukhi Chak",
+   355,
+   2
+  ],
+  "56896": [
+   "Maheshwara",
+   355,
+   2
+  ],
+  "56856": [
+   "Raisi",
+   355,
+   3
+  ],
+  "56846": [
+   "Akodha Mukarmatpur",
+   355,
+   2
+  ],
+  "56938": [
+   "Kawalpur",
+   355,
+   0
+  ],
+  "56625": [
+   "Thoi",
+   353,
+   5
+  ],
+  "56923": [
+   "Bhowawali",
+   355,
+   2
+  ],
+  "56913": [
+   "Madarpur",
+   355,
+   2
+  ],
+  "56912": [
+   "Shahpur",
+   355,
+   2
+  ],
+  "56921": [
+   "Kanewali Raisingh",
+   355,
+   2
+  ],
+  "56849": [
+   "Bijopura",
+   355,
+   2
+  ],
+  "56859": [
+   "Dungarpur",
+   355,
+   3
+  ],
+  "56858": [
+   "Maharajpur Kalan",
+   355,
+   3
+  ],
+  "56911": [
+   "Prehladpur",
+   355,
+   2
+  ],
+  "56919": [
+   "Mirzapur Sadat",
+   355,
+   2
+  ],
+  "56906": [
+   "Gordhanpur",
+   355,
+   2
+  ],
+  "56442": [
+   "Kamalpur Saini Bas",
+   353,
+   12
+  ],
+  "56852": [
+   "Kuri",
+   355,
+   2
+  ],
+  "56914": [
+   "Hastmauli",
+   355,
+   2
+  ],
+  "56928": [
+   "Dayalpur",
+   355,
+   2
+  ],
+  "56848": [
+   "Munda Khera Khurd",
+   355,
+   2
+  ],
+  "56905": [
+   "Asgharpur",
+   355,
+   2
+  ],
+  "56942": [
+   "Chandpuri Khadar",
+   355,
+   0
+  ],
+  "56893": [
+   "Mohammadpur",
+   355,
+   2
+  ],
+  "56903": [
+   "Yahayyapur",
+   355,
+   2
+  ],
+  "56945": [
+   "Jogawala",
+   355,
+   0
+  ],
+  "56943": [
+   "Doodhla",
+   355,
+   0
+  ],
+  "56944": [
+   "Dalla Wala",
+   355,
+   0
+  ],
+  "56695": [
+   "Nagla Khurd",
+   354,
+   12
+  ],
+  "56941": [
+   "Banuwala",
+   355,
+   0
+  ],
+  "56934": [
+   "Chakheri",
+   355,
+   0
+  ],
+  "56865": [
+   "Rasoolpur Urf Kankarkhata",
+   355,
+   3
+  ],
+  "56886": [
+   "Bhikkampur Jeetpur",
+   355,
+   3
+  ],
+  "56864": [
+   "Khanpur",
+   355,
+   3
+  ],
+  "56869": [
+   "Gangdaspur Aht",
+   355,
+   3
+  ],
+  "56795": [
+   "Mohd Pur Bazurg Aht",
+   355,
+   6
+  ],
+  "56866": [
+   "Niranjanpur",
+   355,
+   3
+  ],
+  "56891": [
+   "Rampur Raighati Must",
+   355,
+   3
+  ],
+  "56890": [
+   "Rampur Raighati Aht",
+   355,
+   3
+  ],
+  "56889": [
+   "Jaspur Ranjeetpur Aht",
+   355,
+   3
+  ],
+  "56863": [
+   "Barampur",
+   355,
+   3
+  ],
+  "56694": [
+   "Ransura",
+   354,
+   6
+  ],
+  "56868": [
+   "Gangdaspur Must",
+   355,
+   3
+  ],
+  "56888": [
+   "Bakarpur",
+   355,
+   3
+  ],
+  "56870": [
+   "Shivpuri Must",
+   355,
+   3
+  ],
+  "56892": [
+   "Jaspur Ranjeetpur Must",
+   355,
+   3
+  ],
+  "56601": [
+   "Banhera Tanda",
+   353,
+   5
+  ],
+  "56843": [
+   "Jalal Majara",
+   355,
+   2
+  ],
+  "248483": [
+   "Landhaura Np",
+   353,
+   5
+  ],
+  "56423": [
+   "Kot Kaliyar Chak I",
+   353,
+   11
+  ],
+  "56815": [
+   "Sethpur",
+   355,
+   6
+  ],
+  "56675": [
+   "Jamalpur Khurd",
+   354,
+   12
+  ],
+  "56735": [
+   "Jasodhar Pur",
+   354,
+   7
+  ],
+  "56693": [
+   "Mukandpur",
+   354,
+   6
+  ],
+  "56798": [
+   "Kuwan Khera Aht",
+   355,
+   6
+  ],
+  "56597": [
+   "Rajpur Mustafabad Urf Gadharon",
+   353,
+   5
+  ],
+  "56732": [
+   "Nasir Pur Kalan",
+   354,
+   7
+  ],
+  "56817": [
+   "Tigri",
+   355,
+   6
+  ],
+  "56813": [
+   "Bahadurpur Khadar",
+   355,
+   6
+  ],
+  "56604": [
+   "Akabarpur Dhodheki",
+   353,
+   5
+  ],
+  "56532": [
+   "Bhainsarhedi Ah",
+   353,
+   5
+  ],
+  "56412": [
+   "Ranghar Wala",
+   353,
+   16
+  ],
+  "56612": [
+   "Nagala Cheena",
+   353,
+   5
+  ],
+  "56720": [
+   "Pherupur Ramkhera",
+   354,
+   13
+  ],
+  "56786": [
+   "Jainpur Khurd Must",
+   355,
+   6
+  ],
+  "56424": [
+   "Kot Kaliyar Chak Ii",
+   353,
+   11
+  ],
+  "56427": [
+   "Belada M",
+   353,
+   11
+  ],
+  "56804": [
+   "Dhadhekidhana Majahidpur Aht",
+   355,
+   6
+  ],
+  "56505": [
+   "Jalalpur Mu",
+   353,
+   11
+  ],
+  "56838": [
+   "Fatehpur Junar",
+   355,
+   7
+  ],
+  "56790": [
+   "Dausni",
+   355,
+   6
+  ],
+  "56832": [
+   "Buddhakhera Meemla",
+   355,
+   7
+  ],
+  "56429": [
+   "Belada A H",
+   353,
+   11
+  ],
+  "56816": [
+   "Hirna Kheri",
+   355,
+   6
+  ],
+  "56699": [
+   "Ranipur",
+   354,
+   6
+  ],
+  "56827": [
+   "Dabki Khurd",
+   355,
+   2
+  ],
+  "56437": [
+   "Sohalpur Mazara Belra M",
+   353,
+   11
+  ],
+  "56734": [
+   "Nasirpur Khurd",
+   354,
+   7
+  ],
+  "56527": [
+   "Bhainsarhedi Mu",
+   353,
+   11
+  ],
+  "56705": [
+   "Jamalpur Kalan",
+   354,
+   13
+  ],
+  "56811": [
+   "Mukhyalikalan",
+   355,
+   6
+  ],
+  "56592": [
+   "Shikarpur",
+   353,
+   5
+  ],
+  "56504": [
+   "Bangherimahabatpur Ahat",
+   353,
+   11
+  ],
+  "56603": [
+   "Narayanpur",
+   353,
+   5
+  ],
+  "56836": [
+   "Akbarpur Ood",
+   355,
+   7
+  ],
+  "56531": [
+   "Uleheri",
+   353,
+   11
+  ],
+  "56430": [
+   "Sherpur",
+   353,
+   11
+  ],
+  "56605": [
+   "Salarpur",
+   353,
+   5
+  ],
+  "56835": [
+   "Prempur Urf Ladoli",
+   355,
+   7
+  ],
+  "56808": [
+   "Khadauli",
+   355,
+   6
+  ],
+  "56425": [
+   "Rahmatpur M",
+   353,
+   11
+  ],
+  "56794": [
+   "Rasoolpur Bakkal Must",
+   355,
+   6
+  ],
+  "56607": [
+   "Bukkanpur",
+   353,
+   5
+  ],
+  "56797": [
+   "Kuwan Khera Must",
+   355,
+   6
+  ],
+  "56691": [
+   "Alawalpur",
+   354,
+   12
+  ],
+  "56782": [
+   "Mukhyali Khurd",
+   355,
+   6
+  ],
+  "56453": [
+   "Bhoori",
+   353,
+   12
+  ],
+  "56824": [
+   "Shekhpuri",
+   355,
+   6
+  ],
+  "56530": [
+   "Khatka Ah",
+   353,
+   11
+  ],
+  "56602": [
+   "Nathu Kheri",
+   353,
+   5
+  ],
+  "56876": [
+   "Sultanpur Adampur",
+   355,
+   7
+  ],
+  "56828": [
+   "Dabki Kalan",
+   355,
+   2
+  ],
+  "56436": [
+   "Beldisalhapur",
+   353,
+   11
+  ],
+  "56698": [
+   "Sanghipur",
+   354,
+   6
+  ],
+  "56596": [
+   "Thathaula",
+   353,
+   5
+  ],
+  "56831": [
+   "Raipur",
+   355,
+   6
+  ],
+  "56785": [
+   "Kasampur Nawpada Must",
+   355,
+   6
+  ],
+  "56822": [
+   "Seemli",
+   355,
+   6
+  ],
+  "56825": [
+   "Nasrullapur",
+   355,
+   2
+  ],
+  "56726": [
+   "Padartha Urf Dhanpura",
+   354,
+   13
+  ],
+  "56787": [
+   "Jainpur Khurd Aht",
+   355,
+   6
+  ],
+  "56677": [
+   "Ranipur",
+   354,
+   13
+  ],
+  "56600": [
+   "Kamora",
+   353,
+   5
+  ],
+  "56719": [
+   "Pherupur Kathiya",
+   354,
+   13
+  ],
+  "56823": [
+   "Laksar",
+   355,
+   6
+  ],
+  "56877": [
+   "Jawaharkhan Urf Jhiwerhedi",
+   355,
+   3
+  ],
+  "56460": [
+   "Dhandhedi Khwazgipur",
+   353,
+   11
+  ],
+  "56590": [
+   "Peerpura",
+   353,
+   5
+  ],
+  "56818": [
+   "Baseri Khadar",
+   355,
+   6
+  ],
+  "56428": [
+   "Bajuheri",
+   353,
+   11
+  ],
+  "56800": [
+   "Naurozpur",
+   355,
+   6
+  ],
+  "248486": [
+   "Laksar Np",
+   355,
+   6
+  ],
+  "56840": [
+   "Jetpur",
+   355,
+   2
+  ],
+  "56701": [
+   "Naseerpur Urf Nastarpur",
+   354,
+   6
+  ],
+  "56422": [
+   "Mahmoodpur",
+   353,
+   11
+  ],
+  "56775": [
+   "Chandi Range",
+   354,
+   7
+  ],
+  "56874": [
+   "Pachewali",
+   355,
+   7
+  ],
+  "56611": [
+   "Mukeempur Ah",
+   353,
+   6
+  ],
+  "56799": [
+   "Bhurni Khatirpur",
+   355,
+   6
+  ],
+  "56418": [
+   "Gopalpur",
+   353,
+   11
+  ],
+  "56733": [
+   "Siv Nagar",
+   354,
+   7
+  ],
+  "56702": [
+   "Peetpur",
+   354,
+   6
+  ],
+  "56421": [
+   "Mehwarkalan",
+   353,
+   11
+  ],
+  "56809": [
+   "Seedhadu",
+   355,
+   6
+  ],
+  "56606": [
+   "Tikaula Khurd",
+   353,
+   5
+  ],
+  "56639": [
+   "Maohanpur Mohammadpur CT",
+   353,
+   11
+  ],
+  "56631": [
+   "Salempur Rajputan CT",
+   353,
+   10
+  ],
+  "56636": [
+   "Padali Gujar CT",
+   353,
+   11
+  ],
+  "56793": [
+   "Rajabpur",
+   355,
+   6
+  ],
+  "56632": [
+   "Sunhaira CT",
+   353,
+   11
+  ],
+  "56633": [
+   "Shafipur CT",
+   353,
+   11
+  ],
+  "56627": [
+   "Shahpur CT",
+   353,
+   15
+  ],
+  "56628": [
+   "Bhagwanpur CT",
+   353,
+   10
+  ],
+  "56778": [
+   "Bahadarabad CT",
+   354,
+   12
+  ],
+  "56629": [
+   "Saidpura CT",
+   353,
+   11
+  ],
+  "56722": [
+   "Jiya Pota",
+   354,
+   13
+  ],
+  "56637": [
+   "Nagala Imarti CT",
+   353,
+   5
+  ],
+  "56634": [
+   "Khanjarpur CT",
+   353,
+   11
+  ],
+  "56685": [
+   "Kalanjara Jadid",
+   354,
+   12
+  ],
+  "56615": [
+   "Naqibpur Ghosipura",
+   353,
+   5
+  ],
+  "56789": [
+   "Mohd Pur Bazurg Must",
+   355,
+   6
+  ],
+  "56508": [
+   "Toda Kalyanpur Ah",
+   353,
+   11
+  ],
+  "56742": [
+   "Tikkampur",
+   354,
+   7
+  ],
+  "56616": [
+   "Bheekar Gospur",
+   353,
+   5
+  ],
+  "56598": [
+   "Jainpur Jhanjheri",
+   353,
+   5
+  ],
+  "56810": [
+   "Chiryapur",
+   355,
+   6
+  ],
+  "56500": [
+   "Abbulhasnpur",
+   353,
+   11
+  ],
+  "56741": [
+   "Meerpur",
+   354,
+   7
+  ],
+  "56449": [
+   "Badheri Rajputan",
+   353,
+   12
+  ],
+  "56771": [
+   "Adarsh Tehri Nagar",
+   354,
+   7
+  ],
+  "56679": [
+   "Alipur Ibrahimpur Urf Ikkad",
+   354,
+   12
+  ],
+  "56814": [
+   "Laksari",
+   355,
+   6
+  ],
+  "56621": [
+   "Harchandpur",
+   353,
+   5
+  ],
+  "56683": [
+   "Ahmadpur Grunt",
+   354,
+   12
+  ],
+  "56803": [
+   "Dhadheki Dhana Majamidpur Must",
+   355,
+   6
+  ],
+  "56666": [
+   "Dadpur Govindpur",
+   354,
+   12
+  ],
+  "56875": [
+   "Mubarkpur",
+   355,
+   7
+  ],
+  "56839": [
+   "Fatehpur Chamar",
+   355,
+   2
+  ],
+  "56841": [
+   "Nagla Khitab",
+   355,
+   6
+  ],
+  "56692": [
+   "Bahadarapur Khurd",
+   354,
+   6
+  ],
+  "56812": [
+   "Basera Khadar",
+   355,
+   6
+  ],
+  "56433": [
+   "Kanhapur M",
+   353,
+   11
+  ],
+  "56506": [
+   "Todakalyanpur Mu",
+   353,
+   11
+  ],
+  "56439": [
+   "Mohammad Amirpur Urf Malhumajra Ah",
+   353,
+   12
+  ],
+  "56712": [
+   "Noorpur Panjanhedi",
+   354,
+   13
+  ],
+  "56434": [
+   "Akbarpur Ah",
+   353,
+   11
+  ],
+  "56791": [
+   "Hussainpur",
+   355,
+   6
+  ],
+  "56417": [
+   "Mohammadpur Panda",
+   353,
+   11
+  ],
+  "56783": [
+   "Mubarikpur Alipur",
+   355,
+   6
+  ],
+  "56807": [
+   "Malakpur",
+   355,
+   6
+  ],
+  "56784": [
+   "Kasampur Nawada Aht",
+   355,
+   6
+  ],
+  "56770": [
+   "Subhashgarh",
+   354,
+   6
+  ],
+  "56448": [
+   "Mooldaspur Urf Majra",
+   353,
+   12
+  ],
+  "56524": [
+   "Bijhauli",
+   353,
+   5
+  ],
+  "56820": [
+   "Kahera",
+   355,
+   6
+  ],
+  "56819": [
+   "Salempur Bakkal",
+   355,
+   6
+  ],
+  "56451": [
+   "Ferozpur",
+   353,
+   12
+  ],
+  "56796": [
+   "Rasoolpur Bakkal Aht",
+   355,
+   6
+  ],
+  "277276": [
+   "Roorkee Cb",
+   353,
+   11
+  ],
+  "56710": [
+   "Gadowali",
+   354,
+   13
+  ],
+  "56684": [
+   "Khijarpur Kalanjara",
+   354,
+   12
+  ],
+  "56678": [
+   "Bhagtanpur Abidpur Urf Ibrahim",
+   354,
+   13
+  ],
+  "56416": [
+   "Imlikhera Dharampur",
+   353,
+   11
+  ],
+  "56447": [
+   "Jamalpur",
+   353,
+   12
+  ],
+  "56833": [
+   "Mohdpur Jamapur",
+   355,
+   7
+  ],
+  "56805": [
+   "Aithal Buzurg",
+   355,
+   6
+  ],
+  "56503": [
+   "Malakpur Latifpur",
+   353,
+   11
+  ],
+  "56686": [
+   "Dinarpur",
+   354,
+   12
+  ],
+  "56806": [
+   "Bukkanpur",
+   355,
+   6
+  ],
+  "56703": [
+   "Sarai",
+   354,
+   13
+  ],
+  "56459": [
+   "Halawaheri",
+   353,
+   12
+  ],
+  "56717": [
+   "Mirzapur",
+   354,
+   13
+  ],
+  "56432": [
+   "Kanhapur A H",
+   353,
+   11
+  ],
+  "56704": [
+   "Sitapur Mazara Jwalapur",
+   354,
+   13
+  ],
+  "56700": [
+   "Mohammadpur Urf Jhiwarhedi",
+   354,
+   6
+  ],
+  "56682": [
+   "Manoharpur",
+   354,
+   12
+  ],
+  "56687": [
+   "Sahdevpur Shahwazpur",
+   354,
+   12
+  ],
+  "56507": [
+   "Jalalpur Ah",
+   353,
+   11
+  ],
+  "56599": [
+   "Fatehulla Pur",
+   353,
+   5
+  ],
+  "56438": [
+   "Mohammad Amirpur Urf Malhu Mazra",
+   353,
+   11
+  ],
+  "56671": [
+   "Kutubpur",
+   354,
+   12
+  ],
+  "56419": [
+   "Mehwarkhurd Urf Nagal",
+   353,
+   11
+  ],
+  "56837": [
+   "Punder Urf Peepli",
+   355,
+   6
+  ],
+  "56614": [
+   "Aamkheri",
+   353,
+   5
+  ],
+  "56426": [
+   "Rahmatpur A H",
+   353,
+   11
+  ],
+  "56792": [
+   "Muktarabad",
+   355,
+   6
+  ],
+  "56591": [
+   "Bhagwanpur Chandanpur",
+   353,
+   5
+  ],
+  "56595": [
+   "Khempur",
+   353,
+   5
+  ],
+  "56618": [
+   "Gopalpur",
+   353,
+   5
+  ],
+  "56801": [
+   "Nasirabad",
+   355,
+   6
+  ],
+  "56711": [
+   "Kishanpur",
+   354,
+   13
+  ],
+  "56501": [
+   "Alamaspur",
+   353,
+   11
+  ],
+  "56718": [
+   "Bahadarpur Jat",
+   354,
+   13
+  ],
+  "56452": [
+   "Bharapur",
+   353,
+   12
+  ],
+  "56521": [
+   "Hasan Alipur",
+   353,
+   5
+  ],
+  "56435": [
+   "Kelanpur",
+   353,
+   11
+  ],
+  "56526": [
+   "Sundhari",
+   353,
+   5
+  ],
+  "56834": [
+   "Fidaipur",
+   355,
+   7
+  ],
+  "56431": [
+   "Barampur",
+   353,
+   11
+  ],
+  "56676": [
+   "Sultanpur Majari",
+   354,
+   12
+  ],
+  "56802": [
+   "Bhurna",
+   355,
+   6
+  ],
+  "56613": [
+   "Mundalana",
+   353,
+   5
+  ],
+  "56525": [
+   "Zabardast Pur",
+   353,
+   5
+  ],
+  "56608": [
+   "Abul Hasanpur Urf Ghisarpadi M",
+   353,
+   5
+  ],
+  "56609": [
+   "Abul Hasanpur Urf Ghisarpadi A",
+   353,
+   5
+  ],
+  "56610": [
+   "Mukeempur Mu",
+   353,
+   6
+  ],
+  "56440": [
+   "Bedpur",
+   353,
+   11
+  ],
+  "56414": [
+   "Mazari",
+   353,
+   16
+  ],
+  "56441": [
+   "Dhanauri",
+   353,
+   11
+  ],
+  "56450": [
+   "Shantershah",
+   353,
+   12
+  ],
+  "56446": [
+   "Daulatpur",
+   353,
+   12
+  ],
+  "56445": [
+   "Bahadarpur Saini Mu",
+   353,
+   12
+  ],
+  "56444": [
+   "Bahadarpur Saini Ah",
+   353,
+   12
+  ],
+  "56454": [
+   "Panchayanpur",
+   353,
+   12
+  ],
+  "56455": [
+   "Bawalikalanzri",
+   353,
+   12
+  ],
+  "56458": [
+   "Margoobpur Deedaheri",
+   353,
+   12
+  ],
+  "56457": [
+   "Govindpur Wazidpur",
+   353,
+   12
+  ],
+  "56461": [
+   "Mirazapur Mustafabad",
+   353,
+   12
+  ],
+  "56462": [
+   "Ratanpur",
+   353,
+   12
+  ],
+  "56617": [
+   "Sikhar",
+   353,
+   5
+  ],
+  "56740": [
+   "Mohammadpur Kunhari",
+   354,
+   7
+  ],
+  "56696": [
+   "Mominpur",
+   354,
+   6
+  ],
+  "56660": [
+   "Badshahpur",
+   354,
+   11
+  ],
+  "56672": [
+   "Garh",
+   354,
+   17
+  ],
+  "56772": [
+   "Suman Nagar",
+   354,
+   12
+  ],
+  "56667": [
+   "Mohd Alipur",
+   354,
+   12
+  ],
+  "56673": [
+   "Begampur",
+   354,
+   12
+  ],
+  "56674": [
+   "Khedali",
+   354,
+   12
+  ],
+  "56697": [
+   "Mukarpur",
+   354,
+   6
+  ],
+  "56689": [
+   "Bodaheri Mohiuddinpur",
+   354,
+   12
+  ],
+  "56688": [
+   "Raipur Dareda",
+   354,
+   12
+  ],
+  "56680": [
+   "Ruhalki Kishanpur Urf Ikkad",
+   354,
+   12
+  ],
+  "56681": [
+   "Atmalpur Bangla",
+   354,
+   12
+  ],
+  "56456": [
+   "Meerpur Sikandarpur",
+   353,
+   12
+  ],
+  "56780": [
+   "Ladpur Kalan Must",
+   355,
+   6
+  ],
+  "56788": [
+   "Majri Akbarpur",
+   355,
+   6
+  ],
+  "56420": [
+   "Mukarrabpur",
+   353,
+   11
+  ],
+  "56737": [
+   "Tikaula Jadid",
+   354,
+   7
+  ],
+  "56736": [
+   "Badshapur Sher Pur Bhatti Pur",
+   354,
+   7
+  ],
+  "56729": [
+   "Hardevpur Sahdevpur Urf Rani Majara",
+   354,
+   7
+  ],
+  "56763": [
+   "Lahadpur",
+   354,
+   9
+  ],
+  "56716": [
+   "Sirsali",
+   354,
+   13
+  ],
+  "56881": [
+   "Muzafferpur Gujra",
+   355,
+   7
+  ],
+  "56709": [
+   "Missarpur Mustakam",
+   354,
+   13
+  ],
+  "56776": [
+   "Pathari Forest Range",
+   354,
+   14
+  ],
+  "56714": [
+   "Ajitpur Mustakam",
+   354,
+   13
+  ],
+  "56746": [
+   "Sajanpur Peeli",
+   354,
+   14
+  ],
+  "56731": [
+   "Dhamoli Urf Khair Wala",
+   354,
+   7
+  ],
+  "56755": [
+   "Gaindikhata",
+   354,
+   9
+  ],
+  "56747": [
+   "Peeli Padav",
+   354,
+   14
+  ],
+  "56757": [
+   "Bulakganj",
+   354,
+   8
+  ],
+  "56730": [
+   "Shahpur Shitala Khera",
+   354,
+   7
+  ],
+  "56878": [
+   "Suthari",
+   355,
+   7
+  ],
+  "56753": [
+   "Nalo Wala",
+   354,
+   8
+  ],
+  "56756": [
+   "Naurangabad",
+   354,
+   8
+  ],
+  "56707": [
+   "Devpur Ahatmal",
+   354,
+   13
+  ],
+  "56739": [
+   "Bhuwapur Chamrawal",
+   354,
+   7
+  ],
+  "56887": [
+   "Alawalpur",
+   355,
+   3
+  ],
+  "56725": [
+   "Chandpur",
+   354,
+   13
+  ],
+  "56885": [
+   "Fatwa Aht",
+   355,
+   8
+  ],
+  "56768": [
+   "Bhogpur",
+   354,
+   8
+  ],
+  "56884": [
+   "Fatwa Must",
+   355,
+   8
+  ],
+  "56708": [
+   "Hadipur",
+   354,
+   13
+  ],
+  "56738": [
+   "Banganga No 2",
+   354,
+   7
+  ],
+  "56744": [
+   "Gajiwali",
+   354,
+   14
+  ],
+  "56723": [
+   "Bishanpur Jharada Mustakam",
+   354,
+   13
+  ],
+  "56743": [
+   "Kangari",
+   354,
+   14
+  ],
+  "56749": [
+   "Laldhang",
+   354,
+   9
+  ],
+  "56706": [
+   "Devpur Mustakam",
+   354,
+   13
+  ],
+  "56751": [
+   "Pamdowali",
+   354,
+   9
+  ],
+  "56715": [
+   "Ajitpur Ahatmal",
+   354,
+   13
+  ],
+  "56882": [
+   "Muzafferpur Gujra Jadeed",
+   355,
+   7
+  ],
+  "56764": [
+   "Jaspur Chamaria",
+   354,
+   9
+  ],
+  "56745": [
+   "Shyampur Nauabad",
+   354,
+   14
+  ],
+  "56752": [
+   "Tapadowali",
+   354,
+   9
+  ],
+  "56769": [
+   "Baditeep",
+   354,
+   7
+  ],
+  "56754": [
+   "Dudhala Dayalwala",
+   354,
+   8
+  ],
+  "56727": [
+   "Mustafa Bad",
+   354,
+   7
+  ],
+  "56724": [
+   "Bishanpur Jhara Ahat",
+   354,
+   13
+  ],
+  "56750": [
+   "Samaspur Katabarh",
+   354,
+   9
+  ],
+  "56728": [
+   "Bhawanipur Jamal Pur",
+   354,
+   7
+  ],
+  "56713": [
+   "Missarpur Ahatmal",
+   354,
+   13
+  ],
+  "56748": [
+   "Rasool Pur Mithi Beri",
+   354,
+   9
+  ],
+  "56879": [
+   "Nehandpur",
+   355,
+   3
+  ],
+  "56760": [
+   "Boxowali",
+   354,
+   9
+  ],
+  "56883": [
+   "Musahibpur Majri",
+   355,
+   7
+  ],
+  "56721": [
+   "Katarpur Alipur",
+   354,
+   13
+  ],
+  "56880": [
+   "Mahtauli",
+   355,
+   7
+  ],
+  "56766": [
+   "Prem Nagar",
+   354,
+   9
+  ],
+  "56761": [
+   "Shyampur Gairabad",
+   354,
+   9
+  ],
+  "56759": [
+   "Ahamadpur Chiriya",
+   354,
+   9
+  ],
+  "56758": [
+   "Baso Chandpur",
+   354,
+   8
+  ],
+  "56765": [
+   "Hardaspur",
+   354,
+   9
+  ],
+  "56767": [
+   "Vandev Urf Khushahalpur",
+   354,
+   9
+  ],
+  "56630": [
+   "Piran Kaliyar CT",
+   353,
+   11
+  ],
+  "56635": [
+   "Bangherimahabatpur Must CT",
+   353,
+   11
+  ],
+  "56638": [
+   "Dhandera CT",
+   353,
+   5
+  ],
+  "56779": [
+   "Jagjeetpur CT",
+   354,
+   13
+  ],
+  "56365": [
+   "Habibpur Nawada",
+   353,
+   15
+  ],
+  "56358": [
+   "Akabarpur Kalson",
+   353,
+   15
+  ],
+  "56373": [
+   "Lakesri",
+   353,
+   15
+  ],
+  "56344": [
+   "Hasanpur Madanpur A H",
+   353,
+   15
+  ],
+  "56332": [
+   "Manak Mazara",
+   353,
+   15
+  ],
+  "56340": [
+   "Alawalpur",
+   353,
+   15
+  ],
+  "56339": [
+   "Mukarrampur Urf Kalewala",
+   353,
+   15
+  ],
+  "56347": [
+   "Mandawar",
+   353,
+   15
+  ],
+  "56352": [
+   "Sisauna",
+   353,
+   15
+  ],
+  "56359": [
+   "Rola Hedi",
+   353,
+   15
+  ],
+  "56330": [
+   "Jalalpur Dada",
+   353,
+   15
+  ],
+  "56345": [
+   "Hasanpur Madanpur M",
+   353,
+   15
+  ],
+  "56328": [
+   "Kutubpur Grunt",
+   353,
+   15
+  ],
+  "56353": [
+   "Raipur",
+   353,
+   15
+  ],
+  "56334": [
+   "Hallu Mazara",
+   353,
+   15
+  ],
+  "56343": [
+   "Patti Dada",
+   353,
+   15
+  ],
+  "56331": [
+   "Bahbalpur Hasuwala",
+   353,
+   15
+  ],
+  "56645": [
+   "Hazara Grunt",
+   354,
+   17
+  ],
+  "56350": [
+   "Lawwa",
+   353,
+   15
+  ],
+  "56342": [
+   "Ahamadpur Khedi",
+   353,
+   15
+  ],
+  "56329": [
+   "Sikraudha",
+   353,
+   16
+  ],
+  "56354": [
+   "Makanpur Mahmood Alampur",
+   353,
+   15
+  ],
+  "56351": [
+   "Gin Mohd Shaheed Pur",
+   353,
+   15
+  ],
+  "56348": [
+   "Chauli Shahbuddin Pur",
+   353,
+   15
+  ],
+  "56346": [
+   "Qazibans",
+   353,
+   15
+  ],
+  "56333": [
+   "Khedali",
+   353,
+   15
+  ],
+  "56374": [
+   "Sikanderpur Bhainswal",
+   353,
+   15
+  ],
+  "56364": [
+   "Palooni",
+   353,
+   16
+  ],
+  "56360": [
+   "Ibrahimpur Masahi",
+   353,
+   16
+  ],
+  "56337": [
+   "Aurangzeb Pur",
+   353,
+   15
+  ],
+  "56341": [
+   "Khedi Shikohpur",
+   353,
+   15
+  ],
+  "56372": [
+   "Chappersher Afganpur",
+   353,
+   15
+  ],
+  "56349": [
+   "Latifpur Khubban Pur",
+   353,
+   15
+  ],
+  "56375": [
+   "Badheri Buzurg",
+   353,
+   15
+  ],
+  "56335": [
+   "Fatehullapur Telpura",
+   353,
+   19
+  ],
+  "56338": [
+   "Lodiwala",
+   353,
+   15
+  ],
+  "56318": [
+   "Banjarewala Grunt",
+   353,
+   19
+  ],
+  "56319": [
+   "Daulatpur Urf Budhwa Shaheed",
+   353,
+   19
+  ],
+  "56336": [
+   "Hasanawala",
+   353,
+   19
+  ],
+  "56323": [
+   "Lalwala Khalsa",
+   353,
+   19
+  ],
+  "56664": [
+   "Aneki Hetmapur",
+   354,
+   17
+  ],
+  "56324": [
+   "Lalwala Mazbata",
+   353,
+   19
+  ],
+  "56325": [
+   "Mazahidpur Satiwala Mazbata",
+   353,
+   19
+  ],
+  "56644": [
+   "Daluwala Mazbata",
+   354,
+   17
+  ],
+  "56647": [
+   "Daluwala Khurd",
+   354,
+   16
+  ],
+  "248485": [
+   "Hardwar Npp",
+   354,
+   18
+  ],
+  "56648": [
+   "Rawan Bans",
+   354,
+   16
+  ],
+  "56326": [
+   "Mazahidpur Satiwala Khalsa",
+   353,
+   19
+  ],
+  "56320": [
+   "Shaheedwala Grunt",
+   353,
+   19
+  ],
+  "56774": [
+   "Ranipur Range",
+   354,
+   18
+  ],
+  "56670": [
+   "Rasoolpur",
+   354,
+   17
+  ],
+  "56662": [
+   "Jhabarpur",
+   354,
+   17
+  ],
+  "56665": [
+   "Salempur Mahdood",
+   354,
+   17
+  ],
+  "56663": [
+   "Puranpur Salhapur",
+   354,
+   17
+  ],
+  "56321": [
+   "Naukra Grunt",
+   353,
+   19
+  ],
+  "56661": [
+   "Meerpur Muwazarpur",
+   354,
+   17
+  ],
+  "56653": [
+   "Shekhwala Grunt",
+   354,
+   16
+  ],
+  "56655": [
+   "Khala Teera",
+   354,
+   17
+  ],
+  "56646": [
+   "Asafnagar Grunt",
+   354,
+   17
+  ],
+  "56643": [
+   "Daluwala Grunt",
+   354,
+   16
+  ],
+  "56641": [
+   "Kalubans Grunt",
+   354,
+   16
+  ],
+  "56657": [
+   "Aurangabad",
+   354,
+   17
+  ],
+  "56322": [
+   "Firozpur Urf Buggawala",
+   353,
+   19
+  ],
+  "56656": [
+   "Tanda Banjara",
+   354,
+   17
+  ],
+  "56642": [
+   "Rithaura Grunt",
+   354,
+   16
+  ],
+  "56668": [
+   "Rajpur",
+   354,
+   17
+  ],
+  "56658": [
+   "Shivdas Pur Urf Teliwala",
+   354,
+   17
+  ],
+  "56361": [
+   "Jhiryan Grunt",
+   353,
+   16
+  ],
+  "56327": [
+   "Lam Grunt",
+   353,
+   16
+  ],
+  "56362": [
+   "Nagal",
+   353,
+   16
+  ],
+  "56640": [
+   "Dadubans Grunt",
+   354,
+   16
+  ],
+  "56654": [
+   "Kotamurad Nagar",
+   354,
+   16
+  ],
+  "56652": [
+   "Sohalpur Sikrodha",
+   354,
+   16
+  ],
+  "56651": [
+   "Hadipur Grant",
+   354,
+   16
+  ],
+  "56650": [
+   "Mohd Begpur Urf Takabhari",
+   354,
+   16
+  ],
+  "56649": [
+   "Manu Bans Grunt",
+   354,
+   16
+  ],
+  "56659": [
+   "Jasawa Wala",
+   354,
+   16
+  ],
+  "56669": [
+   "Talibabad",
+   354,
+   17
+  ],
+  "56773": [
+   "Dhaulkhand Range",
+   354,
+   20
+  ],
+  "800358": [
+   "Bharat Heavy Electricals Limited Ranipur Its",
+   354,
+   18
+  ],
+  "56626": [
+   "Mohand Range",
+   353,
+   19
+  ]
+ },
+ "village_count_total": 636,
+ "village_count_assigned": 636
+}

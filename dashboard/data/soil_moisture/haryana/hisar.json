@@ -1,0 +1,1785 @@
+{
+ "metadata": {
+  "source": "NASA SMAP L4 Global 3-hourly 9km Surface and Root Zone Soil Moisture (NASA/SMAP/SPL4SMGP/008), via Google Earth Engine",
+  "resolution": "~9 km (SMAP EASE-Grid 2.0 native spacing; GEE reports an 11,000 m pixel size for this asset)",
+  "band": "sm_surface (0-5cm depth, volume fraction m3/m3) -- primary field this pipeline reports. sm_rootzone (0-100cm depth, volume fraction m3/m3) carried alongside as secondary context, never the headline number.",
+  "method": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count.",
+  "note": "Resolution is ~9 km -- one SMAP cell covers many villages. Village tier NEVER claims a village-specific value; it always shows the real count of villages sharing that cell. See MERA_KHET_PROMPT.md section B1.",
+  "state": "Haryana",
+  "district": "Hisar",
+  "district_lgd": 63,
+  "observation_window": "2026-08-07T11:08Z to 2026-08-12T11:08Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+  "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
+  "last_updated": "2026-08-12",
+  "village_boundary_coverage": "full"
+ },
+ "district": {
+  "sm_surface_mean": 0.2365,
+  "sm_surface_stddev": 0.0257,
+  "sm_rootzone_mean": 0.2134,
+  "sm_rootzone_stddev": 0.0131,
+  "n_cells": 39,
+  "cells": [
+   {
+    "cell_index": 0,
+    "lat": 29.0021,
+    "lon": 75.5438,
+    "sm_surface": 0.1957,
+    "sm_rootzone": 0.1893,
+    "n_villages_sharing_cell": 1
+   },
+   {
+    "cell_index": 1,
+    "lat": 29.0021,
+    "lon": 75.6426,
+    "sm_surface": 0.2005,
+    "sm_rootzone": 0.1907,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 2,
+    "lat": 29.0021,
+    "lon": 75.7415,
+    "sm_surface": 0.2102,
+    "sm_rootzone": 0.1948,
+    "n_villages_sharing_cell": 12
+   },
+   {
+    "cell_index": 3,
+    "lat": 29.0021,
+    "lon": 75.8403,
+    "sm_surface": 0.2241,
+    "sm_rootzone": 0.1999,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 4,
+    "lat": 29.0021,
+    "lon": 76.2355,
+    "sm_surface": 0.2604,
+    "sm_rootzone": 0.2196,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 5,
+    "lat": 29.1009,
+    "lon": 75.445,
+    "sm_surface": 0.2004,
+    "sm_rootzone": 0.1932,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 6,
+    "lat": 29.1009,
+    "lon": 75.5438,
+    "sm_surface": 0.1998,
+    "sm_rootzone": 0.1934,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 7,
+    "lat": 29.1009,
+    "lon": 75.6426,
+    "sm_surface": 0.2044,
+    "sm_rootzone": 0.1948,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 8,
+    "lat": 29.1009,
+    "lon": 75.7415,
+    "sm_surface": 0.2181,
+    "sm_rootzone": 0.1974,
+    "n_villages_sharing_cell": 11
+   },
+   {
+    "cell_index": 9,
+    "lat": 29.1009,
+    "lon": 75.8403,
+    "sm_surface": 0.2324,
+    "sm_rootzone": 0.2071,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 10,
+    "lat": 29.1009,
+    "lon": 75.9391,
+    "sm_surface": 0.243,
+    "sm_rootzone": 0.2124,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 11,
+    "lat": 29.1009,
+    "lon": 76.0379,
+    "sm_surface": 0.25,
+    "sm_rootzone": 0.2151,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 12,
+    "lat": 29.1009,
+    "lon": 76.1367,
+    "sm_surface": 0.2548,
+    "sm_rootzone": 0.2164,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 13,
+    "lat": 29.1009,
+    "lon": 76.2355,
+    "sm_surface": 0.2651,
+    "sm_rootzone": 0.2222,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 14,
+    "lat": 29.1997,
+    "lon": 75.445,
+    "sm_surface": 0.1938,
+    "sm_rootzone": 0.2165,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 15,
+    "lat": 29.1997,
+    "lon": 75.5438,
+    "sm_surface": 0.1981,
+    "sm_rootzone": 0.2178,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 16,
+    "lat": 29.1997,
+    "lon": 75.6426,
+    "sm_surface": 0.2059,
+    "sm_rootzone": 0.2222,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 17,
+    "lat": 29.1997,
+    "lon": 75.7415,
+    "sm_surface": 0.2268,
+    "sm_rootzone": 0.2062,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 18,
+    "lat": 29.1997,
+    "lon": 75.8403,
+    "sm_surface": 0.2435,
+    "sm_rootzone": 0.2137,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 19,
+    "lat": 29.1997,
+    "lon": 75.9391,
+    "sm_surface": 0.253,
+    "sm_rootzone": 0.219,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 20,
+    "lat": 29.1997,
+    "lon": 76.0379,
+    "sm_surface": 0.2608,
+    "sm_rootzone": 0.2172,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 21,
+    "lat": 29.1997,
+    "lon": 76.1367,
+    "sm_surface": 0.2617,
+    "sm_rootzone": 0.2202,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 22,
+    "lat": 29.1997,
+    "lon": 76.2355,
+    "sm_surface": 0.2687,
+    "sm_rootzone": 0.2244,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 23,
+    "lat": 29.2986,
+    "lon": 75.445,
+    "sm_surface": 0.2023,
+    "sm_rootzone": 0.1985,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 24,
+    "lat": 29.2986,
+    "lon": 75.5438,
+    "sm_surface": 0.2067,
+    "sm_rootzone": 0.1993,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 25,
+    "lat": 29.2986,
+    "lon": 75.6426,
+    "sm_surface": 0.2188,
+    "sm_rootzone": 0.2042,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 26,
+    "lat": 29.2986,
+    "lon": 75.7415,
+    "sm_surface": 0.2322,
+    "sm_rootzone": 0.2097,
+    "n_villages_sharing_cell": 7
+   },
+   {
+    "cell_index": 27,
+    "lat": 29.2986,
+    "lon": 75.8403,
+    "sm_surface": 0.2396,
+    "sm_rootzone": 0.2456,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 28,
+    "lat": 29.2986,
+    "lon": 75.9391,
+    "sm_surface": 0.2584,
+    "sm_rootzone": 0.2221,
+    "n_villages_sharing_cell": 6
+   },
+   {
+    "cell_index": 29,
+    "lat": 29.2986,
+    "lon": 76.0379,
+    "sm_surface": 0.2611,
+    "sm_rootzone": 0.2222,
+    "n_villages_sharing_cell": 10
+   },
+   {
+    "cell_index": 30,
+    "lat": 29.2986,
+    "lon": 76.1367,
+    "sm_surface": 0.2603,
+    "sm_rootzone": 0.2197,
+    "n_villages_sharing_cell": 13
+   },
+   {
+    "cell_index": 31,
+    "lat": 29.3974,
+    "lon": 75.6426,
+    "sm_surface": 0.2352,
+    "sm_rootzone": 0.2123,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 32,
+    "lat": 29.3974,
+    "lon": 75.7415,
+    "sm_surface": 0.2528,
+    "sm_rootzone": 0.2189,
+    "n_villages_sharing_cell": 3
+   },
+   {
+    "cell_index": 33,
+    "lat": 29.3974,
+    "lon": 75.8403,
+    "sm_surface": 0.2654,
+    "sm_rootzone": 0.2303,
+    "n_villages_sharing_cell": 4
+   },
+   {
+    "cell_index": 34,
+    "lat": 29.3974,
+    "lon": 75.9391,
+    "sm_surface": 0.2717,
+    "sm_rootzone": 0.2346,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 35,
+    "lat": 29.3974,
+    "lon": 76.0379,
+    "sm_surface": 0.2648,
+    "sm_rootzone": 0.2293,
+    "n_villages_sharing_cell": 9
+   },
+   {
+    "cell_index": 36,
+    "lat": 29.3974,
+    "lon": 76.1367,
+    "sm_surface": 0.2571,
+    "sm_rootzone": 0.2209,
+    "n_villages_sharing_cell": 2
+   },
+   {
+    "cell_index": 37,
+    "lat": 29.4962,
+    "lon": 75.8403,
+    "sm_surface": 0.2607,
+    "sm_rootzone": 0.2247,
+    "n_villages_sharing_cell": 8
+   },
+   {
+    "cell_index": 38,
+    "lat": 29.4962,
+    "lon": 75.9391,
+    "sm_surface": 0.2655,
+    "sm_rootzone": 0.2278,
+    "n_villages_sharing_cell": 5
+   }
+  ]
+ },
+ "district_block_rollup": {
+  "sm_surface_mean": 0.2368,
+  "sm_surface_stddev": 0.0226,
+  "n_blocks": 4
+ },
+ "blocks": [
+  {
+   "block_name": "Adampur",
+   "sdcode": 393,
+   "n_villages": 29,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.203,
+   "sm_surface_stddev": 0.0052
+  },
+  {
+   "block_name": "Hansi",
+   "sdcode": 396,
+   "n_villages": 63,
+   "n_cells_spanned": 13,
+   "sm_surface_mean": 0.2536,
+   "sm_surface_stddev": 0.0115
+  },
+  {
+   "block_name": "Hisar",
+   "sdcode": 394,
+   "n_villages": 157,
+   "n_cells_spanned": 26,
+   "sm_surface_mean": 0.2298,
+   "sm_surface_stddev": 0.0249
+  },
+  {
+   "block_name": "Narnaund",
+   "sdcode": 395,
+   "n_villages": 32,
+   "n_cells_spanned": 6,
+   "sm_surface_mean": 0.2608,
+   "sm_surface_stddev": 0.0018
+  }
+ ],
+ "villages": {
+  "61023": [
+   "Gandas",
+   395,
+   30
+  ],
+  "60919": [
+   "Gorchhi",
+   394,
+   6
+  ],
+  "60903": [
+   "Balsmand",
+   394,
+   5
+  ],
+  "60916": [
+   "Rawalwas Kalan",
+   394,
+   6
+  ],
+  "60917": [
+   "Bhiwani Ruhelan",
+   394,
+   6
+  ],
+  "60914": [
+   "Panihar Chak",
+   394,
+   7
+  ],
+  "60913": [
+   "Bherian",
+   394,
+   7
+  ],
+  "60918": [
+   "Sarsana",
+   394,
+   6
+  ],
+  "60921": [
+   "Chaudhriwas",
+   394,
+   1
+  ],
+  "60920": [
+   "Gawar",
+   394,
+   0
+  ],
+  "60930": [
+   "Talwandi Badshahpur",
+   394,
+   1
+  ],
+  "60887": [
+   "Kirara",
+   394,
+   26
+  ],
+  "61073": [
+   "Sultanpur",
+   396,
+   3
+  ],
+  "61079": [
+   "Hajampur",
+   396,
+   10
+  ],
+  "61071": [
+   "Ramayan",
+   396,
+   9
+  ],
+  "61074": [
+   "Dhamian",
+   396,
+   3
+  ],
+  "60938": [
+   "Badon Brahmanan",
+   394,
+   2
+  ],
+  "61088": [
+   "Mehanda",
+   396,
+   11
+  ],
+  "61070": [
+   "Depal",
+   396,
+   10
+  ],
+  "61072": [
+   "Dhanderi",
+   396,
+   9
+  ],
+  "61077": [
+   "Umra",
+   396,
+   10
+  ],
+  "61078": [
+   "Putthi Mangalkhan",
+   396,
+   10
+  ],
+  "61075": [
+   "Kanwari",
+   396,
+   3
+  ],
+  "61076": [
+   "Mazadpur",
+   396,
+   3
+  ],
+  "60951": [
+   "Hari Kot",
+   394,
+   8
+  ],
+  "60923": [
+   "Singhran",
+   394,
+   8
+  ],
+  "60943": [
+   "Mangali Mohbat",
+   394,
+   8
+  ],
+  "60925": [
+   "Daha",
+   394,
+   2
+  ],
+  "60937": [
+   "Harita",
+   394,
+   2
+  ],
+  "60927": [
+   "Payal",
+   394,
+   1
+  ],
+  "60926": [
+   "Chandnaud",
+   394,
+   2
+  ],
+  "60931": [
+   "Talwandi Rukka",
+   394,
+   1
+  ],
+  "60946": [
+   "Bhagana",
+   394,
+   9
+  ],
+  "60947": [
+   "Ladwa",
+   394,
+   9
+  ],
+  "60949": [
+   "Mangali Brahmnan",
+   394,
+   8
+  ],
+  "60950": [
+   "Mangali Akalan",
+   394,
+   8
+  ],
+  "60922": [
+   "Kaluwas",
+   394,
+   7
+  ],
+  "60924": [
+   "Mangali Jhara",
+   394,
+   2
+  ],
+  "60944": [
+   "Dahima",
+   394,
+   3
+  ],
+  "60942": [
+   "Mangali Surtia",
+   394,
+   2
+  ],
+  "60945": [
+   "Guzar",
+   394,
+   3
+  ],
+  "60941": [
+   "Bhojraj",
+   394,
+   2
+  ],
+  "60929": [
+   "Chiraud",
+   394,
+   1
+  ],
+  "60940": [
+   "Badon Rangran",
+   394,
+   2
+  ],
+  "60928": [
+   "Rawat Khera",
+   394,
+   1
+  ],
+  "60939": [
+   "Bharri",
+   394,
+   2
+  ],
+  "60935": [
+   "Balawas",
+   394,
+   3
+  ],
+  "60933": [
+   "Dobeta",
+   394,
+   2
+  ],
+  "60936": [
+   "Bure",
+   394,
+   2
+  ],
+  "60934": [
+   "Nalwa",
+   394,
+   3
+  ],
+  "60932": [
+   "Saharwa",
+   394,
+   2
+  ],
+  "60948": [
+   "Dhani Jatan",
+   394,
+   8
+  ],
+  "61091": [
+   "Sisar",
+   396,
+   12
+  ],
+  "61089": [
+   "Sorkhi",
+   396,
+   12
+  ],
+  "61111": [
+   "Madan Heri",
+   396,
+   13
+  ],
+  "61112": [
+   "Singhwa Khas",
+   396,
+   4
+  ],
+  "61090": [
+   "Banda Heri",
+   396,
+   4
+  ],
+  "61059": [
+   "Tharwa",
+   396,
+   29
+  ],
+  "61064": [
+   "Kheri Barkesh",
+   396,
+   19
+  ],
+  "60966": [
+   "Bahbalpur",
+   394,
+   26
+  ],
+  "60852": [
+   "Ladwi",
+   393,
+   15
+  ],
+  "60861": [
+   "Malapur",
+   393,
+   15
+  ],
+  "60847": [
+   "Mohabatpur",
+   393,
+   14
+  ],
+  "60856": [
+   "Kalirawan",
+   393,
+   24
+  ],
+  "60845": [
+   "Khara Barwala",
+   393,
+   23
+  ],
+  "60846": [
+   "Daroli",
+   393,
+   23
+  ],
+  "60851": [
+   "Siswal",
+   393,
+   15
+  ],
+  "60838": [
+   "Chuli Kalan",
+   393,
+   23
+  ],
+  "60844": [
+   "Kohli",
+   393,
+   24
+  ],
+  "60855": [
+   "Asranwan",
+   393,
+   25
+  ],
+  "60853": [
+   "Mahalsara",
+   393,
+   24
+  ],
+  "60854": [
+   "Mothsara",
+   393,
+   24
+  ],
+  "60860": [
+   "Kajla",
+   393,
+   16
+  ],
+  "60848": [
+   "Moda Khera",
+   393,
+   14
+  ],
+  "60864": [
+   "Inchha Kharkhari",
+   393,
+   16
+  ],
+  "60863": [
+   "Neoli Khurd",
+   393,
+   16
+  ],
+  "60862": [
+   "Jakhod Khera",
+   393,
+   15
+  ],
+  "60849": [
+   "Bagla",
+   393,
+   14
+  ],
+  "60866": [
+   "Ghursal",
+   394,
+   14
+  ],
+  "60850": [
+   "Kabrer",
+   393,
+   15
+  ],
+  "60869": [
+   "Telanwali",
+   394,
+   14
+  ],
+  "60868": [
+   "Kutia Kheri",
+   394,
+   14
+  ],
+  "60870": [
+   "Durjanpur",
+   394,
+   16
+  ],
+  "60896": [
+   "Meengni Khera",
+   394,
+   15
+  ],
+  "60867": [
+   "Chudhriwali",
+   394,
+   14
+  ],
+  "60897": [
+   "Salemgarh",
+   394,
+   15
+  ],
+  "60893": [
+   "Neoli Kalan",
+   394,
+   16
+  ],
+  "60876": [
+   "Fransi",
+   394,
+   25
+  ],
+  "60875": [
+   "Risalu Khera",
+   394,
+   25
+  ],
+  "60871": [
+   "Jagan",
+   394,
+   25
+  ],
+  "60895": [
+   "Mater Sham",
+   394,
+   15
+  ],
+  "60894": [
+   "Shahpur",
+   394,
+   16
+  ],
+  "60900": [
+   "Dobhi",
+   394,
+   5
+  ],
+  "60899": [
+   "Kharia",
+   394,
+   6
+  ],
+  "60898": [
+   "Kirtan",
+   394,
+   15
+  ],
+  "60901": [
+   "Bandaheri",
+   394,
+   5
+  ],
+  "60892": [
+   "Ludas",
+   394,
+   16
+  ],
+  "60902": [
+   "Burak",
+   394,
+   5
+  ],
+  "60907": [
+   "Nathwana",
+   394,
+   7
+  ],
+  "60908": [
+   "Hindwan",
+   394,
+   7
+  ],
+  "60905": [
+   "Siswala",
+   394,
+   6
+  ],
+  "60906": [
+   "Rawalwas Khurd",
+   394,
+   6
+  ],
+  "60904": [
+   "Sundawas",
+   394,
+   6
+  ],
+  "60909": [
+   "Patan",
+   394,
+   7
+  ],
+  "60915": [
+   "Dhiran Was",
+   394,
+   7
+  ],
+  "60837": [
+   "Chuli Khurd",
+   393,
+   23
+  ],
+  "60858": [
+   "Bhana",
+   393,
+   24
+  ],
+  "60842": [
+   "Bhodia Khera Bishnoian",
+   393,
+   24
+  ],
+  "60857": [
+   "Sarangpur",
+   393,
+   24
+  ],
+  "60859": [
+   "Khasa Mahajanan",
+   393,
+   24
+  ],
+  "60841": [
+   "Sadelpur",
+   393,
+   23
+  ],
+  "60839": [
+   "Chuli Bagarian",
+   393,
+   23
+  ],
+  "60843": [
+   "Kherampur",
+   393,
+   24
+  ],
+  "60881": [
+   "Sabarwas",
+   394,
+   31
+  ],
+  "60877": [
+   "Agroha",
+   394,
+   25
+  ],
+  "60840": [
+   "Chabbarwal",
+   393,
+   23
+  ],
+  "60865": [
+   "Adampur CT",
+   393,
+   23
+  ],
+  "61107": [
+   "Mohla",
+   396,
+   13
+  ],
+  "61052": [
+   "Gurana",
+   396,
+   28
+  ],
+  "61053": [
+   "Khanpur",
+   396,
+   28
+  ],
+  "61051": [
+   "Data",
+   396,
+   29
+  ],
+  "61054": [
+   "Sindhar",
+   396,
+   28
+  ],
+  "61055": [
+   "Ghirai",
+   396,
+   19
+  ],
+  "61056": [
+   "Singhwa Ragho",
+   396,
+   28
+  ],
+  "61058": [
+   "Masoodpur",
+   396,
+   19
+  ],
+  "61060": [
+   "Shala Dheri",
+   396,
+   20
+  ],
+  "61057": [
+   "Channot",
+   396,
+   19
+  ],
+  "61063": [
+   "Sisai Kali Rawan",
+   396,
+   20
+  ],
+  "61062": [
+   "Sisai Bola",
+   396,
+   20
+  ],
+  "61066": [
+   "Bhatla",
+   396,
+   19
+  ],
+  "61065": [
+   "Majod",
+   396,
+   19
+  ],
+  "61061": [
+   "Kajal",
+   396,
+   20
+  ],
+  "61067": [
+   "Kulana",
+   396,
+   19
+  ],
+  "61082": [
+   "Kheri Gangan",
+   396,
+   20
+  ],
+  "61084": [
+   "Khumba",
+   396,
+   11
+  ],
+  "61081": [
+   "Sheikhpura",
+   396,
+   11
+  ],
+  "61080": [
+   "Bir Hansi",
+   396,
+   10
+  ],
+  "61069": [
+   "Kutabpur",
+   396,
+   10
+  ],
+  "61083": [
+   "Jamawari",
+   396,
+   11
+  ],
+  "61094": [
+   "Bhatol Rangran",
+   396,
+   12
+  ],
+  "61085": [
+   "Khar Khara",
+   396,
+   11
+  ],
+  "61086": [
+   "Dhana",
+   396,
+   11
+  ],
+  "61010": [
+   "Surewala",
+   394,
+   38
+  ],
+  "61004": [
+   "Chamar Khera",
+   394,
+   37
+  ],
+  "61002": [
+   "Pabra",
+   394,
+   37
+  ],
+  "61005": [
+   "Sahu",
+   394,
+   37
+  ],
+  "61006": [
+   "Bhairi Akbarpur",
+   394,
+   37
+  ],
+  "61007": [
+   "Budha Khera",
+   394,
+   37
+  ],
+  "61011": [
+   "Parbhuwala",
+   394,
+   38
+  ],
+  "60997": [
+   "Sarera",
+   394,
+   34
+  ],
+  "61013": [
+   "Latani",
+   394,
+   38
+  ],
+  "61003": [
+   "Daulatpur",
+   394,
+   37
+  ],
+  "60999": [
+   "Gaibipur",
+   394,
+   34
+  ],
+  "60994": [
+   "Hasangarh",
+   394,
+   34
+  ],
+  "61000": [
+   "Nawagaon",
+   394,
+   34
+  ],
+  "61012": [
+   "Kallar Bhaini",
+   394,
+   38
+  ],
+  "60995": [
+   "Bobua",
+   394,
+   34
+  ],
+  "60998": [
+   "Kharkhara",
+   394,
+   34
+  ],
+  "60993": [
+   "Kumbha Khera",
+   394,
+   35
+  ],
+  "60882": [
+   "Samani",
+   394,
+   31
+  ],
+  "60996": [
+   "Madloda",
+   394,
+   35
+  ],
+  "60988": [
+   "Bhada Khera",
+   394,
+   35
+  ],
+  "60992": [
+   "Chhan",
+   394,
+   35
+  ],
+  "61001": [
+   "Bhaini Badshahpur",
+   394,
+   33
+  ],
+  "60884": [
+   "Kanoh",
+   394,
+   32
+  ],
+  "60979": [
+   "Isharheri",
+   394,
+   33
+  ],
+  "60980": [
+   "Barwala Rural",
+   394,
+   34
+  ],
+  "60977": [
+   "Balak",
+   394,
+   33
+  ],
+  "60883": [
+   "Kirmara",
+   394,
+   32
+  ],
+  "60978": [
+   "Khedar",
+   394,
+   33
+  ],
+  "60990": [
+   "Sandlana",
+   394,
+   35
+  ],
+  "60880": [
+   "Kuleri",
+   394,
+   31
+  ],
+  "60991": [
+   "Banbhori",
+   394,
+   35
+  ],
+  "60885": [
+   "Sandol",
+   394,
+   32
+  ],
+  "60886": [
+   "Kirori",
+   394,
+   26
+  ],
+  "60987": [
+   "Sarsana",
+   394,
+   35
+  ],
+  "60989": [
+   "Sotha",
+   394,
+   35
+  ],
+  "60986": [
+   "Kharak",
+   394,
+   35
+  ],
+  "60879": [
+   "Nang Thala",
+   394,
+   26
+  ],
+  "60965": [
+   "Dhingtana",
+   394,
+   27
+  ],
+  "60963": [
+   "Talwandi Rana",
+   394,
+   17
+  ],
+  "60962": [
+   "Dhansu",
+   394,
+   18
+  ],
+  "60970": [
+   "Sulkhani",
+   394,
+   18
+  ],
+  "60958": [
+   "Mirzapur",
+   394,
+   18
+  ],
+  "60961": [
+   "Kharkhari",
+   394,
+   18
+  ],
+  "60973": [
+   "Sarsod",
+   394,
+   27
+  ],
+  "60976": [
+   "Bichpari",
+   394,
+   27
+  ],
+  "60888": [
+   "Shamsukh",
+   394,
+   26
+  ],
+  "60878": [
+   "Mirpur",
+   394,
+   25
+  ],
+  "60981": [
+   "Badhawar",
+   394,
+   28
+  ],
+  "60984": [
+   "Panhari",
+   394,
+   29
+  ],
+  "60975": [
+   "Jeora",
+   394,
+   27
+  ],
+  "60985": [
+   "Gianpura",
+   394,
+   29
+  ],
+  "60874": [
+   "Landhari Sukh Lambran",
+   394,
+   25
+  ],
+  "60982": [
+   "Dhadh",
+   394,
+   29
+  ],
+  "60972": [
+   "Panghal",
+   394,
+   28
+  ],
+  "60974": [
+   "Kheri Barki",
+   394,
+   26
+  ],
+  "60983": [
+   "Bayana Khera",
+   394,
+   29
+  ],
+  "60969": [
+   "Bugana",
+   394,
+   27
+  ],
+  "60964": [
+   "Juglan",
+   394,
+   26
+  ],
+  "60889": [
+   "Bir Hisar",
+   394,
+   17
+  ],
+  "60873": [
+   "Thaska",
+   394,
+   25
+  ],
+  "60872": [
+   "Chikanwas",
+   394,
+   25
+  ],
+  "60971": [
+   "Rajli",
+   394,
+   27
+  ],
+  "60968": [
+   "Badon Pati Awal",
+   394,
+   27
+  ],
+  "60967": [
+   "Badon Pati Doyan",
+   394,
+   27
+  ],
+  "60890": [
+   "Hisar Rural",
+   394,
+   17
+  ],
+  "60960": [
+   "Khokha",
+   394,
+   18
+  ],
+  "60959": [
+   "Nayana",
+   394,
+   18
+  ],
+  "60957": [
+   "Raipur",
+   394,
+   18
+  ],
+  "60956": [
+   "Kharar",
+   394,
+   18
+  ],
+  "60891": [
+   "Arya Nagar",
+   394,
+   7
+  ],
+  "60955": [
+   "Alipur",
+   394,
+   9
+  ],
+  "60952": [
+   "Kaimri",
+   394,
+   8
+  ],
+  "60954": [
+   "Dabra",
+   394,
+   8
+  ],
+  "60910": [
+   "Tokas",
+   394,
+   7
+  ],
+  "60912": [
+   "Muklan",
+   394,
+   7
+  ],
+  "60911": [
+   "Dewe",
+   394,
+   7
+  ],
+  "60953": [
+   "Mirka",
+   394,
+   8
+  ],
+  "61032": [
+   "Kheri Jalib",
+   395,
+   29
+  ],
+  "61031": [
+   "Kheri Lochap",
+   395,
+   30
+  ],
+  "61033": [
+   "Haibatpur",
+   395,
+   29
+  ],
+  "61050": [
+   "Luhari Ragho",
+   395,
+   29
+  ],
+  "61034": [
+   "Gamra",
+   395,
+   29
+  ],
+  "61048": [
+   "Moth Rangran",
+   395,
+   20
+  ],
+  "61049": [
+   "Moth Karnail Shab",
+   395,
+   20
+  ],
+  "61045": [
+   "Rajpura",
+   395,
+   20
+  ],
+  "61044": [
+   "Pali",
+   395,
+   20
+  ],
+  "61046": [
+   "Madha",
+   395,
+   20
+  ],
+  "61087": [
+   "Garhi",
+   396,
+   11
+  ],
+  "61068": [
+   "Hansi Rural",
+   396,
+   10
+  ],
+  "61101": [
+   "Khanda Kheri",
+   396,
+   22
+  ],
+  "61102": [
+   "Jamni Khera",
+   396,
+   22
+  ],
+  "61103": [
+   "Dharam Kheri",
+   396,
+   22
+  ],
+  "61104": [
+   "Ghuskani",
+   396,
+   22
+  ],
+  "61095": [
+   "Thurana",
+   396,
+   21
+  ],
+  "61108": [
+   "Bad Chhapar",
+   396,
+   13
+  ],
+  "61105": [
+   "Ugalan",
+   396,
+   22
+  ],
+  "61100": [
+   "Bhaklana",
+   396,
+   22
+  ],
+  "61106": [
+   "Khera Rangran",
+   396,
+   22
+  ],
+  "61098": [
+   "Bass Azam Shahpur",
+   396,
+   12
+  ],
+  "61099": [
+   "Bass Akbarpur",
+   396,
+   13
+  ],
+  "61096": [
+   "Badala",
+   396,
+   12
+  ],
+  "61093": [
+   "Bhatol Jatan",
+   396,
+   12
+  ],
+  "61097": [
+   "Bass Khurd Bejan",
+   396,
+   12
+  ],
+  "61110": [
+   "Bass Badshahpur",
+   396,
+   13
+  ],
+  "61109": [
+   "Puthi Saman",
+   396,
+   13
+  ],
+  "61092": [
+   "Kharbla",
+   396,
+   12
+  ],
+  "61030": [
+   "Rakhi Khas",
+   395,
+   30
+  ],
+  "61027": [
+   "Milakpur",
+   395,
+   30
+  ],
+  "61035": [
+   "Rakhi Shahpur",
+   395,
+   30
+  ],
+  "61028": [
+   "Kheri Shioran",
+   395,
+   30
+  ],
+  "61038": [
+   "Raj Thal",
+   395,
+   30
+  ],
+  "61037": [
+   "Bheni Amirpur",
+   395,
+   21
+  ],
+  "61039": [
+   "Kagsar",
+   395,
+   22
+  ],
+  "61047": [
+   "Aurang Shahpur",
+   395,
+   21
+  ],
+  "61042": [
+   "Narnaund Rural",
+   395,
+   21
+  ],
+  "61029": [
+   "Kheri Roj",
+   395,
+   30
+  ],
+  "61036": [
+   "Budana",
+   395,
+   30
+  ],
+  "61040": [
+   "Sulchani",
+   395,
+   21
+  ],
+  "61043": [
+   "Majra",
+   395,
+   21
+  ],
+  "61041": [
+   "Petwar",
+   395,
+   21
+  ],
+  "61019": [
+   "Mayyer CT",
+   394,
+   9
+  ],
+  "800407": [
+   "Hansi",
+   396,
+   10
+  ],
+  "61016": [
+   "Satrod Khurd CT",
+   394,
+   18
+  ],
+  "61017": [
+   "Satrod Khas CT",
+   394,
+   8
+  ],
+  "61015": [
+   "Gangwa CT",
+   394,
+   8
+  ],
+  "61018": [
+   "Satrod Kalan CT",
+   394,
+   9
+  ],
+  "800405": [
+   "Hisar",
+   394,
+   17
+  ],
+  "800404": [
+   "Barwala",
+   394,
+   34
+  ],
+  "61014": [
+   "Uklana Mandi CT",
+   394,
+   37
+  ],
+  "645583": [
+   "Ccs Hau Campus and Mini Sect OG",
+   394,
+   16
+  ],
+  "800406": [
+   "Narnaund",
+   395,
+   21
+  ],
+  "61022": [
+   "Koth Khurd",
+   395,
+   30
+  ],
+  "61025": [
+   "Nara",
+   395,
+   30
+  ],
+  "61024": [
+   "Kinnar",
+   395,
+   30
+  ],
+  "61026": [
+   "Mirchpur",
+   395,
+   30
+  ],
+  "61021": [
+   "Koth Kalan",
+   395,
+   36
+  ],
+  "61020": [
+   "Kapro",
+   395,
+   36
+  ],
+  "61009": [
+   "Bithmara",
+   394,
+   38
+  ],
+  "61008": [
+   "Uklana Rural",
+   394,
+   37
+  ]
+ },
+ "village_count_total": 281,
+ "village_count_assigned": 281
+}
