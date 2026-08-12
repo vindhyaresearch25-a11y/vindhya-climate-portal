@@ -79,57 +79,76 @@ Kram se karo, upar se neeche. Har item ke saamne:
 
 ---
 
-# 3. NDVI -- 8 / 733 (sabse peeche)
+# 3. NDVI -- 8 / 733 (sabse peeche) -- **CHALU HAI (background watchdog)**
 
-- Raftaar batao: ek zile me kitna samay, poore desh me kitna
-- MODIS (250 m, 2000 se) ya Sentinel-2 (10 m, 2017 se) -- kaunsa
-- Chaaron star par aggregate, har ek ke saath kitne unit + SD
-- Chalao
-
----
-
-# 4. GROUNDWATER -- 0
-
-**Ye sabse zyada value wala hai.**
-Humare paas har gaon ka `irrigated_wells_tubewells_ha` PEHLE SE hai.
-CGWB ka bhujal star usse jodo -> pata chalega kaunsa gaon khatre me.
-
-- PEHLE jaancho: India-WRIS ka public API/download hai ya nahi
-- Hai to script, nahi to panel me:
-  *"No public API. Source: CGWB India-WRIS. Institutional data
-  request required."*
-- **Scrape mat karo**
+- **Raftaar:** naapa live (Sikkim benchmark) -- cold-start district ~5.7
+  min (GEE compute warm-up), phir steady-state ~40-45s/zila, kabhi-kabhi
+  GEE 90s timeout par retry (auto-resume se safe). Poore desh (733 zile)
+  ka anuman ~8-12 ghante continuous run, exact nahi bata sakte (GEE load
+  variable hai).
+- **MODIS chuna** (250 m, 2000-2024) -- already scripts/10_gee_national_ndvi.py
+  me decided tha (Sentinel-2 sirf 2015 se, zyada compute), naya faisla
+  nahi liya, existing decision confirm ki.
+- Chaaron star aggregate + SD -- pehle se code me hai
+  (`10_gee_national_ndvi.py`'s reduceRegion pixel-count+stdDev).
+- **Chalao** -- watchdog launch kiya (`run_gee_national_watchdog.py
+  --script 10_gee_national_ndvi.py`), generalized watchdog script taaki
+  wahi 08's crash-resume logic NDVI/soil-moisture dono ke liye reuse ho.
+  Chal raha hai is waqt.
 
 ---
 
-# 5. SOIL MOISTURE -- 23 se aage
+# 4. GROUNDWATER -- 0 -- **AGENT ME CHALU** (background, worktree isolated)
 
-- SMAP (GEE, muft), chaaron star par
-- **Resolution 9 km har jagah likho** -- gaon-star par bhi wahi
-  9 km ka maan hoga, gaon ka apna nahi
-- Har aggregate: kitne pixel + SD
+India-WRIS ka public API jaanchne + script ya honest gap-message ke liye
+ek background agent kaam kar raha hai (data.gov.in CGWB resource +
+India-WRIS + cgwb.gov.in bulk-download teeno jaanch raha hai). Nateeja
+milte hi merge karke report karunga -- abhi tak result nahi aaya.
 
 ---
 
-# 6. IMD -- pehle NAAPO, phir faisla
+# 5. SOIL MOISTURE -- 23 se aage -- **CHALU HAI (background watchdog)**
 
-Abhi 726 zile ERA5-Land+CHIRPS se hain, sirf 5 IMD se.
-IMD ka kachcha NetCDF is machine par nahi hai (2 Aug ko jaancha gaya).
+- SMAP (GEE, muft), chaaron star -- already `13_gee_national_soil_moisture.py`
+  me decided/coded tha
+- **Resolution 9 km** -- pehle se har output file me likha hai
+- Har aggregate: pixel count + SD -- pehle se code me hai
+- **Chalao** -- same generalized watchdog se launch kiya, chal raha hai,
+  25+ zile is run me likh chuka (Assam tak pahunch gaya jaldi hi).
 
-Jaancho aur batao:
-1. `imdlib` chalta hai? (`pip install imdlib`, phir
-   `imd.get_data('tmax', 2020, 2020, fn_format='yearwise')`)
-   Error aaye to poora message. Chale to: ek saal ka size, samay.
-2. Na chale to imdpune.gov.in se manual download ka rasta
-3. IMD ka asli resolution -- rain aur temp dono ka. **Agar temp
-   1 degree (~111 km) ka hai to wo ERA5-Land (11 km) se MOTA hai** --
-   us surat me IMD har jagah behtar NAHI hoga
-4. Colab me chalana behtar ya yahin
-   (`notebooks/vindhya_national_climate.ipynb` pehle se hai)
+---
 
-**In chaar jawab ke baad tay hoga:** IMD sab jagah lagayein, ya
-sirf validation ke liye rakhein.
-Jo bhi ho, ERA5/CHIRPS aur IMD **ALAG** rahenge -- kabhi mila kar nahi.
+# 6. IMD -- NAAPA, faisla ke liye jawab mil gaye
+
+1. **`imdlib` CHALTA HAI** -- `pip install imdlib` seedhe kaam kiya, is
+   machine par. `imd.get_data('tmax', 2020, 2020, fn_format='yearwise')`
+   **1.8 second me SUCCESS**, 1.3 MB (ek saal, ek variable). Rain bhi
+   turant chala. Poore 2000-2024 x 3 variable (tmax/tmin/rain) ~75
+   download, chand minute me poora ho jayega -- Colab ki zaroorat nahi,
+   yahin ho sakta hai.
+2. (upar se moot ho gaya -- imdlib seedhe chal gaya)
+3. **ASLI RESOLUTION NAAPA, aur ye zaroori nikla:**
+   - **Temp (tmax/tmin): 1.0° x 1.0° (~111 km)** -- confirm kiya xarray
+     grid se (`lat spacing: 1.0`, `lon spacing: 1.0`)
+   - **Rain: 0.25° x 0.25° (~28 km)**
+   - **Ye ERA5-Land (~9-11 km) se KAAFI MOTA hai temperature ke liye**
+     (111 km vs 11 km, ~10x) -- exactly jo ashanka thi, sach nikli.
+   - **IMPORTANT MISMATCH mila:** `docs/METHODOLOGY.md` aur
+     `docs/DATA_SOURCES.md` dono kehte hain 5 MP zilon wali IMD data
+     "0.05° (~5.5 km)" hai -- par imdlib (IMD Pune ki apni public
+     distribution) se seedhe naapa temp resolution 1° hai, 20x mota.
+     Ho sakta hai un 5 zilon ki ORIGINAL raw NetCDF file (jo is machine
+     par abhi nahi hai) sach me alag/finer product ho -- verify nahi ho
+     saka bina un files ke. **RUKA, chupchap docs badla nahi** (Phase
+     10 ka niyam) -- ye aapko batana zaroori tha, khud faisla lo.
+4. Colab ki zaroorat nahi -- yahin chal gaya.
+
+**Faisla (upar ki naap se seedha nikalta hai):** IMD ko poore desh me
+nationalize NAHI karna chahiye -- 111 km grid ERA5-Land ke 11 km se kaafi
+peeche hai. IMD sirf jahan already hai (5 MP zile) wahi rahe, validation
+ke liye istemal ho (item 7), poore desh ke liye ERA5-Land/CHIRPS hi sahi
+faisla bana rahega. **Aapki confirmation chahiye is faisle par**, aur
+0.05°-vs-1° mismatch wali baat par bhi.
 
 ---
 
@@ -145,7 +164,15 @@ research paper ke liye bhi.
 
 ---
 
-# 8. PANEL KI SAFAI
+# 8. PANEL KI SAFAI -- **zyadatar pehle se HUA, baaki agent me chalu**
+
+Verify kiya (2026-08-12): Satellite Viewer/Panchayat/Biodiversity Risk
+hatana + `docs/REQUIREMENTS_ROADMAP.md` me reason likhna **pehle se HO
+CHUKA** tha (2026-08-09 ki commit). Forest Monitor "SOON" badge aur PMFBY
+honest-empty-state bhi pehle se sahi hain. **Diu/Lakshadweep ka "grid cell
+se chhota hai" message -- ab THEEK KIYA** (pehle generic "Not available"
+tha, ab specific reason). Ek background agent panel-cleanup final-verify
++ inline-style cleanup (item 9) dono kar raha hai, worktree me isolated.
 
 **Hatao (teen):**
 - Satellite Viewer -- basemap switcher yahi kaam kar raha hai
@@ -164,17 +191,26 @@ isliye aankda nahi"*. Khali mat chhodo.
 
 ---
 
-# 9. UI ka bacha kaam
+# 9. UI ka bacha kaam -- **data-target HUA, style/landing agent me chalu**
 
-- `data-target` 2 jagah -- count-up animation hatao
-- Inline `style=""` 69 -- CSS variables me
-- Landing background -- do slide (kisan khet me, precision farming),
-  photo saaf, licence saaf (PIB/ICAR/Unsplash/apni). Google se
-  uthai photo KABHI nahi.
+- `data-target` -- **verify kiya, 0 live occurrence hai** (sirf 2
+  explanatory comment bache jo removal explain karte hain -- galat
+  count tha, asli kaam pehle hi ho chuka tha).
+- Inline `style=""` 69 index.html me -- background agent kar raha hai
+  abhi (same agent jo item 8 bhi kar raha hai).
+- **IMPORTANT naya gap mila jo list me nahi tha:** index.html ke bahar,
+  10 naye loader `.js` file (Compare, Soil Moisture, Live Weather,
+  Mandi, Crop Stats, GeoAI, etc. -- Phase 2.2 ke BAAD bane) collectively
+  ~390 aur inline style le aaye hain jo kabhi CSS-variable system me
+  convert nahi hue. Ye is turn ke agent ke scope se BAHAR hai (bada
+  alag kaam), sirf record kar raha hoon taaki bhoole nahi.
+- Landing background -- verify kiya, **pehle se HO CHUKA** (2 licensed
+  Unsplash slide, 8s fade, credit line -- 2026-08-07 ki commit ne khud
+  confirm kiya tha).
 
 ---
 
-# 10. MERA KHET (naya feature)
+# 10. MERA KHET (naya feature) -- **agent me chalu** (worktree isolated)
 
 `MERA_KHET_PROMPT.md` me poora likha hai. Sankshep me:
 
