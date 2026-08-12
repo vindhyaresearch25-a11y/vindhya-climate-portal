@@ -1,0 +1,20 @@
+# Deploy config for the Mera Khet live satellite-analysis proxy
+# (cloudflare/mera_khet_worker.js). NOT deployed by this session -- see
+# that file's own header for exactly what is and isn't implemented yet
+# (the GEE_BACKEND_URL companion service does not exist in this repo).
+#
+#   cd cloudflare
+#   wrangler secret put GEE_SERVICE_ACCOUNT_EMAIL --config wrangler_mera_khet.toml
+#   wrangler secret put GEE_SERVICE_ACCOUNT_KEY --config wrangler_mera_khet.toml
+#     # the "private_key" field of the service account's JSON key, PEM format
+#   wrangler secret put GEE_BACKEND_URL --config wrangler_mera_khet.toml
+#     # URL of the real Earth Engine compute backend -- see mera_khet_worker.js's
+#     # header for why this Worker alone can't run the GEE query itself
+#   wrangler deploy --config wrangler_mera_khet.toml
+#
+# Until all three secrets are set, POST /analyze returns an honest 501 --
+# safe to deploy in that partial state, it will never fabricate a number.
+
+name = "vindhya-mera-khet"
+main = "mera_khet_worker.js"
+compatibility_date = "2026-08-01"

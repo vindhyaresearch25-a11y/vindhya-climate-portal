@@ -693,5 +693,13 @@
     setTimeout(boot, 900);
   }
 
-  window.VindhyaGeoAI = { analyseAOI: analyseAOI, loadNasaPower: loadNasaPower, registry: REGISTRY };
+  // Geometry helpers exposed for reuse by other modules (mera_khet.js) --
+  // MERA_KHET_PROMPT.md explicitly says "wahi [spherical area, haversine
+  // perimeter, point-in-ring] ko dobara istemal karo, naya mat likho" --
+  // these are the exact same functions this file's own AOI tool uses,
+  // just made callable from outside the closure instead of duplicated.
+  window.VindhyaGeoAI = {
+    analyseAOI: analyseAOI, loadNasaPower: loadNasaPower, registry: REGISTRY,
+    ringAreaM2: ringAreaM2, perimeterM: perimeterM, haversineM: haversineM, pointInRing: pointInRing
+  };
 })();
