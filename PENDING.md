@@ -98,12 +98,20 @@ Kram se karo, upar se neeche. Har item ke saamne:
 
 ---
 
-# 4. GROUNDWATER -- 0 -- **AGENT ME CHALU** (background, worktree isolated)
+# 4. GROUNDWATER -- **PEHLE SE HO CHUKA (2026-08-09, d62e579), is list ki galti thi**
 
-India-WRIS ka public API jaanchne + script ya honest gap-message ke liye
-ek background agent kaam kar raha hai (data.gov.in CGWB resource +
-India-WRIS + cgwb.gov.in bulk-download teeno jaanch raha hai). Nateeja
-milte hi merge karke report karunga -- abhi tak result nahi aaya.
+Ye PENDING.md khud d62e579 ke EK DIN BAAD likha gaya tha bina asli repo
+state check kiye -- "0" likhna galat tha. Agent se dobara verify karaya
+(2026-08-12): `dashboard/index.html` + `mp_climate_loader.js` me pehle se
+real `irrigated_wells_tubewells_ha` (SoI village profiles se, live-summed,
+village-count ke saath) + honest gap message "No public API. Source: CGWB
+India-WRIS. Institutional data request required." dono maujood hain.
+Independently curl/WebFetch se re-confirm kiya: indiawris.gov.in Angular
+shell hai (koi JSON API nahi), gwdata.cgwb.gov.in maintenance mode me tha
+(form-driven tool hai, API nahi, scrape nahi kiya), cgwb.gov.in sirf PDF
+report deta hai, data.gov.in par CGWB groundwater-level resource_id nahi
+mila. `docs/REQUIREMENTS_ROADMAP.md` me missing status-row bhi add kar
+diya (d62e579 ne DATA_SOURCES.md update kiya tha par ROADMAP.md nahi).
 
 ---
 

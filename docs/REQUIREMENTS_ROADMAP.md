@@ -63,7 +63,10 @@ not on application code. Required registrations, in rough order of value:
 
 1. **GEE service account** — Sentinel-2, Landsat, SMAP, LST, crop classification (Req. 9, 28, 37)
 2. **MP Bhulekh / Bhu-Naksha data sharing** — real khasra parcels with area, soil, irrigation source (Req. 7)
-3. **CGWB India-WRIS** — groundwater levels (Req. 14)
+3. **CGWB India-WRIS** — groundwater levels (Req. 14). No public API/bulk
+   download found (checked 2026-08-09, re-checked 2026-08-12 — see
+   section I above); honest gap message shipped in the meantime, real
+   well-irrigation data shown alongside it
 4. **Soil Health Card + NBSS&LUP** — soil nutrients and health (Req. 8)
 5. **Census India / Agriculture Census** — village socioeconomic profiles (Req. 6, 23)
 6. **PMFBY / PM-KISAN / KCC portals** — scheme eligibility (Req. 12)
@@ -157,6 +160,40 @@ partial-coverage stop per the "naapo" instruction, not a rushed national
 pass. Remaining: scale to more states (state-by-state, `--resume`,
 `logs/gee_soil_moisture_heartbeat.json` tracks progress the same way
 `08_gee_national_climate.py`'s does).
+
+## I. Groundwater built (MERA_KHET_PROMPT.md B2, 2026-08-09; re-checked 2026-08-12)
+
+The "Groundwater & Irrigation" card in the Agriculture panel (nav item
+"Groundwater & Irrigation" → Agriculture tab) shows two things, kept
+honestly separate rather than combined into one score:
+
+1. **Real well/tubewell-irrigated area** (`agri-gw-wells`) — summed live
+   from `data/village_profiles/<state>/<district>.json`'s
+   `irrigated_wells_tubewells_ha` field (Survey of India), with the real
+   village count it was built from shown alongside it.
+2. **Groundwater level trend** (`agri-gw-level`) — checked first, per the
+   prompt's rule, whether India-WRIS or CGWB expose a public API/bulk
+   download. Neither does: `indiawris.gov.in` is a form-driven Angular
+   portal with no documented JSON API; CGWB's real-time water-level portal
+   (`gwdata.cgwb.gov.in`) publishes no bulk machine-readable download and
+   was in "Maintenance Mode" when re-checked 2026-08-12; `cgwb.gov.in`
+   itself only links PDF reports (e.g. `GWRA_2025.pdf`, the Dynamic Ground
+   Water Resources district assessment), not structured data. The card
+   honestly reads "No public API. Source: CGWB India-WRIS. Institutional
+   data request required." instead of being scraped (`gwdata.cgwb.gov.in`
+   was never scraped, in or out of maintenance) or estimated. `data.gov.in`
+   was also checked (same channel AGMARKNET mandi prices uses,
+   `scripts/fetch_mandi_prices.py`) — its catalog/search endpoints
+   return HTTP 403 to a direct, non-browser request and no CGWB
+   groundwater-level `resource_id` was found; this is documented as a real
+   gap, not chased further given the effort cap, and remains a candidate
+   follow-up if a specific resource ID surfaces later.
+
+Built/changed: `dashboard/index.html` (panel markup),
+`dashboard/mp_climate_loader.js` (`renderWellIrrigation()` +
+`renderAgriculturePanel()`), `docs/DATA_SOURCES.md` (provenance section).
+Verified locally: Bhopal shows 56,429 ha across 522/522 villages, correct
+honest CGWB message, no console errors.
 
 ## Recommended sequence
 

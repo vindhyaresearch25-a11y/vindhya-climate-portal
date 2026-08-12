@@ -147,6 +147,22 @@ crop stats in this project) but real per-state resource IDs were not
 found/verified in the time available; worth a dedicated future session,
 not chased further here to avoid guessing at unverified resource IDs.
 
+**Re-checked 2026-08-12** (independent follow-up, same conclusion, extra
+detail): `indiawris.gov.in` still returns only the Angular SPA HTML shell
+to a direct request, no reachable JSON endpoint. `cgwb.gov.in`'s real-time
+water-level portal, `gwdata.cgwb.gov.in`, was itself in "Maintenance Mode"
+at check time and, even when reachable, is a form-driven query tool, not a
+documented API -- it was not scraped either way. `cgwb.gov.in` links only
+PDF reports for groundwater assessment (e.g. `GWRA_2025.pdf`, the Dynamic
+Ground Water Resources district-wise assessment), never a CSV/JSON bulk
+file. `data.gov.in`'s catalog/search endpoints return HTTP 403 to a direct
+non-browser request (its resource-level API, `api.data.gov.in/resource/
+<id>`, is the same working pattern `scripts/fetch_mandi_prices.py` uses
+for AGMARKNET, but that requires already knowing a valid `resource_id`,
+and no CGWB groundwater-level resource ID was located this pass). No
+scraping was attempted anywhere in this check. Conclusion unchanged: honest
+gap message stands, well-irrigation half stays real and shown.
+
 ## Compare feature (`dashboard/compare_loader.js`, Phase 6, added 2026-08-07)
 
 Not a new data file -- a client-side view that combines four existing
