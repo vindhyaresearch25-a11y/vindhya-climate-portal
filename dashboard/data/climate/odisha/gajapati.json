@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "source": "ERA5-Land (ECMWF, via Google Earth Engine) for Tmax/Tmin, CHIRPS (UCSB Climate Hazards Center, via Google Earth Engine) for precipitation",
+    "resolution": "ERA5-Land ~9 km (0.1 deg) native grid, CHIRPS ~5.5 km (0.05 deg) -- both far coarser than a village (~2 sq km): a district's indices here are ONE value per pixel-day within the district polygon (GEE reduceRegion mean), not a village-resolved product. See docs/METHODOLOGY.md Sec 3.1 (modifiable areal unit problem).",
+    "method": "Heatwave: IMD plains criteria (Tmax departure from normal >=4.5C mild / >=6.5C severe, March-June season, scripts/config.py HW_DEPARTURE_MILD/SEVERE). SPI: McKee et al. 1993, 3/6/12-month timescales with the zero-inflated gamma correction for zero-rainfall periods, moderate-drought threshold SPI<=-1.0. ETCCDI: standard extreme-precipitation indices (R95p/R99p/Rx1day/Rx5day/CDD/CWD) at 95th/99th percentile thresholds. Identical formulas to scripts/02_compute_indices.py (imported directly by 08_gee_national_climate.py, never reimplemented) -- only the input grid (ERA5-Land/CHIRPS here, IMD 0.05 deg for the 5 original MP districts) differs. See docs/METHODOLOGY.md for the exact formulas.",
+    "baseline": "2000-2014 (ETCCDI percentile base period and historical baseline window, scripts/config.py EXT_PRECIP_BASE_PERIOD / HISTORICAL_BASELINE_WINDOW)",
+    "note": "Distinct from the IMD 0.05 deg gridded product used for Bhopal, Indore, Jabalpur, Rewa and Sidhi -- those 5 districts are untouched by this pipeline and keep their existing IMD-derived numbers. Used here because no raw IMD NetCDF file is available on this machine (verified before this pipeline was written); same heatwave/SPI/ETCCDI methodology as the IMD pipeline, applied to a different real, freely-published reanalysis/satellite source.",
+    "state": "Odisha",
+    "district": "Gajapati",
+    "district_lgd": 353,
+    "years": "2000-2024",
+    "quality": "verified-official (real dataset, cross-source from IMD)",
+    "data_quality": "verified-official (real dataset, cross-source from IMD)",
+    "unit_count": "9132 daily pixel-day observations across 25 years (1 value/day = district-polygon reduceRegion mean, not an aggregate of separately-computed sub-units)",
+    "last_updated": "2026-08-09"
+  },
+  "indices": {
+    "heatwave_days": 0.76,
+    "severe_heatwave_days": 0.16,
+    "max_summer_tmax": 38.964,
+    "mean_summer_tmax": 33.676,
+    "spi_3": 0.002,
+    "spi_6": 0.0,
+    "spi_12": 0.0,
+    "drought_months": 2.04,
+    "severe_drought_months": 0.52,
+    "drought_probability_pct": 17.1,
+    "r95p_mm": 296.934,
+    "r99p_mm": 77.384,
+    "rx1day_mm": 56.701,
+    "rx5day_mm": 148.063,
+    "cdd": 40.24,
+    "cwd": 20.96,
+    "extreme_days": 6.92,
+    "annual_rain_mm": 1476.908,
+    "p95_threshold_mm": 31.853,
+    "p99_threshold_mm": 50.84
+  }
+}
