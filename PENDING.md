@@ -204,8 +204,12 @@ isliye aankda nahi"*. Khali mat chhodo.
 - `data-target` -- **verify kiya, 0 live occurrence hai** (sirf 2
   explanatory comment bache jo removal explain karte hain -- galat
   count tha, asli kaam pehle hi ho chuka tha).
-- Inline `style=""` 69 index.html me -- background agent kar raha hai
-  abhi (same agent jo item 8 bhi kar raha hai).
+- Inline `style=""` 69 index.html me -- **HUA.** 67/69 ko 65 CSS utility
+  class me convert kiya (agent), 2 jaanbujh kar chhode (ek functional
+  dependency -- `#app` ka display:none JS launch-detection me use hota
+  hai, class me move karne se behavior badal jata; ek genuinely dynamic
+  per-item legend color). Merged, pushed, pytest 8/8, live render
+  pixel-identical verify kiya (agent ne browser me check kiya).
 - **IMPORTANT naya gap mila jo list me nahi tha:** index.html ke bahar,
   10 naye loader `.js` file (Compare, Soil Moisture, Live Weather,
   Mandi, Crop Stats, GeoAI, etc. -- Phase 2.2 ke BAAD bane) collectively
