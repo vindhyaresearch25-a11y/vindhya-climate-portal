@@ -73,6 +73,23 @@
       ['bhopal', 'indore', 'jabalpur', 'rewa', 'sidhi'].indexOf(key) >= 0;
   }
 
+  // Diu and Lakshadweep are the only 2 of 733 districts genuinely absent
+  // from climate_manifest.json -- scripts/08_gee_national_climate.py's own
+  // log shows why: "[WARN] too little data returned (0 rows), skipped --
+  // not writing a partial/fabricated result". Both are small islands
+  // smaller than a single ERA5-Land/CHIRPS grid cell (~9-11 km), so
+  // reduceRegion() over their polygon returns nothing real to average.
+  // This is a genuinely different reason than "not computed yet" (every
+  // other missing district), so it gets its own honest message rather
+  // than the generic "Not available" (PENDING.md item 8).
+  var TOO_SMALL_FOR_GRID = { diu: true, lakshadweep_district: true, lakshadweep: true };
+
+  function tooSmallForGridNote(districtName) {
+    return districtName + ' is smaller than one ERA5-Land/CHIRPS satellite grid cell (~9-11 km) -- '
+      + 'the district-wide average this pipeline computes for every other district is not meaningful here, '
+      + 'so no value is shown rather than an unreliable one. See scripts/08_gee_national_climate.py\'s run log.';
+  }
+
   function applyGeeMetrics(file, districtName) {
     var idx = file.indices || {};
     var meta = file.metadata || {};
@@ -169,7 +186,10 @@
     loadManifest().then(function () {
       var dslug = slugify(districtName);
       var entry = lookup[dslug];
-      if (!entry) return; // GEE hasn't computed this district yet -- leave "Not available" as-is
+      if (!entry) {
+        if (TOO_SMALL_FOR_GRID[dslug]) setTxt('heat-detail', tooSmallForGridNote(districtName));
+        return; // GEE hasn't computed this district yet (or, for Diu/Lakshadweep, genuinely can't) -- metric cards stay "Not available"
+      }
       var key = entry.stateSlug + '/' + entry.districtSlug;
       if (cache[key]) { applyGeeMetrics(cache[key], districtName); return; }
       fetchWithTimeout('data/climate/' + entry.stateSlug + '/' + entry.districtSlug + '.json')
