@@ -60,13 +60,17 @@ compatibility_date = "2026-08-01"
 [ai]
 binding = "AI"
 
-# Vectorize binding for the RAG manual-search index -- COMMENTED OUT by
-# default, see the ORDERING FIX note above for why. Uncomment only after
-# `wrangler vectorize create kisan-sahayak-manuals ...` has actually been
-# run, or this file's `wrangler deploy` will fail. Binding name
+# Vectorize binding for the RAG manual-search index. Was left commented
+# out after the first deploy per the ORDERING FIX note above -- confirmed
+# 2026-08-12 that `wrangler vectorize create` had in fact already been run
+# (index exists, 727 vectors, created 2026-08-08) but this binding was
+# never uncommented+redeployed afterward, so search_manuals had been
+# silently degrading to "Vectorize index not configured on this
+# deployment yet" on every request since launch (root cause of the
+# "no citations ever" bug). Now enabled for real. Binding name
 # (VECTORIZE_INDEX) must match exactly what kisan_sahayak_worker.js and
 # scripts/12_ingest_kisan_manuals.py both expect -- documented in
 # docs/KISAN_SAHAYAK_RAG.md as the one place this contract is spelled out.
-# [[vectorize]]
-# binding = "VECTORIZE_INDEX"
-# index_name = "kisan-sahayak-manuals"
+[[vectorize]]
+binding = "VECTORIZE_INDEX"
+index_name = "kisan-sahayak-manuals"

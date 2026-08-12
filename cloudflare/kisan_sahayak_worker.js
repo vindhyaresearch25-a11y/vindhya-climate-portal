@@ -451,16 +451,49 @@ async function toolSearchPapers(env, { query }) {
   return { available: true, results };
 }
 
+// Debugged live 2026-08-12: even with the Vectorize binding working, a
+// Hinglish/Devanagari query embeds poorly against EMBEDDING_MODEL (an
+// English-only model) -- direct live test showed "gehun me peela ratua
+// kaise roken" top-matching a corrupted/irrelevant chunk (score ~0.65),
+// while the English equivalent "wheat yellow rust management control"
+// correctly top-matched the right fungicide-management passage (score
+// ~0.74). Translating the query to English before embedding (this
+// corpus, per scripts/12_ingest_kisan_manuals.py's CORPUS list, is
+// entirely English-authored PDFs) fixes this at the retrieval layer
+// instead of requiring every future query to already be in English.
+// Never blocks the main answer if it fails -- falls back to embedding
+// the original query untranslated, same as before this fix existed.
+const DEVANAGARI_RE = /[ऀ-ॿ]/;
+// A few very common Hinglish (Romanized Hindi) function words -- if
+// present without Devanagari script, the query is still likely Hindi
+// typed in Roman letters (the owner's own examples: "DSR ki kheti kaise
+// karein", "gehun me peela ratua kaise roken").
+const HINGLISH_HINT_RE = /\b(kaise|kya|kaun|hai|ki|ke|mein|karein|karen|wala|roken|rokein|dawai|dava)\b/i;
+
+async function translateQueryToEnglish(env, text) {
+  const looksHindiScript = DEVANAGARI_RE.test(text);
+  const looksHinglish = !looksHindiScript && HINGLISH_HINT_RE.test(text);
+  if (!looksHindiScript && !looksHinglish) return text; // already English, don't risk a bad round-trip
+  try {
+    const r = await env.AI.run('@cf/meta/m2m100-1.2b', { text, source_lang: 'hindi', target_lang: 'english' });
+    const translated = r && (r.translated_text || (r.result && r.result.translated_text));
+    return translated && String(translated).trim() ? String(translated).trim() : text;
+  } catch (e) {
+    return text; // translation is a best-effort retrieval aid, never a hard dependency
+  }
+}
+
 // search_manuals: embed the query via Workers AI, query the Vectorize
 // index built by scripts/10_ingest_kisan_manuals.py. Degrades honestly if
 // the index isn't bound/created yet (owner hasn't run the one-time
 // `wrangler vectorize create` command) rather than crashing the request.
 async function toolSearchManuals(env, { query }) {
-  const q = String(query || '').trim();
-  if (!q) return { available: false, reason: 'empty query' };
+  const q0 = String(query || '').trim();
+  if (!q0) return { available: false, reason: 'empty query' };
   if (!env.VECTORIZE_INDEX) {
     return { available: false, reason: 'Vectorize index not configured on this deployment yet (see docs/KISAN_SAHAYAK_RAG.md)' };
   }
+  const q = await translateQueryToEnglish(env, q0);
   try {
     const emb = await env.AI.run(EMBEDDING_MODEL, { text: [q] });
     const vector = emb && emb.data && emb.data[0];
@@ -536,11 +569,26 @@ const TOOL_DISPATCH = {
 // Heuristics -- decide whether to pre-run search_manuals / search_papers
 // even on the two fallback models that can't call tools themselves.
 // ---------------------------------------------------------------------
+// Broadened 2026-08-12: the original list only caught pest/disease
+// diagnosis questions. Live-tested owner examples ("DSR ki kheti kaise
+// karein", "gehun me peela ratua kaise roken") matched NEITHER the old
+// list ("ratua" is the Hindi transliteration for rust, not the English
+// word "rust"; "DSR"/"kheti kaise karein" is a general practice question,
+// not a diagnosis one) -- so search_manuals was silently never even
+// attempted for either, on top of the separate Vectorize-binding bug.
+// This list is intentionally broad (general crop-practice terms, not just
+// diagnosis) since an extra embed+Vectorize query is cheap and bounded by
+// MANUAL_SEARCH_TIMEOUT_MS -- a false trigger costs latency, not
+// correctness (an irrelevant low-score hit is either not cited by the
+// model or shown as a real, if unhelpful, source).
 const MANUAL_KEYWORDS = [
   'pest', 'disease', 'kit', 'keet', 'रोग', 'कीट', 'blight', 'rot', 'wilt', 'fungus', 'fungal',
-  'insect', 'larva', 'caterpillar', 'aphid', 'borer', 'rust', 'spray', 'pesticide', 'fungicide',
+  'insect', 'larva', 'caterpillar', 'aphid', 'borer', 'rust', 'ratua', 'रतुआ', 'spray', 'pesticide', 'fungicide',
   'दवा', 'छिड़काव', 'बीमारी', 'सूख', 'सड़', 'package of practices', 'poP', 'variety', 'किस्म',
-  'sowing', 'बुवाई', 'irrigation schedule', 'fertilizer dose', 'खाद', 'उर्वरक',
+  'sowing', 'बुवाई', 'बुआई', 'बिजाई', 'bijai', 'seed rate', 'बीज दर', 'irrigation schedule', 'fertilizer dose', 'खाद', 'उर्वरक',
+  'dsr', 'direct seeded', 'transplant', 'रोपाई', 'nursery', 'नर्सरी', 'kheti kaise', 'kheti kaise karein',
+  'kheti kaise karen', 'खेती कैसे', 'katai', 'कटाई', 'harvest', 'harvesting', 'weed', 'khar-patwar',
+  'खरपतवार', 'spacing', 'दूरी', 'kism', 'बीज', 'seed treatment', 'बीजोपचार', 'mulching', 'मल्चिंग',
 ];
 function looksLikeManualQuestion(text) {
   const t = String(text || '').toLowerCase();
@@ -657,17 +705,23 @@ function buildSystemPrompt(place, prefetch, manualHits, paperHits, lang, clientC
   // this is a considered design decision, not a bug to "helpfully" undo.
   return `You are Kisan Sahayak, an Agriculture Decision Support System for Indian farmers -- not just a chatbot. You have real tools (get_climate, get_weather, get_mandi, get_crop_stats, search_papers, search_manuals) and real data already fetched below for the farmer's selected place (${p.district || 'unknown district'}${p.state ? ', ' + p.state : ''}). Use them.
 
-For every substantive question, structure your answer in exactly this order:
-1. **Your place's real data** -- state the actual measurement from the REAL DATA block below, with its year/date if given. If a figure isn't available, say so plainly -- never invent a number for this place.
-2. **Probable cause** -- from general agronomic knowledge.
-3. **How to identify it** -- concrete, observable signs the farmer can check in their own field.
-4. **Management** -- practical ICAR/KVK-style guidance from your own general knowledge.
+Pick the structure that actually fits the question -- do NOT force one template onto every question:
+
+- **Pest/disease diagnosis questions** ("mera crop me ye dikh raha hai", "keet lag gaya", a named disease/pest) -- use exactly this order:
+  1. Your place's real data (if the REAL DATA block below has something genuinely relevant to this specific question -- otherwise skip this numbered point entirely, don't force an irrelevant figure in)
+  2. Probable cause, from general agronomic knowledge
+  3. How to identify it -- concrete, observable signs the farmer can check in their own field
+  4. Management -- practical ICAR/KVK-style guidance
+- **General practice questions** (how to sow/grow a crop, variety choice, spacing, seed rate, irrigation timing, harvesting) -- just answer directly and practically, in plain steps or prose, in whatever order makes sense for that question. A "how do I identify it" point is meaningless for "how do I do DSR sowing" -- do not include it.
+- **Quick/simple questions** (greetings, yes/no, clarifications, questions about scheme names, prices, weather) -- answer naturally in 1-3 sentences, no numbered structure at all.
+
+Only mention this place's real data (climate/weather/mandi/crop/village figures below) when the farmer's question is actually about this place or would plausibly benefit from it -- a general "how to grow X" question does not need a location line just because location data happens to be available. When you do use a place figure, state it plainly with its year/date if given; never invent a number for this place if it isn't in the REAL DATA block.
 
 Do NOT write a "Source list" or "स्रोत सूची" section -- the app adds real sources automatically after your answer, from what was actually retrieved, not from anything you write. NEVER write the word "Source"/"स्रोत", never write an organisation name followed by a year in parentheses (e.g. do not write "(IMD, 2019)" or "(ICAR 2020)"), never write "et al.", never write a [M#] or [P#] tag, never name a specific manual, bulletin, or paper title -- even if it feels helpful, a title/year you generate from memory is very likely wrong and this portal never presents an unverified claim as if it were a real citation. Just answer the question in plain language; citations are handled entirely outside your response.
 
-For quick/simple questions (greetings, yes/no, clarifications) skip the 4-part structure and just answer naturally -- don't force structure where it doesn't fit.
-
 HARD RULE: never invent a specific number tied to this place (rainfall, price, yield, population) that isn't in the REAL DATA block below. If you don't have it, say the exact figure isn't available, then still answer the rest of the question from general knowledge.
+
+NUMBER FORMAT: when you write any decimal number, always keep the leading zero (write "0.21 mm", never ".21 mm") and never split a number across markdown emphasis markers (do not write "**0**.21" or "0.2**1**").
 
 --- REAL DATA for ${p.district || '(no district selected)'}${p.state ? ', ' + p.state : ''} (fetched just now, in parallel) -- for YOUR understanding only, do not quote source names/years from this block into your answer, the app cites it separately ---
 ${fmtClimate(prefetch.climate)}
@@ -750,6 +804,20 @@ function stripFakeCitations(text) {
   for (const re of CITATION_PATTERNS) out = out.replace(re, '');
   // Collapse any run of 3+ blank lines left behind by a stripped section.
   return out.replace(/\n{3,}/g, '\n\n');
+}
+
+// Numbers still come from the MODEL writing them into prose (unlike
+// buildCitationFooter's sources, which are pure code) -- the system prompt
+// asks it to keep the leading zero, but per this repo's own rule that
+// prompt-only instructions are unreliable (see the citation 3-layer note
+// above), don't trust that alone. Owner-reported bug: model streamed
+// ".21 mm" instead of "0.21 mm" -- a live LLM decimal-formatting quirk,
+// not a typo. This is a safety net, not full §7.1 code-injection (that
+// would need per-number placeholder tokens, a larger refactor); it only
+// repairs the specific "leading zero dropped before a decimal point"
+// shape, which is what was actually observed.
+function fixNumberGarbling(text) {
+  return text.replace(/(^|[^\d.])\.(\d)/g, '$10.$2');
 }
 
 // Layer 3: the ONE real citation line, built entirely from what was
@@ -928,7 +996,7 @@ function buildAnswerStream(env, place, prefetch, manualHits, paperHits, messages
         const cut = force ? textBuffer.length : lastNewline + 1;
         const chunk = textBuffer.slice(0, cut);
         textBuffer = textBuffer.slice(cut);
-        const filtered = stripFakeCitations(chunk);
+        const filtered = fixNumberGarbling(stripFakeCitations(chunk));
         if (filtered) {
           fullAnswerText += filtered;
           controller.enqueue(encoder.encode(sse({ response: filtered })));

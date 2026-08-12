@@ -110,3 +110,64 @@ does not delete vectors for a document removed from `CORPUS` -- if you drop
 a document, delete its vectors from the Vectorize index by id prefix
 yourself (`wrangler vectorize delete-by-ids ...` or the Vectorize REST
 delete endpoint) before or after removing it from the list.
+
+## Bug found and fixed 2026-08-12: citations never appeared in production
+
+The index existed (727 vectors, created 2026-08-08) and the ingest script
+had run successfully, but `search_manuals` returned `available: false` on
+every real request. Root cause, confirmed by direct inspection (not
+guessed): `cloudflare/wrangler_kisan_sahayak.toml`'s `[[vectorize]]` block
+was left commented out after the very first deploy (per this file's own
+"ORDERING FIX" step 1) and never uncommented for the redeploy in step 3 --
+so `env.VECTORIZE_INDEX` was `undefined` in every production request,
+hitting `toolSearchManuals`'s own honest degrade path
+(`'Vectorize index not configured on this deployment yet'`). Fixed: the
+block is uncommented now. **Requires an actual `wrangler deploy
+--config wrangler_kisan_sahayak.toml` to take effect** -- this session's
+`CLOUDFLARE_API_TOKEN` only has Vectorize-read scope, not Workers-edit, so
+deploy could not be completed from here; the owner needs to run it (or
+grant the token `Workers Scripts:Edit`).
+
+Two more bugs found via direct Vectorize queries (bypassing the Worker,
+using the same account credentials) while diagnosing the above, both fixed
+in the same commit:
+
+1. **`looksLikeManualQuestion()`'s keyword list was too narrow.** Neither
+   of the owner's two test questions ("DSR ki kheti kaise karein", "gehun
+   me peela ratua kaise roken") matched any keyword, so `search_manuals`
+   was never even attempted for them, independent of the binding bug.
+   "ratua" (Hindi transliteration for rust) and general practice terms
+   ("dsr", "kheti kaise", "bijai", "katai", "nursery", "transplant", ...)
+   are now in `MANUAL_KEYWORDS`.
+2. **Hinglish/Devanagari queries embed poorly against `bge-base-en-v1.5`
+   (English-only).** Direct side-by-side test, same account, same index:
+
+   | Query | Top match | Score |
+   |---|---|---|
+   | "gehun me peela ratua kaise roken" (Hinglish) | IMD Assam bulletin, thunderstorm text (wrong doc, irrelevant) | 0.646 |
+   | "wheat yellow rust management control" (English) | ICAR Kharif Advisories p.113, actual fungicide dosage for rust | 0.740 |
+   | "DSR ki kheti kaise karein" (Hinglish) | ICAR Kharif Advisories p.5-6, garbled Devanagari (legacy-font PDF extraction, unrelated to DSR) | 0.674 |
+   | "how to grow direct seeded rice DSR" (English) | CRRI Technology Bulletin 250 p.1-3, the actual right document | 0.802 |
+
+   Fixed with `translateQueryToEnglish()`: queries containing Devanagari
+   script or common Hinglish function words (kaise/hai/ki/ke/mein/...) are
+   translated via Workers AI's `@cf/meta/m2m100-1.2b` before embedding.
+   Best-effort only -- any failure falls back to embedding the original
+   query untranslated, never blocks the answer. **Not live-verified this
+   session** (Workers AI free-tier rate limit was hit while diagnosing the
+   above and didn't clear before this session ended) -- retest the two
+   questions above after deploy and confirm the translated-query scores
+   look like the English column, not the Hinglish column.
+
+**Known residual gap, not fixed this session:** the ICAR Kharif
+Agro-Advisories PDF has at least one genuinely garbled section (bilingual
+PDF, Hindi front-matter pages extracted through a legacy non-Unicode font
+-- the same class of problem `docs/STATE_REPORTS.md` already documents for
+crop-report PDFs, e.g. "Hkwfedk fuHkk jgs gSaA..." instead of real
+Devanagari). It didn't surface in the English-query top-5 results above,
+so it's not actively breaking retrieval right now, but it is still sitting
+in the index and could surface for some other query. Not re-extracted or
+purged this session -- would need either a Kruti Dev-class font decoder
+(risk of silently mislabeling text, the exact failure mode this repo's
+no-fabrication rule exists to prevent) or simply dropping the affected
+page range and re-ingesting.
