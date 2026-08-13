@@ -23,6 +23,14 @@
  * --remote --file=kisan_upload_schema_002_geometry.sql` (a fresh database
  * created from the current kisan_upload_schema.sql already has the column).
  *
+ * KISAN_DASHBOARD_PROMPT.md section 8 (KRAM 6) update: this Worker now
+ * also accepts an optional `problem_description` field (free text, capped
+ * at 500 chars) from the Kisan Dashboard's damage-report form -- text +
+ * location only this round, photo storage is explicitly deferred. Run
+ * `wrangler d1 execute vindhya-ground-truth --remote
+ * --file=kisan_upload_schema_003_problem.sql` once if you deployed this
+ * Worker before that change (a fresh database already has the column).
+ *
  * What this Worker does NOT do: it never stores a name, phone number,
  * Aadhaar, or raw IP address (B1/B3). The only thing derived from the
  * request's IP is a same-day salted SHA-256 hash, used solely to enforce
@@ -80,6 +88,19 @@ async function handleSubmit(request, env) {
   const lon = Number(body.lon);
   const areaHa = body.area_ha != null && body.area_ha !== '' ? Number(body.area_ha) : null;
   const consent = body.consent === true;
+  // Optional (KISAN_DASHBOARD_PROMPT.md section 8, KRAM 6): free-text
+  // damage/problem description from the Kisan Dashboard's report form.
+  // Absent for kisan_upload.html's and Mera Khet's ordinary crop
+  // ground-truth submissions -- stays null for those, exactly as before
+  // this field existed.
+  let problemDescription = null;
+  if (body.problem_description != null) {
+    problemDescription = String(body.problem_description).trim();
+    if (problemDescription.length > 500) {
+      return json({ ok: false, error: 'problem_description_too_long' }, 400, origin);
+    }
+    if (!problemDescription) problemDescription = null;
+  }
 
   if (!consent) return json({ ok: false, error: 'consent_required' }, 400, origin);
   if (!crop || crop.length > 80) return json({ ok: false, error: 'invalid_crop' }, 400, origin);
@@ -133,10 +154,10 @@ async function handleSubmit(request, env) {
   const id = crypto.randomUUID();
   await env.DB
     .prepare(
-      `INSERT INTO submissions (id, created_at, crop, season, lat, lon, area_ha, geometry_json, status, ip_hash, ip_hash_day)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'unverified', ?, ?)`
+      `INSERT INTO submissions (id, created_at, crop, season, lat, lon, area_ha, geometry_json, problem_description, status, ip_hash, ip_hash_day)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'unverified', ?, ?)`
     )
-    .bind(id, new Date().toISOString(), crop, season, lat, lon, areaHa, geometryJson, ipHash, today)
+    .bind(id, new Date().toISOString(), crop, season, lat, lon, areaHa, geometryJson, problemDescription, ipHash, today)
     .run();
 
   return json({ ok: true, id }, 200, origin);

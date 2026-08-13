@@ -76,7 +76,7 @@ def main() -> int:
             return 1
 
     rows = d1_query(
-        "SELECT id, created_at, crop, season, lat, lon, area_ha, status "
+        "SELECT id, created_at, crop, season, lat, lon, area_ha, status, problem_description "
         "FROM submissions WHERE exported_at IS NULL"
     )
     if not rows:
@@ -121,6 +121,11 @@ def main() -> int:
             "status": r["status"],
             "village": loc["village"],
             "block": loc["block"],
+            # KISAN_DASHBOARD_PROMPT.md section 8 (KRAM 6): optional free-text
+            # damage/problem note from the Kisan Dashboard's report form. None
+            # for ordinary crop ground-truth submissions (Mera Khet's own form,
+            # kisan_upload.html) -- only that form's submissions ever set it.
+            "problem_description": r.get("problem_description"),
         })
 
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")

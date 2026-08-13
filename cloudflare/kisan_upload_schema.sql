@@ -30,6 +30,12 @@
 --    (unaffected, still the only required geometry). This is the SAME
 --    submissions table/endpoint as before -- Mera Khet does not get its
 --    own upload pipeline, it is a second caller of this one.
+--  * problem_description (added KISAN_DASHBOARD_PROMPT.md section 8,
+--    KRAM 6): optional free-text "what's wrong with this field" note from
+--    the Kisan Dashboard's damage-report section. Photo storage is
+--    explicitly deferred (spec: "Photo baad me") -- this is text+location
+--    only. Same table/endpoint again -- a third caller, not a third
+--    pipeline. NULL unless this specific form sets it.
 
 CREATE TABLE IF NOT EXISTS submissions (
   id            TEXT PRIMARY KEY,   -- random UUID, no personal meaning
@@ -40,6 +46,7 @@ CREATE TABLE IF NOT EXISTS submissions (
   lon           REAL NOT NULL CHECK (lon BETWEEN 68.0 AND 98.0),
   area_ha       REAL,               -- optional, B1
   geometry_json TEXT,               -- optional, Mera Khet only -- see note above
+  problem_description TEXT,         -- optional, Kisan Dashboard section 8 only -- see note above
   status        TEXT NOT NULL DEFAULT 'unverified'
                 CHECK (status IN ('unverified', 'verified')),     -- B4
   ip_hash       TEXT NOT NULL,      -- salted SHA-256, day-bucketed; see above
