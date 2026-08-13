@@ -1,7 +1,12 @@
 /**
  * mera_khet_worker.js -- Cloudflare Worker for Mera Khet's live per-field
  * satellite query (MERA_KHET_PROMPT.md A1 sections 1-2: cropland fraction
- * + NDVI, real Sentinel-2/Dynamic World, 10 m).
+ * + NDVI, real Sentinel-2/Dynamic World, 10 m; KHET-STAR KI NAMI item 4,
+ * added 2026-08-13: field wetness index (relative), real Sentinel-1 VV/VH
+ * backscatter, 10 m -- see buildS1WetnessExpression()'s own header comment
+ * below for the full method/verification and
+ * docs/SOIL_MOISTURE_FIELD_SCALE_INVESTIGATION.md for why the higher-tier
+ * option (SMAP/Sentinel-1 disaggregated SPL2SMAP_S, 1-3 km) was ruled out).
  *
  * WHY A BROWSER CAN'T DO THIS DIRECTLY
  * A farmer's drawn polygon needs a live Earth Engine query (Dynamic World
@@ -348,6 +353,222 @@ function buildNdviExpression(ring, startDate, endDate) {
   };
 }
 
+// ---------------------------------------------------------------------
+// FIELD WETNESS INDEX (RELATIVE) -- Sentinel-1 VV/VH backscatter, 10 m,
+// field vs. containing district, same satellite pass. Added
+// KHET-STAR KI NAMI item 4 (2026-08-13) after 4a (SMAP/Sentinel-1
+// disaggregated SPL2SMAP_S, 1-3 km) was independently re-verified as NOT
+// usable in GEE -- see docs/SOIL_MOISTURE_FIELD_SCALE_INVESTIGATION.md for
+// the full verification (ee.data.listAssets() against the real
+// NASA/SMAP folder shows only SPL3SMP_E and SPL4SMGP exist; SPL2SMAP_S was
+// never ingested into GEE at all, and separately the source product itself
+// has been paused at NASA/NSIDC since 2026-07-01 pending a Sentinel-1C/1D
+// migration).
+//
+// WHY THIS IS HONEST, NOT A SOIL-MOISTURE NUMBER: raw SAR backscatter
+// (dB) is NOT invertible to a volumetric moisture fraction (m3/m3)
+// without ancillary data this repo does not have (soil texture, surface
+// roughness, vegetation water content) -- backscatter responds to all of
+// those, not moisture alone. What IS honest: comparing the SAME satellite
+// pass's backscatter over the farmer's polygon against that identical
+// pass's backscatter over the polygon's containing district (via
+// FAO/GAUL/2015/level2, a real GEE administrative-boundary asset --
+// verified live to correctly resolve Bhopal/Indore/Rewa for this file's
+// three test polygons, see the verification note below). Because both
+// numbers come from the identical acquisition, calibration drift and
+// speckle-related bias mostly cancel in the ratio even though the
+// absolute dB-to-moisture relationship does not invert. Response field is
+// deliberately `field_wetness_index_relative` -- NEVER `soil_moisture` --
+// so the frontend can never mislabel this as the real m3/m3 SMAP number
+// that dashboard/data/soil_moisture/ already provides at district tier.
+//
+// HOW THE EXPRESSION GRAPH WAS OBTAINED AND VERIFIED (same method as
+// buildDwExpression/buildNdviExpression above -- ee.serializer.encode()
+// on a real ee.Dictionary built in Python with the earthengine-api
+// library, never hand-written JSON):
+//   1. Built in Python: Sentinel-1 GRD (COPERNICUS/S1_GRD), filtered to
+//      IW mode with both VV and VH present, most recent scene intersecting
+//      the field polygon in a 60-day window (real Sentinel-1 revisit gaps
+//      up to 24 days were observed live at a real MP test point during
+//      the 2026 S1A-to-S1C/1D constellation transition -- see benchmark
+//      note below -- so a 60-day window, not a narrower one, is what
+//      actually guarantees a hit); VV+VH selected, reduceRegion(mean) over
+//      the field polygon (scale 10, bestEffort) AND over the containing
+//      district's geometry (FAO/GAUL/2015/level2, feature nearest the
+//      field centroid via Filter.intersects, scale 10, bestEffort,
+//      maxPixels 1e10) from that SAME image -- one single Image reference
+//      used for both reduceRegion calls, not two independent queries that
+//      could resolve to different scenes.
+//   2. `ee.serializer.encode(the_dictionary, for_cloud_api=True)` produced
+//      the real JSON graph hardcoded below. The two variable parts are the
+//      polygon's `coordinates` constantValue (node "3") and the two
+//      DateRange constantValue date strings (inside node "8") -- verified
+//      identical structure to the DW/NDVI templates' "only the coordinates
+//      array (and here, also the date strings) vary" pattern.
+//   3. VERIFIED side-by-side against three independent real polygons (a
+//      4-vertex Bhopal square, 6-vertex Indore hexagon, 8-vertex Rewa
+//      octagon -- same three used to verify DW/NDVI above): raw REST
+//      value:compute call vs. ee.data.computeValue() run independently in
+//      Python for the same polygons. All three matched byte-for-byte
+//      (field_vv/field_vh/district_vv/district_vh/district_name/
+//      state_name/image_date/orbit_pass, no tolerance needed).
+//   4. Real benchmark on the same ~1.86 ha test polygon docs/
+//      MERA_KHET_BENCHMARK.json used (near Bhopal, MP), 2026-08-13: band
+//      check 4.0s; pass count in the last 30 days = 1 real scene; in the
+//      last 60 days = 4 real scenes (2026-06-21, 06-28, 07-10, 08-03 --
+//      irregular gaps of 7/12/24 days, not the idealized "6-12 day
+//      combined revisit" figure, because this window straddles Sentinel-1A's
+//      documented 2026-06 end-of-life and the still-ramping Sentinel-1C/1D
+//      pair per Copernicus's own SentiWiki mission page, fetched
+//      2026-08-13: "Sentinel-1A: scheduled for end-of-life by end of June
+//      2026", "Sentinel-1C: fully operational since May 2025",
+//      "Sentinel-1D: fully operational starting mid April 2026"); field
+//      backscatter query 2.3s; district backscatter query (same scene)
+//      3.2s. Real platform_number values seen in the 60-day window: 'A'
+//      and 'D' (Sentinel-1A tail data and the newer replacement
+//      satellite), not the nominal two-satellite pair.
+//
+// NOT invertible to moisture -- do not add a `soil_moisture` field here,
+// ever, without first bringing in the ancillary data (soil texture,
+// roughness, vegetation water content) this repo does not have.
+// ---------------------------------------------------------------------
+const S1_WINDOW_DAYS = 60; // real revisit gaps up to 24 days observed live -- see verification note above
+
+function buildS1WetnessExpression(ring, startDate, endDate) {
+  return {
+    result: '0',
+    values: {
+      '2': { constantValue: '.all' },
+      '3': { functionInvocationValue: { functionName: 'GeometryConstructors.Polygon', arguments: {
+        coordinates: { constantValue: [ring] },
+        evenOdd: { constantValue: true },
+      } } },
+      '1': { functionInvocationValue: { functionName: 'Collection.first', arguments: {
+        collection: { functionInvocationValue: { functionName: 'Collection.filter', arguments: {
+          collection: { functionInvocationValue: { functionName: 'Collection.loadTable', arguments: {
+            tableId: { constantValue: 'FAO/GAUL/2015/level2' },
+          } } },
+          filter: { functionInvocationValue: { functionName: 'Filter.intersects', arguments: {
+            leftField: { valueReference: '2' },
+            rightValue: { functionInvocationValue: { functionName: 'Feature', arguments: {
+              geometry: { functionInvocationValue: { functionName: 'Geometry.centroid', arguments: {
+                geometry: { valueReference: '3' },
+              } } },
+            } } } } } },
+        } } },
+      } } },
+      '6': { constantValue: 'VV' },
+      '7': { constantValue: 'VH' },
+      '9': { constantValue: 'system:time_start' },
+      '10': { constantValue: 'transmitterReceiverPolarisation' },
+      '8': { functionInvocationValue: { functionName: 'Collection.first', arguments: {
+        collection: { functionInvocationValue: { functionName: 'Collection.limit', arguments: {
+          ascending: { constantValue: false },
+          collection: { functionInvocationValue: { functionName: 'Collection.filter', arguments: {
+            collection: { functionInvocationValue: { functionName: 'Collection.filter', arguments: {
+              collection: { functionInvocationValue: { functionName: 'Collection.filter', arguments: {
+                collection: { functionInvocationValue: { functionName: 'Collection.filter', arguments: {
+                  collection: { functionInvocationValue: { functionName: 'Collection.filter', arguments: {
+                    collection: { functionInvocationValue: { functionName: 'ImageCollection.load', arguments: {
+                      id: { constantValue: 'COPERNICUS/S1_GRD' },
+                    } } },
+                    filter: { functionInvocationValue: { functionName: 'Filter.intersects', arguments: {
+                      leftField: { valueReference: '2' },
+                      rightValue: { functionInvocationValue: { functionName: 'Feature', arguments: {
+                        geometry: { valueReference: '3' },
+                      } } } } } },
+                  } } },
+                  filter: { functionInvocationValue: { functionName: 'Filter.dateRangeContains', arguments: {
+                    leftValue: { functionInvocationValue: { functionName: 'DateRange', arguments: {
+                      end: { constantValue: endDate }, start: { constantValue: startDate },
+                    } } },
+                    rightField: { valueReference: '9' },
+                  } } },
+                } } },
+                filter: { functionInvocationValue: { functionName: 'Filter.equals', arguments: {
+                  leftField: { constantValue: 'instrumentMode' },
+                  rightValue: { constantValue: 'IW' },
+                } } },
+              } } },
+              filter: { functionInvocationValue: { functionName: 'Filter.listContains', arguments: {
+                leftField: { valueReference: '10' },
+                rightValue: { valueReference: '6' },
+              } } },
+            } } },
+            filter: { functionInvocationValue: { functionName: 'Filter.listContains', arguments: {
+              leftField: { valueReference: '10' },
+              rightValue: { valueReference: '7' },
+            } } },
+          } } },
+          key: { valueReference: '9' },
+        } } },
+      } } },
+      '5': { functionInvocationValue: { functionName: 'Image.select', arguments: {
+        bandSelectors: { arrayValue: { values: [{ valueReference: '6' }, { valueReference: '7' }] } },
+        input: { valueReference: '8' },
+      } } },
+      '11': { functionInvocationValue: { functionName: 'Reducer.mean', arguments: {} } },
+      '4': { functionInvocationValue: { functionName: 'Image.reduceRegion', arguments: {
+        bestEffort: { constantValue: true },
+        geometry: { functionInvocationValue: { functionName: 'Element.geometry', arguments: {
+          feature: { valueReference: '1' },
+        } } },
+        image: { valueReference: '5' },
+        maxPixels: { constantValue: 10000000000.0 },
+        reducer: { valueReference: '11' },
+        scale: { constantValue: 10 },
+      } } },
+      '12': { functionInvocationValue: { functionName: 'Image.reduceRegion', arguments: {
+        bestEffort: { constantValue: true },
+        geometry: { valueReference: '3' },
+        image: { valueReference: '5' },
+        reducer: { valueReference: '11' },
+        scale: { constantValue: 10 },
+      } } },
+      '0': { dictionaryValue: { values: {
+        district_name: { functionInvocationValue: { functionName: 'Element.get', arguments: {
+          object: { valueReference: '1' }, property: { constantValue: 'ADM2_NAME' },
+        } } },
+        district_vh: { functionInvocationValue: { functionName: 'Dictionary.get', arguments: {
+          dictionary: { valueReference: '4' }, key: { valueReference: '7' },
+        } } },
+        district_vv: { functionInvocationValue: { functionName: 'Dictionary.get', arguments: {
+          dictionary: { valueReference: '4' }, key: { valueReference: '6' },
+        } } },
+        field_vh: { functionInvocationValue: { functionName: 'Dictionary.get', arguments: {
+          dictionary: { valueReference: '12' }, key: { valueReference: '7' },
+        } } },
+        field_vv: { functionInvocationValue: { functionName: 'Dictionary.get', arguments: {
+          dictionary: { valueReference: '12' }, key: { valueReference: '6' },
+        } } },
+        image_date: { functionInvocationValue: { functionName: 'Date.format', arguments: {
+          date: { functionInvocationValue: { functionName: 'Image.date', arguments: { image: { valueReference: '8' } } } },
+          format: { constantValue: 'YYYY-MM-dd' },
+        } } },
+        orbit_pass: { functionInvocationValue: { functionName: 'Element.get', arguments: {
+          object: { valueReference: '8' }, property: { constantValue: 'orbitProperties_pass' },
+        } } },
+        state_name: { functionInvocationValue: { functionName: 'Element.get', arguments: {
+          object: { valueReference: '1' }, property: { constantValue: 'ADM1_NAME' },
+        } } },
+      } } },
+    },
+  };
+}
+
+// dB (logarithmic power ratio) -> % difference in LINEAR backscatter power
+// between field and reference area, same convention as 10*log10(): a real,
+// well-defined transform, NOT a moisture-percent claim. Positive = field
+// returns more radar signal than the district average for this pass
+// (often wetter soil and/or denser canopy); negative = less (often drier
+// and/or sparser). The ambiguity between moisture/vegetation/roughness
+// causes is exactly why this is never relabeled as soil moisture.
+function dbDiffToPercent(fieldDb, refDb) {
+  if (typeof fieldDb !== 'number' || typeof refDb !== 'number') return null;
+  const linearRatio = Math.pow(10, (fieldDb - refDb) / 10);
+  return Math.round((linearRatio - 1) * 1000) / 10; // one decimal place
+}
+
 function isoDate(d) { return d.toISOString().slice(0, 10); }
 function monthsAgoIso(n) {
   const d = new Date();
@@ -425,12 +646,16 @@ async function handleAnalyze(request, env) {
 
   const dwStart = monthsAgoIso(DW_WINDOW_MONTHS), dwEnd = isoDate(new Date());
   const s2Start = monthsAgoIso(S2_WINDOW_MONTHS), s2End = isoDate(new Date());
+  const s1End = isoDate(new Date());
+  const s1Start = isoDate(new Date(Date.now() - S1_WINDOW_DAYS * 86400000));
   const dwExpr = buildDwExpression(ring, dwStart, dwEnd);
   const ndviExpr = buildNdviExpression(ring, s2Start, s2End);
+  const s1Expr = buildS1WetnessExpression(ring, s1Start, s1End);
 
-  const [dwOutcome, ndviOutcome] = await Promise.allSettled([
+  const [dwOutcome, ndviOutcome, s1Outcome] = await Promise.allSettled([
     withTimeout(eeCompute(dwExpr, token, projectId), GEE_COMPUTE_TIMEOUT_MS, TIMEOUT_SENTINEL),
     withTimeout(eeCompute(ndviExpr, token, projectId), GEE_COMPUTE_TIMEOUT_MS, TIMEOUT_SENTINEL),
+    withTimeout(eeCompute(s1Expr, token, projectId), GEE_COMPUTE_TIMEOUT_MS, TIMEOUT_SENTINEL),
   ]);
 
   let croplandFraction = null, croplandError = null;
@@ -454,10 +679,39 @@ async function handleAnalyze(request, env) {
     ndviError = String((ndviOutcome.reason && ndviOutcome.reason.message) || ndviOutcome.reason || 'gee_error');
   }
 
-  if (ndviVal === null && croplandFraction === null) {
+  // Field wetness index (relative) -- Sentinel-1 VV/VH backscatter, field
+  // vs. containing district, same pass. Kept as its own field/error pair
+  // NEVER named soil_moisture -- see buildS1WetnessExpression's header
+  // comment above for why.
+  let wetnessIndexPct = null, wetnessDetail = null, wetnessError = null;
+  if (s1Outcome.status === 'fulfilled' && s1Outcome.value && s1Outcome.value !== TIMEOUT_SENTINEL) {
+    const v = s1Outcome.value;
+    if (typeof v.field_vv === 'number' && typeof v.district_vv === 'number') {
+      wetnessIndexPct = dbDiffToPercent(v.field_vv, v.district_vv);
+      wetnessDetail = {
+        field_vv_db: Math.round(v.field_vv * 100) / 100,
+        field_vh_db: typeof v.field_vh === 'number' ? Math.round(v.field_vh * 100) / 100 : null,
+        reference_area_vv_db: Math.round(v.district_vv * 100) / 100,
+        reference_area_vh_db: typeof v.district_vh === 'number' ? Math.round(v.district_vh * 100) / 100 : null,
+        reference_area: (v.district_name || '') + (v.state_name ? (', ' + v.state_name) : ''),
+        image_date: v.image_date || null,
+        orbit_pass: v.orbit_pass || null,
+      };
+    } else {
+      wetnessError = 'no_sentinel1_pixels_in_polygon_or_reference_area';
+    }
+  } else if (s1Outcome.status === 'fulfilled' && s1Outcome.value === TIMEOUT_SENTINEL) {
+    wetnessError = 'gee_timeout';
+  } else if (s1Outcome.status === 'fulfilled') {
+    wetnessError = 'no_sentinel1_scene_in_window'; // e.g. Collection.first() on an empty filtered collection
+  } else {
+    wetnessError = String((s1Outcome.reason && s1Outcome.reason.message) || s1Outcome.reason || 'gee_error');
+  }
+
+  if (ndviVal === null && croplandFraction === null && wetnessIndexPct === null) {
     return jsonResponse({
-      available: false, reason: 'gee_compute_failed', ndvi_error: ndviError, cropland_error: croplandError,
-      message_en: 'Both the NDVI and cropland Earth Engine queries failed for this field -- no estimate shown.',
+      available: false, reason: 'gee_compute_failed', ndvi_error: ndviError, cropland_error: croplandError, wetness_error: wetnessError,
+      message_en: 'The NDVI, cropland, and field-wetness Earth Engine queries all failed for this field -- no estimate shown.',
     }, 502, origin);
   }
 
@@ -465,10 +719,14 @@ async function handleAnalyze(request, env) {
     available: true,
     ndvi: ndviVal,
     cropland_fraction: croplandFraction,
-    source: 'Google Earth Engine, live per-field query: Sentinel-2 SR Harmonized NDVI (10 m, most recent cloud-free scene, ' + s2Start + ' to ' + s2End + ') + Dynamic World V1 cropland classification (10 m, mode composite, ' + dwStart + ' to ' + dwEnd + ')',
+    field_wetness_index_relative: wetnessIndexPct,
+    field_wetness_index_detail: wetnessDetail,
+    field_wetness_index_caveat: 'NOT a m3/m3 soil-moisture measurement. Sentinel-1 radar backscatter (VV, dB) compared against the SAME satellite pass over the field\'s containing district -- a real relative comparison (calibration/speckle mostly cancel in the ratio), but backscatter also responds to vegetation and surface roughness, not moisture alone, so it cannot be inverted to an absolute moisture value.',
+    source: 'Google Earth Engine, live per-field query: Sentinel-2 SR Harmonized NDVI (10 m, most recent cloud-free scene, ' + s2Start + ' to ' + s2End + ') + Dynamic World V1 cropland classification (10 m, mode composite, ' + dwStart + ' to ' + dwEnd + ') + Sentinel-1 GRD VV/VH backscatter (10 m, most recent scene, ' + s1Start + ' to ' + s1End + ', field vs. containing district via FAO/GAUL/2015/level2)',
   };
   if (ndviError) resp.ndvi_error = ndviError;
   if (croplandError) resp.cropland_error = croplandError;
+  if (wetnessError) resp.wetness_error = wetnessError;
   return jsonResponse(resp, 200, origin);
 }
 
