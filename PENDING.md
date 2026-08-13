@@ -24,44 +24,24 @@ Kram se karo, upar se neeche. Har item ke saamne:
 
 ---
 
-# 1. VECTORIZE THEEK KARO (sabse pehle) -- **JAANCHA, THEEK KIYA, DEPLOY BAAKI**
+# 1. VECTORIZE THEEK KARO -- **POORA HUA, LIVE VERIFIED**
 
-- **Binding confirm:** `wrangler vectorize get` se index confirm hua --
-  727 vectors, live. Par `wrangler_kisan_sahayak.toml` me `[[vectorize]]`
-  block COMMENTED OUT hi reh gaya tha pehle deploy ke baad -- yahi asli
-  root cause tha. **NAHI KIYA tha, ab THEEK KIYA** (uncommented).
-  **Deploy abhi BAAKI** -- is session ke `CLOUDFLARE_API_TOKEN` me sirf
-  Vectorize-read scope hai, Workers-edit nahi. Aapko khud
-  `cd cloudflare && wrangler deploy --config wrangler_kisan_sahayak.toml`
-  chalana hoga (ya token ko Workers Scripts:Edit permission do).
-- **Log/score dikhaya** -- direct Vectorize query se (Worker bypass
-  karke) dono sawal test kiye, full table docs/KISAN_SAHAYAK_RAG.md me.
-- **Embedding model match confirm** -- `@cf/baai/bge-base-en-v1.5` dono
-  taraf same, verified.
-- **Do sawal dobara test:** dono me pehle koi citation nahi aaya --
-  do ALAG bug mile aur theek kiye:
-  1. `looksLikeManualQuestion()` keyword list me "DSR"/"kheti"/"ratua"
-     jaise shabd hi nahi the -- search_manuals kabhi try hi nahi hua.
-     **THEEK KIYA** (keyword list badhaya).
-  2. Hinglish query (Roman-script Hindi) embedding model (English-only)
-     se theek match nahi karta -- English phrasing se turant sahi
-     document mila (score 0.80 CRRI DSR bulletin, 0.74 wheat rust
-     fungicide passage) par Hinglish se galat/garbled result. **THEEK
-     KIYA** (query ko English me translate karke embed karo, m2m100
-     model se) -- **par translation step khud live-test NAHI ho paya**
-     (Workers AI free-tier rate limit beech me lag gaya). Deploy ke
-     baad ek baar dono sawal phir se chalakar confirm karna.
-  3. Ek doc (`ICAR Kharif Agro-Advisories 2025`) ka kuch hissa
-     garbled Devanagari nikla (legacy font, Kruti-Dev-class problem) --
-     **abhi tak fix NAHI kiya**, sirf documented hai
-     (docs/KISAN_SAHAYAK_RAG.md), kyunki English query se wo garbled
-     hissa top-5 me nahi aaya (fauri khatra kam), par index me pada hai.
+Aapne deploy kar diya (`VECTORIZE_INDEX` + `AI` binding dono live).
+**Dono benchmark sawal live production endpoint par dobara test kiye,
+ab real citation aata hai:**
+- "gehun me peela ratua kaise roken" -> Source: Package of Practices for
+  Crops of Punjab -- Rabi 2025-26, p.84-86, 2025 (+ 4 aur)
+- "DSR ki kheti kaise karein" -> Source: ICAR Kharif Agro-Advisories for
+  Farmers 2025, p.5-6, 2025 (+ 4 aur)
 
-**Jab tak deploy nahi hota, upar ka koi bhi fix live nahi hai.**
+Teeno bug fix confirm live: keyword list badhaya, Hinglish->English
+translation (m2m100) kaam kar raha hai, corpus bhi expand kiya (item 12
+dekho). ICAR doc ka garbled Devanagari hissa abhi bhi index me hai par
+retrieval me nahi aa raha (documented gap, docs/KISAN_SAHAYAK_RAG.md).
 
 ---
 
-# 2. JAWAB KA DHANCHA -- **THEEK KIYA (code me), deploy ke saath saath live hoga**
+# 2. JAWAB KA DHANCHA -- **HUA, LIVE**
 
 - Char-hisse ka saancha ab sirf rog/keet-diagnosis sawal par hai;
   general practice sawal (jaise DSR sowing) ke liye alag, free-form
@@ -264,9 +244,17 @@ Do jagah: Location Selector (koi bhi star) aur Mera Khet ka polygon.
 
 ---
 
-# 12. CORPUS BADAO (Vectorize theek hone ke BAAD)
+# 12. CORPUS BADAO -- **PEHLA ROUND HUA (8 mukhya fasal), ab SABHI fasal ke liye agent chalu**
 
-Abhi sirf 6 document. Sabhi fasal chahiye.
+Pehla round: 6 -> 13 document, 727 -> 926 vector, live verify kiya (item 1
+me detail). 2 real bug mile+theek kiye (socket.timeout crash, 5x-character
+duplication jo original corpus me pehle se chhupa hua tha). 1984 wala
+gehun manual hataya (banned pesticide the usme).
+
+**Ab poore CROP_LIST.json ke 59 fasal ke liye** ("sabhi jitne bhi crop
+hain un sabka cultivation crop wise dalo") -- agla agent chalu kiya,
+same niyam (2015-2025, sirf muft/khula srot, license check, ResearchGate/
+Sci-Hub kabhi nahi).
 
 **Fasal:** anaj, dalhan, tilhan, nakadi, sabzi, phal, masale, chara
 **Har fasal ke liye:** kism, bijai, beej dar, khad, sinchai,
