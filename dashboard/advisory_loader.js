@@ -52,6 +52,24 @@
     return fetch(url, o).finally(function () { if (timer) clearTimeout(timer); });
   }
 
+  // Same isHindi()/t(en,hi) pattern as compare_loader.js/mandi_loader.js/etc
+  // -- reads the two signals toggleGlobalLang() in index.html now sets on
+  // every toggle (item 3, 2026-08-12).
+  function isHindi() {
+    try {
+      if (typeof window.LANG !== 'undefined') return window.LANG === 'hi';
+      return document.body.classList.contains('lang-hi');
+    } catch (e) { return false; }
+  }
+  function t(en, hi) { return isHindi() ? hi : en; }
+
+  // i-icon tooltip helper -- long explanation goes in the title attribute,
+  // never inline as panel text (item 2).
+  function infoIcon(title) {
+    return '<i class="fa fa-circle-info" title="' + String(title).replace(/"/g, '&quot;') + '" '
+      + 'style="color:var(--text-dim);opacity:0.7;cursor:help;font-size:0.85em;"></i>';
+  }
+
   function slugify(s) {
     return String(s || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
   }
@@ -139,42 +157,45 @@
     if (!flag) {
       return '<div class="metric-card" style="opacity:0.55;">'
         + '<div class="metric-label">' + FLAG_LABELS[key] + '</div>'
-        + '<div style="font-size:0.7rem;color:var(--text-dim);margin-top:0.2rem;">Not available -- underlying data not yet computed for this district.</div>'
+        + '<div style="font-size:var(--fs-1);color:var(--text-dim);margin-top:0.2rem;">' + t('Not available', 'उपलब्ध नहीं') + '</div>'
         + '</div>';
     }
     return '<div class="metric-card" style="border-left:3px solid ' + levelColor(flag.level) + ';">'
       + '<div class="metric-label">' + FLAG_LABELS[key] + '</div>'
       + '<div class="metric-value" style="color:' + levelColor(flag.level) + ';font-size:1rem;">' + flag.level + '</div>'
-      + '<div style="font-size:0.66rem;line-height:1.5;color:var(--text-dim);margin-top:0.3rem;">' + flag.note + '</div>'
+      + '<div style="font-size:var(--fs-1);line-height:1.5;color:var(--text-dim);margin-top:0.3rem;">' + flag.note + '</div>'
       + '</div>';
   }
 
-  var RULE_NOTE = '<b>Rule-based, not AI/ML.</b> Every flag above is a fixed threshold applied to a real number '
-    + 'already computed by this portal\'s own climate/NDVI/soil-moisture pipelines (cited inline). No confidence '
-    + 'score, no model prediction -- see docs/METHODOLOGY.md Sec 9 for the exact rules.';
+  // Terse label (item 2) -- full methodology moves to the i-icon tooltip.
+  var RULE_LABEL = function () { return t('Rule-based · not AI/ML', 'नियम-आधारित · AI/ML नहीं'); };
+  var RULE_TOOLTIP = 'Every flag is a fixed threshold applied to a real number already computed by this '
+    + 'portal\'s own climate/NDVI/soil-moisture pipelines. No confidence score, no model prediction -- see '
+    + 'docs/METHODOLOGY.md Sec 9. / हर फ्लैग एक निश्चित सीमा-नियम है, वास्तविक संख्या पर लागू -- कोई AI अनुमान नहीं।';
 
   function renderDistrictTier(file, districtName, contextNote) {
     var flags = file.flags || {};
     var present = (file.metadata && file.metadata.flags_present) || FLAG_ORDER.filter(function (k) { return !!flags[k]; });
     var h = '<div class="section-header"><i class="fa fa-comment-dots" style="color:var(--cyan)"></i>'
-      + '<div class="section-title">ADVISORY -- ' + districtName + ' (DISTRICT)</div></div>';
+      + '<div class="section-title">ADVISORY — ' + districtName + ' (DISTRICT)</div></div>';
     if (contextNote) {
-      h += '<div style="padding:0.4rem 0.75rem 0;font-size:0.68rem;color:var(--text-dim);"><i class="fa fa-circle-info"></i> ' + contextNote + '</div>';
+      h += '<div style="padding:0.4rem 0.75rem 0;font-size:var(--fs-1);color:var(--text-dim);">' + contextNote + '</div>';
     }
     h += '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:0.5rem;padding:0.6rem 0.75rem;">';
     FLAG_ORDER.forEach(function (key) { h += flagCard(key, flags[key]); });
     h += '</div>';
-    h += '<div style="padding:0 0.75rem 0.6rem;font-size:0.65rem;line-height:1.6;color:var(--text-dim);">'
-      + RULE_NOTE + ' Flags present for this district: ' + (present.length ? present.join(', ') : 'none') + '.</div>';
+    h += '<div style="padding:0 0.75rem 0.6rem;font-size:var(--fs-1);line-height:1.6;color:var(--text-dim);">'
+      + RULE_LABEL() + ' ' + infoIcon(RULE_TOOLTIP) + ' · ' + t('flags', 'फ्लैग') + ': '
+      + (present.length ? present.join(', ') : t('none', 'कोई नहीं')) + '</div>';
     return h;
   }
 
   function renderStateTier(stateName, files, nComputed, nTotal) {
     var h = '<div class="section-header"><i class="fa fa-comment-dots" style="color:var(--cyan)"></i>'
-      + '<div class="section-title">ADVISORY -- ' + stateName + ' (STATE)</div></div>';
+      + '<div class="section-title">ADVISORY — ' + stateName + ' (STATE)</div></div>';
     if (!files.length) {
-      h += '<div style="padding:0.5rem 0.75rem;color:var(--text-dim);font-size:0.75rem;">'
-        + 'Advisory not yet computed for any district in ' + stateName + '.</div>';
+      h += '<div style="padding:0.5rem 0.75rem;color:var(--text-dim);font-size:var(--fs-2);">'
+        + t('Not yet computed', 'अभी गणना नहीं हुई') + ' · ' + stateName + '</div>';
       return h;
     }
     // Categorical flags can't be averaged honestly -- a real per-level COUNT
@@ -184,9 +205,10 @@
     // pipeline's period_summary) only applies to continuous numbers; this is
     // its categorical equivalent -- a full distribution, never collapsed
     // into one fabricated "state score".
-    h += '<div style="padding:0 0.75rem 0.3rem;font-size:0.68rem;color:var(--text-dim);">'
-      + 'N = ' + files.length + ' of ' + (nTotal || '?') + ' districts in ' + stateName + ' with an advisory file. '
-      + 'Counts below are real per-district flag levels, not an average (a categorical flag has no meaningful mean).</div>';
+    h += '<div style="padding:0 0.75rem 0.3rem;font-size:var(--fs-1);color:var(--text-dim);">'
+      + 'N = ' + files.length + ' ' + t('of', 'में से') + ' ' + (nTotal || '?') + ' ' + t('districts', 'ज़िले') + ' '
+      + infoIcon('Counts are real per-district flag levels, not an average -- a categorical flag has no meaningful mean.')
+      + '</div>';
     h += '<div style="padding:0 0.75rem 0.6rem;">';
     FLAG_ORDER.forEach(function (key) {
       var counts = { LOW: 0, MODERATE: 0, HIGH: 0, EXTREME: 0 };
@@ -205,7 +227,7 @@
         + '</div></div>';
     });
     h += '</div>';
-    h += '<div style="padding:0 0.75rem 0.6rem;font-size:0.65rem;line-height:1.6;color:var(--text-dim);">' + RULE_NOTE + '</div>';
+    h += '<div style="padding:0 0.75rem 0.6rem;font-size:var(--fs-1);line-height:1.6;color:var(--text-dim);">' + RULE_LABEL() + ' ' + infoIcon(RULE_TOOLTIP) + '</div>';
     return h;
   }
 
@@ -222,7 +244,7 @@
     if (!host) return;
     var sel = currentSelection();
     if (!sel.stateName) {
-      showEmpty('Select a state, district, block or village to see the advisory layer.');
+      showEmpty(t('Select a state, district, block or village', 'राज्य, ज़िला, ब्लॉक या गाँव चुनें'));
       return;
     }
     var stateSlug = slugify(sel.stateName);
@@ -257,21 +279,21 @@
       if (!manifestSet[key]) {
         var nComputed = manifestTotals ? manifestTotals.districts_with_advisory : Object.keys(manifestSet).length;
         var nTotal = manifestTotals ? manifestTotals.districts_nationwide : 733;
-        host.innerHTML = '<div style="padding:0.75rem;color:var(--text-dim);font-size:0.75rem;">'
-          + 'Advisory not yet available for ' + sel.districtName + ' -- climate data (the mandatory minimum input) '
-          + 'has not been computed for this district yet. ' + nComputed + ' of ' + nTotal + ' districts computed nationally so far. '
-          + '<a href="#" onclick="setBtmTab(\'advisory\');return false;">Retry</a></div>';
+        host.innerHTML = '<div style="padding:0.75rem;color:var(--text-dim);font-size:var(--fs-2);">'
+          + t('Not yet available', 'अभी उपलब्ध नहीं') + ' · ' + sel.districtName + ' · ' + nComputed + '/' + nTotal + ' '
+          + infoIcon('Climate data, the mandatory minimum input, has not been computed for this district yet.')
+          + ' <a href="#" onclick="setBtmTab(\'advisory\');return false;">' + t('Retry', 'पुनः प्रयास') + '</a></div>';
         return;
       }
       loadDistrictFile(stateSlug, dslug).then(function (file) {
-        if (!file) { showEmpty('Advisory file failed to load for ' + sel.districtName + '.'); return; }
+        if (!file) { showEmpty(t('Failed to load', 'लोड नहीं हुआ') + ' · ' + sel.districtName); return; }
         var contextNote = null;
         if (sel.vilLgd) {
-          contextNote = 'Advisory flags are computed at DISTRICT level only. This is ' + sel.districtName
-            + '\'s district-wide advisory, not specific to the selected village -- no village-level advisory exists yet.';
+          contextNote = t('District-wide · not village-specific', 'ज़िला-स्तर · गाँव-विशिष्ट नहीं') + ' '
+            + infoIcon('Advisory flags are computed at DISTRICT level only. This is ' + sel.districtName + '\'s district-wide advisory; no village-level advisory exists yet.');
         } else if (sel.blockName) {
-          contextNote = 'Advisory flags are computed at DISTRICT level only. This is ' + sel.districtName
-            + '\'s district-wide advisory, not specific to ' + sel.blockName + ' block -- no block-level advisory exists yet.';
+          contextNote = t('District-wide · not block-specific', 'ज़िला-स्तर · ब्लॉक-विशिष्ट नहीं') + ' '
+            + infoIcon('Advisory flags are computed at DISTRICT level only. This is ' + sel.districtName + '\'s district-wide advisory, not specific to ' + sel.blockName + ' block.');
         }
         var host2 = el('advisory-panel-body');
         if (host2) host2.innerHTML = renderDistrictTier(file, sel.districtName, contextNote);
@@ -291,12 +313,13 @@
     p.className = 'btm-pane';
     p.id = 'pane-advisory';
     p.innerHTML = '<div class="section-header"><i class="fa fa-comment-dots" style="color:var(--cyan)"></i>'
-      + '<div class="section-title">ADVISORY -- rule-based, from real climate + NDVI + soil moisture</div></div>'
-      + '<div style="padding:0.4rem 0.75rem;font-size:0.68rem;line-height:1.6;color:var(--text-dim);">'
-      + 'Derived, rule-based flags only -- not a machine-learning prediction, no confidence percentage. '
-      + 'Each flag cites the exact real number(s) it was computed from.</div>'
+      + '<div class="section-title">ADVISORY — ' + t('rule-based', 'नियम-आधारित') + '</div></div>'
+      + '<div style="padding:0.4rem 0.75rem;font-size:var(--fs-1);line-height:1.6;color:var(--text-dim);">'
+      + t('Rule-based · not AI/ML', 'नियम-आधारित · AI/ML नहीं') + ' '
+      + infoIcon('Derived, rule-based flags only -- not a machine-learning prediction, no confidence percentage. Each flag cites the exact real number(s) it was computed from.')
+      + '</div>'
       + '<div id="advisory-panel-body" style="padding:0.5rem 0.75rem;text-align:center;color:var(--text-dim);font-size:var(--fs-1);">'
-      + '<i class="fa fa-comment-slash"></i> Select a state/district/block/village to see the advisory layer.</div>';
+      + '<i class="fa fa-comment-slash"></i> ' + t('Select a state/district/block/village', 'राज्य/ज़िला/ब्लॉक/गाँव चुनें') + '</div>';
     host.appendChild(p);
 
     var firstTab = document.querySelector('.btm-tab');
