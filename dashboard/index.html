@@ -410,6 +410,12 @@ body.mk-modal-open #pane-merakhet.active{
   z-index:950;border-radius:12px;border:1px solid var(--border);
   background:var(--bg-card);box-shadow:0 24px 70px rgba(0,0,0,.4);
 }
+/* Default (non-modal) positioning context for the close button -- CSS,
+   not inline, so it never outranks the position:fixed modal rule above
+   (inline styles always win over any CSS class, which is exactly the bug
+   this replaced: mera_khet.js used to set pane.style.position='relative'
+   directly, silently defeating body.mk-modal-open's position:fixed). */
+#pane-merakhet{position:relative;}
 .mk-modal-close{position:absolute;top:8px;right:10px;width:28px;height:28px;border-radius:50%;
   border:1px solid var(--border);background:var(--bg-card);color:var(--text);cursor:pointer;
   font-size:14px;z-index:2;}

@@ -768,7 +768,6 @@
 
     var pane = document.createElement('div');
     pane.className = 'btm-pane'; pane.id = 'pane-merakhet';
-    pane.style.position = 'relative'; // close button anchors to this, not the viewport
     pane.innerHTML =
       '<button class="mk-modal-close" onclick="typeof closeMeraKhetModal===\'function\' && closeMeraKhetModal()" title="Close / बंद करें">&times;</button>' +
       '<div style="display:flex;gap:8px;align-items:center;padding:10px 14px 0;flex-wrap:wrap">' +
