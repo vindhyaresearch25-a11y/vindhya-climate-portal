@@ -200,6 +200,81 @@
   }
 
   // ------------------------------------------------------------------
+  // District NDVI (for section 4, field-vs-district comparison): reuses
+  // the same two sources national_ndvi_loader.js already owns for the
+  // Location Selector panel -- dashboard/data/dicra_ndvi.json (UNDP
+  // DiCRA, MP's 52 districts, MODIS-derived, per-16-day-date time series)
+  // and dashboard/data/ndvi/<state>/<district>.json (MODIS MOD13Q1 v061
+  // via GEE, national, Phase 8.4, period_summary + annual_ndvi). These
+  // are DIFFERENT satellite/processing pipelines from Mera Khet's own
+  // live Sentinel-2/Dynamic World field query -- per this repo's
+  // "observed sources never silently merged" rule, section 4 below always
+  // labels which is which and never claims the two are on one scale.
+  // ------------------------------------------------------------------
+  var dicraNdviPromise = null, ndviManifestPromise = null;
+  var ndviDistrictFileCache = {};
+
+  function loadDicraNdviForMk() {
+    if (dicraNdviPromise) return dicraNdviPromise;
+    dicraNdviPromise = fetchWithTimeout('data/dicra_ndvi.json').then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+    return dicraNdviPromise;
+  }
+  function loadNdviManifestForMk() {
+    if (ndviManifestPromise) return ndviManifestPromise;
+    ndviManifestPromise = fetchWithTimeout('data/ndvi_manifest.json').then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (m) {
+        var lookup = {};
+        if (m && m.gee_modis && Array.isArray(m.gee_modis.districts)) {
+          m.gee_modis.districts.forEach(function (entry) {
+            var parts = entry.split('/');
+            if (parts.length === 2) lookup[parts[1]] = { stateSlug: parts[0], districtSlug: parts[1] };
+          });
+        }
+        return lookup;
+      }).catch(function () { return {}; });
+    return ndviManifestPromise;
+  }
+
+  // Returns {value, dateLabel, source} or null -- never a guess. mpKey
+  // (MP_REAL_DISTRICTS slug) takes the DiCRA path if that district has a
+  // record (same 52-district DiCRA coverage dicra_ndvi_loader.js/
+  // national_ndvi_loader.js already use); otherwise falls back to the
+  // national MODIS/GEE per-district file, same as national_ndvi_loader.js.
+  function fetchDistrictNdvi(stateSlug, districtSlug) {
+    return loadDicraNdviForMk().then(function (dicra) {
+      if (dicra && dicra.districts && dicra.districts[districtSlug]) {
+        var rec = dicra.districts[districtSlug];
+        var means = rec.ndvi_mean || [];
+        var dates = rec.dates || [];
+        if (means.length) {
+          var lastIdx = means.length - 1;
+          return {
+            value: means[lastIdx],
+            dateLabel: dates[lastIdx] || null,
+            source: 'UNDP DiCRA (MODIS-derived), most recent 16-day composite',
+          };
+        }
+      }
+      return loadNdviManifestForMk().then(function (lookup) {
+        var entry = lookup[districtSlug];
+        if (!entry) return null;
+        var key = entry.stateSlug + '/' + entry.districtSlug;
+        if (ndviDistrictFileCache[key]) return ndviDistrictFileCache[key];
+        ndviDistrictFileCache[key] = fetchWithTimeout('data/ndvi/' + key + '.json').then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (file) {
+            if (!file || !file.period_summary || file.period_summary.ndvi_mean == null) return null;
+            return {
+              value: file.period_summary.ndvi_mean,
+              dateLabel: '2000-2024 mean',
+              source: 'MODIS MOD13Q1 v061 via Google Earth Engine, 250 m, long-term mean',
+            };
+          }).catch(function () { return null; });
+        return ndviDistrictFileCache[key];
+      });
+    }).catch(function () { return null; });
+  }
+
+  // ------------------------------------------------------------------
   // Drawing (own state -- independent of geoai_professional.js's AOI
   // drawing so the two panes don't fight over one `drawing` flag; both
   // register their own map click handler and each only acts while its
@@ -297,17 +372,20 @@
     var res = {
       ring: ring, area_ha: areaM2 / 10000, area_km2: areaM2 / 1e6, perimeter_km: periM / 1000,
       centroid: centroid, state_name: null, district_name: null, soil: null, soilCell: null, climate: null, climateSource: null,
-      analyze: null // filled in by MK_ANALYZE_URL below -- {available:true,...} or {available:false,reason,message_hi,message_en}, never fabricated
+      analyze: null, // filled in by MK_ANALYZE_URL below -- {available:true,...} or {available:false,reason,message_hi,message_en}, never fabricated
+      districtNdvi: null // filled in below -- {value,dateLabel,source} or null, section 4
     };
     lastResult = res;
     mkRender(res); // render immediately with area/perimeter; district data streams in after
     mkSetDownloadEnabled(true);
 
-    // Section 2 (cropland/NDVI): real if cloudflare/mera_khet_worker.js's
-    // GEE_BACKEND_URL secret is configured server-side, an honest 501
-    // otherwise (see that Worker's own header for what's built vs
-    // pending) -- this call is safe to make unconditionally either way,
-    // it never fabricates a result client-side.
+    // Section 2 (cropland/NDVI): real, live Earth Engine query via
+    // cloudflare/mera_khet_worker.js's /analyze (Sentinel-2 NDVI +
+    // Dynamic World cropland fraction, direct Earth Engine REST calls --
+    // see that Worker's own header for how the request shape was
+    // verified). Honest available:false on any real failure -- this call
+    // is safe to make unconditionally, it never fabricates a result
+    // client-side.
     fetchWithTimeout(MK_ANALYZE_URL, {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ring: ring }),
     }).then(function (r) { return r.json().catch(function () { return null; }); })
@@ -338,7 +416,11 @@
         });
       }
 
-      Promise.all([soilP, climateP]).then(function () { mkRender(res); });
+      var ndviP = fetchDistrictNdvi(stateSlug, districtSlug).then(function (n) {
+        res.districtNdvi = n;
+      });
+
+      Promise.all([soilP, climateP, ndviP]).then(function () { mkRender(res); });
     });
   }
 
@@ -363,9 +445,8 @@
       mkStat('कुल क्षेत्रफल / TOTAL AREA', fmt(res.area_ha, 2), 'ha', fmt(res.area_km2, 3) + ' km²') +
       mkStat('परिधि / PERIMETER', fmt(res.perimeter_km, 3), 'km', '') + '</div>';
     h += '<div style="font-size:11px;opacity:.7;margin:-4px 0 12px">' +
-      'खेती वाला हिस्सा (फसल/मेड़/बंजर अलग) और उपग्रह स्वास्थ्य (NDVI) -- Dynamic World / Sentinel-2 से आएगा, ' +
-      'पर इसके लिए live GEE query वाला backend चाहिए, जो अभी जुड़ा नहीं (नीचे देखें)। ' +
-      '<span style="opacity:.7">Cropland-vs-medh/waste split and field-scale NDVI need a live satellite backend query -- not wired up yet, see section 2 below. Never estimated in the meantime.</span></div>';
+      'खेती वाला हिस्सा और उपग्रह स्वास्थ्य (NDVI) -- Dynamic World / Sentinel-2 से live GEE query, नीचे सेक्शन 2 देखें। ' +
+      '<span style="opacity:.7">Cropland fraction and field-scale NDVI come from a live Dynamic World / Sentinel-2 query -- see section 2 below.</span></div>';
 
     // 2. FASAL KI SEHAT -- real if mera_khet_worker.js's GEE_BACKEND_URL is
     // configured (res.analyze.available===true), honest not-configured
@@ -427,9 +508,47 @@
       h += '<div style="margin-top:8px;font-size:10.5px;opacity:.65">पूरी गाँव/ब्लॉक/जिला/राज्य तुलना के लिए साइडबार में "Soil Moisture" टैब देखें (वहाँ सारी 4 स्तर पर SD सहित पूरा ब्रेकडाउन है)। / For the full village/block/district/state comparison, see the Soil Moisture tab in the sidebar.</div>';
     }
 
-    // 4. AAS-PAAS KI TULNA -- depends on NDVI, not available yet
+    // 4. AAS-PAAS KI TULNA -- field NDVI (section 2, live Sentinel-2) vs
+    // district NDVI (DiCRA/MODIS, res.districtNdvi) -- both real, always
+    // labelled with their own satellite/source, never merged onto one
+    // implied scale (DiCRA/MODIS is a different satellite family + a
+    // different, usually longer/older, time window than Mera Khet's own
+    // live Sentinel-2 point value).
     h += '<div class="section-header" style="padding:0;margin-top:14px"><div class="section-title" style="font-size:12px">4. आस-पास की तुलना / Neighbourhood comparison</div></div>';
-    h += '<div style="padding:8px 10px;margin:8px 0 12px;font-size:11.5px;opacity:.7">यह तुलना (आपका NDVI वेर्सस गाँव औसत) NDVI बैकएंड जुड़ने के बाद ही संभव होगी (सेक्शन 2 देखें)। / Available once the NDVI backend (section 2) is wired up.</div>';
+    (function () {
+      var fieldNdvi = (res.analyze && res.analyze.available && res.analyze.ndvi != null) ? res.analyze.ndvi : null;
+      var dNdvi = res.districtNdvi;
+      if (fieldNdvi == null || dNdvi == null) {
+        var waiting = [];
+        if (!res.state_name && !res.locateFailed) waiting.push('जिला खोजा जा रहा है / locating district');
+        if (res.analyze == null) waiting.push('NDVI जांची जा रही है / checking field NDVI');
+        var stillLoading = waiting.length > 0;
+        h += '<div style="padding:8px 10px;margin:8px 0 12px;font-size:11.5px;opacity:.7">' +
+          (stillLoading
+            ? (waiting.join(', ') + '... / Loading...')
+            : 'यह तुलना अभी संभव नहीं -- ' +
+              (fieldNdvi == null ? 'खेत का NDVI उपलब्ध नहीं (सेक्शन 2 देखें)। ' : '') +
+              (dNdvi == null ? 'इस जिले का उपग्रह NDVI डेटा अभी उपलब्ध नहीं। ' : '') +
+              '<br><span style="opacity:.75">Not possible right now -- ' +
+              (fieldNdvi == null ? 'field NDVI unavailable (see section 2). ' : '') +
+              (dNdvi == null ? 'district NDVI not yet computed for this district.' : '') + '</span>') +
+          '</div>';
+      } else {
+        var diff = fieldNdvi - dNdvi.value;
+        var diffLabel = (diff >= 0 ? '+' : '') + fmt(diff, 3);
+        var diffColor = diff >= 0 ? 'var(--green,#2d8f5c)' : 'var(--red,#c94848)';
+        h += '<div style="display:flex;gap:20px;flex-wrap:wrap;padding:8px 0 10px;border-bottom:1px solid var(--border);margin-bottom:8px">' +
+          mkStat('आपका खेत / YOUR FIELD', fmt(fieldNdvi, 3), '', 'Sentinel-2, live') +
+          mkStat('गाँव/जिला औसत / DISTRICT AVG', fmt(dNdvi.value, 3), '', (dNdvi.dateLabel || '')) +
+          '<div style="min-width:110px"><div style="font-size:10px;opacity:.6;letter-spacing:.4px">फर्क / DIFFERENCE</div><div style="font-size:17px;font-weight:700;color:' + diffColor + '">' + diffLabel + '</div></div>' +
+          '</div>';
+        h += '<div style="font-size:10.5px;opacity:.65;line-height:1.6">' +
+          'खेत का NDVI: Sentinel-2 (10 मी, हाल का), जिला औसत: ' + dNdvi.source + ' (250 मी/coarser)। ' +
+          '<b>दोनों अलग उपग्रह/समय-अवधि से हैं -- सीधे तुलना सांकेतिक है, बिल्कुल सटीक नहीं।</b>' +
+          '<br><span style="opacity:.8">Field NDVI: Sentinel-2 (10 m, recent). District average: ' + dNdvi.source + '. ' +
+          '<b>Different satellite family and time window -- comparison is indicative, not exact.</b></span></div>';
+      }
+    })();
 
     // 5. SALAH -- via existing Kisan Sahayak chat, fed the real numbers above
     h += '<div class="section-header" style="padding:0"><div class="section-title" style="font-size:12px">5. सलाह / Advice</div></div>';
