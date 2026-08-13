@@ -61,9 +61,9 @@
     if (!box) return;
     var pt = window.currentLocationPoint;
     if (!pt) {
-      box.innerHTML = '<div style="padding:16px;font-size:12px;line-height:1.8;opacity:.85">' +
+      box.innerHTML = '<div style="padding:var(--space-1);font-size:var(--fs-2);line-height:1.8;opacity:.85">' +
         '<b>' + t('Live Weather', 'मौसम') + '</b><br>' +
-        t('Select a location to see recent daily weather.', 'हाल का दैनिक मौसम देखने के लिए स्थान चुनें।') + '</div>';
+        t('Select a location', 'स्थान चुनें') + '</div>';
       return;
     }
     box.innerHTML = '<div style="padding:16px;font-size:12px;opacity:.8">' +
@@ -88,9 +88,9 @@
       }).filter(function (r) { return r.tmax !== null || r.precip !== null; }); // drop pure-fill rows
 
       if (!rows.length) {
-        box.innerHTML = '<div style="padding:12px 14px;font-size:12px;line-height:1.8">' +
+        box.innerHTML = '<div style="padding:var(--space-07) var(--space-08);font-size:var(--fs-2);line-height:1.8">' +
           '<b>' + t('Live Weather', 'मौसम') + '</b><br>' +
-          t('No recent data returned by NASA POWER for this point.', 'इस स्थान के लिए NASA POWER से कोई हाल का डेटा नहीं मिला।') +
+          t('No data · NASA POWER', 'कोई डेटा नहीं · NASA POWER') +
           '</div>';
         return;
       }

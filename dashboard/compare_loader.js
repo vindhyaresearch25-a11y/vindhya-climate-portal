@@ -77,6 +77,13 @@
   }
   function t(en, hi) { return isHindi() ? hi : en; }
 
+  // i-icon tooltip helper -- long explanation goes in the title attribute,
+  // never inline as panel text (item 2).
+  function infoIcon(title) {
+    return '<i class="fa fa-circle-info" title="' + String(title).replace(/"/g, '&quot;') + '" ' +
+      'style="color:var(--text-dim);opacity:0.7;cursor:help;font-size:0.85em;"></i>';
+  }
+
   function slugify(name) {
     return String(name || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
   }
@@ -240,16 +247,15 @@
     return '<div style="padding:14px;font-size:12px;line-height:1.8;background:rgba(212,121,58,.08);' +
       'border:1px solid rgba(212,121,58,.3);border-radius:6px;color:var(--text)">' +
       '<b>' + t('Not built yet', 'अभी उपलब्ध नहीं') + '</b><br>' +
-      t(names[tier] + '-tier Compare is not implemented yet -- District tier is the only one built so far. ' +
-        'Switch to District above.',
-        names[tier] + '-स्तर पर तुलना अभी उपलब्ध नहीं है -- फिलहाल केवल ज़िला स्तर तैयार है। ऊपर District चुनें।') +
+      t(names[tier] + '-tier · District tier only', names[tier] + '-स्तर · केवल ज़िला स्तर') + ' ' +
+      infoIcon(names[tier] + '-tier Compare is not implemented yet. Switch to District above.') +
       '</div>';
   }
 
   function chipsHtml() {
     if (!state.locations.length) {
-      return '<div style="font-size:11px;opacity:.65;padding:4px 0">' +
-        t('Search and add 2-6 districts to compare.', 'तुलना के लिए 2-6 ज़िले खोजें और जोड़ें।') + '</div>';
+      return '<div style="font-size:var(--fs-1);opacity:.65;padding:var(--space-04) 0">' +
+        t('Add 2–6 districts', '2–6 ज़िले जोड़ें') + '</div>';
     }
     return state.locations.map(function (loc, i) {
       return '<span style="display:inline-flex;align-items:center;gap:5px;margin:2px 4px 2px 0;padding:3px 8px;' +
@@ -346,9 +352,9 @@
     });
     h += '</table></div>';
 
-    h += '<div style="margin-top:8px;font-size:9.5px;opacity:.65;line-height:1.7">' +
-      t('Sources per column -- Heatwave/SPI/Rainfall/Rx1day: IMD (5 original MP districts, real year selected) or ERA5-Land+CHIRPS via GEE (all other districts, 2000-2024 average -- marked "avg", the year slider does not change this value because no yearly series exists for these districts). NDVI: DiCRA/MODIS, Madhya Pradesh districts only. Population/Net area sown/Irrigated area: summed from Survey of India per-village profiles (hover a cell for village count). Hyphen = data genuinely not available for that location, never a substituted or estimated figure.',
-        'हर कॉलम के स्रोत -- लू/SPI/वर्षा/Rx1day: IMD (5 मूल MP ज़िले, चयनित वर्ष) या ERA5-Land+CHIRPS/GEE (बाकी सभी ज़िले, 2000-2024 औसत -- वर्ष स्लाइडर इसे नहीं बदलता)। NDVI: DiCRA/MODIS, केवल मध्य प्रदेश। जनसंख्या/शुद्ध बोया क्षेत्र/सिंचित क्षेत्र: सर्वे ऑफ़ इंडिया के गांव-स्तर आंकड़ों से जोड़े गए।') +
+    h += '<div style="margin-top:var(--space-04);font-size:var(--fs-1);opacity:.65;line-height:1.7">' +
+      t('Sources vary per column', 'हर कॉलम के स्रोत अलग हैं') + ' ' +
+      infoIcon('Heatwave/SPI/Rainfall/Rx1day: IMD (5 original MP districts, real year selected) or ERA5-Land+CHIRPS via GEE (all other districts, 2000-2024 average, marked "avg" -- the year slider does not change this value). NDVI: DiCRA/MODIS, Madhya Pradesh districts only. Population/Net area sown/Irrigated area: summed from Survey of India per-village profiles. Hyphen = data genuinely not available, never a substituted or estimated figure.') +
       '</div>';
     return h;
   }
@@ -367,9 +373,9 @@
       return '<div style="border:1.5px solid ' + loc.color + ';border-radius:8px;padding:10px;margin-bottom:10px;background:' + loc.color + '0d">' +
         '<div style="font-weight:700;font-size:12.5px;margin-bottom:6px">' + loc.districtName + ', ' + loc.stateName + '</div>' + rows + '</div>';
     }).join('') + (state.locations.length > MAX_LOCATIONS_MOBILE ?
-      '<div style="font-size:10.5px;opacity:.65;padding:4px 0">' +
-      t('Showing first 3 of ' + state.locations.length + ' on mobile -- remove one to see a different set, or view on desktop for all.',
-        'मोबाइल पर पहले 3 दिखाए जा रहे हैं -- ' + state.locations.length + ' में से।') + '</div>' : '');
+      '<div style="font-size:var(--fs-1);opacity:.65;padding:var(--space-04) 0">' +
+      t('Showing 3 of ' + state.locations.length, state.locations.length + ' में से 3 दिख रहे') + ' ' +
+      infoIcon('Remove one to see a different set, or view on desktop for all.') + '</div>' : '');
   }
 
   var _chart = null;
@@ -444,14 +450,14 @@
       '<span style="opacity:.7">' + t('Year', 'वर्ष') + '</span>' +
       '<input id="compare-year-slider" type="range" min="2000" max="2024" value="' + state.year + '" style="flex:1">' +
       '<b id="compare-year-label">' + state.year + '</b></div>' +
-      '<div style="font-size:9.5px;opacity:.6;margin-bottom:8px">' +
-      t('Only affects IMD districts (Bhopal/Indore/Jabalpur/Rewa/Sidhi) and NDVI -- other districts show a fixed 2000-2024 average regardless of year (see note below the table).',
-        'केवल IMD ज़िलों और NDVI को प्रभावित करता है।') + '</div>';
+      '<div style="font-size:var(--fs-1);opacity:.6;margin-bottom:var(--space-04)">' +
+      t('IMD districts + NDVI only', 'केवल IMD ज़िले + NDVI') + ' ' +
+      infoIcon('Only affects IMD districts (Bhopal/Indore/Jabalpur/Rewa/Sidhi) and NDVI -- other districts show a fixed 2000-2024 average regardless of year.') + '</div>';
 
     var body;
     if (state.locations.length < MIN_LOCATIONS) {
-      body = '<div style="padding:14px 0;font-size:12px;opacity:.7">' +
-        t('Add at least 2 districts to see the comparison table and chart.', 'तुलना देखने के लिए कम से कम 2 ज़िले जोड़ें।') + '</div>';
+      body = '<div style="padding:var(--space-08) 0;font-size:var(--fs-2);opacity:.7">' +
+        t('Add at least 2 districts', 'कम से कम 2 ज़िले जोड़ें') + '</div>';
     } else {
       body = '<div style="padding:10px 0;font-size:11px;opacity:.7">' + t('Loading comparison...', 'तुलना लोड हो रही है...') + '</div>';
     }
