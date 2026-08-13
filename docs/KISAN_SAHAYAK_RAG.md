@@ -160,6 +160,7 @@ on every future document too.
 | Batch | Crops added | Documents | Vectors before -> after |
 |---|---|---|---|
 | 1 (cereals/millets + oilseeds) | maize, jowar, bajra, ragi, barley, small millets, groundnut, sesamum, castor seed, sunflower, safflower, niger seed | 9 (`dmr_maize_production_systems_2013`, `iimr_sorghum_kharif_pop`, `iimr_sorghum_rabi_pop`, `iimr_pearl_millet_pop`, `iimr_finger_millet_pop`, `iiwbr_barley_eb53_pocket_guide`, `iimr_small_millets_gap_2022`, `iimr_kodo_millet_pop`, `dgr_groundnut_pop_states`, `tnau_cpg2020_oilseeds`) | 1389 -> 2069 (+680) |
+| 2 (vegetables + fruits) | potato, onion, tomato, brinjal, bhindi, cabbage, cauliflower, banana, mango, citrus fruit, papaya, orange, pome fruit, other fresh fruits | 15 (`cpri_potato_gap_2020`, `pau_vegetable_pop_2021`, `tnau_horticulture_cpg_2020`, `niphm_aesa_ipm_banana_2014`, `niphm_aesa_ipm_mango_2014`, `niphm_aesa_ipm_citrus_2014`, `niphm_aesa_ipm_papaya_2015`, `niphm_aesa_ipm_apple_2014`, `niphm_aesa_ipm_pear_2015`, `niphm_aesa_ipm_guava_2015`, `kau_pop_crops_2016`, `hpshiva_subtropical_pop_2022`, `ppqs_mango_export_pop_2022`, `nhm_ipm_schedule_banana_2012`, `nrcb_tr4_banana_technote`) | 2069 -> 3325 (+1256) |
 
 **Linseed** is covered without a new document -- the oilseeds research pass
 found that the existing `pau_pop_rabi_2025_26` PDF (already ingested in

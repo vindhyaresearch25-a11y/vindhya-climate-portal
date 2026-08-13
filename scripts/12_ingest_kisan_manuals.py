@@ -343,6 +343,141 @@ CORPUS = [
         "year": 2020,
         "publisher": "Directorate of Agriculture, Govt. of Tamil Nadu & Tamil Nadu Agricultural University (TNAU), Coimbatore",
     },
+
+    # -------------------------------------------------------------
+    # Added 2026-08-13 round 2, batch 2: vegetables (potato, onion, tomato,
+    # brinjal, bhindi, cabbage, cauliflower) and fruits (banana, mango,
+    # citrus fruit, papaya, orange, pome fruit, other fresh fruits). Every
+    # URL fetched live and confirmed 200 OK / application/pdf this session.
+    # A 2003 TNAU/DPPQS papaya IPM bulletin was found and REJECTED --
+    # recommends Endosulfan @ 1.25 l/ha (banned nationally, Supreme Court
+    # order 2011); niphm_aesa_ipm_papaya_2015 covers papaya instead. An
+    # ICAR-IIVR "Compendium on Pesticide Use in Vegetables" (2013) was found
+    # but deliberately NOT added -- it's a regulatory/WHO-hazard-class/MRL
+    # reference document, not farmer-facing cultivation advice, and its
+    # banned/restricted-chemical mentions risk being chunked away from the
+    # "banned" qualifier that makes them safe to read in context.
+    # -------------------------------------------------------------
+    {
+        "id": "cpri_potato_gap_2020",
+        "url": "https://icarcpri.res.in/WriteReadData/LINKS/GAP_Technical_Bulletin_108cf4149c3-240b-4452-9c1c-545d02c79e7f.pdf",
+        "source": "Good Agricultural Practices (GAP) for Production of Potato Crop (Technical Bulletin No. 108)",
+        "crop": "potato",
+        "year": 2020,
+        "publisher": "ICAR-Central Potato Research Institute (CPRI), Shimla",
+    },
+    {
+        "id": "pau_vegetable_pop_2021",
+        "url": "https://pau.edu/content/ccil/pf/pp_veg.pdf",
+        "source": "Package of Practices for Cultivation of Vegetables",
+        "crop": "multiple (onion, tomato, brinjal, bhindi, cabbage, cauliflower, potato)",
+        "year": 2021,
+        "publisher": "Punjab Agricultural University (PAU), Ludhiana",
+    },
+    {
+        "id": "tnau_horticulture_cpg_2020",
+        "url": "https://tnau.ac.in/site/research/wp-content/uploads/sites/60/2020/02/Horticulture-CPG-2020.pdf",
+        "source": "Crop Production Guide -- Horticulture Crops 2020",
+        "crop": "multiple (tomato, brinjal, bhindi, cabbage, cauliflower, onion, potato -- the 437-page document also covers other horticulture crops)",
+        "year": 2020,
+        "publisher": "Directorate of Horticulture and Plantation Crops, Govt. of Tamil Nadu & Tamil Nadu Agricultural University (TNAU), Coimbatore",
+    },
+    {
+        "id": "niphm_aesa_ipm_banana_2014",
+        "url": "https://niphm.gov.in/IPMPackages/Banana.pdf",
+        "source": "AESA Based IPM Package -- Banana",
+        "crop": "banana",
+        "year": 2014,
+        "publisher": "National Institute of Plant Health Management (NIPHM), Hyderabad, jointly with Directorate of Plant Protection Quarantine & Storage (DPPQS), Govt. of India",
+    },
+    {
+        "id": "niphm_aesa_ipm_mango_2014",
+        "url": "https://niphm.gov.in/IPMPackages/Mango.pdf",
+        "source": "AESA Based IPM Package -- Mango",
+        "crop": "mango",
+        "year": 2014,
+        "publisher": "National Institute of Plant Health Management (NIPHM), Hyderabad + DPPQS, Govt. of India",
+    },
+    {
+        "id": "niphm_aesa_ipm_citrus_2014",
+        "url": "https://niphm.gov.in/IPMPackages/Citrus.pdf",
+        "source": "AESA Based IPM Package -- Citrus",
+        "crop": "multiple (citrus fruit, orange -- explicit sweet orange/mandarin/kinnow and acid lime/lemon sub-sections)",
+        "year": 2014,
+        "publisher": "National Institute of Plant Health Management (NIPHM), Hyderabad",
+    },
+    {
+        "id": "niphm_aesa_ipm_papaya_2015",
+        "url": "https://niphm.gov.in/IPMPackages/Papaya.pdf",
+        "source": "AESA Based IPM Package -- Papaya",
+        "crop": "papaya",
+        "year": 2015,
+        "publisher": "National Institute of Plant Health Management (NIPHM), Hyderabad + DPPQS, Faridabad",
+    },
+    {
+        "id": "niphm_aesa_ipm_apple_2014",
+        "url": "https://niphm.gov.in/IPMPackages/Apple.pdf",
+        "source": "AESA Based IPM Package -- Apple",
+        "crop": "pome fruit",
+        "year": 2014,
+        "publisher": "National Institute of Plant Health Management (NIPHM), Hyderabad",
+    },
+    {
+        "id": "niphm_aesa_ipm_pear_2015",
+        "url": "https://niphm.gov.in/IPMPackages/Pear.pdf",
+        "source": "AESA Based IPM Package -- Pear",
+        "crop": "pome fruit",
+        "year": 2015,
+        "publisher": "National Institute of Plant Health Management (NIPHM), Hyderabad",
+    },
+    {
+        "id": "niphm_aesa_ipm_guava_2015",
+        "url": "https://niphm.gov.in/IPMPackages/Guava.pdf",
+        "source": "AESA Based IPM Package -- Guava",
+        "crop": "other fresh fruits",
+        "year": 2015,
+        "publisher": "National Institute of Plant Health Management (NIPHM), Hyderabad",
+    },
+    {
+        "id": "kau_pop_crops_2016",
+        "url": "https://kau.in/sites/default/files/documents/pop2016.pdf",
+        "source": "Package of Practices Recommendations: Crops 2016 (15th edition)",
+        "crop": "multiple (banana, mango, orange/mandarin, papaya, apple, guava, jack, indian gooseberry, pineapple, sapota, west indian cherry -- fruits chapter of a comprehensive multi-crop POP)",
+        "year": 2016,
+        "publisher": "Directorate of Extension, Kerala Agricultural University (KAU), Thrissur",
+    },
+    {
+        "id": "hpshiva_subtropical_pop_2022",
+        "url": "https://hpshiva.hp.gov.in/cms/media/4i4mx5ee/pop_final_06-10-2022.pdf",
+        "source": "Package of Practices for Subtropical Fruit Crops of Himachal Pradesh",
+        "crop": "multiple (mango, citrus fruit, orange, other fresh fruits (litchi, guava, pomegranate, plum, kiwifruit, persimmon, pecan nut))",
+        "year": 2022,
+        "publisher": "Dr. YS Parmar University of Horticulture & Forestry (COHF-Neri, Hamirpur), Dept. of Horticulture, Govt. of Himachal Pradesh, ADB-funded HPSHIVA project",
+    },
+    {
+        "id": "ppqs_mango_export_pop_2022",
+        "url": "https://ppqs.gov.in/sites/default/files/mango_pop_final_-08.12.2022.pdf",
+        "source": "IPM Package of Practices for Mango (For Producing Quality Fruits for Export)",
+        "crop": "mango",
+        "year": 2022,
+        "publisher": "Directorate of Plant Protection Quarantine & Storage (DPPQS), Ministry of Agriculture & Farmers' Welfare, Govt. of India, technically reviewed by ICAR-CISH Lucknow",
+    },
+    {
+        "id": "nhm_ipm_schedule_banana_2012",
+        "url": "https://agritech.tnau.ac.in/horticulture/pdf/tech_bulletin/national/IPM-Banana-Revised-Sept2011.pdf",
+        "source": "Extension Bulletin No. 3 -- IPM Schedule for Banana Pests",
+        "crop": "banana",
+        "year": 2012,
+        "publisher": "National Horticulture Mission, Ministry of Agriculture, Govt. of India, re-hosted on TNAU Agritech Portal",
+    },
+    {
+        "id": "nrcb_tr4_banana_technote",
+        "url": "https://nrcb.org.in/oldwebsite/documents/Publications/Tech%20Folder%20English/TF-tr4-eng.pdf",
+        "source": "Technical Folder 1 -- Fusarium Wilt (Tropical Race 4), A Destructive Disease of Banana in India",
+        "crop": "banana",
+        "year": None,
+        "publisher": "ICAR-National Research Centre for Banana (NRCB), Tiruchirappalli",
+    },
 ]
 
 FETCH_DATE = time.strftime("%Y-%m-%d")
