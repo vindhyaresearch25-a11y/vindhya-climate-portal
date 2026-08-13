@@ -457,7 +457,7 @@
       '<div style="display:flex;gap:8px;flex-wrap:wrap;padding:8px 0 12px">' +
       '<button onclick="window.VindhyaMeraKhet.downloadGeoJSON()" class="mk-dl-btn"><i class="fa fa-file-code"></i> GeoJSON</button>' +
       '<button onclick="window.VindhyaMeraKhet.downloadKML()" class="mk-dl-btn"><i class="fa fa-earth-asia"></i> KML</button>' +
-      '<button onclick="typeof exportMapPNG===\'function\' && exportMapPNG()" class="mk-dl-btn"><i class="fa fa-camera"></i> PNG</button>' +
+      '<button onclick="window.VindhyaMeraKhet.exportPNG()" class="mk-dl-btn"><i class="fa fa-camera"></i> PNG</button>' +
       '<button onclick="window.VindhyaMeraKhet.downloadSHP()" class="mk-dl-btn"><i class="fa fa-draw-polygon"></i> SHP (zip)</button>' +
       '<button disabled title="GEE से async export -- 2-5 मिनट लगते हैं, और इस sandbox के GEE service account से यह अभी fail होता है (देखें docs/MERA_KHET_BENCHMARK.json) -- turant nahi milega" class="mk-dl-btn" style="opacity:.5;cursor:not-allowed"><i class="fa fa-layer-group"></i> GeoTIFF — जल्द आ रहा है / coming soon</button>' +
       '</div>' +
@@ -768,7 +768,9 @@
 
     var pane = document.createElement('div');
     pane.className = 'btm-pane'; pane.id = 'pane-merakhet';
+    pane.style.position = 'relative'; // close button anchors to this, not the viewport
     pane.innerHTML =
+      '<button class="mk-modal-close" onclick="typeof closeMeraKhetModal===\'function\' && closeMeraKhetModal()" title="Close / बंद करें">&times;</button>' +
       '<div style="display:flex;gap:8px;align-items:center;padding:10px 14px 0;flex-wrap:wrap">' +
       '<button id="mk-btn-draw" style="padding:6px 14px;border:1px solid var(--green);background:var(--green);color:#fff;border-radius:5px;cursor:pointer;font-size:12px;font-weight:600">खेत खींचें / Draw field</button>' +
       '<button id="mk-btn-finish" style="padding:6px 14px;border:1px solid var(--border);background:var(--bg-card);color:var(--text);border-radius:5px;cursor:pointer;font-size:12px">पूरा करें / Finish</button>' +
@@ -808,12 +810,24 @@
     if (item) item.click();
   }
 
+  // Click-outside-to-close for the modal treatment (the backdrop itself
+  // is a CSS ::before pseudo-element -- it can't carry its own listener --
+  // so this checks on every document click while the modal is open).
+  function wireModalOutsideClick() {
+    document.addEventListener('click', function (e) {
+      if (!document.body.classList.contains('mk-modal-open')) return;
+      if (e.target.closest('#pane-merakhet') || e.target.closest('#mk-nav-item') || e.target.closest('#mk-tab')) return;
+      if (typeof closeMeraKhetModal === 'function') closeMeraKhetModal();
+    }, true);
+  }
+
   function boot() {
     if (!window.L || !window.leafletMap) { setTimeout(boot, 700); return; }
     try { addNavItem(); } catch (e) { console.warn('[mera_khet] nav', e); }
     try { addTabAndPane(); } catch (e) { console.warn('[mera_khet] pane', e); }
     try { wireMapClick(); } catch (e) { console.warn('[mera_khet] map click', e); }
     try { addCadastralLink(); } catch (e) { console.warn('[mera_khet] cadastral link', e); }
+    try { wireModalOutsideClick(); } catch (e) { console.warn('[mera_khet] outside-click', e); }
     console.log('[mera_khet] loaded');
   }
 
@@ -823,8 +837,27 @@
     setTimeout(boot, 950);
   }
 
+  // PNG export (Phase 5.3, crop-to-selection rewrite 2026-08-13): passes
+  // the drawn polygon's own real bounds/area/feature to exportMapPNG()
+  // instead of letting it fall back to the Location Selector's current
+  // boundary (which would be wrong here -- the farmer drew a field, not a
+  // district). ring is [[lon,lat],...]; L.latLngBounds wants [lat,lon].
+  function exportPNG() {
+    if (typeof exportMapPNG !== 'function') return;
+    if (!lastResult || !lastResult.ring || !lastResult.ring.length) { exportMapPNG(); return; }
+    var latlngs = lastResult.ring.map(function (c) { return [c[1], c[0]]; });
+    var bounds = (typeof L !== 'undefined') ? L.latLngBounds(latlngs) : null;
+    exportMapPNG({
+      bounds: bounds,
+      areaHa: lastResult.area_ha,
+      feature: mkFieldGeoJSON(lastResult),
+      title: 'मेरा खेत / My Field' + (lastResult.district_name ? ' — ' + lastResult.district_name + ', ' + lastResult.state_name : ''),
+      source: 'Farmer-drawn field boundary (Mera Khet) | Survey of India boundaries | ' + (lastResult.climateSource || 'ERA5-Land+CHIRPS/IMD'),
+    });
+  }
+
   window.VindhyaMeraKhet = {
-    open: openMeraKhet, askAdvice: askAdvice,
+    open: openMeraKhet, askAdvice: askAdvice, exportPNG: exportPNG,
     downloadGeoJSON: downloadGeoJSON, downloadKML: downloadKML, downloadSHP: downloadSHP
   };
 })();

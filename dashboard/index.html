@@ -398,6 +398,27 @@ canvas.chart-canvas{max-height:100%;}
 .btm-pane{display:none;flex:1;flex-direction:column;overflow:hidden;}
 .btm-pane.active{display:flex;}
 
+/* Mera Khet full modal (owner report 2026-08-13: the shared 210px bottom
+   strip made its field-measurement/download/ground-truth detail
+   unreadable). body.mk-modal-open is toggled by switchTab()/
+   closeMeraKhetModal() ONLY around the merakhet pane's own lifecycle --
+   every other .btm-pane keeps the normal shared-strip layout. */
+body.mk-modal-open::before{content:'';position:fixed;inset:0;background:rgba(10,16,26,.55);z-index:940;}
+body.mk-modal-open #pane-merakhet.active{
+  position:fixed;top:66px;left:50%;transform:translateX(-50%);
+  width:min(920px,92vw);max-height:calc(100vh - 90px);
+  z-index:950;border-radius:12px;border:1px solid var(--border);
+  background:var(--bg-card);box-shadow:0 24px 70px rgba(0,0,0,.4);
+}
+.mk-modal-close{position:absolute;top:8px;right:10px;width:28px;height:28px;border-radius:50%;
+  border:1px solid var(--border);background:var(--bg-card);color:var(--text);cursor:pointer;
+  font-size:14px;z-index:2;}
+@media (max-width:640px){
+  body.mk-modal-open #pane-merakhet.active{
+    top:0;left:0;transform:none;width:100vw;height:100vh;max-height:100vh;border-radius:0;
+  }
+}
+
 /* AI Engine */
 .ai-model-row{display:flex;gap:var(--space-05);padding:0.5rem 0.75rem;flex-wrap:wrap;}
 .ai-model-card{flex:1;min-width:80px;background:rgba(26,138,158,0.04);border:var(--border-default);border-radius:var(--radius-6);padding:var(--space-05);text-align:center;}
@@ -2099,6 +2120,18 @@ function switchTab(tabEl,paneId){
   const pane=document.getElementById('pane-'+paneId);
   if(pane) pane.classList.add('active');
   if(paneId==='cadastral' && typeof loadCadastralLayer==='function') loadCadastralLayer();
+  // Owner report 2026-08-13: Mera Khet's detail (field measurement,
+  // downloads, ground-truth form) was unreadable squeezed into the
+  // shared 210px bottom strip -- .mk-modal-open (CSS below) expands
+  // #pane-merakhet into a real full-screen-ish modal ONLY while its own
+  // tab is active; every other panel keeps the normal shared strip
+  // layout untouched.
+  document.body.classList.toggle('mk-modal-open', paneId==='merakhet');
+}
+function closeMeraKhetModal(){
+  document.body.classList.remove('mk-modal-open');
+  document.querySelectorAll('.btm-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.btm-pane').forEach(p=>p.classList.remove('active'));
 }
 
 // ============================================================
@@ -2968,42 +3001,165 @@ function toggleFullMap(){
   setTimeout(()=>window.leafletMap&&window.leafletMap.invalidateSize(),100);
 }
 
-// Phase 5.3: export the visible map panel (basemap+boundaries+legend+scale
-// bar+north arrow, whatever is on screen) as a >=2000px-wide PNG, with a
-// caption band (location, source, date, portal name) composited below it
-// so those four items are always present even where CSS hides the
-// on-map furniture (mobile breakpoint).
-function exportMapPNG(){
+// Phase 5.3, rewritten 2026-08-13 (owner report: export was dumping the
+// whole visible map panel, not the selected area): crops to the SELECTED
+// area's real bounding box (Location Selector's current state/district/
+// block/village, or a Mera Khet polygon via the opts override below),
+// then draws professional cartographic furniture (title, north arrow,
+// scale bar, legend, area, source, date, CRS, disclaimer) directly onto
+// the output canvas -- the on-screen equivalents of these (the Leaflet
+// scale control, the on-map north-arrow button, the Risk Legend box) are
+// fixed to the map-panel's own corners and would mostly fall OUTSIDE the
+// cropped region once zoomed to a small selection, so they cannot just be
+// captured in place; every furniture element here is drawn fresh from
+// real values (real bounds, real turf.area(), the map's real current
+// meters-per-pixel), never a fabricated/approximate one.
+//
+// opts (all optional -- Mera Khet's PNG button passes these; the Location
+// Selector path leaves opts undefined and this function fills every field
+// itself from window.getCurrentSelectionBounds()):
+//   bounds   -- L.LatLngBounds of the area to crop to
+//   areaHa   -- real area in hectares (skips the turf.area() recompute)
+//   title    -- heading text (defaults to the location breadcrumb)
+//   source   -- source line (defaults to the basemap+boundary+climate line)
+function exportMapPNG(opts){
+  opts = opts || {};
   const panel=document.getElementById('map-panel');
+  const map=window.leafletMap;
   if(!panel || typeof html2canvas==='undefined'){ alert('Export unavailable: html2canvas did not load.'); return; }
   const btn=document.getElementById('export-png-btn');
   if(btn) btn.classList.add('active');
   document.body.classList.add('exporting-map');
-  const scale=Math.max(2, Math.ceil(2000/panel.clientWidth));
+
+  // Resolve what to crop to: explicit opts.bounds (Mera Khet) > the
+  // Location Selector's current selection > null (whole panel, old
+  // behaviour -- happens only when nothing is selected yet).
+  let selBounds = opts.bounds || null, selFeature = opts.feature || null, selLevel = opts.title ? null : null;
+  if(!selBounds && typeof window.getCurrentSelectionBounds==='function'){
+    const sel = window.getCurrentSelectionBounds();
+    if(sel){ selBounds = sel.bounds; selFeature = sel.feature; selLevel = sel.level; }
+  }
+
+  const locEl=document.getElementById('locBreadcrumb');
+  const title = opts.title || (locEl && locEl.textContent.trim()) || 'India';
+  const basemapName=window.currentBasemap || DEFAULT_BASEMAP;
+  const source = opts.source || ('Basemap: '+basemapName+' | Boundaries: Survey of India | Climate: IMD / ERA5-Land+CHIRPS (GEE)');
+  const dateStr=new Date().toISOString().slice(0,10);
+
+  let areaHa = (opts.areaHa != null) ? opts.areaHa : null;
+  if(areaHa==null && selFeature && typeof turf!=='undefined'){
+    try { areaHa = turf.area(selFeature) / 10000; } catch(e) { /* area line omitted below if this fails */ }
+  }
+
   setTimeout(function(){
-    html2canvas(panel,{useCORS:true,allowTaint:false,scale:scale,backgroundColor:'#ffffff'}).then(function(mapCanvas){
-      const bandH=Math.round(64*scale);
+    html2canvas(panel,{useCORS:true,allowTaint:false,scale:2,backgroundColor:'#ffffff'}).then(function(rawCanvas){
+      const rawScale = rawCanvas.width / panel.clientWidth; // == 2, kept symbolic in case html2canvas ever adjusts it
+
+      // ---- crop region, in RAW canvas pixels ----
+      let cx0=0, cy0=0, cx1=rawCanvas.width, cy1=rawCanvas.height;
+      if(selBounds && map){
+        const nw=map.latLngToContainerPoint(selBounds.getNorthWest());
+        const se=map.latLngToContainerPoint(selBounds.getSouthEast());
+        const padX=(se.x-nw.x)*0.10, padY=(se.y-nw.y)*0.10; // 10% breathing room so the boundary line isn't flush with the edge
+        cx0=Math.max(0,(nw.x-padX)*rawScale); cy0=Math.max(0,(nw.y-padY)*rawScale);
+        cx1=Math.min(rawCanvas.width,(se.x+padX)*rawScale); cy1=Math.min(rawCanvas.height,(se.y+padY)*rawScale);
+      }
+      const cropW=Math.max(1,cx1-cx0), cropH=Math.max(1,cy1-cy0);
+
+      // Upscale so the FINAL cropped map image is >=2000px wide (Req: "2000px chaudai"), not the uncropped panel.
+      const outScale=Math.max(1, 2000/cropW);
+      const mapW=Math.round(cropW*outScale), mapH=Math.round(cropH*outScale);
+
+      const titleH=Math.round(56*outScale), bandH=Math.round(96*outScale);
       const out=document.createElement('canvas');
-      out.width=mapCanvas.width; out.height=mapCanvas.height+bandH;
+      out.width=mapW; out.height=titleH+mapH+bandH;
       const ctx=out.getContext('2d');
       ctx.fillStyle='#ffffff'; ctx.fillRect(0,0,out.width,out.height);
-      ctx.drawImage(mapCanvas,0,0);
-      const locEl=document.getElementById('locBreadcrumb');
-      const locText=(locEl && locEl.textContent.trim()) || 'India';
-      const basemapName=window.currentBasemap || DEFAULT_BASEMAP;
-      const dateStr=new Date().toISOString().slice(0,10);
+
+      // ---- title band ----
       ctx.fillStyle='#1a2733';
-      ctx.font='bold '+Math.round(15*scale)+'px Inter,sans-serif';
-      ctx.fillText(locText, 12*scale, mapCanvas.height+24*scale);
+      ctx.font='bold '+Math.round(20*outScale)+'px Inter,sans-serif';
+      ctx.fillText(title, 14*outScale, titleH*0.62);
       ctx.fillStyle='#5a6a7a';
-      ctx.font=Math.round(11*scale)+'px Inter,sans-serif';
-      ctx.fillText('Source: '+basemapName+' basemap + Survey of India boundaries + IMD/ERA5-Land/CHIRPS climate data', 12*scale, mapCanvas.height+42*scale);
-      ctx.fillText('Generated '+dateStr+' — VINDHYA Climate Intelligence Portal', 12*scale, mapCanvas.height+58*scale);
+      ctx.font=Math.round(11*outScale)+'px Inter,sans-serif';
+      ctx.fillText('VINDHYA Climate Intelligence Portal', 14*outScale, titleH*0.9);
+
+      // ---- cropped map image ----
+      ctx.drawImage(rawCanvas, cx0,cy0,cropW,cropH, 0,titleH,mapW,mapH);
+      const mapBottom=titleH+mapH;
+
+      // ---- north arrow (drawn fresh -- the on-screen one is pinned to
+      // the panel corner and is almost never inside the crop) ----
+      (function(){
+        const r=18*outScale, cx=mapW-r-10*outScale, cy=titleH+r+10*outScale;
+        ctx.save();
+        ctx.fillStyle='rgba(255,255,255,0.85)'; ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fill();
+        ctx.strokeStyle='#1a2733'; ctx.lineWidth=Math.max(1,outScale*0.6); ctx.stroke();
+        ctx.fillStyle='#1a2733';
+        ctx.beginPath(); ctx.moveTo(cx,cy-r*0.6); ctx.lineTo(cx-r*0.32,cy+r*0.35); ctx.lineTo(cx,cy+r*0.15); ctx.lineTo(cx+r*0.32,cy+r*0.35); ctx.closePath(); ctx.fill();
+        ctx.font='bold '+Math.round(r*0.55)+'px Inter,sans-serif'; ctx.textAlign='center';
+        ctx.fillText('N', cx, cy-r*0.62-2*outScale);
+        ctx.textAlign='left';
+        ctx.restore();
+      })();
+
+      // ---- scale bar (real meters-per-pixel at this map's current
+      // center latitude + zoom, standard Leaflet/Web-Mercator formula --
+      // never an assumed/typical value) ----
+      if(map){
+        try{
+          const zoom=map.getZoom(), lat=map.getCenter().lat;
+          const metersPerCssPixel = 156543.03392 * Math.cos(lat*Math.PI/180) / Math.pow(2, zoom);
+          const metersPerOutPixel = metersPerCssPixel * rawScale / outScale;
+          const targetPx = mapW*0.16;
+          const targetM = metersPerOutPixel*targetPx;
+          const niceSteps=[1,2,5,10,20,25,50,100,200,250,500,1000,2000,5000,10000,20000,25000,50000,100000,200000,500000,1000000];
+          let niceM = niceSteps.reduce((best,s)=>Math.abs(s-targetM)<Math.abs(best-targetM)?s:best, niceSteps[0]);
+          const barPx = niceM/metersPerOutPixel;
+          const label = niceM>=1000 ? (niceM/1000)+' km' : niceM+' m';
+          const bx=14*outScale, by=mapBottom-16*outScale;
+          ctx.strokeStyle='#1a2733'; ctx.lineWidth=Math.max(2,outScale*1.2);
+          ctx.beginPath(); ctx.moveTo(bx,by); ctx.lineTo(bx+barPx,by); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(bx,by-5*outScale); ctx.lineTo(bx,by+5*outScale); ctx.moveTo(bx+barPx,by-5*outScale); ctx.lineTo(bx+barPx,by+5*outScale); ctx.stroke();
+          ctx.fillStyle='#1a2733'; ctx.font=Math.round(11*outScale)+'px Inter,sans-serif';
+          ctx.fillText(label, bx, by-8*outScale);
+        }catch(e){ /* scale bar omitted if map state is unavailable, never a guessed distance */ }
+      }
+
+      // ---- legend (same 4 risk colors + rivers as the on-screen Risk
+      // Legend box) ----
+      (function(){
+        const items=[['Extreme Risk','#B02418'],['High Risk','#D9822B'],['Moderate Risk','#E0B84C'],['Low Risk','#3E9C5A'],['Rivers','#1a8a9e']];
+        const lw=132*outScale, lh=(items.length*16+10)*outScale, lx=mapW-lw-10*outScale, ly=mapBottom-lh-10*outScale;
+        ctx.fillStyle='rgba(255,255,255,0.9)'; ctx.fillRect(lx,ly,lw,lh);
+        ctx.strokeStyle='#d8dee7'; ctx.lineWidth=1; ctx.strokeRect(lx,ly,lw,lh);
+        ctx.font=Math.round(10*outScale)+'px Inter,sans-serif';
+        items.forEach((it,i)=>{
+          const iy=ly+8*outScale+i*16*outScale;
+          ctx.fillStyle=it[1]; ctx.beginPath(); ctx.arc(lx+12*outScale,iy+4*outScale,4*outScale,0,Math.PI*2); ctx.fill();
+          ctx.fillStyle='#1a2733'; ctx.fillText(it[0], lx+22*outScale, iy+8*outScale);
+        });
+      })();
+
+      // ---- bottom info band: area, source, CRS+date, disclaimer ----
+      let by2=mapBottom+22*outScale;
+      ctx.fillStyle='#1a2733'; ctx.font='bold '+Math.round(13*outScale)+'px Inter,sans-serif';
+      if(areaHa!=null){
+        const areaText = areaHa>=100 ? (areaHa/100).toFixed(2)+' km² ('+areaHa.toFixed(1)+' ha)' : areaHa.toFixed(2)+' ha';
+        ctx.fillText('Area: '+areaText, 14*outScale, by2);
+        by2+=18*outScale;
+      }
+      ctx.fillStyle='#5a6a7a'; ctx.font=Math.round(11*outScale)+'px Inter,sans-serif';
+      ctx.fillText('Source: '+source, 14*outScale, by2); by2+=16*outScale;
+      ctx.fillText('CRS: EPSG:4326  |  Generated '+dateStr, 14*outScale, by2); by2+=16*outScale;
+      ctx.fillStyle='#8a8a8a'; ctx.font='italic '+Math.round(10*outScale)+'px Inter,sans-serif';
+      ctx.fillText('Indicative, not for legal or cadastral use.', 14*outScale, by2);
+
       out.toBlob(function(blob){
         if(!blob){ alert('Export failed while encoding PNG.'); return; }
         const url=URL.createObjectURL(blob);
         const a=document.createElement('a');
-        a.href=url; a.download='vindhya-map-'+(locText||'india').replace(/[^a-z0-9]+/gi,'_').toLowerCase()+'-'+dateStr+'.png';
+        a.href=url; a.download='vindhya-map-'+(title||'india').replace(/[^a-z0-9]+/gi,'_').toLowerCase()+'-'+dateStr+'.png';
         document.body.appendChild(a); a.click(); a.remove();
         setTimeout(()=>URL.revokeObjectURL(url),4000);
         if(navigator.clipboard && window.ClipboardItem){
@@ -3019,6 +3175,7 @@ function exportMapPNG(){
     });
   },50);
 }
+window.exportMapPNG=exportMapPNG;
 
 // ============================================================
 // LEAFLET MAP

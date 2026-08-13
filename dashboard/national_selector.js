@@ -397,6 +397,26 @@
     } catch (e) { /* ignore malformed bounds */ }
   }
 
+  // Exposed for exportMapPNG() (index.html, Phase 5.3 crop-to-selection
+  // rewrite) -- returns the most specific currently-drawn level's real
+  // bounds + GeoJSON feature (for a real turf.area() computation), never
+  // a guessed/approximate box. null if nothing is selected (caller falls
+  // back to the whole visible map, same as before this feature existed).
+  function getCurrentSelectionBounds() {
+    var order = ['village', 'block', 'district', 'state'];
+    for (var i = 0; i < order.length; i++) {
+      var lvl = order[i], group = mapLayers[lvl];
+      if (!group || !group._brightLayer) continue;
+      var b = group._brightLayer.getBounds();
+      if (!b.isValid()) continue;
+      var feature = null;
+      try { feature = group._brightLayer.toGeoJSON(); } catch (e) { /* area stays null below */ }
+      return { level: lvl, bounds: b, feature: feature };
+    }
+    return null;
+  }
+  window.getCurrentSelectionBounds = getCurrentSelectionBounds;
+
   // ---------------------------------------------------------------------
   // Dropdown population
   // ---------------------------------------------------------------------
