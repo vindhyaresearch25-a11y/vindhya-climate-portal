@@ -296,11 +296,23 @@
     var centroid = centroidOfRing(ring);
     var res = {
       ring: ring, area_ha: areaM2 / 10000, area_km2: areaM2 / 1e6, perimeter_km: periM / 1000,
-      centroid: centroid, state_name: null, district_name: null, soil: null, soilCell: null, climate: null, climateSource: null
+      centroid: centroid, state_name: null, district_name: null, soil: null, soilCell: null, climate: null, climateSource: null,
+      analyze: null // filled in by MK_ANALYZE_URL below -- {available:true,...} or {available:false,reason,message_hi,message_en}, never fabricated
     };
     lastResult = res;
     mkRender(res); // render immediately with area/perimeter; district data streams in after
     mkSetDownloadEnabled(true);
+
+    // Section 2 (cropland/NDVI): real if cloudflare/mera_khet_worker.js's
+    // GEE_BACKEND_URL secret is configured server-side, an honest 501
+    // otherwise (see that Worker's own header for what's built vs
+    // pending) -- this call is safe to make unconditionally either way,
+    // it never fabricates a result client-side.
+    fetchWithTimeout(MK_ANALYZE_URL, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ring: ring }),
+    }).then(function (r) { return r.json().catch(function () { return null; }); })
+      .then(function (data) { res.analyze = data || { available: false, reason: 'analyze_request_failed' }; mkRender(res); })
+      .catch(function () { res.analyze = { available: false, reason: 'analyze_unreachable' }; mkRender(res); });
 
     locateDistrict(centroid).then(function (loc) {
       if (!loc) { res.locateFailed = true; mkRender(res); return; }
@@ -355,12 +367,22 @@
       'पर इसके लिए live GEE query वाला backend चाहिए, जो अभी जुड़ा नहीं (नीचे देखें)। ' +
       '<span style="opacity:.7">Cropland-vs-medh/waste split and field-scale NDVI need a live satellite backend query -- not wired up yet, see section 2 below. Never estimated in the meantime.</span></div>';
 
-    // 2. FASAL KI SEHAT (honest not-wired-up)
+    // 2. FASAL KI SEHAT -- real if mera_khet_worker.js's GEE_BACKEND_URL is
+    // configured (res.analyze.available===true), honest not-configured
+    // message otherwise. Never a fabricated number either way.
     h += '<div class="section-header" style="padding:0"><div class="section-title" style="font-size:12px">2. फसल की सेहत (NDVI) / Crop health</div></div>';
-    h += '<div style="padding:8px 10px;margin:8px 0 12px;background:rgba(138,138,138,.1);border-left:3px solid #8a8a8a;border-radius:4px;font-size:11.5px;line-height:1.7">' +
-      '<b>अभी उपलब्ध नहीं / Not yet available.</b> खेत-स्तर NDVI और फसल स्वास्थ्य के लिए Sentinel-2 (10m) की लाइव Earth Engine query चाहिए, ' +
-      'जो ब्राउज़र सीधे नहीं कर सकता -- इसके लिए अलग सर्वर चाहिए (देखें cloudflare/mera_khet_worker.js)। कोई अंदाजा हर्गिज मान नहीं दिखाया जाएगा।' +
-      '<br><span style="opacity:.7">Field-scale NDVI/cropland split needs a live Sentinel-2 Earth Engine query, which a browser cannot make directly -- needs a backend (architecture written, not deployed this session -- see cloudflare/mera_khet_worker.js). No plausible-looking number will ever be shown as a substitute.</span></div>';
+    if (res.analyze && res.analyze.available) {
+      h += '<div style="display:flex;gap:20px;flex-wrap:wrap;padding:8px 0 10px;border-bottom:1px solid var(--border);margin-bottom:10px">' +
+        mkStat('NDVI', fmt(res.analyze.ndvi, 3), '', '') +
+        mkStat('खेती वाला हिस्सा / CROPLAND', fmt(res.analyze.cropland_fraction != null ? res.analyze.cropland_fraction * 100 : null, 1), '%', '') + '</div>' +
+        '<div style="font-size:10.5px;opacity:.6;margin:-4px 0 12px">Sentinel-2/Dynamic World, 10 m, real-time GEE query. Source: ' + (res.analyze.source || 'Google Earth Engine') + '</div>';
+    } else if (res.analyze === null) {
+      h += '<div style="padding:8px 10px;margin:8px 0 12px;font-size:11.5px;opacity:.6">जांचा जा रहा है... / Checking satellite backend...</div>';
+    } else {
+      h += '<div style="padding:8px 10px;margin:8px 0 12px;background:rgba(138,138,138,.1);border-left:3px solid #8a8a8a;border-radius:4px;font-size:11.5px;line-height:1.7">' +
+        '<b>अभी उपलब्ध नहीं / Not yet available.</b> ' + (res.analyze.message_hi || 'खेत-स्तर NDVI के लिए बैकएंड अभी सेट नहीं है।') +
+        '<br><span style="opacity:.7">' + (res.analyze.message_en || 'Field-scale NDVI backend not configured yet.') + ' No plausible-looking number will ever be shown as a substitute.</span></div>';
+    }
 
     // 3. MAUSAM AUR PAANI (district/grid tier, explicit non-field label)
     h += '<div class="section-header" style="padding:0"><div class="section-title" style="font-size:12px">3. मौसम और पानी / Weather &amp; water <span style="opacity:.5;font-weight:400">-- गाँव/जिला-स्तर, खेत का नहीं / village/district tier, not field-level</span></div></div>';
@@ -596,9 +618,13 @@
   // endpoint and D1 schema (extended additively with an optional
   // `geometry` field -- see cloudflare/kisan_upload_schema_002_geometry.sql).
   // ------------------------------------------------------------------
-  // Deploy note: same placeholder convention as dashboard/kisan_upload.html
-  // -- replace after `wrangler deploy` (cloudflare/wrangler_kisan_upload.toml).
-  var MK_SUBMIT_URL = 'https://vindhya-kisan-upload.YOUR_SUBDOMAIN.workers.dev/submit';
+  // Both Workers deployed 2026-08-13 (cloudflare/wrangler_kisan_upload.toml,
+  // cloudflare/wrangler_mera_khet.toml). MK_ANALYZE_URL is safe to call
+  // unconditionally -- it returns an honest 501 until GEE_BACKEND_URL is
+  // configured server-side (see cloudflare/mera_khet_worker.js's header).
+  // ------------------------------------------------------------------
+  var MK_SUBMIT_URL = 'https://vindhya-kisan-upload.vindhyaresearch25.workers.dev/submit';
+  var MK_ANALYZE_URL = 'https://vindhya-mera-khet.vindhyaresearch25.workers.dev/analyze';
   var cropListPromise = null;
   function loadCropList() {
     if (cropListPromise) return cropListPromise;
