@@ -29,6 +29,13 @@
     } catch (e) { return false; }
   }
   function t(en, hi) { return isHindi() ? hi : en; }
+
+  // i-icon tooltip helper -- long explanation goes in the title attribute,
+  // never inline as panel text (item 2).
+  function infoIcon(title) {
+    return '<i class="fa fa-circle-info" title="' + String(title).replace(/"/g, '&quot;') + '" ' +
+      'style="color:var(--text-dim);opacity:0.7;cursor:help;font-size:0.85em;"></i>';
+  }
   function el(tag, css, html) {
     var d = document.createElement(tag);
     if (css) d.style.cssText = css;
@@ -158,13 +165,12 @@
   }
 
   function emptyHtml() {
-    return '<div style="padding:16px;font-size:12px;line-height:1.8;color:var(--text);opacity:.85">' +
+    return '<div style="padding:var(--space-1);font-size:var(--fs-2);line-height:1.8;color:var(--text);opacity:.85">' +
       '<b>' + t('Polygon (AOI) analysis', 'बहुभुज (AOI) विश्लेषण') + '</b><br>' +
-      t('Draw any shape on the map -- a field, a cluster of villages, a watershed. The portal ' +
-        'measures its area and perimeter on a spherical Earth model (R = 6,378,137 m, accurate to ~0.7%) and reports the climate ' +
-        'indices of every village inside it, computed from IMD gridded observations.',
-        'नक्शे पर कोई भी आकृति बनाएँ -- खेत, गाँवों का समूह, या जलग्रहण क्षेत्र। पोर्टल WGS-84 पर ' +
-        'उसका क्षेत्रफल और परिधि नापेगा (गोलाकार पृथ्वी मॉडल, ~0.7% तक सटीक) और अंदर आने वाले हर गाँव के जलवायु संकेतक दिखाएगा।') +
+      t('Draw a shape on the map', 'नक्शे पर आकृति बनाएँ') + ' ' +
+      infoIcon('Draw any shape -- a field, a cluster of villages, a watershed. The portal measures its area and '
+        + 'perimeter on a spherical Earth model (R = 6,378,137 m, accurate to ~0.7%) and reports the climate '
+        + 'indices of every village inside it, computed from IMD gridded observations.') +
       '</div>';
   }
 
@@ -180,12 +186,10 @@
       stat(t('VILLAGES INSIDE', 'अंदर के गाँव'), String(res.villages.length), '', '') + '</div>';
 
     if (!res.villages.length) {
-      box.innerHTML = '<div style="padding:12px 14px;font-size:12px;color:var(--text)">' + head +
+      box.innerHTML = '<div style="padding:var(--space-07) var(--space-08);font-size:var(--fs-2);color:var(--text)">' + head +
         '<span style="color:#c0392b">' +
-        t('No village with IMD-derived indices falls inside this polygon. Climate metrics exist ' +
-          'only for Bhopal, Indore, Jabalpur, Rewa and Sidhi. Area and perimeter above are exact.',
-          'इस बहुभुज के अंदर IMD-आधारित आंकड़ों वाला कोई गाँव नहीं है। जलवायु संकेतक केवल भोपाल, ' +
-          'इंदौर, जबलपुर, रीवा और सीधी के लिए उपलब्ध हैं। ऊपर का क्षेत्रफल और परिधि फिर भी सटीक है।') +
+        t('No village with IMD indices in this area', 'इस क्षेत्र में IMD-आधारित गाँव नहीं') + ' ' +
+        infoIcon('Climate metrics exist only for Bhopal, Indore, Jabalpur, Rewa and Sidhi. Area and perimeter above are exact regardless.') +
         '</span></div>';
       return;
     }
@@ -212,13 +216,11 @@
     h += '<div style="margin-top:10px;font-size:10.5px;opacity:.7;line-height:1.6"><b>' +
       t('Villages', 'गाँव') + ':</b> ' + names +
       (res.villages.length > 40 ? ' ... +' + (res.villages.length - 40) : '') + '</div>';
-    h += '<div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);' +
-      'font-size:10px;opacity:.75;line-height:1.6">' + badge('verified') + ' ' +
-      t('Source: IMD 0.05 deg gridded daily data 2000-2024, sampled at village centroids. Values ' +
-        'are the unweighted mean of the ' + res.villages.length + ' village records inside the ' +
-        'polygon. The IMD grid is ~5.5 km, so a polygon smaller than one pixel returns that pixel value.',
-        'स्रोत: IMD 0.05 deg दैनिक ग्रिड 2000-2024, ग्राम केंद्रबिंदु पर नमूना। मान बहुभुज के अंदर के ' +
-        res.villages.length + ' ग्राम अभिलेखों का साधारण औसत हैं। IMD ग्रिड ~5.5 किमी का है।') +
+    h += '<div style="margin-top:var(--space-08);padding-top:var(--space-04);border-top:1px solid var(--border);' +
+      'font-size:var(--fs-1);opacity:.75;line-height:1.6">' + badge('verified') + ' ' +
+      t('Source · IMD 0.05° gridded daily · 2000–2024', 'स्रोत · IMD 0.05° ग्रिड दैनिक · 2000–2024') + ' ' +
+      infoIcon('Sampled at village centroids. Values are the unweighted mean of the ' + res.villages.length
+        + ' village records inside the polygon. The IMD grid is ~5.5 km, so a polygon smaller than one pixel returns that pixel value.') +
       '</div></div>';
     box.innerHTML = h;
   }
@@ -668,9 +670,8 @@
     var p = el('div', '', '');
     p.className = 'btm-pane';
     p.id = 'pane-nasa';
-    p.innerHTML = '<div id="nasa-box"><div style="padding:16px;font-size:12px;opacity:.8">' +
-      t('Select a district or village, then open this tab to load real-time daily weather.',
-        'ज़िला या गाँव चुनें, फिर वास्तविक दैनिक मौसम लाने के लिए यह टैब खोलें।') + '</div></div>';
+    p.innerHTML = '<div id="nasa-box"><div style="padding:var(--space-1);font-size:var(--fs-2);opacity:.8">' +
+      t('Select a district or village', 'ज़िला या गाँव चुनें') + '</div></div>';
     host.appendChild(p);
     addTab('nasa-tab', 'pane-nasa', 'fa-satellite-dish', 'Live Weather', 'लाइव मौसम', function () {
       var loc = currentLocation();
