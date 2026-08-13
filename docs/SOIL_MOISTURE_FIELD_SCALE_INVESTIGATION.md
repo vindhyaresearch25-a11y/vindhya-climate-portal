@@ -77,5 +77,35 @@ backscatter-vs-backscatter ratio between two areas in the identical
 satellite pass is a real, honest relative comparison, but is NOT invertible
 to an absolute m3/m3 value without ancillary data this repo does not have.
 See `cloudflare/mera_khet_worker.js`'s header for the full method, and
-`docs/MERA_KHET_BENCHMARK.json` / `docs/DATA_SOURCES.md` for the measured
-benchmark numbers.
+`docs/MERA_KHET_BENCHMARK_S1_WETNESS.json` / `docs/DATA_SOURCES.md` for the
+measured benchmark numbers.
+
+Deployed 2026-08-13 (`wrangler deploy --config wrangler_mera_khet.toml`,
+version `ca24f7e3-52db-4cf1-a80f-0bf2d0fe22dd`) and live-tested with curl
+against the real production URL, same test polygon as the benchmark:
+
+```
+POST https://vindhya-mera-khet.vindhyaresearch25.workers.dev/analyze
+{"ring": [[77.34936,23.14936],[77.35064,23.14936],[77.35064,23.15064],[77.34936,23.15064]]}
+
+-> {
+  "available": true,
+  "ndvi": 0.3197630640466798,
+  "cropland_fraction": 0.4267498695929368,
+  "field_wetness_index_relative": -38.8,
+  "field_wetness_index_detail": {
+    "field_vv_db": -10.9, "field_vh_db": -18.45,
+    "reference_area_vv_db": -8.77, "reference_area_vh_db": -16.2,
+    "reference_area": "Bhopal, Madhya Pradesh",
+    "image_date": "2026-08-03", "orbit_pass": "DESCENDING"
+  },
+  "field_wetness_index_caveat": "NOT a m3/m3 soil-moisture measurement. ...",
+  "source": "... Sentinel-1 GRD VV/VH backscatter (10 m, most recent scene, 2026-06-14 to 2026-08-13, field vs. containing district via FAO/GAUL/2015/level2)"
+}
+```
+
+The `field_vv_db`/`reference_area_vv_db` values match the pre-deploy Python
+benchmark exactly (-10.9 / -8.77), confirming the live Worker's hand-
+transcribed expression graph computes identically to the Python-verified
+source, not just structurally (deep-equal) but end-to-end through the real
+production deployment.
