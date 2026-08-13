@@ -3189,12 +3189,39 @@ window.exportMapPNG=exportMapPNG;
 // Phase 5.1: exactly 5 basemaps, each with real attribution. 'dark' tags
 // (satellite/dark/terrain) drive the neon casing palette; 'light' tags
 // (street/positron) invert it -- see national_selector.js setBoundaryTheme().
+//
+// nativeMax = the provider's REAL highest zoom that returns actual map
+// content, verified 2026-08-13 against each provider's own source/docs
+// (not guessed) -- see docs/METHODOLOGY.md limitations note for the full
+// verification log:
+//  - Esri World Imagery: 19, per Esri's own esri-leaflet plugin
+//    (BasemapLayer.js, github.com/Esri/esri-leaflet -- `Imagery: {maxZoom:19}`).
+//    Confirmed by direct tile fetch: at zoom 19+ over sparsely-imaged rural
+//    India (e.g. Panagar, Jabalpur) Esri's own tile server returns a 200 OK
+//    JPEG with "Map data not yet available" burned into the pixels --
+//    that image, tiled across the viewport, IS the bug this file fixes.
+//  - OSM standard tile layer: 19, confirmed empirically (tile.openstreetmap.org
+//    returns HTTP 400 for any request at z>=20 -- a hard scheme limit, not
+//    just a recommendation).
+//  - OpenTopoMap: 17, per OpenTopoMap's own FAQ ("rendered for zoom levels
+//    0 to 17") and leaflet-providers.js's OpenTopoMap entry (maxZoom:17).
+//    Confirmed empirically: opentopomap.org itself serves a "max zoom
+//    layer = 17" placeholder tile for any request at/beyond its real local
+//    coverage ceiling.
+//  - Carto Positron / Dark Matter (light_all/dark_all): 20, per
+//    leaflet-providers.js's CartoDB entry (maxZoom:20, CARTO's own
+//    documented basemap default).
+// maxZoom is set higher (22) than nativeMax so Leaflet's built-in behaviour
+// takes over beyond nativeMax: it stops requesting new tiles from the
+// server (avoiding the placeholder-tile problem above) and instead
+// stretches/upscales the last real tile it has -- see updateZoomLimitUI()
+// below for the corner-badge warning shown once that happens.
 var BASEMAPS = {
-  'Satellite (Esri)': { theme:'dark', layer:null, make:function(){ return L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:19,crossOrigin:'anonymous',attribution:'Tiles &copy; Esri — Source: Esri, Maxar, Earthstar Geographics'}); } },
-  'Street (OSM)':      { theme:'light', layer:null, make:function(){ return L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,subdomains:'abc',crossOrigin:'anonymous',attribution:'&copy; OpenStreetMap contributors'}); } },
-  'Terrain (OpenTopoMap)': { theme:'dark', layer:null, make:function(){ return L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',{maxZoom:17,subdomains:'abc',crossOrigin:'anonymous',attribution:'&copy; OpenStreetMap contributors, SRTM — style: &copy; OpenTopoMap (CC-BY-SA)'}); } },
-  'Light (Carto Positron)': { theme:'light', layer:null, make:function(){ return L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:19,subdomains:'abcd',crossOrigin:'anonymous',attribution:'&copy; OpenStreetMap contributors &copy; CARTO'}); } },
-  'Dark (Carto Dark Matter)': { theme:'dark', layer:null, make:function(){ return L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19,subdomains:'abcd',crossOrigin:'anonymous',attribution:'&copy; OpenStreetMap contributors &copy; CARTO'}); } }
+  'Satellite (Esri)': { theme:'dark', layer:null, nativeMax:19, make:function(){ return L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:22,maxNativeZoom:19,crossOrigin:'anonymous',attribution:'Tiles &copy; Esri — Source: Esri, Maxar, Earthstar Geographics'}); } },
+  'Street (OSM)':      { theme:'light', layer:null, nativeMax:19, make:function(){ return L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:22,maxNativeZoom:19,subdomains:'abc',crossOrigin:'anonymous',attribution:'&copy; OpenStreetMap contributors'}); } },
+  'Terrain (OpenTopoMap)': { theme:'dark', layer:null, nativeMax:17, make:function(){ return L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',{maxZoom:22,maxNativeZoom:17,subdomains:'abc',crossOrigin:'anonymous',attribution:'&copy; OpenStreetMap contributors, SRTM — style: &copy; OpenTopoMap (CC-BY-SA)'}); } },
+  'Light (Carto Positron)': { theme:'light', layer:null, nativeMax:20, make:function(){ return L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:22,maxNativeZoom:20,subdomains:'abcd',crossOrigin:'anonymous',attribution:'&copy; OpenStreetMap contributors &copy; CARTO'}); } },
+  'Dark (Carto Dark Matter)': { theme:'dark', layer:null, nativeMax:20, make:function(){ return L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:22,maxNativeZoom:20,subdomains:'abcd',crossOrigin:'anonymous',attribution:'&copy; OpenStreetMap contributors &copy; CARTO'}); } }
 };
 var DEFAULT_BASEMAP='Satellite (Esri)';
 
