@@ -96,9 +96,19 @@ ingestion run):
 | `iipr_chickpea_pc_report_2022` | AICRP Chickpea -- Project Coordinator's Report 2021-22 | ICAR-IIPR, Kanpur | chana/chickpea | 2022 | 46 (46) | 48 |
 | `drmr_mustard_assam_bmp_2021` | Best Management Practices of Rapeseed-Mustard for Assam | ICAR-DRMR via rmkpassam.in | sarson/mustard | 2021 | 44 (37) | 25 |
 | `cotton_maharashtra_pop` | Approved Package of Practices for Cotton: Maharashtra State | Maharashtra Dept. of Agriculture, via Vikaspedia | cotton | not stated in doc | 7 (7) | 6 |
-| **Total (as of last successful run)** | | | | | **~880 text-extractable pages** | **1263 chunks, 926 vectors live in Vectorize** |
+| **Subtotal (round 1, as of 2026-08-12/13)** | | | | | **~880 text-extractable pages** | **1263 chunks, 926 vectors upserted** |
 
-**Per-crop coverage, honestly assessed** (PENDING.md's 8 priority crops):
+**Note on vector-count drift:** a live `wrangler vectorize info kisan-sahayak-manuals`
+check at the start of round 2 (2026-08-13) showed **1389** vectors already
+live, not the 926 last recorded above -- a real discrepancy between this
+file's last update and the index's actual state, not investigated further
+this round (out of scope; the index only ever upserts, never silently
+deletes, so the extra vectors are not a correctness risk, just an
+undocumented gap). Round 2 treats 1389 as its own honest starting baseline
+-- see the round 2 table below for before/after counts on every batch
+ingested this round.
+
+**Per-crop coverage, honestly assessed** (round 1, PENDING.md's 8 priority crops):
 wheat -- **strong** (2 dedicated IIWBR docs + PAU rabi POP + the removed
 1984 doc's gap is more than covered); rice -- **strong** (CRRI DSR
 bulletin + PAU kharif POP); soybean -- **covered** (1 dedicated IISR
@@ -107,11 +117,64 @@ IIPR report + PAU rabi POP); sarson/mustard -- **covered** (1 dedicated
 DRMR bulletin + PAU rabi POP); cotton -- **covered, thin** (1 Maharashtra
 POP + PAU kharif POP; the official `cotton.dac.gov.in` POP PDF is a
 scanned image with zero extractable text -- excluded rather than shipped
-empty); **maize and potato -- NOT covered as standalone documents**, only
-whatever PAU's kharif/rabi POPs mention in passing (maize is in the
-kharif POP's crop list, potato in the rabi POP's) -- no dedicated
-bulletin found and verified this session; a real, honest gap, not
-silently padded.
+empty); maize and potato got dedicated documents in round 2 below (see
+`dmr_maize_production_systems_2013`, `cpri_potato_gap_2020`).
+
+## Round 2 (2026-08-13, PENDING.md item 12 continued -- "sabhi jitne bhi crop
+hain un sabka cultivation crop wise dalo")
+
+Owner instruction: add cultivation/good-agriculture-practices content for
+ALL 59 crops in `dashboard/data/crop_list.json`, crop-wise. Same discipline
+as round 1: every URL fetched live and confirmed 200 OK / `application/pdf`
+before being added to `CORPUS`, no ResearchGate/Sci-Hub, ICAR institute
+bulletins and State Agricultural University POPs preferred over research
+papers, real ingestion run after every batch (not just `--dry-run`).
+
+**New systemic fix this round: chunk-level banned-chemical filter.**
+Round 1 found and removed one whole document (`wheat_pop_1984`) because
+banned-pesticide recommendations ran through its entire plant-protection
+philosophy. Round 2 found the *opposite* shape twice in the first two
+batches alone -- an ICAR-IIMR finger millet POP recommending Phosphamidon
+for stem borer, and a 2022-dated ICAR small-millets book recommending
+Ceresan seed treatment for foxtail millet -- one isolated banned-chemical
+sentence each, inside otherwise clean, current, useful documents. Dropping
+either whole document over one sentence would have thrown away real good
+content for no safety benefit. `scripts/12_ingest_kisan_manuals.py`'s
+`chunk_pages()` now runs every chunk through `_contains_banned_chemical()`
+(`BANNED_CHEMICAL_TERMS` -- Aldrin, Dieldrin, Endrin, BHC/HCH/Lindane,
+Ceresan/Agrosan, Dimecron/Phosphamidon, DDT, Heptachlor, Chlordane,
+Endosulfan, Monocrotophos, Methyl/Ethyl Parathion, Calcium/Sodium Cyanide,
+Nicotine Sulphate, Toxaphene, Pentachlorophenol, Pentachloronitrobenzene,
+Nitrofen, Menazon, Sodium Methane Arsonate, Copper Acetoarsenite,
+Chlorofenvinphos, Phenyl Mercury Acetate, Ethyl Mercury Chloride -- India's
+CIB&RC banned/restricted list, widened partway through this round after
+multiple new documents' own "banned pesticide" appendices kept surfacing
+more of them) and **drops** (not merely flags) any matching chunk before
+embedding, logging which chunk and which term. This is real removal, not a
+caveat -- exactly the same corrective action round 1 took, applied at finer
+grain so it doesn't cost the rest of a good document. It runs automatically
+on every future document too.
+
+### Round 2 batch progress (Vectorize vector count before/after each batch)
+
+| Batch | Crops added | Documents | Vectors before -> after |
+|---|---|---|---|
+| 1 (cereals/millets + oilseeds) | maize, jowar, bajra, ragi, barley, small millets, groundnut, sesamum, castor seed, sunflower, safflower, niger seed | 9 (`dmr_maize_production_systems_2013`, `iimr_sorghum_kharif_pop`, `iimr_sorghum_rabi_pop`, `iimr_pearl_millet_pop`, `iimr_finger_millet_pop`, `iiwbr_barley_eb53_pocket_guide`, `iimr_small_millets_gap_2022`, `iimr_kodo_millet_pop`, `dgr_groundnut_pop_states`, `tnau_cpg2020_oilseeds`) | 1389 -> 2069 (+680) |
+
+**Linseed** is covered without a new document -- the oilseeds research pass
+found that the existing `pau_pop_rabi_2025_26` PDF (already ingested in
+round 1) has a dedicated Linseed section on pp.65-66 that just wasn't
+called out in that entry's crop label; re-fetching the same URL under a new
+id would only duplicate already-live vectors, so no new CORPUS entry was
+added for it.
+
+**Rejected this round:** a 2005 ICAR-CRIDA linseed bulletin
+(`icar-crida.res.in/assets/img/Books/2005-06/Linseed.pdf`) -- verified
+live/PDF, but explicit Aldrin/Chlordane, BHC, Ceresan, Phosphamidon/
+Dimecron, Endosulfan, and Monocrotophos dosages ran through the whole
+document (same pervasive shape as `wheat_pop_1984`), so the whole document
+was excluded rather than relying on the chunk filter for something this
+saturated with banned content.
 
 **Two real extraction/fetch bugs found and fixed this session**, both in
 `scripts/12_ingest_kisan_manuals.py`:

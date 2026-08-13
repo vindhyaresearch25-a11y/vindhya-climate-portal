@@ -233,6 +233,116 @@ CORPUS = [
         "year": None,  # not stated in the document itself
         "publisher": "Maharashtra State Dept. of Agriculture POP, hosted on Vikaspedia (Govt. of India digital portal, MeitY/C-DAC) -- see docs/KISAN_SAHAYAK_RAG.md licensing note",
     },
+
+    # -------------------------------------------------------------
+    # Added 2026-08-13 (PENDING.md item 12 round 2, "CORPUS BADAO" -- all
+    # remaining crops in dashboard/data/crop_list.json). Group 1: cereals/
+    # millets not yet covered (maize, jowar, bajra, ragi, barley, small
+    # millets). Every URL fetched live and confirmed 200 OK / application/pdf
+    # this session. Two of these (iimr_finger_millet_pop,
+    # iimr_small_millets_gap_2022) contain one isolated banned-pesticide
+    # sentence each (Phosphamidon/Dimecron, Ceresan respectively) inside
+    # otherwise clean, current documents -- kept in CORPUS because
+    # chunk_pages()'s BANNED_CHEMICAL_TERMS filter (see above) drops exactly
+    # those chunks at ingestion time, not the whole document. See
+    # docs/KISAN_SAHAYAK_RAG.md for the full per-crop coverage summary.
+    # -------------------------------------------------------------
+    {
+        "id": "dmr_maize_production_systems_2013",
+        "url": "https://iimr.res.in/storage/publications/bulletins/Maize-production-system-book.pdf",
+        "source": "Maize Production Systems for Improving Resource-Use Efficiency and Livelihood Security",
+        "crop": "maize",
+        "year": 2013,
+        "publisher": "Directorate of Maize Research (DMR), New Delhi -- predecessor institute to ICAR-IIMR Ludhiana, hosted on iimr.res.in",
+    },
+    {
+        "id": "iimr_sorghum_kharif_pop",
+        "url": "https://www.millets.res.in/farmer/Recommended_package_of_Practices_Kharif.pdf",
+        "source": "Recommended Package of Practices: Kharif Sorghum",
+        "crop": "jowar",
+        "year": None,
+        "publisher": "ICAR-Indian Institute of Millets Research (IIMR), Rajendranagar, Hyderabad",
+    },
+    {
+        "id": "iimr_sorghum_rabi_pop",
+        "url": "https://www.millets.res.in/farmer/Recommended_packages_of_practices_Rabi_sorghum.pdf",
+        "source": "Recommended Package of Practices: Rabi Sorghum",
+        "crop": "jowar",
+        "year": None,
+        "publisher": "ICAR-Indian Institute of Millets Research (IIMR), Rajendranagar, Hyderabad",
+    },
+    {
+        "id": "iimr_pearl_millet_pop",
+        "url": "https://millets.res.in/technologies/Recommended_package_of_practices-Pearl_millet.pdf",
+        "source": "Recommended Package of Practices: Pearl Millet",
+        "crop": "bajra",
+        "year": None,
+        "publisher": "ICAR-Indian Institute of Millets Research (IIMR), Rajendranagar, Hyderabad",
+    },
+    {
+        "id": "iimr_finger_millet_pop",
+        "url": "https://www.millets.res.in/technologies/1-Recommended_Package_of_Practices-Finger_Millet.pdf",
+        "source": "Recommended Package of Practices: Finger Millet (Eleusine coracana Gaertn.)",
+        "crop": "ragi",
+        "year": None,
+        "publisher": "ICAR-Indian Institute of Millets Research (IIMR), Rajendranagar, Hyderabad",
+    },
+    {
+        "id": "iiwbr_barley_eb53_pocket_guide",
+        "url": "https://iiwbr.org.in/wp-content/uploads/2023/08/EB-53-Barley-Cultivation-in-India-Pocket-Guide.pdf",
+        "source": "Barley Cultivation in India -- Pocket Guide (Extension Bulletin 53)",
+        "crop": "barley",
+        "year": None,  # cover doesn't state a year; internal text + pre-2014 imprint (Directorate of Wheat Research) suggests original ~2013-14, re-hosted 2023
+        "publisher": "ICAR-Indian Institute of Wheat & Barley Research (IIWBR), Karnal",
+    },
+    {
+        "id": "iimr_small_millets_gap_2022",
+        "url": "https://www.millets.res.in/pub/2022/Good_Agronomic_Practices_2022.pdf",
+        "source": "Good Agronomic Practices for Higher Yield in Small Millets (ISBN 978-93-94673-11-3)",
+        "crop": "small millets",
+        "year": 2022,
+        "publisher": "ICAR-All India Coordinated Research Project on Small Millets / ICAR-Indian Institute of Millets Research, Hyderabad",
+    },
+    {
+        "id": "iimr_kodo_millet_pop",
+        "url": "https://www.millets.res.in/technologies/3-Recommended_Package_of_Practices-Kodo_Millet.pdf",
+        "source": "Recommended Package of Practices: Kodo Millet (Paspalum scrobiculatum L.)",
+        "crop": "small millets",
+        "year": None,
+        "publisher": "ICAR-Indian Institute of Millets Research (IIMR), Rajendranagar, Hyderabad",
+    },
+
+    # -------------------------------------------------------------
+    # Added 2026-08-13 round 2, group 3: oilseeds not yet covered (groundnut,
+    # sesamum, castor seed, sunflower, safflower, niger seed). Linseed is
+    # NOT a new entry here -- it's already covered by the existing
+    # pau_pop_rabi_2025_26 document above (same URL, pp.65-66 has a
+    # dedicated LINSEED section not previously called out in that entry's
+    # crop label; re-fetching it under a new id would just duplicate
+    # already-ingested vectors). A 2005 ICAR-CRIDA linseed bulletin was
+    # found and REJECTED -- explicit Aldrin/Chlordane, BHC, Ceresan
+    # (organomercurial), Phosphamidon/Dimecron, Endosulfan, Monocrotophos
+    # dosages throughout, same pervasive-not-isolated shape as the removed
+    # wheat_pop_1984, so the whole document was excluded rather than relying
+    # on the chunk-level filter for a document this saturated with banned
+    # content.
+    # -------------------------------------------------------------
+    {
+        "id": "dgr_groundnut_pop_states",
+        "url": "https://icar-iigr.org.in/wp-content/uploads/2018/12/Package-of-Practices.pdf",
+        "source": "Package of Practices (PoP's) of Groundnut for Different States",
+        "crop": "groundnut",
+        "year": None,  # not stated in document text; hosted in a 2018/12-dated upload folder
+        "publisher": "ICAR-Directorate of Groundnut Research (DGR) / ICAR-Indian Institute of Groundnut Research (IIGR), Junagadh",
+    },
+    {
+        "id": "tnau_cpg2020_oilseeds",
+        "url": "https://tnau.ac.in/site/research/wp-content/uploads/sites/60/2020/02/Agriculture-CPG-2020.pdf",
+        "source": "Crop Production Guide -- Agriculture 2020",
+        "crop": "multiple (general TNAU crop production guide -- oilseeds sesamum/castor seed/sunflower/safflower/niger seed are the sections this entry was added for, but the 454-page document also covers rice, pulses, vegetables, fruits and other crops)",
+        "year": 2020,
+        "publisher": "Directorate of Agriculture, Govt. of Tamil Nadu & Tamil Nadu Agricultural University (TNAU), Coimbatore",
+    },
 ]
 
 FETCH_DATE = time.strftime("%Y-%m-%d")
@@ -334,11 +444,65 @@ def extract_pages(pdf_bytes: bytes) -> list[str]:
     return pages
 
 
+# Banned-chemical chunk filter (added 2026-08-13, PENDING.md item 12 round 2):
+# same reasoning docs/KISAN_SAHAYAK_RAG.md already recorded for the wheat_pop_1984
+# removal (Aldrin, BHC/HCH, organomercurial Ceresan/Agrosan, Dimecron/phosphamidon --
+# a metadata caveat doesn't stop a model from surfacing a banned chemical name+dosage
+# as if it were current advice), but applied at CHUNK granularity instead of whole-
+# document. Round 1 dropped wheat_pop_1984 entirely because banned-pesticide
+# recommendations ran through the whole 1984 document's plant-protection philosophy.
+# Round 2 found the opposite shape twice (ICAR-IIMR finger millet POP recommending
+# Phosphamidon for stem borer; the ICAR small millets 2022 book recommending Ceresan
+# seed treatment for foxtail millet): one isolated banned-chemical sentence inside an
+# otherwise clean, current, useful document. Dropping the whole document over one
+# sentence would throw away real good content for no safety benefit -- so instead
+# this filter drops only the specific chunk(s) that mention a banned chemical,
+# applied globally so it protects every future document too, not just these two.
+BANNED_CHEMICAL_TERMS = [
+    "aldrin", "dieldrin", "endrin",
+    "bhc", "hch", "hexachlorocyclohexane", "lindane",
+    "ceresan", "agrosan",  # organomercurial (mercury) seed-dressing fungicides
+    "dimecron", "phosphamidon",
+    "ddt",
+    "heptachlor", "chlordane",
+    # Widened 2026-08-13 round 2 batch 2 (vegetables/fruits) -- these kept
+    # surfacing across multiple new ICAR/SAU documents' own "banned/
+    # restricted pesticide" reference appendices and, in at least one
+    # rejected document (a 2003 TNAU/DPPQS papaya IPM bulletin), as an
+    # actual dosage recommendation. Endosulfan: banned nationally by
+    # Supreme Court order, 2011. Monocrotophos: banned by CIB&RC for use on
+    # vegetable crops specifically (2013) -- this corpus is majority
+    # vegetable/fruit crops, so treated as filterable here. The mercury/
+    # cyanide/organochlorine compounds below are all on CIB&RC's banned list.
+    "endosulfan", "monocrotophos",
+    "methyl parathion", "ethyl parathion",
+    "calcium cyanide", "sodium cyanide",
+    "nicotine sulphate", "nicotine sulfate",
+    "toxaphene", "pentachlorophenol", "pentachloronitrobenzene", "nitrofen",
+    "menazon", "sodium methane arsonate", "copper acetoarsenite",
+    "chlorofenvinphos", "phenyl mercury acetate", "ethyl mercury chloride",
+]
+_BANNED_CHEMICAL_RE = re.compile(
+    r"\b(" + "|".join(re.escape(t) for t in BANNED_CHEMICAL_TERMS) + r")\b", re.IGNORECASE
+)
+
+
+def _contains_banned_chemical(text: str) -> str | None:
+    """Returns the matched term if text mentions a chemical banned in India
+    (Insecticides Act / CIB&RC), else None. Word-boundary regex so it won't
+    false-positive on unrelated substrings."""
+    m = _BANNED_CHEMICAL_RE.search(text)
+    return m.group(1) if m else None
+
+
 def chunk_pages(pages: list[str], doc: dict) -> list[dict]:
     """Chunks by ~CHUNK_WORDS words with CHUNK_OVERLAP_WORDS overlap,
     tracking which page(s) each chunk actually came from -- this is what
-    lets search_manuals cite a real page number, never a guessed one."""
+    lets search_manuals cite a real page number, never a guessed one.
+    Drops (does not merely flag) any chunk mentioning a banned pesticide/
+    fungicide -- see BANNED_CHEMICAL_TERMS note above."""
     chunks = []
+    n_dropped_banned = 0
     # Build one big (word, page_number) stream so a chunk boundary can span
     # pages honestly (a paragraph doesn't stop at a page break) while still
     # recording the true page range for each chunk.
@@ -361,6 +525,12 @@ def chunk_pages(pages: list[str], doc: dict) -> list[dict]:
         page_nos = sorted(set(p for _, p in window))
         text = " ".join(words).strip()
         if len(text) >= 40:  # drop near-empty chunks (e.g. a mostly-blank page)
+            banned = _contains_banned_chemical(text)
+            if banned:
+                n_dropped_banned += 1
+                log(f"  DROPPED chunk (pages {page_nos[0]}-{page_nos[-1]}) -- mentions banned chemical '{banned}'")
+                i += step
+                continue
             chunks.append({
                 "text": text,
                 "page_start": page_nos[0],
@@ -370,6 +540,8 @@ def chunk_pages(pages: list[str], doc: dict) -> list[dict]:
             })
             doc_chunk_idx += 1
         i += step
+    if n_dropped_banned:
+        log(f"  {n_dropped_banned} chunk(s) dropped for banned-chemical content in {doc['id']}")
     return chunks
 
 
