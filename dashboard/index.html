@@ -359,10 +359,16 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 .section-header{display:flex;align-items:center;gap:var(--space-05);padding:0.6rem 0.75rem;border-bottom:1px solid var(--border);background:rgba(26,138,158,0.03);}
 .section-title{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-1);font-weight:600;letter-spacing:0;color:var(--cyan);}
 
-/* Metric cards */
+/* Metric cards -- item 6 (2026-08-12): standardized to
+   border-radius:8px / border:1px solid #D8DEE7 (--border) / white bg /
+   padding:16px / no box-shadow, all via the existing --radius-*/--space-*
+   tokens (--radius-8 = 8px, --space-1 = 16px). Colour on alert/warn/good
+   variants is kept -- it carries real risk-level meaning, not decoration;
+   hover/selection state now signalled by border-color + a 1px lift only,
+   never a shadow. */
 .metric-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-05);padding:var(--space-075);}
-.metric-card{background:rgba(245,247,250,0.5);border:var(--border-default);border-radius:var(--radius-6);padding:var(--space-06);transition:all 0.3s;cursor:default;}
-.metric-card:hover{border-color:var(--cyan);transform:translateY(-1px);box-shadow:0 2px 8px rgba(26,138,158,0.08);}
+.metric-card{background:var(--bg-card);border:var(--border-default);border-radius:var(--radius-8);padding:var(--space-1);transition:border-color 0.2s,transform 0.2s;cursor:default;}
+.metric-card:hover{border-color:var(--cyan);transform:translateY(-1px);}
 .metric-card.alert{border-color:rgba(192,57,43,0.3);background:rgba(192,57,43,0.04);}
 .metric-card.warn{border-color:rgba(212,121,58,0.3);background:rgba(212,121,58,0.04);}
 .metric-card.good{border-color:rgba(45,143,92,0.25);background:rgba(45,143,92,0.03);}
@@ -376,8 +382,8 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 .metric-bar-fill{height:100%;border-radius:var(--radius-2);transition:width 1s ease;}
 .metric-trend{font-size:var(--fs-1);font-weight:500;color:var(--text-dim);margin-top:var(--space-02);}
 .metric-source{font-size:var(--fs-1);font-weight:400;color:var(--text-dim);opacity:0.7;margin-top:var(--space-02);border-top:1px solid var(--border);padding-top:var(--space-02);}
-.metric-card.hazard-highlight{border-color:var(--cyan)!important;box-shadow:inset 0 0 8px rgba(26,138,158,0.04);background:rgba(26,138,158,0.04)!important;transform:translateY(-1px);}
-.hazard-tag{border-color:var(--cyan)!important;box-shadow:0 0 0 2px rgba(26,138,158,0.3);}
+.metric-card.hazard-highlight{border-color:var(--cyan)!important;background:rgba(26,138,158,0.04)!important;transform:translateY(-1px);}
+.hazard-tag{border-color:var(--cyan)!important;outline:2px solid rgba(26,138,158,0.3);}
 
 /* Advisory cards */
 .advisory-card{margin:var(--space-05);border:var(--border-default);border-radius:var(--radius-6);padding:var(--space-06);background:#fafbfc;}
@@ -962,31 +968,31 @@ body.mk-modal-open #pane-merakhet.active{
       <div class="sidebar-logo-text">VINDHYA<br>INTELLIGENCE</div>
     </div>
     <div class="sidebar-nav">
-      <div class="nav-section-title">CORE SYSTEM</div>
-      <div class="nav-item active" onclick="setNav(this,&#39;dashboard&#39;)"><span class="nav-icon"><i class="fa fa-gauge-high"></i></span><span class="nav-label">Dashboard</span></div>
-      <div class="nav-item" onclick="setNav(this,&#39;climate&#39;)"><span class="nav-icon"><i class="fa fa-map"></i></span><span class="nav-label">Climate Risk Atlas</span></div>
-      <div class="nav-item" onclick="setNav(this,&#39;ndvi&#39;)"><span class="nav-icon"><i class="fa fa-leaf"></i></span><span class="nav-label">NDVI Analytics</span></div>
-      <div class="nav-item" onclick="setNav(this,&#39;rain&#39;)"><span class="nav-icon"><i class="fa fa-cloud-rain"></i></span><span class="nav-label">Rainfall Monitor</span></div>
-      <div class="nav-item" onclick="setNav(this,&#39;liveweather&#39;)"><span class="nav-icon"><i class="fa fa-cloud-sun"></i></span><span class="nav-label">Live Weather</span></div>
-      <div class="nav-item" onclick="setNav(this,&#39;compare&#39;)"><span class="nav-icon"><i class="fa fa-code-compare"></i></span><span class="nav-label">Compare</span></div>
-      <div class="nav-item" onclick="setNav(this,&#39;soil&#39;)"><span class="nav-icon"><i class="fa fa-layer-group"></i></span><span class="nav-label">Soil Moisture</span></div>
-      <div class="nav-section-title">CLIMATE HAZARD</div>
-      <div class="nav-item" onclick="setNav(this,&#39;heatwaves&#39;);focusHazard(&#39;heat&#39;)"><span class="nav-icon"><i class="fa fa-sun"></i></span><span class="nav-label">Heat Waves</span><span id="nav-badge-heat" class="nav-badge u-hidden">ALERT</span></div>
-      <div class="nav-item" onclick="setNav(this,&#39;precip&#39;);focusHazard(&#39;rain&#39;)"><span class="nav-icon"><i class="fa fa-cloud-showers-heavy"></i></span><span class="nav-label">Extreme Precipitation</span></div>
-      <div class="nav-item" onclick="setNav(this,&#39;droughthazard&#39;);focusHazard(&#39;drought&#39;)"><span class="nav-icon"><i class="fa fa-droplet-slash"></i></span><span class="nav-label">Drought</span></div>
-      <div class="nav-section-title">AGRICULTURE</div>
-      <div class="nav-item" onclick="setNav(this,&#39;ground&#39;)"><span class="nav-icon"><i class="fa fa-water"></i></span><span class="nav-label">Groundwater &amp; Irrigation</span></div>
-      <div class="nav-item" onclick="setNav(this,&#39;crop&#39;)"><span class="nav-icon"><i class="fa fa-wheat-awn"></i></span><span class="nav-label">Crop Health</span></div>
-      <div class="nav-item" onclick="setNav(this,&#39;advisory&#39;)"><span class="nav-icon"><i class="fa fa-comment-dots"></i></span><span class="nav-label">Farmer Advisory</span></div>
-      <div class="nav-item" onclick="setNav(this,&#39;pmfby&#39;)"><span class="nav-icon"><i class="fa fa-shield-halved"></i></span><span class="nav-label">PMFBY Insurance</span></div>
-      <div class="nav-section-title">ECOLOGY</div>
-      <div class="nav-item" onclick="setNav(this,&#39;forest&#39;)"><span class="nav-icon"><i class="fa fa-tree"></i></span><span class="nav-label">Forest Monitor</span><span class="nav-badge">SOON</span></div>
-      <div class="nav-section-title">ANALYTICS</div>
-      <div class="nav-item" onclick="setNav(this,&#39;ai&#39;)"><span class="nav-icon"><i class="fa fa-chart-line"></i></span><span class="nav-label">Trend Forecast</span></div>
-      <div class="nav-item" onclick="setNav(this,&#39;village&#39;)"><span class="nav-icon"><i class="fa fa-house"></i></span><span class="nav-label">Village Profile</span></div>
-      <div class="nav-item" onclick="setNav(this,&#39;cadastral&#39;)"><span class="nav-icon"><i class="fa fa-draw-polygon"></i></span><span class="nav-label">Cadastral Map</span><span class="nav-badge">NEW</span></div>
-      <div class="nav-item" onclick="setNav(this,&#39;api&#39;)"><span class="nav-icon"><i class="fa fa-code"></i></span><span class="nav-label">API Access</span></div>
-      <div class="nav-item" onclick="window.open(&#39;kisan_upload.html&#39;,&#39;_blank&#39;)" title="Farmer crop ground-truth upload -- opens a separate form page, not deployed yet"><span class="nav-icon"><i class="fa fa-seedling"></i></span><span class="nav-label">Kisan Fasal Sahyog</span></div>
+      <div class="nav-section-title" data-i18n>CORE SYSTEM</div>
+      <div class="nav-item active" onclick="setNav(this,&#39;dashboard&#39;)"><span class="nav-icon"><i class="fa fa-gauge-high"></i></span><span class="nav-label" data-i18n>Dashboard</span></div>
+      <div class="nav-item" onclick="setNav(this,&#39;climate&#39;)"><span class="nav-icon"><i class="fa fa-map"></i></span><span class="nav-label" data-i18n>Climate Risk Atlas</span></div>
+      <div class="nav-item" onclick="setNav(this,&#39;ndvi&#39;)"><span class="nav-icon"><i class="fa fa-leaf"></i></span><span class="nav-label" data-i18n>NDVI Analytics</span></div>
+      <div class="nav-item" onclick="setNav(this,&#39;rain&#39;)"><span class="nav-icon"><i class="fa fa-cloud-rain"></i></span><span class="nav-label" data-i18n>Rainfall Monitor</span></div>
+      <div class="nav-item" onclick="setNav(this,&#39;liveweather&#39;)"><span class="nav-icon"><i class="fa fa-cloud-sun"></i></span><span class="nav-label" data-i18n>Live Weather</span></div>
+      <div class="nav-item" onclick="setNav(this,&#39;compare&#39;)"><span class="nav-icon"><i class="fa fa-code-compare"></i></span><span class="nav-label" data-i18n>Compare</span></div>
+      <div class="nav-item" onclick="setNav(this,&#39;soil&#39;)"><span class="nav-icon"><i class="fa fa-layer-group"></i></span><span class="nav-label" data-i18n>Soil Moisture</span></div>
+      <div class="nav-section-title" data-i18n>CLIMATE HAZARD</div>
+      <div class="nav-item" onclick="setNav(this,&#39;heatwaves&#39;);focusHazard(&#39;heat&#39;)"><span class="nav-icon"><i class="fa fa-sun"></i></span><span class="nav-label" data-i18n>Heat Waves</span><span id="nav-badge-heat" class="nav-badge u-hidden" data-i18n>ALERT</span></div>
+      <div class="nav-item" onclick="setNav(this,&#39;precip&#39;);focusHazard(&#39;rain&#39;)"><span class="nav-icon"><i class="fa fa-cloud-showers-heavy"></i></span><span class="nav-label" data-i18n>Extreme Precipitation</span></div>
+      <div class="nav-item" onclick="setNav(this,&#39;droughthazard&#39;);focusHazard(&#39;drought&#39;)"><span class="nav-icon"><i class="fa fa-droplet-slash"></i></span><span class="nav-label" data-i18n>Drought</span></div>
+      <div class="nav-section-title" data-i18n>AGRICULTURE</div>
+      <div class="nav-item" onclick="setNav(this,&#39;ground&#39;)"><span class="nav-icon"><i class="fa fa-water"></i></span><span class="nav-label" data-i18n>Groundwater &amp; Irrigation</span></div>
+      <div class="nav-item" onclick="setNav(this,&#39;crop&#39;)"><span class="nav-icon"><i class="fa fa-wheat-awn"></i></span><span class="nav-label" data-i18n>Crop Health</span></div>
+      <div class="nav-item" onclick="setNav(this,&#39;advisory&#39;)"><span class="nav-icon"><i class="fa fa-comment-dots"></i></span><span class="nav-label" data-i18n>Farmer Advisory</span></div>
+      <div class="nav-item" onclick="setNav(this,&#39;pmfby&#39;)"><span class="nav-icon"><i class="fa fa-shield-halved"></i></span><span class="nav-label" data-i18n>PMFBY Insurance</span></div>
+      <div class="nav-section-title" data-i18n>ECOLOGY</div>
+      <div class="nav-item" onclick="setNav(this,&#39;forest&#39;)"><span class="nav-icon"><i class="fa fa-tree"></i></span><span class="nav-label" data-i18n>Forest Monitor</span><span class="nav-badge" data-i18n>SOON</span></div>
+      <div class="nav-section-title" data-i18n>ANALYTICS</div>
+      <div class="nav-item" onclick="setNav(this,&#39;ai&#39;)"><span class="nav-icon"><i class="fa fa-chart-line"></i></span><span class="nav-label" data-i18n>Trend Forecast</span></div>
+      <div class="nav-item" onclick="setNav(this,&#39;village&#39;)"><span class="nav-icon"><i class="fa fa-house"></i></span><span class="nav-label" data-i18n>Village Profile</span></div>
+      <div class="nav-item" onclick="setNav(this,&#39;cadastral&#39;)"><span class="nav-icon"><i class="fa fa-draw-polygon"></i></span><span class="nav-label" data-i18n>Cadastral Map</span><span class="nav-badge" data-i18n>NEW</span></div>
+      <div class="nav-item" onclick="setNav(this,&#39;api&#39;)"><span class="nav-icon"><i class="fa fa-code"></i></span><span class="nav-label" data-i18n>API Access</span></div>
+      <div class="nav-item" onclick="window.open(&#39;kisan_upload.html&#39;,&#39;_blank&#39;)" title="Farmer crop ground-truth upload -- opens a separate form page, not deployed yet"><span class="nav-icon"><i class="fa fa-seedling"></i></span><span class="nav-label" data-i18n>Kisan Fasal Sahyog</span></div>
     </div>
   </nav>
 
@@ -1112,72 +1118,72 @@ body.mk-modal-open #pane-merakhet.active{
         <!-- Climate Metrics -->
         <div class="section-header">
           <i class="fa fa-chart-bar u-cyan-sm"></i>
-          <div class="section-title">CLIMATE METRICS</div>
+          <div class="section-title" data-i18n>CLIMATE METRICS</div>
         </div>
         <div class="metric-row">
           <div class="metric-card alert">
-            <div class="metric-label">Drought Risk</div>
+            <div class="metric-label" data-i18n>Drought Risk</div>
             <div class="metric-value red" id="m-drought">—</div>
             <div class="metric-bar"><div id="bar-drought" class="metric-bar-fill u-w0-red"></div></div>
-            <div class="metric-trend"><i class="fa fa-arrow-up u-dim"></i> Select a district</div>
-            <div class="metric-source">Source: IMD / ERA5-Land+CHIRPS (GEE), 2000–2024</div>
+            <div class="metric-trend"><i class="fa fa-arrow-up u-dim"></i> <span data-i18n>Select a district</span></div>
+            <div class="metric-source" data-i18n>Source · IMD/ERA5-Land+CHIRPS (GEE) · 2000–2024</div>
           </div>
           <div class="metric-card warn">
-            <div class="metric-label">Heatwave Severity</div>
+            <div class="metric-label" data-i18n>Heatwave Severity</div>
             <div class="metric-value orange" id="m-heat">—</div>
             <div class="metric-bar"><div id="bar-heat" class="metric-bar-fill u-w0-orange"></div></div>
-            <div class="metric-trend"><i class="fa fa-thermometer-full u-orange"></i> <span id="heat-detail">Select a district</span></div>
-            <div class="metric-source">Source: IMD / ERA5-Land (GEE), 2000–2024</div>
+            <div class="metric-trend"><i class="fa fa-thermometer-full u-orange"></i> <span id="heat-detail" data-i18n>Select a district</span></div>
+            <div class="metric-source" data-i18n>Source · IMD/ERA5-Land (GEE) · 2000–2024</div>
           </div>
           <div class="metric-card u-metric-card-span2-cyan">
             <div class="u-flex-gap05-center">
-              <span class="u-fs1-600-dim-ls1">YEAR <span id="m-year-label" class="u-orange-bold">2024</span></span>
+              <span class="u-fs1-600-dim-ls1"><span data-i18n>YEAR</span> <span id="m-year-label" class="u-orange-bold">2024</span></span>
               <span class="u-fs1-600-dim">HW:</span><span id="m-year-hw" class="u-fs2-bold-orange">—</span>
-              <span class="u-fs1-600-dim">Rain:</span><span id="m-year-rain" class="u-fs2-bold-cyan">—</span>
+              <span class="u-fs1-600-dim" data-i18n>Rain:</span><span id="m-year-rain" class="u-fs2-bold-cyan">—</span>
               <span class="u-fs1-600-dim">SPI:</span><span id="m-year-spi" class="u-fs2-bold-green">—</span>
             </div>
           </div>
           <div class="metric-card alert">
-            <div class="metric-label">Rainfall Departure</div>
+            <div class="metric-label" data-i18n>Rainfall Departure</div>
             <div class="metric-value red" id="m-rain">—</div>
             <div class="metric-bar"><div class="metric-bar-fill u-w0-orange"></div></div>
-            <div class="metric-trend"><i class="fa fa-cloud-rain u-cyan"></i> <span id="m-rain-trend">Select a district</span></div>
-            <div class="metric-source">Source: IMD / CHIRPS (GEE), 2000–2024 mean</div>
+            <div class="metric-trend"><i class="fa fa-cloud-rain u-cyan"></i> <span id="m-rain-trend" data-i18n>Select a district</span></div>
+            <div class="metric-source" data-i18n>Source · IMD/CHIRPS (GEE) · 2000–2024 mean</div>
           </div>
           <div class="metric-card">
-            <div class="metric-label">Soil Moisture (~9 km cell)</div>
+            <div class="metric-label" data-i18n>Soil Moisture (~9 km cell)</div>
             <div class="metric-value cyan" id="m-soil">—</div>
             <div class="metric-bar"><div id="bar-soil" class="metric-bar-fill u-w0-cyan"></div></div>
-            <div class="metric-trend"><i class="fa fa-arrow-down u-dim"></i> <span id="soil-trend">Select a district</span></div>
-            <div class="metric-source" id="soil-source">Source: SMAP — not yet integrated</div>
+            <div class="metric-trend"><i class="fa fa-arrow-down u-dim"></i> <span id="soil-trend" data-i18n>Select a district</span></div>
+            <div class="metric-source" id="soil-source" data-i18n>Source · SMAP · not yet integrated</div>
           </div>
           <div class="metric-card">
-            <div class="metric-label">NDVI Score</div>
+            <div class="metric-label" data-i18n>NDVI Score</div>
             <div class="metric-value cyan" id="m-ndvi">—</div>
             <div class="metric-bar"><div id="bar-ndvi" class="metric-bar-fill u-w0-green"></div></div>
-            <div class="metric-trend"><i class="fa fa-arrow-down u-orange"></i> Vegetation stress</div>
-            <div class="metric-source">Source: UNDP DiCRA (MODIS), MP districts only</div>
+            <div class="metric-trend"><i class="fa fa-arrow-down u-orange"></i> <span data-i18n>Vegetation stress</span></div>
+            <div class="metric-source" data-i18n>Source · UNDP DiCRA (MODIS) · MP districts only</div>
           </div>
           <div class="metric-card warn">
-            <div class="metric-label">Crop Stress</div>
+            <div class="metric-label" data-i18n>Crop Stress</div>
             <div class="metric-value orange" id="m-crop">—</div>
             <div class="metric-bar"><div id="bar-crop" class="metric-bar-fill u-w0-orange"></div></div>
-            <div class="metric-trend" id="m-crop-trend"><i class="fa fa-wheat-awn u-dim"></i> Select a district</div>
-            <div class="metric-source">Derived from drought probability, indicative</div>
+            <div class="metric-trend" id="m-crop-trend"><i class="fa fa-wheat-awn u-dim"></i> <span data-i18n>Select a district</span></div>
+            <div class="metric-source" data-i18n>Derived · drought probability · indicative</div>
           </div>
           <div class="metric-card alert">
-            <div class="metric-label">Groundwater</div>
+            <div class="metric-label" data-i18n>Groundwater</div>
             <div class="metric-value red" id="m-gw">—</div>
             <div class="metric-bar"><div id="bar-gw" class="metric-bar-fill u-w0-red"></div></div>
-            <div class="metric-trend"><i class="fa fa-arrow-down u-dim"></i> Not available</div>
-            <div class="metric-source">Source: CGWB / India-WRIS — not yet integrated</div>
+            <div class="metric-trend"><i class="fa fa-arrow-down u-dim"></i> <span data-i18n>Not available</span></div>
+            <div class="metric-source" data-i18n>Source · CGWB/India-WRIS · not yet integrated</div>
           </div>
           <div class="metric-card good">
-            <div class="metric-label">Data Coverage</div>
+            <div class="metric-label" data-i18n>Data Coverage</div>
             <div class="metric-value green" id="m-ai">— districts</div>
             <div class="metric-bar"><div id="bar-ai" class="metric-bar-fill u-w100-green"></div></div>
             <div class="metric-trend"><i class="fa fa-check u-green"></i> IMD + ERA5-Land/CHIRPS (GEE)</div>
-            <div class="metric-source">Of 733 districts nationally</div>
+            <div class="metric-source" data-i18n>Of 733 districts nationally</div>
           </div>
         </div>
 
@@ -2163,23 +2169,107 @@ function closeMeraKhetModal(){
 }
 
 // ============================================================
-// LANG TOGGLE
+// LANG TOGGLE (item 3, 2026-08-12 rewrite)
 // ============================================================
-let isHindi=false;
-// Single top-corner toggle for the whole portal, per owner request
-// (2026-08-06). Honest scope: it drives every bilingual surface that
-// already exists (Farmer Advisory panel, Kisan Sahayak chat, its
-// suggestion chips) by keeping isHindi and chatLangHi in sync from one
-// place -- it does not yet translate sidebar nav labels, section
-// headers or card labels, which were never built with Hindi strings.
+// ONE global toggle now drives everything -- the old second toggleLang()
+// (Farmer Advisory panel header only) used to run independently of
+// toggleGlobalLang() and never touched sidebar nav / card labels /
+// window.LANG at all, which is exactly the "toggle doesn't change
+// everything" bug the owner reported. Fix:
+//  1. isHindi's initial value is restored from localStorage so the choice
+//     survives a reload (item 3 "remember" requirement).
+//  2. window.LANG + document.body's 'lang-hi' class are now SET here --
+//     compare_loader.js / crop_stats_loader.js / horticulture_loader.js /
+//     live_weather_loader.js / mandi_loader.js / geoai_professional.js
+//     already had a working isHindi()/t(en,hi) pair reading those two
+//     signals, but nothing ever set them, so every string behind those
+//     t() calls was silently dead code always rendering English. That is
+//     now fixed at the source instead of duplicated per-file.
+//  3. I18N_DICT + applyI18n() cover the static DOM text (sidebar nav,
+//     section headers, card labels/source lines) that was never wired to
+//     any language switch before -- data-i18n marks an element's
+//     textContent as translatable; its first-seen text is cached as the
+//     English key.
+//  4. Every loader module that exposes a reload() hook is re-run so its
+//     already-rendered output re-renders in the new language instantly,
+//     no page reload.
+var LANG_STORAGE_KEY = 'vindhya_lang';
+let isHindi = (function(){
+  try { return localStorage.getItem(LANG_STORAGE_KEY) === 'hi'; } catch (e) { return false; }
+})();
+
+// Single dictionary, English text -> Hindi text, for every data-i18n'd
+// static label in this file (sidebar nav, section headers, card labels,
+// source lines, common empty/error states). Loader .js files keep their
+// own existing t(en,hi) inline-pair pattern for their dynamically-built
+// HTML (already correct code, just needed window.LANG/body class wired --
+// see above) rather than being folded into this same object, so as not to
+// restructure files outside this pass's edit budget.
+var I18N_DICT = {
+  // Sidebar nav section titles
+  'CORE SYSTEM':'मुख्य प्रणाली','CLIMATE HAZARD':'जलवायु खतरा','AGRICULTURE':'कृषि',
+  'ECOLOGY':'पारिस्थितिकी','ANALYTICS':'विश्लेषण',
+  // Sidebar nav labels
+  'Dashboard':'डैशबोर्ड','Climate Risk Atlas':'जलवायु जोखिम एटलस','NDVI Analytics':'NDVI विश्लेषण',
+  'Rainfall Monitor':'वर्षा मॉनिटर','Live Weather':'लाइव मौसम','Compare':'तुलना',
+  'Soil Moisture':'मिट्टी की नमी','Heat Waves':'लू (हीटवेव)','Extreme Precipitation':'अति वर्षा',
+  'Drought':'सूखा','Groundwater & Irrigation':'भूजल एवं सिंचाई','Crop Health':'फसल स्वास्थ्य',
+  'Farmer Advisory':'किसान सलाह','PMFBY Insurance':'PMFBY बीमा','Forest Monitor':'वन मॉनिटर',
+  'Trend Forecast':'रुझान पूर्वानुमान','Village Profile':'गाँव प्रोफ़ाइल','Cadastral Map':'भू-अभिलेख मानचित्र',
+  'API Access':'API पहुँच','Kisan Fasal Sahyog':'किसान फसल सहयोग',
+  'ALERT':'चेतावनी','SOON':'जल्द','NEW':'नया',
+  // Climate metrics card block
+  'CLIMATE METRICS':'जलवायु मीट्रिक्स','Drought Risk':'सूखा जोखिम','Heatwave Severity':'लू तीव्रता',
+  'Rainfall Departure':'वर्षा विचलन','Soil Moisture (~9 km cell)':'मिट्टी की नमी (~9 किमी सेल)',
+  'NDVI Score':'NDVI स्कोर','Crop Stress':'फसल तनाव','Groundwater':'भूजल','Data Coverage':'डेटा कवरेज',
+  'Select a district':'ज़िला चुनें','Not available':'उपलब्ध नहीं','Vegetation stress':'वनस्पति तनाव',
+  'YEAR':'वर्ष','Rain:':'वर्षा:',
+  'Source · IMD/ERA5-Land+CHIRPS (GEE) · 2000–2024':'स्रोत · IMD/ERA5-Land+CHIRPS (GEE) · 2000–2024',
+  'Source · IMD/ERA5-Land (GEE) · 2000–2024':'स्रोत · IMD/ERA5-Land (GEE) · 2000–2024',
+  'Source · IMD/CHIRPS (GEE) · 2000–2024 mean':'स्रोत · IMD/CHIRPS (GEE) · 2000–2024 औसत',
+  'Source · SMAP · not yet integrated':'स्रोत · SMAP · अभी उपलब्ध नहीं',
+  'Source · UNDP DiCRA (MODIS) · MP districts only':'स्रोत · UNDP DiCRA (MODIS) · केवल MP ज़िले',
+  'Derived · drought probability · indicative':'व्युत्पन्न · सूखा संभावना · संकेतात्मक',
+  'Source · CGWB/India-WRIS · not yet integrated':'स्रोत · CGWB/India-WRIS · अभी उपलब्ध नहीं',
+  'Of 733 districts nationally':'राष्ट्रीय स्तर पर 733 ज़िलों में से'
+};
+
+function applyI18n(){
+  document.querySelectorAll('[data-i18n]').forEach(function(elx){
+    if (!elx.hasAttribute('data-en')) elx.setAttribute('data-en', elx.textContent);
+    var en = elx.getAttribute('data-en');
+    elx.textContent = isHindi ? (I18N_DICT[en] || en) : en;
+  });
+  document.querySelectorAll('[data-i18n-title]').forEach(function(elx){
+    if (!elx.hasAttribute('data-en-title')) elx.setAttribute('data-en-title', elx.getAttribute('title') || '');
+    var en = elx.getAttribute('data-en-title');
+    elx.setAttribute('title', isHindi ? (I18N_DICT[en] || en) : en);
+  });
+}
+
+// Loader modules whose already-rendered panel HTML needs to re-render in
+// the new language -- each exposes reload() precisely for this (originally
+// built for district/village re-selection; language switch reuses it).
+function reloadAllLoaders(){
+  ['VindhyaAdvisory','VindhyaCompare','VindhyaCropStats','VindhyaHorticulture',
+   'VindhyaLiveWeather','VindhyaMandi','VindhyaSoilMoisture'].forEach(function(name){
+    var mod = window[name];
+    if (mod && typeof mod.reload === 'function') { try { mod.reload(); } catch (e) { console.warn('[lang reload]', name, e); } }
+  });
+}
+
 function toggleGlobalLang(){
   isHindi = !isHindi;
+  try { localStorage.setItem(LANG_STORAGE_KEY, isHindi ? 'hi' : 'en'); } catch (e) {}
+  window.LANG = isHindi ? 'hi' : 'en';
+  document.body.classList.toggle('lang-hi', isHindi);
   if (typeof chatLangHi !== 'undefined') chatLangHi = isHindi;
   var lbl = document.getElementById('topbarLangLabel');
   if (lbl) lbl.textContent = isHindi ? 'English' : 'हिंदी';
   document.querySelectorAll('.lang-toggle').forEach(function(b){
     b.innerHTML = '<i class="fa fa-language"></i> ' + (isHindi ? 'EN' : 'HI');
   });
+  applyI18n();
   var dk0 = currentMPDistrictKey();
   if (dk0) updateAdvisories(dk0);
   var chatBtn = document.getElementById('chatLangBtn');
@@ -2191,13 +2281,28 @@ function toggleGlobalLang(){
   if (typeof renderChips === 'function') renderChips();
   var kw = document.getElementById('kisanWelcome');
   if (kw && kw.classList.contains('open') && typeof renderWelcomeChips === 'function') renderWelcomeChips();
+  reloadAllLoaders();
 }
+// Kept as an alias -- the Farmer Advisory panel's own lang-toggle button
+// used to run independently of the global one (root cause of "toggle
+// doesn't change everything"); it now just drives the same global switch.
 function toggleLang(btn){
-  isHindi=!isHindi;
-  btn.innerHTML='<i class="fa fa-language"></i> '+(isHindi?'EN':'HI');
-  var dk = currentMPDistrictKey();
-  if (dk) updateAdvisories(dk);
+  toggleGlobalLang();
 }
+// Apply once on boot -- restores whatever localStorage/isHindi already
+// decided above, without waiting for a click. Sidebar/card DOM already
+// exists at this point (this inline <script> runs after it in document
+// order), so every data-i18n element is present.
+(function bootLang(){
+  window.LANG = isHindi ? 'hi' : 'en';
+  document.body.classList.toggle('lang-hi', isHindi);
+  var lbl = document.getElementById('topbarLangLabel');
+  if (lbl) lbl.textContent = isHindi ? 'English' : 'हिंदी';
+  document.querySelectorAll('.lang-toggle').forEach(function(b){
+    b.innerHTML = '<i class="fa fa-language"></i> ' + (isHindi ? 'EN' : 'HI');
+  });
+  applyI18n();
+})();
 function updateAdvisories(distKey){
   var d = MP_DISTRICTS[distKey];
   if (!d) return;
