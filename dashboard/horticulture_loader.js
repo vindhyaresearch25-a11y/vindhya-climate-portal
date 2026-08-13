@@ -62,6 +62,13 @@
   }
   function t(en, hi) { return isHindi() ? hi : en; }
 
+  // i-icon tooltip helper -- long explanation goes in the title attribute,
+  // never inline as panel text (item 2).
+  function infoIcon(title) {
+    return '<i class="fa fa-circle-info" title="' + String(title).replace(/"/g, '&quot;') + '" ' +
+      'style="color:var(--text-dim);opacity:0.7;cursor:help;font-size:0.85em;"></i>';
+  }
+
   function slugify(name) {
     return String(name || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
   }
@@ -112,10 +119,9 @@
     if (!box) return;
     var sd = currentStateDistrict();
     if (!sd) {
-      box.innerHTML = '<div style="padding:16px;font-size:12px;line-height:1.8;opacity:.85">' +
+      box.innerHTML = '<div style="padding:var(--space-1);font-size:var(--fs-2);line-height:1.8;opacity:.85">' +
         '<b>' + t('Horticulture', 'बागवानी') + '</b><br>' +
-        t('Select a district to see horticulture (fruits, vegetables, spices, plantation crops, flowers) area, production and yield for its state.',
-          'बागवानी (फल, सब्ज़ी, मसाले, बागानी फसलें, फूल) क्षेत्रफल, उत्पादन और उपज देखने के लिए ज़िला चुनें।') + '</div>';
+        t('Select a district', 'ज़िला चुनें') + '</div>';
       return;
     }
 
@@ -133,27 +139,18 @@
 
       if (!hort || !hort.records || !hort.records.length) {
         if (hortResult.notFound) {
-          var reason;
+          var reasonTip;
           if (NEVER_INDIVIDUALLY_REPORTED_SLUGS[sd.stateSlug]) {
-            reason = t(
-              'The source (Horticultural Statistics at a Glance) does not break ' + sd.stateName +
+            reasonTip = 'The source (Horticultural Statistics at a Glance) does not break ' + sd.stateName +
               ' out individually in its state-wise tables -- smaller producers are published only as a ' +
-              'combined "Others" total across every crop table, which cannot be attributed to a specific ' +
-              'state without guessing.',
-              'स्रोत (Horticultural Statistics at a Glance) ' + sd.stateName + ' को अपनी राज्यवार तालिकाओं में ' +
-              'अलग से नहीं दिखाता -- छोटे उत्पादक राज्य हर फसल तालिका में सिर्फ़ एक संयुक्त "अन्य" योग के रूप में ' +
-              'प्रकाशित होते हैं, जिसे किसी एक राज्य से जोड़ना अंदाज़ा लगाना होगा।'
-            );
+              'combined "Others" total across every crop table, which cannot be attributed to a specific state.';
           } else {
-            reason = t(
-              'This state may not be in the source snapshot, or its name may differ from the source\'s own label.',
-              'यह राज्य स्रोत में शामिल नहीं हो सकता, या इसका नाम स्रोत के अपने लेबल से अलग हो सकता है।'
-            );
+            reasonTip = 'This state may not be in the source snapshot, or its name may differ from the source\'s own label.';
           }
-          box.innerHTML = '<div style="padding:12px 14px;font-size:12px;line-height:1.8">' +
+          box.innerHTML = '<div style="padding:var(--space-07) var(--space-08);font-size:var(--fs-2);line-height:1.8">' +
             '<b>' + t('Horticulture', 'बागवानी') + '</b><br>' +
-            t('Data not available for horticulture in ' + sd.stateName + '.', sd.stateName + ' के लिए बागवानी आंकड़े उपलब्ध नहीं हैं।') +
-            '<div style="margin-top:6px;font-size:10.5px;opacity:.7">' + reason + '</div></div>';
+            t('Not available', 'उपलब्ध नहीं') + ' · ' + sd.stateName + ' ' + infoIcon(reasonTip) +
+            '</div>';
         } else {
           // A real fetch/network failure, not "this state has no
           // horticulture data" -- offer a retry instead of implying it's
@@ -188,12 +185,10 @@
         '<b>' + t('Horticulture', 'बागवानी') + '</b> &mdash; ' + hort.metadata.state +
         ' <span style="opacity:.7">(' + (hort.metadata.years_covered || []).join(', ') + ')</span></div>';
 
-      h += '<div style="margin-bottom:9px;padding:6px 8px;background:rgba(194,107,31,.10);border-radius:4px;' +
-        'font-size:10px;line-height:1.6">' +
-        t('State-level figures (source does not publish district-wise horticulture data) -- apply to all of ' +
-          hort.metadata.state + ', not specifically to ' + sd.districtName + '.',
-          'राज्य-स्तरीय आंकड़े (स्रोत ज़िलेवार बागवानी आंकड़े प्रकाशित नहीं करता) -- ये सभी ' + hort.metadata.state +
-          ' पर लागू हैं, ' + sd.districtName + ' पर विशेष रूप से नहीं।') +
+      h += '<div style="margin-bottom:var(--space-08);padding:var(--space-04) var(--space-05);background:rgba(194,107,31,.10);border-radius:var(--radius-4);' +
+        'font-size:var(--fs-1);line-height:1.6">' +
+        t('State-level · not district-specific', 'राज्य-स्तरीय · ज़िला-विशिष्ट नहीं') + ' ' +
+        infoIcon('Source does not publish district-wise horticulture data -- figures apply to all of ' + hort.metadata.state + ', not specifically to ' + sd.districtName + '.') +
         '</div>';
 
       categories.forEach(function (cat) {
@@ -220,12 +215,11 @@
         h += '</table></div>';
       });
 
-      h += '<div style="margin-top:6px;padding-top:8px;border-top:1px solid var(--border);' +
-        'font-size:10px;opacity:.75;line-height:1.6">' +
-        t('Source: ', 'स्रोत: ') + (hort.metadata.source || 'Horticultural Statistics at a Glance') +
-        ', ' + (hort.metadata.source_publisher || '') + '. ' +
-        t('Not summed with Crop Statistics (field crops, DES) into any total crop area -- the two overlap in land-use accounting.',
-          'फसल आंकड़े (डीईएस) के साथ नहीं जोड़ा गया -- दोनों भूमि-उपयोग लेखांकन में अलग-अलग तरीके से गिने जाते हैं।') +
+      h += '<div style="margin-top:var(--space-03);padding-top:var(--space-04);border-top:1px solid var(--border);' +
+        'font-size:var(--fs-1);opacity:.75;line-height:1.6">' +
+        t('Source', 'स्रोत') + ' · ' + (hort.metadata.source || 'Horticultural Statistics at a Glance') +
+        (hort.metadata.source_publisher ? ' · ' + hort.metadata.source_publisher : '') + ' ' +
+        infoIcon('Not summed with Crop Statistics (field crops, DES) into any total crop area -- the two overlap in land-use accounting.') +
         '</div></div>';
 
       box.innerHTML = h;

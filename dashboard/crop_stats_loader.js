@@ -44,6 +44,13 @@
   }
   function t(en, hi) { return isHindi() ? hi : en; }
 
+  // i-icon tooltip helper -- long explanation goes in the title attribute,
+  // never inline as panel text (item 2).
+  function infoIcon(title) {
+    return '<i class="fa fa-circle-info" title="' + String(title).replace(/"/g, '&quot;') + '" ' +
+      'style="color:var(--text-dim);opacity:0.7;cursor:help;font-size:0.85em;"></i>';
+  }
+
   function slugify(name) {
     return String(name || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
   }
@@ -100,12 +107,11 @@
     var slug = slugify(desDistrictName);
     var d = legacyData.districts[slug];
     if (!d || !d.count) return '';
-    return '<div style="margin-top:8px;padding:6px 8px;background:rgba(90,106,122,.08);border-radius:4px;' +
-      'font-size:10px;line-height:1.6;opacity:.85">' +
-      t('Cross-check: a separate data.gov.in pull for this district (' + (d.year_range ? d.year_range[0] + '-' + d.year_range[1] : '1997-2013') +
-        ') also exists -- see docs/CROP_DATA_COVERAGE.md CHARAN 5 for how it compares to DES.',
-        'क्रॉस-चेक: इस ज़िले के लिए data.gov.in से भी अलग आंकड़े उपलब्ध हैं (' + (d.year_range ? d.year_range[0] + '-' + d.year_range[1] : '1997-2013') +
-        ') -- DES से तुलना docs/CROP_DATA_COVERAGE.md CHARAN 5 में देखें।') +
+    var yrs = d.year_range ? d.year_range[0] + '-' + d.year_range[1] : '1997-2013';
+    return '<div style="margin-top:var(--space-04);padding:var(--space-04) var(--space-05);background:rgba(90,106,122,.08);border-radius:var(--radius-4);' +
+      'font-size:var(--fs-1);line-height:1.6;opacity:.85">' +
+      t('Cross-check · data.gov.in · ' + yrs, 'क्रॉस-चेक · data.gov.in · ' + yrs) + ' ' +
+      infoIcon('A separate data.gov.in pull for this district also exists -- see docs/CROP_DATA_COVERAGE.md CHARAN 5 for how it compares to DES.') +
       '</div>';
   }
 
@@ -114,10 +120,9 @@
     if (!box) return;
     var sd = currentStateDistrict();
     if (!sd) {
-      box.innerHTML = '<div style="padding:16px;font-size:12px;line-height:1.8;opacity:.85">' +
+      box.innerHTML = '<div style="padding:var(--space-1);font-size:var(--fs-2);line-height:1.8;opacity:.85">' +
         '<b>' + t('Crop Statistics', 'फसल आंकड़े') + '</b><br>' +
-        t('Select a district to see historical crop area, production and yield by season.',
-          'ऐतिहासिक फसल क्षेत्रफल, उत्पादन और उपज देखने के लिए ज़िला चुनें।') + '</div>';
+        t('Select a district', 'ज़िला चुनें') + '</div>';
       return;
     }
 
@@ -139,10 +144,10 @@
         if (desResult.notFound) {
           box.innerHTML = '<div style="padding:12px 14px;font-size:12px;line-height:1.8">' +
             '<b>' + t('Crop Statistics', 'फसल आंकड़े') + '</b><br>' +
-            t('Climate data not yet available for ' + sd.districtName + '.', sd.districtName + ' के लिए फसल आंकड़े अभी उपलब्ध नहीं हैं।') +
-            '<div style="margin-top:6px;font-size:10.5px;opacity:.7">' +
-            t('Source: DES (data.desagri.gov.in), 2000-01 to 2022-23 -- this district may be newer than the source snapshot, or its name may differ; see docs/DISTRICT_NAME_MAP.md.',
-              'स्रोत: DES (data.desagri.gov.in), 2000-01 से 2022-23 -- यह ज़िला स्रोत से नया हो सकता है, या नाम अलग हो सकता है।') +
+            t('Not yet available', 'अभी उपलब्ध नहीं') + ' · ' + sd.districtName +
+            '<div style="margin-top:var(--space-03);font-size:var(--fs-1);opacity:.7">' +
+            t('Source · DES (data.desagri.gov.in) · 2000-01–2022-23', 'स्रोत · DES (data.desagri.gov.in) · 2000-01–2022-23') + ' ' +
+            infoIcon('This district may be newer than the source snapshot, or its name may differ; see docs/DISTRICT_NAME_MAP.md.') +
             '</div></div>';
         } else {
           // A real fetch/network failure, not "this district has no DES
