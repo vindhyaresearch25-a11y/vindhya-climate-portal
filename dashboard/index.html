@@ -314,7 +314,10 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
    actually zoomed past the active basemap's real tile ceiling -- see
    updateZoomLimitUI() in the inline script. */
 .zoom-max-pill{position:absolute;bottom:0.75rem;right:3.35rem;z-index:500;background:rgba(20,28,40,0.72);color:#e8f4f7;border-radius:var(--radius-5);padding:0.2rem 0.5rem;font-size:10px;font-weight:600;letter-spacing:0.02em;white-space:nowrap;pointer-events:none;backdrop-filter:blur(4px);}
-.zoom-limit-badge{position:absolute;top:1rem;left:1rem;z-index:600;background:rgba(24,20,16,0.88);color:#fff;border-radius:var(--radius-5);padding:0.4rem 0.65rem;font-size:11px;line-height:1.4;max-width:230px;box-shadow:0 2px 10px rgba(0,0,0,0.3);display:none;}
+/* left:4.2rem, not 1rem -- 1rem is the Leaflet north-arrow control's own
+   top-left corner (geoai_professional.js), so the badge sits in the clear
+   band to its right instead of stacking on top of it. */
+.zoom-limit-badge{position:absolute;top:1rem;left:4.2rem;z-index:600;background:rgba(24,20,16,0.88);color:#fff;border-radius:var(--radius-5);padding:0.4rem 0.65rem;font-size:11px;line-height:1.4;max-width:230px;box-shadow:0 2px 10px rgba(0,0,0,0.3);display:none;}
 .zoom-limit-badge.visible{display:block;}
 .zoom-limit-badge .zlb-en{opacity:0.8;font-size:10px;display:block;margin-top:0.1rem;}
 
@@ -3213,12 +3216,22 @@ window.exportMapPNG=exportMapPNG;
 // content, verified 2026-08-13 against each provider's own source/docs
 // (not guessed) -- see docs/METHODOLOGY.md limitations note for the full
 // verification log:
-//  - Esri World Imagery: 19, per Esri's own esri-leaflet plugin
-//    (BasemapLayer.js, github.com/Esri/esri-leaflet -- `Imagery: {maxZoom:19}`).
-//    Confirmed by direct tile fetch: at zoom 19+ over sparsely-imaged rural
-//    India (e.g. Panagar, Jabalpur) Esri's own tile server returns a 200 OK
-//    JPEG with "Map data not yet available" burned into the pixels --
-//    that image, tiled across the viewport, IS the bug this file fixes.
+//  - Esri World Imagery: 18. Esri's own esri-leaflet plugin documents 19
+//    globally (BasemapLayer.js, github.com/Esri/esri-leaflet --
+//    `Imagery: {maxZoom:19}`), but that's a scheme ceiling, not a coverage
+//    guarantee -- Esri's real per-location imagery resolution varies, and
+//    at the exact village this bug report named (Panagar, Jabalpur, MP,
+//    23.2239N 79.9657E) direct tile fetches show z18 is real farmland
+//    imagery (6.9KB JPEG) while z19 is already Esri's own 200-OK
+//    "Map data not yet available" placeholder (2.5KB JPEG, byte-identical
+//    everywhere it occurs) -- confirmed live in-browser too: setting
+//    maxNativeZoom to Esri's documented 19 still stretched that exact
+//    placeholder image across the viewport once zoomed past it. Capping
+//    one level below the documented ceiling (18) keeps this village (and,
+//    empirically, most rural India -- Esri's ultra-high-res tiles are
+//    concentrated in a handful of cities) on real imagery; z19+ then
+//    correctly triggers the stretch-and-badge path below instead of ever
+//    reaching Esri's placeholder tile.
 //  - OSM standard tile layer: 19, confirmed empirically (tile.openstreetmap.org
 //    returns HTTP 400 for any request at z>=20 -- a hard scheme limit, not
 //    just a recommendation).
@@ -3236,7 +3249,7 @@ window.exportMapPNG=exportMapPNG;
 // stretches/upscales the last real tile it has -- see updateZoomLimitUI()
 // below for the corner-badge warning shown once that happens.
 var BASEMAPS = {
-  'Satellite (Esri)': { theme:'dark', layer:null, nativeMax:19, make:function(){ return L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:22,maxNativeZoom:19,crossOrigin:'anonymous',attribution:'Tiles &copy; Esri — Source: Esri, Maxar, Earthstar Geographics'}); } },
+  'Satellite (Esri)': { theme:'dark', layer:null, nativeMax:18, make:function(){ return L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:22,maxNativeZoom:18,crossOrigin:'anonymous',attribution:'Tiles &copy; Esri — Source: Esri, Maxar, Earthstar Geographics'}); } },
   'Street (OSM)':      { theme:'light', layer:null, nativeMax:19, make:function(){ return L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:22,maxNativeZoom:19,subdomains:'abc',crossOrigin:'anonymous',attribution:'&copy; OpenStreetMap contributors'}); } },
   'Terrain (OpenTopoMap)': { theme:'dark', layer:null, nativeMax:17, make:function(){ return L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',{maxZoom:22,maxNativeZoom:17,subdomains:'abc',crossOrigin:'anonymous',attribution:'&copy; OpenStreetMap contributors, SRTM — style: &copy; OpenTopoMap (CC-BY-SA)'}); } },
   'Light (Carto Positron)': { theme:'light', layer:null, nativeMax:20, make:function(){ return L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:22,maxNativeZoom:20,subdomains:'abcd',crossOrigin:'anonymous',attribution:'&copy; OpenStreetMap contributors &copy; CARTO'}); } },
