@@ -197,8 +197,8 @@
   function renderBlockTier(file, selectedBlockName) {
     var blocks = file.blocks || [];
     if (!blocks.length) {
-      return '<div style="padding:0.4rem 0.75rem;color:var(--text-dim);font-size:0.7rem;">'
-        + 'Block-level breakdown not available (no village boundary file for this district yet).</div>';
+      return '<div style="padding:0.4rem 0.75rem;color:var(--text-dim);font-size:var(--fs-1);">'
+        + 'Not available · ' + infoIcon('No village boundary file for this district yet.') + '</div>';
     }
     var h = '<div class="section-header" style="margin-top:0.4rem;"><div class="section-title">BLOCK / TEHSIL BREAKDOWN</div></div>';
     h += '<div style="max-height:180px;overflow:auto;padding:0 0.75rem;">';
@@ -219,8 +219,8 @@
     if (!vilLgd) return '';
     var v = (file.villages || {})[String(vilLgd)];
     if (!v) {
-      return '<div style="padding:0.4rem 0.75rem;color:var(--text-dim);font-size:0.7rem;">'
-        + 'This village is not in the soil-moisture village breakdown for this district yet.</div>';
+      return '<div style="padding:0.4rem 0.75rem;color:var(--text-dim);font-size:var(--fs-1);">'
+        + 'Not available · ' + infoIcon('This village is not in the soil-moisture village breakdown for this district yet.') + '</div>';
     }
     var villageName = v[0], sdcode = v[1], cellIdx = v[2];
     var cell = (file.district && file.district.cells || [])[cellIdx];
@@ -295,7 +295,7 @@
     if (!host) return;
     var sel = currentSelection();
     if (!sel.stateName) {
-      showEmpty('Select a state, district, block or village to see soil moisture.');
+      showEmpty('राज्य/ज़िला/ब्लॉक/गाँव चुनें · Select a state/district/block/village');
       updateMainMetricCard(null);
       return;
     }
@@ -331,15 +331,14 @@
       var dslug = slugify(sel.districtName);
       var key = stateSlug + '/' + dslug;
       if (!manifestSet[key]) {
-        host.innerHTML = '<div style="padding:0.75rem;color:var(--text-dim);font-size:0.75rem;">'
-          + 'Soil moisture not yet computed for ' + sel.districtName + '. '
-          + Object.keys(manifestSet).length + ' districts computed nationally so far. '
+        host.innerHTML = '<div style="padding:0.75rem;color:var(--text-dim);font-size:var(--fs-2);">'
+          + 'Not yet computed · ' + sel.districtName + ' · ' + Object.keys(manifestSet).length + ' districts nationally '
           + '<a href="#" onclick="setBtmTab(\'soilmoisture\');return false;">Retry</a></div>';
         updateMainMetricCard(null);
         return;
       }
       loadDistrictFile(stateSlug, dslug).then(function (file) {
-        if (!file) { showEmpty('Soil moisture file failed to load for ' + sel.districtName + '.'); updateMainMetricCard(null); return; }
+        if (!file) { showEmpty('Failed to load · ' + sel.districtName); updateMainMetricCard(null); return; }
         var h = renderDistrictTier(file, sel.districtName);
         h += renderBlockTier(file, sel.blockName);
         h += renderVillageTier(file, sel.vilLgd);
@@ -368,7 +367,7 @@
       + '<div style="padding:0.4rem 0.75rem;font-size:var(--fs-1);line-height:1.6;color:var(--text-dim);">'
       + RESOLUTION_NOTE + '</div>'
       + '<div id="soilmoisture-panel-body" style="padding:0.5rem 0.75rem;text-align:center;color:var(--text-dim);font-size:var(--fs-1);">'
-      + '<i class="fa fa-tint-slash"></i> Select a state/district/block/village to see soil moisture.</div>';
+      + '<i class="fa fa-tint-slash"></i> राज्य/ज़िला/ब्लॉक/गाँव चुनें · Select a state/district/block/village</div>';
     host.appendChild(p);
 
     var firstTab = document.querySelector('.btm-tab');
