@@ -478,6 +478,169 @@ CORPUS = [
         "year": None,
         "publisher": "ICAR-National Research Centre for Banana (NRCB), Tiruchirappalli",
     },
+
+    # -------------------------------------------------------------
+    # Added 2026-08-13 round 2, batch 3: pulses (arhar/tur, moong, urad,
+    # masoor, horse-gram, khesari, cowpea, peas & beans, other rabi/kharif
+    # pulses). Every URL fetched live and confirmed 200 OK / application/pdf
+    # this session. Primary source: Assam Agricultural University's KVK
+    # Chirang/Kokrajhar per-crop Package-of-Practices chapters (kharif/rabi
+    # 2021 and 2023 editions) -- a State Agricultural University source not
+    # previously used in this corpus, chosen because AAU has published a
+    # dedicated single-crop PDF for almost every pulse in this list, unlike
+    # ICAR-IIPR whose per-crop bulletins found this session were image-only
+    # (Urdbean, pigeonpea/greengram/blackgram pest field guides -- 0
+    # extractable text, CorelDraw exports, not usable for text RAG).
+    # -------------------------------------------------------------
+    {
+        "id": "aau_pigeonpea_pop_2021",
+        "url": "https://kvkchirang.aau.ac.in/pdf/package_of_practice/kharif/Pigeonpea.pdf",
+        "source": "Package of Practices for Kharif Crops of Assam, 2021 -- Pigeon Pea (Arhar)",
+        "crop": "arhar/tur",
+        "year": 2021,
+        "publisher": "Assam Agricultural University (Jorhat) & Directorate of Agriculture, Govt. of Assam",
+    },
+    {
+        "id": "aau_greengram_pop_2021",
+        "url": "https://kvkchirang.aau.ac.in/pdf/package_of_practice/kharif/Greengram.pdf",
+        "source": "Package of Practices for Kharif Crops of Assam, 2021 -- Green Gram",
+        "crop": "moong",
+        "year": 2021,
+        "publisher": "Assam Agricultural University (Jorhat) & Directorate of Agriculture, Govt. of Assam",
+    },
+    {
+        "id": "aau_blackgram_pop_2021",
+        "url": "https://kvkchirang.aau.ac.in/pdf/package_of_practice/kharif/Blackgram.pdf",
+        "source": "Package of Practices for Kharif Crops of Assam, 2021 -- Black Gram",
+        "crop": "urad",
+        "year": 2021,
+        "publisher": "Assam Agricultural University (Jorhat) & Directorate of Agriculture, Govt. of Assam",
+    },
+    {
+        "id": "aau_lentil_pop_2021",
+        "url": "https://kvkchirang.aau.ac.in/pdf/package_of_practice/Rabi/Lentil.pdf",
+        "source": "Package of Practices for Rabi Crops of Assam, 2021 -- Lentil",
+        "crop": "masoor",
+        "year": 2021,
+        "publisher": "Assam Agricultural University (Jorhat) & Directorate of Agriculture, Govt. of Assam",
+    },
+    {
+        "id": "tnau_cpg2020_pulses",
+        "url": "https://agritech.tnau.ac.in/pdf/AGRICULTURE.pdf",
+        "source": "Crop Production Guide -- Agriculture 2020 (pulses chapter: redgram, blackgram, greengram, cowpea, horsegram)",
+        "crop": "multiple (horse-gram primary target; also covers arhar/tur, urad, moong, cowpea)",
+        "year": 2020,
+        "publisher": "Directorate of Agriculture, Govt. of Tamil Nadu & Tamil Nadu Agricultural University, via agritech.tnau.ac.in",
+    },
+    {
+        "id": "aau_grasspea_pop_2021",
+        "url": "https://kvkchirang.aau.ac.in/pdf/package_of_practice/Rabi/Grasspea.pdf",
+        "source": "Package of Practices for Rabi Crops of Assam, 2021 -- Grass Pea (Khesari)",
+        "crop": "khesari",
+        "year": 2021,
+        "publisher": "Assam Agricultural University (Jorhat) & Directorate of Agriculture, Govt. of Assam",
+    },
+    {
+        "id": "aau_cowpea_pop_2021",
+        "url": "https://kvkchirang.aau.ac.in/pdf/package_of_practice/kharif/Cowpea.pdf",
+        "source": "Package of Practices for Kharif Crops of Assam, 2021 -- Cow Pea",
+        "crop": "cowpea(lobia)",
+        "year": 2021,
+        "publisher": "Assam Agricultural University (Jorhat) & Directorate of Agriculture, Govt. of Assam",
+    },
+    {
+        "id": "aau_pea_pop_2021",
+        "url": "https://kvkchirang.aau.ac.in/pdf/package_of_practice/Rabi/Pea.pdf",
+        "source": "Package of Practices for Rabi Crops of Assam, 2021 -- Pea (Pisum sativum)",
+        "crop": "peas & beans (pulses)",
+        "year": 2021,
+        "publisher": "Assam Agricultural University (Jorhat) & Directorate of Agriculture, Govt. of Assam",
+    },
+    {
+        "id": "aau_kharif_pop_2023",
+        "url": "https://kvkkokrajhar.aau.ac.in/PoP/PoP_(Kharif)_2023.pdf",
+        "source": "Package of Practices for Kharif Crops of Assam, 2023 (full compilation)",
+        "crop": "other kharif pulses (also has updated arhar/tur, moong, urad, cowpea chapters)",
+        "year": 2023,
+        "publisher": "Assam Agricultural University, Jorhat & Department of Agriculture, Govt. of Assam",
+    },
+    {
+        "id": "aau_rabi_pop_2023",
+        "url": "https://kvkkokrajhar.aau.ac.in/PoP/PoP_Rabi_2023.pdf",
+        "source": "Package of Practices for Rabi Crops of Assam, 2023 (full compilation)",
+        "crop": "other  Rabi pulses (also has updated masoor, khesari, peas & beans chapters)",
+        "year": 2023,
+        "publisher": "Assam Agricultural University, Jorhat & Department of Agriculture, Govt. of Assam",
+    },
+
+    # -------------------------------------------------------------
+    # Added 2026-08-13 round 2, batch 4: fibre/plantation (sugarcane, jute,
+    # tobacco, mesta, sannhamp) and spices (turmeric, dry chillies,
+    # coriander, dry ginger). Garlic is NOT a new entry here -- already
+    # covered by pau_vegetable_pop_2021 above (same URL, Chapter 21). Every
+    # URL fetched live and confirmed 200 OK / application/pdf this session.
+    # Environment note: most *.icar.gov.in institute subdomains return
+    # DNS NXDOMAIN from this sandbox (confirmed real, not a proxy artifact --
+    # bare icar.gov.in resolves fine); where an institute has a working
+    # *.res.in sibling domain on the same server, that was used instead and
+    # content-verified identical (CRIJAF, CTRI/NIRCA below).
+    # -------------------------------------------------------------
+    {
+        "id": "sbi_tn_vksa_agrotech_2025",
+        "url": "https://sugarcane.res.in/wp-content/uploads/2026/02/Book-2-VKA-Technology-Colour.pdf",
+        "source": "Recent Agro-Technologies and Package of Practices for Important Crops of Tamil Nadu (VKSA-2025)",
+        "crop": "sugarcane",
+        "year": 2025,
+        "publisher": "ICAR-Sugarcane Breeding Institute (SBI), Coimbatore",
+    },
+    {
+        "id": "crijaf_jute_allied_fibres_cropcalendar_2013",
+        "url": "http://crijaf.res.in/pdf/cropcalendar/JafCropCalendar_2013.pdf",
+        "source": "Crop Calendar for Jute and Allied Fibres 2013",
+        "crop": "multiple (jute, mesta, sannhamp -- also ramie and sisal)",
+        "year": 2013,
+        "publisher": "ICAR-Central Research Institute for Jute and Allied Fibres (CRIJAF), Barrackpore",
+    },
+    {
+        "id": "ctri_nirca_fcv_agronomy",
+        "url": "https://nirca.icar.gov.in/files/agronomy.pdf",
+        "source": "Tobacco Production and Protection Technologies for Improving the Productivity & Quality (Agronomic Practices for FCV Tobacco in India)",
+        "crop": "tobacco",
+        "year": None,
+        "publisher": "ICAR-Central Tobacco Research Institute (CTRI), Rajahmundry -- now ICAR-NIRCA (National Institute for Research on Commercial Agriculture)",
+    },
+    {
+        "id": "iisr_turmeric_ext_pamphlet_2022",
+        "url": "https://www.indianspices.com/sites/default/files/185.%20Institute%20Publication-Turmeric%20Extension%20Pamphlet%20-%20March%202022.pdf",
+        "source": "Turmeric -- Extension Pamphlet",
+        "crop": "turmeric",
+        "year": 2022,
+        "publisher": "ICAR-Indian Institute of Spices Research (IISR), Kozhikode, via indianspices.com (Spices Board of India)",
+    },
+    {
+        "id": "iisr_chilli_gap_2019",
+        "url": "https://www.indianspices.com/sites/default/files/cultivation_practices-Chillli-1.pdf",
+        "source": "Chilli -- Good Agricultural Practices",
+        "crop": "dry chillies",
+        "year": 2019,
+        "publisher": "ICAR-Indian Institute of Spices Research (IISR), Kozhikode, via indianspices.com (Spices Board of India)",
+    },
+    {
+        "id": "iisr_coriander_gap_2019",
+        "url": "https://www.indianspices.com/sites/default/files/cultivation_practices-Coriander-1.pdf",
+        "source": "Coriander -- Good Agricultural Practices",
+        "crop": "coriander",
+        "year": 2019,
+        "publisher": "ICAR-Indian Institute of Spices Research (IISR), Kozhikode, via indianspices.com (Spices Board of India)",
+    },
+    {
+        "id": "iisr_ginger_ext_pamphlet_2025",
+        "url": "https://spices.res.in/storage/app/public/pdfs/GINGER/3ENG.pdf",
+        "source": "Ginger -- Extension Pamphlet",
+        "crop": "dry ginger",
+        "year": 2025,
+        "publisher": "ICAR-Indian Institute of Spices Research (IISR), Kozhikode",
+    },
 ]
 
 FETCH_DATE = time.strftime("%Y-%m-%d")
@@ -681,15 +844,35 @@ def chunk_pages(pages: list[str], doc: dict) -> list[dict]:
 
 
 def cf_api(path: str, method: str = "GET", body: bytes | None = None, content_type: str = "application/json"):
+    """2026-08-13: this run hit Workers AI's free-tier rate limit twice in a
+    row, both times right at the start of a large (3118-chunk) embedding
+    batch -- a real, reproducible transient limit, not a one-off network
+    blip. Retries on HTTP 429 with exponential backoff (5 attempts, 10s base)
+    rather than requiring the whole multi-hundred-chunk run to be manually
+    re-invoked from scratch on every rate-limit hit. Any other HTTP error is
+    still raised immediately -- only 429 is treated as retryable, per this
+    repo's "seemaa paas aaye to RUKO" rule: if it's STILL 429 after 5 real
+    backed-off attempts, that's a genuine ceiling worth stopping and
+    reporting on, not silently working around forever."""
     if not CLOUDFLARE_ACCOUNT_ID or not CLOUDFLARE_API_TOKEN:
         raise RuntimeError("CLOUDFLARE_ACCOUNT_ID / CLOUDFLARE_API_TOKEN not set")
     url = f"https://api.cloudflare.com/client/v4/accounts/{CLOUDFLARE_ACCOUNT_ID}{path}"
-    req = urllib.request.Request(url, data=body, method=method, headers={
-        "Authorization": f"Bearer {CLOUDFLARE_API_TOKEN}",
-        "Content-Type": content_type,
-    })
-    with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
-        return json.loads(r.read())
+    max_attempts = 5
+    for attempt in range(1, max_attempts + 1):
+        req = urllib.request.Request(url, data=body, method=method, headers={
+            "Authorization": f"Bearer {CLOUDFLARE_API_TOKEN}",
+            "Content-Type": content_type,
+        })
+        try:
+            with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
+                return json.loads(r.read())
+        except urllib.error.HTTPError as e:
+            if e.code == 429 and attempt < max_attempts:
+                wait_s = 10 * (2 ** (attempt - 1))  # 10, 20, 40, 80s
+                log(f"  429 rate limited on {path} (attempt {attempt}/{max_attempts}) -- waiting {wait_s}s")
+                time.sleep(wait_s)
+                continue
+            raise
 
 
 def embed_batch(texts: list[str]) -> list[list[float]]:
@@ -777,11 +960,21 @@ def main():
         log("nothing to embed/upsert -- every document failed to fetch or extract")
         sys.exit(1)
 
-    log(f"embedding {len(all_chunks)} chunks via {EMBEDDING_MODEL} (batches of {EMBED_BATCH_SIZE})...")
-    records = []
+    # Embed AND upsert each batch immediately, rather than embedding
+    # everything first and upserting at the very end -- 2026-08-13: a
+    # 3118-chunk run hit Workers AI's rate limit partway through embedding
+    # twice; with the old embed-everything-then-upsert-everything structure
+    # that meant losing ALL progress on every failure, even chunks already
+    # successfully embedded. Now each 20-chunk batch is durable the moment
+    # it's embedded -- a later failure only costs the remaining un-embedded
+    # batches, and re-running the script is a real (if wasteful) resume,
+    # not a from-scratch redo (Vectorize upsert is idempotent by id).
+    log(f"embedding+upserting {len(all_chunks)} chunks via {EMBEDDING_MODEL} (batches of {EMBED_BATCH_SIZE})...")
+    total_upserted = 0
     for batch_start in range(0, len(all_chunks), EMBED_BATCH_SIZE):
         batch = all_chunks[batch_start:batch_start + EMBED_BATCH_SIZE]
         vectors = embed_batch([c["text"] for c in batch])
+        records = []
         for chunk, vector in zip(batch, vectors):
             records.append({
                 "id": make_chunk_id(chunk["id"], chunk["doc_chunk_idx"]),
@@ -797,15 +990,11 @@ def main():
                     "ingested_date": FETCH_DATE,
                 },
             })
-        log(f"  embedded {min(batch_start + EMBED_BATCH_SIZE, len(all_chunks))}/{len(all_chunks)}")
+        upsert_batch(records)
+        total_upserted += len(records)
+        log(f"  embedded+upserted {min(batch_start + EMBED_BATCH_SIZE, len(all_chunks))}/{len(all_chunks)}")
 
-    log(f"upserting {len(records)} vectors to Vectorize index '{VECTORIZE_INDEX_NAME}' (batches of {UPSERT_BATCH_SIZE})...")
-    for batch_start in range(0, len(records), UPSERT_BATCH_SIZE):
-        batch = records[batch_start:batch_start + UPSERT_BATCH_SIZE]
-        upsert_batch(batch)
-        log(f"  upserted {min(batch_start + UPSERT_BATCH_SIZE, len(records))}/{len(records)}")
-
-    log("done.")
+    log(f"done. {total_upserted} vectors upserted to '{VECTORIZE_INDEX_NAME}'.")
 
 
 if __name__ == "__main__":
