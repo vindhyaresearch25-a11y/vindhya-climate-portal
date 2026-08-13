@@ -488,6 +488,32 @@
       }
       h += '</div>';
 
+      // Field wetness index (relative) -- KHET-STAR KI NAMI item 4b,
+      // cloudflare/mera_khet_worker.js's field_wetness_index_relative.
+      // Deliberately a SEPARATE block from "मिट्टी की नमी / Soil moisture
+      // (SMAP)" above with its own heading -- never merged into or
+      // relabelled as "मिट्टी की नमी", because this is a Sentinel-1
+      // backscatter RATIO against the field's own containing district in
+      // the SAME satellite pass, not a m3/m3 measurement (SMAP above IS
+      // the real m3/m3 number, at ~9 km, and that name stays reserved for
+      // it). Exact heading/caveat text per owner's spec.
+      h += '<div style="margin-bottom:10px"><b style="font-size:11.5px">खेत की नमी सूचकांक (सापेक्ष) / Field wetness index (relative)</b><br>' +
+        '<span style="font-size:10px;opacity:.65">m³/m³ माप नहीं &middot; गाँव के औसत से तुलना &middot; Sentinel-1 VV/VH, 10 मी</span><br>';
+      if (res.analyze && res.analyze.available && res.analyze.field_wetness_index_relative != null) {
+        var fw = res.analyze.field_wetness_index_relative, fwd = res.analyze.field_wetness_index_detail || {};
+        var fwColor = fw >= 0 ? 'var(--green,#2d8f5c)' : 'var(--red,#c94848)';
+        h += '<span style="font-size:13px;font-weight:600;color:' + fwColor + '">' + (fw >= 0 ? '+' : '') + fmt(fw, 1) + '%</span>' +
+          '<span style="font-size:11px;opacity:.75"> बनाम ' + (fwd.reference_area || 'जिला/district') + ' (' + (fwd.image_date || '') + ')</span>';
+        h += '<div style="font-size:10px;opacity:.6;margin-top:3px">VV: ' + fmt(fwd.field_vv_db, 1) + ' dB (खेत/field) बनाम ' + fmt(fwd.reference_area_vv_db, 1) + ' dB (' + (fwd.reference_area || 'reference') + ')</div>';
+      } else if (res.analyze === null) {
+        h += '<span style="font-size:11px;opacity:.6">जांचा जा रहा है... / Checking...</span>';
+      } else if (res.analyze && res.analyze.wetness_error) {
+        h += '<span style="font-size:11px;opacity:.6">उपलब्ध नहीं / Not available (' + res.analyze.wetness_error + ')</span>';
+      } else {
+        h += '<span style="font-size:11px;opacity:.6">उपलब्ध नहीं / Not available</span>';
+      }
+      h += '</div>';
+
       // Climate/rainfall
       h += '<div><b style="font-size:11.5px">बारिश / लू के दिन / Rainfall &amp; heat</b><br>';
       if (res.climate) {
@@ -836,6 +862,9 @@
     var parts = ['Give me crop advisory for my own drawn field.',
       'Area: ' + fmt(res.area_ha, 2) + ' ha, in ' + (res.district_name || 'an unresolved district') + ', ' + (res.state_name || '') + '.'];
     if (res.soil && res.soil.district) parts.push('District/grid soil moisture (SMAP, ~9km, not field-specific): ' + fmt(res.soil.district.sm_surface_mean, 3) + ' m3/m3.');
+    if (res.analyze && res.analyze.available && res.analyze.field_wetness_index_relative != null) {
+      parts.push('Field wetness index (relative, NOT m3/m3): field Sentinel-1 VV backscatter is ' + fmt(res.analyze.field_wetness_index_relative, 1) + '% vs. the containing district, same satellite pass -- this reflects radar backscatter (moisture + vegetation + roughness combined), not an absolute moisture measurement.');
+    }
     if (res.climate) {
       var rain = res.climate.annual_rain_mm_mean != null ? res.climate.annual_rain_mm_mean : res.climate.annual_rain_mm;
       parts.push('District annual rainfall (2000-2024 mean, not field-specific): ' + fmt(rain, 0) + ' mm.');

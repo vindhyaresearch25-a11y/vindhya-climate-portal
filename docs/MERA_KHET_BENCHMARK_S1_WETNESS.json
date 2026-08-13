@@ -1,0 +1,65 @@
+{
+ "metadata": {
+  "purpose": "KHET-STAR KI NAMI item 4b benchmark -- real Sentinel-1 GRD query time and real pass availability, measured before wiring field_wetness_index_relative into cloudflare/mera_khet_worker.js. Same ~1.86 ha test polygon near Bhopal, MP that docs/MERA_KHET_BENCHMARK.json's A3 benchmark used, for direct comparability.",
+  "polygon_center": [23.15, 77.35],
+  "polygon_area_ha": 1.863,
+  "run_at_utc": "2026-08-13T16:58:46.705277+00:00",
+  "note": "Real numbers only -- a query that fails or times out is reported as a failure, not papered over with an estimate. Revisit-frequency claims below are from this repo's own live query at this exact point, not assumed from Copernicus's idealized global figure."
+ },
+ "benchmarks": [
+  {
+   "label": "0_band_check",
+   "ok": true,
+   "seconds": 4.02,
+   "result": {
+    "bands": ["VV", "VH", "angle"],
+    "props": {
+     "transmitterReceiverPolarisation": ["VV", "VH"],
+     "instrumentMode": "IW",
+     "orbitProperties_pass": "DESCENDING",
+     "platform_number": "D",
+     "resolution_meters": 10,
+     "resolution": "H"
+    },
+    "date": "2026-07-10T00:44"
+   }
+  },
+  {
+   "label": "1_pass_count_30d",
+   "ok": true,
+   "seconds": 3.56,
+   "result": {
+    "window_days": 30,
+    "n_scenes": 1,
+    "dates": ["2026-08-03 00:44"],
+    "platforms": ["D"]
+   },
+   "finding": "Only 1 real Sentinel-1 scene intersecting this exact point in the last 30 days -- meaningfully worse than an idealized '6-day combined revisit' figure would suggest."
+  },
+  {
+   "label": "2_pass_count_60d",
+   "ok": true,
+   "seconds": 1.63,
+   "result": {
+    "window_days": 60,
+    "n_scenes": 4,
+    "dates": ["2026-06-21 00:45", "2026-06-28 00:44", "2026-07-10 00:44", "2026-08-03 00:44"],
+    "platforms": ["A", "D"]
+   },
+   "finding": "Irregular real gaps of 7, 12, and 24 days between consecutive scenes -- not the idealized 6-12 day figure. Explanation: this window (2026-06-14 to 2026-08-13) straddles Sentinel-1A's documented end-of-life (Copernicus SentiWiki, fetched 2026-08-13: 'Sentinel-1A: scheduled for end-of-life by end of June 2026') during the transition to the Sentinel-1C/1D pair ('Sentinel-1C: fully operational since May 2025', 'Sentinel-1D: fully operational starting mid April 2026'). This is why buildS1WetnessExpression() uses a 60-day (not narrower) lookback window -- verified necessary from this real gap data, not an arbitrary choice."
+  },
+  {
+   "label": "3_field_backscatter_latest",
+   "ok": true,
+   "seconds": 2.31,
+   "result": {"vv": -10.900221383803718, "vh": -18.445609735813633, "date": "2026-08-03", "orbit_pass": "DESCENDING"}
+  },
+  {
+   "label": "4_district_backscatter_same_scene",
+   "ok": true,
+   "seconds": 3.15,
+   "result": {"vv": -8.769042366427628, "vh": -16.20089676466733, "date": "2026-08-03"},
+   "note": "Same COPERNICUS/S1_GRD image as benchmark 3, reduceRegion'd over Bhopal district's real FAO/GAUL/2015/level2 polygon instead of the field polygon -- confirms the 'same acquisition, two regions' comparison is real and computable, not just field-only."
+  }
+ ]
+}
