@@ -127,9 +127,16 @@
     // these thresholds, which is why the caveat below is always shown
     // alongside it, never the hint alone.
     if (sm == null) return null;
-    if (sm < 0.15) return { cls: 'red', text: 'मिट्टी सूखी दिख रही है — सिंचाई पर विचार करें। / Soil looks dry — consider irrigating.' };
-    if (sm < 0.30) return { cls: 'orange', text: 'मध्यम नमी — फसल की अवस्था और मिट्टी के प्रकार को देखकर तय करें। / Moderate moisture — weigh crop stage and soil type before deciding.' };
-    return { cls: 'green', text: 'नमी पर्याप्त दिखती है — शायद तुरंत सिंचाई ज़रूरी नहीं। / Moisture looks adequate — immediate irrigation may not be necessary.' };
+    if (sm < 0.15) return { cls: 'red', text: 'मिट्टी सूखी · सिंचाई पर विचार करें / Soil dry · consider irrigating' };
+    if (sm < 0.30) return { cls: 'orange', text: 'मध्यम नमी · फसल-अवस्था अनुसार तय करें / Moderate moisture · weigh crop stage' };
+    return { cls: 'green', text: 'नमी पर्याप्त · तुरंत सिंचाई अनावश्यक / Moisture adequate · irrigation not urgent' };
+  }
+
+  // i-icon tooltip helper -- long explanation goes in the title attribute,
+  // never inline as panel text (owner spec, item 2).
+  function infoIcon(title) {
+    return '<i class="fa fa-circle-info" title="' + String(title).replace(/"/g, '&quot;') + '" '
+      + 'style="color:var(--text-dim);opacity:0.7;cursor:help;font-size:0.85em;"></i>';
   }
 
   function statCard(label, value, color) {
@@ -137,20 +144,25 @@
       + '<div class="metric-value" style="color:' + (color || 'var(--text)') + '">' + value + '</div></div>';
   }
 
-  var RESOLUTION_NOTE = '<b>रिज़ॉल्यूशन ~9 किमी / Resolution ~9 km</b> (NASA SMAP L4, EASE-Grid 2.0). '
-    + 'एक ग्रिड सेल कई गांवों को कवर करता है — गांव-स्तर पर मान गांव-विशिष्ट नहीं, सेल-साझा है। '
-    + 'One grid cell covers many villages — the village-tier value is the shared cell value, not village-specific.';
+  // Terse label line (item 2) -- full method note lives in the i-icon tooltip.
+  var RESOLUTION_LABEL = 'SMAP L4 · ~9 किमी ग्रिड · गांव-स्तर साझा मान / SMAP L4 · ~9 km grid · village tier shared';
+  var RESOLUTION_TOOLTIP = 'NASA SMAP L4, EASE-Grid 2.0. One grid cell covers many villages -- the village-tier '
+    + 'value is the shared cell value, not village-specific. / एक ग्रिड सेल कई गांवों को कवर करता है, गांव-विशिष्ट मान नहीं है।';
+  var RESOLUTION_NOTE = RESOLUTION_LABEL + ' ' + infoIcon(RESOLUTION_TOOLTIP);
 
   function villageFramingText(cellVal, nVillages, unit) {
-    // The owner's exact required framing (Hindi) + English equivalent,
-    // with the REAL counted N substituted in -- never a placeholder.
-    return '<div style="padding:0.55rem 0.7rem;background:rgba(255,204,0,0.07);border:1px solid rgba(255,204,0,0.3);'
-      + 'border-radius:6px;font-size:0.72rem;line-height:1.65;color:var(--text);margin-top:0.4rem;">'
-      + '<i class="fa fa-circle-info" style="color:var(--yellow)"></i> '
-      + '"यह आपके गांव वाली 9 किमी ग्रिड सेल का मान है। इस सेल में लगभग <b>' + nVillages + '</b> गांव हैं, सबका मान यही होगा। '
-      + 'यह आपके खेत का अपना माप नहीं है।"<br>'
-      + '"This is your village\'s 9 km grid-cell value. About <b>' + nVillages + '</b> villages share this cell and all '
-      + 'show this same value. It is not a measurement of your own field."'
+    // Owner's exact target format (item 2): "स्रोत: SMAP, 9 किमी ग्रिड ·
+    // 48 गाँव साझा · खेत-स्तर नहीं" -- a label, not a sentence. The fuller
+    // explanation moves into the i-icon tooltip.
+    var tooltip = 'यह आपके गांव वाली 9 किमी ग्रिड सेल का मान है। इस सेल में लगभग ' + nVillages
+      + ' गांव हैं, सबका मान यही होगा। यह आपके खेत का अपना माप नहीं है। / This is the shared 9 km '
+      + 'grid-cell value for your village. About ' + nVillages + ' villages share this cell and show '
+      + 'the same value. Not a measurement of your own field.';
+    return '<div style="padding:0.4rem 0.7rem;background:rgba(255,204,0,0.07);border:1px solid rgba(255,204,0,0.3);'
+      + 'border-radius:var(--radius-6);font-size:var(--fs-1);line-height:1.5;color:var(--text);margin-top:0.4rem;">'
+      + 'स्रोत: SMAP, 9 किमी ग्रिड · ' + nVillages + ' गाँव साझा · खेत-स्तर नहीं '
+      + '<br>Source: SMAP, 9 km grid · ' + nVillages + ' villages shared · not field-level '
+      + infoIcon(tooltip)
       + '</div>';
   }
 
@@ -166,18 +178,19 @@
       + statCard('ROOT ZONE MEAN', fmt(d.sm_rootzone_mean), 'var(--blue)')
       + '</div>';
     if (rollup) {
-      h += '<div style="padding:0 0.75rem 0.5rem;font-size:0.68rem;color:var(--text-dim);">'
-        + 'Cross-check (village→block→district rollup): mean ' + fmt(rollup.sm_surface_mean) + ', SD '
-        + fmt(rollup.sm_surface_stddev) + ', N = ' + rollup.n_blocks + ' blocks.</div>';
+      h += '<div style="padding:0 0.75rem 0.5rem;font-size:var(--fs-1);color:var(--text-dim);">'
+        + 'Cross-check (rollup) · mean ' + fmt(rollup.sm_surface_mean) + ' · SD '
+        + fmt(rollup.sm_surface_stddev) + ' · N=' + rollup.n_blocks + ' blocks</div>';
     }
     var hint = irrigationHint(d.sm_surface_mean);
     if (hint) {
       h += '<div style="padding:0 0.75rem 0.5rem;"><div class="metric-card" style="border-left:3px solid var(--' + hint.cls + ',' + hint.cls + ')">'
-        + '<div style="font-size:0.7rem;line-height:1.5;">' + hint.text + '</div>'
-        + '<div style="font-size:0.6rem;color:var(--text-dim);margin-top:0.3rem;">सामान्य संदर्भ बैंड, मिट्टी के प्रकार अनुसार बदलता है — कोई मॉडल-सुझाव नहीं। '
-        + 'Generic reference band, varies by soil texture — not a model-generated recommendation.</div></div></div>';
+        + '<div style="font-size:var(--fs-2);line-height:1.5;">' + hint.text + '</div>'
+        + '<div style="font-size:var(--fs-1);color:var(--text-dim);margin-top:0.3rem;">सामान्य संदर्भ बैंड · मिट्टी अनुसार बदलता है '
+        + infoIcon('Fixed reference band, not a model-generated recommendation. Real soil texture (sandy/loam/clay) shifts these thresholds.')
+        + '</div></div></div>';
     }
-    h += '<div style="padding:0 0.75rem 0.5rem;font-size:0.65rem;line-height:1.6;color:var(--text-dim);">' + RESOLUTION_NOTE + '</div>';
+    h += '<div style="padding:0 0.75rem 0.5rem;font-size:var(--fs-1);line-height:1.6;color:var(--text-dim);">' + RESOLUTION_NOTE + '</div>';
     return h;
   }
 
@@ -232,8 +245,8 @@
     var h = '<div class="section-header"><i class="fa fa-tint" style="color:var(--cyan)"></i>'
       + '<div class="section-title">SOIL MOISTURE — ' + stateName + ' (STATE)</div></div>';
     if (!vals.length) {
-      h += '<div style="padding:0.5rem 0.75rem;color:var(--text-dim);font-size:0.75rem;">'
-        + 'Soil moisture not yet computed for any district in ' + stateName + '.</div>';
+      h += '<div style="padding:0.5rem 0.75rem;color:var(--text-dim);font-size:var(--fs-2);">'
+        + 'Not yet computed · ' + stateName + '</div>';
       return h;
     }
     var n = vals.length;
@@ -245,10 +258,10 @@
       + statCard('STD DEV (across districts)', sd.toFixed(3), 'var(--orange)')
       + statCard('N DISTRICTS COMPUTED', n + (nTotal ? ' of ' + nTotal : ''), 'var(--green,#6fc795)')
       + '</div>';
-    h += '<div style="padding:0 0.75rem 0.5rem;font-size:0.65rem;line-height:1.6;color:var(--text-dim);">'
-      + 'Partial coverage is shown honestly: this is the mean of the ' + n + ' district(s) already computed'
-      + (nTotal ? (', out of ' + nTotal + ' total districts in ' + stateName) : '') + '. '
-      + RESOLUTION_NOTE + '</div>';
+    h += '<div style="padding:0 0.75rem 0.5rem;font-size:var(--fs-1);line-height:1.6;color:var(--text-dim);">'
+      + 'Partial coverage · ' + n + (nTotal ? (' of ' + nTotal + ' districts') : ' districts computed') + ' '
+      + infoIcon('Mean of the districts already computed for ' + stateName + '; full-state coverage not yet available.')
+      + ' ' + RESOLUTION_NOTE + '</div>';
     return h;
   }
 
@@ -260,19 +273,21 @@
     if (host) host.innerHTML = '<div style="text-align:center;color:var(--text-dim);font-size:var(--fs-1);padding:1rem;"><i class="fa fa-tint-slash"></i> ' + msg + '</div>';
   }
 
-  function updateMainMetricCard(sm) {
+  function updateMainMetricCard(sm, meta) {
     var val = el('m-soil'), bar = el('bar-soil'), trend = el('soil-trend'), src = el('soil-source');
     if (sm == null) {
       if (val) val.textContent = '—';
       if (bar) bar.style.width = '0%';
       if (trend) trend.textContent = 'Select a district';
-      if (src) src.textContent = 'Source: SMAP — not computed for this district yet';
+      if (src) src.textContent = 'SMAP · not computed yet';
       return;
     }
     if (val) val.textContent = fmt(sm, 3) + ' m3/m3';
     if (bar) bar.style.width = Math.min(100, Math.max(0, Math.round(sm / 0.5 * 100))) + '%';
-    if (trend) trend.textContent = '~9 km cell value (see Soil Moisture tab)';
-    if (src) src.textContent = 'Source: NASA SMAP L4 (NASA/SMAP/SPL4SMGP/008), via GEE';
+    if (trend) trend.textContent = '~9 km cell value';
+    // Standard closing-line format (item 5): Source · resolution · date.
+    var dateStr = (meta && meta.last_updated) ? meta.last_updated : '';
+    if (src) src.textContent = 'SMAP L4 · ~9 km' + (dateStr ? ' · ' + dateStr : '');
   }
 
   function render() {
@@ -330,7 +345,7 @@
         h += renderVillageTier(file, sel.vilLgd);
         var host2 = el('soilmoisture-panel-body');
         if (host2) host2.innerHTML = h;
-        updateMainMetricCard(file.district && file.district.sm_surface_mean);
+        updateMainMetricCard(file.district && file.district.sm_surface_mean, file.metadata);
       });
     });
   }
@@ -349,9 +364,8 @@
     p.className = 'btm-pane';
     p.id = 'pane-soilmoisture';
     p.innerHTML = '<div class="section-header"><i class="fa fa-tint" style="color:var(--cyan)"></i>'
-      + '<div class="section-title">SOIL MOISTURE — SMAP L4 (~9 km), all four tiers</div></div>'
-      + '<div style="padding:0.4rem 0.75rem;font-size:0.68rem;line-height:1.6;color:var(--text-dim);">'
-      + '"अभी पानी दूं या रुकूं" — kisan\'s most common question, answered directly from real NASA SMAP soil-moisture data. '
+      + '<div class="section-title">SOIL MOISTURE — SMAP L4 (~9 km)</div></div>'
+      + '<div style="padding:0.4rem 0.75rem;font-size:var(--fs-1);line-height:1.6;color:var(--text-dim);">'
       + RESOLUTION_NOTE + '</div>'
       + '<div id="soilmoisture-panel-body" style="padding:0.5rem 0.75rem;text-align:center;color:var(--text-dim);font-size:var(--fs-1);">'
       + '<i class="fa fa-tint-slash"></i> Select a state/district/block/village to see soil moisture.</div>';
