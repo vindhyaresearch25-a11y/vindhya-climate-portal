@@ -52,7 +52,9 @@
         + statCard('RMSE (' + unitLabel + ')', fmt(stats.rmse, precision), 'var(--orange)')
         + statCard('YEARS (n)', stats.n_years, 'var(--cyan)')
         + '</div>'
-      : '<div style="color:var(--text-dim);font-size:0.75rem;margin-top:0.5rem;">' + emptyMsg + '</div>';
+      : '<div style="color:var(--text-dim);font-size:var(--fs-1);margin-top:0.5rem;">Insufficient overlapping years '
+        + '<i class="fa fa-circle-info" title="' + String(emptyMsg).replace(/"/g, '&quot;') + '" '
+        + 'style="color:var(--text-dim);opacity:0.7;cursor:help;font-size:0.85em;"></i></div>';
   }
 
   // Chart.js instances keyed by canvas id, so re-selecting a district
@@ -109,8 +111,8 @@
       + hwBlock
       + '<div style="margin-top:0.75rem;padding:0.6rem 0.7rem;background:rgba(92,195,205,0.08);border:1px solid rgba(92,195,205,0.3);border-radius:6px;font-size:0.72rem;line-height:1.6;color:var(--text);">'
       + '<b>Verdict:</b> ' + (file.verdict || '') + '</div>'
-      + '<div style="font-size:0.62rem;font-weight:600;color:var(--text-dim);padding:0.6rem 0 0;">'
-      + 'Source: ' + (meta.source || '') + ' Last updated: ' + (meta.last_updated || '') + '</div>';
+      + '<div style="font-size:var(--fs-1);font-weight:600;color:var(--text-dim);padding:0.6rem 0 0;">'
+      + 'Source · ' + (meta.source || '') + ' · ' + (meta.last_updated || '') + '</div>';
 
     if (rs && rs.years_compared) drawSeriesChart('validation-chart-rain', rs, 'IMD (mm)', 'CHIRPS (mm)', '#5cc3cd', '#f0a878');
     if (ts && ts.years_compared) drawSeriesChart('validation-chart-temp', ts, 'IMD (°C)', 'ERA5-Land (°C)', '#5cc3cd', '#f0a878');
@@ -125,7 +127,9 @@
     if (!districtName) return;
     var dslug = slugify(districtName);
     if (VALID_SLUGS.indexOf(dslug) < 0) {
-      showEmpty('Validation data available only for Bhopal, Indore, Jabalpur, Rewa and Sidhi (the 5 districts with a real IMD time series).');
+      showEmpty('Only Bhopal/Indore/Jabalpur/Rewa/Sidhi '
+        + '<i class="fa fa-circle-info" title="Validation data available only for the 5 districts with a real IMD time series." '
+        + 'style="color:var(--text-dim);opacity:0.7;cursor:help;font-size:0.85em;"></i>');
       return;
     }
     if (cache[dslug]) { renderFile(cache[dslug], districtName); return; }
