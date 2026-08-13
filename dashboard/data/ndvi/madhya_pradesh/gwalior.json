@@ -1,0 +1,199 @@
+{
+  "metadata": {
+    "source": "MODIS Terra Vegetation Indices 16-Day Global 250m (MOD13Q1 v061), via Google Earth Engine -- real satellite product, distinct from dashboard/data/dicra_ndvi.json (UNDP DiCRA, MP's 52 districts only); the two are never merged. Phase 8.4.",
+    "resolution": "250 m native MOD13Q1 pixel, 16-day composite; a per-year value here is the spatial mean over this district's polygon of that year's temporal-mean composite (GEE reduceRegion, bestEffort=True).",
+    "crs": "EPSG:4326",
+    "method": "ee.ImageCollection('MODIS/061/MOD13Q1').select('NDVI'), filtered to each calendar year, .mean() temporal composite, then ee.Reducer.mean().combine(stdDev).combine(count) spatially over the district polygon at 250 m scale. NDVI band values scaled by MOD13Q1's own documented factor (0.0001). One GEE request per year (not per-scene) to keep this tractable at national scale.",
+    "baseline": "2000-2024 (years with zero qualifying MOD13Q1 composites for this district are omitted from the series, never interpolated)",
+    "data_quality": "verified-official (real MODIS product)",
+    "unit_count": "25 years with real MOD13Q1 composites out of 25 nominal years; per-year pixel counts and std dev in 'annual_ndvi' below (Phase 8.2: never mean-only)",
+    "state": "Madhya Pradesh",
+    "district": "Gwalior",
+    "district_lgd": 407,
+    "last_updated": "2026-08-12"
+  },
+  "annual_ndvi": [
+    {
+      "year": 2000,
+      "n_composites": 20,
+      "ndvi_mean": 0.3486,
+      "ndvi_stddev": 0.0703,
+      "pixel_count": 82512
+    },
+    {
+      "year": 2001,
+      "n_composites": 23,
+      "ndvi_mean": 0.366,
+      "ndvi_stddev": 0.0703,
+      "pixel_count": 82512
+    },
+    {
+      "year": 2002,
+      "n_composites": 23,
+      "ndvi_mean": 0.3386,
+      "ndvi_stddev": 0.0648,
+      "pixel_count": 82512
+    },
+    {
+      "year": 2003,
+      "n_composites": 23,
+      "ndvi_mean": 0.3672,
+      "ndvi_stddev": 0.0689,
+      "pixel_count": 82512
+    },
+    {
+      "year": 2004,
+      "n_composites": 23,
+      "ndvi_mean": 0.3712,
+      "ndvi_stddev": 0.0704,
+      "pixel_count": 82512
+    },
+    {
+      "year": 2005,
+      "n_composites": 23,
+      "ndvi_mean": 0.3644,
+      "ndvi_stddev": 0.0696,
+      "pixel_count": 82512
+    },
+    {
+      "year": 2006,
+      "n_composites": 23,
+      "ndvi_mean": 0.3552,
+      "ndvi_stddev": 0.0711,
+      "pixel_count": 82512
+    },
+    {
+      "year": 2007,
+      "n_composites": 23,
+      "ndvi_mean": 0.3374,
+      "ndvi_stddev": 0.0683,
+      "pixel_count": 82512
+    },
+    {
+      "year": 2008,
+      "n_composites": 23,
+      "ndvi_mean": 0.358,
+      "ndvi_stddev": 0.0644,
+      "pixel_count": 82512
+    },
+    {
+      "year": 2009,
+      "n_composites": 23,
+      "ndvi_mean": 0.3776,
+      "ndvi_stddev": 0.0655,
+      "pixel_count": 82512
+    },
+    {
+      "year": 2010,
+      "n_composites": 23,
+      "ndvi_mean": 0.3854,
+      "ndvi_stddev": 0.0623,
+      "pixel_count": 82512
+    },
+    {
+      "year": 2011,
+      "n_composites": 23,
+      "ndvi_mean": 0.4108,
+      "ndvi_stddev": 0.069,
+      "pixel_count": 82512
+    },
+    {
+      "year": 2012,
+      "n_composites": 23,
+      "ndvi_mean": 0.3866,
+      "ndvi_stddev": 0.0682,
+      "pixel_count": 82512
+    },
+    {
+      "year": 2013,
+      "n_composites": 23,
+      "ndvi_mean": 0.4354,
+      "ndvi_stddev": 0.0678,
+      "pixel_count": 82512
+    },
+    {
+      "year": 2014,
+      "n_composites": 23,
+      "ndvi_mean": 0.4047,
+      "ndvi_stddev": 0.0696,
+      "pixel_count": 82512
+    },
+    {
+      "year": 2015,
+      "n_composites": 23,
+      "ndvi_mean": 0.4017,
+      "ndvi_stddev": 0.072,
+      "pixel_count": 82512
+    },
+    {
+      "year": 2016,
+      "n_composites": 23,
+      "ndvi_mean": 0.3835,
+      "ndvi_stddev": 0.0669,
+      "pixel_count": 82512
+    },
+    {
+      "year": 2017,
+      "n_composites": 23,
+      "ndvi_mean": 0.3788,
+      "ndvi_stddev": 0.0711,
+      "pixel_count": 82512
+    },
+    {
+      "year": 2018,
+      "n_composites": 23,
+      "ndvi_mean": 0.3704,
+      "ndvi_stddev": 0.0659,
+      "pixel_count": 82512
+    },
+    {
+      "year": 2019,
+      "n_composites": 23,
+      "ndvi_mean": 0.4217,
+      "ndvi_stddev": 0.0688,
+      "pixel_count": 82512
+    },
+    {
+      "year": 2020,
+      "n_composites": 23,
+      "ndvi_mean": 0.434,
+      "ndvi_stddev": 0.0755,
+      "pixel_count": 82512
+    },
+    {
+      "year": 2021,
+      "n_composites": 23,
+      "ndvi_mean": 0.4182,
+      "ndvi_stddev": 0.0704,
+      "pixel_count": 82512
+    },
+    {
+      "year": 2022,
+      "n_composites": 23,
+      "ndvi_mean": 0.4449,
+      "ndvi_stddev": 0.0727,
+      "pixel_count": 82512
+    },
+    {
+      "year": 2023,
+      "n_composites": 23,
+      "ndvi_mean": 0.4437,
+      "ndvi_stddev": 0.0718,
+      "pixel_count": 82512
+    },
+    {
+      "year": 2024,
+      "n_composites": 23,
+      "ndvi_mean": 0.455,
+      "ndvi_stddev": 0.0637,
+      "pixel_count": 82512
+    }
+  ],
+  "period_summary": {
+    "years_covered": 25,
+    "ndvi_mean": 0.3904,
+    "ndvi_stddev": 0.0347,
+    "ndvi_min": 0.3374,
+    "ndvi_max": 0.455
+  }
+}
