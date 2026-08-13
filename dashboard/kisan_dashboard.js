@@ -88,7 +88,13 @@
     if (el(STYLE_ID)) return;
     var s = ce('style'); s.id = STYLE_ID;
     s.textContent =
-      '#kisan-dashboard-view{position:fixed;inset:0;z-index:960;background:var(--bg-deep);display:none;flex-direction:column;overflow:hidden;}' +
+      // z-index 1200, not 960: Leaflet's own .leaflet-top/.leaflet-bottom
+      // (the background map's zoom control, scale bar) ship with
+      // z-index:1000 in leaflet.css -- at 960 they were bleeding through
+      // on top of this full-screen view (owner-reported overlap bug,
+      // confirmed live 2026-08-14). 1200 clears that while staying below
+      // the sidebar/chat-widget layer (1900-2100, index.html's :root).
+      '#kisan-dashboard-view{position:fixed;inset:0;z-index:1200;background:var(--bg-deep);display:none;flex-direction:column;overflow:hidden;}' +
       '#kisan-dashboard-view.kd-open{display:flex;}' +
       '.kd-head{flex:0 0 auto;display:flex;align-items:center;gap:var(--space-08);padding:var(--space-06) var(--space-1);border-bottom:1px solid var(--border);background:var(--bg-panel);position:sticky;top:0;z-index:5;flex-wrap:wrap;}' +
       '.kd-head-title{font-size:var(--fs-4);font-weight:800;color:var(--text);}' +
@@ -144,7 +150,7 @@
     wrap.innerHTML =
       '<div class="kd-head">' +
         '<div><div class="kd-head-title">नमस्कार, किसान भाई/बहन — VINDHYA पोर्टल में आपका स्वागत है</div>' +
-        '<div class="kd-head-sub">Welcome to VINDHYA -- your field\'s dashboard</div></div>' +
+        '<div class="kd-head-sub">Welcome to VINDHYA — your field\'s dashboard</div></div>' +
         '<div class="kd-head-spacer"></div>' +
         '<div id="kd-head-loc" class="kd-head-sub" style="font-weight:600;color:var(--text)"></div>' +
         '<button class="kd-close" id="kd-close-btn" title="Close / बंद करें">&times;</button>' +
@@ -313,7 +319,7 @@
     });
   }
 
-  function renderSection2Empty(msg) { setHtml('kd-sec-2', '<div class="kd-empty">अभी उपलब्ध नहीं / Not available -- ' + esc(msg) + '</div>'); }
+  function renderSection2Empty(msg) { setHtml('kd-sec-2', '<div class="kd-empty">अभी उपलब्ध नहीं / Not available — ' + esc(msg) + '</div>'); }
 
   function renderSection2(power, meteo) {
     var h = '';
@@ -334,8 +340,8 @@
           metricCard('नमी / HUMIDITY', last.rh !== FILL ? fmt(last.rh, 0) + '%' : '—', '', '') +
           metricCard('हवा / WIND', last.wind !== FILL ? fmt(last.wind, 1) + ' m/s' : '—', '', '') +
           '</div>' +
-          '<div class="kd-note">NASA POWER एक सैटेलाइट/पुनर्विश्लेषण उत्पाद है, मौसम-स्टेशन नहीं -- हाल के 2-3 दिन अक्सर अभी अपडेट नहीं होते। ऊपर <b>' + dl + '</b> तक का असली डेटा है, आज का नहीं हो सकता।' +
-          '<br><span style="opacity:.75">NASA POWER is satellite/reanalysis, not a live station -- shown date is the most recent real value, may lag 2-3 days.</span></div>';
+          '<div class="kd-note">NASA POWER एक सैटेलाइट/पुनर्विश्लेषण उत्पाद है, मौसम-स्टेशन नहीं — हाल के 2-3 दिन अक्सर अभी अपडेट नहीं होते। ऊपर <b>' + dl + '</b> तक का असली डेटा है, आज का नहीं हो सकता।' +
+          '<br><span style="opacity:.75">NASA POWER is satellite/reanalysis, not a live station — shown date is the most recent real value, may lag 2-3 days.</span></div>';
       } else {
         h += '<div class="kd-empty">इस स्थान के लिए हाल का मौसम डेटा नहीं मिला। / No recent weather data for this point.</div>';
       }
@@ -360,7 +366,7 @@
       }).join('');
       h += '<div class="kd-row" style="margin-top:6px">' + cells + '</div>';
       h += '<div class="kd-note">अगले 7 दिनों में से <b>' + rainDays + '</b> दिन बारिश की 50% या ज़्यादा संभावना।' +
-        '<br><span style="opacity:.75">Source: Open-Meteo (NWP model blend, ECMWF/GFS) -- a different, forward-looking source from the NASA POWER reading above, shown separately on purpose (never merged into one number).</span></div>';
+        '<br><span style="opacity:.75">Source: Open-Meteo (NWP model blend, ECMWF/GFS) — a different, forward-looking source from the NASA POWER reading above, shown separately on purpose (never merged into one number).</span></div>';
     } else {
       h += '<div class="kd-empty">पूर्वानुमान अभी उपलब्ध नहीं (नेटवर्क)। / Forecast not available right now (network).</div>';
     }
@@ -403,7 +409,7 @@
       h += '<div id="kd-chart-3-wrap" style="margin-top:12px"><canvas id="kd-chart-3" height="90"></canvas></div>';
     } else {
       h += '<div class="kd-note" style="margin-top:10px">2000-2024 का साल-दर-साल ग्राफ अभी सिर्फ भोपाल/इंदौर/जबलपुर/रीवा/सीधी (असली IMD डेटा) के लिए उपलब्ध है। ' + esc(res.district_name) + ' के लिए सिर्फ 25-वर्ष का औसत उपलब्ध है, साल-दर-साल आंकड़ा अभी संग्रहित नहीं।' +
-        '<br><span style="opacity:.75">A year-by-year chart currently exists only for the 5 original IMD (MP) districts. For ' + esc(res.district_name) + ', only the 25-year mean has been computed so far -- a real, documented gap.</span></div>';
+        '<br><span style="opacity:.75">A year-by-year chart currently exists only for the 5 original IMD (MP) districts. For ' + esc(res.district_name) + ', only the 25-year mean has been computed so far — a real, documented gap.</span></div>';
     }
     h += gridDisclaimer(res.climateSource && /IMD/.test(res.climateSource) ? '~5.5 किमी' : '~9-11 किमी', c.village_count, 'गाँव/स्थान');
     h += '<div class="kd-source">स्रोत / Source: ' + esc(res.climateSource || '') + '</div>';
@@ -504,15 +510,15 @@
         h += '<div style="margin-top:10px;padding:10px;border:1px solid var(--border);border-radius:8px">' +
           '<b>आपके खेत का NDVI vs गाँव/जिला औसत / Your field vs district average</b><br>' +
           '<span style="font-size:var(--fs-2)">आपका खेत: <b>' + fmt(fieldNdvi, 3) + '</b> &nbsp;|&nbsp; जिला औसत: <b>' + fmt(dNdvi.value, 3) + '</b> (' + esc(dNdvi.dateLabel || '') + ') &nbsp;|&nbsp; फर्क: <b style="color:' + diffColor + '">' + (diff >= 0 ? '+' : '') + fmt(diff, 3) + '</b></span>' +
-          '<div class="kd-note">खेत: Sentinel-2 (10 मी, हाल का)। जिला औसत: ' + esc(dNdvi.source) + '। <b>अलग उपग्रह/समय-अवधि -- तुलना सांकेतिक है।</b>' +
-          '<br><span style="opacity:.75">Different satellite family/time window -- comparison is indicative, not exact.</span></div>' +
+          '<div class="kd-note">खेत: Sentinel-2 (10 मी, हाल का)। जिला औसत: ' + esc(dNdvi.source) + '। <b>अलग उपग्रह/समय-अवधि — तुलना सांकेतिक है।</b>' +
+          '<br><span style="opacity:.75">Different satellite family/time window — comparison is indicative, not exact.</span></div>' +
           '</div>';
       } else {
         h += '<div class="kd-note">जिला औसत NDVI अभी उपलब्ध नहीं, तुलना नहीं हो सकी। / District average NDVI not yet available, comparison not possible.</div>';
       }
     }
-    h += '<div class="kd-note" style="margin-top:10px">6 महीने का ग्राफ और खेत के अंदर कमज़ोर हिस्सों का नक़्शा अभी नहीं बनाया गया है -- 6 अलग सैटेलाइट क्वेरी में 10 सेकंड से ज़्यादा लग सकते हैं, और प्रति-पिक्सेल डेटा अभी बैकएंड से नहीं मिलता। यह असली, स्वीकृत कमी है, बनावटी ग्राफ नहीं दिखाया गया।' +
-      '<br><span style="opacity:.75">6-month trend graph and a sub-field weak-spot map are not built yet (would need ~6 sequential satellite queries, and per-pixel data isn\'t returned by the backend today) -- a documented gap, not a faked chart.</span></div>';
+    h += '<div class="kd-note" style="margin-top:10px">6 महीने का ग्राफ और खेत के अंदर कमज़ोर हिस्सों का नक़्शा अभी नहीं बनाया गया है — 6 अलग सैटेलाइट क्वेरी में 10 सेकंड से ज़्यादा लग सकते हैं, और प्रति-पिक्सेल डेटा अभी बैकएंड से नहीं मिलता। यह असली, स्वीकृत कमी है, बनावटी ग्राफ नहीं दिखाया गया।' +
+      '<br><span style="opacity:.75">6-month trend graph and a sub-field weak-spot map are not built yet (would need ~6 sequential satellite queries, and per-pixel data isn\'t returned by the backend today) — a documented gap, not a faked chart.</span></div>';
     setHtml('kd-sec-5', h);
   }
 
@@ -561,7 +567,7 @@
     h += '<table class="kd-table"><thead><tr><th>फसल / Crop</th><th>मौसम / Season</th><th>क्षेत्रफल (ha) / Area</th><th>उत्पादन (t) / Production</th></tr></thead><tbody>' +
       top.map(function (r) { return '<tr><td>' + esc(r.crop) + '</td><td>' + esc(r.season) + '</td><td>' + fmt(r.area_ha, 0) + '</td><td>' + (r.production != null ? fmt(r.production, 0) : '—') + '</td></tr>'; }).join('') +
       '</tbody></table>';
-    h += '<div class="kd-source">स्रोत / Source: ' + esc(data.metadata && data.metadata.source || 'DES') + ' -- ज़िला-स्तर, आपके अकेले खेत का नहीं। / District-level, not your individual field.</div>';
+    h += '<div class="kd-source">स्रोत / Source: ' + esc(data.metadata && data.metadata.source || 'DES') + ' — ज़िला-स्तर, आपके अकेले खेत का नहीं। / District-level, not your individual field.</div>';
     setHtml('kd-sec-6', h);
 
     var canvas = el('kd-chart-6');
@@ -617,8 +623,8 @@
       '<select id="kd-pest-season" style="min-height:44px;padding:0 10px;border:1px solid var(--border);border-radius:6px;font-size:var(--fs-2);background:var(--bg-card);color:var(--text)"><option value="kharif">खरीफ / Kharif</option><option value="rabi">रबी / Rabi</option><option value="zayad">ज़ायद / Zayad</option></select></div>' +
       '<button class="kd-btn" id="kd-pest-go">देखें / Show</button>' +
       '</div>' +
-      '<div class="kd-note">अभी सिर्फ इन फसलों के लिए समर्पित दस्तावेज़ उपलब्ध हैं: गेहूं, धान, सोयाबीन, चना, सरसों, कपास (सीमित)। मक्का/आलू के लिए अभी कोई दस्तावेज़ नहीं -- फिर भी पूछ सकते हैं, पर जवाब सामान्य हो सकता है।' +
-      '<br><span style="opacity:.75">Dedicated documents currently exist only for wheat, rice, soybean, chana, mustard, cotton (thin). Maize/potato have no dedicated document yet -- you can still ask, the answer may be more general.</span></div>' +
+      '<div class="kd-note">अभी सिर्फ इन फसलों के लिए समर्पित दस्तावेज़ उपलब्ध हैं: गेहूं, धान, सोयाबीन, चना, सरसों, कपास (सीमित)। मक्का/आलू के लिए अभी कोई दस्तावेज़ नहीं — फिर भी पूछ सकते हैं, पर जवाब सामान्य हो सकता है।' +
+      '<br><span style="opacity:.75">Dedicated documents currently exist only for wheat, rice, soybean, chana, mustard, cotton (thin). Maize/potato have no dedicated document yet — you can still ask, the answer may be more general.</span></div>' +
       '<div id="kd-pest-result" style="margin-top:10px"></div>';
     setHtml('kd-sec-7', h);
     loadCropListInto('kd-pest-crop');
@@ -660,7 +666,7 @@
     var h = '<div class="kd-chat-log" id="kd-chat-log"></div>' +
       '<div class="kd-chat-inputrow"><input id="kd-chat-input" type="text" placeholder="अपना सवाल लिखें... / Type your question..." />' +
       '<button class="kd-btn" id="kd-chat-send">भेजें / Send</button></div>' +
-      '<div class="kd-note">ऊपर दिखे सभी असली आंकड़े (मौसम, मिट्टी, NDVI, फसल, मंडी) सवाल के साथ भेजे जाते हैं -- जवाब स्रोत बताएगा। / All real numbers shown above are sent with your question; the answer cites its sources.</div>';
+      '<div class="kd-note">ऊपर दिखे सभी असली आंकड़े (मौसम, मिट्टी, NDVI, फसल, मंडी) सवाल के साथ भेजे जाते हैं — जवाब स्रोत बताएगा। / All real numbers shown above are sent with your question; the answer cites its sources.</div>';
     setHtml('kd-sec-10', h);
     el('kd-chat-send').onclick = function () { sendKdChat(res); };
     el('kd-chat-input').addEventListener('keydown', function (e) { if (e.key === 'Enter') sendKdChat(res); });
@@ -768,8 +774,8 @@
   var MK_SUBMIT_URL = 'https://vindhya-kisan-upload.vindhyaresearch25.workers.dev/submit';
 
   function renderSection8(res) {
-    var h = '<div class="kd-note" style="margin-bottom:10px">फ़ोटो अभी नहीं ली जा सकती (भंडारण तय होना बाकी है) -- अभी सिर्फ लिखित विवरण और जगह जमा करें। जगह आपके खींचे खेत से अपने आप ली जाएगी।' +
-      '<br><span style="opacity:.75">Photo upload is not available yet (storage still to be arranged) -- for now, submit a written description and your field\'s location only. Location is taken automatically from your drawn field.</span></div>' +
+    var h = '<div class="kd-note" style="margin-bottom:10px">फ़ोटो अभी नहीं ली जा सकती (भंडारण तय होना बाकी है) — अभी सिर्फ लिखित विवरण और जगह जमा करें। जगह आपके खींचे खेत से अपने आप ली जाएगी।' +
+      '<br><span style="opacity:.75">Photo upload is not available yet (storage still to be arranged) — for now, submit a written description and your field\'s location only. Location is taken automatically from your drawn field.</span></div>' +
       '<div class="kd-row" style="margin-bottom:10px">' +
       '<div style="flex:1;min-width:220px"><label style="font-size:var(--fs-1);color:var(--text-dim);display:block;margin-bottom:4px">फसल / Crop</label><select id="kd-p8-crop" style="min-height:44px;width:100%;padding:0 10px;border:1px solid var(--border);border-radius:6px;background:var(--bg-card);color:var(--text)"><option value="">-- चुनें / Select --</option></select></div>' +
       '<div><label style="font-size:var(--fs-1);color:var(--text-dim);display:block;margin-bottom:4px">मौसम / Season</label><select id="kd-p8-season" style="min-height:44px;padding:0 10px;border:1px solid var(--border);border-radius:6px;background:var(--bg-card);color:var(--text)"><option value="">--</option><option value="kharif">खरीफ</option><option value="rabi">रबी</option><option value="zayad">ज़ायद</option></select></div>' +
@@ -779,7 +785,7 @@
       '<label style="display:flex;gap:6px;align-items:flex-start;font-size:var(--fs-1);color:var(--text-dim);margin:10px 0"><input type="checkbox" id="kd-p8-consent" style="margin-top:3px;width:18px;height:18px"><span>मैं सहमत हूं कि यह जानकारी (बिना नाम/फोन) सार्वजनिक शोध डेटासेट में जाए। जगह ≈100मी तक गोल की जाएगी।<br><span style="opacity:.75">I agree this info (no name/phone) goes into a public research dataset. Location rounded to ~100m.</span></span></label>' +
       '<button class="kd-btn" id="kd-p8-submit" disabled style="opacity:.5">भेजें / Submit</button>' +
       '<div id="kd-p8-msg" style="font-size:var(--fs-1);margin-top:8px"></div>' +
-      '<div class="kd-note" style="margin-top:8px"><b>यह शोध डेटासेट में जाएगा।</b> कोई टीम इसे व्यक्तिगत रूप से नहीं देखेगी -- यह फ़सल-निगरानी शोध के लिए इकट्ठा किया जा रहा डेटा है।<br><span style="opacity:.75">This goes into a research dataset. No team reviews it individually -- it is data collected for crop-monitoring research.</span></div>';
+      '<div class="kd-note" style="margin-top:8px"><b>यह शोध डेटासेट में जाएगा।</b> कोई टीम इसे व्यक्तिगत रूप से नहीं देखेगी — यह फ़सल-निगरानी शोध के लिए इकट्ठा किया जा रहा डेटा है।<br><span style="opacity:.75">This goes into a research dataset. No team reviews it individually — it is data collected for crop-monitoring research.</span></div>';
     setHtml('kd-sec-8', h);
     loadCropListInto('kd-p8-crop');
     function updateEnabled() {
@@ -808,7 +814,7 @@
     fetchWithTimeout(MK_SUBMIT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
       .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
       .then(function (out) {
-        if (out.ok && out.data.ok) { msg.textContent = 'धन्यवाद! यह शोध डेटासेट में जमा हो गया। / Thank you -- submitted to the research dataset.'; msg.style.color = 'var(--green)'; }
+        if (out.ok && out.data.ok) { msg.textContent = 'धन्यवाद! यह शोध डेटासेट में जमा हो गया। / Thank you — submitted to the research dataset.'; msg.style.color = 'var(--green)'; }
         else { msg.textContent = 'त्रुटि / Error: ' + (out.data && out.data.error || 'unknown'); msg.style.color = 'var(--red)'; btn.disabled = false; }
       })
       .catch(function (err) { msg.textContent = 'नेटवर्क/सर्वर त्रुटि। / Network/server error. (' + err.message + ')'; msg.style.color = 'var(--red)'; btn.disabled = false; });

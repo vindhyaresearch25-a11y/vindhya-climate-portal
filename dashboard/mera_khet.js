@@ -302,7 +302,7 @@
     pts.push([e.latlng.lng, e.latlng.lat]);
     marks.push(L.circleMarker(e.latlng, { radius: 4, color: '#2d8f5c', fillColor: '#fff', fillOpacity: 1, weight: 2 }).addTo(window.leafletMap));
     mkPreview();
-    mkStatus('बिंदु: ' + pts.length + '. "पूरा करें" दबाएं या नक्शे पर दो बार क्लिक करें। (' + pts.length + ' points -- press Finish or double-click)');
+    mkStatus('बिंदु: ' + pts.length + '. "पूरा करें" दबाएं या नक्शे पर दो बार क्लिक करें। (' + pts.length + ' points — press Finish or double-click)');
   }
   function startDrawMK() {
     var map = window.leafletMap;
@@ -381,7 +381,7 @@
   // ------------------------------------------------------------------
   function analyseField(ring) {
     var G = window.VindhyaGeoAI;
-    if (!G) { mkStatus('geoai_professional.js लोड नहीं हुआ -- क्षेत्रफल नहीं निकल सका।'); return; }
+    if (!G) { mkStatus('geoai_professional.js लोड नहीं हुआ — क्षेत्रफल नहीं निकल सका।'); return; }
     var areaM2 = G.ringAreaM2(ring), periM = G.perimeterM(ring);
     var centroid = centroidOfRing(ring);
     var res = {
@@ -467,8 +467,8 @@
       mkStat('कुल क्षेत्रफल / TOTAL AREA', fmt(res.area_ha, 2), 'ha', fmt(res.area_km2, 3) + ' km²') +
       mkStat('परिधि / PERIMETER', fmt(res.perimeter_km, 3), 'km', '') + '</div>';
     h += '<div style="font-size:11px;opacity:.7;margin:-4px 0 12px">' +
-      'खेती वाला हिस्सा और उपग्रह स्वास्थ्य (NDVI) -- Dynamic World / Sentinel-2 से live GEE query, नीचे सेक्शन 2 देखें। ' +
-      '<span style="opacity:.7">Cropland fraction and field-scale NDVI come from a live Dynamic World / Sentinel-2 query -- see section 2 below.</span></div>';
+      'खेती वाला हिस्सा और उपग्रह स्वास्थ्य (NDVI) — Dynamic World / Sentinel-2 से live GEE query, नीचे सेक्शन 2 देखें। ' +
+      '<span style="opacity:.7">Cropland fraction and field-scale NDVI come from a live Dynamic World / Sentinel-2 query — see section 2 below.</span></div>';
 
     // 2. FASAL KI SEHAT -- real if mera_khet_worker.js's GEE_BACKEND_URL is
     // configured (res.analyze.available===true), honest not-configured
@@ -574,10 +574,10 @@
         h += '<div style="padding:8px 10px;margin:8px 0 12px;font-size:11.5px;opacity:.7">' +
           (stillLoading
             ? (waiting.join(', ') + '... / Loading...')
-            : 'यह तुलना अभी संभव नहीं -- ' +
+            : 'यह तुलना अभी संभव नहीं — ' +
               (fieldNdvi == null ? 'खेत का NDVI उपलब्ध नहीं (सेक्शन 2 देखें)। ' : '') +
               (dNdvi == null ? 'इस जिले का उपग्रह NDVI डेटा अभी उपलब्ध नहीं। ' : '') +
-              '<br><span style="opacity:.75">Not possible right now -- ' +
+              '<br><span style="opacity:.75">Not possible right now — ' +
               (fieldNdvi == null ? 'field NDVI unavailable (see section 2). ' : '') +
               (dNdvi == null ? 'district NDVI not yet computed for this district.' : '') + '</span>') +
           '</div>';
@@ -592,9 +592,9 @@
           '</div>';
         h += '<div style="font-size:10.5px;opacity:.65;line-height:1.6">' +
           'खेत का NDVI: Sentinel-2 (10 मी, हाल का), जिला औसत: ' + dNdvi.source + ' (250 मी/coarser)। ' +
-          '<b>दोनों अलग उपग्रह/समय-अवधि से हैं -- सीधे तुलना सांकेतिक है, बिल्कुल सटीक नहीं।</b>' +
+          '<b>दोनों अलग उपग्रह/समय-अवधि से हैं — सीधे तुलना सांकेतिक है, बिल्कुल सटीक नहीं।</b>' +
           '<br><span style="opacity:.8">Field NDVI: Sentinel-2 (10 m, recent). District average: ' + dNdvi.source + '. ' +
-          '<b>Different satellite family and time window -- comparison is indicative, not exact.</b></span></div>';
+          '<b>Different satellite family and time window — comparison is indicative, not exact.</b></span></div>';
       }
     })();
 
@@ -636,7 +636,7 @@
       '<button onclick="window.VindhyaMeraKhet.downloadKML()" class="mk-dl-btn"><i class="fa fa-earth-asia"></i> KML</button>' +
       '<button onclick="window.VindhyaMeraKhet.exportPNG()" class="mk-dl-btn"><i class="fa fa-camera"></i> PNG</button>' +
       '<button onclick="window.VindhyaMeraKhet.downloadSHP()" class="mk-dl-btn"><i class="fa fa-draw-polygon"></i> SHP (zip)</button>' +
-      '<button disabled title="GEE से async export -- 2-5 मिनट लगते हैं, और इस sandbox के GEE service account से यह अभी fail होता है (देखें docs/MERA_KHET_BENCHMARK.json) -- turant nahi milega" class="mk-dl-btn" style="opacity:.5;cursor:not-allowed"><i class="fa fa-layer-group"></i> GeoTIFF — जल्द आ रहा है / coming soon</button>' +
+      '<button disabled title="GEE से async export — 2-5 मिनट लगते हैं, और इस sandbox के GEE service account से यह अभी fail होता है (देखें docs/MERA_KHET_BENCHMARK.json) — turant nahi milega" class="mk-dl-btn" style="opacity:.5;cursor:not-allowed"><i class="fa fa-layer-group"></i> GeoTIFF — जल्द आ रहा है / coming soon</button>' +
       '</div>' +
       '<style>.mk-dl-btn{padding:7px 13px;border:1px solid var(--border);background:var(--bg-card);color:var(--text);border-radius:6px;cursor:pointer;font-size:11.5px;font-weight:600}.mk-dl-btn:hover{border-color:var(--cyan)}.mk-dl-btn:disabled{cursor:not-allowed}</style>';
   }
@@ -661,21 +661,21 @@
 
   function mkReadmeText(res, formatLabel) {
     var lines = [
-      'VINDHYA Climate Portal -- Mera Khet -- ' + formatLabel + ' export',
+      'VINDHYA Climate Portal — Mera Khet — ' + formatLabel + ' export',
       '',
       'Area: ' + fmt(res.area_ha, 3) + ' ha (' + fmt(res.area_km2, 4) + ' km2)',
       'Perimeter: ' + fmt(res.perimeter_km, 4) + ' km',
       'District: ' + (res.district_name || 'not resolved') + ', ' + (res.state_name || ''),
       '',
       'Boundaries: Survey of India (via National Water Data Portal), used only to resolve which',
-      '  district this field falls in -- the field polygon itself is drawn by the farmer, not sourced',
+      '  district this field falls in — the field polygon itself is drawn by the farmer, not sourced',
       '  from any cadastral/khasra record.',
       'Soil moisture: NASA SMAP L4, via Google Earth Engine, ~9 km resolution, district/grid-cell value.',
       'Climate/rainfall: ERA5-Land (~9-11 km) + CHIRPS (~5.5 km), or IMD (~5.5 km) for the 5 original',
-      '  MP districts -- via Google Earth Engine / IMD gridded data, district/grid-cell value.',
+      '  MP districts — via Google Earth Engine / IMD gridded data, district/grid-cell value.',
       'CRS: EPSG:4326',
       'Resolution: field polygon is exact (farmer-drawn); soil moisture/climate values attached are',
-      '  district/grid-cell values, NOT this field\'s own measurement -- see the panel disclaimer.',
+      '  district/grid-cell values, NOT this field\'s own measurement — see the panel disclaimer.',
       '',
       'Generated: ' + new Date().toISOString(),
       '',
@@ -720,14 +720,14 @@
     if (!lastResult) return;
     var gj = mkFieldGeoJSON(lastResult);
     zipWithReadme({ 'mera_khet.geojson': JSON.stringify(gj, null, 1) }, mkReadmeText(lastResult, 'GeoJSON'), 'mera_khet_geojson.zip')
-      .catch(function () { mkDownloadBlob(JSON.stringify(gj, null, 1), 'mera_khet.geojson', 'application/geo+json'); mkStatus('readme.txt जोड़ने वाला zip नहीं बन सका (नेटवर्क) -- फ़ाइल सीधे डाउनलोड हो गयी।'); });
+      .catch(function () { mkDownloadBlob(JSON.stringify(gj, null, 1), 'mera_khet.geojson', 'application/geo+json'); mkStatus('readme.txt जोड़ने वाला zip नहीं बन सका (नेटवर्क) — फ़ाइल सीधे डाउनलोड हो गयी।'); });
   }
 
   function ringToKmlCoords(ring) {
     return ring.concat([ring[0]]).map(function (p) { return p[0] + ',' + p[1] + ',0'; }).join(' ');
   }
   function mkFieldKML(res) {
-    var name = 'Mera Khet -- ' + (res.district_name || 'field') + ' (' + fmt(res.area_ha, 2) + ' ha)';
+    var name = 'Mera Khet — ' + (res.district_name || 'field') + ' (' + fmt(res.area_ha, 2) + ' ha)';
     return '<?xml version="1.0" encoding="UTF-8"?>\n' +
       '<kml xmlns="http://www.opengis.net/kml/2.2"><Document>\n' +
       '<name>' + name + '</name>\n' +
@@ -779,7 +779,7 @@
       mkStatus('');
     }).catch(function (err) {
       console.warn('[mera_khet] SHP export failed:', err);
-      mkStatus('SHP निर्यात विफल -- इंटरनेट जांचें। / SHP export failed -- check your connection and try again. (' + err.message + ')');
+      mkStatus('SHP निर्यात विफल — इंटरनेट जांचें। / SHP export failed — check your connection and try again. (' + err.message + ')');
     });
   }
 
@@ -813,7 +813,7 @@
     return '<div class="section-header" style="padding:0;margin-top:14px"><div class="section-title" style="font-size:12px">ग्राउंड ट्रूथ (वैकल्पिक) / Ground truth (optional)</div></div>' +
       '<div style="padding:8px 10px;background:rgba(26,138,158,.06);border-radius:6px;font-size:11px;line-height:1.7;margin-bottom:8px">' +
       'इस खेत में अभी कौन सी फसल है? यह सार्वजनिक शोध डेटासेट में जाएगा (नाम/फोन नहीं मांगा जाता)।' +
-      '<br><span style="opacity:.7">What crop is on this field right now? Goes into a public research dataset -- no name/phone asked.</span></div>' +
+      '<br><span style="opacity:.7">What crop is on this field right now? Goes into a public research dataset — no name/phone asked.</span></div>' +
       '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;margin-bottom:8px">' +
       '<div><label style="font-size:10px;opacity:.7;display:block">फसल / Crop</label><select id="mk-crop" style="padding:6px 8px;border:1px solid var(--border);border-radius:5px;font-size:12px;min-width:140px"><option value="">-- चुनें / Select --</option></select></div>' +
       '<div><label style="font-size:10px;opacity:.7;display:block">मौसम / Season</label><select id="mk-season" style="padding:6px 8px;border:1px solid var(--border);border-radius:5px;font-size:12px"><option value="">--</option><option value="kharif">खरीफ (Kharif)</option><option value="rabi">रबी (Rabi)</option><option value="zayad">ज़ायद (Zayad)</option></select></div>' +
@@ -875,7 +875,7 @@
       .catch(function (err) {
         // Worker not deployed yet (placeholder URL) is the expected state
         // this session -- fail honestly, never claim success.
-        if (msg) { msg.textContent = 'नेटवर्क/सर्वर त्रुटि -- अपलोड Worker अभी डिप्लॉय नहीं हुआ हो सकता। / Network/server error -- the upload Worker may not be deployed yet. (' + err.message + ')'; msg.style.color = 'var(--red)'; }
+        if (msg) { msg.textContent = 'नेटवर्क/सर्वर त्रुटि — अपलोड Worker अभी डिप्लॉय नहीं हुआ हो सकता। / Network/server error — the upload Worker may not be deployed yet. (' + err.message + ')'; msg.style.color = 'var(--red)'; }
       })
       .finally(function () { if (btn) btn.disabled = false; });
   }
@@ -895,7 +895,7 @@
       'Area: ' + fmt(res.area_ha, 2) + ' ha, in ' + (res.district_name || 'an unresolved district') + ', ' + (res.state_name || '') + '.'];
     if (res.soil && res.soil.district) parts.push('District/grid soil moisture (SMAP, ~9km, not field-specific): ' + fmt(res.soil.district.sm_surface_mean, 3) + ' m3/m3.');
     if (res.analyze && res.analyze.available && res.analyze.field_wetness_index_relative != null) {
-      parts.push('Field wetness index (relative, NOT m3/m3): field Sentinel-1 VV backscatter is ' + fmt(res.analyze.field_wetness_index_relative, 1) + '% vs. the containing district, same satellite pass -- this reflects radar backscatter (moisture + vegetation + roughness combined), not an absolute moisture measurement.');
+      parts.push('Field wetness index (relative, NOT m3/m3): field Sentinel-1 VV backscatter is ' + fmt(res.analyze.field_wetness_index_relative, 1) + '% vs. the containing district, same satellite pass — this reflects radar backscatter (moisture + vegetation + roughness combined), not an absolute moisture measurement.');
     }
     if (res.climate) {
       var rain = res.climate.annual_rain_mm_mean != null ? res.climate.annual_rain_mm_mean : res.climate.annual_rain_mm;
@@ -979,7 +979,7 @@
     var box = document.createElement('div');
     box.id = 'mk-cad-link';
     box.style.cssText = 'margin:10px 14px;padding:10px 12px;background:rgba(45,143,92,.08);border:1px solid rgba(45,143,92,.3);border-radius:8px;font-size:12px';
-    box.innerHTML = 'खसरा रिकॉर्ड की जगह अपना खेत खुद खींचिए -- <button onclick="window.VindhyaMeraKhet.open()" style="border:none;background:var(--green);color:#fff;padding:5px 11px;border-radius:5px;cursor:pointer;font-size:11.5px;font-weight:700">मेरा खेत खोलें / Open Mera Khet</button>' +
+    box.innerHTML = 'खसरा रिकॉर्ड की जगह अपना खेत खुद खींचिए — <button onclick="window.VindhyaMeraKhet.open()" style="border:none;background:var(--green);color:#fff;padding:5px 11px;border-radius:5px;cursor:pointer;font-size:11.5px;font-weight:700">मेरा खेत खोलें / Open Mera Khet</button>' +
       '<div style="opacity:.7;margin-top:4px">Instead of official khasra records, draw your own field boundary -- Mera Khet.</div>';
     pane.insertBefore(box, pane.firstChild.nextSibling);
   }

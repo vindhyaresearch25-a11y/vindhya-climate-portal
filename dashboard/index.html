@@ -422,11 +422,16 @@ canvas.chart-canvas{max-height:100%;}
    unreadable). body.mk-modal-open is toggled by switchTab()/
    closeMeraKhetModal() ONLY around the merakhet pane's own lifecycle --
    every other .btm-pane keeps the normal shared-strip layout. */
-body.mk-modal-open::before{content:'';position:fixed;inset:0;background:rgba(10,16,26,.55);z-index:940;}
+/* z-index bumped to 1190/1200 (was 940/950) 2026-08-14: Leaflet's own
+   .leaflet-top/.leaflet-bottom (background map's zoom control, scale bar)
+   ship with z-index:1000 in leaflet.css -- at 940/950 they bled through
+   on top of this modal (owner-reported overlap bug, confirmed live).
+   Matches kisan_dashboard.js's #kisan-dashboard-view, same fix. */
+body.mk-modal-open::before{content:'';position:fixed;inset:0;background:rgba(10,16,26,.55);z-index:1190;}
 body.mk-modal-open #pane-merakhet.active{
   position:fixed;top:66px;left:50%;transform:translateX(-50%);
   width:min(920px,92vw);max-height:calc(100vh - 90px);
-  z-index:950;border-radius:12px;border:1px solid var(--border);
+  z-index:1200;border-radius:12px;border:1px solid var(--border);
   background:var(--bg-card);box-shadow:0 24px 70px rgba(0,0,0,.4);
 }
 /* Default (non-modal) positioning context for the close button -- CSS,
@@ -1330,10 +1335,10 @@ body.mk-modal-open #pane-merakhet.active{
                NOT integrated). Replaced with the real, current status of
                each source actually named in docs/DATA_SOURCES.md. -->
           <div class="u-pad-057 u-grid2-gap05">
-            <div class="sat-card"><div class="sat-name">MODIS</div><div class="sat-val u-green-sm">LIVE</div><div class="sat-unit">NDVI, via UNDP DiCRA -- Madhya Pradesh's 52 districts only</div></div>
-            <div class="sat-card"><div class="sat-name">CHIRPS + ERA5-Land</div><div class="sat-val u-orange-sm">IN PROGRESS</div><div class="sat-unit">National climate indices beyond the 5 IMD districts -- see scripts/08_gee_national_climate.py</div></div>
+            <div class="sat-card"><div class="sat-name">MODIS</div><div class="sat-val u-green-sm">LIVE</div><div class="sat-unit">NDVI, via UNDP DiCRA — Madhya Pradesh's 52 districts only</div></div>
+            <div class="sat-card"><div class="sat-name">CHIRPS + ERA5-Land</div><div class="sat-val u-orange-sm">IN PROGRESS</div><div class="sat-unit">National climate indices beyond the 5 IMD districts — see scripts/08_gee_national_climate.py</div></div>
             <div class="sat-card"><div class="sat-name">Sentinel-2</div><div class="sat-val u-fs1-dim">NOT INTEGRATED</div><div class="sat-unit">No layer in this dashboard uses it</div></div>
-            <div class="sat-card"><div class="sat-name">SMAP</div><div class="sat-val u-orange-sm">IN PROGRESS</div><div class="sat-unit">Soil moisture (~9km), all 4 tiers -- see scripts/13_gee_national_soil_moisture.py; computed for a growing set of districts, "Not available" elsewhere</div></div>
+            <div class="sat-card"><div class="sat-name">SMAP</div><div class="sat-val u-orange-sm">IN PROGRESS</div><div class="sat-unit">Soil moisture (~9km), all 4 tiers — see scripts/13_gee_national_soil_moisture.py; computed for a growing set of districts, "Not available" elsewhere</div></div>
           </div>
         </div>
         <!-- AI Models -->
@@ -3680,7 +3685,7 @@ async function sendChat(){
       chatHistory.push({role:'assistant', content:out});
       document.getElementById('chatBody').scrollTop = document.getElementById('chatBody').scrollHeight;
     }).catch(function () {
-      var failMsg = chatLangHi ? 'शोध-पत्र खोज विफल रही -- नेटवर्क समस्या हो सकती है। फिर कोशिश करें।' : 'Research paper search failed -- could be a network issue. Try again.';
+      var failMsg = chatLangHi ? 'शोध-पत्र खोज विफल रही — नेटवर्क समस्या हो सकती है। फिर कोशिश करें।' : 'Research paper search failed — could be a network issue. Try again.';
       statusDiv.textContent = failMsg;
     });
     return;
@@ -3749,8 +3754,8 @@ function getLocalResponse(question){
 
   // 2. Which crop gives highest profit? -- same fabrication removed; see note above.
   if (q.indexOf('highest profit') >= 0 || q.indexOf('सबसे अधिक लाभ') >= 0 || q.indexOf('अधिक लाभ') >= 0) {
-    if (isHi) return dName + ' के लिए फसल-वार लाभ के सत्यापित आँकड़े यहाँ उपलब्ध नहीं हैं -- अनुमानित संख्या देना अनुचित होगा।' + nl + nl + 'असली मंडी भाव के लिए Mandi Prices पैनल देखें (AGMARKNET, data.gov.in से सीधा), और फसल क्षेत्र/उत्पादन के लिए Crop Health पैनल (data.gov.in)।';
-    return 'Verified per-crop profit figures for ' + dName + ' aren\'t available here -- estimating a number would not be honest.' + nl + nl + 'For real market prices, check the Mandi Prices panel (sourced directly from AGMARKNET via data.gov.in); for crop area/production, check the Crop Health panel (data.gov.in).';
+    if (isHi) return dName + ' के लिए फसल-वार लाभ के सत्यापित आँकड़े यहाँ उपलब्ध नहीं हैं — अनुमानित संख्या देना अनुचित होगा।' + nl + nl + 'असली मंडी भाव के लिए Mandi Prices पैनल देखें (AGMARKNET, data.gov.in से सीधा), और फसल क्षेत्र/उत्पादन के लिए Crop Health पैनल (data.gov.in)।';
+    return 'Verified per-crop profit figures for ' + dName + ' aren\'t available here — estimating a number would not be honest.' + nl + nl + 'For real market prices, check the Mandi Prices panel (sourced directly from AGMARKNET via data.gov.in); for crop area/production, check the Crop Health panel (data.gov.in).';
   }
 
   // 3. Nearest mandi and today's prices? -- now reads the actual fetched
@@ -3778,7 +3783,7 @@ function getLocalResponse(question){
       return '**' + dName + ' — real mandi prices today (AGMARKNET):**' + nl + lines;
     }
     if (isHi) return dName + ' के लिए आज AGMARKNET में कोई भाव दर्ज नहीं हुआ (छुट्टी या सीज़न से बाहर हो सकता है) — अनुमानित भाव नहीं दिखाया जा रहा। Mandi Prices पैनल में सीधे देखें।';
-    return 'No AGMARKNET arrivals recorded for ' + dName + ' today (could be a holiday or off-season) -- not showing an estimated price. Check the Mandi Prices panel directly.';
+    return 'No AGMARKNET arrivals recorded for ' + dName + ' today (could be a holiday or off-season) — not showing an estimated price. Check the Mandi Prices panel directly.';
   }
 
   // 4. Government schemes for farmers?
@@ -3790,7 +3795,7 @@ function getLocalResponse(question){
   // does not pull them from a live scheme database.
   if (q.indexOf('government schemes') >= 0 || q.indexOf('schemes') >= 0 || q.indexOf('सरकारी योजना') >= 0 || q.indexOf('योजना') >= 0) {
     if (isHi) return '**राष्ट्रीय स्तर की प्रमुख किसान योजनाएँ (सामान्य जानकारी, ' + dName + '-विशिष्ट नहीं):**' + nl + nl + '1. **PM-KISAN** — प्रत्यक्ष आय सहायता (किश्तों में)' + nl + '2. **PMFBY** — फसल बीमा योजना' + nl + '3. **Soil Health Card** — मिट्टी की जाँच और उर्वरक सलाह' + nl + '4. **KCC** — किसान क्रेडिट कार्ड' + nl + '5. **PM-KMY** — किसान पेंशन योजना' + nl + nl + 'सटीक राशि, ब्याज दर और पात्रता समय के साथ बदलती है — इस पोर्टल में लाइव योजना डेटा नहीं है। आधिकारिक पुष्टि के लिए स्थानीय कृषि विभाग, CSC, या pmkisan.gov.in / pmfby.gov.in देखें।';
-    return '**Major national farmer schemes (general information, not ' + dName + '-specific):**' + nl + nl + '1. **PM-KISAN** — direct income support (paid in installments)' + nl + '2. **PMFBY** — crop insurance scheme' + nl + '3. **Soil Health Card** — soil testing & fertilizer advice' + nl + '4. **KCC** — Kisan Credit Card' + nl + '5. **PM-KMY** — farmer pension scheme' + nl + nl + 'Exact amounts, interest rates and eligibility change over time -- this portal does not pull live scheme data. Verify with your local Agriculture Department, CSC, or pmkisan.gov.in / pmfby.gov.in.';
+    return '**Major national farmer schemes (general information, not ' + dName + '-specific):**' + nl + nl + '1. **PM-KISAN** — direct income support (paid in installments)' + nl + '2. **PMFBY** — crop insurance scheme' + nl + '3. **Soil Health Card** — soil testing & fertilizer advice' + nl + '4. **KCC** — Kisan Credit Card' + nl + '5. **PM-KMY** — farmer pension scheme' + nl + nl + 'Exact amounts, interest rates and eligibility change over time — this portal does not pull live scheme data. Verify with your local Agriculture Department, CSC, or pmkisan.gov.in / pmfby.gov.in.';
   }
 
   // 5. Pest and disease control advice?
@@ -3801,14 +3806,14 @@ function getLocalResponse(question){
   // reference content that's broadly accurate.
   if (q.indexOf('pest') >= 0 || q.indexOf('disease') >= 0 || q.indexOf('कीट') >= 0 || q.indexOf('रोग') >= 0) {
     if (isHi) return '**सामान्य कीट/रोग जानकारी (यह ' + dName + ' के लिए विशिष्ट निदान नहीं है):**' + nl + nl + '**सामान्य कीट:** तना छेदक, फली छेदक, सफेद मक्खी' + nl + '**सामान्य रोग:** जड़ गलन, पर्ण दाग' + nl + nl + '**सामान्य रोकथाम:** फसल चक्र, प्रतिरोधी किस्में, नियमित निगरानी, एकीकृत कीट प्रबंधन (IPM)।' + nl + nl + '**महत्वपूर्ण:** कोई भी कीटनाशक/दवा लगाने से पहले अपने खेत में असली लक्षण की पहचान स्थानीय कृषि विज्ञान केंद्र (KVK) या कृषि विस्तार अधिकारी से करवाएँ — यहाँ दी गई सूची सामान्य संदर्भ है, आपकी फसल का निदान नहीं।';
-    return '**General pest/disease reference (not a diagnosis for ' + dName + '):**' + nl + nl + '**Common pests:** stem borer, pod borer, whitefly' + nl + '**Common diseases:** root rot, leaf blight' + nl + nl + '**General prevention:** crop rotation, resistant varieties, regular field monitoring, Integrated Pest Management (IPM).' + nl + nl + '**Important:** before applying any pesticide, get your actual symptoms identified by your local Krishi Vigyan Kendra (KVK) or agriculture extension officer -- this list is general reference, not a diagnosis of your field.';
+    return '**General pest/disease reference (not a diagnosis for ' + dName + '):**' + nl + nl + '**Common pests:** stem borer, pod borer, whitefly' + nl + '**Common diseases:** root rot, leaf blight' + nl + nl + '**General prevention:** crop rotation, resistant varieties, regular field monitoring, Integrated Pest Management (IPM).' + nl + nl + '**Important:** before applying any pesticide, get your actual symptoms identified by your local Krishi Vigyan Kendra (KVK) or agriculture extension officer — this list is general reference, not a diagnosis of your field.';
   }
 
   // 6. Which crop this season? -- same fabrication removed as #1/#2.
   if (q.indexOf('this season') >= 0 || q.indexOf('इस मौसम') >= 0 || q.indexOf('मौसम में फसल') >= 0) {
     var seasonCrop = season.indexOf('Kharif') >= 0 ? 'Soybean' : (season.indexOf('Rabi') >= 0 ? 'Wheat' : 'Moong (Summer)');
     if (isHi) return '**' + season + ' — ' + dName + ' में आमतौर पर उगाई जाने वाली फसल:** ' + seasonCrop + nl + '**मौसम:** तापमान ' + Math.round(heat) + '°C, वर्षा ' + Math.round(rain) + 'mm (IMD-आधारित)' + nl + '**सिंचाई सलाह:** ' + (rain > 800 ? 'वर्षा पर्याप्त दिख रही है' : 'वर्षा कम है — सिंचाई की योजना बनाएँ') + nl + nl + 'उपज और लाभ के सत्यापित आँकड़े यहाँ उपलब्ध नहीं — Crop Health पैनल देखें।';
-    return '**' + season + ' — commonly grown crop in ' + dName + ':** ' + seasonCrop + nl + '**Weather:** temp ' + Math.round(heat) + '°C, rain ' + Math.round(rain) + 'mm (IMD-derived)' + nl + '**Irrigation note:** ' + (rain > 800 ? 'rainfall looks adequate' : 'rainfall is low -- plan for irrigation') + nl + nl + 'Verified yield/profit figures aren\'t available here -- check the Crop Health panel.';
+    return '**' + season + ' — commonly grown crop in ' + dName + ':** ' + seasonCrop + nl + '**Weather:** temp ' + Math.round(heat) + '°C, rain ' + Math.round(rain) + 'mm (IMD-derived)' + nl + '**Irrigation note:** ' + (rain > 800 ? 'rainfall looks adequate' : 'rainfall is low — plan for irrigation') + nl + nl + 'Verified yield/profit figures aren\'t available here — check the Crop Health panel.';
   }
 
   return null; // not a chip question, use API
@@ -4030,8 +4035,8 @@ async function runChatCompletion(){
 
     if (streamErrored) {
       accumulated += (chatLangHi
-        ? '\n\n[\u0909\u0924\u094d\u0924\u0930 \u092c\u0940\u091a \u092e\u0947\u0902 \u0930\u0941\u0915 \u0917\u092f\u093e -- \u0935\u0939\u0940 \u0926\u093f\u0916\u093e\u092f\u093e \u091c\u093e \u0930\u0939\u093e \u0939\u0948 \u091c\u094b \u0905\u092c \u0924\u0915 \u092a\u094d\u0930\u093e\u092a\u094d\u0924 \u0939\u0941\u0906\u0964]'
-        : '\n\n[Answer was interrupted mid-way -- showing what was received so far.]');
+        ? '\n\n[\u0909\u0924\u094d\u0924\u0930 \u092c\u0940\u091a \u092e\u0947\u0902 \u0930\u0941\u0915 \u0917\u092f\u093e — \u0935\u0939\u0940 \u0926\u093f\u0916\u093e\u092f\u093e \u091c\u093e \u0930\u0939\u093e \u0939\u0948 \u091c\u094b \u0905\u092c \u0924\u0915 \u092a\u094d\u0930\u093e\u092a\u094d\u0924 \u0939\u0941\u0906\u0964]'
+        : '\n\n[Answer was interrupted mid-way — showing what was received so far.]');
       if (botDiv) botDiv.textContent = accumulated;
     }
     chatHistory.push({role:'assistant', content:accumulated});
@@ -4059,8 +4064,8 @@ async function runChatCompletion(){
         : "Couldn't reach the Kisan Sahayak service.";
     }
     addChatMsg('bot', msg + (chatLangHi
-      ? ' \u092e\u0948\u0902 \u092e\u094c\u0938\u092e, \u092b\u0938\u0932, \u092e\u0902\u0921\u0940 \u092d\u093e\u0935 \u0914\u0930 \u0938\u0942\u0916\u0947 \u0915\u0947 \u091c\u094b\u0916\u093f\u092e \u0915\u0947 \u0905\u0938\u0932\u0940 \u0906\u0901\u0915\u0921\u093c\u0947 \u0905\u092c \u092d\u0940 \u0926\u0947 \u0938\u0915\u0924\u093e \u0939\u0942\u0902 -- \u090a\u092a\u0930 \u0926\u093f\u090f \u0938\u0941\u091d\u093e\u0935 \u0906\u091c\u093c\u092e\u093e\u090f\u0902\u0964'
-      : ' I can still answer with real data on weather, crops, mandi prices and drought risk -- try one of the suggestions above.'));
+      ? ' \u092e\u0948\u0902 \u092e\u094c\u0938\u092e, \u092b\u0938\u0932, \u092e\u0902\u0921\u0940 \u092d\u093e\u0935 \u0914\u0930 \u0938\u0942\u0916\u0947 \u0915\u0947 \u091c\u094b\u0916\u093f\u092e \u0915\u0947 \u0905\u0938\u0932\u0940 \u0906\u0901\u0915\u0921\u093c\u0947 \u0905\u092c \u092d\u0940 \u0926\u0947 \u0938\u0915\u0924\u093e \u0939\u0942\u0902 — \u090a\u092a\u0930 \u0926\u093f\u090f \u0938\u0941\u091d\u093e\u0935 \u0906\u091c\u093c\u092e\u093e\u090f\u0902\u0964'
+      : ' I can still answer with real data on weather, crops, mandi prices and drought risk — try one of the suggestions above.'));
   } finally {
     chatBusy=false;
     document.getElementById('chatSend').disabled=false;
