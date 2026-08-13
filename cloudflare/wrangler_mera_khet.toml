@@ -1,20 +1,24 @@
-# Deploy config for the Mera Khet live satellite-analysis proxy
-# (cloudflare/mera_khet_worker.js). NOT deployed by this session -- see
-# that file's own header for exactly what is and isn't implemented yet
-# (the GEE_BACKEND_URL companion service does not exist in this repo).
+# Deploy config for the Mera Khet live satellite-analysis Worker
+# (cloudflare/mera_khet_worker.js). Calls Earth Engine's REST API directly
+# -- see that file's own header for how the expression graph was obtained
+# and verified. No separate backend service.
 #
 #   cd cloudflare
 #   wrangler secret put GEE_SERVICE_ACCOUNT_EMAIL --config wrangler_mera_khet.toml
 #   wrangler secret put GEE_SERVICE_ACCOUNT_KEY --config wrangler_mera_khet.toml
 #     # the "private_key" field of the service account's JSON key, PEM format
-#   wrangler secret put GEE_BACKEND_URL --config wrangler_mera_khet.toml
-#     # URL of the real Earth Engine compute backend -- see mera_khet_worker.js's
-#     # header for why this Worker alone can't run the GEE query itself
 #   wrangler deploy --config wrangler_mera_khet.toml
 #
-# Until all three secrets are set, POST /analyze returns an honest 501 --
-# safe to deploy in that partial state, it will never fabricate a number.
+# Until GEE_SERVICE_ACCOUNT_EMAIL/GEE_SERVICE_ACCOUNT_KEY/GEE_PROJECT_ID are
+# all set, POST /analyze returns an honest 501 -- safe to deploy in that
+# partial state, it will never fabricate a number.
 
 name = "vindhya-mera-khet"
 main = "mera_khet_worker.js"
 compatibility_date = "2026-08-01"
+
+[vars]
+# Not a secret (it's an Earth Engine Cloud project ID, same one
+# scripts/config.py's GEE_PROJECT_ID env var already uses locally) --
+# a plain var, not `wrangler secret put`.
+GEE_PROJECT_ID = "vindhya-gee"
