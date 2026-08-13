@@ -329,7 +329,22 @@
     map.fitBounds(polyLayer.getBounds(), { padding: [40, 40], maxZoom: 16 });
     var b = el('mk-btn-draw'); if (b) b.textContent = 'नया खेत बनाएं / Draw new field';
     mkStatus('विश्लेषण हो रहाहै... / Analysing...');
-    analyseField(pts.slice());
+    var ring = pts.slice();
+    analyseField(ring);
+
+    // KISAN_DASHBOARD hook (kisan_dashboard.js) -- opens the full,
+    // full-width Kisan Dashboard view automatically once the field is
+    // finished, superseding this modal's own compact result view as the
+    // primary place results are read (see kisan_dashboard.js's own header
+    // for the full integration decision). `lastResult` was just set by
+    // analyseField() above (synchronously, before its async fetches
+    // resolve) so it is safe to pass immediately -- kisan_dashboard.js
+    // renders skeleton states for anything not yet populated and receives
+    // the rest via the mkRender() hook above as it streams in. No-op if
+    // that file hasn't loaded.
+    if (window.VindhyaKisanDashboard && typeof window.VindhyaKisanDashboard.open === 'function') {
+      try { window.VindhyaKisanDashboard.open(lastResult); } catch (e) { console.warn('[mera_khet] kisan_dashboard open hook', e); }
+    }
   }
   function clearFieldMK() {
     drawing = false;
@@ -438,6 +453,13 @@
     if (!box || !res) return;
 
     var h = '<div style="padding:12px 14px;font-size:12.5px;color:var(--text)">';
+
+    // Reopen the full Kisan Dashboard view (auto-opened once by
+    // finishDrawMK() already -- this is only for a farmer who closed it
+    // and wants it back without redrawing the field).
+    if (window.VindhyaKisanDashboard) {
+      h += '<button onclick="window.VindhyaKisanDashboard.reopen()" style="margin-bottom:10px;padding:8px 14px;border:none;background:var(--cyan);color:#fff;border-radius:6px;cursor:pointer;font-size:12px;font-weight:700"><i class="fa fa-table-columns"></i> पूरा डैशबोर्ड देखें / Open full dashboard</button>';
+    }
 
     // 1. ZAMEEN KA HISAB
     h += '<div class="section-header" style="padding:0"><div class="section-title" style="font-size:12px">1. जमीन का हिसाब / Field measurement <span style="opacity:.5;font-weight:400">-- क्षेत्र-स्तर, असली / field-level, real</span></div></div>';
@@ -590,6 +612,16 @@
     h += '</div>';
     box.innerHTML = h;
     mkWireGroundTruthForm(res);
+
+    // KISAN_DASHBOARD hook (kisan_dashboard.js) -- fires on every mkRender
+    // call (initial synchronous render + each async arrival of
+    // analyze/soil/climate/districtNdvi below), so the full dashboard view
+    // stays live-synced with zero polling of its own. No-op if that file
+    // hasn't loaded (kept a plain existence check, not a hard dependency --
+    // this file must keep working standalone per its own header).
+    if (window.VindhyaKisanDashboard && typeof window.VindhyaKisanDashboard.update === 'function') {
+      try { window.VindhyaKisanDashboard.update(res); } catch (e) { console.warn('[mera_khet] kisan_dashboard update hook', e); }
+    }
   }
 
   // ------------------------------------------------------------------
