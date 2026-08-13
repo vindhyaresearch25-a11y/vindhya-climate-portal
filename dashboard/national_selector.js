@@ -747,8 +747,15 @@
   function boot() {
     unlockSelector();
     populateStateSelect();
-    var adv0t = el('adv-title-0'); if (adv0t) adv0t.textContent = 'Select a state to begin';
-    var adv0b = el('adv-body-0'); if (adv0b) adv0b.textContent = 'Boundaries and village profiles are available for every state. IMD-derived climate indices are currently computed for Bhopal, Indore, Jabalpur, Rewa and Sidhi (Madhya Pradesh) only.';
+    var adv0t = el('adv-title-0'); if (adv0t) adv0t.textContent = 'Select a state';
+    var adv0b = el('adv-body-0');
+    if (adv0b) {
+      adv0b.textContent = 'Boundaries + profiles · all states · IMD indices · 5 MP districts only';
+      // Long explanation in the title tooltip (item 2) -- this node uses
+      // textContent only, so no i-icon markup is possible here.
+      adv0b.title = 'Boundaries and village profiles are available for every state. IMD-derived climate '
+        + 'indices are currently computed for Bhopal, Indore, Jabalpur, Rewa and Sidhi (Madhya Pradesh) only.';
+    }
 
     // districtSelect and villageSelect already have inline
     // onchange="onDistrictChange(this.value)" / "onVillageChange(this.value)"
