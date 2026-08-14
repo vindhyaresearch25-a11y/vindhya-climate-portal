@@ -381,7 +381,18 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
    #app's own background (--bg-deep) as a real gap; rounded top corners +
    a full border (was border-top only) make it read as its own detached
    card, matching item 6's radius-8/border-1/no-shadow card language. */
-#bottom-panel{height:260px;margin-top:20px;background:var(--bg-card);border:var(--border-default);border-radius:var(--radius-8) var(--radius-8) 0 0;display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;}
+/* Item 14c (2026-08-14): the panel used to reserve its full 260px --
+   tab-grid + a content area -- from page load, even before any tab was
+   ever clicked, with no pane marked .active so the content half sat
+   empty. Owner's explicit choice (asked directly, since this trades off
+   against item 8's "map size never changes" rule): the panel starts
+   collapsed to just the tab-grid's own height, map gets the freed space;
+   the FIRST tab click adds .expanded (see switchTab() below), which
+   reveals the content area and grows the panel to 260px -- a one-time
+   map resize at that moment, never again after (switching between
+   already-expanded tabs doesn't re-trigger this). */
+#bottom-panel{height:auto;margin-top:20px;background:var(--bg-card);border:var(--border-default);border-radius:var(--radius-8) var(--radius-8) 0 0;display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;transition:height 0.25s ease;}
+#bottom-panel.expanded{height:260px;}
 
 /* Cards */
 .glass-card{background:var(--bg-card);border:var(--border-default);border-radius:var(--radius-8);transition:all 0.3s;box-shadow:0 1px 4px rgba(0,0,0,0.04);}
@@ -482,7 +493,10 @@ canvas.chart-canvas{max-height:100%;}
 .btm-tab-dup{display:none!important;}
 .btm-tab.active,.btm-tab:hover{background:rgba(26,138,158,0.1);color:var(--cyan);}
 .btm-tab i{width:14px;text-align:center;}
-.btm-content{flex:1;display:flex;overflow:auto;min-height:0;}
+/* item 14c: hidden until #bottom-panel gets .expanded (first tab click) --
+   see the #bottom-panel/.expanded rule above. */
+.btm-content{display:none;flex:1;overflow:auto;min-height:0;}
+#bottom-panel.expanded .btm-content{display:flex;}
 .btm-pane{display:none;flex:1;flex-direction:column;overflow:hidden;}
 .btm-pane.active{display:flex;}
 
@@ -1353,7 +1367,7 @@ body.mk-modal-open #pane-merakhet.active{
     <!-- BOTTOM PANEL -->
     <div id="bottom-panel">
       <div class="btm-tabs">
-        <div class="btm-tab active" onclick="switchTab(this,&#39;rainfall&#39;)"><i class="fa fa-cloud-rain"></i>Rainfall</div>
+        <div class="btm-tab" onclick="switchTab(this,&#39;rainfall&#39;)"><i class="fa fa-cloud-rain"></i>Rainfall</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;temp&#39;)"><i class="fa fa-thermometer-half"></i>Temperature</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;drought&#39;)"><i class="fa fa-droplet-slash"></i>Drought</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;trends&#39;)"><i class="fa fa-chart-line"></i>Trends</div>
@@ -1372,7 +1386,7 @@ body.mk-modal-open #pane-merakhet.active{
 
       <div class="btm-content">
         <!-- Rainfall -->
-        <div class="btm-pane active" id="pane-rainfall">
+        <div class="btm-pane" id="pane-rainfall">
           <div class="section-header"><i class="fa fa-cloud-rain u-cyan-sm"></i><div class="section-title">RAINFALL FORECAST — CENTRAL INDIA (2024–25)</div></div>
           <div class="chart-wrap u-h200"><canvas id="chartRain"></canvas><div class="chart-empty" id="empty-chartRain"><i class="fa fa-cloud-rain chart-empty-icon"></i><span>Select a district (Bhopal, Indore, Jabalpur, Rewa or Sidhi have live IMD data) to see the rainfall forecast.</span><button class="btm-pane-empty-btn" onclick="focusLocationSelector()"><i class="fa fa-location-crosshairs"></i> Select district</button></div></div>
         </div>
@@ -2229,6 +2243,13 @@ function setNav(el,section){
 // BOTTOM TABS
 // ============================================================
 function switchTab(tabEl,paneId){
+  // item 14c: first real click expands the panel (map resizes once, here
+  // only -- never again on later tab switches since the class just stays).
+  const bp=document.getElementById('bottom-panel');
+  if(bp && !bp.classList.contains('expanded')){
+    bp.classList.add('expanded');
+    setTimeout(()=>{ if(window.leafletMap) window.leafletMap.invalidateSize(); },260);
+  }
   document.querySelectorAll('.btm-tab').forEach(t=>t.classList.remove('active'));
   tabEl.classList.add('active');
   document.querySelectorAll('.btm-pane').forEach(p=>p.classList.remove('active'));
