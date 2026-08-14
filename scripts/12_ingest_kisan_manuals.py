@@ -873,6 +873,17 @@ def cf_api(path: str, method: str = "GET", body: bytes | None = None, content_ty
                 time.sleep(wait_s)
                 continue
             raise
+        except (socket.timeout, TimeoutError, ConnectionError) as e:
+            # 2026-08-14: a resumed run hit a raw socket timeout on an
+            # /upsert call after 1240/3118 chunks -- a genuine transient
+            # network blip (not a 429), previously not retried at all.
+            # Same backoff treatment; still raises after max_attempts.
+            if attempt < max_attempts:
+                wait_s = 10 * (2 ** (attempt - 1))
+                log(f"  network timeout on {path} (attempt {attempt}/{max_attempts}): {e} -- waiting {wait_s}s")
+                time.sleep(wait_s)
+                continue
+            raise
 
 
 def embed_batch(texts: list[str]) -> list[list[float]]:
