@@ -437,6 +437,23 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 .metric-bar-fill{height:100%;border-radius:var(--radius-2);transition:width 1s ease;}
 .metric-trend{font-size:var(--fs-1);font-weight:500;color:var(--text-dim);margin-top:var(--space-02);}
 .metric-source{font-size:var(--fs-1);font-weight:400;color:var(--text-dim);opacity:0.7;margin-top:var(--space-02);border-top:1px solid var(--border);padding-top:var(--space-02);}
+/* Climate Metrics panel, restyled as table rows (owner instruction
+   2026-08-14: "climate metric side panel ko tabular fix karo") --
+   scoped to .climate-metrics-table only, does not touch the base
+   .metric-card rules other panels (Historical Indices, Agriculture,
+   etc.) still use unchanged. */
+.climate-metrics-table{display:flex;flex-direction:column;padding:0;}
+.climate-metrics-table .metric-card{display:grid;grid-template-columns:1fr auto;column-gap:var(--space-1);align-items:center;background:transparent;border:none;border-bottom:1px solid var(--border);border-left:3px solid transparent;border-radius:0;padding:var(--space-075) var(--space-1);transform:none;}
+.climate-metrics-table .metric-card:hover{background:rgba(26,138,158,0.04);transform:none;}
+.climate-metrics-table .metric-card.alert{background:transparent;border-left-color:var(--red);}
+.climate-metrics-table .metric-card.warn{background:transparent;border-left-color:var(--orange);}
+.climate-metrics-table .metric-card.good{background:transparent;border-left-color:var(--green);}
+.climate-metrics-table .metric-label{grid-column:1;grid-row:1;margin-bottom:0;letter-spacing:0;}
+.climate-metrics-table .metric-value{grid-column:2;grid-row:1 / span 3;text-align:right;align-self:center;font-size:var(--fs-3);}
+.climate-metrics-table .metric-bar{grid-column:1;grid-row:2;width:140px;max-width:100%;margin-top:var(--space-02);}
+.climate-metrics-table .metric-trend{grid-column:1;grid-row:3;margin-top:var(--space-02);}
+.climate-metrics-table .metric-source{grid-column:1 / -1;grid-row:4;border-top:none;padding-top:var(--space-02);font-size:10px;opacity:0.55;}
+.climate-metrics-table .u-metric-card-span2-cyan{grid-template-columns:1fr;border-left-color:var(--cyan);}
 .metric-card.hazard-highlight{border-color:var(--cyan)!important;background:rgba(26,138,158,0.04)!important;transform:translateY(-1px);}
 .hazard-tag{border-color:var(--cyan)!important;outline:2px solid rgba(26,138,158,0.3);}
 
@@ -1219,7 +1236,14 @@ body.mk-modal-open #pane-merakhet.active{
           <span><i class="fa fa-circle" style="color:#E0B84C"></i> Moderate</span>
           <span><i class="fa fa-circle" style="color:#3E9C5A"></i> Low</span>
         </div>
-        <div class="metric-row">
+        <!-- owner instruction 2026-08-14: "climate metric side panel ko
+             tabular fix karo" -- .climate-metrics-table below restyles
+             .metric-row/.metric-card as aligned table rows (label left,
+             value+bar right, source as a small caption) SCOPED to this
+             one panel only (descendant selector, not the base .metric-
+             card rule) so the many other panels reusing .metric-card
+             elsewhere in this file are untouched. -->
+        <div class="metric-row climate-metrics-table">
           <div class="metric-card alert">
             <div class="metric-label" data-i18n>Drought Risk</div>
             <div class="metric-value red" id="m-drought">—</div>
