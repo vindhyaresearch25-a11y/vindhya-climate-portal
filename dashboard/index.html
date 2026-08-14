@@ -441,26 +441,13 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 .hazard-tag{border-color:var(--cyan)!important;outline:2px solid rgba(26,138,158,0.3);}
 
 /* Advisory cards */
-.advisory-card{margin:var(--space-05);border:var(--border-default);border-radius:var(--radius-6);padding:var(--space-06);background:#fafbfc;}
-.advisory-card.high{border-color:rgba(192,57,43,0.3);background:rgba(192,57,43,0.03);}
-.advisory-card.medium{border-color:rgba(212,121,58,0.25);background:rgba(212,121,58,0.03);}
-.advisory-card.low{border-color:rgba(45,143,92,0.2);background:rgba(45,143,92,0.02);}
-.advisory-header{display:flex;align-items:center;gap:var(--space-05);margin-bottom:var(--space-03);}
-.advisory-icon{font-size:var(--fs-3);}
-.advisory-title{font-size:var(--fs-2);font-weight:600;color:var(--text);}
-.advisory-body{font-size:var(--fs-1);color:var(--text-dim);line-height:1.5;}
-/* farmer_advisory_fertilizer.js -- item 10b */
-.fert-area-note{font-size:var(--fs-1);color:var(--text);background:rgba(111,199,149,0.08);border:1px solid rgba(111,199,149,0.3);border-radius:var(--radius-6);padding:var(--space-05);margin-bottom:var(--space-05);line-height:1.5;}
-.fert-season-block{margin-bottom:var(--space-05);}
-.fert-season-title{font-size:var(--fs-1);font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:0.3px;margin-bottom:var(--space-02);}
-.fert-season-body{font-size:var(--fs-1);color:var(--text-dim);line-height:1.6;white-space:pre-wrap;}
-.advisory-actions{display:flex;gap:var(--space-05);margin-top:var(--space-05);}
-.adv-btn{font-size:var(--fs-1);padding:0.2rem 0.6rem;border-radius:var(--radius-3);border:1px solid;cursor:pointer;background:transparent;transition:all 0.2s;}
-#advisory-container{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-02);}
-@media(max-width:1200px){#advisory-container{grid-template-columns:1fr;}}
-.adv-btn.wa{color:#2d8f5c;border-color:#2d8f5c;}
-.adv-btn.sms{color:var(--cyan);border-color:var(--cyan);}
-.adv-btn.hi{color:var(--orange);border-color:var(--orange);}
+/* .advisory-*/.adv-btn*/.fert-*/#advisory-container rules removed
+   2026-08-14 -- all of them only ever styled the right-panel Farmer
+   Advisory block (adv-card-0..5) and farmer_advisory_fertilizer.js's
+   cards, both deleted (owner instruction; duplicated the bottom
+   Agriculture tab's own advisory section, which uses .metric-card/
+   .section-header instead). .u-advisory-title-yellow below is unrelated
+   (still used by the Cadastral pane) and was kept. */
 
 /* Charts */
 .chart-wrap{padding:0.5rem 0.75rem;flex:1;min-height:0;position:relative;}
@@ -1299,68 +1286,19 @@ body.mk-modal-open #pane-merakhet.active{
           </div>
         </div>
 
-        <!-- Farmer Advisories -->
-        <div class="section-header u-mt-05">
-          <i class="fa fa-comment-dots u-green-sm"></i>
-          <div class="section-title">FARMER ADVISORY</div>
-          <div class="lang-toggle" onclick="toggleLang(this)"><i class="fa fa-language"></i> HI</div>
-        </div>
-        <div id="advisory-container">
-          <!-- AUDIT_FIX_PROMPT.md item 12 (2026-08-14): the WhatsApp/SMS/
-               हिंदी .advisory-actions button row on every card below was
-               removed -- audited first (owner's own instruction: move it
-               to a real place if it's a real feature) and found to have
-               NO onclick handler anywhere in the codebase on any of these
-               buttons, in any state, ever. Not "idle-state clutter to
-               relocate" but dead decorative UI that always looked
-               clickable and never did anything -- removed outright rather
-               than moved, since there is no real feature to preserve.
-               Idle-state text also consolidated into one compact line
-               (was a title line + a separate body line). -->
-          <div class="advisory-card high" id="adv-card-0">
-            <div class="advisory-header">
-              <span class="advisory-icon"><i class="fa fa-triangle-exclamation"></i></span>
-              <span class="advisory-title u-dim" id="adv-title-0">Select a region for farmer advisory</span>
-            </div>
-            <div class="advisory-body" id="adv-body-0"></div>
-          </div>
-          <div id="adv-card-1" class="advisory-card low u-hidden">
-            <div class="advisory-header">
-              <span class="advisory-icon"><i class="fa fa-triangle-exclamation"></i></span>
-              <span class="advisory-title" id="adv-title-1"</span>
-            </div>
-            <div class="advisory-body" id="adv-body-1"></div>
-          </div>
-          <div id="adv-card-2" class="advisory-card low u-hidden">
-            <div class="advisory-header">
-              <span class="advisory-icon"><i class="fa fa-triangle-exclamation"></i></span>
-              <span class="advisory-title" id="adv-title-2"</span>
-            </div>
-            <div class="advisory-body" id="adv-body-2"></div>
-          </div>
-          <div id="adv-card-3" class="advisory-card low u-hidden">
-            <div class="advisory-header">
-              <span class="advisory-icon"><i class="fa fa-triangle-exclamation"></i></span>
-              <span class="advisory-title" id="adv-title-3"</span>
-            </div>
-            <div class="advisory-body" id="adv-body-3"></div>
-          </div>
-          <!-- Village cadastral cards -->
-          <div class="advisory-card low" id="adv-card-4">
-            <div class="advisory-header">
-              <span class="advisory-icon"><i class="fa fa-wheat-awn"></i></span>
-              <span class="advisory-title" id="adv-title-4">Village Cadastral Summary</span>
-            </div>
-            <div class="advisory-body" id="adv-body-4">Select a village to view cadastral aggregates.</div>
-          </div>
-          <div class="advisory-card low" id="adv-card-5">
-            <div class="advisory-header">
-              <span class="advisory-icon"><i class="fa fa-flask"></i></span>
-              <span class="advisory-title" id="adv-title-5">Fertilizer & Crop Recommendation</span>
-            </div>
-            <div class="advisory-body" id="adv-body-5">Select a village to view fertilizer demand and recommended crops.</div>
-          </div>
-        </div>
+        <!-- Farmer Advisories block (Climate indices / Village Cadastral /
+             Fertilizer & Crop Recommendation cards) removed 2026-08-14 --
+             owner instruction, chosen explicitly over redesigning it in
+             place: this duplicated the bottom "Agriculture" tab's own
+             FARMER ADVISORY section (pane-agriculture, below), which
+             already has the same information in a proper metric-card
+             grid. Real content generation this fed (applyDistrictMetrics'
+             adv.push() advisory array in this file, national_climate_
+             loader.js's adv-title-0/adv-body-0 writes, national_selector.
+             js's resetClimateToNotAvailable() advisory reset, and the
+             whole farmer_advisory_fertilizer.js module from item 10b)
+             removed alongside it -- see those files' own history for
+             what used to run here. -->
       </div>
     </div><!-- end content -->
 
@@ -2372,8 +2310,6 @@ function toggleGlobalLang(){
     b.innerHTML = '<i class="fa fa-language"></i> ' + (isHindi ? 'EN' : 'HI');
   });
   applyI18n();
-  var dk0 = currentMPDistrictKey();
-  if (dk0) updateAdvisories(dk0);
   var chatBtn = document.getElementById('chatLangBtn');
   if (chatBtn) chatBtn.textContent = isHindi ? 'EN' : 'HI';
   var chatInput = document.getElementById('chatInput');
@@ -2405,137 +2341,9 @@ function toggleLang(btn){
   });
   applyI18n();
 })();
-function updateAdvisories(distKey){
-  var d = MP_DISTRICTS[distKey];
-  if (!d) return;
-  // Gather climate data from _mpClimateData if available
-  var drought = d.drought || 30;
-  var heat = d.heat || 38;
-  var ndvi = d.ndvi || 0.42;
-  var rain = 1100;
-  if (typeof _mpClimateData !== 'undefined' && _mpClimateData && _mpClimateData.districts && _mpClimateData.districts[distKey]) {
-    var di = _mpClimateData.districts[distKey].indices || {};
-    if (di.drought_probability_pct != null) drought = di.drought_probability_pct;
-    if (di.max_summer_tmax != null) heat = di.max_summer_tmax;
-    if (di.annual_rain_mm_mean != null) rain = di.annual_rain_mm_mean;
-    if (di.spi_12 != null) ndvi = Math.max(0.1, Math.min(0.9, di.spi_12*0.1+0.45));
-  }
-  var nm = d.name;
-  // Generate 4 advisories from real data
-  var adv = [];
-  // 1. Heatwave alert
-  if (heat >= 40) {
-    adv.push({title:'HEATWAVE ALERT — '+nm, body:isHindi?'तापमान '+heat+'°C तक पहुंचने का अनुमान। पशुओं को छाया और पानी दें। 11am-4pm खेत में काम न करें।':'Max temperature '+heat+'°C forecast. Provide shade and water to livestock. Avoid field operations 11am-4pm. Apply mulching.', severity:'high'});
-  } else {
-    adv.push({title:'MODERATE TEMP — '+nm, body:isHindi?'तापमान '+heat+'°C — फसलों के लिए सामान्य स्थिति। नियमित सिंचाई जारी रखें।':'Temperature '+heat+'°C — normal conditions for crops. Continue regular irrigation.', severity:'low'});
-  }
-  // 2. Sowing advisory
-  if (ndvi < 0.35) {
-    adv.push({title:'DELAY SOWING — '+nm, body:isHindi?'मिट्टी में नमी कम है। बुवाई 5-7 दिन टालें। सूखा सहनशील किस्मों का उपयोग करें।':'Soil moisture low ('+Math.round(ndvi*80)+'%). Delay sowing by 5-7 days pending rainfall. Use drought-tolerant varieties.', severity:'medium'});
-  } else if (ndvi > 0.5) {
-    adv.push({title:'GOOD SOWING WINDOW — '+nm, body:isHindi?'मिट्टी की नमी अनुकूल है। बुवाई शुरू करें। अनुशंसित किस्मों का उपयोग करें।':'Soil moisture favourable ('+Math.round(ndvi*80)+'%). Start sowing. Use recommended varieties for the season.', severity:'low'});
-  } else {
-    adv.push({title:'MONITOR SOIL — '+nm, body:isHindi?'मिट्टी की नमी सीमा रेखा पर। बुवाई से पहले बारिश का पूर्वानुमान जांचें।':'Soil moisture borderline ('+Math.round(ndvi*80)+'%). Check rainfall forecast before sowing.', severity:'medium'});
-  }
-  // 3. Irrigation advisory
-  if (rain < 800) {
-    adv.push({title:'IRRIGATION NEEDED — '+nm, body:isHindi?'कम वर्षा ('+Math.round(rain)+'mm)। ड्रिप सिंचाई का उपयोग करें। हर 3 दिन में सिंचाई करें।':'Low rainfall ('+Math.round(rain)+'mm). Drip irrigation recommended. Irrigate every 3 days. Soil moisture conservation critical.', severity:'medium'});
-  } else {
-    adv.push({title:'ADEQUATE RAINFALL — '+nm, body:isHindi?'पर्याप्त वर्षा ('+Math.round(rain)+'mm)। निचले खेतों में जल निकासी सुनिश्चित करें।':'Adequate rainfall ('+Math.round(rain)+'mm). Ensure drainage in low-lying fields. Normal irrigation schedule.', severity:'low'});
-  }
-  // 4. Crop health advisory
-  if (drought > 50) {
-    adv.push({title:'DROUGHT WATCH — '+nm, body:isHindi?'सूखा जोखिम '+drought+'%। जल संरक्षण के उपाय करें। वर्षा जल संचयन करें।':'Drought risk '+drought+'%. Implement water conservation measures. Rainwater harvesting recommended.', severity:'high'});
-  } else {
-    adv.push({title:'CROP HEALTH — '+nm, body:isHindi?'फसल की स्थिति अच्छी। NDVI '+ndvi.toFixed(2)+'। नियमित निगरानी जारी रखें।':'Crop condition good. NDVI '+ndvi.toFixed(2)+'. Continue regular monitoring.', severity:'low'});
-  }
-  // 5. Village cadastral — cultivated area
-  var vn = document.getElementById('villageSelect') ? document.getElementById('villageSelect').value : '';
-  var parcels = window._cadParcelsData;
-  if (vn && parcels && parcels.length > 0) {
-    var totalHa = 0, agriHa = 0, fallowHa = 0, cropHa = {};
-    parcels.forEach(function(p){
-      var a = p.area_ha || 0; totalHa += a;
-      if (p.land_use === 'Agriculture') { agriHa += a; }
-      if (p.land_use === 'Fallow') { fallowHa += a; }
-      var c = p.crop || 'Unknown';
-      cropHa[c] = (cropHa[c] || 0) + a;
-    });
-    var topCrops = Object.keys(cropHa).sort(function(a,b){ return cropHa[b]-cropHa[a]; });
-    var topCropStr = topCrops.slice(0,3).map(function(c){ return c+' ('+cropHa[c].toFixed(1)+'ha)'; }).join(', ');
-    var pctCult = totalHa > 0 ? Math.round(agriHa/totalHa*100) : 0;
-    var vilName = vn;
-    if (isHindi) {
-      adv.push({title:'गाँव कैडस्ट्रल सारांश — '+vilName, body:'कुल क्षेत्र: '+totalHa.toFixed(1)+'ha | कृषि: '+agriHa.toFixed(1)+'ha ('+pctCult+'%) | परती: '+fallowHa.toFixed(1)+'ha\nशीर्ष फसलें: '+topCropStr, severity:'low'});
-    } else {
-      adv.push({title:'VILLAGE CADASTRAL — '+vilName, body:'Total Area: '+totalHa.toFixed(1)+'ha | Cultivated: '+agriHa.toFixed(1)+'ha ('+pctCult+'%) | Fallow: '+fallowHa.toFixed(1)+'ha\nTop Crops: '+topCropStr, severity:'low'});
-    }
-    // 6. Fertilizer demand & crop recommendation
-    // FABRICATION RISK, found 2026-08-14, NOT fixed here because this
-    // whole branch is currently dead code: window._cadParcelsData is
-    // hardcoded to [] in cadastral_loader.js (CADASTRAL_AVAILABLE=false,
-    // real MP Bhulekh parcels not integrated yet -- see that file's own
-    // header) so `parcels.length > 0` above can never be true today, and
-    // this NPK multiplication never runs. BUT the NPK table below has NO
-    // source/citation attached to it -- unlike dashboard/
-    // farmer_advisory_fertilizer.js's real ICAR-corpus RAG answers (item
-    // 10b, 2026-08-14), these are unsourced kg/ha numbers. If cadastral
-    // data is ever wired up (CADASTRAL_AVAILABLE=true), this branch would
-    // start producing precise-looking "N: 245kg" totals with no real
-    // source behind them -- a live violation of this repo's core no-
-    // fabrication rule the moment it activates. DO NOT flip
-    // CADASTRAL_AVAILABLE without first replacing this table with cited
-    // ICAR figures (or deleting this branch in favour of
-    // farmer_advisory_fertilizer.js's real per-hectare RAG guidance).
-    var NPK = {Rice:{n:120,p:60,k:40},Wheat:{n:120,p:60,k:40},Soybean:{n:20,p:60,k:40},Maize:{n:120,p:60,k:40},Gram:{n:20,p:50,k:30},Mustard:{n:80,p:40,k:40},Cotton:{n:100,p:50,k:50},Pigeonpea:{n:20,p:50,k:30},Groundnut:{n:20,p:60,k:40},Bajra:{n:80,p:40,k:40}};
-    var totN=0, totP=0, totK=0;
-    parcels.forEach(function(p){
-      if (p.land_use !== 'Agriculture') return;
-      var a = p.area_ha || 0;
-      var cropKey = (p.crop||'').replace(/\s*\(.*\)/,'');
-      var nk = NPK[cropKey];
-      if (nk) { totN += nk.n*a; totP += nk.p*a; totK += nk.k*a; }
-    });
-    var topRec = topCrops[0] || '—';
-    if (isHindi) {
-      adv.push({title:'उर्वरक मांग — '+vilName, body:'N:'+Math.round(totN)+'kg | P:'+Math.round(totP)+'kg | K:'+Math.round(totK)+'kg\nअनुशंसित फसल: '+topRec+' | मिट्टी के अनुकूल किस्मों का चयन करें।', severity:'low'});
-    } else {
-      adv.push({title:'FERTILIZER DEMAND — '+vilName, body:'N: '+Math.round(totN)+' kg | P: '+Math.round(totP)+' kg | K: '+Math.round(totK)+' kg\nRecommended Crop: '+topRec+' | Choose soil-suited variety.', severity:'low'});
-    }
-  } else {
-    // No village selected — show placeholder. Card 5 (Fertilizer) gets
-    // briefly overwritten here on every real-district selection, then
-    // superseded moments later by farmer_advisory_fertilizer.js's real
-    // RAG-based recommendation (item 10b) once its async load resolves --
-    // this runs first only because it's synchronous and that one isn't.
-    // Harmless in practice (sub-second), not worth forcing a stricter
-    // ordering for.
-    adv.push({title:'VILLAGE CADASTRAL', body:isHindi?'कैडस्ट्रल डेटा देखने के लिए गाँव चुनें।':'Select a village to view cadastral aggregates.', severity:'low'});
-    adv.push({title:'FERTILIZER DEMAND', body:isHindi?'उर्वरक अनुशंसा के लिए गाँव चुनें।':'Select a village for fertilizer and crop recommendations.', severity:'low'});
-  }
-  // Update DOM — now supports cards 0-5. Cards 1-3 default to display:none
-  // in the HTML (they used to hold hardcoded fake example advisories --
-  // "Khargone, Khandwa", "60-80mm rainfall" -- shown to every visitor
-  // before any real data loaded); only reveal a card once it's actually
-  // populated with a real, district-derived advisory, and hide any card
-  // this round doesn't cover so a stale one from a previous district can
-  // never show through.
-  adv.forEach(function(a,i){
-    if (i > 5) return;
-    var card = document.getElementById('adv-card-'+i);
-    if (!card) return;
-    card.className = 'advisory-card ' + a.severity;
-    card.style.display = '';
-    var titleEl = document.getElementById('adv-title-'+i);
-    if (titleEl) { titleEl.textContent = a.title; titleEl.style.color = a.severity==='high'?'var(--red)':''; }
-    var bodyEl = document.getElementById('adv-body-'+i);
-    if (bodyEl) bodyEl.textContent = a.body;
-  });
-  for (var hi = adv.length; hi <= 5; hi++) {
-    var hcard = document.getElementById('adv-card-' + hi);
-    if (hcard && hi >= 1 && hi <= 3) hcard.style.display = 'none';
-  }
-}
+// updateAdvisories() removed 2026-08-14 (owner instruction) -- wrote
+// exclusively into the now-deleted right-panel Farmer Advisory cards
+// (adv-card-0..5). See the HTML comment where that block used to be.
 
 
 // Applies real IMD climate data and AI Farmer Advisory for one of the 5
@@ -2555,7 +2363,6 @@ function onDistrictChange(distKey){
   }
   applyDistrictMetrics(MP_DISTRICTS[distKey], distKey);
   updateBreadcrumb();
-  updateAdvisories(distKey);
 }
 
 var _villageGeoData = null;
@@ -4179,9 +3986,7 @@ async function runChatCompletion(){
 <script src="knowledge_base_loader.js"></script>
 <script src="national_climate_loader.js"></script>
 <script src="national_ndvi_loader.js"></script>
-<script src="national_forecast_loader.js"></script>
-<script src="farmer_advisory_fertilizer.js"></script>
-<script src="validation_loader.js"></script>
+<script src="national_forecast_loader.js"></script><script src="validation_loader.js"></script>
 <script src="soil_moisture_loader.js"></script>
 <script src="advisory_loader.js"></script>
 <!-- national_selector.js is appended dynamically, not as a static tag here --

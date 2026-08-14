@@ -481,10 +481,8 @@
     // switch to a state/district with no data.
     var heatDetail = el('heat-detail'); if (heatDetail) heatDetail.textContent = 'Select a district';
     var rainTrend = el('m-rain-trend'); if (rainTrend) rainTrend.textContent = 'Select a district';
-    var advTitle = el('adv-title-0');
-    if (advTitle) advTitle.textContent = 'Data not yet available for ' + label;
-    var advBody = el('adv-body-0');
-    if (advBody) advBody.textContent = 'Climate data for ' + label + ' is not yet available. IMD-derived indices are currently computed for Bhopal, Indore, Jabalpur, Rewa and Sidhi (Madhya Pradesh) only.';
+    // adv-title-0/adv-body-0 resets removed 2026-08-14 alongside the
+    // right-panel Farmer Advisory block itself (owner instruction).
     var navBadgeHeat = el('nav-badge-heat');
     if (navBadgeHeat) navBadgeHeat.style.display = 'none';
     // Clear every panel mp_climate_loader.js owns (historical/village/
@@ -587,15 +585,6 @@
       if (window.VindhyaForecast && window.currentLocationPoint) {
         window.VindhyaForecast.load(window.currentLocationPoint.lat, window.currentLocationPoint.lon, districtName);
       }
-      // AUDIT_FIX_PROMPT.md item 10a/10b: Farmer Advisory panel's
-      // fertilizer card follows the same selection, no separate re-pick.
-      if (window.VindhyaFertilizerAdvisory) {
-        window.VindhyaFertilizerAdvisory.load({
-          districtName: districtName, stateName: current.state,
-          lat: window.currentLocationPoint ? window.currentLocationPoint.lat : null,
-          lon: window.currentLocationPoint ? window.currentLocationPoint.lon : null
-        });
-      }
     });
 
     var stateSlug = slugify(current.state);
@@ -654,13 +643,6 @@
       if (window.VindhyaForecast && window.currentLocationPoint) {
         window.VindhyaForecast.load(window.currentLocationPoint.lat, window.currentLocationPoint.lon, blockName + ', ' + current.district);
       }
-      if (window.VindhyaFertilizerAdvisory) {
-        window.VindhyaFertilizerAdvisory.load({
-          districtName: current.district, stateName: current.state,
-          lat: window.currentLocationPoint ? window.currentLocationPoint.lat : null,
-          lon: window.currentLocationPoint ? window.currentLocationPoint.lon : null
-        });
-      }
     });
 
     loadVillagesForDistrict(stateSlug, slugify(current.district)).then(function (geo) {
@@ -711,13 +693,6 @@
       current.village = name;
       if (window.VindhyaForecast && window.currentLocationPoint) {
         window.VindhyaForecast.load(window.currentLocationPoint.lat, window.currentLocationPoint.lon, name);
-      }
-      if (window.VindhyaFertilizerAdvisory) {
-        window.VindhyaFertilizerAdvisory.load({
-          districtName: current.district, stateName: current.state,
-          lat: window.currentLocationPoint ? window.currentLocationPoint.lat : null,
-          lon: window.currentLocationPoint ? window.currentLocationPoint.lon : null
-        });
       }
       // Real per-village climate data (index.html's onVillageChange) is
       // applied BEFORE this module's own updateBreadcrumb() runs, not
@@ -779,15 +754,8 @@
   function boot() {
     unlockSelector();
     populateStateSelect();
-    var adv0t = el('adv-title-0'); if (adv0t) adv0t.textContent = 'Select a state';
-    var adv0b = el('adv-body-0');
-    if (adv0b) {
-      adv0b.textContent = 'Boundaries + profiles · all states · IMD indices · 5 MP districts only';
-      // Long explanation in the title tooltip (item 2) -- this node uses
-      // textContent only, so no i-icon markup is possible here.
-      adv0b.title = 'Boundaries and village profiles are available for every state. IMD-derived climate '
-        + 'indices are currently computed for Bhopal, Indore, Jabalpur, Rewa and Sidhi (Madhya Pradesh) only.';
-    }
+    // adv-title-0/adv-body-0 idle-state text removed 2026-08-14 alongside
+    // the right-panel Farmer Advisory block itself (owner instruction).
 
     // districtSelect and villageSelect already have inline
     // onchange="onDistrictChange(this.value)" / "onVillageChange(this.value)"

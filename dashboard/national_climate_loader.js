@@ -145,16 +145,10 @@
       setTxt('m-crop-trend', 'Select a district');
     }
 
-    var advTitle = document.getElementById('adv-title-0');
-    var advBody = document.getElementById('adv-body-0');
-    if (advTitle) advTitle.textContent = 'Climate indices — ' + (districtName || '');
-    if (advBody) {
-      advBody.textContent = 'Source · ERA5-Land+CHIRPS (GEE) · ' + (meta.years || '2000–2024');
-      // Long explanation in the title tooltip, not inline text (item 2) --
-      // textContent can't carry an i-icon since this node has no HTML here.
-      advBody.title = 'Distinct from the IMD gridded data used for the 5 Madhya Pradesh districts '
-        + '(Bhopal, Indore, Jabalpur, Rewa, Sidhi) -- never merged with or presented as IMD data.';
-    }
+    // adv-title-0/adv-body-0 writes removed 2026-08-14 -- the right-panel
+    // Farmer Advisory block those belonged to was deleted (owner
+    // instruction; duplicated the bottom Agriculture tab's own advisory
+    // section).
 
     renderHistoricalPanel(idx, meta, districtName);
   }
