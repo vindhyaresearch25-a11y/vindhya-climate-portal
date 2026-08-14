@@ -180,6 +180,17 @@
         '<b>' + t('Crop Statistics', 'फसल आंकड़े') + '</b> &mdash; ' + des.metadata.district +
         ' <span style="opacity:.7">(' + (des.metadata.year_range ? des.metadata.year_range[0].split(' ')[0] + '-' + des.metadata.year_range[1].split(' ')[0] : '') + ')</span></div>';
 
+      // AUDIT_FIX_PROMPT.md (2026-08-14, owner's follow-up on item 8): this
+      // pane was plain HTML tables only -- chart the most recent season's
+      // top crops by area (same real DES rows the table below repeats),
+      // one bar per crop, so the biggest change reads at a glance before
+      // the exact figures.
+      var latestKey = groupKeys[0];
+      var latestRows = latestKey ? groups[latestKey].slice().sort(function (a, b) { return (b.area_ha || 0) - (a.area_ha || 0); }).slice(0, 8) : [];
+      if (latestRows.length) {
+        h += '<div class="chart-wrap u-h140"><canvas id="chartCropStats"></canvas></div>';
+      }
+
       groupKeys.forEach(function (key) {
         var parts = key.split('|');
         var rows = groups[key].slice().sort(function (a, b) { return (b.area_ha || 0) - (a.area_ha || 0); }).slice(0, 8);
@@ -210,6 +221,48 @@
         '</div></div>';
 
       box.innerHTML = h;
+      if (latestRows.length) drawCropStatsChart(latestRows, latestKey);
+    });
+  }
+
+  var _cropStatsChart = null;
+  function drawCropStatsChart(rows, seasonLabel) {
+    if (typeof Chart === 'undefined') return;
+    var canvas = document.getElementById('chartCropStats');
+    if (!canvas) return;
+    var parts = seasonLabel ? seasonLabel.split('|') : ['', ''];
+    if (_cropStatsChart) { try { _cropStatsChart.destroy(); } catch (e) {} }
+    _cropStatsChart = new Chart(canvas, {
+      type: 'bar',
+      data: {
+        labels: rows.map(function (r) { return r.crop; }),
+        datasets: [{
+          label: t('Area (ha) — ' + parts[0] + ' ' + parts[1], 'क्षेत्र (हे) — ' + parts[0] + ' ' + parts[1]),
+          data: rows.map(function (r) { return Math.round(r.area_ha || 0); }),
+          backgroundColor: 'rgba(111,199,149,0.55)',
+          borderColor: '#6fc795',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              afterLabel: function (item) {
+                var r = rows[item.dataIndex];
+                return t('Production: ', 'उत्पादन: ') + fmtNum(r.production) +
+                  ' · ' + t('Yield/ha: ', 'उपज/हे: ') + (r.yield_per_ha != null ? r.yield_per_ha.toFixed(2) : '--');
+              }
+            }
+          }
+        },
+        scales: {
+          x: { ticks: { font: { size: 8 }, autoSkip: false, maxRotation: 45, minRotation: 45 }, grid: { display: false } },
+          y: { ticks: { font: { size: 8 } }, grid: { color: 'rgba(138,211,170,0.1)' } }
+        }
+      }
     });
   }
 

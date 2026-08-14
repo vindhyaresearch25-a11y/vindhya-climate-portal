@@ -115,6 +115,11 @@
         'border-left:3px solid #c9a843;border-radius:4px;line-height:1.7">' +
         (d.note || t('No arrivals reported.', 'कोई आवक दर्ज नहीं।')) + '</div>';
     } else {
+      // AUDIT_FIX_PROMPT.md (2026-08-14, owner's follow-up on item 8): this
+      // pane was a plain HTML table only -- real min/modal/max prices per
+      // commodity, but no graphical view. Chart is real published APMC
+      // data (same rows the table below shows), not a separate estimate.
+      h += '<div class="chart-wrap u-h140"><canvas id="chartMandi"></canvas></div>';
       // Group by commodity, keep the best-priced market row per commodity
       h += '<table style="width:100%;border-collapse:collapse;font-size:11.5px">' +
         '<tr style="text-align:left;font-size:10px;opacity:.65;letter-spacing:.3px">' +
@@ -156,6 +161,64 @@
       '</div></div>';
 
     box.innerHTML = h;
+    if (d.records && d.records.length) drawMandiChart(d.records);
+  }
+
+  var _mandiChart = null;
+  function drawMandiChart(records) {
+    if (typeof Chart === 'undefined') return;
+    var canvas = document.getElementById('chartMandi');
+    if (!canvas) return;
+    // One bar per commodity -- average modal price across markets when a
+    // commodity has more than one (real numbers, plain arithmetic mean,
+    // not an estimate), sorted by price so the chart reads left-to-right
+    // high-to-low like a real market board.
+    var byCommodity = {};
+    records.forEach(function (r) {
+      var key = r.commodity;
+      if (!byCommodity[key]) byCommodity[key] = { modalSum: 0, n: 0, min: Infinity, max: -Infinity };
+      var c = byCommodity[key];
+      c.modalSum += r.modal_price; c.n += 1;
+      c.min = Math.min(c.min, r.min_price);
+      c.max = Math.max(c.max, r.max_price);
+    });
+    var rows = Object.keys(byCommodity).map(function (name) {
+      var c = byCommodity[name];
+      return { name: name, modal: c.modalSum / c.n, min: c.min, max: c.max };
+    }).sort(function (a, b) { return b.modal - a.modal; }).slice(0, 12);
+
+    if (_mandiChart) { try { _mandiChart.destroy(); } catch (e) {} }
+    _mandiChart = new Chart(canvas, {
+      type: 'bar',
+      data: {
+        labels: rows.map(function (r) { return r.name; }),
+        datasets: [{
+          label: t('Modal price (₹/quintal)', 'मॉडल भाव (₹/क्विंटल)'),
+          data: rows.map(function (r) { return Math.round(r.modal); }),
+          backgroundColor: 'rgba(92,195,205,0.55)',
+          borderColor: '#5cc3cd',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              afterLabel: function (item) {
+                var r = rows[item.dataIndex];
+                return t('Range: ', 'रेंज: ') + inr(r.min) + ' – ' + inr(r.max);
+              }
+            }
+          }
+        },
+        scales: {
+          x: { ticks: { font: { size: 8 }, autoSkip: false, maxRotation: 45, minRotation: 45 }, grid: { display: false } },
+          y: { ticks: { font: { size: 8 } }, grid: { color: 'rgba(138,211,170,0.1)' } }
+        }
+      }
+    });
   }
 
   function load() {
