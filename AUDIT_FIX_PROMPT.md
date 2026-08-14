@@ -147,6 +147,60 @@ dikhna chahiye, khali safed jagah kahin nahi honi chahiye.
 
 ---
 
+# 8. ZILA CHUNE BINA -- poora page khali, naksha bhi chhota
+
+Screenshot me dikha: "Mandi Prices" tab click kiya, upar tab-grid
+theek dikh rahi hai, par neeche sirf ek line "Select a district"
+likha hai aur **poora bacha hua page khali safed** hai. Isi tarah
+naksha bhi pehle se **chhota** ho gaya hai.
+
+**Theek karo:**
+- Zila na chune hone par bhi panel **khali na lage** -- ya to:
+  - Poore desh/rajya ka **default/aggregate view** dikhao (jaise
+    "rajya-star ka auusat" ya "sabse zyada/kam wale 5 zile" ki chhoti
+    tabel/chart), YA
+  - Ek **compact, centered** prompt dikhao ("ऊपर से या नक़्शे पर
+    ज़िला चुनें") -- chhota card, poora safed page nahi
+- **Zila chunne ka shortcut isi panel me ho** -- upar ke Location
+  Selector tak wapas jaane ki zaroorat na pade, panel ke andar hi
+  ek dropdown/search se zila chun sake
+- Naksha ka size **fix rakho** -- tab badalne se ya panel content
+  ke hisaab se naksha chhota-bada NA ho. Naksha aur bottom-panel
+  dono ka apna fix height/area tay karo (CSS grid/flex se), jisse
+  koi bhi tab khulne par doosre hisson ka size na hile
+
+**Test:** bina zila chune "Mandi Prices" khol kar screenshot do (fix
+se pehle/baad), phir zila chunkar bhi -- dono me naksha ka size same
+rehna chahiye.
+
+---
+
+# 9. TAB-GRID (16 tab, 2 row) -- click par NEECHE PANEL AUTO-BHARE
+
+Bottom tab-grid ab list se grid me badal chuka hai (Rainfall se
+Crop Statistics tak, 2 row me 16 tab) -- ye layout theek hai, ise
+mat badlo. Lekin **niyam saaf karo:**
+
+- Kisi bhi tab par click karte hi, uske **theek neeche wali poori
+  chaudai** turant ek bhara hua panel dikhana chahiye -- chart/graph/
+  table jo bhi us tab ke liye sahi ho (item 7b ke graphical niyam
+  ke mutabik)
+- Ye **automatic** ho -- panel khud expand ho, kisi doosre click ki
+  zaroorat na pade
+- Zila chuna ho ya na chuna ho, dono surat me neeche khali safed
+  jagah **kabhi na bache** -- zila na chune par item 8 wala
+  default/compact-prompt state dikhe, khali panel nahi
+- Ye niyam **saaron 16 tabs par ek jaisa** lagu ho (Rainfall,
+  Temperature, Drought, Trends, NDVI Trend, 7-Day Forecast, GEE
+  Workflow, Projection Method, API Hub, Agriculture, Village
+  Intelligence, Validation, AOI Polygon, Live Weather, Mandi Prices,
+  Crop Statistics) -- kisi ek me bhi khali na chhode
+
+**Test:** in solaah tabs me se har ek par click karke screenshot do --
+har baar neeche turant data-bhara panel dikhna chahiye.
+
+---
+
 # ACCHA JO MILA -- aise hi rakho
 
 Har climate card ke neeche `Source · resolution · 2000-2024` style
@@ -168,8 +222,13 @@ item 5 ke mutabik).
 7. Tab-list ka naya grid/tabular layout -- khali jagah bhari hui
 8. Kam se kam 4 alag tab (Rainfall, Temperature, NDVI Trend, 7-Day
    Forecast) click karke unka graphical chart/graph panel
-9. Ek list: das jodiyon me se kaunsi sach me duplicate thi, kaunsi
-   alag content thi (naam ke bawajood)
+9. "Mandi Prices" (ya koi bhi tab) bina zila chune -- khali jagah
+   fix hone ke baad, aur naksha ka size zila chunne se pehle/baad
+   same rehte hue
+10. Solaah tabs me se har ek click karke, neeche turant bhara hua
+    panel -- ek collage/grid me sab 16 screenshot
+11. Ek list: das jodiyon me se kaunsi sach me duplicate thi, kaunsi
+    alag content thi (naam ke bawajood)
 
 Har item ke saamne HUA / NAHI KIYA / kyun nahi likhna, screenshot ke
 bina "ho gaya" mat likhna.
