@@ -120,9 +120,11 @@
     if (!box) return;
     var sd = currentStateDistrict();
     if (!sd) {
-      box.innerHTML = '<div style="padding:var(--space-1);font-size:var(--fs-2);line-height:1.8;opacity:.85">' +
-        '<b>' + t('Crop Statistics', 'फसल आंकड़े') + '</b><br>' +
-        t('Select a district', 'ज़िला चुनें') + '</div>';
+      box.innerHTML = '<div class="btm-pane-empty"><i class="fa fa-wheat-awn u-icon-lg-muted"></i>' +
+        '<div><b>' + t('Crop Statistics', 'फसल आंकड़े') + '</b><br>' +
+        t('Select a district to see area/production/yield statistics', 'क्षेत्रफल/उत्पादन/उपज आंकड़े देखने के लिए ज़िला चुनें') + '</div>' +
+        '<button class="btm-pane-empty-btn" onclick="focusLocationSelector()"><i class="fa fa-location-crosshairs"></i> ' +
+        t('Select district', 'ज़िला चुनें') + '</button></div>';
       return;
     }
 

@@ -584,6 +584,9 @@
       placeMarker(feature);
       fadeParents('district');
       fitToFeature(feature);
+      if (window.VindhyaForecast && window.currentLocationPoint) {
+        window.VindhyaForecast.load(window.currentLocationPoint.lat, window.currentLocationPoint.lon, districtName);
+      }
     });
 
     var stateSlug = slugify(current.state);
@@ -639,6 +642,9 @@
       placeMarker(feature);
       fadeParents('block');
       fitToFeature(feature);
+      if (window.VindhyaForecast && window.currentLocationPoint) {
+        window.VindhyaForecast.load(window.currentLocationPoint.lat, window.currentLocationPoint.lon, blockName + ', ' + current.district);
+      }
     });
 
     loadVillagesForDistrict(stateSlug, slugify(current.district)).then(function (geo) {
@@ -687,6 +693,9 @@
       fadeParents('village');
       fitToFeature(feature);
       current.village = name;
+      if (window.VindhyaForecast && window.currentLocationPoint) {
+        window.VindhyaForecast.load(window.currentLocationPoint.lat, window.currentLocationPoint.lon, name);
+      }
       // Real per-village climate data (index.html's onVillageChange) is
       // applied BEFORE this module's own updateBreadcrumb() runs, not
       // after -- index.html's onVillageChange ends with its own call to

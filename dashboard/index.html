@@ -366,9 +366,15 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
    Workflow, API Hub, etc). Restructured column-wise instead: tabs sit in
    a full-width wrapping tile row across the top (icon+name, ~9 fit per
    row so 12 tabs need at most 2 rows, no forced scroll), content fills
-   the full width below. Taller overall (210px -> 340px) to give charts
-   real room instead of being squeezed into a sliver. */
-#bottom-panel{height:340px;background:var(--bg-card);border-top:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;}
+   the full width below.
+   Item 8 (owner's live follow-up, same day): #content{flex:1} means every
+   px added here comes straight out of the map's height -- the first pass
+   went to 340px and the owner immediately reported "naksha bhi chhota"
+   (map got smaller too). Settled at 260px: only 50px over the original
+   210px (not the 130px the first pass cost), tabs still fit in 2 rows
+   (padding tightened below to match), individual panes that need more
+   than that scroll internally (.u-forecast-flexcol etc already do). */
+#bottom-panel{height:260px;background:var(--bg-card);border-top:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;}
 
 /* Cards */
 .glass-card{background:var(--bg-card);border:var(--border-default);border-radius:var(--radius-8);transition:all 0.3s;box-shadow:0 1px 4px rgba(0,0,0,0.04);}
@@ -430,8 +436,8 @@ canvas.chart-canvas{max-height:100%;}
    overflow-y:auto stays only as a safety net on very narrow/short
    windows where even 3 tiles per row would exceed it; in normal desktop
    widths every tab fits in <=2 rows and the scrollbar never appears. */
-.btm-tabs{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--border);flex-shrink:0;max-height:96px;overflow-y:auto;}
-.btm-tab{flex:1 1 140px;min-width:120px;justify-content:center;text-align:center;padding:0.5rem 0.6rem;font-size:var(--fs-2);font-weight:600;color:var(--text-dim);cursor:pointer;border-right:1px solid var(--border);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:var(--space-04);transition:all 0.2s;}
+.btm-tabs{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--border);flex-shrink:0;max-height:76px;overflow-y:auto;}
+.btm-tab{flex:1 1 120px;min-width:100px;justify-content:center;text-align:center;padding:0.35rem 0.5rem;font-size:var(--fs-1);font-weight:600;color:var(--text-dim);cursor:pointer;border-right:1px solid var(--border);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:var(--space-04);transition:all 0.2s;}
 /* Owner report 2026-08-14: 10 items appeared in BOTH the sidebar and this
    bottom strip (same name, same target pane) -- confusing, looks like two
    separate features. Sidebar is the single navigation entry point; these
@@ -736,6 +742,20 @@ body.mk-modal-open #pane-merakhet.active{
    poore portal me badle". Named for what they set, not where they're
    used, since each is reused across genuinely unrelated panels. */
 .u-empty-msg{padding:var(--space-20px);text-align:center;color:var(--text-dim);font-size:var(--fs-2);line-height:1.8;}
+/* AUDIT_FIX_PROMPT.md item 8 (owner's live follow-up, 2026-08-14): several
+   bottom-tab panes (Mandi Prices, Crop Statistics -- named directly in the
+   owner's report) rendered their "pick a district first" state as a small
+   top-left text blob inside a flex:1 pane, leaving most of the pane a
+   plain white rectangle ("poora bacha hua page khali safed"). This is the
+   shared, centered replacement -- also carries a shortcut button straight
+   to the Location Selector so the owner doesn't have to scroll back up to
+   it (item 8's explicit ask). See focusLocationSelector() below. */
+.btm-pane-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-05);text-align:center;color:var(--text-dim);padding:1rem;}
+.btm-pane-empty i.u-icon-lg-muted{margin-bottom:0;}
+.btm-pane-empty-btn{margin-top:var(--space-03);font-size:var(--fs-1);font-weight:600;padding:0.4rem 0.9rem;border-radius:var(--radius-6);border:1px solid var(--cyan);color:var(--cyan);background:rgba(26,138,158,0.06);cursor:pointer;transition:all 0.2s;}
+.btm-pane-empty-btn:hover{background:rgba(26,138,158,0.14);}
+.loc-bar-pulse{animation:locBarPulse 1.6s ease;}
+@keyframes locBarPulse{0%{box-shadow:0 0 0 0 rgba(26,138,158,0.55);}100%{box-shadow:0 0 0 14px rgba(26,138,158,0);}}
 .u-icon-lg-muted{font-size:var(--fs-5);display:block;margin-bottom:8px;opacity:0.6;}
 .u-orange-sm{color:var(--orange);font-size:var(--fs-1);}
 .u-green-sm{color:var(--green);font-size:var(--fs-1);}
@@ -826,7 +846,13 @@ body.mk-modal-open #pane-merakhet.active{
 .u-flex-gap05-center{display:flex;gap:var(--space-05);align-items:center;}
 .u-metric-card-span2-cyan{grid-column:span 2;border-color:rgba(26,138,158,0.25);background:rgba(26,138,158,0.04);}
 .u-flex1-hidden{display:flex;flex:1;overflow:hidden;}
-.u-forecast-grid{flex:1;display:grid;grid-template-columns:repeat(7,1fr);gap:var(--space-03);padding:var(--space-05);}
+.u-forecast-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:var(--space-03);padding:var(--space-05) var(--space-05) 0;flex-shrink:0;}
+/* national_forecast_loader.js (2026-08-14): #forecastPanel now renders the
+   7-day grid ABOVE a real Chart.js trend line, so it needs to be a
+   scrollable flex column, not the single-row grid above (that class is
+   still used to lay out the 7 day-cards themselves, one level in). */
+.u-forecast-flexcol{flex:1;display:flex;flex-direction:column;min-height:0;overflow-y:auto;}
+.u-h140{height:140px;}
 .u-grid2-gap05{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-05);}
 .u-proj-method-text{padding:0.75rem 1rem;font-size:var(--fs-2);line-height:1.7;color:var(--text);}
 .u-flex-gap05-mt05{margin-top:var(--space-05);display:flex;gap:var(--space-05);}
@@ -1357,7 +1383,7 @@ body.mk-modal-open #pane-merakhet.active{
         <div class="btm-pane" id="pane-forecast">
           <div class="section-header"><i class="fa fa-clock u-orange-sm"></i><div class="section-title">7-DAY WEATHER FORECAST <span id="forecastDistName" class="u-orange"></span></div></div>
           <div class="u-flex1-hidden">
-            <div id="forecastPanel" class="u-forecast-grid"></div>
+            <div id="forecastPanel" class="u-forecast-flexcol"></div>
           </div>
         </div>
         <!-- GEE -->
@@ -2950,6 +2976,22 @@ function clearHazardFilter(){
   if (typeof _mpClimateRefresh === 'function') _mpClimateRefresh();
 }
 
+// AUDIT_FIX_PROMPT.md item 8: shortcut used by .btm-pane-empty's button
+// (mandi_loader.js, crop_stats_loader.js, ...) so a "select a district
+// first" pane can jump straight to the Location Selector instead of the
+// owner having to scroll back up to it themselves.
+function focusLocationSelector(){
+  var bar = document.querySelector('.map-info-bar');
+  var sel = document.getElementById('districtSelect');
+  if (bar) {
+    bar.scrollIntoView({behavior:'smooth', block:'center'});
+    bar.classList.add('loc-bar-pulse');
+    setTimeout(function(){ bar.classList.remove('loc-bar-pulse'); }, 1600);
+  }
+  if (sel) sel.focus();
+}
+window.focusLocationSelector = focusLocationSelector;
+
 // Programmatically activate a bottom-panel tab by pane id
 function setBtmTab(paneId){
   // Tabs added dynamically by a loader (crop_stats_loader.js,
@@ -4130,6 +4172,7 @@ async function runChatCompletion(){
 <script src="knowledge_base_loader.js"></script>
 <script src="national_climate_loader.js"></script>
 <script src="national_ndvi_loader.js"></script>
+<script src="national_forecast_loader.js"></script>
 <script src="validation_loader.js"></script>
 <script src="soil_moisture_loader.js"></script>
 <script src="advisory_loader.js"></script>

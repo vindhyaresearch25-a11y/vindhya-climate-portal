@@ -86,9 +86,11 @@
 
     var dk = currentDistrict();
     if (!dk) {
-      box.innerHTML = '<div style="padding:var(--space-1);font-size:var(--fs-2);line-height:1.8;opacity:.85">' +
-        '<b>' + t('Mandi prices', 'मंडी भाव') + '</b><br>' +
-        t('Select a district', 'ज़िला चुनें') + '</div>';
+      box.innerHTML = '<div class="btm-pane-empty"><i class="fa fa-store u-icon-lg-muted"></i>' +
+        '<div><b>' + t('Mandi prices', 'मंडी भाव') + '</b><br>' +
+        t('Select a district to see local mandi (market) prices', 'स्थानीय मंडी भाव देखने के लिए ज़िला चुनें') + '</div>' +
+        '<button class="btm-pane-empty-btn" onclick="focusLocationSelector()"><i class="fa fa-location-crosshairs"></i> ' +
+        t('Select district', 'ज़िला चुनें') + '</button></div>';
       return;
     }
 

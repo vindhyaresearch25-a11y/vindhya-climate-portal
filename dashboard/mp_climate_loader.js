@@ -193,47 +193,13 @@
     if (typeof window._renderNdviChart === 'function') window._renderNdviChart(districtKey);
   }
 
-  function renderForecast(districtKey){
-    var d = state.data && state.data.districts[districtKey];
-    if (!d) return;
-    var host = document.getElementById('forecastPanel');
-    var nameLabel = document.getElementById('forecastDistName');
-    if (!host) return;
-    if (nameLabel) nameLabel.textContent = d.name;
-    // Generate 7-day synthetic forecast from historical data
-    var idx = d.indices;
-    var baseRain = idx.annual_rain_mm_mean || 1000;
-    var baseTmax = idx.max_summer_tmax || 40;
-    var hwDays = idx.heatwave_days_mean || 0;
-    var days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-    var today = new Date();
-    var html = '';
-    for (var i = 0; i < 7; i++) {
-      var d = new Date(today);
-      d.setDate(d.getDate() + i);
-      var dayName = days[d.getDay()];
-      var dateStr = d.getDate() + '/' + (d.getMonth()+1);
-      // Generate diurnal variation using historical patterns
-      var rainVar = (Math.random() - 0.3) * 20;
-      var rainVal = Math.max(0, (baseRain / 365) * (1 + (i === 3 ? 0.5 : 0)) + rainVar);
-      var tmaxVar = (Math.random() - 0.5) * 4;
-      var tmaxVal = baseTmax + tmaxVar + (i >= 3 ? 1 : 0);
-      var isHeat = tmaxVal > 42;
-      var isRain = rainVal > 5;
-      var icon = isHeat ? 'fa-sun' : isRain ? 'fa-cloud-rain' : 'fa-cloud';
-      var iconColor = isHeat ? 'var(--red)' : isRain ? 'var(--cyan)' : 'var(--text-dim)';
-      html += '<div class="forecast-day" style="background:'+(isHeat?'rgba(236,139,155,0.08)':'rgba(92,195,205,0.03)')+';border:1px solid var(--border);border-radius:6px;padding:0.4rem;text-align:center;">'
-        + '<div style="font-size:0.6rem;font-weight:600;color:var(--text-dim);margin-bottom:0.2rem;">'+dayName+'</div>'
-        + '<div style="font-size:0.6rem;font-weight:600;color:var(--text-dim);margin-bottom:0.3rem;">'+dateStr+'</div>'
-        + '<div style="font-size:0.9rem;margin-bottom:0.3rem;"><i class="fa '+icon+'" style="color:'+iconColor+'"></i></div>'
-        + '<div style="font-size:0.75rem;font-weight:700;color:'+(isHeat?'var(--red)':'var(--text)')+';">'+tmaxVal.toFixed(1)+'°C</div>'
-        + '<div style="font-size:0.65rem;font-weight:600;color:var(--blue);">'+(rainVal > 0 ? rainVal.toFixed(1)+'mm' : '—')+'</div>'
-        + '<div style="font-size:0.6rem;font-weight:600;margin-top:0.2rem;color:'+(isHeat?'var(--red)':isRain?'var(--cyan)':'var(--green)')+';">'
-        + (isHeat ? 'HEAT' : isRain ? 'RAIN' : 'FAIR')+'</div>'
-        + '</div>';
-    }
-    host.innerHTML = html;
-  }
+  // 2026-08-14: this function used to build a "7-day forecast" out of
+  // Math.random() jitter around historical means -- a direct fabrication,
+  // and one that only ever ran for the 5 MP_DISTRICTS this file covers.
+  // Removed. The bottom panel's 7-Day Forecast tab is now driven by
+  // national_forecast_loader.js (real Open-Meteo NWP data, any district/
+  // block/village nationwide, triggered from national_selector.js's own
+  // selection handlers) -- nothing left for this file to call here.
 
   function renderFuturePanel(districtKey){
     var d = state.data && state.data.districts[districtKey];
@@ -688,7 +654,9 @@
     if (wrap) wrap.style.display = 'flex';
     try { rebuildCharts(districtKey); } catch(e) { console.warn('[loader] rebuildCharts:', e); }
     try { renderTrendChart(districtKey); } catch(e) { console.warn('[loader] renderTrendChart:', e); }
-    try { renderForecast(districtKey); } catch(e) { console.warn('[loader] renderForecast:', e); }
+    // renderForecast() removed 2026-08-14 (was fabricated) -- the 7-Day
+    // Forecast tab is now driven nationally by national_forecast_loader.js
+    // via national_selector.js's selection handlers, not from here.
     try { decorateHistoricalPanel(districtKey, villageName); } catch(e) { console.warn('[loader] decorateHistoricalPanel:', e); }
     try { renderFuturePanel(districtKey); } catch(e) { console.warn('[loader] renderFuturePanel:', e); }
     try { renderVillagePanel(districtKey, villageName); } catch(e) { console.warn('[loader] renderVillagePanel:', e); }
