@@ -201,6 +201,50 @@ har baar neeche turant data-bhara panel dikhna chahiye.
 
 ---
 
+# 10. FARMER ADVISORY PANEL -- climate metric + Mera Khet fertilizer jodo
+
+Abhi Farmer Advisory side panel me ye dikh raha hai:
+- "Climate indices -- Dibang Valley" card (thik hai)
+- "Village Cadastral Summary" -- khali: *"Select a village to view
+  cadastral aggregates."*
+- "Fertilizer & Crop Recommendation" -- khali: *"Select a village to
+  view fertilizer demand and recommended crops."*
+
+**Theek karo:**
+
+### 10a. Climate metrics is panel me pehle se dikhein
+Jo zila/gaon Location Selector ya Mera Khet se pehle se chuna ja
+chuka hai, uska climate summary (rainfall, temperature, drought risk
+-- jo climate panel me hai wahi) is Farmer Advisory panel me bhi
+turant dikhe, dobara select karne ki zaroorat na pade. Ek panel se
+doosre panel me jaate hi selection yaad rahe (STANDING ORDERS item 2
+ke mutabik -- ek selection sab jagah update kare).
+
+### 10b. Fertilizer & Crop Recommendation -- Mera Khet se jodo
+Ye khali card ab **Mera Khet ke polygon data se bharo**:
+- Kisan ne apna khet naapa ho (Mera Khet se) to uska **kshetrafal
+  (area)** yahan istemal ho fertilizer ki matra nikalne ke liye
+- Fertilizer recommendation **mausam ke hisaab se alag-alag** ho:
+  - **Kharif** fasal ke liye
+  - **Rabi** fasal ke liye
+  - **Zayad/Summer** fasal ke liye
+  Teeno alag-alag section me, kisan jo fasal/mausam chune usi ke
+  hisaab se sahi doze (N-P-K, kitna kg/ha ya kitna kg uske poore
+  khet ke liye) dikhe
+- Ye **automatic** ho -- khet naapte hi ya zila/gaon chunte hi ye
+  card apne aap bhar jaye, khali message na dikhe (jab tak sach me
+  koi data na ho)
+- Source ICAR-recommended doze se ho, KISAN_DASHBOARD_PROMPT.md
+  section 7 (keet-rog) ke saath isi corpus ko fertilizer-dose ke
+  liye bhi istemal karo
+- Har recommendation ke neeche: `स्रोत · saal` line
+
+**Test:** Mera Khet se ek khet naapo, Farmer Advisory panel khol kar
+dikhao ki climate metric aur fertilizer dono apne aap bhar gaye,
+teeno mausam (kharif/rabi/zayad) alag dikh rahe hain.
+
+---
+
 # ACCHA JO MILA -- aise hi rakho
 
 Har climate card ke neeche `Source · resolution · 2000-2024` style
@@ -227,7 +271,10 @@ item 5 ke mutabik).
    same rehte hue
 10. Solaah tabs me se har ek click karke, neeche turant bhara hua
     panel -- ek collage/grid me sab 16 screenshot
-11. Ek list: das jodiyon me se kaunsi sach me duplicate thi, kaunsi
+11. Farmer Advisory panel -- Mera Khet se naape khet ke saath climate
+    metric aur teeno mausam (kharif/rabi/zayad) ka fertilizer card
+    bhara hua
+12. Ek list: das jodiyon me se kaunsi sach me duplicate thi, kaunsi
     alag content thi (naam ke bawajood)
 
 Har item ke saamne HUA / NAHI KIYA / kyun nahi likhna, screenshot ke
