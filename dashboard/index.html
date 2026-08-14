@@ -48,13 +48,11 @@
 /* Risk/hazard colours (Phase 2.4, 2026-08-07) -- deliberately a SEPARATE
    palette from the general UI theme colours above (--red/--orange/
    --yellow/--green are chrome/accent colours reused all over the UI;
-   these four are reserved for risk classification specifically: legend,
-   hazard map styling, metric-card risk badges). "Khatra ke rang sirf
-   DATA ke liye" -- never repurposed as a general accent. */
---risk-extreme:#B02418;
---risk-high:#D9822B;
---risk-moderate:#E0B84C;
---risk-low:#3E9C5A;
+   these four were reserved for risk classification specifically. Removed
+   2026-08-14 alongside the Risk Legend box (owner instruction) -- their
+   only consumers were the legend's own .u-risk-* dot classes, also
+   removed; hazardColor()/metric-card risk badges use their own inline
+   colors, not these tokens. */
 
 /* A3 (2026-08-06): radius/spacing/border tokens -- extracted from the
    exact literal values already in use across the portal (verified by
@@ -304,16 +302,19 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 .basemap-opt{display:flex;align-items:center;gap:var(--space-05);padding:var(--space-05) var(--space-1);border-radius:var(--radius-4);font-size:var(--fs-1);color:var(--text-dim);cursor:pointer;white-space:nowrap;}
 .basemap-opt:hover{background:rgba(26,138,158,0.06);color:var(--cyan);}
 .basemap-opt.active{background:var(--cyan);color:#fff;}
-.map-legend{position:absolute;bottom:2.9rem;left:1rem;z-index:500;background:rgba(255,255,255,0.95);border:var(--border-default);border-radius:var(--radius-6);padding:var(--space-075);backdrop-filter:blur(8px);box-shadow:0 2px 8px rgba(0,0,0,0.06);}
 /* Leaflet-generated (geoai_professional.js addFurniture()); display:flex
    is declared here rather than in that div's inline style so the Phase B
    mobile media query's display:none can actually win -- an inline style
    would beat any stylesheet rule regardless of specificity or order. */
 .map-north-arrow{display:flex;}
-.legend-title{font-size:var(--fs-1);letter-spacing:0;font-weight:600;color:var(--cyan);margin-bottom:var(--space-05);}
-.legend-row{display:flex;align-items:center;gap:var(--space-05);font-size:var(--fs-1);font-weight:500;color:var(--text-dim);margin-bottom:var(--space-025);}
-.legend-dot{width:10px;height:10px;border-radius:var(--radius-circle);}
-.map-disclaimer{position:absolute;bottom:4.75rem;right:0.5rem;z-index:400;max-width:260px;background:rgba(255,255,255,0.85);border:var(--border-default);border-radius:var(--radius-5);padding:0.35rem 0.55rem;backdrop-filter:blur(6px);font-size:var(--fs-1);line-height:1.35;color:var(--text-dim);pointer-events:none;}
+/* AUDIT_FIX_PROMPT.md item 11 (2026-08-14): was bottom:4.75rem;right:0.5rem
+   -- the same bottom-right corner Leaflet's own zoom control (+/-) and the
+   zoom-max-pill/badge below occupy, and it visibly overlapped both in a
+   live screenshot. Moved to bottom-left instead, stacked just above the
+   scale bar (also bottom-left by default) -- a different corner from the
+   whole zoom-control cluster entirely, not a fine-tuned pixel gap that
+   could re-collide at another viewport width. */
+.map-disclaimer{position:absolute;bottom:2.4rem;left:0.5rem;z-index:400;max-width:260px;background:rgba(255,255,255,0.85);border:var(--border-default);border-radius:var(--radius-5);padding:0.35rem 0.55rem;backdrop-filter:blur(6px);font-size:var(--fs-1);line-height:1.35;color:var(--text-dim);pointer-events:none;}
 .map-disclaimer b{color:var(--text-dim);font-weight:600;}
 /* Zoom-limit UI (Phase: basemap maxNativeZoom fix). Small max-zoom pill
    sits beside Leaflet's own zoom control so the ceiling is visible before
@@ -381,6 +382,10 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 .glass-card:hover{border-color:var(--cyan);box-shadow:0 2px 12px rgba(26,138,158,0.08);}
 .section-header{display:flex;align-items:center;gap:var(--space-05);padding:0.6rem 0.75rem;border-bottom:1px solid var(--border);background:rgba(26,138,158,0.03);}
 .section-title{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-1);font-weight:600;letter-spacing:0;color:var(--cyan);}
+/* item 13: one-line risk-color key, replaces the removed on-map Risk Legend box */
+.risk-legend-strip{display:flex;gap:var(--space-075);flex-wrap:wrap;align-items:center;padding:var(--space-04) var(--space-075);font-size:var(--fs-1);color:var(--text-dim);border-bottom:1px solid var(--border);}
+.risk-legend-strip span{display:inline-flex;align-items:center;gap:var(--space-025);}
+.risk-legend-strip i{font-size:8px;}
 
 /* Metric cards -- item 6 (2026-08-12): standardized to
    border-radius:8px / border:1px solid #D8DEE7 (--border) / white bg /
@@ -562,10 +567,6 @@ body.mk-modal-open #pane-merakhet.active{
 #sidebarBackdrop{display:none;position:fixed;inset:0;background:rgba(10,16,26,0.5);z-index:2050;opacity:0;pointer-events:none;transition:opacity 0.25s;}
 #sidebarBackdrop.show{opacity:1;pointer-events:auto;}
 .mobile-loc-bar{display:none;}
-.legend-title{display:flex;align-items:center;gap:var(--space-04);}
-.legend-caret{display:none;margin-left:auto;font-size:var(--fs-1);transition:transform 0.2s;}
-.map-legend.mobile-collapsed .legend-caret{transform:rotate(180deg);}
-.map-legend.mobile-collapsed #legendBody{display:none;}
 
 /* ---- TABLET: 768px-1024px -- icon-only sidebar, metrics below the map,
    2-column cards (the card grid is already 2-col by default, see
@@ -623,16 +624,13 @@ body.mk-modal-open #pane-merakhet.active{
   #map-panel{flex:0 0 45vh;min-height:260px;}
   .map-ctrl-btn{width:44px;height:44px;}
 
-  /* North arrow + scale bar hatao; legend collapsible -- default collapsed
-     state on entry is set by applyMobileLayout() adding .mobile-collapsed,
-     not hardcoded here, so toggleLegend() can freely open/close it. */
+  /* North arrow + scale bar hatao (Risk Legend box itself removed --
+     owner instruction 2026-08-14). */
   .map-north-arrow,.leaflet-control-scale{display:none;}
   /* Phase 5.3: exportMapPNG() forces these back on during capture even on
      a mobile-width viewport, so the exported PNG always has both. */
   body.exporting-map .map-north-arrow{display:flex!important;}
   body.exporting-map .leaflet-control-scale{display:block!important;}
-  .map-legend{max-width:64vw;}
-  .legend-caret{display:inline;}
 
   /* Metrics: ek column */
   #right-panel{width:100%;border-left:none;border-top:1px solid var(--border);max-height:none;}
@@ -802,10 +800,6 @@ body.mk-modal-open #pane-merakhet.active{
 .u-flex-wrap5{display:flex;gap:var(--space-05);flex-wrap:wrap;}
 .u-fs1-dim{color:var(--text-dim);font-size:var(--fs-1);}
 .u-fs1-neon{color:var(--neon-blue);font-size:var(--fs-1);}
-.u-risk-moderate{background:var(--risk-moderate);}
-.u-risk-low{background:var(--risk-low);}
-.u-risk-high{background:var(--risk-high);}
-.u-risk-extreme{background:var(--risk-extreme);}
 .u-info-box-strong{background:rgba(33,150,243,0.08);border:1px solid rgba(33,150,243,0.3);border-radius:var(--radius-6);padding:var(--space-04);margin-bottom:var(--space-04);}
 .u-info-box{background:rgba(33,150,243,0.06);border:1px solid rgba(33,150,243,0.2);border-radius:var(--radius-6);padding:var(--space-04);margin-bottom:var(--space-04);}
 .u-cyan-bg{background:#1a8a9e;}
@@ -1056,7 +1050,12 @@ body.mk-modal-open #pane-merakhet.active{
       <div class="nav-section-title" data-i18n>AGRICULTURE</div>
       <div class="nav-item" onclick="setNav(this,&#39;ground&#39;)"><span class="nav-icon"><i class="fa fa-water"></i></span><span class="nav-label" data-i18n>Groundwater &amp; Irrigation</span></div>
       <div class="nav-item" onclick="setNav(this,&#39;crop&#39;)"><span class="nav-icon"><i class="fa fa-wheat-awn"></i></span><span class="nav-label" data-i18n>Crop Health</span></div>
-      <div class="nav-item" onclick="setNav(this,&#39;advisory&#39;)"><span class="nav-icon"><i class="fa fa-comment-dots"></i></span><span class="nav-label" data-i18n>Farmer Advisory</span></div>
+      <!-- "Farmer Advisory" sidebar item removed (owner instruction
+           2026-08-14). It only ever jumped to setBtmTab('agriculture') --
+           the actual advisory cards (adv-card-0..5) live in the always-
+           visible right-panel scroll, not behind this nav item, so
+           nothing is lost: Crop Health above reaches the same bottom
+           tab directly. -->
       <div class="nav-item" onclick="setNav(this,&#39;pmfby&#39;)"><span class="nav-icon"><i class="fa fa-shield-halved"></i></span><span class="nav-label" data-i18n>PMFBY Insurance</span></div>
       <div class="nav-section-title" data-i18n>ECOLOGY</div>
       <div class="nav-item" onclick="setNav(this,&#39;forest&#39;)"><span class="nav-icon"><i class="fa fa-tree"></i></span><span class="nav-label" data-i18n>Forest Monitor</span><span class="nav-badge" data-i18n>SOON</span></div>
@@ -1108,16 +1107,8 @@ body.mk-modal-open #pane-merakhet.active{
           <div class="basemap-opt" data-basemap="Light (Carto Positron)" onclick="applyBasemap('Light (Carto Positron)')"><i class="fa fa-sun"></i> Light</div>
           <div class="basemap-opt" data-basemap="Dark (Carto Dark Matter)" onclick="applyBasemap('Dark (Carto Dark Matter)')"><i class="fa fa-moon"></i> Dark</div>
         </div>
-        <div class="map-legend" id="mapLegend">
-          <div class="legend-title" onclick="toggleLegend()"><i class="fa fa-circle-info u-fs1"></i> <span id="legendTitle">RISK LEGEND</span><i class="fa fa-chevron-up legend-caret" id="legendCaret"></i></div>
-          <div id="legendBody">
-            <div class="legend-row"><div class="legend-dot u-risk-extreme"></div>Extreme Risk</div>
-            <div class="legend-row"><div class="legend-dot u-risk-high"></div>High Risk</div>
-            <div class="legend-row"><div class="legend-dot u-risk-moderate"></div>Moderate Risk</div>
-            <div class="legend-row"><div class="legend-dot u-risk-low"></div>Low Risk</div>
-            <div class="legend-row"><div class="legend-dot u-cyan-bg"></div>Rivers</div>
-          </div>
-        </div>
+        <!-- Risk Legend box removed (owner instruction 2026-08-14: "Risk
+             Legend panel ... ise poora hatana"). -->
         <div class="map-disclaimer" title="Boundaries: Survey of India, via National Water Data Portal. Simplified for web display -- not for legal, cadastral or survey use. / सीमाएँ: भारतीय सर्वेक्षण विभाग (नेशनल वाटर डेटा पोर्टल के माध्यम से)। वेब प्रदर्शन हेतु सरलीकृत -- कानूनी, भू-अभिलेख अथवा सर्वेक्षण उपयोग हेतु नहीं।">
           <b>Indicative, not for legal/cadastral use.</b> Boundaries: Survey of India.<br>
           <b>सांकेतिक, कानूनी/भू-अभिलेख उपयोग हेतु नहीं।</b> सीमाएँ: भारतीय सर्वेक्षण विभाग।
@@ -1193,6 +1184,17 @@ body.mk-modal-open #pane-merakhet.active{
           <i class="fa fa-chart-bar u-cyan-sm"></i>
           <div class="section-title" data-i18n>CLIMATE METRICS</div>
         </div>
+        <!-- AUDIT_FIX_PROMPT.md item 13: the floating on-map Risk Legend
+             box was removed entirely, but the 4-color risk meaning it
+             carried (used by the hazard-filtered village layer/metric-
+             card risk classification) must not disappear -- this compact
+             one-line strip replaces it, here instead of the map. -->
+        <div class="risk-legend-strip">
+          <span><i class="fa fa-circle" style="color:#B02418"></i> Extreme</span>
+          <span><i class="fa fa-circle" style="color:#D9822B"></i> High</span>
+          <span><i class="fa fa-circle" style="color:#E0B84C"></i> Moderate</span>
+          <span><i class="fa fa-circle" style="color:#3E9C5A"></i> Low</span>
+        </div>
         <div class="metric-row">
           <div class="metric-card alert">
             <div class="metric-label" data-i18n>Drought Risk</div>
@@ -1267,17 +1269,23 @@ body.mk-modal-open #pane-merakhet.active{
           <div class="lang-toggle" onclick="toggleLang(this)"><i class="fa fa-language"></i> HI</div>
         </div>
         <div id="advisory-container">
+          <!-- AUDIT_FIX_PROMPT.md item 12 (2026-08-14): the WhatsApp/SMS/
+               हिंदी .advisory-actions button row on every card below was
+               removed -- audited first (owner's own instruction: move it
+               to a real place if it's a real feature) and found to have
+               NO onclick handler anywhere in the codebase on any of these
+               buttons, in any state, ever. Not "idle-state clutter to
+               relocate" but dead decorative UI that always looked
+               clickable and never did anything -- removed outright rather
+               than moved, since there is no real feature to preserve.
+               Idle-state text also consolidated into one compact line
+               (was a title line + a separate body line). -->
           <div class="advisory-card high" id="adv-card-0">
             <div class="advisory-header">
               <span class="advisory-icon"><i class="fa fa-triangle-exclamation"></i></span>
-              <span class="advisory-title u-dim" id="adv-title-0">Select a district for farmer advisory</span>
+              <span class="advisory-title u-dim" id="adv-title-0">Select a region for farmer advisory</span>
             </div>
-            <div class="advisory-body" id="adv-body-0">Advisories are generated from real IMD-derived indices once a district (and optionally a village) is selected above.</div>
-            <div class="advisory-actions">
-              <button class="adv-btn wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
-              <button class="adv-btn sms"><i class="fa fa-sms"></i> SMS</button>
-              <button class="adv-btn hi"><i class="fa fa-language"></i> हिंदी</button>
-            </div>
+            <div class="advisory-body" id="adv-body-0"></div>
           </div>
           <div id="adv-card-1" class="advisory-card low u-hidden">
             <div class="advisory-header">
@@ -1285,11 +1293,6 @@ body.mk-modal-open #pane-merakhet.active{
               <span class="advisory-title" id="adv-title-1"</span>
             </div>
             <div class="advisory-body" id="adv-body-1"></div>
-            <div class="advisory-actions">
-              <button class="adv-btn wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
-              <button class="adv-btn sms"><i class="fa fa-sms"></i> SMS</button>
-              <button class="adv-btn hi"><i class="fa fa-language"></i> हिंदी</button>
-            </div>
           </div>
           <div id="adv-card-2" class="advisory-card low u-hidden">
             <div class="advisory-header">
@@ -1297,10 +1300,6 @@ body.mk-modal-open #pane-merakhet.active{
               <span class="advisory-title" id="adv-title-2"</span>
             </div>
             <div class="advisory-body" id="adv-body-2"></div>
-            <div class="advisory-actions">
-              <button class="adv-btn wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
-              <button class="adv-btn sms"><i class="fa fa-sms"></i> SMS</button>
-            </div>
           </div>
           <div id="adv-card-3" class="advisory-card low u-hidden">
             <div class="advisory-header">
@@ -1308,10 +1307,6 @@ body.mk-modal-open #pane-merakhet.active{
               <span class="advisory-title" id="adv-title-3"</span>
             </div>
             <div class="advisory-body" id="adv-body-3"></div>
-            <div class="advisory-actions">
-              <button class="adv-btn wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
-              <button class="adv-btn sms"><i class="fa fa-sms"></i> SMS</button>
-            </div>
           </div>
           <!-- Village cadastral cards -->
           <div class="advisory-card low" id="adv-card-4">
@@ -2073,13 +2068,6 @@ document.querySelectorAll('.nav-item').forEach(function(item){
   if (label && !item.title) item.title = label.textContent.trim();
 });
 
-// ---- Legend collapsible (mobile only) ----
-function toggleLegend(){
-  if (window.innerWidth > 768) return; // desktop/tablet legend is never collapsed
-  var el = document.getElementById('mapLegend');
-  if (el) el.classList.toggle('mobile-collapsed');
-}
-
 // ---- Sticky mobile location bar: mirrors #locBreadcrumb, never owns its
 // own copy of the selection so it can't drift from the real state. ----
 function updateMobileLocBar(){
@@ -2115,7 +2103,6 @@ function mobileChangeLocation(){
   var content = document.getElementById('content');
   var mapPanel = document.getElementById('map-panel');
   var locBar = document.querySelector('.map-info-bar');
-  var legend = document.getElementById('mapLegend');
   var placeholder = document.createComment('map-info-bar-original-position');
   if (locBar) locBar.parentNode.insertBefore(placeholder, locBar);
 
@@ -2130,10 +2117,8 @@ function mobileChangeLocation(){
     }
     if (isMobile) {
       content.insertBefore(locBar, mapPanel);
-      if (legend) legend.classList.add('mobile-collapsed');
     } else {
       mapPanel.insertBefore(locBar, placeholder);
-      if (legend) legend.classList.remove('mobile-collapsed');
       // Leaving mobile: the drawer/backdrop must not stay stuck open.
       var sb = document.getElementById('sidebar');
       if (sb) sb.classList.remove('mobile-open');
@@ -2442,6 +2427,22 @@ function updateAdvisories(distKey){
       adv.push({title:'VILLAGE CADASTRAL — '+vilName, body:'Total Area: '+totalHa.toFixed(1)+'ha | Cultivated: '+agriHa.toFixed(1)+'ha ('+pctCult+'%) | Fallow: '+fallowHa.toFixed(1)+'ha\nTop Crops: '+topCropStr, severity:'low'});
     }
     // 6. Fertilizer demand & crop recommendation
+    // FABRICATION RISK, found 2026-08-14, NOT fixed here because this
+    // whole branch is currently dead code: window._cadParcelsData is
+    // hardcoded to [] in cadastral_loader.js (CADASTRAL_AVAILABLE=false,
+    // real MP Bhulekh parcels not integrated yet -- see that file's own
+    // header) so `parcels.length > 0` above can never be true today, and
+    // this NPK multiplication never runs. BUT the NPK table below has NO
+    // source/citation attached to it -- unlike dashboard/
+    // farmer_advisory_fertilizer.js's real ICAR-corpus RAG answers (item
+    // 10b, 2026-08-14), these are unsourced kg/ha numbers. If cadastral
+    // data is ever wired up (CADASTRAL_AVAILABLE=true), this branch would
+    // start producing precise-looking "N: 245kg" totals with no real
+    // source behind them -- a live violation of this repo's core no-
+    // fabrication rule the moment it activates. DO NOT flip
+    // CADASTRAL_AVAILABLE without first replacing this table with cited
+    // ICAR figures (or deleting this branch in favour of
+    // farmer_advisory_fertilizer.js's real per-hectare RAG guidance).
     var NPK = {Rice:{n:120,p:60,k:40},Wheat:{n:120,p:60,k:40},Soybean:{n:20,p:60,k:40},Maize:{n:120,p:60,k:40},Gram:{n:20,p:50,k:30},Mustard:{n:80,p:40,k:40},Cotton:{n:100,p:50,k:50},Pigeonpea:{n:20,p:50,k:30},Groundnut:{n:20,p:60,k:40},Bajra:{n:80,p:40,k:40}};
     var totN=0, totP=0, totK=0;
     parcels.forEach(function(p){
@@ -2458,7 +2459,13 @@ function updateAdvisories(distKey){
       adv.push({title:'FERTILIZER DEMAND — '+vilName, body:'N: '+Math.round(totN)+' kg | P: '+Math.round(totP)+' kg | K: '+Math.round(totK)+' kg\nRecommended Crop: '+topRec+' | Choose soil-suited variety.', severity:'low'});
     }
   } else {
-    // No village selected — show placeholder
+    // No village selected — show placeholder. Card 5 (Fertilizer) gets
+    // briefly overwritten here on every real-district selection, then
+    // superseded moments later by farmer_advisory_fertilizer.js's real
+    // RAG-based recommendation (item 10b) once its async load resolves --
+    // this runs first only because it's synchronous and that one isn't.
+    // Harmless in practice (sub-second), not worth forcing a stricter
+    // ordering for.
     adv.push({title:'VILLAGE CADASTRAL', body:isHindi?'कैडस्ट्रल डेटा देखने के लिए गाँव चुनें।':'Select a village to view cadastral aggregates.', severity:'low'});
     adv.push({title:'FERTILIZER DEMAND', body:isHindi?'उर्वरक अनुशंसा के लिए गाँव चुनें।':'Select a village for fertilizer and crop recommendations.', severity:'low'});
   }
@@ -2614,37 +2621,10 @@ function getHazardMetricName(hazardKind){
   return null;
 }
 
-function getHazardLegend(hazardKind){
-  if (hazardKind === 'heat') {
-    return [
-      {color:'#800026', label:'≥44.5°C Extreme'},
-      {color:'#e63946', label:'43.5-44.5°C Very High'},
-      {color:'#f4a261', label:'42.5-43.5°C High'},
-      {color:'#c9a843', label:'41.5-42.5°C Moderate'},
-      {color:'#2d8f5c', label:'<41.5°C Low'}
-    ];
-  }
-  if (hazardKind === 'rain') {
-    return [
-      {color:'#023858', label:'≥1600mm'},
-      {color:'#045a8d', label:'1400-1600mm'},
-      {color:'#2b8cbe', label:'1200-1400mm'},
-      {color:'#74a9cf', label:'1000-1200mm'},
-      {color:'#bdc9e1', label:'800-1000mm'},
-      {color:'#f1faee', label:'<800mm'}
-    ];
-  }
-  if (hazardKind === 'drought') {
-    return [
-      {color:'#800026', label:'≥60% Extreme'},
-      {color:'#e63946', label:'45-60% Severe'},
-      {color:'#f4a261', label:'30-45% High'},
-      {color:'#c9a843', label:'18-30% Moderate'},
-      {color:'#2d8f5c', label:'<18% Low'}
-    ];
-  }
-  return null;
-}
+// getHazardLegend() removed alongside updateLegend() (see note above) --
+// getHazardMetricName() below is still used by getHazardMetricValue()/
+// applyVillageStyle() for the actual hazard coloring logic, unrelated to
+// the removed legend box.
 
 function getHazardMetricValue(distKey, lgd, hazardKind){
   var metric = getHazardMetricName(hazardKind);
@@ -2702,34 +2682,12 @@ function applyVillageStyle(distKey, hazardKind){
     }
   }).addTo(map);
   if (window._villageBtn) window._villageBtn.classList.add('active');
-  // Update legend
-  updateLegend(hazardKind);
 }
 
-function updateLegend(hazardKind){
-  var legendItems = getHazardLegend(hazardKind);
-  var body = document.getElementById('legendBody');
-  var title = document.getElementById('legendTitle');
-  if (!body) return;
-  if (!legendItems) {
-    // Restore default legend
-    if (title) title.textContent = 'RISK LEGEND';
-    body.innerHTML = ''
-      + '<div class="legend-row"><div class="legend-dot u-risk-extreme"></div>Extreme Risk</div>'
-      + '<div class="legend-row"><div class="legend-dot u-risk-high"></div>High Risk</div>'
-      + '<div class="legend-row"><div class="legend-dot u-risk-moderate"></div>Moderate Risk</div>'
-      + '<div class="legend-row"><div class="legend-dot u-risk-low"></div>Low Risk</div>'
-      + '<div class="legend-row"><div class="legend-dot u-cyan-bg"></div>Rivers</div>';
-    return;
-  }
-  if (title) {
-    var titles = {heat:'MAX TMAX (°C)', rain:'ANNUAL RAINFALL (mm)', drought:'DROUGHT PROBABILITY (%)'};
-    title.textContent = titles[hazardKind] || 'HAZARD LEGEND';
-  }
-  body.innerHTML = legendItems.map(function(item){
-    return '<div class="legend-row"><div class="legend-dot" style="background:'+item.color+'"></div>'+item.label+'</div>';
-  }).join('');
-}
+// updateLegend()/getHazardLegend() removed (owner instruction 2026-08-14:
+// "Risk Legend panel ... ise poora hatana" -- the on-map floating legend
+// box is gone, so nothing calls these anymore; git history has the old
+// bodies if this ever needs resurrecting).
 
 function onVillageChange(village){
   const distKey=currentMPDistrictKey();
