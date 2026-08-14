@@ -375,12 +375,28 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
    210px (not the 130px the first pass cost), tabs still fit in 2 rows
    (padding tightened below to match), individual panes that need more
    than that scroll internally (.u-forecast-flexcol etc already do). */
-#bottom-panel{height:260px;background:var(--bg-card);border-top:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;}
+/* Owner report 2026-08-14: panel sat flush against the map with no gap,
+   read as one stuck-together block instead of two clean sections.
+   margin-top (4px-grid: 20px, within the asked 16-24px range) reveals
+   #app's own background (--bg-deep) as a real gap; rounded top corners +
+   a full border (was border-top only) make it read as its own detached
+   card, matching item 6's radius-8/border-1/no-shadow card language. */
+#bottom-panel{height:260px;margin-top:20px;background:var(--bg-card);border:var(--border-default);border-radius:var(--radius-8) var(--radius-8) 0 0;display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;}
 
 /* Cards */
 .glass-card{background:var(--bg-card);border:var(--border-default);border-radius:var(--radius-8);transition:all 0.3s;box-shadow:0 1px 4px rgba(0,0,0,0.04);}
 .glass-card:hover{border-color:var(--cyan);box-shadow:0 2px 12px rgba(26,138,158,0.08);}
-.section-header{display:flex;align-items:center;gap:var(--space-05);padding:0.6rem 0.75rem;border-bottom:1px solid var(--border);background:rgba(26,138,158,0.03);}
+.section-header{display:flex;align-items:center;gap:var(--space-05);padding:0.6rem 0.75rem;border-bottom:1px solid var(--border);background:rgba(26,138,158,0.03);border-top:3px solid var(--cyan);}
+/* item 14b: colored accent bar per topic (e.g. Rainfall = blue), derived
+   from whichever icon-color class the pane's own header icon already
+   carries -- one rule set covers every current and future pane instead
+   of hand-writing #pane-x{...} per tab. Falls back to the cyan default
+   above for any header whose icon uses a color class not listed here. */
+.section-header:has(.u-green-sm){border-top-color:var(--green);}
+.section-header:has(.u-orange-sm){border-top-color:var(--orange);}
+.section-header:has(.u-red-sm){border-top-color:var(--red);}
+.section-header:has(.u-teal-sm){border-top-color:var(--teal);}
+.section-header:has(.u-fs1-neon){border-top-color:var(--neon-blue);}
 .section-title{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-1);font-weight:600;letter-spacing:0;color:var(--cyan);}
 /* item 13: one-line risk-color key, replaces the removed on-map Risk Legend box */
 .risk-legend-strip{display:flex;gap:var(--space-075);flex-wrap:wrap;align-items:center;padding:var(--space-04) var(--space-075);font-size:var(--fs-1);color:var(--text-dim);border-bottom:1px solid var(--border);}
@@ -437,8 +453,12 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 
 /* Charts */
 .chart-wrap{padding:0.5rem 0.75rem;flex:1;min-height:0;position:relative;}
-.chart-empty{position:absolute;inset:0.5rem 0.75rem;display:flex;align-items:center;justify-content:center;text-align:center;font-size:var(--fs-1);color:var(--text-dim);padding:0 1rem;background:var(--bg-card);}
-.chart-empty i{margin-right:0.4rem;}
+/* item 14b (2026-08-14): was a plain centered text line flush with the
+   chart-wrap's edges -- redesigned as its own light card (per the
+   owner's exact spec: #F7F9FB background, rounded corners, icon above
+   the message) with room for a "Select district" shortcut button below. */
+.chart-empty{position:absolute;inset:0.6rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-05);text-align:center;font-size:var(--fs-1);color:var(--text-dim);padding:1rem;background:#F7F9FB;border:1px solid var(--border);border-radius:var(--radius-8);}
+.chart-empty i.chart-empty-icon{font-size:1.4rem;opacity:0.5;}
 canvas.chart-canvas{max-height:100%;}
 
 /* Bottom tabs -- item 7a: full-width wrapping tile row, not a narrow
@@ -753,7 +773,10 @@ body.mk-modal-open #pane-merakhet.active{
    shared, centered replacement -- also carries a shortcut button straight
    to the Location Selector so the owner doesn't have to scroll back up to
    it (item 8's explicit ask). See focusLocationSelector() below. */
-.btm-pane-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-05);text-align:center;color:var(--text-dim);padding:1rem;}
+/* item 14b (2026-08-14): now a light #F7F9FB card (rounded, bordered)
+   instead of bare centered text, same visual language as .chart-empty
+   above -- one consistent "empty state" component across every tab. */
+.btm-pane-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-05);text-align:center;color:var(--text-dim);padding:1rem;margin:0.6rem;background:#F7F9FB;border:1px solid var(--border);border-radius:var(--radius-8);}
 .btm-pane-empty i.u-icon-lg-muted{margin-bottom:0;}
 .btm-pane-empty-btn{margin-top:var(--space-03);font-size:var(--fs-1);font-weight:600;padding:0.4rem 0.9rem;border-radius:var(--radius-6);border:1px solid var(--cyan);color:var(--cyan);background:rgba(26,138,158,0.06);cursor:pointer;transition:all 0.2s;}
 .btm-pane-empty-btn:hover{background:rgba(26,138,158,0.14);}
@@ -1351,27 +1374,27 @@ body.mk-modal-open #pane-merakhet.active{
         <!-- Rainfall -->
         <div class="btm-pane active" id="pane-rainfall">
           <div class="section-header"><i class="fa fa-cloud-rain u-cyan-sm"></i><div class="section-title">RAINFALL FORECAST — CENTRAL INDIA (2024–25)</div></div>
-          <div class="chart-wrap u-h200"><canvas id="chartRain"></canvas><div class="chart-empty" id="empty-chartRain"><i class="fa fa-cloud-rain"></i>Select a district (Bhopal, Indore, Jabalpur, Rewa or Sidhi have live IMD data) to see the rainfall forecast.</div></div>
+          <div class="chart-wrap u-h200"><canvas id="chartRain"></canvas><div class="chart-empty" id="empty-chartRain"><i class="fa fa-cloud-rain chart-empty-icon"></i><span>Select a district (Bhopal, Indore, Jabalpur, Rewa or Sidhi have live IMD data) to see the rainfall forecast.</span><button class="btm-pane-empty-btn" onclick="focusLocationSelector()"><i class="fa fa-location-crosshairs"></i> Select district</button></div></div>
         </div>
         <!-- Temp -->
         <div class="btm-pane" id="pane-temp">
           <div class="section-header"><i class="fa fa-thermometer-half u-orange-sm"></i><div class="section-title">TEMPERATURE TREND — MP REGION</div></div>
-          <div class="chart-wrap u-h200"><canvas id="chartTemp"></canvas><div class="chart-empty" id="empty-chartTemp"><i class="fa fa-thermometer-half"></i>Select a district to see the temperature trend.</div></div>
+          <div class="chart-wrap u-h200"><canvas id="chartTemp"></canvas><div class="chart-empty" id="empty-chartTemp"><i class="fa fa-thermometer-half chart-empty-icon"></i><span>Select a district to see the temperature trend.</span><button class="btm-pane-empty-btn" onclick="focusLocationSelector()"><i class="fa fa-location-crosshairs"></i> Select district</button></div></div>
         </div>
         <!-- Drought -->
         <div class="btm-pane" id="pane-drought">
           <div class="section-header"><i class="fa fa-droplet-slash u-red-sm"></i><div class="section-title">DROUGHT PROBABILITY — DISTRICT COMPARISON</div></div>
-          <div class="chart-wrap u-h200"><canvas id="chartDrought"></canvas><div class="chart-empty" id="empty-chartDrought"><i class="fa fa-droplet-slash"></i>Select a district to see drought probability.</div></div>
+          <div class="chart-wrap u-h200"><canvas id="chartDrought"></canvas><div class="chart-empty" id="empty-chartDrought"><i class="fa fa-droplet-slash chart-empty-icon"></i><span>Select a district to see drought probability.</span><button class="btm-pane-empty-btn" onclick="focusLocationSelector()"><i class="fa fa-location-crosshairs"></i> Select district</button></div></div>
         </div>
         <!-- Annual Trends -->
         <div class="btm-pane" id="pane-trends">
           <div class="section-header"><i class="fa fa-chart-line u-cyan-sm"></i><div class="section-title">ANNUAL TRENDS <span id="trendYearRange" class="u-orange">2000–2024</span></div></div>
-          <div class="chart-wrap u-h200"><canvas id="chartTrends"></canvas><div class="chart-empty" id="empty-chartTrends"><i class="fa fa-chart-line"></i>Select a district to see annual trends (2000–2024).</div></div>
+          <div class="chart-wrap u-h200"><canvas id="chartTrends"></canvas><div class="chart-empty" id="empty-chartTrends"><i class="fa fa-chart-line chart-empty-icon"></i><span>Select a district to see annual trends (2000–2024).</span><button class="btm-pane-empty-btn" onclick="focusLocationSelector()"><i class="fa fa-location-crosshairs"></i> Select district</button></div></div>
         </div>
         <!-- NDVI -->
         <div class="btm-pane" id="pane-ndvi">
           <div class="section-header"><i class="fa fa-leaf u-green-sm"></i><div class="section-title">NDVI TIME SERIES (DICRA 2013-2026)</div></div>
-          <div class="chart-wrap u-h200"><canvas id="chartNdvi"></canvas><div class="chart-empty" id="empty-chartNdvi"><i class="fa fa-leaf"></i>Select a district to see its NDVI time series.</div></div>
+          <div class="chart-wrap u-h200"><canvas id="chartNdvi"></canvas><div class="chart-empty" id="empty-chartNdvi"><i class="fa fa-leaf chart-empty-icon"></i><span>Select a district to see its NDVI time series.</span><button class="btm-pane-empty-btn" onclick="focusLocationSelector()"><i class="fa fa-location-crosshairs"></i> Select district</button></div></div>
           <div id="ndvi-error-state" class="u-hidden u-ndvi-error-pad"></div>
           <!-- national_ndvi_loader.js: MODIS/GEE NDVI for districts outside
                MP's 52 DiCRA districts. Hidden by default; shown only when a
