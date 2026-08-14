@@ -556,22 +556,16 @@ CORPUS = [
         "year": 2021,
         "publisher": "Assam Agricultural University (Jorhat) & Directorate of Agriculture, Govt. of Assam",
     },
-    {
-        "id": "aau_kharif_pop_2023",
-        "url": "https://kvkkokrajhar.aau.ac.in/PoP/PoP_(Kharif)_2023.pdf",
-        "source": "Package of Practices for Kharif Crops of Assam, 2023 (full compilation)",
-        "crop": "other kharif pulses (also has updated arhar/tur, moong, urad, cowpea chapters)",
-        "year": 2023,
-        "publisher": "Assam Agricultural University, Jorhat & Department of Agriculture, Govt. of Assam",
-    },
-    {
-        "id": "aau_rabi_pop_2023",
-        "url": "https://kvkkokrajhar.aau.ac.in/PoP/PoP_Rabi_2023.pdf",
-        "source": "Package of Practices for Rabi Crops of Assam, 2023 (full compilation)",
-        "crop": "other  Rabi pulses (also has updated masoor, khesari, peas & beans chapters)",
-        "year": 2023,
-        "publisher": "Assam Agricultural University, Jorhat & Department of Agriculture, Govt. of Assam",
-    },
+    # aau_kharif_pop_2023 / aau_rabi_pop_2023 (kvkkokrajhar.aau.ac.in PoP
+    # compilations, "other kharif/Rabi pulses") REMOVED 2026-08-15 -- both
+    # verified live 200/application/pdf when added, but re-checked before
+    # this session's real ingestion run and both now 404 (link rot, the
+    # host itself still resolves). Not re-added; genuine coverage gap for
+    # "Other Rabi pulses" / "Other Kharif pulses" as dedicated multi-crop
+    # docs -- those categories still get partial coverage from
+    # icar_kharif_agro_advisories_2025 and the PAU kharif/rabi POPs already
+    # in this corpus, just not a dedicated Assam compilation. Retry these
+    # exact URLs in a future session before assuming permanently gone.
 
     # -------------------------------------------------------------
     # Added 2026-08-13 round 2, batch 4: fibre/plantation (sugarcane, jute,

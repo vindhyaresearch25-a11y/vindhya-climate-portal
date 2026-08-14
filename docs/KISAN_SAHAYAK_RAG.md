@@ -161,6 +161,47 @@ on every future document too.
 |---|---|---|---|
 | 1 (cereals/millets + oilseeds) | maize, jowar, bajra, ragi, barley, small millets, groundnut, sesamum, castor seed, sunflower, safflower, niger seed | 9 (`dmr_maize_production_systems_2013`, `iimr_sorghum_kharif_pop`, `iimr_sorghum_rabi_pop`, `iimr_pearl_millet_pop`, `iimr_finger_millet_pop`, `iiwbr_barley_eb53_pocket_guide`, `iimr_small_millets_gap_2022`, `iimr_kodo_millet_pop`, `dgr_groundnut_pop_states`, `tnau_cpg2020_oilseeds`) | 1389 -> 2069 (+680) |
 | 2 (vegetables + fruits) | potato, onion, tomato, brinjal, bhindi, cabbage, cauliflower, banana, mango, citrus fruit, papaya, orange, pome fruit, other fresh fruits | 15 (`cpri_potato_gap_2020`, `pau_vegetable_pop_2021`, `tnau_horticulture_cpg_2020`, `niphm_aesa_ipm_banana_2014`, `niphm_aesa_ipm_mango_2014`, `niphm_aesa_ipm_citrus_2014`, `niphm_aesa_ipm_papaya_2015`, `niphm_aesa_ipm_apple_2014`, `niphm_aesa_ipm_pear_2015`, `niphm_aesa_ipm_guava_2015`, `kau_pop_crops_2016`, `hpshiva_subtropical_pop_2022`, `ppqs_mango_export_pop_2022`, `nhm_ipm_schedule_banana_2012`, `nrcb_tr4_banana_technote`) | 2069 -> 3325 (+1256) |
+| 3 (pulses) | arhar/tur, moong, urad, masoor, horse-gram, khesari, cowpea, peas & beans | 8 successfully ingested (`aau_pigeonpea_pop_2021`, `aau_greengram_pop_2021`, `aau_blackgram_pop_2021`, `aau_lentil_pop_2021`, `tnau_cpg2020_pulses`, `aau_grasspea_pop_2021`, `aau_cowpea_pop_2021`, `aau_pea_pop_2021`) -- see note below on `aau_kharif_pop_2023`/`aau_rabi_pop_2023` (link rot, removed, no dedicated "other rabi/kharif pulses" doc this round) | ~3325 -> 3666 (+341) |
+| 4 (fibre/plantation + spices) | sugarcane, jute, tobacco, mesta, sannhamp, turmeric, dry ginger | 5 successfully ingested (`sbi_tn_vksa_agrotech_2025`, `crijaf_jute_allied_fibres_cropcalendar_2013`, `ctri_nirca_fcv_agronomy`, `iisr_turmeric_ext_pamphlet_2022`, `iisr_ginger_ext_pamphlet_2025`) -- `iisr_chilli_gap_2019` (dry chillies) and `iisr_coriander_gap_2019` (coriander) verified live and added to `CORPUS` but **NOT YET INGESTED**, see rate-limit note below | ~3666 -> 3996 (+~330, includes some concurrent-session activity between checks, see note below) |
+
+**This session hit a real Workers AI embedding rate limit (HTTP 429 on
+`@cf/baai/bge-base-en-v1.5`) partway through batch 4**, after roughly
+2400+ chunks embedded across today's batches -- the existing
+retry-with-backoff (added by a concurrent/earlier continuation of this same
+task, see the git log for `21d6bf3`/`436a203`) retried up to ~80s and still
+failed. Per this repo's "seemaa paas aaye to RUKO" rule, ingestion was
+stopped rather than hammering a failing endpoint. `iisr_chilli_gap_2019`
+and `iisr_coriander_gap_2019` are real, verified (200 OK/application/pdf),
+already in `CORPUS` -- just run `python 12_ingest_kisan_manuals.py --only
+iisr_chilli_gap_2019` (and the coriander id) again once the rate limit
+window clears (likely resets on a rolling/daily basis; retry in a later
+session rather than immediately).
+
+**Vector-count bookkeeping note:** this task ran across a session
+interruption (the working worktree was cleaned up mid-task; batches 1-2's
+commits survived via a merge into `main`, batch 3/4's `CORPUS` entries also
+survived but had NOT actually been ingested yet when this session resumed
+-- confirmed directly via Vectorize `get_by_ids`, not assumed from vector
+count deltas alone, since count deltas conflate genuinely-new ids with
+same-id upserts of already-live documents). Other sessions also
+continued this same PENDING.md item 12 task concurrently/sequentially
+(commits `21d6bf3`, `436a203` improved the ingestion script's retry/
+checkpoint behaviour) and evidently ran some ingestion of their own between
+this session's checkpoints, hence the batch 4 delta being larger than
+strictly this session's own additions -- flagged honestly rather than
+claimed as this session's sole work.
+
+**`aau_kharif_pop_2023` / `aau_rabi_pop_2023` removed (link rot):** both
+verified live (200 OK/application/pdf) when found and added to `CORPUS`
+during research; both now 404 when re-checked before this session's real
+ingestion run (the `kvkkokrajhar.aau.ac.in` host itself still resolves and
+serves other pages, just not these two files anymore). Removed from
+`CORPUS` rather than kept as a dead entry -- real, honest gap for "Other
+Rabi pulses" / "Other Kharif pulses" as dedicated multi-crop documents;
+those categories still get partial coverage from
+`icar_kharif_agro_advisories_2025` and the PAU kharif/rabi POPs already in
+this corpus. Retry the exact URLs in a future session before assuming
+permanently gone.
 
 **Linseed** is covered without a new document -- the oilseeds research pass
 found that the existing `pau_pop_rabi_2025_26` PDF (already ingested in
