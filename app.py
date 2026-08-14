@@ -50,7 +50,7 @@ _JS_FILES = ['mp_climate_loader.js', 'dicra_ndvi_loader.js', 'cadastral_loader.j
              'knowledge_base_loader.js',
              'national_selector.js',
              'national_ndvi_loader.js', 'validation_loader.js', 'soil_moisture_loader.js',
-             'advisory_loader.js', 'national_forecast_loader.js']
+             'advisory_loader.js', 'national_forecast_loader.js', 'farmer_advisory_fertilizer.js']
 
 
 def get_html_content():

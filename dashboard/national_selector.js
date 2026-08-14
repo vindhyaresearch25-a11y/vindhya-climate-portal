@@ -587,6 +587,15 @@
       if (window.VindhyaForecast && window.currentLocationPoint) {
         window.VindhyaForecast.load(window.currentLocationPoint.lat, window.currentLocationPoint.lon, districtName);
       }
+      // AUDIT_FIX_PROMPT.md item 10a/10b: Farmer Advisory panel's
+      // fertilizer card follows the same selection, no separate re-pick.
+      if (window.VindhyaFertilizerAdvisory) {
+        window.VindhyaFertilizerAdvisory.load({
+          districtName: districtName, stateName: current.state,
+          lat: window.currentLocationPoint ? window.currentLocationPoint.lat : null,
+          lon: window.currentLocationPoint ? window.currentLocationPoint.lon : null
+        });
+      }
     });
 
     var stateSlug = slugify(current.state);
@@ -645,6 +654,13 @@
       if (window.VindhyaForecast && window.currentLocationPoint) {
         window.VindhyaForecast.load(window.currentLocationPoint.lat, window.currentLocationPoint.lon, blockName + ', ' + current.district);
       }
+      if (window.VindhyaFertilizerAdvisory) {
+        window.VindhyaFertilizerAdvisory.load({
+          districtName: current.district, stateName: current.state,
+          lat: window.currentLocationPoint ? window.currentLocationPoint.lat : null,
+          lon: window.currentLocationPoint ? window.currentLocationPoint.lon : null
+        });
+      }
     });
 
     loadVillagesForDistrict(stateSlug, slugify(current.district)).then(function (geo) {
@@ -695,6 +711,13 @@
       current.village = name;
       if (window.VindhyaForecast && window.currentLocationPoint) {
         window.VindhyaForecast.load(window.currentLocationPoint.lat, window.currentLocationPoint.lon, name);
+      }
+      if (window.VindhyaFertilizerAdvisory) {
+        window.VindhyaFertilizerAdvisory.load({
+          districtName: current.district, stateName: current.state,
+          lat: window.currentLocationPoint ? window.currentLocationPoint.lat : null,
+          lon: window.currentLocationPoint ? window.currentLocationPoint.lon : null
+        });
       }
       // Real per-village climate data (index.html's onVillageChange) is
       // applied BEFORE this module's own updateBreadcrumb() runs, not

@@ -410,6 +410,16 @@
     locateDistrict(centroid).then(function (loc) {
       if (!loc) { res.locateFailed = true; mkRender(res); return; }
       res.state_name = loc.state_name; res.district_name = loc.district_name;
+      // AUDIT_FIX_PROMPT.md item 10a/10b: the Farmer Advisory side panel's
+      // fertilizer card follows this drawn field too, not just the
+      // Location Selector -- real area (res.area_ha) shown alongside the
+      // season-wise recommendations once the field's district resolves.
+      if (window.VindhyaFertilizerAdvisory) {
+        window.VindhyaFertilizerAdvisory.load({
+          districtName: loc.district_name, stateName: loc.state_name,
+          areaHa: res.area_ha, lat: centroid[1], lon: centroid[0]
+        });
+      }
       var stateSlug = slugify(loc.state_name), districtSlug = slugify(loc.district_name);
       var mpKey = (loc.state_name && /madhya\s*pradesh/i.test(loc.state_name)) ? mpRealKey(loc.district_name) : null;
 
