@@ -873,11 +873,19 @@ def cf_api(path: str, method: str = "GET", body: bytes | None = None, content_ty
                 time.sleep(wait_s)
                 continue
             raise
-        except (socket.timeout, TimeoutError, ConnectionError) as e:
+        except (socket.timeout, TimeoutError, ConnectionError, urllib.error.URLError) as e:
             # 2026-08-14: a resumed run hit a raw socket timeout on an
             # /upsert call after 1240/3118 chunks -- a genuine transient
             # network blip (not a 429), previously not retried at all.
             # Same backoff treatment; still raises after max_attempts.
+            # 2026-08-14 (later same day): urllib wraps a TLS handshake
+            # timeout in urllib.error.URLError, NOT a bare socket.timeout --
+            # that variant was still slipping past this except clause and
+            # killing the whole run on the very first batch (0 new vectors
+            # committed despite 2 prior successful backoff waits on 429).
+            # HTTPError is also a URLError subclass, so keep that branch
+            # ordered first -- this clause must only catch the non-HTTP
+            # (connection-level) case.
             if attempt < max_attempts:
                 wait_s = 10 * (2 ** (attempt - 1))
                 log(f"  network timeout on {path} (attempt {attempt}/{max_attempts}): {e} -- waiting {wait_s}s")

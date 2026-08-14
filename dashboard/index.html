@@ -359,7 +359,16 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 #right-panel{width:280px;background:var(--bg-card);border-left:1px solid var(--border);overflow-y:auto;display:flex;flex-direction:column;flex-shrink:0;}
 
 /* Bottom panel */
-#bottom-panel{height:210px;background:var(--bg-card);border-top:1px solid var(--border);display:flex;flex-shrink:0;overflow:hidden;}
+/* AUDIT_FIX_PROMPT.md item 7a (2026-08-14): was a 180px-wide vertical
+   scrolling tab rail beside a 210px-tall content pane -- with 12 visible
+   tabs that rail needed scrolling to see half of them, and the content
+   pane next to it read as mostly-empty on the text-only tabs (GEE
+   Workflow, API Hub, etc). Restructured column-wise instead: tabs sit in
+   a full-width wrapping tile row across the top (icon+name, ~9 fit per
+   row so 12 tabs need at most 2 rows, no forced scroll), content fills
+   the full width below. Taller overall (210px -> 340px) to give charts
+   real room instead of being squeezed into a sliver. */
+#bottom-panel{height:340px;background:var(--bg-card);border-top:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;}
 
 /* Cards */
 .glass-card{background:var(--bg-card);border:var(--border-default);border-radius:var(--radius-8);transition:all 0.3s;box-shadow:0 1px 4px rgba(0,0,0,0.04);}
@@ -416,9 +425,13 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 .chart-empty i{margin-right:0.4rem;}
 canvas.chart-canvas{max-height:100%;}
 
-/* Bottom tabs */
-.btm-tabs{display:flex;border-right:1px solid var(--border);flex-direction:column;width:180px;flex-shrink:0;overflow-y:auto;}
-.btm-tab{padding:0.5rem 0.75rem;font-size:var(--fs-2);font-weight:600;color:var(--text-dim);cursor:pointer;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:var(--space-04);transition:all 0.2s;}
+/* Bottom tabs -- item 7a: full-width wrapping tile row, not a narrow
+   scrolling column (see #bottom-panel comment above). max-height+
+   overflow-y:auto stays only as a safety net on very narrow/short
+   windows where even 3 tiles per row would exceed it; in normal desktop
+   widths every tab fits in <=2 rows and the scrollbar never appears. */
+.btm-tabs{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--border);flex-shrink:0;max-height:96px;overflow-y:auto;}
+.btm-tab{flex:1 1 140px;min-width:120px;justify-content:center;text-align:center;padding:0.5rem 0.6rem;font-size:var(--fs-2);font-weight:600;color:var(--text-dim);cursor:pointer;border-right:1px solid var(--border);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:var(--space-04);transition:all 0.2s;}
 /* Owner report 2026-08-14: 10 items appeared in BOTH the sidebar and this
    bottom strip (same name, same target pane) -- confusing, looks like two
    separate features. Sidebar is the single navigation entry point; these
@@ -433,7 +446,7 @@ canvas.chart-canvas{max-height:100%;}
 .btm-tab-dup{display:none!important;}
 .btm-tab.active,.btm-tab:hover{background:rgba(26,138,158,0.1);color:var(--cyan);}
 .btm-tab i{width:14px;text-align:center;}
-.btm-content{flex:1;display:flex;overflow:hidden;}
+.btm-content{flex:1;display:flex;overflow:auto;min-height:0;}
 .btm-pane{display:none;flex:1;flex-direction:column;overflow:hidden;}
 .btm-pane.active{display:flex;}
 
@@ -614,13 +627,17 @@ body.mk-modal-open #pane-merakhet.active{
   #right-panel{width:100%;border-left:none;border-top:1px solid var(--border);max-height:none;}
   .metric-row{grid-template-columns:1fr;}
 
-  /* Charts: bottom-panel's 180px side rail becomes a horizontally
-     swipeable pill strip on top, one pane at a time below it -- "ek ke
+  /* Charts: bottom-panel's tab tile row becomes a horizontally swipeable
+     pill strip on phone widths, one pane at a time below it -- "ek ke
      baad ek" without giving up the working tab-switch logic. */
-  #bottom-panel{flex-direction:column;height:auto;max-height:60vh;}
-  .btm-tabs{flex-direction:row;width:100%;overflow-x:auto;overflow-y:hidden;
+  /* Phone-width screens: not enough room for even 2 tiles per row without
+     each one wrapping its label -- fall back to a single horizontally
+     swipeable strip (a standard mobile bottom-nav pattern) instead of the
+     desktop tile grid. */
+  #bottom-panel{height:auto;max-height:60vh;}
+  .btm-tabs{flex-wrap:nowrap;max-height:none;overflow-x:auto;overflow-y:hidden;
     border-right:none;border-bottom:1px solid var(--border);-webkit-overflow-scrolling:touch;}
-  .btm-tab{flex-shrink:0;white-space:nowrap;min-height:44px;}
+  .btm-tab{flex:0 0 auto;white-space:nowrap;min-height:44px;}
   .btm-content{overflow-y:auto;}
 
   /* Chatbot: chhota kone ka button, sticky bar ke upar rahe taaki overlap na
