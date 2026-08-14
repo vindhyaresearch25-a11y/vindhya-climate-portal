@@ -245,6 +245,57 @@ teeno mausam (kharif/rabi/zayad) alag dikh rahe hain.
 
 ---
 
+# 11. OVERLAP -- disclaimer box zoom control ke upar chadh raha hai
+
+Screenshot me dikha: "Indicative, not for legal/cadastral use...
+Boundaries: Survey of India" wala disclaimer box seedhe **zoom
+control (+/-) aur "Max zoom z18" label ke upar chadh gaya hai** --
+dono ek doosre ko dhak rahe hain.
+
+**Theek karo:** disclaimer box ki jagah badlo (jaise bottom-left ya
+ek chhoti permanent strip me) taaki wo kabhi bhi zoom control,
+scale bar, ya kisi aur naksha-control ke upar na aaye, kisi bhi
+zoom/pan par.
+
+---
+
+# 12. FARMER ADVISORY -- idle-state text POORA HATAO
+
+Panel khulte hi jo dikhta hai -- "Select a state", "WhatsApp SMS
+हिंदी" button, "Boundaries + profiles · all states · IMD indices ·
+5 MP districts only" line, "Select a village to view cadastral
+aggregates.", "Select a village to view fertilizer demand and
+recommended crops." -- **ye poora block hatao.**
+
+Iski jagah item 10 wala niyam lagu karo: jo state/village pehle se
+Location Selector ya Mera Khet se chuna ja chuka hai, uska climate
+metric aur fertilizer/crop recommendation **seedhe apne aap** dikhe.
+Koi khaali prompt text na dikhe -- na "select a state", na "select a
+village". Agar sach me kuch selected hi nahi hai, to ek chhota
+compact card ("ऊपर से क्षेत्र चुनें") kaafi hai, itna lamba text
+block nahi.
+
+`WhatsApp SMS हिंदी` jaisa alag button bhi is jagah se hatao -- agar
+ye asli notification/alert feature hai to use apni jagah (jaise
+Advisory ke andar ek "अलर्ट पाएं" section) me le jao, yahan idle-state
+me nahi.
+
+---
+
+# 13. RISK LEGEND PANEL -- POORA HATAO
+
+"Extreme Risk / High Risk / Moderate Risk / Low Risk" wala legend
+panel naksha se **poora hatao** -- disclaimer/zoom-control ke saath
+overlap ho raha hai aur alag se panel jagah ghair raha hai.
+
+**Zaroori:** risk-color ka matlab (kaunsa rang kis risk star ko
+dikhata hai) kahin **kho na jaye** -- Climate Metrics side panel
+(jahan Drought Risk/Heatwave Severity card hain) me hi ek chhoti
+`legend-strip` (jaise 4 rang ke chhote dot + naam, ek line me) jod
+do, taaki jaankari bani rahe bina naksha par alag floating panel ke.
+
+---
+
 # ACCHA JO MILA -- aise hi rakho
 
 Har climate card ke neeche `Source · resolution · 2000-2024` style
@@ -273,8 +324,12 @@ item 5 ke mutabik).
     panel -- ek collage/grid me sab 16 screenshot
 11. Farmer Advisory panel -- Mera Khet se naape khet ke saath climate
     metric aur teeno mausam (kharif/rabi/zayad) ka fertilizer card
-    bhara hua
-12. Ek list: das jodiyon me se kaunsi sach me duplicate thi, kaunsi
+    bhara hua, idle-state text kahin nahi
+12. Disclaimer box zoom control se overlap na kare -- naye jagah ka
+    screenshot
+13. Risk Legend panel hata hua, uski jagah Climate Metrics panel me
+    chhoti legend-strip
+14. Ek list: das jodiyon me se kaunsi sach me duplicate thi, kaunsi
     alag content thi (naam ke bawajood)
 
 Har item ke saamne HUA / NAHI KIYA / kyun nahi likhna, screenshot ke
