@@ -301,7 +301,15 @@
     var bp = document.getElementById('bottom-panel');
     if (!bp || document.getElementById('historical-indices-panel')) return;
     var wrap = document.createElement('div');
-    wrap.style.cssText = 'flex:1;overflow-y:auto;border-right:1px solid var(--border);min-width:380px;max-width:500px;';
+    wrap.id = 'mp-legacy-panel-wrap';
+    // Owner report 2026-08-14: this column (historical/2040/village detail
+    // -- real content ONLY for the 5 IMD districts) used to always render,
+    // showing as a blank ~500px white gap for every other selection (all
+    // 726 GEE districts, and the default no-selection view). display:none
+    // by default now; refreshAll() (a real IMD district was selected)
+    // reveals it, _mpClimateClear() (selection moved away) hides it again
+    // -- same on/off switch, never a lingering empty box.
+    wrap.style.cssText = 'display:none;flex:1;overflow-y:auto;border-right:1px solid var(--border);min-width:380px;max-width:500px;';
     var h = document.createElement('div'); h.id = 'historical-indices-panel'; wrap.appendChild(h);
     var f = document.createElement('div'); f.id = 'future-2040-panel'; wrap.appendChild(f);
     var v = document.createElement('div'); v.id = 'village-detail-panel'; wrap.appendChild(v);
@@ -676,6 +684,8 @@
   function refreshAll(districtKey, villageName){
     state.currentDistrict = districtKey;
     state.currentVillage  = villageName || null;
+    var wrap = document.getElementById('mp-legacy-panel-wrap');
+    if (wrap) wrap.style.display = 'flex';
     try { rebuildCharts(districtKey); } catch(e) { console.warn('[loader] rebuildCharts:', e); }
     try { renderTrendChart(districtKey); } catch(e) { console.warn('[loader] renderTrendChart:', e); }
     try { renderForecast(districtKey); } catch(e) { console.warn('[loader] renderForecast:', e); }
@@ -716,6 +726,8 @@
     ['historical-indices-panel', 'village-detail-panel', 'future-2040-panel'].forEach(function(id){
       var el = document.getElementById(id); if (el) el.innerHTML = '';
     });
+    var wrap = document.getElementById('mp-legacy-panel-wrap');
+    if (wrap) wrap.style.display = 'none';
     var agriName = document.getElementById('agriDistName'); if (agriName) agriName.textContent = '';
     // The map marker itself is national_selector.js's own `marker` var now
     // (built from the actual drawn polygon via turf.pointOnFeature at all

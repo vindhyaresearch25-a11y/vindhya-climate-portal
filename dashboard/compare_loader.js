@@ -677,7 +677,7 @@
     if (tabs && !document.getElementById('compare-tab')) {
       var tab = document.createElement('div');
       tab.innerHTML = '<i class="fa fa-code-compare"></i>' + t('Compare', 'तुलना करें');
-      tab.className = 'btm-tab';
+      tab.className = 'btm-tab btm-tab-dup'; // owner report 2026-08-14: sidebar already has this exact item, this button was a visible duplicate
       tab.id = 'compare-tab';
       tab.onclick = function () {
         var panes = document.querySelectorAll('.btm-pane'), i;

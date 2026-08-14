@@ -327,7 +327,7 @@
     if (tabs && !el('advisory-tab')) {
       var tab = document.createElement('div');
       tab.innerHTML = '<i class="fa fa-comment-dots"></i>Advisory';
-      tab.className = 'btm-tab';
+      tab.className = 'btm-tab btm-tab-dup'; // owner report 2026-08-14: sidebar already has this exact item, this button was a visible duplicate
       tab.id = 'advisory-tab';
       tab.onclick = function () {
         var panes = document.querySelectorAll('.btm-pane'), i;

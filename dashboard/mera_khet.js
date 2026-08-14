@@ -941,7 +941,7 @@
     if (!host || !tabsHost || el('pane-merakhet')) return;
 
     var tab = document.createElement('div');
-    tab.className = 'btm-tab'; tab.id = 'mk-tab';
+    tab.className = 'btm-tab btm-tab-dup'; tab.id = 'mk-tab'; // owner report 2026-08-14: sidebar already has this exact item
     tab.innerHTML = '<i class="fa fa-seedling"></i>Mera Khet';
     tab.onclick = function () { if (typeof switchTab === 'function') switchTab(tab, 'merakhet'); };
     tabsHost.appendChild(tab);

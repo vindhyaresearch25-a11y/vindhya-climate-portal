@@ -287,6 +287,14 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 
 /* Map area */
 #map-panel{flex:1;position:relative;overflow:hidden;}
+/* Owner report 2026-08-14: faint white grid lines visible across the
+   satellite basemap -- the classic Leaflet tile-seam artifact (adjacent
+   256px tiles rendered with a sub-pixel gap between them, browser-
+   dependent). Standard documented fix: render each tile slightly larger
+   than its own 256px box so neighbouring tiles overlap by that fraction
+   of a pixel instead of leaving a hairline gap. Purely cosmetic, changes
+   nothing about which tiles load or what they show. */
+.leaflet-tile-container img{width:256.5px!important;height:256.5px!important;}
 #map{width:100%;height:100%;}
 .map-overlay{position:absolute;top:1rem;right:1rem;z-index:500;display:flex;flex-direction:column;gap:var(--space-05);}
 .map-ctrl-btn{background:var(--bg-card);border:var(--border-default);color:#8a9aac;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-4);cursor:pointer;font-size:var(--fs-2);transition:all 0.2s;}
@@ -411,6 +419,18 @@ canvas.chart-canvas{max-height:100%;}
 /* Bottom tabs */
 .btm-tabs{display:flex;border-right:1px solid var(--border);flex-direction:column;width:180px;flex-shrink:0;overflow-y:auto;}
 .btm-tab{padding:0.5rem 0.75rem;font-size:var(--fs-2);font-weight:600;color:var(--text-dim);cursor:pointer;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:var(--space-04);transition:all 0.2s;}
+/* Owner report 2026-08-14: 10 items appeared in BOTH the sidebar and this
+   bottom strip (same name, same target pane) -- confusing, looks like two
+   separate features. Sidebar is the single navigation entry point; these
+   panes' OWN tab button in this strip is redundant since setBtmTab()
+   (called from sidebar's setNav()) finds and activates a pane by id
+   regardless of whether its tab button is visible -- hiding the button
+   here does not break navigation. The genuine multi-view switcher group
+   (Rainfall/Temperature/Drought/Trends/NDVI Trend/7-Day Forecast, all
+   sub-views WITHIN Climate Risk Atlas for the same selected place) is
+   NOT touched -- those really are "the topic's own chart/view tabs" the
+   owner described keeping. */
+.btm-tab-dup{display:none!important;}
 .btm-tab.active,.btm-tab:hover{background:rgba(26,138,158,0.1);color:var(--cyan);}
 .btm-tab i{width:14px;text-align:center;}
 .btm-content{flex:1;display:flex;overflow:hidden;}
@@ -1276,11 +1296,11 @@ body.mk-modal-open #pane-merakhet.active{
         <div class="btm-tab" onclick="switchTab(this,&#39;gee&#39;)"><i class="fa fa-earth-asia"></i>GEE Workflow</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;ai&#39;)"><i class="fa fa-brain"></i>Projection Method</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;api&#39;)"><i class="fa fa-code"></i>API Hub</div>
-        <div class="btm-tab" onclick="switchTab(this,&#39;forest&#39;)"><i class="fa fa-tree"></i>Forest</div>
-        <div class="btm-tab" onclick="switchTab(this,&#39;pmfby&#39;)"><i class="fa fa-shield-halved"></i>PMFBY</div>
+        <div class="btm-tab btm-tab-dup" onclick="switchTab(this,&#39;forest&#39;)"><i class="fa fa-tree"></i>Forest</div>
+        <div class="btm-tab btm-tab-dup" onclick="switchTab(this,&#39;pmfby&#39;)"><i class="fa fa-shield-halved"></i>PMFBY</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;agriculture&#39;)"><i class="fa fa-wheat-awn"></i>Agriculture</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;village&#39;)"><i class="fa fa-house"></i>Village Intelligence</div>
-        <div class="btm-tab" onclick="switchTab(this,&#39;cadastral&#39;)"><i class="fa fa-draw-polygon"></i>Cadastral</div>
+        <div class="btm-tab btm-tab-dup" onclick="switchTab(this,&#39;cadastral&#39;)"><i class="fa fa-draw-polygon"></i>Cadastral</div>
         <div class="btm-tab" onclick="switchTab(this,&#39;validation&#39;)"><i class="fa fa-check-double"></i>Validation</div>
       </div>
 
