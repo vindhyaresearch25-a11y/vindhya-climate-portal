@@ -296,6 +296,48 @@ do, taaki jaankari bani rahe bina naksha par alag floating panel ke.
 
 ---
 
+# 14. NAKSHA AUR NEECHE KA PANEL -- SPACING + ATTRACTIVE DESIGN
+
+Ye phir se dikha (Rainfall tab): "RAINFALL FORECAST -- CENTRAL INDIA
+(2024-25)" heading, neeche "Select a district..." ek line, baaki
+poora page khali -- item 6/7/8/9 me pehle se likha hai ye khali-jagah
+wala masla, **fix karte waqt ye do cheezein bhi saath me karo:**
+
+### 14a. Naksha aur panel ke beech spacing
+Abhi neeche wala panel seedhe naksha se **chipka hua** hai, koi
+gap/margin nahi. Beech me kam se kam **16-24px ka gap** rakho
+(item 6 ke 4px-grid niyam se), taaki dono alag-alag saaf sections
+lagen, ek doosre se chipke hue na lagen.
+
+### 14b. Panel "attractive" -- sirf empty-state nahi, poore design ka
+Har tab-panel (khali ho ya bhara) professional dikhna chahiye:
+- Heading ke saath ek chhota icon + rang-patti (jaise Rainfall =
+  neela accent bar upar)
+- Khali-state bhi plain text-line jaisa na ho -- ek halka card
+  (background `#F7F9FB`, rounded corner, icon beech me, text neeche)
+  jisme "Select a district" jaisa sandesh center me dikhe, saath me
+  agar mumkin ho to ek **"District chunein"** button/dropdown seedhe
+  usi card ke andar (Location Selector tak wapas jaane ki zaroorat
+  na pade)
+- Bhara-state (data aane ke baad) me chart card ka wahi design-system
+  istemal ho jo item 6 me likha hai (radius 8px, border 1px, shadow
+  nahi, spacing 4px grid)
+- Panel ki height content ke hisaab se ho (item 8 me likha content-fit
+  niyam), khali safed jagah kahin na bache
+
+**Ye niyam saaron 16 tabs (item 9 ki list) par ek jaisa lagu ho.**
+
+### 14c. Panel jagah tabhi bane jab click ho -- pehle se khali jagah reserve na karo
+Panel **naksha ke neeche hi rahe** (jagah wahi), lekin chart/graph
+wala area **sirf tab par click karne ke BAAD hi bane/dikhe** -- click
+se pehle wahan koi khali reserved space na ho (poora page compact
+rahe, naksha ke neeche sirf tab-grid dikhe, uske aage kuch nahi).
+Click karte hi neeche ka panel **turant expand ho** aur usi waqt
+chart/data se bhar jaye -- khali box pehle se render ho kar baad me
+bharna nahi, balki click hote hi jagah + data dono ek saath aayen.
+
+---
+
 # ACCHA JO MILA -- aise hi rakho
 
 Har climate card ke neeche `Source · resolution · 2000-2024` style
@@ -329,7 +371,9 @@ item 5 ke mutabik).
     screenshot
 13. Risk Legend panel hata hua, uski jagah Climate Metrics panel me
     chhoti legend-strip
-14. Ek list: das jodiyon me se kaunsi sach me duplicate thi, kaunsi
+14. Naksha aur panel ke beech gap, aur ek khali-state card ka naya
+    "attractive" design (Rainfall tab se)
+15. Ek list: das jodiyon me se kaunsi sach me duplicate thi, kaunsi
     alag content thi (naam ke bawajood)
 
 Har item ke saamne HUA / NAHI KIYA / kyun nahi likhna, screenshot ke
