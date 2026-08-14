@@ -61,9 +61,11 @@
     if (!box) return;
     var pt = window.currentLocationPoint;
     if (!pt) {
-      box.innerHTML = '<div style="padding:var(--space-1);font-size:var(--fs-2);line-height:1.8;opacity:.85">' +
-        '<b>' + t('Live Weather', 'मौसम') + '</b><br>' +
-        t('Select a location', 'स्थान चुनें') + '</div>';
+      box.innerHTML = '<div class="btm-pane-empty"><i class="fa fa-cloud-sun u-icon-lg-muted"></i>' +
+        '<div><b>' + t('Live Weather', 'मौसम') + '</b><br>' +
+        t('Select a district, block or village to see live weather for that point', 'उस स्थान का लाइव मौसम देखने के लिए ज़िला, ब्लॉक या गाँव चुनें') + '</div>' +
+        '<button class="btm-pane-empty-btn" onclick="focusLocationSelector()"><i class="fa fa-location-crosshairs"></i> ' +
+        t('Select district', 'ज़िला चुनें') + '</button></div>';
       return;
     }
     box.innerHTML = '<div style="padding:16px;font-size:12px;opacity:.8">' +
@@ -165,6 +167,12 @@
     p.className = 'btm-pane';
     p.id = 'pane-liveweather';
     host.appendChild(p);
+    // AUDIT_FIX_PROMPT.md item 9: setNav('liveweather') already calls
+    // VindhyaLiveWeather.reload() (=render()) after setBtmTab(), so the
+    // sidebar path was already fine -- this eager call just guarantees
+    // #live-weather-box isn't a blank empty div on first page load either,
+    // for consistency with mandi_loader.js's/crop_stats_loader.js's fix.
+    render();
 
     var firstTab = document.querySelector('.btm-tab');
     var tabs = firstTab ? firstTab.parentNode : null;

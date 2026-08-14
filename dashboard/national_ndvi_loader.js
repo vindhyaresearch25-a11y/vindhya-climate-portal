@@ -100,11 +100,26 @@
         + 'Distinct from UNDP DiCRA (used for Madhya Pradesh\'s 52 districts) — never merged. See Data Sources.</div>';
       host.classList.remove('u-hidden');
     }
+    // AUDIT_FIX_PROMPT.md item 9: real content is showing below (this
+    // panel), not in the #chartNdvi canvas above it (that's DiCRA-only) --
+    // hide that canvas's own "select a district" message so the two don't
+    // both claim empty/full at once.
+    var emptyEl = document.getElementById('empty-chartNdvi');
+    if (emptyEl) emptyEl.style.display = 'none';
   }
 
   function clearNationalPanel() {
     var host = document.getElementById('national-ndvi-panel');
     if (host) host.classList.add('u-hidden');
+    // Only re-show the chart's empty state if dicra_ndvi_loader.js hasn't
+    // already drawn a real chart into that same canvas for this district
+    // (Chart.js keeps a live registry keyed by canvas -- this is a safe
+    // check regardless of which loader's handler ran first).
+    var hasRealChart = (typeof Chart !== 'undefined' && Chart.getChart) ? !!Chart.getChart('chartNdvi') : false;
+    if (!hasRealChart) {
+      var emptyEl = document.getElementById('empty-chartNdvi');
+      if (emptyEl) emptyEl.style.display = 'flex';
+    }
   }
 
   function handleDistrictChange(districtName) {

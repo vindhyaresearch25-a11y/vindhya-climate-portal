@@ -19,11 +19,22 @@
     return Number(n).toFixed(d == null ? 1 : d);
   }
 
+  function setNdviEmpty(show){
+    var el = document.getElementById('empty-chartNdvi');
+    if (el) el.style.display = show ? 'flex' : 'none';
+  }
+
   function renderNdviChart(districtKey){
     if (!state.ndvi || !state.ndvi.districts) return;
     var series = state.ndvi.districts[districtKey];
-    if (!series) return;
+    // AUDIT_FIX_PROMPT.md item 9 (2026-08-14): this used to just return
+    // here, leaving #chartNdvi a blank canvas with no message for any
+    // district outside DiCRA's 52 -- national_ndvi_loader.js may still
+    // fill the separate #national-ndvi-panel below with real GEE/MODIS
+    // NDVI for those, but this canvas itself needs its own honest state.
+    if (!series) { setNdviEmpty(true); return; }
     if (typeof Chart === 'undefined') return;
+    setNdviEmpty(false);
 
     var dates = series.dates;
     var means = series.ndvi_mean;

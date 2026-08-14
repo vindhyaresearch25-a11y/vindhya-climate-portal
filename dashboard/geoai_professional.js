@@ -165,13 +165,15 @@
   }
 
   function emptyHtml() {
-    return '<div style="padding:var(--space-1);font-size:var(--fs-2);line-height:1.8;color:var(--text);opacity:.85">' +
-      '<b>' + t('Polygon (AOI) analysis', 'बहुभुज (AOI) विश्लेषण') + '</b><br>' +
+    return '<div class="btm-pane-empty"><i class="fa fa-draw-polygon u-icon-lg-muted"></i>' +
+      '<div><b>' + t('Polygon (AOI) analysis', 'बहुभुज (AOI) विश्लेषण') + '</b><br>' +
       t('Draw a shape on the map', 'नक्शे पर आकृति बनाएँ') + ' ' +
       infoIcon('Draw any shape -- a field, a cluster of villages, a watershed. The portal measures its area and '
         + 'perimeter on a spherical Earth model (R = 6,378,137 m, accurate to ~0.7%) and reports the climate '
         + 'indices of every village inside it, computed from IMD gridded observations.') +
-      '</div>';
+      '</div>' +
+      '<button class="btm-pane-empty-btn" onclick="document.getElementById(\'aoi-btn-draw\').click()"><i class="fa fa-draw-polygon"></i> ' +
+      t('Draw AOI', 'क्षेत्र बनाएँ') + '</button></div>';
   }
 
   function render(res) {
@@ -670,13 +672,28 @@
     var p = el('div', '', '');
     p.className = 'btm-pane';
     p.id = 'pane-nasa';
-    p.innerHTML = '<div id="nasa-box"><div style="padding:var(--space-1);font-size:var(--fs-2);opacity:.8">' +
-      t('Select a district or village', 'ज़िला या गाँव चुनें') + '</div></div>';
+    p.innerHTML = '<div id="nasa-box"><div class="btm-pane-empty"><i class="fa fa-satellite-dish u-icon-lg-muted"></i>' +
+      '<div><b>' + t('Live Weather (NASA POWER)', 'लाइव मौसम (NASA POWER)') + '</b><br>' +
+      t('Select a district or village', 'ज़िला या गाँव चुनें') + '</div>' +
+      '<button class="btm-pane-empty-btn" onclick="focusLocationSelector()"><i class="fa fa-location-crosshairs"></i> ' +
+      t('Select district', 'ज़िला चुनें') + '</button></div></div>';
     host.appendChild(p);
     addTab('nasa-tab', 'pane-nasa', 'fa-satellite-dish', 'Live Weather', 'लाइव मौसम', function () {
       var loc = currentLocation();
       if (loc) loadNasaPower(loc.lat, loc.lng, loc.name);
     });
+    // NOTE (found 2026-08-14 while fixing item 9, NOT acted on): this tab
+    // duplicates both the sidebar's "Live Weather" item and the bottom-
+    // strip's own live_weather_loader.js tab (already hidden there as
+    // btm-tab-dup per item 1) -- this one is the one actually left
+    // visible, showing a weaker NASA-POWER-only pane instead of
+    // live_weather_loader.js's real one (NASA POWER + Open-Meteo
+    // forecast). Left alone here: the owner's item 9 list explicitly
+    // names "Live Weather" as one of the 16 bottom tabs to keep and fix
+    // in place ("ye layout theek hai, ise mat badlo"), so removing/hiding
+    // a currently-visible tab now would contradict that instruction even
+    // though it looks like the item-1 dedup logic should apply. Flagged
+    // for the owner to confirm before either tab is hidden.
   }
 
   function boot() {

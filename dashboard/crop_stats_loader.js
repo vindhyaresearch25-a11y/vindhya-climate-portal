@@ -223,6 +223,13 @@
     p.className = 'btm-pane';
     p.id = 'pane-cropstats';
     host.appendChild(p);
+    // AUDIT_FIX_PROMPT.md item 9 (2026-08-14): render() used to only run
+    // from the tab's own onclick, so #crop-stats-box was a blank empty
+    // div until the owner clicked this specific tab at least once. Calling
+    // it here shows the real "select a district" state immediately (no
+    // network fetch happens on this branch -- see render()'s !sd check),
+    // matching what mandi_loader.js already does via its own eager load().
+    render();
 
     var firstTab = document.querySelector('.btm-tab');
     var tabs = firstTab ? firstTab.parentNode : null;
