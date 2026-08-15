@@ -97,6 +97,8 @@
     var droughtVal = idx.drought_probability_pct != null ? idx.drought_probability_pct : null;
     setTxt('m-drought', droughtVal != null ? Number(droughtVal).toFixed(1) + '%' : 'Not available');
     setBar('bar-drought', Math.min(100, Math.max(0, droughtVal || 0)));
+    // item 15e (2026-08-15): was static "Select a district" text that never updated
+    setTxt('drought-trend', droughtVal != null ? (districtName || '') + ' · ' + (meta.years || '2000–2024') : (districtName || ''));
 
     // NDVI requires DiCRA/MODIS district series, only built for MP so far.
     setTxt('m-ndvi', 'Not available');

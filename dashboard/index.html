@@ -499,7 +499,14 @@ canvas.chart-canvas{max-height:100%;}
 .btm-tab i{width:14px;text-align:center;}
 /* item 14c: hidden until #bottom-panel gets .expanded (first tab click) --
    see the #bottom-panel/.expanded rule above. */
-.btm-content{display:none;flex:1;overflow:auto;min-height:0;}
+/* item 15b (2026-08-15): #chatFab is position:fixed at the viewport's own
+   bottom-right corner (bottom:22px;right:22px, 56px wide) -- whatever
+   pane content happens to render in that same screen region (e.g. Live
+   Weather's WIND card) sits underneath it and gets visually covered.
+   Reserving real space here, not just raising z-index, is the actual
+   fix -- z-index only decides which of two overlapping things wins, it
+   doesn't stop them overlapping. */
+.btm-content{display:none;flex:1;overflow:auto;min-height:0;padding-right:84px;}
 #bottom-panel.expanded .btm-content{display:flex;}
 .btm-pane{display:none;flex:1;flex-direction:column;overflow:hidden;}
 .btm-pane.active{display:flex;}
@@ -1248,7 +1255,7 @@ body.mk-modal-open #pane-merakhet.active{
             <div class="metric-label" data-i18n>Drought Risk</div>
             <div class="metric-value red" id="m-drought">—</div>
             <div class="metric-bar"><div id="bar-drought" class="metric-bar-fill u-w0-red"></div></div>
-            <div class="metric-trend"><i class="fa fa-arrow-up u-dim"></i> <span data-i18n>Select a district</span></div>
+            <div class="metric-trend"><i class="fa fa-arrow-up u-dim"></i> <span id="drought-trend" data-i18n>Select a district</span></div>
             <div class="metric-source" data-i18n>Source · IMD/ERA5-Land+CHIRPS (GEE) · 2000–2024</div>
           </div>
           <div class="metric-card warn">
@@ -2596,6 +2603,8 @@ function onVillageChange(village){
       var dv = vi.drought_probability_pct != null ? vi.drought_probability_pct : null;
       setTxt('m-drought', dv != null ? Number(dv).toFixed(1)+'%' : 'Not available');
       setBar('bar-drought', Math.min(100, Math.max(0, dv || 0)));
+      // item 15e: was static "Select a district" text that never updated
+      setTxt('drought-trend', dv != null ? vname + ' · 2000–2024 mean' : vname);
       // NDVI: real UNDP DiCRA district zonal series (village-level NDVI is not
       // published), never derived from SPI/rainfall.
       var nv = null, nvIsReal = false;
@@ -2675,6 +2684,8 @@ function applyDistrictMetrics(d, distKey){
   var droughtVal = (indices && indices.drought_probability_pct != null) ? indices.drought_probability_pct : null;
   setTxt('m-drought', (droughtVal != null ? Number(droughtVal).toFixed(1)+'%' : 'Not available'));
   setBar('bar-drought', Math.min(100, Math.max(0, droughtVal || 0)));
+  // item 15e: was static "Select a district" text that never updated
+  setTxt('drought-trend', droughtVal != null ? (d.name || distKey) + ' · 2000–2024 mean' : (d.name || distKey));
 
   // NDVI: real UNDP DiCRA district zonal series only (never derived from SPI).
   var ndviVal = null, ndviIsReal = false;
@@ -2987,10 +2998,15 @@ function setTimelineYear(year){
       var spiLabel = spiVal <= -2 ? 'Extremely Dry' : spiVal <= -1.5 ? 'Severely Dry' :
         spiVal <= -1 ? 'Moderately Dry' : spiVal < 1 ? 'Near Normal' : 'Wet';
       st('m-drought', 'SPI ' + spiVal.toFixed(2)); sb('bar-drought', Math.min(100, Math.max(0, Math.round((2-spiVal)/4*100))));
-      var dtEl = document.getElementById('drought-detail');
+      // item 15e: this used to target 'drought-detail', an id that never
+      // existed in the HTML -- always a silent no-op. The card's real
+      // (and only) trend span is 'drought-trend'.
+      var dtEl = document.getElementById('drought-trend');
       if (dtEl) dtEl.textContent = spiLabel + ' \u2014 ' + year + ' ' + (d ? d.name : '');
     } else {
       st('m-drought', 'Not available');
+      var dtEl2 = document.getElementById('drought-trend');
+      if (dtEl2) dtEl2.textContent = 'Not available';
     }
     // NDVI has its own per-year series in data/dicra_ndvi.json, not in
     // this file -- not merged here, so state that plainly instead of

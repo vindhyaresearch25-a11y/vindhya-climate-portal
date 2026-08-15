@@ -275,11 +275,32 @@
     // by default now; refreshAll() (a real IMD district was selected)
     // reveals it, _mpClimateClear() (selection moved away) hides it again
     // -- same on/off switch, never a lingering empty box.
-    wrap.style.cssText = 'display:none;flex:1;overflow-y:auto;border-right:1px solid var(--border);min-width:380px;max-width:500px;';
+    // item 15d (2026-08-15): this wrap's own CSS (border-RIGHT, min/max-
+    // WIDTH) was always designed as a side column sitting beside the
+    // active tab pane -- but it was being inserted as a direct child of
+    // #bottom-panel, which is flex-direction:COLUMN. That stacked it
+    // vertically ABOVE .btm-tabs/.btm-content instead of beside the pane,
+    // so it had to split #bottom-panel's fixed height with everything
+    // else below it -- only ~100-150px left, 1.5 rows of cards visible,
+    // no scroll indicator. Moving it inside .btm-content (a row-flex
+    // container) puts it where its own CSS already expected it: a real
+    // side column at .btm-content's full height, beside whichever pane
+    // is active.
+    // item 15d follow-up: wrap.style.display gets toggled to 'flex' by
+    // refreshAll() below -- plain flex with no flex-direction defaults to
+    // ROW, which laid its 3 stacked sections (historical/2040/village)
+    // out SIDE BY SIDE instead of one under another, squeezing
+    // future-2040-panel into a sliver that overflowed past the wrap's
+    // own right edge entirely (found live: futureRect.left=687 was
+    // already past wrapRect.right=721 minus its own width). Explicit
+    // flex-direction:column fixes the actual stacking, not just the size.
+    wrap.style.cssText = 'display:none;flex-direction:column;flex:1;overflow-y:auto;border-right:1px solid var(--border);min-width:380px;max-width:500px;';
     var h = document.createElement('div'); h.id = 'historical-indices-panel'; wrap.appendChild(h);
     var f = document.createElement('div'); f.id = 'future-2040-panel'; wrap.appendChild(f);
     var v = document.createElement('div'); v.id = 'village-detail-panel'; wrap.appendChild(v);
-    bp.insertBefore(wrap, bp.firstChild);
+    var btmContent = bp.querySelector('.btm-content');
+    if (btmContent) btmContent.insertBefore(wrap, btmContent.firstChild);
+    else bp.insertBefore(wrap, bp.firstChild); // fallback, should never hit
   }
 
   var HAZARD_MAP = {

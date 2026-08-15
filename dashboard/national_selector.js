@@ -481,6 +481,7 @@
     // switch to a state/district with no data.
     var heatDetail = el('heat-detail'); if (heatDetail) heatDetail.textContent = 'Select a district';
     var rainTrend = el('m-rain-trend'); if (rainTrend) rainTrend.textContent = 'Select a district';
+    var droughtTrend = el('drought-trend'); if (droughtTrend) droughtTrend.textContent = 'Select a district';
     // adv-title-0/adv-body-0 resets removed 2026-08-14 alongside the
     // right-panel Farmer Advisory block itself (owner instruction).
     var navBadgeHeat = el('nav-badge-heat');
