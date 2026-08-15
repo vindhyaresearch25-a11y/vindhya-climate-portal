@@ -10,6 +10,46 @@ Har item ke saamne: **HUA / NAHI KIYA / kyun nahi**
 
 ---
 
+## STATUS LOG (2026-08-15)
+
+**Module 1 (GIS Land Parcel): HUA (v1).** `dashboard/crop_insurance_pilot/index.html`
++ `dashboard/data/crop_insurance_pilot/simrol_boundary.geojson`. Built and
+live-tested in a real browser (Chrome, via localhost, screenshot-verified
+-- not just "should work"):
+- Simrol's **real** village boundary extracted from the same Survey of
+  India/NWDP village layer this portal already uses nationally (fetched
+  live from the Hugging Face-hosted `boundaries/soi/villages/
+  madhya_pradesh/indore.geojson`, feature matched on `village_name ==
+  "Simrol"`, vil_lgd 476504, block Mhow, district Indore) -- not
+  hand-drawn, not approximated.
+- Real Census fields carried in that same SoI/NWDP feature shown as-is:
+  population 9,856, households 1,956 -- not separately fetched/estimated.
+- Demo parcel grid (168 target cells, deterministic bbox subdivision
+  clipped to the real village polygon via Turf.js `intersect` -- no
+  `Math.random()` anywhere) -- clicking a parcel opens a Farmer Dashboard
+  card with a synthetic `MP-IND-MHW-NNNNN` id (real block code MHW for
+  Mhow, not the illustrative "BAR" from rule #2) and a placeholder
+  `किसान-उदाहरण-N` name.
+- Sticky DEMO banner (rule #2), disclaimer text (rule #4) present verbatim
+  on every parcel dashboard.
+- Known limitation, disclosed in-page: each demo parcel is ~15-20 ha, not
+  individual-farm-sized (~0.5-2 ha real holdings) -- a finer grid would
+  need ~1,500+ cells for realistic sizing, impractical for a client-side
+  demo; noted in the code comment, not hidden.
+- NOT done: this page is not yet linked from the main dashboard
+  (`dashboard/index.html`) nav -- that file is under active edit by
+  another concurrent session (`AUDIT_FIX_PROMPT.md`), so a nav-link edit
+  was deliberately deferred to avoid a collision; reachable directly via
+  `dashboard/crop_insurance_pilot/index.html` for now.
+
+**Modules 2-8: NAHI KIYA.** Not started this session -- Module 1 alone
+(real-boundary fetch, extraction, grid-clip render, click-through
+dashboard, live verification) was the full scope of this pass. Module 2
+(land-use breakdown + validation-sum-check) is the natural next step per
+the doc's own Build Order.
+
+---
+
 # ZAROORI NIYAM -- sab modules par lagu, sabse pehle padho
 
 1. **Pilot scope: sirf Simrol, Indore.** Poore desh ka architecture

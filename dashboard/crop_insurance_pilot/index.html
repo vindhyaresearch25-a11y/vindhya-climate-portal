@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Crop Insurance -- Simrol Pilot (DEMO)</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+<style>
+  :root{
+    --accent:#0E7C7B; --accent-dark:#0a5958; --warn:#B8860B; --warn-bg:#FFF6E0;
+    --ink:#1a2430; --ink-dim:#5a6b7a; --line:#e2e8ee; --card-bg:#ffffff; --page-bg:#f4f7f9;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--page-bg);color:var(--ink);}
+  /* ---- Sticky DEMO banner: rule #2, must never scroll away ---- */
+  #demoBanner{
+    position:sticky;top:0;z-index:5000;background:var(--warn-bg);border-bottom:2px solid var(--warn);
+    color:#5c4400;padding:8px 16px;font-size:13px;font-weight:700;text-align:center;
+    display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;
+  }
+  #demoBanner .hindi{font-weight:600;}
+  header{padding:16px 20px 8px;}
+  header h1{margin:0 0 4px;font-size:20px;color:var(--accent-dark);}
+  header p{margin:0;font-size:13px;color:var(--ink-dim);max-width:900px;}
+  .layout{display:grid;grid-template-columns:1fr 380px;gap:14px;padding:14px 20px 28px;align-items:start;}
+  @media (max-width:900px){.layout{grid-template-columns:1fr;}}
+  #map{height:70vh;min-height:480px;border-radius:10px;border:1px solid var(--line);}
+  .card{background:var(--card-bg);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-bottom:12px;}
+  .card h2{margin:0 0 8px;font-size:14px;color:var(--accent-dark);display:flex;align-items:center;gap:6px;}
+  .card h2 .n{width:18px;height:18px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;display:inline-flex;align-items:center;justify-content:center;}
+  .stat-row{display:flex;justify-content:space-between;font-size:12.5px;padding:3px 0;border-bottom:1px dashed var(--line);}
+  .stat-row:last-child{border-bottom:none;}
+  .stat-row .k{color:var(--ink-dim);}
+  .stat-row .v{font-weight:600;}
+  .real-tag{display:inline-block;background:#E4F5E4;color:#1c6b1c;font-size:10px;font-weight:700;border-radius:4px;padding:1px 6px;margin-left:6px;}
+  .demo-tag{display:inline-block;background:#FFE9CC;color:#8a5300;font-size:10px;font-weight:700;border-radius:4px;padding:1px 6px;margin-left:6px;}
+  #farmerPanel .empty{color:var(--ink-dim);font-size:12.5px;text-align:center;padding:22px 6px;}
+  #farmerPanel .empty i{font-size:26px;display:block;margin-bottom:8px;color:#b9c4cd;}
+  .parcel-id{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;background:#eef4f4;border-radius:4px;padding:1px 6px;}
+  .disclaimer{font-size:11px;color:var(--ink-dim);line-height:1.5;background:#f7f9fb;border-radius:6px;padding:8px 10px;margin-top:8px;border-left:3px solid var(--warn);}
+  .land-use-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px;}
+  .land-use-table th,.land-use-table td{text-align:left;padding:4px 6px;border-bottom:1px solid var(--line);}
+  .land-use-table th{color:var(--ink-dim);font-weight:600;font-size:11px;}
+  .badge-warn{background:#FDECEC;color:#a02222;font-size:10.5px;font-weight:700;border-radius:4px;padding:2px 8px;display:inline-block;margin-top:6px;}
+  .legend{position:absolute;bottom:10px;left:10px;background:#fff;border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-size:11px;z-index:900;box-shadow:0 1px 4px rgba(0,0,0,.12);}
+  .legend div{display:flex;align-items:center;gap:6px;margin:2px 0;}
+  .legend .sw{width:12px;height:12px;border-radius:2px;display:inline-block;}
+  footer{padding:10px 20px 30px;font-size:11px;color:var(--ink-dim);text-align:center;}
+  a.back{font-size:12px;color:var(--accent-dark);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<div id="demoBanner">
+  <span>⚠️ PILOT/DEMO — Simrol, Indore</span>
+  <span class="hindi">| उदाहरण डेटा, वास्तविक अभिलेख नहीं (NOT for actual insurance claims)</span>
+</div>
+
+<header>
+  <a class="back" href="../index.html">&larr; VINDHYA Climate Portal</a>
+  <h1>Smart Crop Insurance &amp; AI-based Crop Loss Assessment — Simrol Pilot</h1>
+  <p>Module 1 (GIS Land Parcel) build, per <code>CROP_INSURANCE_SYSTEM_PROMPT.md</code>. Village boundary below is
+  <b>real</b> (Survey of India, via NWDP — same source as this portal's national village layer). The parcel grid
+  inside it is <b>synthetic demo data</b> for pilot purposes only — real cadastral parcel boundaries (Bhu-Naksha)
+  are not used or claimed anywhere on this page.</p>
+</header>
+
+<div class="layout">
+  <div style="position:relative;">
+    <div id="map"></div>
+    <div class="legend">
+      <div><span class="sw" style="background:#0E7C7B;border:2px solid #063f3e;"></span> Simrol village boundary (real, SoI)</div>
+      <div><span class="sw" style="background:#ffd166cc;border:1px solid #b8860b;"></span> Demo parcel (synthetic)</div>
+      <div><span class="sw" style="background:#ff8c42;border:1px solid #b8860b;"></span> Selected parcel</div>
+    </div>
+  </div>
+
+  <div id="sidebar">
+    <div class="card">
+      <h2><span class="n">1</span> Simrol Village <span class="real-tag">REAL DATA</span></h2>
+      <div id="villageStats"><div class="stat-row"><span class="k">Loading...</span></div></div>
+    </div>
+
+    <div class="card">
+      <h2><span class="n">2</span> Farmer Dashboard <span class="demo-tag">DEMO</span></h2>
+      <div id="farmerPanel">
+        <div class="empty"><i class="fa">&#128205;</i>Click a parcel on the map to open its (demo) Farmer Dashboard.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Module status</h2>
+      <div style="font-size:12px;line-height:1.7;">
+        <b>Module 1 (GIS Parcel):</b> HUA — real Simrol boundary + demo parcel grid, click-through dashboard.<br>
+        <b>Module 2-8:</b> NAHI KIYA yet — this is Module 1 only. See <code>CROP_INSURANCE_SYSTEM_PROMPT.md</code> for the full build order.
+      </div>
+      <div class="disclaimer">
+        AI-based Potential Claim Estimate — Final settlement subject to applicable insurance rules,
+        authorised CCE/field verification and insurer/government assessment. (No claim estimate exists
+        yet on this page — Module 8 not built. Shown here as required boilerplate for when it is.)
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Village boundary: Survey of India via National Water Data Portal (NWDP) — vil_lgd 476504.
+  Parcel grid: synthetic demo, generated client-side, clipped to the real village polygon (Turf.js). No fabricated
+  farmer names, ownership records, or claim data anywhere on this page.
+</footer>
+
+<script>
+const DEMO_PARCEL_COUNT_TARGET = 168;  // grid resolution -- deterministic, not random.
+// Simrol's real bbox is ~2600 ha; at 24 cells each parcel came out ~105 ha,
+// nowhere near a real Indian farm holding (typically 0.5-2 ha) -- bumped so
+// each cell is closer to a plausible multi-farmer landholding cluster
+// (~15-20 ha) without pushing turf.intersect's per-cell cost too high for a
+// client-side demo. Still not individual-farm-sized -- see the area label's
+// "भू-आकार अनुमानित" tag and Module 1 status note.
+const BLOCK_CODE = 'MHW';              // real block_name "Mhow" -> 3-letter code, not the spec's illustrative "BAR"
+
+async function main(){
+  const res = await fetch('../data/crop_insurance_pilot/simrol_boundary.geojson');
+  const data = await res.json();
+  const feature = data.feature;
+  const props = feature.properties;
+
+  renderVillageStats(props);
+
+  const map = L.map('map', {zoomControl:true});
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19, attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Real Simrol boundary -- casing technique matching this portal's existing
+  // village-boundary style (dark underlay + bright line on top), never filled
+  // solid so the demo parcels drawn inside remain legible.
+  const villageLayer = L.geoJSON(feature, {
+    style: { color:'#063f3e', weight:5, opacity:0.55, fill:false }
+  }).addTo(map);
+  L.geoJSON(feature, {
+    style: { color:'#0E7C7B', weight:2.5, opacity:1, fill:false }
+  }).addTo(map);
+
+  map.fitBounds(villageLayer.getBounds(), {padding:[24,24]});
+
+  // ---- Demo parcel grid: deterministic bbox subdivision, clipped to the
+  // real village polygon via Turf.js intersect. No randomness, no attempt
+  // to look like a real cadastral survey -- rectangular cells only, per
+  // CROP_INSURANCE_SYSTEM_PROMPT.md Module 1's "grid ya random-shape,
+  // 'bhu-akar anumanit' label ke saath" allowance.
+  const bbox = turf.bbox(feature);
+  const [minX,minY,maxX,maxY] = bbox;
+  const cellsPerSide = Math.ceil(Math.sqrt(DEMO_PARCEL_COUNT_TARGET));
+  const dx = (maxX-minX)/cellsPerSide, dy = (maxY-minY)/cellsPerSide;
+
+  const parcelLayer = L.geoJSON(null, {
+    style: { color:'#b8860b', weight:1.5, fillColor:'#ffd166', fillOpacity:0.45 },
+    onEachFeature: (f, layer) => {
+      layer.on('click', () => selectParcel(f, layer));
+    }
+  }).addTo(map);
+
+  let parcelIdx = 0;
+  const villagePoly = feature.geometry.type === 'MultiPolygon'
+    ? turf.multiPolygon(feature.geometry.coordinates)
+    : turf.polygon(feature.geometry.coordinates);
+
+  for (let i=0;i<cellsPerSide;i++){
+    for (let j=0;j<cellsPerSide;j++){
+      const cell = turf.bboxPolygon([minX+i*dx, minY+j*dy, minX+(i+1)*dx, minY+(j+1)*dy]);
+      let clipped;
+      try { clipped = turf.intersect(villagePoly, cell); } catch(e) { clipped = null; }
+      if (!clipped) continue;
+      const areaHa = turf.area(clipped) / 10000;
+      if (areaHa < 0.05) continue; // drop slivers, not a real parcel
+      parcelIdx++;
+      const id = `MP-IND-${BLOCK_CODE}-${String(100000 + parcelIdx * 7).slice(1)}`; // synthetic, deterministic
+      clipped.properties = {
+        parcel_id: id,
+        farmer_name: `किसान-उदाहरण-${parcelIdx}`,
+        area_ha: +areaHa.toFixed(2),
+        village: props.village_name, block: props.block_name, district: props.district_name,
+        centroid: turf.centroid(clipped).geometry.coordinates,
+      };
+      parcelLayer.addData(clipped);
+    }
+  }
+  document.getElementById('parcelCount') && (document.getElementById('parcelCount').textContent = parcelIdx);
+
+  let selectedLayer = null;
+  function selectParcel(f, layer){
+    if (selectedLayer) selectedLayer.setStyle({color:'#b8860b', fillColor:'#ffd166', fillOpacity:0.45});
+    layer.setStyle({color:'#b8860b', fillColor:'#ff8c42', fillOpacity:0.65});
+    selectedLayer = layer;
+    renderFarmerDashboard(f.properties);
+  }
+}
+
+function renderVillageStats(props){
+  const rows = [
+    ['Village', props.village_name],
+    ['Block / Tehsil', props.block_name + ' (' + props.subdistrict_name + ')'],
+    ['District', props.district_name],
+    ['State', props.state_name],
+    ['Village LGD code', props.vil_lgd],
+    ['Population (Census)', props.population != null ? props.population.toLocaleString('en-IN') : 'N/A'],
+    ['Households (Census)', props.households != null ? props.households.toLocaleString('en-IN') : 'N/A'],
+  ];
+  document.getElementById('villageStats').innerHTML = rows.map(([k,v]) =>
+    `<div class="stat-row"><span class="k">${k}</span><span class="v">${v}</span></div>`
+  ).join('') + '<div class="disclaimer">Source: Survey of India village boundary via NWDP. Population/households are the Census fields carried in the SoI/NWDP layer itself -- not separately fetched or estimated here.</div>';
+}
+
+function renderFarmerDashboard(p){
+  const [lon,lat] = p.centroid;
+  document.getElementById('farmerPanel').innerHTML = `
+    <div class="stat-row"><span class="k">Parcel ID</span><span class="v parcel-id">${p.parcel_id}</span></div>
+    <div class="stat-row"><span class="k">Farmer (placeholder)</span><span class="v">${p.farmer_name}</span></div>
+    <div class="stat-row"><span class="k">Village / Block / District</span><span class="v">${p.village} / ${p.block} / ${p.district}</span></div>
+    <div class="stat-row"><span class="k">Centroid (lat, lon)</span><span class="v">${lat.toFixed(5)}, ${lon.toFixed(5)}</span></div>
+    <div class="stat-row"><span class="k">Parcel area (estimated)</span><span class="v">${p.area_ha} ha <span class="badge-warn" style="margin:0;">भू-आकार अनुमानित</span></span></div>
+    <table class="land-use-table">
+      <tr><th>Land-use category</th><th>Area (ha)</th><th>%</th></tr>
+      <tr><td colspan="3" style="color:#5a6b7a;text-align:center;padding:10px 4px;">
+        Module 2 (Farmer &amp; Crop Registry / land-use breakdown) not built yet — this table is a
+        conceptual placeholder, not real or estimated land-use data. No numbers fabricated here.
+      </td></tr>
+    </table>
+    <div class="disclaimer">
+      AI-based Potential Claim Estimate — Final settlement subject to applicable insurance rules,
+      authorised CCE/field verification and insurer/government assessment. (No claim assessment exists for
+      this parcel — Modules 3-8 not built.)
+    </div>
+  `;
+}
+
+main().catch(err => {
+  document.getElementById('villageStats').innerHTML =
+    `<div class="stat-row"><span class="k" style="color:#a02222;">Failed to load Simrol boundary: ${err.message}</span></div>`;
+  console.error(err);
+});
+</script>
+</body>
+</html>
