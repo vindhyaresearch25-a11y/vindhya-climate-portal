@@ -338,6 +338,65 @@ bharna nahi, balki click hote hi jagah + data dono ek saath aayen.
 
 ---
 
+# 15. NAYA LIVE AUDIT (2026-08-15) -- panch naye masle mile
+
+Maine khud Jabalpur chunkar, har sidebar item click karke jaancha
+(browser se, sirf screenshot nahi). Ye naye masle mile, item 1-14
+se alag:
+
+### 15a. Farmer Advisory ke card viewport se kate hue
+"GOOD SOWING WINDOW" jaisa doosra/teesra alert-card screen ke
+daayen kinare par **aadha kata hua** dikhta hai -- na wrap hota hai
+agli line me, na horizontal scroll milta hai. Cards ko **stack
+(ek ke neeche ek)** karo ya poori chaudai ke hisaab se **wrap** karo,
+kabhi kisi card ka aadha hissa viewport se bahar na kate.
+
+### 15b. Chatbot ka floating button content ke upar chadhta hai
+Neeche-daayen kona wala chat-bubble button "Live Weather" panel ke
+"WIND" value card ko **dhak deta hai**. Chat-button ke liye niche-
+daayen ek chhota fixed margin/safe-zone rakho, taaki wo kabhi kisi
+data-card ke upar na aaye -- data-card ki padding badhao ya button
+ki z-index/position adjust karo.
+
+### 15c. Sidebar click karne se URL nahi badalta -- link share/back
+button kaam nahi karta
+Koi bhi sidebar item click karo (Live Weather, PMFBY, Cadastral,
+...) -- **browser ka URL hash badalta hi nahi** (hamesha jo pehle
+se khula tha wahi rehta hai). Iska matlab: kisi panel ka link kisi
+aur ko bhej nahi sakte, aur browser ka **Back button kaam nahi
+karega**. Har sidebar/tab click par URL hash (jaise `#liveweather`,
+`#pmfby`) turant update hona chahiye, aur seedhe us URL par jaane
+par bhi wahi panel khulna chahiye (deep-link).
+
+### 15d. HISTORICAL INDICES panel -- bahut zyada data, bahut chhoti
+jagah me
+Ye panel (map ke neeche) me bahut saara data hai --Heatwave Days/yr,
+Severe HW Days, Mean/Max Summer Tmax, Drought, SPI-12, Annual, aur
+aage bhi -- lekin panel ki lambaai sirf ~100-150px hai, isliye sirf
+1.5 row card dikhte hain, baaki dekhne ke liye andar hi scroll karna
+padta hai jo bahar se dikhta bhi nahi (koi scroll-indicator nahi).
+**Theek karo:** panel ko zyada height do (item 14 ke spacing niyam
+ke saath), ya card-grid ko zyada column me phailao, aur agar andar
+scroll rakhna hi hai to ek saaf "neeche aur data hai, scroll karein"
+hint dikhao.
+
+### 15e. Drought Risk card -- "Select a district" ka bacha hua text
+Jabalpur chunne ke baad bhi Drought Risk card ke neeche **"↑ Select
+a district"** likha reh jaata hai, jabki value (16.2%) sahi aa chuki
+hai. Ye stale/purana placeholder text hai -- district select hote
+hi ye line **trend-info se badalni chahiye** (jaise "पिछले साल से
++2%" ya kuch bhi asli), "select a district" kabhi bhi data aane ke
+baad na dikhe.
+
+**Acchi baat jo mili (badlo mat):** PMFBY aur Forest Monitor pages
+honestly **"Not available yet"** dikhate hain (bina jhoothe number
+ke) -- CLAUDE.md ke "no fabrication" niyam ke mutabik sahi hai.
+Cadastral Map par bhi ek saaf **"DEMONSTRATION"** disclaimer hai jo
+Mera Khet ki taraf point karta hai -- ye pattern acchha hai, isi
+tarah har jagah honest-empty-state rakho.
+
+---
+
 # ACCHA JO MILA -- aise hi rakho
 
 Har climate card ke neeche `Source · resolution · 2000-2024` style
@@ -373,7 +432,16 @@ item 5 ke mutabik).
     chhoti legend-strip
 14. Naksha aur panel ke beech gap, aur ek khali-state card ka naya
     "attractive" design (Rainfall tab se)
-15. Ek list: das jodiyon me se kaunsi sach me duplicate thi, kaunsi
+15. Farmer Advisory ke saare card poori tarah dikhte hue (kata hua
+    nahi), chat-button kisi card ko dhak nahi raha
+16. URL hash sidebar click par badal raha hai -- ek panel khol kar
+    URL ka screenshot, phir seedhe us URL ko paste karke wahi panel
+    khulte hue
+17. Historical Indices panel bada hoke sab metric card ek saath ya
+    saaf scroll-hint ke saath
+18. Drought Risk card district chunne ke baad, "select a district"
+    text ke bina
+19. Ek list: das jodiyon me se kaunsi sach me duplicate thi, kaunsi
     alag content thi (naam ke bawajood)
 
 Har item ke saamne HUA / NAHI KIYA / kyun nahi likhna, screenshot ke
