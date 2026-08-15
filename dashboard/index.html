@@ -1941,6 +1941,10 @@ function launchApp(){
   // -- not here, so the default state gets the same real district list
   // every other state does, not just the 5 with live climate data.
   setTimeout(()=>{ initMap(); initCharts(); },100);
+  // item 15c: restore a deep-linked panel/tab from the URL hash, once the
+  // map and every loader's own boot() (national_selector.js etc, several
+  // of which use their own ~700-950ms setTimeout) have had time to finish.
+  setTimeout(restoreFromHash, 1200);
 }
 var selectedRole = null;
 function selectRole(role){
@@ -1967,10 +1971,22 @@ function showHero(){
   document.getElementById('app').style.display='none';
   document.getElementById('hero').style.display='flex';
 }
+// item 15c: capture the real initial URL hash (a deep link, e.g.
+// "#liveweather") before skipLoginGate()/submitLoginGate() overwrite
+// location.hash with their own '#dashboard' session-active marker --
+// this line runs at initial script parse, before any button click could
+// possibly touch location.hash, so it's the one point in the page's
+// life where this is guaranteed to still be the real link target.
+var _deepLinkHash = (location.hash && location.hash !== '#dashboard') ? location.hash.replace(/^#/, '') : null;
+
 // Route guard: #dashboard is only reachable with a saved session (STEP 3
 // gate). Landing on #dashboard without one -- typed directly, an old
 // bookmark, etc. -- clears the hash and returns to the hero landing page
-// (STEP 1) rather than exposing the dashboard.
+// (STEP 1) rather than exposing the dashboard. A deep link straight to a
+// panel (e.g. a shared "#liveweather" URL) gets the same treatment: a
+// returning visitor with a session skips the gate entirely, a first-time
+// visitor still sees it -- restoreFromHash() picks up _deepLinkHash
+// either way, once launchApp() has run.
 function initRouting(){
   var hasSession = false;
   try { hasSession = !!localStorage.getItem('vindhya_visitor'); } catch(e){}
@@ -1983,6 +1999,10 @@ function initRouting(){
       location.hash='';
       showHero();
     }
+  } else if (_deepLinkHash && hasSession) {
+    document.getElementById('hero').style.display='none';
+    document.getElementById('loginGate').style.display='none';
+    launchApp();
   }
 }
 window.addEventListener('hashchange', function(){
@@ -2171,6 +2191,12 @@ function mobileChangeLocation(){
 function setNav(el,section){
   document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
   el.classList.add('active');
+  // item 15c: default hash for sections that don't reach switchTab()
+  // below (dashboard, and the 3 hazard-filter-only items whose sidebar
+  // onclick calls setNav() + focusHazard() separately, not through this
+  // switch at all) -- switchTab()'s own pushState overwrites this with
+  // the more specific pane id whenever a section does reach it.
+  if (history.pushState && location.hash !== '#'+section) history.pushState(null, '', '#'+section);
   if (section === 'dashboard') clearHazardFilter();
   else if (section === 'climate') {
     // Climate Risk Atlas: show all hazards, fly to MP center
@@ -2225,6 +2251,9 @@ function switchTab(tabEl,paneId){
   const pane=document.getElementById('pane-'+paneId);
   if(pane) pane.classList.add('active');
   if(paneId==='cadastral' && typeof loadCadastralLayer==='function') loadCadastralLayer();
+  // item 15c: URL hash routing -- pushState (not location.hash=) so this
+  // never fires its own hashchange/popstate and re-enters restoreFromHash().
+  if (history.pushState && location.hash !== '#'+paneId) history.pushState(null, '', '#'+paneId);
   // Owner report 2026-08-13: Mera Khet's detail (field measurement,
   // downloads, ground-truth form) was unreadable squeezed into the
   // shared 210px bottom strip -- .mk-modal-open (CSS below) expands
@@ -2238,6 +2267,36 @@ function closeMeraKhetModal(){
   document.querySelectorAll('.btm-tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.btm-pane').forEach(p=>p.classList.remove('active'));
 }
+
+// item 15c (2026-08-15): restores whatever panel/tab the URL hash names,
+// on first load (deep link) and on browser back/forward (popstate --
+// NOT hashchange, since switchTab()/setNav() use history.pushState, which
+// never fires hashchange itself; only popstate fires for real user
+// back/forward navigation with pushState-based history).
+function restoreFromHash(){
+  // skipLoginGate()/submitLoginGate() overwrite location.hash with their
+  // own '#dashboard' marker on the way in -- if that's what we see now
+  // but a real deep link was captured before they ran, use that instead.
+  var raw = location.hash;
+  if ((!raw || raw === '#dashboard') && _deepLinkHash) raw = '#' + _deepLinkHash;
+  var hash = (raw || '').replace(/^#/, '');
+  if (!hash || hash === 'dashboard') return; // default view, nothing to restore
+  // Most hashes are a bottom-tab pane id (every sidebar item that reaches
+  // setBtmTab() -- i.e. everything except the 3 hazard-filter-only items
+  // below) -- reuse setBtmTab() itself rather than re-implement its
+  // pane-lookup logic.
+  if (document.getElementById('pane-' + hash) || document.getElementById(hash + '-tab')) {
+    if (typeof setBtmTab === 'function') setBtmTab(hash);
+    return;
+  }
+  // Otherwise it's a sidebar section name with no bottom pane of its own
+  // (heatwaves/precip/droughthazard) -- click the real sidebar item so
+  // its exact onclick (setNav + focusHazard, chained inline in the HTML)
+  // runs unchanged instead of being re-implemented here.
+  var navEl = document.querySelector(".nav-item[onclick*=\"'" + hash + "'\"]");
+  if (navEl) navEl.click();
+}
+window.addEventListener('popstate', restoreFromHash);
 
 // ============================================================
 // LANG TOGGLE (item 3, 2026-08-12 rewrite)
