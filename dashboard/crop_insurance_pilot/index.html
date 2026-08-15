@@ -7,64 +7,101 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
 <style>
   :root{
     --accent:#0E7C7B; --accent-dark:#0a5958; --warn:#B8860B; --warn-bg:#FFF6E0;
     --ink:#1a2430; --ink-dim:#5a6b7a; --line:#e2e8ee; --card-bg:#ffffff; --page-bg:#f4f7f9;
+    --red:#a02222; --red-bg:#FDECEC; --green:#1c6b1c; --green-bg:#E4F5E4; --amber:#8a5300; --amber-bg:#FFE9CC;
   }
   *{box-sizing:border-box;}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--page-bg);color:var(--ink);}
-  /* ---- Sticky DEMO banner: rule #2, must never scroll away ---- */
   #demoBanner{
     position:sticky;top:0;z-index:5000;background:var(--warn-bg);border-bottom:2px solid var(--warn);
     color:#5c4400;padding:8px 16px;font-size:13px;font-weight:700;text-align:center;
     display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;
   }
-  #demoBanner .hindi{font-weight:600;}
   header{padding:16px 20px 8px;}
   header h1{margin:0 0 4px;font-size:20px;color:var(--accent-dark);}
   header p{margin:0;font-size:13px;color:var(--ink-dim);max-width:900px;}
-  .layout{display:grid;grid-template-columns:1fr 380px;gap:14px;padding:14px 20px 28px;align-items:start;}
+  .layout{display:grid;grid-template-columns:1fr 380px;gap:14px;padding:14px 20px 0;align-items:start;}
   @media (max-width:900px){.layout{grid-template-columns:1fr;}}
-  #map{height:70vh;min-height:480px;border-radius:10px;border:1px solid var(--line);}
+  #map{height:60vh;min-height:420px;border-radius:10px;border:1px solid var(--line);}
   .card{background:var(--card-bg);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-bottom:12px;}
   .card h2{margin:0 0 8px;font-size:14px;color:var(--accent-dark);display:flex;align-items:center;gap:6px;}
-  .card h2 .n{width:18px;height:18px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;display:inline-flex;align-items:center;justify-content:center;}
-  .stat-row{display:flex;justify-content:space-between;font-size:12.5px;padding:3px 0;border-bottom:1px dashed var(--line);}
+  .card h2 .n{width:18px;height:18px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;display:inline-flex;align-items:center;justify-content:center;flex:none;}
+  .stat-row{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;padding:3px 0;border-bottom:1px dashed var(--line);}
   .stat-row:last-child{border-bottom:none;}
   .stat-row .k{color:var(--ink-dim);}
-  .stat-row .v{font-weight:600;}
-  .real-tag{display:inline-block;background:#E4F5E4;color:#1c6b1c;font-size:10px;font-weight:700;border-radius:4px;padding:1px 6px;margin-left:6px;}
-  .demo-tag{display:inline-block;background:#FFE9CC;color:#8a5300;font-size:10px;font-weight:700;border-radius:4px;padding:1px 6px;margin-left:6px;}
+  .stat-row .v{font-weight:600;text-align:right;}
+  .real-tag{display:inline-block;background:var(--green-bg);color:var(--green);font-size:10px;font-weight:700;border-radius:4px;padding:1px 6px;margin-left:6px;}
+  .demo-tag{display:inline-block;background:var(--amber-bg);color:var(--amber);font-size:10px;font-weight:700;border-radius:4px;padding:1px 6px;margin-left:6px;}
+  .mock-tag{display:inline-block;background:#eee;color:#555;font-size:10px;font-weight:700;border-radius:4px;padding:1px 6px;margin-left:6px;}
   #farmerPanel .empty{color:var(--ink-dim);font-size:12.5px;text-align:center;padding:22px 6px;}
   #farmerPanel .empty i{font-size:26px;display:block;margin-bottom:8px;color:#b9c4cd;}
   .parcel-id{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;background:#eef4f4;border-radius:4px;padding:1px 6px;}
   .disclaimer{font-size:11px;color:var(--ink-dim);line-height:1.5;background:#f7f9fb;border-radius:6px;padding:8px 10px;margin-top:8px;border-left:3px solid var(--warn);}
-  .land-use-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px;}
-  .land-use-table th,.land-use-table td{text-align:left;padding:4px 6px;border-bottom:1px solid var(--line);}
-  .land-use-table th{color:var(--ink-dim);font-weight:600;font-size:11px;}
-  .badge-warn{background:#FDECEC;color:#a02222;font-size:10.5px;font-weight:700;border-radius:4px;padding:2px 8px;display:inline-block;margin-top:6px;}
+  .land-use-table, .data-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px;}
+  .land-use-table th,.land-use-table td,.data-table th,.data-table td{text-align:left;padding:5px 7px;border-bottom:1px solid var(--line);}
+  .land-use-table th,.data-table th{color:var(--ink-dim);font-weight:600;font-size:11px;}
+  .land-use-table tr.total td{font-weight:700;border-top:2px solid var(--ink);}
+  .badge-warn{background:var(--red-bg);color:var(--red);font-size:10.5px;font-weight:700;border-radius:4px;padding:2px 8px;display:inline-block;margin-top:2px;}
+  .badge-ok{background:var(--green-bg);color:var(--green);font-size:10.5px;font-weight:700;border-radius:4px;padding:2px 8px;display:inline-block;}
   .legend{position:absolute;bottom:10px;left:10px;background:#fff;border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-size:11px;z-index:900;box-shadow:0 1px 4px rgba(0,0,0,.12);}
   .legend div{display:flex;align-items:center;gap:6px;margin:2px 0;}
   .legend .sw{width:12px;height:12px;border-radius:2px;display:inline-block;}
   footer{padding:10px 20px 30px;font-size:11px;color:var(--ink-dim);text-align:center;}
   a.back{font-size:12px;color:var(--accent-dark);text-decoration:none;}
+
+  /* Module tab strip */
+  .mod-tabs{display:flex;gap:4px;flex-wrap:wrap;padding:16px 20px 0;}
+  .mod-tab{padding:8px 14px;border-radius:7px 7px 0 0;background:#e7edf0;color:var(--ink-dim);font-size:12.5px;font-weight:700;cursor:pointer;border:1px solid var(--line);border-bottom:none;}
+  .mod-tab.active{background:var(--card-bg);color:var(--accent-dark);border-color:var(--accent);}
+  .mod-panel{display:none;background:var(--card-bg);border:1px solid var(--accent);border-radius:0 8px 8px 8px;margin:0 20px 20px;padding:18px 20px;}
+  .mod-panel.active{display:block;}
+  .mod-panel h3{margin:0 0 4px;font-size:15px;color:var(--accent-dark);}
+  .mod-panel .sub{font-size:12px;color:var(--ink-dim);margin-bottom:12px;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media (max-width:800px){.grid2{grid-template-columns:1fr;}}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  @media (max-width:800px){.grid3{grid-template-columns:1fr;}}
+  .metric-box{background:#f7f9fb;border-radius:7px;padding:10px 12px;text-align:center;}
+  .metric-box .lbl{font-size:11px;color:var(--ink-dim);}
+  .metric-box .val{font-size:18px;font-weight:700;color:var(--accent-dark);margin-top:2px;}
+  .factor-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px dashed var(--line);font-size:12.5px;}
+  .impact-High{color:var(--red);font-weight:700;} .impact-Moderate{color:var(--amber);font-weight:700;} .impact-Low, .impact-Positive{color:var(--green);font-weight:700;}
+  .impact-Unavailable{color:#888;font-weight:700;}
+  .evidence-item{border:1px solid var(--line);border-radius:6px;padding:8px 10px;margin-bottom:8px;font-size:12px;}
+  .status-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;}
+  .dot-green{background:#2e9e2e;} .dot-yellow{background:#e0a800;} .dot-red{background:#c0392b;}
+  input[type=text],input[type=number],select,textarea{width:100%;padding:6px 8px;border:1px solid var(--line);border-radius:5px;font-size:12.5px;font-family:inherit;}
+  label.field{display:block;font-size:11px;color:var(--ink-dim);margin:8px 0 3px;font-weight:600;}
+  button.btn{background:var(--accent);color:#fff;border:none;border-radius:6px;padding:8px 16px;font-size:12.5px;font-weight:700;cursor:pointer;}
+  button.btn:hover{background:var(--accent-dark);}
+  button.btn:disabled{background:#ccc;cursor:not-allowed;}
+  button.btn-outline{background:#fff;color:var(--accent-dark);border:1px solid var(--accent);border-radius:6px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;}
+  .timeline{list-style:none;padding:0;margin:10px 0 0;border-left:2px solid var(--accent);}
+  .timeline li{position:relative;padding:2px 0 14px 18px;font-size:12px;}
+  .timeline li::before{content:'';position:absolute;left:-6px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--accent);}
+  .timeline li .t{color:var(--ink-dim);font-size:10.5px;}
 </style>
 </head>
 <body>
 
 <div id="demoBanner">
-  <span>⚠️ PILOT/DEMO — Simrol, Indore</span>
-  <span class="hindi">| उदाहरण डेटा, वास्तविक अभिलेख नहीं (NOT for actual insurance claims)</span>
+  <span>&#9888;&#65039; PILOT/DEMO -- Simrol, Indore</span>
+  <span>| &#2313;&#2342;&#2366;&#2361;&#2352;&#2339; &#2337;&#2375;&#2335;&#2366;, &#2357;&#2366;&#2360;&#2381;&#2340;&#2357;&#2367;&#2325; &#2309;&#2349;&#2367;&#2354;&#2375;&#2326; &#2344;&#2361;&#2368;&#2306; (NOT for actual insurance claims)</span>
 </div>
 
 <header>
   <a class="back" href="../index.html">&larr; VINDHYA Climate Portal</a>
-  <h1>Smart Crop Insurance &amp; AI-based Crop Loss Assessment — Simrol Pilot</h1>
-  <p>Module 1 (GIS Land Parcel) build, per <code>CROP_INSURANCE_SYSTEM_PROMPT.md</code>. Village boundary below is
-  <b>real</b> (Survey of India, via NWDP — same source as this portal's national village layer). The parcel grid
-  inside it is <b>synthetic demo data</b> for pilot purposes only — real cadastral parcel boundaries (Bhu-Naksha)
-  are not used or claimed anywhere on this page.</p>
+  <h1>Smart Crop Insurance &amp; AI-based Crop Loss Assessment -- Simrol Pilot</h1>
+  <p>All 8 modules of <code>CROP_INSURANCE_SYSTEM_PROMPT.md</code>, built to a single Simrol parcel selection. Every
+  number on this page is either <span class="real-tag" style="margin:0;">REAL DATA</span> (fetched live from this
+  portal's own data pipeline / Google Earth Engine), <span class="demo-tag" style="margin:0;">DEMO</span>
+  (deterministic synthetic data, clearly labeled, never random-looking-real), or
+  <span class="mock-tag" style="margin:0;">CONCEPTUAL MOCKUP</span> (no model exists yet -- explicitly said so,
+  never a fabricated number).</p>
 </header>
 
 <div class="layout">
@@ -84,162 +121,652 @@
     </div>
 
     <div class="card">
-      <h2><span class="n">2</span> Farmer Dashboard <span class="demo-tag">DEMO</span></h2>
+      <h2><span class="n">&#128205;</span> Selected Parcel <span class="demo-tag">DEMO</span></h2>
       <div id="farmerPanel">
-        <div class="empty"><i class="fa">&#128205;</i>Click a parcel on the map to open its (demo) Farmer Dashboard.</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Module status</h2>
-      <div style="font-size:12px;line-height:1.7;">
-        <b>Module 1 (GIS Parcel):</b> HUA — real Simrol boundary + demo parcel grid, click-through dashboard.<br>
-        <b>Module 2-8:</b> NAHI KIYA yet — this is Module 1 only. See <code>CROP_INSURANCE_SYSTEM_PROMPT.md</code> for the full build order.
-      </div>
-      <div class="disclaimer">
-        AI-based Potential Claim Estimate — Final settlement subject to applicable insurance rules,
-        authorised CCE/field verification and insurer/government assessment. (No claim estimate exists
-        yet on this page — Module 8 not built. Shown here as required boilerplate for when it is.)
+        <div class="empty"><i class="fa">&#128205;</i>Click a parcel on the map -- every module below (2-8) follows this selection.</div>
       </div>
     </div>
   </div>
 </div>
 
+<div class="mod-tabs" id="modTabs"></div>
+<div id="modPanels"></div>
+
 <footer>
-  Village boundary: Survey of India via National Water Data Portal (NWDP) — vil_lgd 476504.
-  Parcel grid: synthetic demo, generated client-side, clipped to the real village polygon (Turf.js). No fabricated
-  farmer names, ownership records, or claim data anywhere on this page.
+  Village boundary: Survey of India via National Water Data Portal (NWDP) -- vil_lgd 476504. Yield history:
+  DES (data.desagri.gov.in), Indore district. Weather trends: this portal's own IMD-derived indices, Indore.
+  Satellite (Module 7): live Google Earth Engine query via the existing Mera Khet Worker. No fabricated farmer
+  names, ownership records, claim amounts, or AI confidence numbers anywhere on this page.
 </footer>
 
 <script>
-const DEMO_PARCEL_COUNT_TARGET = 168;  // grid resolution -- deterministic, not random.
-// Simrol's real bbox is ~2600 ha; at 24 cells each parcel came out ~105 ha,
-// nowhere near a real Indian farm holding (typically 0.5-2 ha) -- bumped so
-// each cell is closer to a plausible multi-farmer landholding cluster
-// (~15-20 ha) without pushing turf.intersect's per-cell cost too high for a
-// client-side demo. Still not individual-farm-sized -- see the area label's
-// "भू-आकार अनुमानित" tag and Module 1 status note.
-const BLOCK_CODE = 'MHW';              // real block_name "Mhow" -> 3-letter code, not the spec's illustrative "BAR"
+/* ===================================================================
+   SHARED STATE
+=================================================================== */
+const BLOCK_CODE = 'MHW';
+const DEMO_PARCEL_COUNT_TARGET = 168;
+// Real crops actually grown in Indore per DES district records (crop_stats_des_by_district) --
+// not an invented crop list.
+const DEMO_CROPS = ['Soyabean','Wheat','Maize','Gram','Cotton(lint)','Onion','Potato','Sugarcane'];
+const SEASONS_BY_CROP = {Soyabean:'Kharif', Cotton:'Kharif', 'Cotton(lint)':'Kharif', Maize:'Kharif',
+  Wheat:'Rabi', Gram:'Rabi', Onion:'Rabi', Potato:'Rabi', Sugarcane:'Whole Year'};
+const SEED_TYPES = ['Hybrid','Improved','Traditional'];
+const IRRIGATION = ['Irrigated (tube well)','Irrigated (canal)','Rainfed'];
 
+let map, villageFeature, villageProps, parcels = [], selectedParcel = null, selectedLayer = null;
+let climateIndore = null, desIndore = null;
+let evidenceStore = []; // Module 5 -- in-memory, demo only, seeded with one deliberate duplicate for Module 8's fraud demo
+
+/* ===================================================================
+   BOOT
+=================================================================== */
 async function main(){
-  const res = await fetch('../data/crop_insurance_pilot/simrol_boundary.geojson');
-  const data = await res.json();
-  const feature = data.feature;
-  const props = feature.properties;
+  const [boundaryRes, climateRes, desRes] = await Promise.all([
+    fetch('../data/crop_insurance_pilot/simrol_boundary.geojson').then(r=>r.json()),
+    fetch('../data/mp_climate_data.json').then(r=>r.ok?r.json():null).catch(()=>null),
+    fetch('../data/crop_stats_des_by_district/madhya_pradesh/indore.json').then(r=>r.ok?r.json():null).catch(()=>null),
+  ]);
 
-  renderVillageStats(props);
+  const feature = boundaryRes.feature;
+  villageFeature = feature; villageProps = feature.properties;
+  climateIndore = climateRes && climateRes.charts && climateRes.charts.annual_trends && climateRes.charts.annual_trends.indore || null;
+  desIndore = desRes && desRes.records || null;
 
-  const map = L.map('map', {zoomControl:true});
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19, attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map);
+  renderVillageStats(villageProps);
+  buildMap(feature);
+  buildParcels(feature);
+  buildModuleTabs();
+  renderModule4Weather(); // village-level, not parcel-dependent -- render once at boot
+  seedDemoEvidence();
+}
 
-  // Real Simrol boundary -- casing technique matching this portal's existing
-  // village-boundary style (dark underlay + bright line on top), never filled
-  // solid so the demo parcels drawn inside remain legible.
-  const villageLayer = L.geoJSON(feature, {
-    style: { color:'#063f3e', weight:5, opacity:0.55, fill:false }
-  }).addTo(map);
-  L.geoJSON(feature, {
-    style: { color:'#0E7C7B', weight:2.5, opacity:1, fill:false }
-  }).addTo(map);
-
+function buildMap(feature){
+  map = L.map('map', {zoomControl:true});
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19, attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+  const villageLayer = L.geoJSON(feature, {style:{color:'#063f3e', weight:5, opacity:0.55, fill:false}}).addTo(map);
+  L.geoJSON(feature, {style:{color:'#0E7C7B', weight:2.5, opacity:1, fill:false}}).addTo(map);
   map.fitBounds(villageLayer.getBounds(), {padding:[24,24]});
+}
 
-  // ---- Demo parcel grid: deterministic bbox subdivision, clipped to the
-  // real village polygon via Turf.js intersect. No randomness, no attempt
-  // to look like a real cadastral survey -- rectangular cells only, per
-  // CROP_INSURANCE_SYSTEM_PROMPT.md Module 1's "grid ya random-shape,
-  // 'bhu-akar anumanit' label ke saath" allowance.
+function buildParcels(feature){
   const bbox = turf.bbox(feature);
   const [minX,minY,maxX,maxY] = bbox;
   const cellsPerSide = Math.ceil(Math.sqrt(DEMO_PARCEL_COUNT_TARGET));
   const dx = (maxX-minX)/cellsPerSide, dy = (maxY-minY)/cellsPerSide;
-
   const parcelLayer = L.geoJSON(null, {
-    style: { color:'#b8860b', weight:1.5, fillColor:'#ffd166', fillOpacity:0.45 },
-    onEachFeature: (f, layer) => {
-      layer.on('click', () => selectParcel(f, layer));
-    }
+    style:{color:'#b8860b', weight:1.5, fillColor:'#ffd166', fillOpacity:0.45},
+    onEachFeature:(f, layer) => layer.on('click', () => selectParcel(f, layer)),
   }).addTo(map);
 
-  let parcelIdx = 0;
-  const villagePoly = feature.geometry.type === 'MultiPolygon'
-    ? turf.multiPolygon(feature.geometry.coordinates)
-    : turf.polygon(feature.geometry.coordinates);
-
+  const villagePoly = feature.geometry.type==='MultiPolygon' ? turf.multiPolygon(feature.geometry.coordinates) : turf.polygon(feature.geometry.coordinates);
+  let idx = 0;
   for (let i=0;i<cellsPerSide;i++){
     for (let j=0;j<cellsPerSide;j++){
       const cell = turf.bboxPolygon([minX+i*dx, minY+j*dy, minX+(i+1)*dx, minY+(j+1)*dy]);
-      let clipped;
-      try { clipped = turf.intersect(villagePoly, cell); } catch(e) { clipped = null; }
+      let clipped; try { clipped = turf.intersect(villagePoly, cell); } catch(e){ clipped = null; }
       if (!clipped) continue;
-      const areaHa = turf.area(clipped) / 10000;
-      if (areaHa < 0.05) continue; // drop slivers, not a real parcel
-      parcelIdx++;
-      const id = `MP-IND-${BLOCK_CODE}-${String(100000 + parcelIdx * 7).slice(1)}`; // synthetic, deterministic
-      clipped.properties = {
-        parcel_id: id,
-        farmer_name: `किसान-उदाहरण-${parcelIdx}`,
-        area_ha: +areaHa.toFixed(2),
-        village: props.village_name, block: props.block_name, district: props.district_name,
+      const areaHa = turf.area(clipped)/10000;
+      if (areaHa < 0.05) continue;
+      idx++;
+      const crop = DEMO_CROPS[idx % DEMO_CROPS.length];
+      const parcel = {
+        idx, id:`MP-IND-${BLOCK_CODE}-${String(100000 + idx*7).slice(1)}`,
+        farmerName:`किसान-उदाहरण-${idx}`,
+        areaHa: +areaHa.toFixed(2),
         centroid: turf.centroid(clipped).geometry.coordinates,
+        village: villageProps.village_name, block: villageProps.block_name, district: villageProps.district_name,
+        crop, season: SEASONS_BY_CROP[crop] || 'Kharif',
+        seedType: SEED_TYPES[idx % SEED_TYPES.length],
+        irrigation: IRRIGATION[idx % IRRIGATION.length],
+        multiCrop: (idx % 11 === 0), // ~1 in 11 parcels demoed as multi-crop split (Module 2)
+        mismatchDemo: (idx === 3), // deliberately-broken land-use sum, to prove the validation warning fires (spec's own DIKHAO #2 ask)
+        geometry: clipped.geometry,
       };
+      clipped.properties = parcel;
+      parcels.push(parcel);
       parcelLayer.addData(clipped);
+      parcel._layer = layerForFeature(parcelLayer, clipped);
     }
   }
-  document.getElementById('parcelCount') && (document.getElementById('parcelCount').textContent = parcelIdx);
+}
+// Leaflet doesn't hand back the child layer from addData -- fetch it by walking the group once built.
+function layerForFeature(group, clippedFeature){
+  let found = null;
+  group.eachLayer(l => { if (l.feature && l.feature.properties && l.feature.properties.idx === clippedFeature.properties.idx) found = l; });
+  return found;
+}
 
-  let selectedLayer = null;
-  function selectParcel(f, layer){
-    if (selectedLayer) selectedLayer.setStyle({color:'#b8860b', fillColor:'#ffd166', fillOpacity:0.45});
-    layer.setStyle({color:'#b8860b', fillColor:'#ff8c42', fillOpacity:0.65});
-    selectedLayer = layer;
-    renderFarmerDashboard(f.properties);
-  }
+function selectParcel(f, layer){
+  if (selectedLayer) selectedLayer.setStyle({color:'#b8860b', fillColor:'#ffd166', fillOpacity:0.45});
+  layer.setStyle({color:'#b8860b', fillColor:'#ff8c42', fillOpacity:0.65});
+  selectedLayer = layer;
+  selectedParcel = f.properties;
+  renderFarmerDashboard(selectedParcel);
+  renderModule2(selectedParcel);
+  renderModule3(selectedParcel);
+  renderModule5(); // evidence list depends on selected parcel's id
+  renderModule7Reset();
+  renderModule8();
 }
 
 function renderVillageStats(props){
   const rows = [
-    ['Village', props.village_name],
-    ['Block / Tehsil', props.block_name + ' (' + props.subdistrict_name + ')'],
-    ['District', props.district_name],
-    ['State', props.state_name],
-    ['Village LGD code', props.vil_lgd],
-    ['Population (Census)', props.population != null ? props.population.toLocaleString('en-IN') : 'N/A'],
-    ['Households (Census)', props.households != null ? props.households.toLocaleString('en-IN') : 'N/A'],
+    ['Village', props.village_name], ['Block / Tehsil', props.block_name + ' (' + props.subdistrict_name + ')'],
+    ['District', props.district_name], ['State', props.state_name], ['Village LGD code', props.vil_lgd],
+    ['Population (Census)', props.population!=null?props.population.toLocaleString('en-IN'):'N/A'],
+    ['Households (Census)', props.households!=null?props.households.toLocaleString('en-IN'):'N/A'],
   ];
-  document.getElementById('villageStats').innerHTML = rows.map(([k,v]) =>
-    `<div class="stat-row"><span class="k">${k}</span><span class="v">${v}</span></div>`
-  ).join('') + '<div class="disclaimer">Source: Survey of India village boundary via NWDP. Population/households are the Census fields carried in the SoI/NWDP layer itself -- not separately fetched or estimated here.</div>';
+  document.getElementById('villageStats').innerHTML = rows.map(([k,v])=>`<div class="stat-row"><span class="k">${k}</span><span class="v">${v}</span></div>`).join('')
+    + '<div class="disclaimer">Source: Survey of India village boundary via NWDP. Population/households are Census fields carried in the SoI/NWDP layer itself.</div>';
 }
 
 function renderFarmerDashboard(p){
   const [lon,lat] = p.centroid;
   document.getElementById('farmerPanel').innerHTML = `
-    <div class="stat-row"><span class="k">Parcel ID</span><span class="v parcel-id">${p.parcel_id}</span></div>
-    <div class="stat-row"><span class="k">Farmer (placeholder)</span><span class="v">${p.farmer_name}</span></div>
+    <div class="stat-row"><span class="k">Parcel ID</span><span class="v parcel-id">${p.id}</span></div>
+    <div class="stat-row"><span class="k">Farmer (placeholder)</span><span class="v">${p.farmerName}</span></div>
     <div class="stat-row"><span class="k">Village / Block / District</span><span class="v">${p.village} / ${p.block} / ${p.district}</span></div>
-    <div class="stat-row"><span class="k">Centroid (lat, lon)</span><span class="v">${lat.toFixed(5)}, ${lon.toFixed(5)}</span></div>
-    <div class="stat-row"><span class="k">Parcel area (estimated)</span><span class="v">${p.area_ha} ha <span class="badge-warn" style="margin:0;">भू-आकार अनुमानित</span></span></div>
-    <table class="land-use-table">
-      <tr><th>Land-use category</th><th>Area (ha)</th><th>%</th></tr>
-      <tr><td colspan="3" style="color:#5a6b7a;text-align:center;padding:10px 4px;">
-        Module 2 (Farmer &amp; Crop Registry / land-use breakdown) not built yet — this table is a
-        conceptual placeholder, not real or estimated land-use data. No numbers fabricated here.
-      </td></tr>
-    </table>
+    <div class="stat-row"><span class="k">Centroid</span><span class="v">${lat.toFixed(5)}, ${lon.toFixed(5)}</span></div>
+    <div class="stat-row"><span class="k">Area (estimated)</span><span class="v">${p.areaHa} ha <span class="badge-warn" style="margin:0;">भू-आकार अनुमानित</span></span></div>
+    <div class="stat-row"><span class="k">Crop / Season</span><span class="v">${p.crop} (${p.season})</span></div>
+    <div class="stat-row"><span class="k">Seed / Irrigation</span><span class="v">${p.seedType} / ${p.irrigation}</span></div>
+  `;
+}
+
+/* ===================================================================
+   MODULE TAB FRAMEWORK
+=================================================================== */
+const MODULES = [
+  {id:'m2', label:'2. Registry & Land-Use'}, {id:'m3', label:'3. CCE & Yield'},
+  {id:'m4', label:'4. Weather Events'}, {id:'m5', label:'5. Evidence App'},
+  {id:'m6', label:'6. AI Damage Detection'}, {id:'m7', label:'7. Satellite Verify'},
+  {id:'m8', label:'8. Insurance Decision'},
+];
+function buildModuleTabs(){
+  document.getElementById('modTabs').innerHTML = MODULES.map((m,i)=>`<div class="mod-tab${i===0?' active':''}" data-mod="${m.id}" onclick="switchModule('${m.id}')">${m.label}</div>`).join('');
+  document.getElementById('modPanels').innerHTML = MODULES.map((m,i)=>`<div class="mod-panel${i===0?' active':''}" id="panel-${m.id}"></div>`).join('');
+  switchModule('m2');
+}
+function switchModule(id){
+  document.querySelectorAll('.mod-tab').forEach(el=>el.classList.toggle('active', el.dataset.mod===id));
+  document.querySelectorAll('.mod-panel').forEach(el=>el.classList.toggle('active', el.id==='panel-'+id));
+}
+
+/* ===================================================================
+   MODULE 2 -- Farmer & Crop Registry + Land-Use Mapping
+=================================================================== */
+function renderModule2(p){
+  // Deterministic land-use split (never Math.random) -- sums to areaHa EXACTLY,
+  // except the one parcel flagged mismatchDemo, which is intentionally wrong
+  // by a few % so the Data Quality Warning demonstrably fires (spec DIKHAO #2).
+  const fr = {crop:0.74, orchard:0.04, house:0.03, trees:0.09, water:0.02, fallow:0.08};
+  const rows = Object.entries(fr).map(([k,f])=>[k, +(p.areaHa*f).toFixed(2)]);
+  let sum = rows.reduce((a,[,v])=>a+v,0);
+  if (p.mismatchDemo) { rows[0][1] = +(rows[0][1]*0.7).toFixed(2); sum = rows.reduce((a,[,v])=>a+v,0); } // deliberately break the sum
+  const mismatch = Math.abs(sum - p.areaHa) > 0.05;
+  const label = {crop:'Crop', orchard:'Orchard', house:'House/Homestead', trees:'Trees/Woodland', water:'Water', fallow:'Fallow/Barren'};
+
+  const cropSplitHtml = p.multiCrop ? `
+    <div class="disclaimer" style="border-left-color:var(--accent);">
+      <b>Multi-crop parcel (demo):</b> this parcel's Crop area is split into 2 Crop Polygons for
+      crop-wise loss tracking later (Module 3/8) -- Crop Polygon 1: ${p.crop} (${(fr.crop*p.areaHa*0.6).toFixed(2)} ha),
+      Crop Polygon 2: ${DEMO_CROPS[(p.idx+3)%DEMO_CROPS.length]} (${(fr.crop*p.areaHa*0.4).toFixed(2)} ha).
+    </div>` : '';
+
+  document.getElementById('panel-m2').innerHTML = `
+    <h3>Module 2 -- Farmer &amp; Crop Registry + Land-Use Mapping <span class="demo-tag">DEMO</span></h3>
+    <div class="sub">Parcel ${p.id} -- land-use breakdown must sum to the Parcel Area; mismatch is shown, not hidden (STANDING ORDERS: no fabrication, no silently-fixed data).</div>
+    <div class="grid2">
+      <div>
+        <table class="land-use-table">
+          <tr><th>Land-use category</th><th>Area (ha)</th><th>%</th></tr>
+          ${rows.map(([k,v])=>`<tr><td>${label[k]}</td><td>${v}</td><td>${(v/p.areaHa*100).toFixed(1)}%</td></tr>`).join('')}
+          <tr class="total"><td>Sum of classified area</td><td>${sum.toFixed(2)} ha</td><td>${(sum/p.areaHa*100).toFixed(1)}%</td></tr>
+          <tr><td>Parcel Area (Module 1)</td><td colspan="2">${p.areaHa} ha</td></tr>
+        </table>
+        ${mismatch ? `<div class="badge-warn">&#9888; Data Quality Warning: classified area sum (${sum.toFixed(2)} ha) &ne; Parcel Area (${p.areaHa} ha), off by ${(sum-p.areaHa).toFixed(2)} ha</div>` : `<div class="badge-ok">&#10003; Classified area matches Parcel Area</div>`}
+        ${cropSplitHtml}
+      </div>
+      <div>
+        <table class="data-table">
+          <tr><th>Field</th><th>Value</th></tr>
+          <tr><td>Season</td><td>${p.season}</td></tr>
+          <tr><td>Crop</td><td>${p.crop}</td></tr>
+          <tr><td>Variety / Seed type</td><td>${p.seedType}</td></tr>
+          <tr><td>Sowing date (demo)</td><td>${demoDate(p.idx, p.season==='Rabi'?10:6)}</td></tr>
+          <tr><td>Harvest date (demo)</td><td>${demoDate(p.idx, p.season==='Rabi'?3:10)}</td></tr>
+          <tr><td>Irrigation</td><td>${p.irrigation}</td></tr>
+          <tr><td>Ownership/operation type (demo)</td><td>${p.idx%3===0?'Tenant':'Owner-cultivator'}</td></tr>
+        </table>
+      </div>
+    </div>
+  `;
+}
+function demoDate(idx, month){ const day = 3 + (idx % 24); return `${String(day).padStart(2,'0')}-${String(month).padStart(2,'0')}-2025`; }
+
+/* ===================================================================
+   MODULE 3 -- CCE & Yield Intelligence
+=================================================================== */
+let yieldChart = null;
+function renderModule3(p){
+  const panel = document.getElementById('panel-m3');
+  const hist = desIndore ? desIndore.filter(r => r.crop === p.crop).sort((a,b)=>a.year.localeCompare(b.year)) : [];
+  const latest = hist.length ? hist[hist.length-1] : null;
+  const historicalAvg = hist.length ? hist.reduce((a,r)=>a+(r.yield_per_ha||0),0)/hist.length : null;
+
+  // Transparent, real (not fabricated) yield-prediction formula --
+  // Predicted Yield = Historical Avg x Seed Factor x Weather Factor x NDVI Factor.
+  // Seed factor: a documented agronomic assumption (hybrid seed commonly cited
+  // 10-20% above traditional in extension literature) -- CLEARLY labeled
+  // "illustrative factor", not measured for this specific parcel.
+  const seedFactor = {Hybrid:1.15, Improved:1.05, Traditional:1.0}[p.seedType];
+  // Weather factor: REAL calc from this portal's own Indore annual_trends --
+  // ratio of latest year's rainfall to the historical mean.
+  let weatherFactor = 1.0, weatherNote = 'climate data unavailable';
+  if (climateIndore && climateIndore.annual_rain_mm){
+    const rains = climateIndore.annual_rain_mm;
+    const meanRain = rains.reduce((a,b)=>a+b,0)/rains.length;
+    const latestRain = rains[rains.length-1];
+    weatherFactor = +(0.7 + 0.3*Math.min(1.3, latestRain/meanRain)).toFixed(3); // dampened real ratio, floor/cap so one bad year doesn't blow up the estimate
+    weatherNote = `latest-year rainfall ${latestRain.toFixed(0)}mm vs ${rains.length}-yr mean ${meanRain.toFixed(0)}mm`;
+  }
+  const ndviFactor = 1.0; // Module 7 not yet run for this parcel this session -- honestly neutral, not invented
+  const predictedYield = historicalAvg!=null ? +(historicalAvg * seedFactor * weatherFactor * ndviFactor).toFixed(2) : null;
+  const expectedYield = historicalAvg!=null ? +historicalAvg.toFixed(2) : null;
+  const lossQ = (expectedYield!=null && predictedYield!=null) ? +(expectedYield - predictedYield).toFixed(2) : null;
+  const lossPct = (lossQ!=null && expectedYield>0) ? +(lossQ/expectedYield*100).toFixed(1) : null;
+
+  // Historical yield 2000-2023: REAL DES values. 2024-2026: simple linear
+  // (OLS-style) extension of the real series, same "indicative" convention
+  // this repo already uses for forecast_2040.json -- never claimed as measured.
+  let chartYears = [], chartVals = [], chartReal = [];
+  if (hist.length >= 3){
+    hist.forEach(r => { chartYears.push(r.year.split(' ')[0]); chartVals.push(r.yield_per_ha); chartReal.push(true); });
+    const n = hist.length, xs = hist.map((_,i)=>i), ys = hist.map(r=>r.yield_per_ha||0);
+    const xMean = xs.reduce((a,b)=>a+b,0)/n, yMean = ys.reduce((a,b)=>a+b,0)/n;
+    let num=0, den=0; for(let i=0;i<n;i++){ num += (xs[i]-xMean)*(ys[i]-yMean); den += (xs[i]-xMean)**2; }
+    const slope = den ? num/den : 0, intercept = yMean - slope*xMean;
+    for (let k=1;k<=3;k++){ chartYears.push(String(2023+k)); chartVals.push(+(intercept + slope*(n-1+k)).toFixed(2)); chartReal.push(false); }
+  }
+
+  panel.innerHTML = `
+    <h3>Module 3 -- CCE &amp; Yield Intelligence</h3>
+    <div class="sub">Crop: <b>${p.crop}</b> -- historical yield is <span class="real-tag">REAL</span> (DES, Indore district, 2000-2023); 2024-2026 is a linear trend extension, labeled indicative, same convention as this portal's forecast_2040.json.</div>
+    <div class="grid2">
+      <div>
+        <div style="font-size:12.5px;font-weight:700;margin-bottom:6px;">Historical + indicative yield (q/ha)</div>
+        <canvas id="yieldChartCanvas" height="180"></canvas>
+        ${hist.length < 3 ? '<div class="disclaimer">Fewer than 3 real DES records for this crop in Indore -- chart/trend not shown, not fabricated.</div>' : ''}
+      </div>
+      <div>
+        <div style="font-size:12.5px;font-weight:700;margin-bottom:6px;">Yield Prediction Engine -- formula shown, not black-box</div>
+        <table class="data-table">
+          <tr><td>Historical Avg Yield (DES, real)</td><td>${expectedYield ?? 'N/A'} q/ha</td></tr>
+          <tr><td>&times; Seed Factor (${p.seedType}, illustrative)</td><td>${seedFactor}</td></tr>
+          <tr><td>&times; Weather Factor (real: ${weatherNote})</td><td>${weatherFactor}</td></tr>
+          <tr><td>&times; NDVI Factor (Module 7 not run yet)</td><td>${ndviFactor} (neutral)</td></tr>
+          <tr><td><b>= Predicted Current Yield</b></td><td><b>${predictedYield ?? 'N/A'} q/ha</b></td></tr>
+        </table>
+        <div class="grid3" style="margin-top:10px;">
+          <div class="metric-box"><div class="lbl">Expected Yield</div><div class="val">${expectedYield ?? 'N/A'}</div></div>
+          <div class="metric-box"><div class="lbl">Predicted Yield</div><div class="val">${predictedYield ?? 'N/A'}</div></div>
+          <div class="metric-box"><div class="lbl">${lossPct!=null && lossPct<0 ? 'Potential Gain' : 'Potential Loss'}</div><div class="val">${lossPct!=null? Math.abs(lossPct)+'%':'N/A'}</div></div>
+        </div>
+        <div class="disclaimer">CCE demo record for this parcel: plot area ${(p.areaHa*0.1).toFixed(2)} ha (10% crop-cutting sample, standard CCE practice), harvest weight = Predicted Yield &times; plot area = ${predictedYield!=null?(predictedYield*p.areaHa*0.1).toFixed(1):'N/A'} q, moisture basis 12% (standard reference, not measured for this demo record).</div>
+      </div>
+    </div>
+  `;
+
+  if (yieldChart) { yieldChart.destroy(); yieldChart = null; }
+  if (hist.length >= 3){
+    const ctx = document.getElementById('yieldChartCanvas').getContext('2d');
+    yieldChart = new Chart(ctx, {
+      type:'line',
+      data:{ labels:chartYears, datasets:[{
+        label:'Yield q/ha', data:chartVals, borderColor:'#0E7C7B',
+        segment:{ borderDash: ctx2 => chartReal[ctx2.p1DataIndex] ? undefined : [5,4] },
+        pointBackgroundColor: chartYears.map((_,i)=>chartReal[i]?'#0E7C7B':'#B8860B'), tension:0.15,
+      }]},
+      options:{ plugins:{legend:{display:false}}, scales:{y:{title:{display:true,text:'q/ha'}}} }
+    });
+  }
+}
+
+/* ===================================================================
+   MODULE 4 -- Weather & Extreme Event Engine (village-level, real data,
+   kept as a SEPARATE layer from crop damage per spec's explicit rule)
+=================================================================== */
+function renderModule4Weather(){
+  const panel = document.getElementById('panel-m4');
+  if (!climateIndore){
+    panel.innerHTML = `<h3>Module 4 -- Weather &amp; Extreme Event Engine</h3><div class="disclaimer">Real climate time series for Indore failed to load this session -- no event detection shown, nothing fabricated.</div>`;
+    return;
+  }
+  const {years, heatwave_days, extreme_days, rx1day_mm, annual_rain_mm, spi_12} = climateIndore;
+  const n = years.length, latestIdx = n-1;
+  const mean = arr => arr.reduce((a,b)=>a+b,0)/arr.length;
+  const events = [];
+  const hwMean = mean(heatwave_days);
+  if (heatwave_days[latestIdx] > hwMean + 1) events.push({name:'Heatwave', detail:`${heatwave_days[latestIdx]} days in ${years[latestIdx]} vs ${hwMean.toFixed(1)}-day avg`, sev: heatwave_days[latestIdx] > hwMean*2 ? 'High':'Moderate'});
+  const exMean = mean(extreme_days);
+  if (extreme_days[latestIdx] > exMean + 1) events.push({name:'Extreme/Heavy Rainfall', detail:`${extreme_days[latestIdx]} extreme-rain days in ${years[latestIdx]} vs ${exMean.toFixed(1)}-day avg`, sev: extreme_days[latestIdx] > exMean*1.5 ? 'High':'Moderate'});
+  const rxMean = mean(rx1day_mm);
+  if (rx1day_mm[latestIdx] > rxMean*1.3) events.push({name:'Hailstorm/Cloudburst risk (Rx1day spike)', detail:`Max 1-day rainfall ${rx1day_mm[latestIdx].toFixed(0)}mm vs ${rxMean.toFixed(0)}mm avg`, sev:'Moderate'});
+  const latestSpi = spi_12 ? spi_12[latestIdx] : null;
+  if (latestSpi!=null && latestSpi < -1) events.push({name:'Drought (SPI-12)', detail:`SPI-12 = ${latestSpi.toFixed(2)} (< -1 = moderate-to-severe drought, McKee scale)`, sev: latestSpi < -1.5 ? 'High':'Moderate'});
+  if (!events.length) events.push({name:'No extreme event flagged', detail:`Latest year (${years[latestIdx]}) is within normal range on all 4 real indices tracked here`, sev:'Low'});
+
+  panel.innerHTML = `
+    <h3>Module 4 -- Weather &amp; Extreme Event Engine <span class="real-tag">REAL DATA</span></h3>
+    <div class="sub">Village/district-level, real IMD-derived indices (Indore, 2000-${years[latestIdx]}). <b>This layer detects a weather event only -- it does NOT mean crop damage is confirmed.</b> Damage confirmation needs Module 5 (farmer evidence) + Module 7 (satellite), per the spec's own separation rule.</div>
+    <div class="grid3">
+      ${events.map(e=>`<div class="metric-box" style="text-align:left;"><div class="lbl">${e.name} <span class="badge-warn" style="margin-left:4px;background:${e.sev==='High'?'var(--red-bg)':e.sev==='Moderate'?'var(--amber-bg)':'var(--green-bg)'};color:${e.sev==='High'?'var(--red)':e.sev==='Moderate'?'var(--amber)':'var(--green)'};">${e.sev}</span></div><div style="font-size:11.5px;margin-top:4px;">${e.detail}</div></div>`).join('')}
+    </div>
+    <div class="disclaimer">Cold Wave / Frost / Strong Wind / Lightning / Waterlogging: not in this portal's currently computed index set for Indore (heatwave, extreme-rain days, Rx1day, SPI-12 only) -- not shown rather than guessed.</div>
+  `;
+  window.__module4Events = events; // exposed for Module 8's explainable-AI factor table
+}
+
+/* ===================================================================
+   MODULE 5 -- Farmer Evidence App
+=================================================================== */
+function seedDemoEvidence(){
+  // One deliberately duplicated photo hash across two different (demo) claims,
+  // so Module 8's fraud check has a real example to catch -- per spec DIKHAO #10.
+  evidenceStore = [
+    {id:'EVD-001', parcelIdx:1, photoHash:'a1b2c3-leaf-damage', lat:22.548, lon:75.912, ts:'2026-07-18T09:14:00+05:30', type:'Photo'},
+    {id:'EVD-002', parcelIdx:38, photoHash:'a1b2c3-leaf-damage', lat:22.551, lon:75.915, ts:'2026-07-20T11:02:00+05:30', type:'Photo'}, // SAME hash, different parcel -> fraud flag
+  ];
+}
+function renderModule5(){
+  const panel = document.getElementById('panel-m5');
+  const p = selectedParcel;
+  panel.innerHTML = `
+    <h3>Module 5 -- Farmer Evidence App <span class="demo-tag">DEMO</span></h3>
+    <div class="sub">${p ? `Reporting for parcel ${p.id}` : 'Select a parcel first.'}</div>
+    ${p ? `
+    <div class="grid2">
+      <div>
+        <label class="field">Photo (browser file picker -- not uploaded anywhere, demo only)</label>
+        <input type="file" id="evPhoto" accept="image/*">
+        <label class="field">Note</label>
+        <textarea id="evNote" rows="2" placeholder="e.g. Waterlogging in eastern half of plot"></textarea>
+        <div style="margin-top:10px;"><button class="btn" onclick="submitEvidence()">Report Crop Damage</button></div>
+        <div id="evGpsStatus" style="font-size:11.5px;color:var(--ink-dim);margin-top:8px;"></div>
+      </div>
+      <div>
+        <div style="font-size:12.5px;font-weight:700;margin-bottom:6px;">Evidence submitted for this parcel</div>
+        <div id="evList"></div>
+      </div>
+    </div>` : ''}
+  `;
+  if (p) renderEvidenceList(p);
+}
+function renderEvidenceList(p){
+  const list = evidenceStore.filter(e => e.parcelIdx === p.idx);
+  document.getElementById('evList').innerHTML = list.length ? list.map(e => `
+    <div class="evidence-item">
+      <b>${e.id}</b> (${e.type}) -- ${new Date(e.ts).toLocaleString('en-IN')}<br>
+      GPS: ${e.lat.toFixed(5)}, ${e.lon.toFixed(5)} -- ${pointInParcel(e, p) ? '<span class="badge-ok">&#10003; GPS matches this parcel</span>' : '<span class="badge-warn">&#9888; GPS outside this parcel</span>'}
+    </div>`).join('') : '<div style="font-size:12px;color:var(--ink-dim);">No evidence submitted yet for this parcel.</div>';
+}
+function pointInParcel(evidence, parcel){
+  try { return turf.booleanPointInPolygon(turf.point([evidence.lon, evidence.lat]), turf.polygon(parcel.geometry.coordinates)); }
+  catch(e){ return false; }
+}
+function submitEvidence(){
+  const p = selectedParcel; if (!p) return;
+  const statusEl = document.getElementById('evGpsStatus');
+  statusEl.textContent = 'Requesting browser GPS permission...';
+  const finish = (lat, lon, gpsReal) => {
+    const id = 'EVD-' + String(100+evidenceStore.length);
+    evidenceStore.push({id, parcelIdx:p.idx, photoHash:id+'-hash', lat, lon, ts:new Date().toISOString(), type:'Photo'});
+    statusEl.textContent = gpsReal ? 'Real browser GPS captured.' : 'GPS permission denied/unavailable -- used parcel centroid as an honest fallback, not a fabricated real location.';
+    renderEvidenceList(p);
+    renderModule7Reset(); renderModule8();
+  };
+  if (navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(
+      pos => finish(pos.coords.latitude, pos.coords.longitude, true),
+      () => finish(p.centroid[1], p.centroid[0], false),
+      {timeout:6000}
+    );
+  } else { finish(p.centroid[1], p.centroid[0], false); }
+}
+
+/* ===================================================================
+   MODULE 6 -- AI Image Damage Detection (feasibility-first, per spec rule 5)
+=================================================================== */
+function renderModule6(){
+  document.getElementById('panel-m6').innerHTML = `
+    <h3>Module 6 -- AI Image Damage Detection <span class="mock-tag">CONCEPTUAL MOCKUP</span></h3>
+    <div class="sub">Feasibility assessed before building anything here, per the spec's own rule 5 -- honest answer: <b>not buildable as a real model in this environment right now.</b></div>
+    <div class="disclaimer" style="border-left-color:#888;">
+      <b>What exists publicly:</b> pre-trained leaf-disease *classifiers* (e.g. PlantVillage-trained models on
+      Hugging Face) exist for free, but they classify a single leaf photo into a disease species -- they do NOT
+      do what this module needs: pixel-level segmentation of a field photo into leaf/stem damage, lodging, broken
+      plants, fruit/pod/flower damage, waterlogging, hail injury, pest damage, with Healthy/Mild/Moderate/Severe
+      grading. No free pre-trained model does that multi-category segmentation task.<br><br>
+      <b>What real work it needs:</b> (1) a labeled training dataset of Indian field-damage photos across these
+      categories -- does not exist ready-made, would need field collection + expert labeling; (2) a segmentation
+      model (e.g. a fine-tuned Mask R-CNN or SegFormer) trained on that dataset; (3) real compute (GPU
+      training time) and an inference endpoint. Realistic estimate: several weeks of data collection/labeling
+      plus a dedicated training pipeline -- not a same-session task, and not safely estimable in exact days
+      without knowing how much labeled data would actually be available.<br><br>
+      <b>What this page does instead:</b> an honest upload-and-mockup UI below. Clicking "Analyze" does NOT run
+      any model -- it shows the categories a real model would classify into, with no numbers, no confidence
+      score, no fabricated severity. This is deliberate, per rule 3: no AI/ML output is ever invented here.
+    </div>
+    <label class="field">Upload a field photo (demo only, nothing is analyzed)</label>
+    <input type="file" id="m6photo" accept="image/*">
+    <div style="margin-top:10px;"><button class="btn-outline" onclick="showM6Mockup()">Analyze (mockup)</button></div>
+    <div id="m6result" style="margin-top:12px;"></div>
+  `;
+}
+function showM6Mockup(){
+  document.getElementById('m6result').innerHTML = `
     <div class="disclaimer">
-      AI-based Potential Claim Estimate — Final settlement subject to applicable insurance rules,
-      authorised CCE/field verification and insurer/government assessment. (No claim assessment exists for
-      this parcel — Modules 3-8 not built.)
+      <b>Model abhi nahi bana -- conceptual mockup.</b> A real model would output, per category:
+      Leaf/stem damage, Lodging, Broken plants, Fruit/pod/flower damage, Waterlogging, Hail injury, Disease, Pest
+      -- each with a Healthy/Mild/Moderate/Severe grade. None of those values are shown here because none were
+      computed -- showing placeholder numbers would be exactly the fabrication this repo's CLAUDE.md forbids.
+    </div>`;
+}
+
+/* ===================================================================
+   MODULE 7 -- Satellite & Multi-Source Verification (REAL live GEE call
+   via the existing Mera Khet Worker -- same endpoint, same request shape)
+=================================================================== */
+const MK_ANALYZE_URL = 'https://vindhya-mera-khet.vindhyaresearch25.workers.dev/analyze';
+let module7Result = null;
+function renderModule7Reset(){ module7Result = null; renderModule7(); }
+function renderModule7(){
+  const panel = document.getElementById('panel-m7');
+  const p = selectedParcel;
+  if (!p){ panel.innerHTML = `<h3>Module 7 -- Satellite &amp; Multi-Source Verification</h3><div class="sub">Select a parcel first.</div>`; return; }
+  panel.innerHTML = `
+    <h3>Module 7 -- Satellite &amp; Multi-Source Verification</h3>
+    <div class="sub">Live Google Earth Engine query for parcel ${p.id}, via the same Worker Mera Khet already uses (Sentinel-2 NDVI, Dynamic World cropland fraction, Sentinel-1 field-wetness). Real network call, not cached/fabricated.</div>
+    <button class="btn" id="m7btn" onclick="runModule7()">Run live satellite check</button>
+    <div id="m7out" style="margin-top:12px;"></div>
+  `;
+  if (module7Result) renderModule7Result();
+}
+async function runModule7(){
+  const p = selectedParcel; if (!p) return;
+  const btn = document.getElementById('m7btn'); btn.disabled = true; btn.textContent = 'Querying Earth Engine...';
+  const out = document.getElementById('m7out');
+  out.innerHTML = '<div style="font-size:12px;color:var(--ink-dim);">Live request in progress (Sentinel-2/1 + Dynamic World, most recent cloud-free scene)...</div>';
+  try {
+    const ring = p.geometry.type === 'Polygon' ? p.geometry.coordinates[0] : p.geometry.coordinates[0][0];
+    const res = await fetch(MK_ANALYZE_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ring})});
+    module7Result = await res.json().catch(()=>({available:false, reason:'bad_response'}));
+  } catch(e) { module7Result = {available:false, reason:'network_error: '+e.message}; }
+  btn.disabled = false; btn.textContent = 'Run live satellite check';
+  renderModule7Result();
+  renderModule8();
+}
+function renderModule7Result(){
+  const out = document.getElementById('m7out');
+  if (!module7Result){ out.innerHTML=''; return; }
+  if (!module7Result.available){
+    out.innerHTML = `<div class="disclaimer"><b>Not available:</b> ${module7Result.reason || 'unknown'}. No NDVI/wetness value fabricated -- honest degrade, same as the rest of this portal's satellite panels.</div>`;
+    return;
+  }
+  const r = module7Result;
+  // Healthy-crop reference NDVI range is a documented agronomic rule of thumb
+  // (0.6-0.8 for dense healthy vegetation mid-season), NOT a stored per-field
+  // historical baseline -- this portal doesn't have a time-series NDVI archive
+  // for Simrol to compute a true "before vs after" delta, so this is labeled
+  // as a reference-range comparison, not a real before/after.
+  const healthyMin = 0.5;
+  const decline = r.ndvi < healthyMin;
+  out.innerHTML = `
+    <div class="grid3">
+      <div class="metric-box"><div class="lbl">NDVI (live, real)</div><div class="val">${r.ndvi.toFixed(3)}</div></div>
+      <div class="metric-box"><div class="lbl">Cropland fraction</div><div class="val">${(r.cropland_fraction*100).toFixed(0)}%</div></div>
+      <div class="metric-box"><div class="lbl">Field wetness index</div><div class="val">${r.field_wetness_index_relative}</div></div>
+    </div>
+    <div class="disclaimer">
+      ${decline ? `NDVI ${r.ndvi.toFixed(3)} is below the ~${healthyMin} healthy-dense-vegetation reference threshold -- "vegetation-condition decline plausible", not a confirmed before/after drop (no stored historical NDVI baseline for this field this session).` : `NDVI ${r.ndvi.toFixed(3)} is within/above the healthy-vegetation reference range -- no vegetation decline signal from this single live reading.`}
+      <br>Source: ${r.source}
     </div>
   `;
 }
 
+/* ===================================================================
+   MODULE 8 -- Insurance Decision Support (synthesizes 2,3,4,5,7)
+=================================================================== */
+function renderModule8(){
+  const panel = document.getElementById('panel-m8');
+  const p = selectedParcel;
+  if (!p){ panel.innerHTML = `<h3>Module 8 -- Insurance Decision Support</h3><div class="sub">Select a parcel first.</div>`; return; }
+
+  // ---- Damage area & economic loss: real subtraction using Module 3's
+  // already-computed loss %, not a separately invented number.
+  const hist = desIndore ? desIndore.filter(r => r.crop === p.crop) : [];
+  const historicalAvg = hist.length ? hist.reduce((a,r)=>a+(r.yield_per_ha||0),0)/hist.length : null;
+  const seedFactor = {Hybrid:1.15, Improved:1.05, Traditional:1.0}[p.seedType];
+  let weatherFactor = 1.0;
+  if (climateIndore && climateIndore.annual_rain_mm){
+    const rains = climateIndore.annual_rain_mm, meanRain = rains.reduce((a,b)=>a+b,0)/rains.length, latestRain = rains[rains.length-1];
+    weatherFactor = +(0.7 + 0.3*Math.min(1.3, latestRain/meanRain)).toFixed(3);
+  }
+  const predictedYield = historicalAvg!=null ? historicalAvg*seedFactor*weatherFactor : null;
+  const lossPct = (historicalAvg && predictedYield!=null) ? Math.max(0, (historicalAvg-predictedYield)/historicalAvg*100) : null;
+  const cropAreaHa = +(p.areaHa*0.74).toFixed(2); // Module 2's real Crop land-use fraction
+  const affectedAreaHa = lossPct!=null ? +(cropAreaHa*lossPct/100).toFixed(2) : null;
+
+  // ---- Mandi price: honestly checked, not available for Indore this session
+  // (AGMARKNET fetch returned 429 upstream -- see dashboard/data/mandi_prices.json).
+  // Economic loss therefore shown in physical (quintal) terms only.
+  const productionLossQ = (lossPct!=null && historicalAvg!=null) ? +(cropAreaHa*historicalAvg*lossPct/100).toFixed(1) : null;
+
+  // ---- Explainable AI factor table: derived from Modules 4 and 7's REAL outputs.
+  const events = window.__module4Events || [];
+  const factors = [
+    ...events.map(e => ({name:e.name, impact:e.sev})),
+    {name:'NDVI decline (Module 7)', impact: module7Result && module7Result.available ? (module7Result.ndvi < 0.5 ? 'High' : 'Low') : 'Unavailable'},
+    {name:'CCE/yield evidence (Module 3)', impact: lossPct!=null ? (lossPct>20?'High':lossPct>5?'Moderate':'Low') : 'Unavailable'},
+    {name:'Seed type', impact: p.seedType==='Hybrid' ? 'Positive' : p.seedType==='Traditional' ? 'Moderate' : 'Low'},
+  ];
+
+  // ---- Confidence: REAL completeness-ratio heuristic, not invented.
+  // 4 possible real evidence sources for this parcel: weather event flagged,
+  // NDVI queried, CCE/yield computed, farmer evidence submitted+GPS-matched.
+  const evForParcel = evidenceStore.filter(e => e.parcelIdx === p.idx);
+  const sourcesAvailable = [
+    events.length && events[0].name !== 'No extreme event flagged',
+    !!(module7Result && module7Result.available),
+    historicalAvg != null,
+    evForParcel.some(e => pointInParcel(e, p)),
+  ];
+  const confidenceRatio = sourcesAvailable.filter(Boolean).length / sourcesAvailable.length;
+  const confidenceLabel = confidenceRatio >= 0.75 ? 'High' : confidenceRatio >= 0.4 ? 'Moderate' : 'Low';
+
+  // ---- Fraud/anomaly detection: REAL rule-based check over evidenceStore.
+  const fraudFlags = [];
+  const hashCounts = {};
+  evidenceStore.forEach(e => { hashCounts[e.photoHash] = (hashCounts[e.photoHash]||0)+1; });
+  evidenceStore.forEach(e => { if (hashCounts[e.photoHash] > 1) fraudFlags.push(`Photo hash "${e.photoHash}" reused across ${hashCounts[e.photoHash]} evidence entries (${e.id})`); });
+  evForParcel.forEach(e => { if (!pointInParcel(e, p)) fraudFlags.push(`${e.id}: GPS location does not fall inside the claimed parcel`); });
+  const uniqueFraudFlags = [...new Set(fraudFlags)];
+
+  // ---- Village-level (Simrol-only, not district-wide -- spec's explicit scope rule) aggregate.
+  const totalParcels = parcels.length;
+  const totalAreaHa = +parcels.reduce((a,x)=>a+x.areaHa,0).toFixed(1);
+
+  panel.innerHTML = `
+    <h3>Module 8 -- Insurance Decision Support</h3>
+    <div class="sub">Parcel ${p.id} -- every figure below is computed from Modules 2/3/4/5/7's real or clearly-labeled-demo outputs. Nothing here is a freestanding invented number.</div>
+
+    <div style="font-size:12.5px;font-weight:700;margin:10px 0 6px;">Damage area &amp; economic loss</div>
+    <div class="grid3">
+      <div class="metric-box"><div class="lbl">Crop area (Module 2)</div><div class="val">${cropAreaHa} ha</div></div>
+      <div class="metric-box"><div class="lbl">Affected area</div><div class="val">${affectedAreaHa ?? 'N/A'} ha</div></div>
+      <div class="metric-box"><div class="lbl">Production loss</div><div class="val">${productionLossQ ?? 'N/A'} q</div></div>
+    </div>
+    <div class="disclaimer">Mandi price for Indore not available this session (AGMARKNET upstream fetch returned HTTP 429 -- see dashboard/data/mandi_prices.json's own honest "note" field). Economic loss shown in physical (quintal) terms only -- no rupee figure invented in its place.</div>
+
+    <div style="font-size:12.5px;font-weight:700;margin:14px 0 6px;">Insurance layer</div>
+    <div class="disclaimer">Sum Insured / Threshold Yield are real PMFBY scheme parameters set per notification, per season, per crop -- not present in this session's data. Shown here as a structure only, not invented figures:</div>
+    <table class="data-table">
+      <tr><td>Insured Crop / Area</td><td>${p.crop} / ${cropAreaHa} ha (structure only)</td></tr>
+      <tr><td>Sum Insured</td><td>Not available -- needs real PMFBY notification data</td></tr>
+      <tr><td>Threshold Yield</td><td>Not available -- needs real PMFBY notification data</td></tr>
+      <tr><td>Assessed Yield (this module)</td><td>${predictedYield!=null?predictedYield.toFixed(2):'N/A'} q/ha</td></tr>
+      <tr><td>Yield Loss</td><td>${lossPct!=null?lossPct.toFixed(1)+'%':'N/A'}</td></tr>
+      <tr><td>Potential Claim</td><td>Cannot be computed without Sum Insured -- not estimated</td></tr>
+    </table>
+    <div class="disclaimer"><b>AI-based Potential Claim Estimate -- Final settlement subject to applicable insurance rules, authorised CCE/field verification and insurer/government assessment.</b></div>
+
+    <div style="font-size:12.5px;font-weight:700;margin:14px 0 6px;">Explainable AI -- why this assessment</div>
+    ${factors.map(f=>`<div class="factor-row"><span>${f.name}</span><span class="impact-${f.impact}">${f.impact}</span></div>`).join('')}
+
+    <div class="grid2" style="margin-top:14px;">
+      <div>
+        <div style="font-size:12.5px;font-weight:700;margin-bottom:6px;">Confidence score (real completeness ratio)</div>
+        <div class="metric-box"><div class="lbl">${sourcesAvailable.filter(Boolean).length} of ${sourcesAvailable.length} evidence sources available</div><div class="val">${(confidenceRatio*100).toFixed(0)}% -- ${confidenceLabel}</div></div>
+        <div class="disclaimer">Formula: (weather event flagged? + NDVI queried? + CCE/yield computed? + GPS-matched farmer evidence?) &divide; 4. Not a model-output probability -- an evidence-completeness ratio, labeled as such.</div>
+      </div>
+      <div>
+        <div style="font-size:12.5px;font-weight:700;margin-bottom:6px;">Fraud &amp; anomaly detection (real rule-based check)</div>
+        ${uniqueFraudFlags.length ? uniqueFraudFlags.map(f=>`<div class="badge-warn" style="display:block;margin-bottom:4px;">&#128681; ${f}</div>`).join('') : '<div class="badge-ok">No anomalies detected in this parcel evidence.</div>'}
+      </div>
+    </div>
+
+    <div style="font-size:12.5px;font-weight:700;margin:14px 0 6px;">Village-level dashboard (Simrol only -- not district-wide, per pilot scope)</div>
+    <div class="grid3">
+      <div class="metric-box"><div class="lbl">Demo parcels</div><div class="val">${totalParcels}</div></div>
+      <div class="metric-box"><div class="lbl">Total demo area</div><div class="val">${totalAreaHa} ha</div></div>
+      <div class="metric-box"><div class="lbl">Evidence submitted</div><div class="val">${evidenceStore.length}</div></div>
+    </div>
+
+    <div style="font-size:12.5px;font-weight:700;margin:14px 0 6px;">Event-to-Claim Timeline</div>
+    <ul class="timeline">
+      <li><span class="t">${climateIndore?climateIndore.years[climateIndore.years.length-1]:'--'}</span><br>Weather event window (Module 4, real annual index)</li>
+      ${evForParcel.map(e=>`<li><span class="t">${new Date(e.ts).toLocaleString('en-IN')}</span><br>Evidence ${e.id} uploaded (Module 5)</li>`).join('')}
+      <li><span class="t">on-demand</span><br>Satellite check ${module7Result ? '(run -- Module 7)' : '(not yet run)'}</li>
+      <li><span class="t">this module</span><br>Yield/damage assessed (Module 3/8)</li>
+      <li><span class="t">pending</span><br>CCE / authorised field verification -- not simulated here, real process</li>
+      <li><span class="t">pending</span><br>Insurer/government final assessment -- not simulated here, real process</li>
+    </ul>
+
+    <div style="font-size:12.5px;font-weight:700;margin:14px 0 6px;">Farmer Digital Record (demo, ${p.farmerName})</div>
+    <div class="disclaimer">Year-by-year profile (crop, yield, weather, claims) needs multiple demo seasons of data per farmer -- this pilot only has one live season of data per parcel, so a real multi-year record isn't built yet. Not fabricated as a 5-year history.</div>
+  `;
+}
+
+/* ===================================================================
+   Wire module-6/7 renders into the tab switch (they weren't in the
+   original per-parcel render chain since 6 has no parcel dependency
+   and 7 needs a fresh render on every tab visit).
+=================================================================== */
+const _origSwitch = switchModule;
+switchModule = function(id){ _origSwitch(id); if (id==='m6') renderModule6(); if (id==='m7') renderModule7(); if (id==='m8') renderModule8(); };
+
 main().catch(err => {
-  document.getElementById('villageStats').innerHTML =
-    `<div class="stat-row"><span class="k" style="color:#a02222;">Failed to load Simrol boundary: ${err.message}</span></div>`;
+  document.getElementById('villageStats').innerHTML = `<div class="stat-row"><span class="k" style="color:#a02222;">Failed to load: ${err.message}</span></div>`;
   console.error(err);
 });
 </script>

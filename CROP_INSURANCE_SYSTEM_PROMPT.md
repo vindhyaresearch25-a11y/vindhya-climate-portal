@@ -42,11 +42,103 @@ live-tested in a real browser (Chrome, via localhost, screenshot-verified
   was deliberately deferred to avoid a collision; reachable directly via
   `dashboard/crop_insurance_pilot/index.html` for now.
 
-**Modules 2-8: NAHI KIYA.** Not started this session -- Module 1 alone
-(real-boundary fetch, extraction, grid-clip render, click-through
-dashboard, live verification) was the full scope of this pass. Module 2
-(land-use breakdown + validation-sum-check) is the natural next step per
-the doc's own Build Order.
+## STATUS LOG UPDATE (2026-08-15, same session, owner said "GO AHEAD ALL")
+
+**Modules 2-8: HUA (v1), all built into the same `dashboard/crop_insurance_pilot/index.html`
+page as a tab strip below the Module 1 map, all driven off the same parcel
+selection. Live-tested end to end in a real browser (Chrome via localhost,
+screenshot-verified every module, console checked clean) -- one real
+syntax bug found and fixed mid-build (an unescaped apostrophe inside a
+template literal broke the entire script's parse, so NOTHING rendered
+until fixed -- caught by actually opening the page, not by assuming the
+code was fine).**
+
+- **Module 2 (Registry + Land-Use):** deterministic land-use split
+  (Crop/Orchard/House/Trees/Water/Fallow) summing exactly to the real
+  Module-1 parcel area; one parcel (idx 3) deliberately broken by 30% on
+  its Crop figure so the Data-Quality-Warning path is provably real, not
+  just written and never triggered -- confirmed the non-broken parcel
+  shows "Classified area matches Parcel Area" correctly. Crop/season/
+  variety/seed-type/dates/irrigation demo fields; ~1-in-11 parcels get a
+  multi-crop polygon split note.
+- **Module 3 (CCE & Yield):** historical yield chart is **real** DES data
+  (Indore district, 2000-2023, the crop actually grown on the selected
+  parcel) with a linear-trend 2024-2026 extension rendered as a visibly
+  dashed segment, same "indicative" convention as this repo's existing
+  `forecast_2040.json`. Yield Prediction Engine formula shown in full
+  (Historical Avg x Seed Factor x real Weather Factor x NDVI Factor) --
+  no black-box number. Found and fixed a real UX bug mid-testing: when
+  predicted yield exceeds historical (a real possible outcome of the
+  formula), the metric now correctly relabels to "Potential Gain" instead
+  of showing a confusing negative "Potential Loss %".
+- **Module 4 (Weather Events):** real threshold checks against this
+  portal's own Indore `annual_trends` (heatwave days, extreme-rain days,
+  Rx1day, SPI-12) -- live-tested result for the real latest year (2024)
+  correctly returned "No extreme event flagged / Low", not a fabricated
+  event. Explicitly kept as a separate layer from crop damage per the
+  spec's own rule -- the panel says so in its own text.
+- **Module 5 (Evidence App):** live-tested the full flow -- file picker,
+  note field, "Report Crop Damage" button triggers real
+  `navigator.geolocation`; when permission was denied/unavailable in this
+  headless test, the honest fallback path fired correctly (parcel
+  centroid used, explicitly labeled as a fallback, not presented as a
+  real GPS fix) and the real `turf.booleanPointInPolygon` GPS-match check
+  correctly badged the submitted evidence.
+- **Module 6 (AI Image Damage Detection):** feasibility assessed and
+  written out in full per rule 5 -- **conclusion: not buildable as a real
+  model in this environment.** Free pre-trained models exist for
+  single-leaf disease classification (PlantVillage-trained, Hugging
+  Face) but none do the multi-category pixel-level damage segmentation
+  this module actually needs; that would require a labeled Indian
+  field-damage dataset (doesn't exist ready-made) and a real training
+  pipeline -- realistic estimate is weeks, not a same-session task. Built
+  an honest upload-and-mockup UI instead; clicking "Analyze" runs no
+  model and shows zero numbers, exactly per rule 3.
+- **Module 7 (Satellite Verification):** real, live Google Earth Engine
+  call via the same Worker endpoint Mera Khet already uses
+  (`vindhya-mera-khet.vindhyaresearch25.workers.dev/analyze`) --
+  independently curl-verified this session to return genuine NDVI/
+  cropland-fraction/Sentinel-1 wetness data for a real Simrol coordinate.
+  In-browser testing from `localhost` correctly hit the Worker's CORS
+  policy (verified via `curl -X OPTIONS` with an `Origin` header: the
+  Worker only allows `https://vindhyaresearch25-a11y.github.io`, not
+  localhost) -- the honest-degrade path fired exactly as designed. **Not
+  fully live-verified end-to-end yet** -- needs a test from the real
+  deployed origin to confirm the success path renders correctly, only the
+  failure/degrade path was exercised this session.
+- **Module 8 (Insurance Decision Support):** synthesizes 2/3/4/5/7's real
+  outputs -- damage area and production-loss are real subtraction/
+  multiplication from Module 3's yield numbers, not separately invented.
+  Mandi price for Indore is honestly reported as unavailable (AGMARKNET
+  upstream 429, see `dashboard/data/mandi_prices.json`'s own "note"
+  field) -- economic loss shown in quintals only, no rupee figure
+  invented in its place. Insurance layer (Sum Insured/Threshold Yield)
+  honestly shown as "not available -- needs real PMFBY notification
+  data" rather than a placeholder number. Confidence score is a real
+  completeness-ratio formula (shown in the UI), not a model output.
+  **Fraud detection is real rule-based code, live-tested and confirmed
+  working**: two seeded demo evidence entries share a deliberately
+  duplicated photo hash, and the panel correctly flagged both --
+  exactly the DIKHAO #10 ask, not a hypothetical claim. Village dashboard
+  is Simrol-only (132 demo parcels, 1741 ha), not district-wide, per the
+  pilot's explicit scope rule. Event-to-Claim Timeline and Farmer Digital
+  Record render with real timestamps/honest gap notes.
+
+**Known gaps, stated plainly:**
+- Module 7's live-success rendering path is unverified from localhost
+  (CORS) -- verify once this page is actually deployed to
+  vindhyaresearch25-a11y.github.io.
+- Module 3's CCE record is a single synthetic entry per parcel, not a
+  real D1-backed CCE database -- "naya schema (D1 me)" from the spec's
+  Build Order was scoped down to client-side demo data this session;
+  actual D1 deployment needs Workers-edit credentials this session
+  didn't have (same limitation already documented for the Kisan Sahayak
+  Worker deploy).
+- Not linked into `dashboard/index.html`'s nav yet -- that file is under
+  active concurrent edit by another session this same run (confirmed via
+  `git diff --stat`, 38 lines added not authored by this session) --
+  deliberately left alone to avoid a collision, same reasoning as
+  Module 1's status note above.
 
 ---
 
