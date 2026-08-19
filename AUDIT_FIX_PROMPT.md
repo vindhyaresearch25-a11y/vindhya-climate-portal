@@ -397,6 +397,36 @@ tarah har jagah honest-empty-state rakho.
 
 ---
 
+# 20. RE-CHECK (2026-08-16) -- kya theek hua, kya nahi
+
+Maine live site dobara khol kar jaancha. **Ye theek ho chuke hain,
+confirm:**
+- Item 2 (Max zoom 218) -- **THEEK**, ab "Max zoom z18" sahi likha hai
+- Item 11 (disclaimer/zoom overlap) -- **THEEK**, ab dono alag jagah hain
+- Item 13 (Risk Legend) -- **THEEK**, ab Climate Metrics panel ke
+  andar hi upar ek chhoti legend-strip hai (Extreme/High/Moderate/Low)
+- Naya professional **"Welcome" onboarding page** bhi mila (naam,
+  organization, "Administration/Farmer/Corporate" chunne ka option) --
+  **ye bahut acchha bana hai**, aisa hi design-level poore portal me
+  chahiye
+
+**Ye ABHI BHI theek nahi hua:**
+- Item 3 (Grid lines) -- **NAHI HUA**, naksha par safed grid lines
+  ab bhi dikh rahi hain
+- Item 1 (dohrav) -- **AADHA HUA**. Kuch naam alag kar diye (Rainfall
+  Monitor vs Rainfall, NDVI Analytics vs NDVI Trend -- accha), lekin
+  **"Drought" aur "Live Weather" abhi bhi sidebar aur neeche dono me
+  hoobahoo ek jaisa naam hai** -- inhe bhi alag karo ya ek jagah se
+  hatao
+
+**Naya masla mila:** "Data sources" wala floating button neeche ke
+tab-bar ke "Projection Method" aur "AOI Polygon" tabs ke **upar chadh
+jaata hai**, unka text dhak deta hai (jaisa item 15b me chatbot-button
+ka masla tha, wahi is button ke saath bhi hai). Isko bhi ek fix
+safe-zone do taaki kisi tab-label ke upar kabhi na aaye.
+
+---
+
 # ACCHA JO MILA -- aise hi rakho
 
 Har climate card ke neeche `Source · resolution · 2000-2024` style

@@ -583,7 +583,16 @@
     var ds = document.getElementById('districtSelect');
     var vs = document.getElementById('villageSelect');
     if (!data || !ds || !ds.value) return null;
-    var d = data.districts[ds.value];
+    // Bug found 2026-08-19 while live-testing the "Live Weather" tab (owner
+    // report: metrics stayed on "Select a district" forever, even with
+    // Jabalpur selected): window._mpClimateData.districts is keyed lower-
+    // case (mp_climate_loader.js writes "jabalpur"), but ds.value is the
+    // dropdown's exact label ("Jabalpur") -- a case-sensitive lookup here
+    // always missed, silently returning null forever. Every other reader of
+    // this same object (kisan_dashboard.js's mpRealKey(), mera_khet.js's
+    // mpRealKey()) already lowercases first; this was the one place that
+    // didn't.
+    var d = data.districts[(ds.value || '').toLowerCase()];
     if (!d) return null;
     if (vs && vs.value) {
       var vm = d.villages || {};

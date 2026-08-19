@@ -2269,6 +2269,39 @@ function closeMeraKhetModal(){
   document.querySelectorAll('.btm-pane').forEach(p=>p.classList.remove('active'));
 }
 
+// Bug found 2026-08-19 while live-testing the Live Weather tab: several
+// bottom-tab panes are added by their OWN loader script (mandi_loader.js,
+// crop_stats_loader.js, advisory_loader.js, soil_moisture_loader.js,
+// live_weather_loader.js, compare_loader.js, horticulture_loader.js,
+// geoai_professional.js's NASA/AOI panes) with their OWN onclick handler
+// that toggles .active directly -- none of them go through switchTab()
+// above, so none of them got item 14c's panel-expand or item 15c's URL-
+// hash update; the panel just silently stayed collapsed at tab-bar height
+// while a pane with real content sat active-but-invisible inside it.
+// Rather than patch every loader's onclick individually (and every future
+// one), watch for ANY .btm-pane gaining .active, from any source, in one
+// place -- this fixes the already-existing gap and covers new loaders too.
+(function () {
+  var btmContent = document.querySelector('.btm-content');
+  if (!btmContent || typeof MutationObserver === 'undefined') return;
+  var mo = new MutationObserver(function (mutations) {
+    mutations.forEach(function (m) {
+      var pane = m.target;
+      if (!(pane.classList && pane.classList.contains('btm-pane') && pane.classList.contains('active'))) return;
+      var bp = document.getElementById('bottom-panel');
+      if (bp && !bp.classList.contains('expanded')) {
+        bp.classList.add('expanded');
+        setTimeout(function () { if (window.leafletMap) window.leafletMap.invalidateSize(); }, 260);
+      }
+      var slug = (pane.id || '').replace(/^pane-/, '');
+      if (slug && history.pushState && location.hash !== '#' + slug) {
+        history.pushState(null, '', '#' + slug);
+      }
+    });
+  });
+  mo.observe(btmContent, { attributes: true, attributeFilter: ['class'], subtree: true });
+})();
+
 // item 15c (2026-08-15): restores whatever panel/tab the URL hash names,
 // on first load (deep link) and on browser back/forward (popstate --
 // NOT hashchange, since switchTab()/setNav() use history.pushState, which
