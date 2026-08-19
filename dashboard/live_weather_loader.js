@@ -179,7 +179,17 @@
     if (tabs && !document.getElementById('liveweather-tab')) {
       var tab = document.createElement('div');
       tab.innerHTML = '<i class="fa fa-cloud-sun"></i>' + t('Live Weather', 'मौसम');
-      tab.className = 'btm-tab btm-tab-dup'; // owner report 2026-08-14: sidebar already has this exact item, this button was a visible duplicate
+      // AUDIT_FIX_PROMPT.md item 20 (owner's 2026-08-16 re-check): was
+      // "btm-tab btm-tab-dup" (hidden) since 2026-08-14, on the reasoning
+      // that the sidebar's own "Live Weather" item made this bottom-tab
+      // entry redundant -- but geoai_professional.js's competing NASA-only
+      // tab (weaker: no 7-day table, no RH/wind, no source disclaimer) was
+      // left visible in its place, and was found broken besides (a case-
+      // sensitivity bug, fixed separately). Un-hidden now that the owner
+      // has confirmed the duplicate naming should be resolved -- this is
+      // the richer implementation, geoai_professional.js's nasa-tab is the
+      // one now marked btm-tab-dup instead.
+      tab.className = 'btm-tab';
       tab.id = 'liveweather-tab';
       tab.onclick = function () {
         var panes = document.querySelectorAll('.btm-pane'), i;

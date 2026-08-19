@@ -572,6 +572,30 @@
     modal.onclick = function (e) { if (e.target === modal) modal.style.display = 'none'; };
     var c = document.getElementById('meta-close');
     if (c) c.onclick = function () { modal.style.display = 'none'; };
+
+    // AUDIT_FIX_PROMPT.md item 20 (owner's 2026-08-16 re-check): this
+    // button's original fixed bottom:26px sat inside the bottom-panel's
+    // own tab strip once that strip grew to two rows (item 7a) and again
+    // once the panel could expand to 260px on first click (item 14c) --
+    // its own "Data sources" label rode over Projection Method/AOI Polygon
+    // tab text, the same class of overlap item 15b already fixed for the
+    // chat-FAB. #bottom-panel's real rendered height changes (collapsed
+    // tab-strip only vs a click-expanded 260px pane), so a single fixed
+    // pixel value can't stay clear of it in both states -- reposition
+    // relative to the panel's own live top edge instead, on load, on
+    // resize, and whenever .expanded toggles (same moment the shared
+    // MutationObserver in index.html reacts to a pane going active).
+    function positionMetaBtn() {
+      var bp = document.getElementById('bottom-panel');
+      var bpTop = bp ? bp.getBoundingClientRect().top : window.innerHeight;
+      btn.style.bottom = Math.max(16, (window.innerHeight - bpTop) + 10) + 'px';
+    }
+    positionMetaBtn();
+    window.addEventListener('resize', positionMetaBtn);
+    var bpEl = document.getElementById('bottom-panel');
+    if (bpEl && typeof MutationObserver !== 'undefined') {
+      new MutationObserver(positionMetaBtn).observe(bpEl, { attributes: true, attributeFilter: ['class'] });
+    }
   }
 
   function ymd(d) {
@@ -691,18 +715,19 @@
       var loc = currentLocation();
       if (loc) loadNasaPower(loc.lat, loc.lng, loc.name);
     });
-    // NOTE (found 2026-08-14 while fixing item 9, NOT acted on): this tab
-    // duplicates both the sidebar's "Live Weather" item and the bottom-
-    // strip's own live_weather_loader.js tab (already hidden there as
-    // btm-tab-dup per item 1) -- this one is the one actually left
-    // visible, showing a weaker NASA-POWER-only pane instead of
-    // live_weather_loader.js's real one (NASA POWER + Open-Meteo
-    // forecast). Left alone here: the owner's item 9 list explicitly
-    // names "Live Weather" as one of the 16 bottom tabs to keep and fix
-    // in place ("ye layout theek hai, ise mat badlo"), so removing/hiding
-    // a currently-visible tab now would contradict that instruction even
-    // though it looks like the item-1 dedup logic should apply. Flagged
-    // for the owner to confirm before either tab is hidden.
+    // AUDIT_FIX_PROMPT.md item 20 (owner's 2026-08-16 re-check, acting on
+    // the note this comment used to carry): this tab duplicates both the
+    // sidebar's "Live Weather" item (which itself opens live_weather_
+    // loader.js's pane, not this one) and that same loader's own bottom-
+    // tab entry (already hidden as btm-tab-dup) -- of the two, THIS was
+    // the weaker one (single NASA-POWER-only card vs. the other's NASA
+    // POWER + Open-Meteo 7-day table with RH/wind/source disclaimer), yet
+    // it was the one left visible. Owner has now confirmed action wanted
+    // ("inhe bhi alag karo ya ek jagah se hatao") -- hide this one instead
+    // and un-hide the richer pane (live_weather_loader.js's addPane(),
+    // matching id) so only the better implementation shows.
+    var nasaTab = document.getElementById('nasa-tab');
+    if (nasaTab) nasaTab.classList.add('btm-tab-dup');
   }
 
   function boot() {

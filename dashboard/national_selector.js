@@ -68,7 +68,15 @@
   var STYLE = STYLE_DARK;
   var CASING_COLOR = '#000000';
   var CASING_OPACITY = 0.6;
-  var FAINT_OPACITY = 0.4;
+  // AUDIT_FIX_PROMPT.md item 3/20 (owner report, twice): the state
+  // boundary's edges span the full viewport once you're zoomed into one
+  // small district inside it -- even at the old 0.4 opacity, those long
+  // straight-ish lines (casing black + bright orange) read as a "grid"
+  // crossing the whole map, not as a subtle parent-context cue. Lowered
+  // so the drill-down breadcrumb (the actual reason this layer stays
+  // instead of being removed, see the comment above) is still faintly
+  // there up close but no longer reads as an unwanted grid pattern.
+  var FAINT_OPACITY = 0.12;
   var boundaryTheme = 'dark';
 
   function setBoundaryTheme(theme) {
