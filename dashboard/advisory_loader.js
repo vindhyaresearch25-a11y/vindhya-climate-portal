@@ -236,12 +236,17 @@
   // ---------------------------------------------------------------------
   function showEmpty(msg) {
     var host = el('advisory-panel-body');
-    if (host) host.innerHTML = '<div style="text-align:center;color:var(--text-dim);font-size:var(--fs-1);padding:1rem;"><i class="fa fa-comment-slash"></i> ' + msg + '</div>';
+    if (!host) return;
+    host.className = 'btm-pane-empty';
+    host.innerHTML = '<i class="fa fa-comment-slash chart-empty-icon"></i><span>' + msg + '</span>'
+      + '<button class="btm-pane-empty-btn" onclick="focusLocationSelector()"><i class="fa fa-location-crosshairs"></i> '
+      + t('Select district', 'ज़िला चुनें') + '</button>';
   }
 
   function render() {
     var host = el('advisory-panel-body');
     if (!host) return;
+    host.className = 'u-scroll-pane'; // reset from the centered .btm-pane-empty card (showEmpty) back to normal block flow -- real content below is a scrolling list, not a centered card
     var sel = currentSelection();
     if (!sel.stateName) {
       showEmpty(t('Select a state, district, block or village', 'राज्य, ज़िला, ब्लॉक या गाँव चुनें'));
@@ -312,14 +317,15 @@
     var p = document.createElement('div');
     p.className = 'btm-pane';
     p.id = 'pane-advisory';
-    p.innerHTML = '<div class="section-header"><i class="fa fa-comment-dots" style="color:var(--cyan)"></i>'
+    p.innerHTML = '<div class="section-header"><i class="fa fa-comment-dots u-cyan-sm"></i>'
       + '<div class="section-title">ADVISORY — ' + t('rule-based', 'नियम-आधारित') + '</div></div>'
       + '<div style="padding:0.4rem 0.75rem;font-size:var(--fs-1);line-height:1.6;color:var(--text-dim);">'
       + t('Rule-based · not AI/ML', 'नियम-आधारित · AI/ML नहीं') + ' '
       + infoIcon('Derived, rule-based flags only -- not a machine-learning prediction, no confidence percentage. Each flag cites the exact real number(s) it was computed from.')
       + '</div>'
-      + '<div id="advisory-panel-body" style="padding:0.5rem 0.75rem;text-align:center;color:var(--text-dim);font-size:var(--fs-1);">'
-      + '<i class="fa fa-comment-slash"></i> ' + t('Select a state/district/block/village', 'राज्य/ज़िला/ब्लॉक/गाँव चुनें') + '</div>';
+      + '<div id="advisory-panel-body" class="btm-pane-empty">'
+      + '<i class="fa fa-comment-slash chart-empty-icon"></i><span>' + t('Select a state/district/block/village', 'राज्य/ज़िला/ब्लॉक/गाँव चुनें') + '</span>'
+      + '<button class="btm-pane-empty-btn" onclick="focusLocationSelector()"><i class="fa fa-location-crosshairs"></i> ' + t('Select district', 'ज़िला चुनें') + '</button></div>';
     host.appendChild(p);
 
     var firstTab = document.querySelector('.btm-tab');

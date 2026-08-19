@@ -270,7 +270,10 @@
   // ---------------------------------------------------------------------
   function showEmpty(msg) {
     var host = el('soilmoisture-panel-body');
-    if (host) host.innerHTML = '<div style="text-align:center;color:var(--text-dim);font-size:var(--fs-1);padding:1rem;"><i class="fa fa-tint-slash"></i> ' + msg + '</div>';
+    if (!host) return;
+    host.className = 'btm-pane-empty';
+    host.innerHTML = '<i class="fa fa-tint-slash chart-empty-icon"></i><span>' + msg + '</span>'
+      + '<button class="btm-pane-empty-btn" onclick="focusLocationSelector()"><i class="fa fa-location-crosshairs"></i> Select district</button>';
   }
 
   function updateMainMetricCard(sm, meta) {
@@ -293,6 +296,7 @@
   function render() {
     var host = el('soilmoisture-panel-body');
     if (!host) return;
+    host.className = 'u-scroll-pane'; // reset from the centered .btm-pane-empty card (showEmpty) back to normal block flow for real content
     var sel = currentSelection();
     if (!sel.stateName) {
       showEmpty('राज्य/ज़िला/ब्लॉक/गाँव चुनें · Select a state/district/block/village');
@@ -362,12 +366,13 @@
     var p = document.createElement('div');
     p.className = 'btm-pane';
     p.id = 'pane-soilmoisture';
-    p.innerHTML = '<div class="section-header"><i class="fa fa-tint" style="color:var(--cyan)"></i>'
+    p.innerHTML = '<div class="section-header"><i class="fa fa-tint u-cyan-sm"></i>'
       + '<div class="section-title">SOIL MOISTURE — SMAP L4 (~9 km)</div></div>'
       + '<div style="padding:0.4rem 0.75rem;font-size:var(--fs-1);line-height:1.6;color:var(--text-dim);">'
       + RESOLUTION_NOTE + '</div>'
-      + '<div id="soilmoisture-panel-body" style="padding:0.5rem 0.75rem;text-align:center;color:var(--text-dim);font-size:var(--fs-1);">'
-      + '<i class="fa fa-tint-slash"></i> राज्य/ज़िला/ब्लॉक/गाँव चुनें · Select a state/district/block/village</div>';
+      + '<div id="soilmoisture-panel-body" class="btm-pane-empty">'
+      + '<i class="fa fa-tint-slash chart-empty-icon"></i><span>राज्य/ज़िला/ब्लॉक/गाँव चुनें · Select a state/district/block/village</span>'
+      + '<button class="btm-pane-empty-btn" onclick="focusLocationSelector()"><i class="fa fa-location-crosshairs"></i> Select district</button></div>';
     host.appendChild(p);
 
     var firstTab = document.querySelector('.btm-tab');
