@@ -265,6 +265,9 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 .nav-item.active .nav-label{color:#1a2332;font-weight:600;}
 .nav-badge{margin-left:auto;background:var(--red);color:#fff;font-size:var(--fs-1);font-weight:700;padding:2px 7px;border-radius:var(--radius-10);white-space:nowrap;}
 #sidebar.collapsed .nav-label,#sidebar.collapsed .nav-section-title,#sidebar.collapsed .sidebar-logo-text,#sidebar.collapsed .nav-badge{display:none;}
+.sidebar-footer{flex-shrink:0;padding:0.6rem 1rem;border-top:1px solid var(--border);font-size:10px;line-height:1.5;color:var(--text-dim);text-align:center;}
+.sidebar-footer b{color:var(--cyan);font-weight:600;}
+#sidebar.collapsed .sidebar-footer{display:none;}
 
 /* Main area */
 #main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
@@ -617,7 +620,7 @@ body.mk-modal-open #pane-merakhet.active{
    .metric-row above -- nothing to change there). ---- */
 @media(min-width:768.02px) and (max-width:1024px){
   #sidebar{width:56px;}
-  #sidebar .nav-label,#sidebar .nav-section-title,#sidebar .sidebar-logo-text,#sidebar .nav-badge{display:none;}
+  #sidebar .nav-label,#sidebar .nav-section-title,#sidebar .sidebar-logo-text,#sidebar .nav-badge,#sidebar .sidebar-footer{display:none;}
   .topbar-toggle{display:none;} /* tablet sidebar width is fixed, nothing to toggle */
   #content{flex-direction:column;overflow-y:auto;overflow-x:hidden;}
   #map-panel{flex:0 0 50vh;min-height:340px;}
@@ -650,7 +653,8 @@ body.mk-modal-open #pane-merakhet.active{
      drawer -- full labels always show once it's actually open on mobile. */
   #sidebar.collapsed{width:240px;max-width:82vw;}
   #sidebar.collapsed .nav-label,#sidebar.collapsed .nav-section-title,
-  #sidebar.collapsed .sidebar-logo-text,#sidebar.collapsed .nav-badge{display:revert;}
+  #sidebar.collapsed .sidebar-logo-text,#sidebar.collapsed .nav-badge,
+  #sidebar.collapsed .sidebar-footer{display:revert;}
   #sidebarBackdrop{display:block;}
   .nav-item{min-height:44px;}
 
@@ -1113,6 +1117,14 @@ body.mk-modal-open #pane-merakhet.active{
       <div class="nav-item" onclick="setNav(this,&#39;api&#39;)"><span class="nav-icon"><i class="fa fa-code"></i></span><span class="nav-label" data-i18n>API Access</span></div>
       <div class="nav-item" onclick="window.open(&#39;kisan_upload.html&#39;,&#39;_blank&#39;)" title="Farmer crop ground-truth upload -- opens a separate form page, not deployed yet"><span class="nav-icon"><i class="fa fa-seedling"></i></span><span class="nav-label" data-i18n>Kisan Fasal Sahyog</span></div>
     </div>
+    <!-- Owner instruction (2026-08-19): "login page ke baad dashboard poora
+         page bhara dikhta hai, niche footer dalo" -- attribution line.
+         Placed as a fixed-height sibling AFTER .sidebar-nav (which is the
+         thing that scrolls, flex:1), not inside it, so it never scrolls
+         out of view and never eats into the map/bottom-panel layout the
+         way a page-wide footer would (that layout is flex:1 fills-viewport
+         throughout #app, see item 8's "map size never changes" rule). -->
+    <div class="sidebar-footer">VINDHYA Climate — managed by<br><b>Vindhya Innovation Research Foundation</b></div>
   </nav>
 
   <!-- Phase B: dims the page and closes the drawer on tap, mobile-only
