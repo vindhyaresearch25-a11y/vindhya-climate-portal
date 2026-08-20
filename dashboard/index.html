@@ -3490,8 +3490,30 @@ function initCharts(){
 // height/position on the y-axis is what the horizontal lines help read;
 // vertical gridlines mostly add visual noise for a time-series x-axis.
 function chartOpts(grid){
+  // dataviz-skill pass (2026-08-20, owner: "graphical presentation attractive
+  // dikhe... sabhi ko advanced karo"): centralized in this one shared function
+  // (called by every chart in mp_climate_loader.js/national_climate_loader.js/
+  // national_ndvi_loader.js/national_forecast_loader.js/validation_loader.js)
+  // rather than touching each chart's own config -- one change, every chart
+  // gets it. Colors/series identity are UNCHANGED (each caller already picks
+  // its own, and a full palette re-derivation is a separate, larger pass);
+  // this only upgrades the interaction/hover layer (skill step 5 -- every
+  // chart should ship a hover tooltip by default) and mark polish (step 4 --
+  // rounded bar ends, a slightly eased-in reveal instead of an instant snap).
   return {responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{labels:{boxWidth:10,font:{size:11,weight:'bold'}}}},
+    animation:{duration:550,easing:'easeOutQuart'},
+    interaction:{mode:'index',intersect:false},
+    elements:{bar:{borderRadius:4,borderSkipped:false},point:{hoverRadius:5,hitRadius:8}},
+    plugins:{
+      legend:{labels:{boxWidth:10,font:{size:11,weight:'bold'}}},
+      tooltip:{
+        enabled:true,mode:'index',intersect:false,
+        backgroundColor:'rgba(20,28,40,0.92)',titleColor:'#fff',bodyColor:'#e8f0f4',
+        titleFont:{size:11,weight:'700'},bodyFont:{size:11},
+        padding:10,cornerRadius:6,displayColors:true,boxPadding:4,
+        borderColor:'rgba(255,255,255,0.08)',borderWidth:1
+      }
+    },
     scales:{x:{grid:{display:false},ticks:{font:{size:10,weight:'bold'}}},y:{grid:grid,ticks:{font:{size:10,weight:'bold'}}}}};
 }
 
