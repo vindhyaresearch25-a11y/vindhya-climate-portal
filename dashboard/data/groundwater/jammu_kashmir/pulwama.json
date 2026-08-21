@@ -1,0 +1,371 @@
+{
+ "metadata": {
+  "source": "CGWB (Central Ground Water Board, Ministry of Jal Shakti) via the National Water Data Portal, nwdp.nwic.gov.in -- dataset 'Ground Water Level (Manual - Quarterly), CGWB'",
+  "source_url": "https://nwdp.nwic.gov.in/dataset/gwl-manual-quarterly-central-ground-water-board-department",
+  "resolution": "Station points (CGWB manual quarterly monitoring wells/piezometers), aggregated to district by joining each row's own 'District LGD Code' field against this project's own Survey-of-India district_lgd (see dashboard/data/boundaries/soi/districts_index.json) -- not a name match, so it does not inherit the AGMARKNET-style spelling-mismatch problem documented in scripts/fetch_mandi_prices.py.",
+  "unit": "meters (depth to water level below ground level, 'mbgl' -- the NWDP dataset's own notes text says only 'GWL values in meter (m)'; the mbgl-below-ground convention is CGWB's own standard reporting convention for this series and was cross-checked for plausibility against known real MP readings, see scripts/16_fetch_groundwater.py header)",
+  "method": "Real CSV rows only -- no interpolation, no carrying forward. Per district: latest reading = the row with the maximum parsed Data Acquisition Time; trend = a plain OLS slope (same 'indicative OLS trend on real history' style as forecast_2040.json) fit on every station-district's numeric quarterly series across both the 1991-2020 and 2021-2025 (and 2026-2030 where present) CSV slices, only when enough real points exist -- never a projection dressed as an observation.",
+  "data_quality": "verified-official (real CGWB dataset, government portal, no login)",
+  "state": "Jammu & Kashmir",
+  "district": "Pulwama",
+  "district_lgd": 11,
+  "n_stations": 5,
+  "n_readings_total": 56,
+  "date_range": [
+   "2013-05-15",
+   "2023-05-24"
+  ],
+  "last_updated": "2026-08-21"
+ },
+ "district": {
+  "latest_reading_date": "2023-05-24",
+  "latest_gwl_mean_m": 5.94,
+  "n_stations": 5,
+  "trend": {
+   "mean_slope_m_per_year": 0.047,
+   "direction": "deepening (water table falling)",
+   "n_stations_with_trend": 5
+  }
+ },
+ "stations": [
+  {
+   "station": "Gandhasi Bhat",
+   "tehsil": "PULWAMA",
+   "block": "PULWAMA",
+   "village": "Gandhasi Bhat",
+   "lat": 33.85611,
+   "lon": 75.04444,
+   "latest_date": "2021-08-31",
+   "latest_gwl_m": 1.0,
+   "n_readings": 11,
+   "date_range": [
+    "2013-05-15",
+    "2021-08-31"
+   ],
+   "trend": {
+    "slope_m_per_year": 0.1,
+    "direction": "deepening (water table falling)",
+    "n_points": 11,
+    "span_years": 8.3
+   },
+   "readings": [
+    {
+     "date": "2013-05-15",
+     "gwl_m": 1.02
+    },
+    {
+     "date": "2013-08-25",
+     "gwl_m": 0.7
+    },
+    {
+     "date": "2013-11-05",
+     "gwl_m": 1.26
+    },
+    {
+     "date": "2014-05-15",
+     "gwl_m": 0.79
+    },
+    {
+     "date": "2014-08-25",
+     "gwl_m": 0.7
+    },
+    {
+     "date": "2014-11-05",
+     "gwl_m": 1.8
+    },
+    {
+     "date": "2017-11-05",
+     "gwl_m": 2.41
+    },
+    {
+     "date": "2018-05-29",
+     "gwl_m": 2.45
+    },
+    {
+     "date": "2018-08-31",
+     "gwl_m": 1.0
+    },
+    {
+     "date": "2018-11-30",
+     "gwl_m": 2.19
+    },
+    {
+     "date": "2021-08-31",
+     "gwl_m": 1.0
+    }
+   ]
+  },
+  {
+   "station": "Pampore",
+   "tehsil": "PULWAMA",
+   "block": "PULWAMA",
+   "village": "Pampore",
+   "lat": 33.99361,
+   "lon": 74.92167,
+   "latest_date": "2017-11-05",
+   "latest_gwl_m": 5.53,
+   "n_readings": 6,
+   "date_range": [
+    "2013-05-15",
+    "2017-11-05"
+   ],
+   "trend": {
+    "slope_m_per_year": 0.3025,
+    "direction": "deepening (water table falling)",
+    "n_points": 6,
+    "span_years": 4.5
+   },
+   "readings": [
+    {
+     "date": "2013-05-15",
+     "gwl_m": 4.05
+    },
+    {
+     "date": "2013-08-25",
+     "gwl_m": 4.2
+    },
+    {
+     "date": "2013-11-05",
+     "gwl_m": 4.99
+    },
+    {
+     "date": "2014-05-15",
+     "gwl_m": 3.21
+    },
+    {
+     "date": "2014-08-25",
+     "gwl_m": 3.95
+    },
+    {
+     "date": "2017-11-05",
+     "gwl_m": 5.53
+    }
+   ]
+  },
+  {
+   "station": "Sambura-Kokapura",
+   "tehsil": "PULWAMA",
+   "block": "PULWAMA",
+   "village": "Sambura-Kokapura",
+   "lat": 33.95639,
+   "lon": 74.92556,
+   "latest_date": "2021-08-31",
+   "latest_gwl_m": 5.48,
+   "n_readings": 14,
+   "date_range": [
+    "2013-05-15",
+    "2021-08-31"
+   ],
+   "trend": {
+    "slope_m_per_year": 0.1581,
+    "direction": "deepening (water table falling)",
+    "n_points": 14,
+    "span_years": 8.3
+   },
+   "readings": [
+    {
+     "date": "2013-05-15",
+     "gwl_m": 3.52
+    },
+    {
+     "date": "2013-08-25",
+     "gwl_m": 5.04
+    },
+    {
+     "date": "2013-11-05",
+     "gwl_m": 6.24
+    },
+    {
+     "date": "2014-05-15",
+     "gwl_m": 3.11
+    },
+    {
+     "date": "2014-08-25",
+     "gwl_m": 4.38
+    },
+    {
+     "date": "2014-11-05",
+     "gwl_m": 5.58
+    },
+    {
+     "date": "2015-08-25",
+     "gwl_m": 5.21
+    },
+    {
+     "date": "2015-11-05",
+     "gwl_m": 5.46
+    },
+    {
+     "date": "2016-05-15",
+     "gwl_m": 4.22
+    },
+    {
+     "date": "2017-11-05",
+     "gwl_m": 6.02
+    },
+    {
+     "date": "2018-05-29",
+     "gwl_m": 5.28
+    },
+    {
+     "date": "2018-08-31",
+     "gwl_m": 5.23
+    },
+    {
+     "date": "2018-11-30",
+     "gwl_m": 5.98
+    },
+    {
+     "date": "2021-08-31",
+     "gwl_m": 5.48
+    }
+   ]
+  },
+  {
+   "station": "Tral",
+   "tehsil": "TRAL",
+   "block": "TRAL",
+   "village": "Tral",
+   "lat": 33.91389,
+   "lon": 75.03472,
+   "latest_date": "2023-05-24",
+   "latest_gwl_m": 14.46,
+   "n_readings": 14,
+   "date_range": [
+    "2013-05-15",
+    "2023-05-24"
+   ],
+   "trend": {
+    "slope_m_per_year": 0.0392,
+    "direction": "deepening (water table falling)",
+    "n_points": 14,
+    "span_years": 10.0
+   },
+   "readings": [
+    {
+     "date": "2013-05-15",
+     "gwl_m": 14.97
+    },
+    {
+     "date": "2013-08-25",
+     "gwl_m": 13.94
+    },
+    {
+     "date": "2013-11-05",
+     "gwl_m": 15.28
+    },
+    {
+     "date": "2014-05-15",
+     "gwl_m": 14.79
+    },
+    {
+     "date": "2014-08-25",
+     "gwl_m": 14.23
+    },
+    {
+     "date": "2014-11-05",
+     "gwl_m": 15.24
+    },
+    {
+     "date": "2017-11-05",
+     "gwl_m": 16.0
+    },
+    {
+     "date": "2018-05-29",
+     "gwl_m": 15.09
+    },
+    {
+     "date": "2018-11-30",
+     "gwl_m": 15.89
+    },
+    {
+     "date": "2021-08-31",
+     "gwl_m": 15.0
+    },
+    {
+     "date": "2022-05-30",
+     "gwl_m": 15.04
+    },
+    {
+     "date": "2022-08-30",
+     "gwl_m": 15.56
+    },
+    {
+     "date": "2022-11-30",
+     "gwl_m": 15.24
+    },
+    {
+     "date": "2023-05-24",
+     "gwl_m": 14.46
+    }
+   ]
+  },
+  {
+   "station": "Zeewan",
+   "tehsil": "PULWAMA",
+   "block": "PULWAMA",
+   "village": "Zeewan",
+   "lat": 34.04222,
+   "lon": 74.91667,
+   "latest_date": "2017-11-05",
+   "latest_gwl_m": 3.21,
+   "n_readings": 11,
+   "date_range": [
+    "2013-05-15",
+    "2017-11-05"
+   ],
+   "trend": {
+    "slope_m_per_year": -0.3648,
+    "direction": "rising (water table improving)",
+    "n_points": 11,
+    "span_years": 4.5
+   },
+   "readings": [
+    {
+     "date": "2013-05-15",
+     "gwl_m": 4.3
+    },
+    {
+     "date": "2013-08-25",
+     "gwl_m": 4.4
+    },
+    {
+     "date": "2013-11-05",
+     "gwl_m": 4.45
+    },
+    {
+     "date": "2014-05-15",
+     "gwl_m": 2.6
+    },
+    {
+     "date": "2014-08-25",
+     "gwl_m": 4.26
+    },
+    {
+     "date": "2014-11-05",
+     "gwl_m": 3.2
+    },
+    {
+     "date": "2015-05-15",
+     "gwl_m": 2.1
+    },
+    {
+     "date": "2015-08-25",
+     "gwl_m": 2.5
+    },
+    {
+     "date": "2015-11-05",
+     "gwl_m": 2.93
+    },
+    {
+     "date": "2016-05-15",
+     "gwl_m": 2.93
+    },
+    {
+     "date": "2017-11-05",
+     "gwl_m": 3.21
+    }
+   ]
+  }
+ ]
+}

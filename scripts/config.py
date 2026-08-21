@@ -253,3 +253,42 @@ SMAP_SOURCE_META = {
            "claims a village-specific value; it always shows the real count of villages "
            "sharing that cell. See MERA_KHET_PROMPT.md section B1.",
 }
+
+# ---------- GROUNDWATER (National Water Data Portal / CGWB) ----------
+# PENDING.md item 4 was closed as a dead end on 2026-08-09 after checking
+# india-wris.gov.in (Angular shell, no JSON API), gwdata.cgwb.gov.in
+# (maintenance mode, form-driven), cgwb.gov.in (PDF reports only) and
+# data.gov.in (no CGWB groundwater-level resource_id found). Found and
+# verified working 2026-08-19: nwdp.nwic.gov.in (the SAME Survey-of-India-
+# adjacent government portal this project already trusts for village
+# boundaries, standing order #3) also publishes CGWB's own real quarterly
+# manual groundwater-level readings as plain CSV, no login, no API key --
+# see scripts/16_fetch_groundwater.py for the resource URL table and
+# scraping method used to find it.
+NATIONAL_GROUNDWATER_OUT_DIR = PROJECT_ROOT / "dashboard" / "data" / "groundwater"
+
+GWL_SOURCE_META = {
+    "source": "CGWB (Central Ground Water Board, Ministry of Jal Shakti) via the National "
+              "Water Data Portal, nwdp.nwic.gov.in -- dataset 'Ground Water Level "
+              "(Manual - Quarterly), CGWB'",
+    "source_url": "https://nwdp.nwic.gov.in/dataset/gwl-manual-quarterly-central-ground-water-board-department",
+    "resolution": "Station points (CGWB manual quarterly monitoring wells/piezometers), "
+                  "aggregated to district by joining each row's own 'District LGD Code' "
+                  "field against this project's own Survey-of-India district_lgd (see "
+                  "dashboard/data/boundaries/soi/districts_index.json) -- not a name match, "
+                  "so it does not inherit the AGMARKNET-style spelling-mismatch problem "
+                  "documented in scripts/fetch_mandi_prices.py.",
+    "unit": "meters (depth to water level below ground level, 'mbgl' -- the NWDP dataset's "
+           "own notes text says only 'GWL values in meter (m)'; the mbgl-below-ground "
+           "convention is CGWB's own standard reporting convention for this series and was "
+           "cross-checked for plausibility against known real MP readings, see "
+           "scripts/16_fetch_groundwater.py header)",
+    "method": "Real CSV rows only -- no interpolation, no carrying forward. Per district: "
+              "latest reading = the row with the maximum parsed Data Acquisition Time; "
+              "trend = a plain OLS slope (same 'indicative OLS trend on real history' style "
+              "as forecast_2040.json) fit on every station-district's numeric quarterly "
+              "series across both the 1991-2020 and 2021-2025 (and 2026-2030 where present) "
+              "CSV slices, only when enough real points exist -- never a projection dressed "
+              "as an observation.",
+    "data_quality": "verified-official (real CGWB dataset, government portal, no login)",
+}

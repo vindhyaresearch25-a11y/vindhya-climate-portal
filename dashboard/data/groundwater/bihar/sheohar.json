@@ -1,0 +1,723 @@
+{
+ "metadata": {
+  "source": "CGWB (Central Ground Water Board, Ministry of Jal Shakti) via the National Water Data Portal, nwdp.nwic.gov.in -- dataset 'Ground Water Level (Manual - Quarterly), CGWB'",
+  "source_url": "https://nwdp.nwic.gov.in/dataset/gwl-manual-quarterly-central-ground-water-board-department",
+  "resolution": "Station points (CGWB manual quarterly monitoring wells/piezometers), aggregated to district by joining each row's own 'District LGD Code' field against this project's own Survey-of-India district_lgd (see dashboard/data/boundaries/soi/districts_index.json) -- not a name match, so it does not inherit the AGMARKNET-style spelling-mismatch problem documented in scripts/fetch_mandi_prices.py.",
+  "unit": "meters (depth to water level below ground level, 'mbgl' -- the NWDP dataset's own notes text says only 'GWL values in meter (m)'; the mbgl-below-ground convention is CGWB's own standard reporting convention for this series and was cross-checked for plausibility against known real MP readings, see scripts/16_fetch_groundwater.py header)",
+  "method": "Real CSV rows only -- no interpolation, no carrying forward. Per district: latest reading = the row with the maximum parsed Data Acquisition Time; trend = a plain OLS slope (same 'indicative OLS trend on real history' style as forecast_2040.json) fit on every station-district's numeric quarterly series across both the 1991-2020 and 2021-2025 (and 2026-2030 where present) CSV slices, only when enough real points exist -- never a projection dressed as an observation.",
+  "data_quality": "verified-official (real CGWB dataset, government portal, no login)",
+  "state": "Bihar",
+  "district": "Sheohar",
+  "district_lgd": 220,
+  "n_stations": 5,
+  "n_readings_total": 144,
+  "date_range": [
+   "1996-01-05",
+   "2022-11-10"
+  ],
+  "last_updated": "2026-08-21"
+ },
+ "district": {
+  "latest_reading_date": "2022-11-10",
+  "latest_gwl_mean_m": 2.76,
+  "n_stations": 5,
+  "trend": {
+   "mean_slope_m_per_year": -0.0199,
+   "direction": "broadly stable",
+   "n_stations_with_trend": 5
+  }
+ },
+ "stations": [
+  {
+   "station": "Belsand",
+   "tehsil": "BELSAND",
+   "block": "BELSAND",
+   "village": "Belsand",
+   "lat": 26.44833,
+   "lon": 85.42056,
+   "latest_date": "2022-11-10",
+   "latest_gwl_m": 2.79,
+   "n_readings": 26,
+   "date_range": [
+    "2015-05-15",
+    "2022-11-10"
+   ],
+   "trend": {
+    "slope_m_per_year": -0.1542,
+    "direction": "rising (water table improving)",
+    "n_points": 26,
+    "span_years": 7.5
+   },
+   "readings": [
+    {
+     "date": "2015-05-15",
+     "gwl_m": 2.57
+    },
+    {
+     "date": "2015-08-25",
+     "gwl_m": 3.48
+    },
+    {
+     "date": "2015-11-05",
+     "gwl_m": 4.01
+    },
+    {
+     "date": "2016-01-05",
+     "gwl_m": 2.85
+    },
+    {
+     "date": "2016-05-15",
+     "gwl_m": 4.55
+    },
+    {
+     "date": "2016-08-25",
+     "gwl_m": 2.9
+    },
+    {
+     "date": "2016-11-05",
+     "gwl_m": 4.09
+    },
+    {
+     "date": "2017-01-05",
+     "gwl_m": 2.37
+    },
+    {
+     "date": "2017-05-15",
+     "gwl_m": 3.36
+    },
+    {
+     "date": "2017-08-25",
+     "gwl_m": 1.2
+    },
+    {
+     "date": "2017-11-05",
+     "gwl_m": 2.12
+    },
+    {
+     "date": "2018-01-10",
+     "gwl_m": 2.19
+    },
+    {
+     "date": "2018-05-30",
+     "gwl_m": 3.69
+    },
+    {
+     "date": "2018-08-30",
+     "gwl_m": 0.56
+    },
+    {
+     "date": "2019-01-10",
+     "gwl_m": 2.32
+    },
+    {
+     "date": "2019-05-30",
+     "gwl_m": 3.26
+    },
+    {
+     "date": "2020-01-10",
+     "gwl_m": 1.74
+    },
+    {
+     "date": "2020-08-25",
+     "gwl_m": 0.45
+    },
+    {
+     "date": "2020-11-30",
+     "gwl_m": 1.1
+    },
+    {
+     "date": "2021-01-10",
+     "gwl_m": 1.84
+    },
+    {
+     "date": "2021-08-31",
+     "gwl_m": 1.18
+    },
+    {
+     "date": "2021-11-30",
+     "gwl_m": 2.27
+    },
+    {
+     "date": "2022-01-30",
+     "gwl_m": 2.67
+    },
+    {
+     "date": "2022-05-25",
+     "gwl_m": 3.7
+    },
+    {
+     "date": "2022-08-25",
+     "gwl_m": 2.84
+    },
+    {
+     "date": "2022-11-10",
+     "gwl_m": 2.79
+    }
+   ]
+  },
+  {
+   "station": "Purnhaiya Bazar",
+   "tehsil": "PIPRARHI",
+   "block": "PIPRARHI",
+   "village": "Purnhaiya",
+   "lat": 26.62111,
+   "lon": 85.32611,
+   "latest_date": "2022-11-10",
+   "latest_gwl_m": 3.4,
+   "n_readings": 21,
+   "date_range": [
+    "2015-05-15",
+    "2022-11-10"
+   ],
+   "trend": {
+    "slope_m_per_year": -0.0146,
+    "direction": "broadly stable",
+    "n_points": 21,
+    "span_years": 7.5
+   },
+   "readings": [
+    {
+     "date": "2015-05-15",
+     "gwl_m": 3.7
+    },
+    {
+     "date": "2015-08-25",
+     "gwl_m": 3.55
+    },
+    {
+     "date": "2015-11-05",
+     "gwl_m": 3.5
+    },
+    {
+     "date": "2016-01-05",
+     "gwl_m": 2.58
+    },
+    {
+     "date": "2016-05-15",
+     "gwl_m": 5.33
+    },
+    {
+     "date": "2016-08-25",
+     "gwl_m": 2.32
+    },
+    {
+     "date": "2016-11-05",
+     "gwl_m": 2.5
+    },
+    {
+     "date": "2017-01-05",
+     "gwl_m": 3.11
+    },
+    {
+     "date": "2018-01-10",
+     "gwl_m": 1.61
+    },
+    {
+     "date": "2019-05-30",
+     "gwl_m": 5.5
+    },
+    {
+     "date": "2019-08-30",
+     "gwl_m": 3.3
+    },
+    {
+     "date": "2019-11-10",
+     "gwl_m": 3.13
+    },
+    {
+     "date": "2020-01-10",
+     "gwl_m": 3.75
+    },
+    {
+     "date": "2020-08-25",
+     "gwl_m": 1.1
+    },
+    {
+     "date": "2020-11-30",
+     "gwl_m": 1.5
+    },
+    {
+     "date": "2021-01-10",
+     "gwl_m": 2.44
+    },
+    {
+     "date": "2021-11-30",
+     "gwl_m": 2.86
+    },
+    {
+     "date": "2022-01-30",
+     "gwl_m": 3.5
+    },
+    {
+     "date": "2022-05-25",
+     "gwl_m": 4.28
+    },
+    {
+     "date": "2022-08-25",
+     "gwl_m": 3.95
+    },
+    {
+     "date": "2022-11-10",
+     "gwl_m": 3.4
+    }
+   ]
+  },
+  {
+   "station": "Sarbarpur",
+   "tehsil": "BELSAND",
+   "block": "BELSAND",
+   "village": "Sarbarpur",
+   "lat": 26.42528,
+   "lon": 85.32472,
+   "latest_date": "2022-11-10",
+   "latest_gwl_m": 1.63,
+   "n_readings": 27,
+   "date_range": [
+    "2014-01-05",
+    "2022-11-10"
+   ],
+   "trend": {
+    "slope_m_per_year": -0.09,
+    "direction": "rising (water table improving)",
+    "n_points": 27,
+    "span_years": 8.8
+   },
+   "readings": [
+    {
+     "date": "2014-01-05",
+     "gwl_m": 2.28
+    },
+    {
+     "date": "2014-05-15",
+     "gwl_m": 3.83
+    },
+    {
+     "date": "2014-08-25",
+     "gwl_m": 1.58
+    },
+    {
+     "date": "2014-11-05",
+     "gwl_m": 1.08
+    },
+    {
+     "date": "2015-01-05",
+     "gwl_m": 1.6
+    },
+    {
+     "date": "2015-05-15",
+     "gwl_m": 3.44
+    },
+    {
+     "date": "2015-08-25",
+     "gwl_m": 3.86
+    },
+    {
+     "date": "2015-11-05",
+     "gwl_m": 2.0
+    },
+    {
+     "date": "2016-01-05",
+     "gwl_m": 3.29
+    },
+    {
+     "date": "2016-05-15",
+     "gwl_m": 5.1
+    },
+    {
+     "date": "2016-08-25",
+     "gwl_m": 2.6
+    },
+    {
+     "date": "2017-01-05",
+     "gwl_m": 3.44
+    },
+    {
+     "date": "2017-08-25",
+     "gwl_m": 3.52
+    },
+    {
+     "date": "2018-01-10",
+     "gwl_m": 2.11
+    },
+    {
+     "date": "2018-08-30",
+     "gwl_m": 2.22
+    },
+    {
+     "date": "2019-01-10",
+     "gwl_m": 3.73
+    },
+    {
+     "date": "2019-05-30",
+     "gwl_m": 9.0
+    },
+    {
+     "date": "2020-01-10",
+     "gwl_m": 1.85
+    },
+    {
+     "date": "2020-08-25",
+     "gwl_m": 0.55
+    },
+    {
+     "date": "2020-11-30",
+     "gwl_m": 1.37
+    },
+    {
+     "date": "2021-01-10",
+     "gwl_m": 1.74
+    },
+    {
+     "date": "2021-08-31",
+     "gwl_m": 1.88
+    },
+    {
+     "date": "2021-11-30",
+     "gwl_m": 1.45
+    },
+    {
+     "date": "2022-01-30",
+     "gwl_m": 2.35
+    },
+    {
+     "date": "2022-05-25",
+     "gwl_m": 3.3
+    },
+    {
+     "date": "2022-08-25",
+     "gwl_m": 1.73
+    },
+    {
+     "date": "2022-11-10",
+     "gwl_m": 1.63
+    }
+   ]
+  },
+  {
+   "station": "Sasaula Khurd_1",
+   "tehsil": "SHEOHAR",
+   "block": "-",
+   "village": "-",
+   "lat": 26.53722,
+   "lon": 85.31361,
+   "latest_date": "2022-11-10",
+   "latest_gwl_m": 3.12,
+   "n_readings": 12,
+   "date_range": [
+    "2019-05-30",
+    "2022-11-10"
+   ],
+   "trend": {
+    "slope_m_per_year": 0.1542,
+    "direction": "deepening (water table falling)",
+    "n_points": 12,
+    "span_years": 3.4
+   },
+   "readings": [
+    {
+     "date": "2019-05-30",
+     "gwl_m": 4.97
+    },
+    {
+     "date": "2019-08-30",
+     "gwl_m": 2.2
+    },
+    {
+     "date": "2019-11-10",
+     "gwl_m": 2.35
+    },
+    {
+     "date": "2020-01-10",
+     "gwl_m": 1.83
+    },
+    {
+     "date": "2020-08-30",
+     "gwl_m": 1.54
+    },
+    {
+     "date": "2020-11-10",
+     "gwl_m": 2.13
+    },
+    {
+     "date": "2021-01-10",
+     "gwl_m": 3.01
+    },
+    {
+     "date": "2021-11-10",
+     "gwl_m": 2.61
+    },
+    {
+     "date": "2022-01-10",
+     "gwl_m": 2.6
+    },
+    {
+     "date": "2022-05-25",
+     "gwl_m": 4.2
+    },
+    {
+     "date": "2022-08-25",
+     "gwl_m": 3.45
+    },
+    {
+     "date": "2022-11-10",
+     "gwl_m": 3.12
+    }
+   ]
+  },
+  {
+   "station": "Sheohar",
+   "tehsil": "SHEOHAR",
+   "block": "SHEOHAR",
+   "village": "Sheohar",
+   "lat": 26.50833,
+   "lon": 85.3,
+   "latest_date": "2022-11-10",
+   "latest_gwl_m": 2.85,
+   "n_readings": 58,
+   "date_range": [
+    "1996-01-05",
+    "2022-11-10"
+   ],
+   "trend": {
+    "slope_m_per_year": 0.005,
+    "direction": "broadly stable",
+    "n_points": 58,
+    "span_years": 26.8
+   },
+   "readings": [
+    {
+     "date": "1996-01-05",
+     "gwl_m": 3.28
+    },
+    {
+     "date": "1996-05-15",
+     "gwl_m": 3.25
+    },
+    {
+     "date": "1996-11-05",
+     "gwl_m": 2.34
+    },
+    {
+     "date": "1997-01-05",
+     "gwl_m": 2.63
+    },
+    {
+     "date": "1997-05-15",
+     "gwl_m": 3.5
+    },
+    {
+     "date": "1997-08-25",
+     "gwl_m": 0.78
+    },
+    {
+     "date": "1997-11-05",
+     "gwl_m": 2.85
+    },
+    {
+     "date": "1998-01-05",
+     "gwl_m": 2.31
+    },
+    {
+     "date": "1998-05-15",
+     "gwl_m": 2.33
+    },
+    {
+     "date": "1998-08-25",
+     "gwl_m": 3.65
+    },
+    {
+     "date": "1999-05-15",
+     "gwl_m": 3.65
+    },
+    {
+     "date": "1999-11-05",
+     "gwl_m": 1.63
+    },
+    {
+     "date": "2000-01-05",
+     "gwl_m": 2.65
+    },
+    {
+     "date": "2000-05-15",
+     "gwl_m": 3.17
+    },
+    {
+     "date": "2000-08-25",
+     "gwl_m": 1.37
+    },
+    {
+     "date": "2001-01-05",
+     "gwl_m": 4.17
+    },
+    {
+     "date": "2001-05-15",
+     "gwl_m": 3.8
+    },
+    {
+     "date": "2001-08-25",
+     "gwl_m": 1.42
+    },
+    {
+     "date": "2001-11-05",
+     "gwl_m": 2.93
+    },
+    {
+     "date": "2002-01-05",
+     "gwl_m": 1.57
+    },
+    {
+     "date": "2002-05-15",
+     "gwl_m": 4.33
+    },
+    {
+     "date": "2002-11-05",
+     "gwl_m": 1.68
+    },
+    {
+     "date": "2003-01-05",
+     "gwl_m": 2.03
+    },
+    {
+     "date": "2003-11-05",
+     "gwl_m": 1.8
+    },
+    {
+     "date": "2004-01-05",
+     "gwl_m": 3.58
+    },
+    {
+     "date": "2005-01-05",
+     "gwl_m": 3.43
+    },
+    {
+     "date": "2005-05-15",
+     "gwl_m": 3.92
+    },
+    {
+     "date": "2009-05-15",
+     "gwl_m": 2.54
+    },
+    {
+     "date": "2009-11-05",
+     "gwl_m": 1.0
+    },
+    {
+     "date": "2010-01-05",
+     "gwl_m": 0.5
+    },
+    {
+     "date": "2010-05-15",
+     "gwl_m": 1.14
+    },
+    {
+     "date": "2010-08-25",
+     "gwl_m": 0.79
+    },
+    {
+     "date": "2010-11-05",
+     "gwl_m": 1.26
+    },
+    {
+     "date": "2011-01-05",
+     "gwl_m": 1.55
+    },
+    {
+     "date": "2011-05-15",
+     "gwl_m": 2.2
+    },
+    {
+     "date": "2011-11-05",
+     "gwl_m": 1.2
+    },
+    {
+     "date": "2012-01-05",
+     "gwl_m": 2.25
+    },
+    {
+     "date": "2012-05-15",
+     "gwl_m": 6.53
+    },
+    {
+     "date": "2012-11-05",
+     "gwl_m": 1.0
+    },
+    {
+     "date": "2013-01-05",
+     "gwl_m": 2.0
+    },
+    {
+     "date": "2013-05-15",
+     "gwl_m": 3.36
+    },
+    {
+     "date": "2013-08-25",
+     "gwl_m": 1.05
+    },
+    {
+     "date": "2013-11-05",
+     "gwl_m": 1.28
+    },
+    {
+     "date": "2014-01-05",
+     "gwl_m": 1.41
+    },
+    {
+     "date": "2014-05-15",
+     "gwl_m": 3.1
+    },
+    {
+     "date": "2014-08-25",
+     "gwl_m": 0.76
+    },
+    {
+     "date": "2014-11-05",
+     "gwl_m": 0.65
+    },
+    {
+     "date": "2015-01-05",
+     "gwl_m": 0.67
+    },
+    {
+     "date": "2015-05-15",
+     "gwl_m": 1.06
+    },
+    {
+     "date": "2015-08-25",
+     "gwl_m": 3.0
+    },
+    {
+     "date": "2015-11-05",
+     "gwl_m": 0.75
+    },
+    {
+     "date": "2016-05-15",
+     "gwl_m": 7.0
+    },
+    {
+     "date": "2016-08-25",
+     "gwl_m": 1.5
+    },
+    {
+     "date": "2018-01-10",
+     "gwl_m": 7.0
+    },
+    {
+     "date": "2019-05-30",
+     "gwl_m": 7.0
+    },
+    {
+     "date": "2022-05-25",
+     "gwl_m": 3.8
+    },
+    {
+     "date": "2022-08-25",
+     "gwl_m": 2.7
+    },
+    {
+     "date": "2022-11-10",
+     "gwl_m": 2.85
+    }
+   ]
+  }
+ ]
+}

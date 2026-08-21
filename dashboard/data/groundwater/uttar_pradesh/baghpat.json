@@ -1,0 +1,996 @@
+{
+ "metadata": {
+  "source": "CGWB (Central Ground Water Board, Ministry of Jal Shakti) via the National Water Data Portal, nwdp.nwic.gov.in -- dataset 'Ground Water Level (Manual - Quarterly), CGWB'",
+  "source_url": "https://nwdp.nwic.gov.in/dataset/gwl-manual-quarterly-central-ground-water-board-department",
+  "resolution": "Station points (CGWB manual quarterly monitoring wells/piezometers), aggregated to district by joining each row's own 'District LGD Code' field against this project's own Survey-of-India district_lgd (see dashboard/data/boundaries/soi/districts_index.json) -- not a name match, so it does not inherit the AGMARKNET-style spelling-mismatch problem documented in scripts/fetch_mandi_prices.py.",
+  "unit": "meters (depth to water level below ground level, 'mbgl' -- the NWDP dataset's own notes text says only 'GWL values in meter (m)'; the mbgl-below-ground convention is CGWB's own standard reporting convention for this series and was cross-checked for plausibility against known real MP readings, see scripts/16_fetch_groundwater.py header)",
+  "method": "Real CSV rows only -- no interpolation, no carrying forward. Per district: latest reading = the row with the maximum parsed Data Acquisition Time; trend = a plain OLS slope (same 'indicative OLS trend on real history' style as forecast_2040.json) fit on every station-district's numeric quarterly series across both the 1991-2020 and 2021-2025 (and 2026-2030 where present) CSV slices, only when enough real points exist -- never a projection dressed as an observation.",
+  "data_quality": "verified-official (real CGWB dataset, government portal, no login)",
+  "state": "Uttar Pradesh",
+  "district": "Baghpat",
+  "district_lgd": 124,
+  "n_stations": 11,
+  "n_readings_total": 179,
+  "date_range": [
+   "1996-01-05",
+   "2023-01-31"
+  ],
+  "last_updated": "2026-08-21"
+ },
+ "district": {
+  "latest_reading_date": "2023-01-31",
+  "latest_gwl_mean_m": 18.69,
+  "n_stations": 11,
+  "trend": {
+   "mean_slope_m_per_year": 0.7835,
+   "direction": "deepening (water table falling)",
+   "n_stations_with_trend": 10
+  }
+ },
+ "stations": [
+  {
+   "station": "Baghpat",
+   "tehsil": "BAGHPAT",
+   "block": "BAGHPAT",
+   "village": "Baghpat",
+   "lat": 28.93333,
+   "lon": 77.21667,
+   "latest_date": "2005-08-25",
+   "latest_gwl_m": 15.74,
+   "n_readings": 22,
+   "date_range": [
+    "1996-01-05",
+    "2005-08-25"
+   ],
+   "trend": {
+    "slope_m_per_year": 0.4509,
+    "direction": "deepening (water table falling)",
+    "n_points": 22,
+    "span_years": 9.6
+   },
+   "readings": [
+    {
+     "date": "1996-01-05",
+     "gwl_m": 11.31
+    },
+    {
+     "date": "1996-05-15",
+     "gwl_m": 12.69
+    },
+    {
+     "date": "1996-08-25",
+     "gwl_m": 10.81
+    },
+    {
+     "date": "1996-11-05",
+     "gwl_m": 10.96
+    },
+    {
+     "date": "1997-01-05",
+     "gwl_m": 11.06
+    },
+    {
+     "date": "1997-05-15",
+     "gwl_m": 11.96
+    },
+    {
+     "date": "1997-08-25",
+     "gwl_m": 12.01
+    },
+    {
+     "date": "1997-11-05",
+     "gwl_m": 10.84
+    },
+    {
+     "date": "1998-01-05",
+     "gwl_m": 10.66
+    },
+    {
+     "date": "1998-05-15",
+     "gwl_m": 11.71
+    },
+    {
+     "date": "1998-08-25",
+     "gwl_m": 10.85
+    },
+    {
+     "date": "1998-11-05",
+     "gwl_m": 8.8
+    },
+    {
+     "date": "1999-01-05",
+     "gwl_m": 10.76
+    },
+    {
+     "date": "1999-05-15",
+     "gwl_m": 10.96
+    },
+    {
+     "date": "1999-08-25",
+     "gwl_m": 11.31
+    },
+    {
+     "date": "1999-11-05",
+     "gwl_m": 11.24
+    },
+    {
+     "date": "2000-01-05",
+     "gwl_m": 11.22
+    },
+    {
+     "date": "2000-05-15",
+     "gwl_m": 12.01
+    },
+    {
+     "date": "2000-08-25",
+     "gwl_m": 11.2
+    },
+    {
+     "date": "2000-11-05",
+     "gwl_m": 12.71
+    },
+    {
+     "date": "2003-11-05",
+     "gwl_m": 15.74
+    },
+    {
+     "date": "2005-08-25",
+     "gwl_m": 15.74
+    }
+   ]
+  },
+  {
+   "station": "Baghpat Pz",
+   "tehsil": "BAGHPAT",
+   "block": "BAGHPAT",
+   "village": "Baghpat Pz",
+   "lat": 28.93889,
+   "lon": 77.22222,
+   "latest_date": "2009-01-05",
+   "latest_gwl_m": 14.65,
+   "n_readings": 16,
+   "date_range": [
+    "2005-01-05",
+    "2009-01-05"
+   ],
+   "trend": {
+    "slope_m_per_year": 0.465,
+    "direction": "deepening (water table falling)",
+    "n_points": 16,
+    "span_years": 4.0
+   },
+   "readings": [
+    {
+     "date": "2005-01-05",
+     "gwl_m": 13.3
+    },
+    {
+     "date": "2005-05-15",
+     "gwl_m": 14.33
+    },
+    {
+     "date": "2005-08-25",
+     "gwl_m": 13.62
+    },
+    {
+     "date": "2005-11-05",
+     "gwl_m": 13.15
+    },
+    {
+     "date": "2006-01-05",
+     "gwl_m": 13.4
+    },
+    {
+     "date": "2006-05-15",
+     "gwl_m": 14.31
+    },
+    {
+     "date": "2006-08-25",
+     "gwl_m": 12.65
+    },
+    {
+     "date": "2006-11-05",
+     "gwl_m": 14.43
+    },
+    {
+     "date": "2007-01-05",
+     "gwl_m": 14.55
+    },
+    {
+     "date": "2007-05-15",
+     "gwl_m": 15.05
+    },
+    {
+     "date": "2007-08-25",
+     "gwl_m": 14.25
+    },
+    {
+     "date": "2007-11-05",
+     "gwl_m": 15.33
+    },
+    {
+     "date": "2008-01-05",
+     "gwl_m": 15.07
+    },
+    {
+     "date": "2008-05-15",
+     "gwl_m": 15.51
+    },
+    {
+     "date": "2008-11-05",
+     "gwl_m": 14.72
+    },
+    {
+     "date": "2009-01-05",
+     "gwl_m": 14.65
+    }
+   ]
+  },
+  {
+   "station": "Baraut",
+   "tehsil": "BARAUT",
+   "block": "BARAUT",
+   "village": "Baraut",
+   "lat": 29.1,
+   "lon": 77.26167,
+   "latest_date": "1997-08-25",
+   "latest_gwl_m": 13.04,
+   "n_readings": 7,
+   "date_range": [
+    "1996-01-05",
+    "1997-08-25"
+   ],
+   "trend": {
+    "slope_m_per_year": 2.2551,
+    "direction": "deepening (water table falling)",
+    "n_points": 7,
+    "span_years": 1.6
+   },
+   "readings": [
+    {
+     "date": "1996-01-05",
+     "gwl_m": 10.25
+    },
+    {
+     "date": "1996-05-15",
+     "gwl_m": 10.4
+    },
+    {
+     "date": "1996-08-25",
+     "gwl_m": 9.27
+    },
+    {
+     "date": "1996-11-05",
+     "gwl_m": 10.3
+    },
+    {
+     "date": "1997-01-05",
+     "gwl_m": 13.04
+    },
+    {
+     "date": "1997-05-15",
+     "gwl_m": 13.04
+    },
+    {
+     "date": "1997-08-25",
+     "gwl_m": 13.04
+    }
+   ]
+  },
+  {
+   "station": "Binauli",
+   "tehsil": "BINAULI",
+   "block": "BINAULI",
+   "village": "Binauli",
+   "lat": 29.13333,
+   "lon": 77.3375,
+   "latest_date": "2005-08-25",
+   "latest_gwl_m": 18.72,
+   "n_readings": 6,
+   "date_range": [
+    "1999-08-25",
+    "2005-08-25"
+   ],
+   "trend": {
+    "slope_m_per_year": 0.2032,
+    "direction": "deepening (water table falling)",
+    "n_points": 6,
+    "span_years": 6.0
+   },
+   "readings": [
+    {
+     "date": "1999-08-25",
+     "gwl_m": 17.73
+    },
+    {
+     "date": "1999-11-05",
+     "gwl_m": 17.61
+    },
+    {
+     "date": "2000-01-05",
+     "gwl_m": 17.26
+    },
+    {
+     "date": "2000-05-15",
+     "gwl_m": 17.6
+    },
+    {
+     "date": "2000-08-25",
+     "gwl_m": 17.58
+    },
+    {
+     "date": "2005-08-25",
+     "gwl_m": 18.72
+    }
+   ]
+  },
+  {
+   "station": "Burnawa",
+   "tehsil": "BINAULI",
+   "block": "BINAULI",
+   "village": "Burnawa",
+   "lat": 29.10833,
+   "lon": 77.42667,
+   "latest_date": "1997-05-15",
+   "latest_gwl_m": 11.6,
+   "n_readings": 5,
+   "date_range": [
+    "1996-01-05",
+    "1997-05-15"
+   ],
+   "trend": {
+    "slope_m_per_year": -0.0,
+    "direction": "broadly stable",
+    "n_points": 5,
+    "span_years": 1.4
+   },
+   "readings": [
+    {
+     "date": "1996-01-05",
+     "gwl_m": 11.6
+    },
+    {
+     "date": "1996-08-25",
+     "gwl_m": 11.6
+    },
+    {
+     "date": "1996-11-05",
+     "gwl_m": 11.6
+    },
+    {
+     "date": "1997-01-05",
+     "gwl_m": 11.6
+    },
+    {
+     "date": "1997-05-15",
+     "gwl_m": 11.6
+    }
+   ]
+  },
+  {
+   "station": "Daha Pz",
+   "tehsil": "BINAULI",
+   "block": "BINAULI",
+   "village": "Daha Pz",
+   "lat": 29.18333,
+   "lon": 77.41944,
+   "latest_date": "2007-11-05",
+   "latest_gwl_m": 30.5,
+   "n_readings": 12,
+   "date_range": [
+    "2005-01-05",
+    "2007-11-05"
+   ],
+   "trend": {
+    "slope_m_per_year": 2.214,
+    "direction": "deepening (water table falling)",
+    "n_points": 12,
+    "span_years": 2.8
+   },
+   "readings": [
+    {
+     "date": "2005-01-05",
+     "gwl_m": 24.65
+    },
+    {
+     "date": "2005-05-15",
+     "gwl_m": 25.48
+    },
+    {
+     "date": "2005-08-25",
+     "gwl_m": 26.71
+    },
+    {
+     "date": "2005-11-05",
+     "gwl_m": 26.0
+    },
+    {
+     "date": "2006-01-05",
+     "gwl_m": 23.05
+    },
+    {
+     "date": "2006-05-15",
+     "gwl_m": 28.9
+    },
+    {
+     "date": "2006-08-25",
+     "gwl_m": 30.0
+    },
+    {
+     "date": "2006-11-05",
+     "gwl_m": 30.52
+    },
+    {
+     "date": "2007-01-05",
+     "gwl_m": 27.9
+    },
+    {
+     "date": "2007-05-15",
+     "gwl_m": 29.25
+    },
+    {
+     "date": "2007-08-25",
+     "gwl_m": 30.0
+    },
+    {
+     "date": "2007-11-05",
+     "gwl_m": 30.5
+    }
+   ]
+  },
+  {
+   "station": "Khaspur panchi",
+   "tehsil": "PILANA",
+   "block": "PILANA",
+   "village": "Khaspur panchi",
+   "lat": 28.885,
+   "lon": 77.36,
+   "latest_date": "2005-08-25",
+   "latest_gwl_m": 15.42,
+   "n_readings": 24,
+   "date_range": [
+    "1996-01-05",
+    "2005-08-25"
+   ],
+   "trend": {
+    "slope_m_per_year": 0.5077,
+    "direction": "deepening (water table falling)",
+    "n_points": 24,
+    "span_years": 9.6
+   },
+   "readings": [
+    {
+     "date": "1996-01-05",
+     "gwl_m": 15.42
+    },
+    {
+     "date": "1996-05-15",
+     "gwl_m": 9.07
+    },
+    {
+     "date": "1996-08-25",
+     "gwl_m": 8.3
+    },
+    {
+     "date": "1996-11-05",
+     "gwl_m": 8.75
+    },
+    {
+     "date": "1997-01-05",
+     "gwl_m": 9.1
+    },
+    {
+     "date": "1997-05-15",
+     "gwl_m": 10.3
+    },
+    {
+     "date": "1997-08-25",
+     "gwl_m": 9.6
+    },
+    {
+     "date": "1997-11-05",
+     "gwl_m": 9.5
+    },
+    {
+     "date": "1998-01-05",
+     "gwl_m": 8.68
+    },
+    {
+     "date": "1998-05-15",
+     "gwl_m": 10.4
+    },
+    {
+     "date": "1998-08-25",
+     "gwl_m": 15.42
+    },
+    {
+     "date": "1998-11-05",
+     "gwl_m": 8.2
+    },
+    {
+     "date": "1999-01-05",
+     "gwl_m": 8.8
+    },
+    {
+     "date": "1999-05-15",
+     "gwl_m": 9.96
+    },
+    {
+     "date": "1999-08-25",
+     "gwl_m": 10.72
+    },
+    {
+     "date": "1999-11-05",
+     "gwl_m": 10.31
+    },
+    {
+     "date": "2000-01-05",
+     "gwl_m": 10.42
+    },
+    {
+     "date": "2000-05-15",
+     "gwl_m": 11.45
+    },
+    {
+     "date": "2000-08-25",
+     "gwl_m": 11.44
+    },
+    {
+     "date": "2001-05-15",
+     "gwl_m": 12.37
+    },
+    {
+     "date": "2001-08-25",
+     "gwl_m": 11.97
+    },
+    {
+     "date": "2001-11-05",
+     "gwl_m": 12.76
+    },
+    {
+     "date": "2002-01-05",
+     "gwl_m": 12.98
+    },
+    {
+     "date": "2005-08-25",
+     "gwl_m": 15.42
+    }
+   ]
+  },
+  {
+   "station": "Khekhra Pz",
+   "tehsil": "KHEKRA",
+   "block": "KHEKRA",
+   "village": "Khekhra Pz",
+   "lat": 28.87361,
+   "lon": 77.275,
+   "latest_date": "2022-05-31",
+   "latest_gwl_m": 23.79,
+   "n_readings": 23,
+   "date_range": [
+    "2005-01-05",
+    "2022-05-31"
+   ],
+   "trend": {
+    "slope_m_per_year": 0.7165,
+    "direction": "deepening (water table falling)",
+    "n_points": 23,
+    "span_years": 17.4
+   },
+   "readings": [
+    {
+     "date": "2005-01-05",
+     "gwl_m": 12.89
+    },
+    {
+     "date": "2008-11-05",
+     "gwl_m": 12.8
+    },
+    {
+     "date": "2010-08-25",
+     "gwl_m": 20.25
+    },
+    {
+     "date": "2010-11-05",
+     "gwl_m": 16.95
+    },
+    {
+     "date": "2011-01-05",
+     "gwl_m": 17.3
+    },
+    {
+     "date": "2013-01-05",
+     "gwl_m": 19.5
+    },
+    {
+     "date": "2013-08-25",
+     "gwl_m": 22.4
+    },
+    {
+     "date": "2014-01-05",
+     "gwl_m": 21.5
+    },
+    {
+     "date": "2015-05-15",
+     "gwl_m": 22.58
+    },
+    {
+     "date": "2015-08-25",
+     "gwl_m": 22.07
+    },
+    {
+     "date": "2015-11-05",
+     "gwl_m": 19.05
+    },
+    {
+     "date": "2016-05-15",
+     "gwl_m": 24.35
+    },
+    {
+     "date": "2019-01-31",
+     "gwl_m": 21.05
+    },
+    {
+     "date": "2019-05-31",
+     "gwl_m": 19.55
+    },
+    {
+     "date": "2019-08-31",
+     "gwl_m": 20.7
+    },
+    {
+     "date": "2019-11-30",
+     "gwl_m": 25.9
+    },
+    {
+     "date": "2020-01-10",
+     "gwl_m": 24.94
+    },
+    {
+     "date": "2020-08-25",
+     "gwl_m": 27.29
+    },
+    {
+     "date": "2020-11-30",
+     "gwl_m": 27.57
+    },
+    {
+     "date": "2021-01-10",
+     "gwl_m": 28.37
+    },
+    {
+     "date": "2021-08-31",
+     "gwl_m": 25.51
+    },
+    {
+     "date": "2022-01-30",
+     "gwl_m": 23.09
+    },
+    {
+     "date": "2022-05-31",
+     "gwl_m": 23.79
+    }
+   ]
+  },
+  {
+   "station": "Pilana Pz",
+   "tehsil": "PILANA",
+   "block": "PILANA",
+   "village": "Pilana Pz",
+   "lat": 28.95139,
+   "lon": 77.41806,
+   "latest_date": "2022-11-10",
+   "latest_gwl_m": 26.17,
+   "n_readings": 43,
+   "date_range": [
+    "2005-01-05",
+    "2022-11-10"
+   ],
+   "trend": {
+    "slope_m_per_year": 0.6022,
+    "direction": "deepening (water table falling)",
+    "n_points": 43,
+    "span_years": 17.8
+   },
+   "readings": [
+    {
+     "date": "2005-01-05",
+     "gwl_m": 15.43
+    },
+    {
+     "date": "2005-05-15",
+     "gwl_m": 16.18
+    },
+    {
+     "date": "2005-08-25",
+     "gwl_m": 16.47
+    },
+    {
+     "date": "2005-11-05",
+     "gwl_m": 16.64
+    },
+    {
+     "date": "2006-01-05",
+     "gwl_m": 16.54
+    },
+    {
+     "date": "2006-11-05",
+     "gwl_m": 18.2
+    },
+    {
+     "date": "2007-01-05",
+     "gwl_m": 17.9
+    },
+    {
+     "date": "2007-05-15",
+     "gwl_m": 18.8
+    },
+    {
+     "date": "2007-08-25",
+     "gwl_m": 18.82
+    },
+    {
+     "date": "2007-11-05",
+     "gwl_m": 19.9
+    },
+    {
+     "date": "2008-01-05",
+     "gwl_m": 19.0
+    },
+    {
+     "date": "2008-05-15",
+     "gwl_m": 19.0
+    },
+    {
+     "date": "2009-01-05",
+     "gwl_m": 20.35
+    },
+    {
+     "date": "2009-05-15",
+     "gwl_m": 23.53
+    },
+    {
+     "date": "2009-08-25",
+     "gwl_m": 23.85
+    },
+    {
+     "date": "2009-11-05",
+     "gwl_m": 24.26
+    },
+    {
+     "date": "2010-01-05",
+     "gwl_m": 24.31
+    },
+    {
+     "date": "2010-05-15",
+     "gwl_m": 26.76
+    },
+    {
+     "date": "2010-08-25",
+     "gwl_m": 27.2
+    },
+    {
+     "date": "2010-11-05",
+     "gwl_m": 25.54
+    },
+    {
+     "date": "2011-05-15",
+     "gwl_m": 25.11
+    },
+    {
+     "date": "2011-08-25",
+     "gwl_m": 25.0
+    },
+    {
+     "date": "2011-11-05",
+     "gwl_m": 3.14
+    },
+    {
+     "date": "2012-01-05",
+     "gwl_m": 20.4
+    },
+    {
+     "date": "2012-05-15",
+     "gwl_m": 25.2
+    },
+    {
+     "date": "2012-11-05",
+     "gwl_m": 24.98
+    },
+    {
+     "date": "2013-01-05",
+     "gwl_m": 22.3
+    },
+    {
+     "date": "2013-05-15",
+     "gwl_m": 26.75
+    },
+    {
+     "date": "2013-08-25",
+     "gwl_m": 27.19
+    },
+    {
+     "date": "2013-11-05",
+     "gwl_m": 25.3
+    },
+    {
+     "date": "2014-01-05",
+     "gwl_m": 21.95
+    },
+    {
+     "date": "2014-05-15",
+     "gwl_m": 25.47
+    },
+    {
+     "date": "2019-08-31",
+     "gwl_m": 24.9
+    },
+    {
+     "date": "2019-11-30",
+     "gwl_m": 28.1
+    },
+    {
+     "date": "2020-01-10",
+     "gwl_m": 24.4
+    },
+    {
+     "date": "2020-08-25",
+     "gwl_m": 32.38
+    },
+    {
+     "date": "2020-11-30",
+     "gwl_m": 28.88
+    },
+    {
+     "date": "2021-01-10",
+     "gwl_m": 27.77
+    },
+    {
+     "date": "2021-08-31",
+     "gwl_m": 28.69
+    },
+    {
+     "date": "2022-01-30",
+     "gwl_m": 20.16
+    },
+    {
+     "date": "2022-05-31",
+     "gwl_m": 31.26
+    },
+    {
+     "date": "2022-08-31",
+     "gwl_m": 27.83
+    },
+    {
+     "date": "2022-11-10",
+     "gwl_m": 26.17
+    }
+   ]
+  },
+  {
+   "station": "Pilana_1",
+   "tehsil": "PILANA",
+   "block": "PILANA",
+   "village": "Pilana Pz",
+   "lat": 28.93583,
+   "lon": 77.37222,
+   "latest_date": "2023-01-31",
+   "latest_gwl_m": 23.48,
+   "n_readings": 1,
+   "date_range": [
+    "2023-01-31",
+    "2023-01-31"
+   ],
+   "trend": null,
+   "readings": [
+    {
+     "date": "2023-01-31",
+     "gwl_m": 23.48
+    }
+   ]
+  },
+  {
+   "station": "Tanda2",
+   "tehsil": "CHHAPRAULI",
+   "block": "CHHAPRAULI",
+   "village": "Tanda",
+   "lat": 29.26667,
+   "lon": 77.15833,
+   "latest_date": "2005-08-25",
+   "latest_gwl_m": 12.48,
+   "n_readings": 20,
+   "date_range": [
+    "1996-01-05",
+    "2005-08-25"
+   ],
+   "trend": {
+    "slope_m_per_year": 0.4204,
+    "direction": "deepening (water table falling)",
+    "n_points": 20,
+    "span_years": 9.6
+   },
+   "readings": [
+    {
+     "date": "1996-01-05",
+     "gwl_m": 7.85
+    },
+    {
+     "date": "1996-05-15",
+     "gwl_m": 9.15
+    },
+    {
+     "date": "1996-08-25",
+     "gwl_m": 7.3
+    },
+    {
+     "date": "1996-11-05",
+     "gwl_m": 8.69
+    },
+    {
+     "date": "1997-01-05",
+     "gwl_m": 8.95
+    },
+    {
+     "date": "1997-05-15",
+     "gwl_m": 12.48
+    },
+    {
+     "date": "1997-08-25",
+     "gwl_m": 8.19
+    },
+    {
+     "date": "1997-11-05",
+     "gwl_m": 8.03
+    },
+    {
+     "date": "1998-01-05",
+     "gwl_m": 2.93
+    },
+    {
+     "date": "1998-05-15",
+     "gwl_m": 8.99
+    },
+    {
+     "date": "1998-08-25",
+     "gwl_m": 7.6
+    },
+    {
+     "date": "1998-11-05",
+     "gwl_m": 7.2
+    },
+    {
+     "date": "1999-01-05",
+     "gwl_m": 7.6
+    },
+    {
+     "date": "1999-05-15",
+     "gwl_m": 8.86
+    },
+    {
+     "date": "1999-08-25",
+     "gwl_m": 8.28
+    },
+    {
+     "date": "1999-11-05",
+     "gwl_m": 8.54
+    },
+    {
+     "date": "2000-08-25",
+     "gwl_m": 8.48
+    },
+    {
+     "date": "2000-11-05",
+     "gwl_m": 8.16
+    },
+    {
+     "date": "2003-11-05",
+     "gwl_m": 12.48
+    },
+    {
+     "date": "2005-08-25",
+     "gwl_m": 12.48
+    }
+   ]
+  }
+ ]
+}

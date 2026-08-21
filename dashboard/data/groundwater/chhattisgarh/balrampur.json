@@ -1,0 +1,132 @@
+{
+ "metadata": {
+  "source": "CGWB (Central Ground Water Board, Ministry of Jal Shakti) via the National Water Data Portal, nwdp.nwic.gov.in -- dataset 'Ground Water Level (Manual - Quarterly), CGWB'",
+  "source_url": "https://nwdp.nwic.gov.in/dataset/gwl-manual-quarterly-central-ground-water-board-department",
+  "resolution": "Station points (CGWB manual quarterly monitoring wells/piezometers), aggregated to district by joining each row's own 'District LGD Code' field against this project's own Survey-of-India district_lgd (see dashboard/data/boundaries/soi/districts_index.json) -- not a name match, so it does not inherit the AGMARKNET-style spelling-mismatch problem documented in scripts/fetch_mandi_prices.py.",
+  "unit": "meters (depth to water level below ground level, 'mbgl' -- the NWDP dataset's own notes text says only 'GWL values in meter (m)'; the mbgl-below-ground convention is CGWB's own standard reporting convention for this series and was cross-checked for plausibility against known real MP readings, see scripts/16_fetch_groundwater.py header)",
+  "method": "Real CSV rows only -- no interpolation, no carrying forward. Per district: latest reading = the row with the maximum parsed Data Acquisition Time; trend = a plain OLS slope (same 'indicative OLS trend on real history' style as forecast_2040.json) fit on every station-district's numeric quarterly series across both the 1991-2020 and 2021-2025 (and 2026-2030 where present) CSV slices, only when enough real points exist -- never a projection dressed as an observation.",
+  "data_quality": "verified-official (real CGWB dataset, government portal, no login)",
+  "state": "Chhattisgarh",
+  "district": "Balrampur",
+  "district_lgd": 649,
+  "n_stations": 4,
+  "n_readings_total": 8,
+  "date_range": [
+   "2023-01-04",
+   "2023-05-25"
+  ],
+  "last_updated": "2026-08-21"
+ },
+ "district": {
+  "latest_reading_date": "2023-05-25",
+  "latest_gwl_mean_m": 7.27,
+  "n_stations": 4,
+  "trend": null
+ },
+ "stations": [
+  {
+   "station": "Bario_1",
+   "tehsil": "-",
+   "block": "-",
+   "village": "-",
+   "lat": 23.2586,
+   "lon": 83.1845,
+   "latest_date": "2023-05-25",
+   "latest_gwl_m": 6.8,
+   "n_readings": 2,
+   "date_range": [
+    "2023-01-04",
+    "2023-05-25"
+   ],
+   "trend": null,
+   "readings": [
+    {
+     "date": "2023-01-04",
+     "gwl_m": 4.15
+    },
+    {
+     "date": "2023-05-25",
+     "gwl_m": 6.8
+    }
+   ]
+  },
+  {
+   "station": "Chilamkala",
+   "tehsil": "-",
+   "block": "-",
+   "village": "-",
+   "lat": 23.3996,
+   "lon": 83.225,
+   "latest_date": "2023-05-25",
+   "latest_gwl_m": 6.6,
+   "n_readings": 2,
+   "date_range": [
+    "2023-01-04",
+    "2023-05-25"
+   ],
+   "trend": null,
+   "readings": [
+    {
+     "date": "2023-01-04",
+     "gwl_m": 6.55
+    },
+    {
+     "date": "2023-05-25",
+     "gwl_m": 6.6
+    }
+   ]
+  },
+  {
+   "station": "Narsingpur_1",
+   "tehsil": "-",
+   "block": "-",
+   "village": "-",
+   "lat": 23.4229,
+   "lon": 83.07,
+   "latest_date": "2023-05-25",
+   "latest_gwl_m": 8.0,
+   "n_readings": 2,
+   "date_range": [
+    "2023-01-04",
+    "2023-05-25"
+   ],
+   "trend": null,
+   "readings": [
+    {
+     "date": "2023-01-04",
+     "gwl_m": 4.65
+    },
+    {
+     "date": "2023-05-25",
+     "gwl_m": 8.0
+    }
+   ]
+  },
+  {
+   "station": "Parsagudi",
+   "tehsil": "-",
+   "block": "-",
+   "village": "-",
+   "lat": 23.4005,
+   "lon": 83.0132,
+   "latest_date": "2023-05-25",
+   "latest_gwl_m": 7.7,
+   "n_readings": 2,
+   "date_range": [
+    "2023-01-04",
+    "2023-05-25"
+   ],
+   "trend": null,
+   "readings": [
+    {
+     "date": "2023-01-04",
+     "gwl_m": 5.3
+    },
+    {
+     "date": "2023-05-25",
+     "gwl_m": 7.7
+    }
+   ]
+  }
+ ]
+}

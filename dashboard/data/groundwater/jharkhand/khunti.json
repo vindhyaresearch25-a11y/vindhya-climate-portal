@@ -1,0 +1,486 @@
+{
+ "metadata": {
+  "source": "CGWB (Central Ground Water Board, Ministry of Jal Shakti) via the National Water Data Portal, nwdp.nwic.gov.in -- dataset 'Ground Water Level (Manual - Quarterly), CGWB'",
+  "source_url": "https://nwdp.nwic.gov.in/dataset/gwl-manual-quarterly-central-ground-water-board-department",
+  "resolution": "Station points (CGWB manual quarterly monitoring wells/piezometers), aggregated to district by joining each row's own 'District LGD Code' field against this project's own Survey-of-India district_lgd (see dashboard/data/boundaries/soi/districts_index.json) -- not a name match, so it does not inherit the AGMARKNET-style spelling-mismatch problem documented in scripts/fetch_mandi_prices.py.",
+  "unit": "meters (depth to water level below ground level, 'mbgl' -- the NWDP dataset's own notes text says only 'GWL values in meter (m)'; the mbgl-below-ground convention is CGWB's own standard reporting convention for this series and was cross-checked for plausibility against known real MP readings, see scripts/16_fetch_groundwater.py header)",
+  "method": "Real CSV rows only -- no interpolation, no carrying forward. Per district: latest reading = the row with the maximum parsed Data Acquisition Time; trend = a plain OLS slope (same 'indicative OLS trend on real history' style as forecast_2040.json) fit on every station-district's numeric quarterly series across both the 1991-2020 and 2021-2025 (and 2026-2030 where present) CSV slices, only when enough real points exist -- never a projection dressed as an observation.",
+  "data_quality": "verified-official (real CGWB dataset, government portal, no login)",
+  "state": "Jharkhand",
+  "district": "Khunti",
+  "district_lgd": 606,
+  "n_stations": 11,
+  "n_readings_total": 54,
+  "date_range": [
+   "2023-01-10",
+   "2024-11-30"
+  ],
+  "last_updated": "2026-08-21"
+ },
+ "district": {
+  "latest_reading_date": "2024-11-30",
+  "latest_gwl_mean_m": 3.47,
+  "n_stations": 11,
+  "trend": {
+   "mean_slope_m_per_year": -0.7724,
+   "direction": "rising (water table improving)",
+   "n_stations_with_trend": 8
+  }
+ },
+ "stations": [
+  {
+   "station": "Bala_1",
+   "tehsil": "-",
+   "block": "-",
+   "village": "-",
+   "lat": 23.0425,
+   "lon": 85.11333,
+   "latest_date": "2024-05-30",
+   "latest_gwl_m": 6.1,
+   "n_readings": 5,
+   "date_range": [
+    "2023-01-10",
+    "2024-05-30"
+   ],
+   "trend": {
+    "slope_m_per_year": 0.3911,
+    "direction": "deepening (water table falling)",
+    "n_points": 5,
+    "span_years": 1.4
+   },
+   "readings": [
+    {
+     "date": "2023-01-10",
+     "gwl_m": 4.3
+    },
+    {
+     "date": "2023-05-30",
+     "gwl_m": 6.4
+    },
+    {
+     "date": "2023-08-30",
+     "gwl_m": 2.95
+    },
+    {
+     "date": "2024-01-10",
+     "gwl_m": 3.5
+    },
+    {
+     "date": "2024-05-30",
+     "gwl_m": 6.1
+    }
+   ]
+  },
+  {
+   "station": "Bala_2",
+   "tehsil": "-",
+   "block": "-",
+   "village": "-",
+   "lat": 23.04261,
+   "lon": 85.11353,
+   "latest_date": "2024-11-30",
+   "latest_gwl_m": 2.85,
+   "n_readings": 4,
+   "date_range": [
+    "2023-01-10",
+    "2024-11-30"
+   ],
+   "trend": {
+    "slope_m_per_year": -1.0611,
+    "direction": "rising (water table improving)",
+    "n_points": 4,
+    "span_years": 1.9
+   },
+   "readings": [
+    {
+     "date": "2023-01-10",
+     "gwl_m": 4.3
+    },
+    {
+     "date": "2024-01-10",
+     "gwl_m": 3.5
+    },
+    {
+     "date": "2024-08-30",
+     "gwl_m": 1.8
+    },
+    {
+     "date": "2024-11-30",
+     "gwl_m": 2.85
+    }
+   ]
+  },
+  {
+   "station": "Barwadag_1",
+   "tehsil": "-",
+   "block": "-",
+   "village": "-",
+   "lat": 23.09089,
+   "lon": 85.05828,
+   "latest_date": "2023-01-10",
+   "latest_gwl_m": 2.9,
+   "n_readings": 1,
+   "date_range": [
+    "2023-01-10",
+    "2023-01-10"
+   ],
+   "trend": null,
+   "readings": [
+    {
+     "date": "2023-01-10",
+     "gwl_m": 2.9
+    }
+   ]
+  },
+  {
+   "station": "Dorma_1",
+   "tehsil": "-",
+   "block": "-",
+   "village": "-",
+   "lat": 23.34722,
+   "lon": 85.15,
+   "latest_date": "2024-11-30",
+   "latest_gwl_m": 3.2,
+   "n_readings": 7,
+   "date_range": [
+    "2023-01-10",
+    "2024-11-30"
+   ],
+   "trend": {
+    "slope_m_per_year": -0.8405,
+    "direction": "rising (water table improving)",
+    "n_points": 7,
+    "span_years": 1.9
+   },
+   "readings": [
+    {
+     "date": "2023-01-10",
+     "gwl_m": 4.55
+    },
+    {
+     "date": "2023-05-30",
+     "gwl_m": 6.85
+    },
+    {
+     "date": "2023-08-30",
+     "gwl_m": 3.1
+    },
+    {
+     "date": "2024-01-10",
+     "gwl_m": 4.4
+    },
+    {
+     "date": "2024-05-30",
+     "gwl_m": 6.15
+    },
+    {
+     "date": "2024-08-30",
+     "gwl_m": 3.1
+    },
+    {
+     "date": "2024-11-30",
+     "gwl_m": 3.2
+    }
+   ]
+  },
+  {
+   "station": "Dorma_2",
+   "tehsil": "-",
+   "block": "-",
+   "village": "-",
+   "lat": 23.34722,
+   "lon": 85.15,
+   "latest_date": "2024-11-30",
+   "latest_gwl_m": 4.76,
+   "n_readings": 3,
+   "date_range": [
+    "2024-01-10",
+    "2024-11-30"
+   ],
+   "trend": null,
+   "readings": [
+    {
+     "date": "2024-01-10",
+     "gwl_m": 4.4
+    },
+    {
+     "date": "2024-08-30",
+     "gwl_m": 3.37
+    },
+    {
+     "date": "2024-11-30",
+     "gwl_m": 4.76
+    }
+   ]
+  },
+  {
+   "station": "Govindpur village",
+   "tehsil": "-",
+   "block": "-",
+   "village": "-",
+   "lat": 23.07333,
+   "lon": 85.00128,
+   "latest_date": "2024-11-30",
+   "latest_gwl_m": 4.05,
+   "n_readings": 7,
+   "date_range": [
+    "2023-01-10",
+    "2024-11-30"
+   ],
+   "trend": {
+    "slope_m_per_year": -0.7122,
+    "direction": "rising (water table improving)",
+    "n_points": 7,
+    "span_years": 1.9
+   },
+   "readings": [
+    {
+     "date": "2023-01-10",
+     "gwl_m": 4.82
+    },
+    {
+     "date": "2023-05-30",
+     "gwl_m": 7.2
+    },
+    {
+     "date": "2023-08-30",
+     "gwl_m": 6.32
+    },
+    {
+     "date": "2024-01-10",
+     "gwl_m": 5.55
+    },
+    {
+     "date": "2024-05-30",
+     "gwl_m": 7.5
+    },
+    {
+     "date": "2024-08-30",
+     "gwl_m": 4.15
+    },
+    {
+     "date": "2024-11-30",
+     "gwl_m": 4.05
+    }
+   ]
+  },
+  {
+   "station": "Kakriya",
+   "tehsil": "-",
+   "block": "-",
+   "village": "-",
+   "lat": 23.20833,
+   "lon": 85.06417,
+   "latest_date": "2023-01-10",
+   "latest_gwl_m": 6.18,
+   "n_readings": 1,
+   "date_range": [
+    "2023-01-10",
+    "2023-01-10"
+   ],
+   "trend": null,
+   "readings": [
+    {
+     "date": "2023-01-10",
+     "gwl_m": 6.18
+    }
+   ]
+  },
+  {
+   "station": "Karapurti_1",
+   "tehsil": "Khunti",
+   "block": "-",
+   "village": "-",
+   "lat": 23.00333,
+   "lon": 85.42611,
+   "latest_date": "2024-11-30",
+   "latest_gwl_m": 2.35,
+   "n_readings": 6,
+   "date_range": [
+    "2023-01-10",
+    "2024-11-30"
+   ],
+   "trend": {
+    "slope_m_per_year": -1.8623,
+    "direction": "rising (water table improving)",
+    "n_points": 6,
+    "span_years": 1.9
+   },
+   "readings": [
+    {
+     "date": "2023-01-10",
+     "gwl_m": 7.04
+    },
+    {
+     "date": "2023-08-30",
+     "gwl_m": 1.5
+    },
+    {
+     "date": "2024-01-10",
+     "gwl_m": 3.95
+    },
+    {
+     "date": "2024-05-30",
+     "gwl_m": 6.15
+    },
+    {
+     "date": "2024-08-30",
+     "gwl_m": 0.95
+    },
+    {
+     "date": "2024-11-30",
+     "gwl_m": 2.35
+    }
+   ]
+  },
+  {
+   "station": "Lodhma",
+   "tehsil": "-",
+   "block": "-",
+   "village": "-",
+   "lat": 23.2375,
+   "lon": 85.1975,
+   "latest_date": "2024-11-30",
+   "latest_gwl_m": 1.95,
+   "n_readings": 7,
+   "date_range": [
+    "2023-01-10",
+    "2024-11-30"
+   ],
+   "trend": {
+    "slope_m_per_year": -0.8758,
+    "direction": "rising (water table improving)",
+    "n_points": 7,
+    "span_years": 1.9
+   },
+   "readings": [
+    {
+     "date": "2023-01-10",
+     "gwl_m": 3.82
+    },
+    {
+     "date": "2023-05-30",
+     "gwl_m": 4.88
+    },
+    {
+     "date": "2023-08-30",
+     "gwl_m": 1.13
+    },
+    {
+     "date": "2024-01-10",
+     "gwl_m": 3.6
+    },
+    {
+     "date": "2024-05-30",
+     "gwl_m": 5.25
+    },
+    {
+     "date": "2024-08-30",
+     "gwl_m": 1.2
+    },
+    {
+     "date": "2024-11-30",
+     "gwl_m": 1.95
+    }
+   ]
+  },
+  {
+   "station": "Pelaul",
+   "tehsil": "-",
+   "block": "-",
+   "village": "-",
+   "lat": 23.03511,
+   "lon": 85.23125,
+   "latest_date": "2024-11-30",
+   "latest_gwl_m": 2.7,
+   "n_readings": 7,
+   "date_range": [
+    "2023-01-10",
+    "2024-11-30"
+   ],
+   "trend": {
+    "slope_m_per_year": -1.1025,
+    "direction": "rising (water table improving)",
+    "n_points": 7,
+    "span_years": 1.9
+   },
+   "readings": [
+    {
+     "date": "2023-01-10",
+     "gwl_m": 3.97
+    },
+    {
+     "date": "2023-05-30",
+     "gwl_m": 6.6
+    },
+    {
+     "date": "2023-08-30",
+     "gwl_m": 3.17
+    },
+    {
+     "date": "2024-01-10",
+     "gwl_m": 3.4
+    },
+    {
+     "date": "2024-05-30",
+     "gwl_m": 5.2
+    },
+    {
+     "date": "2024-08-30",
+     "gwl_m": 2.15
+    },
+    {
+     "date": "2024-11-30",
+     "gwl_m": 2.7
+    }
+   ]
+  },
+  {
+   "station": "Seringathu_1",
+   "tehsil": "Khunti",
+   "block": "-",
+   "village": "-",
+   "lat": 23.01389,
+   "lon": 85.52917,
+   "latest_date": "2024-11-30",
+   "latest_gwl_m": 1.15,
+   "n_readings": 6,
+   "date_range": [
+    "2023-01-10",
+    "2024-11-30"
+   ],
+   "trend": {
+    "slope_m_per_year": -0.1159,
+    "direction": "rising (water table improving)",
+    "n_points": 6,
+    "span_years": 1.9
+   },
+   "readings": [
+    {
+     "date": "2023-01-10",
+     "gwl_m": 1.9
+    },
+    {
+     "date": "2023-08-30",
+     "gwl_m": 0.43
+    },
+    {
+     "date": "2024-01-10",
+     "gwl_m": 1.95
+    },
+    {
+     "date": "2024-05-30",
+     "gwl_m": 2.85
+    },
+    {
+     "date": "2024-08-30",
+     "gwl_m": 0.75
+    },
+    {
+     "date": "2024-11-30",
+     "gwl_m": 1.15
+    }
+   ]
+  }
+ ]
+}

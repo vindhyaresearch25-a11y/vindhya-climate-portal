@@ -1,0 +1,277 @@
+{
+ "metadata": {
+  "source": "CGWB (Central Ground Water Board, Ministry of Jal Shakti) via the National Water Data Portal, nwdp.nwic.gov.in -- dataset 'Ground Water Level (Manual - Quarterly), CGWB'",
+  "source_url": "https://nwdp.nwic.gov.in/dataset/gwl-manual-quarterly-central-ground-water-board-department",
+  "resolution": "Station points (CGWB manual quarterly monitoring wells/piezometers), aggregated to district by joining each row's own 'District LGD Code' field against this project's own Survey-of-India district_lgd (see dashboard/data/boundaries/soi/districts_index.json) -- not a name match, so it does not inherit the AGMARKNET-style spelling-mismatch problem documented in scripts/fetch_mandi_prices.py.",
+  "unit": "meters (depth to water level below ground level, 'mbgl' -- the NWDP dataset's own notes text says only 'GWL values in meter (m)'; the mbgl-below-ground convention is CGWB's own standard reporting convention for this series and was cross-checked for plausibility against known real MP readings, see scripts/16_fetch_groundwater.py header)",
+  "method": "Real CSV rows only -- no interpolation, no carrying forward. Per district: latest reading = the row with the maximum parsed Data Acquisition Time; trend = a plain OLS slope (same 'indicative OLS trend on real history' style as forecast_2040.json) fit on every station-district's numeric quarterly series across both the 1991-2020 and 2021-2025 (and 2026-2030 where present) CSV slices, only when enough real points exist -- never a projection dressed as an observation.",
+  "data_quality": "verified-official (real CGWB dataset, government portal, no login)",
+  "state": "Nagaland",
+  "district": "Kohima",
+  "district_lgd": 245,
+  "n_stations": 3,
+  "n_readings_total": 44,
+  "date_range": [
+   "2001-03-16",
+   "2023-01-31"
+  ],
+  "last_updated": "2026-08-21"
+ },
+ "district": {
+  "latest_reading_date": "2023-01-31",
+  "latest_gwl_mean_m": 0.0,
+  "n_stations": 3,
+  "trend": {
+   "mean_slope_m_per_year": -0.2034,
+   "direction": "rising (water table improving)",
+   "n_stations_with_trend": 3
+  }
+ },
+ "stations": [
+  {
+   "station": "Cathedral Complex",
+   "tehsil": "CHIEPHOBOZOU",
+   "block": "CHIEPHOBOZOU",
+   "village": "Cathedral Complex",
+   "lat": 25.65,
+   "lon": 94.10694,
+   "latest_date": "2023-01-31",
+   "latest_gwl_m": 0.0,
+   "n_readings": 17,
+   "date_range": [
+    "2001-03-16",
+    "2023-01-31"
+   ],
+   "trend": {
+    "slope_m_per_year": -0.066,
+    "direction": "rising (water table improving)",
+    "n_points": 17,
+    "span_years": 21.9
+   },
+   "readings": [
+    {
+     "date": "2001-03-16",
+     "gwl_m": 2.98
+    },
+    {
+     "date": "2003-03-16",
+     "gwl_m": 2.84
+    },
+    {
+     "date": "2008-08-26",
+     "gwl_m": 3.71
+    },
+    {
+     "date": "2008-11-06",
+     "gwl_m": 3.31
+    },
+    {
+     "date": "2009-11-06",
+     "gwl_m": 3.98
+    },
+    {
+     "date": "2010-08-26",
+     "gwl_m": 2.38
+    },
+    {
+     "date": "2011-01-06",
+     "gwl_m": 4.14
+    },
+    {
+     "date": "2012-11-06",
+     "gwl_m": 3.93
+    },
+    {
+     "date": "2013-03-16",
+     "gwl_m": 3.73
+    },
+    {
+     "date": "2014-01-06",
+     "gwl_m": 2.83
+    },
+    {
+     "date": "2015-03-16",
+     "gwl_m": 3.87
+    },
+    {
+     "date": "2015-08-26",
+     "gwl_m": 3.31
+    },
+    {
+     "date": "2015-11-06",
+     "gwl_m": 3.72
+    },
+    {
+     "date": "2016-01-06",
+     "gwl_m": 3.69
+    },
+    {
+     "date": "2016-03-16",
+     "gwl_m": 2.93
+    },
+    {
+     "date": "2016-08-26",
+     "gwl_m": 2.85
+    },
+    {
+     "date": "2023-01-31",
+     "gwl_m": 0.0
+    }
+   ]
+  },
+  {
+   "station": "NL.A.S. Complex",
+   "tehsil": "CHIEPHOBOZOU",
+   "block": "CHIEPHOBOZOU",
+   "village": "NL.A.S. Complex",
+   "lat": 25.71722,
+   "lon": 94.10861,
+   "latest_date": "2023-01-31",
+   "latest_gwl_m": 0.0,
+   "n_readings": 11,
+   "date_range": [
+    "2003-03-16",
+    "2023-01-31"
+   ],
+   "trend": {
+    "slope_m_per_year": -0.2507,
+    "direction": "rising (water table improving)",
+    "n_points": 11,
+    "span_years": 19.9
+   },
+   "readings": [
+    {
+     "date": "2003-03-16",
+     "gwl_m": 5.59
+    },
+    {
+     "date": "2011-01-06",
+     "gwl_m": 5.34
+    },
+    {
+     "date": "2012-11-06",
+     "gwl_m": 5.2
+    },
+    {
+     "date": "2013-03-16",
+     "gwl_m": 5.28
+    },
+    {
+     "date": "2014-01-06",
+     "gwl_m": 4.08
+    },
+    {
+     "date": "2015-03-16",
+     "gwl_m": 5.15
+    },
+    {
+     "date": "2015-08-26",
+     "gwl_m": 3.38
+    },
+    {
+     "date": "2016-01-06",
+     "gwl_m": 4.61
+    },
+    {
+     "date": "2016-03-16",
+     "gwl_m": 4.42
+    },
+    {
+     "date": "2016-08-26",
+     "gwl_m": 4.33
+    },
+    {
+     "date": "2023-01-31",
+     "gwl_m": 0.0
+    }
+   ]
+  },
+  {
+   "station": "Sepfuzou Colony",
+   "tehsil": "CHIEPHOBOZOU",
+   "block": "CHIEPHOBOZOU",
+   "village": "Sepfuzou Colony",
+   "lat": 25.68417,
+   "lon": 94.10611,
+   "latest_date": "2023-01-31",
+   "latest_gwl_m": 0.0,
+   "n_readings": 16,
+   "date_range": [
+    "2001-03-16",
+    "2023-01-31"
+   ],
+   "trend": {
+    "slope_m_per_year": -0.2936,
+    "direction": "rising (water table improving)",
+    "n_points": 16,
+    "span_years": 21.9
+   },
+   "readings": [
+    {
+     "date": "2001-03-16",
+     "gwl_m": 6.24
+    },
+    {
+     "date": "2003-03-16",
+     "gwl_m": 5.62
+    },
+    {
+     "date": "2010-08-26",
+     "gwl_m": 13.23
+    },
+    {
+     "date": "2011-01-06",
+     "gwl_m": 14.2
+    },
+    {
+     "date": "2012-11-06",
+     "gwl_m": 7.15
+    },
+    {
+     "date": "2013-03-16",
+     "gwl_m": 7.01
+    },
+    {
+     "date": "2013-11-06",
+     "gwl_m": 6.79
+    },
+    {
+     "date": "2014-01-06",
+     "gwl_m": 6.5
+    },
+    {
+     "date": "2015-01-06",
+     "gwl_m": 7.27
+    },
+    {
+     "date": "2015-03-16",
+     "gwl_m": 7.27
+    },
+    {
+     "date": "2015-08-26",
+     "gwl_m": 1.57
+    },
+    {
+     "date": "2015-11-06",
+     "gwl_m": 3.78
+    },
+    {
+     "date": "2016-01-06",
+     "gwl_m": 7.02
+    },
+    {
+     "date": "2016-03-16",
+     "gwl_m": 6.33
+    },
+    {
+     "date": "2016-08-26",
+     "gwl_m": 1.6
+    },
+    {
+     "date": "2023-01-31",
+     "gwl_m": 0.0
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,370 @@
+{
+ "metadata": {
+  "source": "CGWB (Central Ground Water Board, Ministry of Jal Shakti) via the National Water Data Portal, nwdp.nwic.gov.in -- dataset 'Ground Water Level (Manual - Quarterly), CGWB'",
+  "source_url": "https://nwdp.nwic.gov.in/dataset/gwl-manual-quarterly-central-ground-water-board-department",
+  "resolution": "Station points (CGWB manual quarterly monitoring wells/piezometers), aggregated to district by joining each row's own 'District LGD Code' field against this project's own Survey-of-India district_lgd (see dashboard/data/boundaries/soi/districts_index.json) -- not a name match, so it does not inherit the AGMARKNET-style spelling-mismatch problem documented in scripts/fetch_mandi_prices.py.",
+  "unit": "meters (depth to water level below ground level, 'mbgl' -- the NWDP dataset's own notes text says only 'GWL values in meter (m)'; the mbgl-below-ground convention is CGWB's own standard reporting convention for this series and was cross-checked for plausibility against known real MP readings, see scripts/16_fetch_groundwater.py header)",
+  "method": "Real CSV rows only -- no interpolation, no carrying forward. Per district: latest reading = the row with the maximum parsed Data Acquisition Time; trend = a plain OLS slope (same 'indicative OLS trend on real history' style as forecast_2040.json) fit on every station-district's numeric quarterly series across both the 1991-2020 and 2021-2025 (and 2026-2030 where present) CSV slices, only when enough real points exist -- never a projection dressed as an observation.",
+  "data_quality": "verified-official (real CGWB dataset, government portal, no login)",
+  "state": "Arunanchal Pradesh",
+  "district": "Papum Pare",
+  "district_lgd": 237,
+  "n_stations": 9,
+  "n_readings_total": 34,
+  "date_range": [
+   "2023-01-31",
+   "2024-01-31"
+  ],
+  "last_updated": "2026-08-21"
+ },
+ "district": {
+  "latest_reading_date": "2024-01-31",
+  "latest_gwl_mean_m": 2.93,
+  "n_stations": 9,
+  "trend": {
+   "mean_slope_m_per_year": -0.3775,
+   "direction": "rising (water table improving)",
+   "n_stations_with_trend": 8
+  }
+ },
+ "stations": [
+  {
+   "station": "Banderedewa I",
+   "tehsil": "-",
+   "block": "-",
+   "village": "-",
+   "lat": 27.10528,
+   "lon": 93.82583,
+   "latest_date": "2024-01-31",
+   "latest_gwl_m": 11.63,
+   "n_readings": 4,
+   "date_range": [
+    "2023-01-31",
+    "2024-01-31"
+   ],
+   "trend": {
+    "slope_m_per_year": -0.1104,
+    "direction": "rising (water table improving)",
+    "n_points": 4,
+    "span_years": 1.0
+   },
+   "readings": [
+    {
+     "date": "2023-01-31",
+     "gwl_m": 11.47
+    },
+    {
+     "date": "2023-03-31",
+     "gwl_m": 12.08
+    },
+    {
+     "date": "2023-08-31",
+     "gwl_m": 11.54
+    },
+    {
+     "date": "2024-01-31",
+     "gwl_m": 11.63
+    }
+   ]
+  },
+  {
+   "station": "Chimpu_1",
+   "tehsil": "-",
+   "block": "-",
+   "village": "-",
+   "lat": 27.07,
+   "lon": 93.6,
+   "latest_date": "2024-01-31",
+   "latest_gwl_m": 3.39,
+   "n_readings": 4,
+   "date_range": [
+    "2023-01-31",
+    "2024-01-31"
+   ],
+   "trend": {
+    "slope_m_per_year": -0.4598,
+    "direction": "rising (water table improving)",
+    "n_points": 4,
+    "span_years": 1.0
+   },
+   "readings": [
+    {
+     "date": "2023-01-31",
+     "gwl_m": 3.12
+    },
+    {
+     "date": "2023-03-31",
+     "gwl_m": 3.72
+    },
+    {
+     "date": "2023-08-31",
+     "gwl_m": 1.29
+    },
+    {
+     "date": "2024-01-31",
+     "gwl_m": 3.39
+    }
+   ]
+  },
+  {
+   "station": "Doimukh_1",
+   "tehsil": "-",
+   "block": "-",
+   "village": "-",
+   "lat": 27.15,
+   "lon": 93.75,
+   "latest_date": "2024-01-31",
+   "latest_gwl_m": 0.4,
+   "n_readings": 4,
+   "date_range": [
+    "2023-01-31",
+    "2024-01-31"
+   ],
+   "trend": {
+    "slope_m_per_year": -1.0648,
+    "direction": "rising (water table improving)",
+    "n_points": 4,
+    "span_years": 1.0
+   },
+   "readings": [
+    {
+     "date": "2023-01-31",
+     "gwl_m": 1.14
+    },
+    {
+     "date": "2023-03-31",
+     "gwl_m": 1.73
+    },
+    {
+     "date": "2023-08-31",
+     "gwl_m": 0.7
+    },
+    {
+     "date": "2024-01-31",
+     "gwl_m": 0.4
+    }
+   ]
+  },
+  {
+   "station": "Itanagar I",
+   "tehsil": "-",
+   "block": "-",
+   "village": "-",
+   "lat": 27.10389,
+   "lon": 93.64167,
+   "latest_date": "2023-03-31",
+   "latest_gwl_m": 0.0,
+   "n_readings": 2,
+   "date_range": [
+    "2023-01-31",
+    "2023-03-31"
+   ],
+   "trend": null,
+   "readings": [
+    {
+     "date": "2023-01-31",
+     "gwl_m": 0.0
+    },
+    {
+     "date": "2023-03-31",
+     "gwl_m": 0.0
+    }
+   ]
+  },
+  {
+   "station": "Kimin_1",
+   "tehsil": "-",
+   "block": "-",
+   "village": "-",
+   "lat": 27.30833,
+   "lon": 93.96944,
+   "latest_date": "2024-01-31",
+   "latest_gwl_m": 0.89,
+   "n_readings": 4,
+   "date_range": [
+    "2023-01-31",
+    "2024-01-31"
+   ],
+   "trend": {
+    "slope_m_per_year": -0.3088,
+    "direction": "rising (water table improving)",
+    "n_points": 4,
+    "span_years": 1.0
+   },
+   "readings": [
+    {
+     "date": "2023-01-31",
+     "gwl_m": 0.82
+    },
+    {
+     "date": "2023-03-31",
+     "gwl_m": 1.38
+    },
+    {
+     "date": "2023-08-31",
+     "gwl_m": 0.32
+    },
+    {
+     "date": "2024-01-31",
+     "gwl_m": 0.89
+    }
+   ]
+  },
+  {
+   "station": "Naharlagun I",
+   "tehsil": "-",
+   "block": "-",
+   "village": "-",
+   "lat": 27.10306,
+   "lon": 93.69472,
+   "latest_date": "2024-01-31",
+   "latest_gwl_m": 6.7,
+   "n_readings": 4,
+   "date_range": [
+    "2023-01-31",
+    "2024-01-31"
+   ],
+   "trend": {
+    "slope_m_per_year": 0.1744,
+    "direction": "deepening (water table falling)",
+    "n_points": 4,
+    "span_years": 1.0
+   },
+   "readings": [
+    {
+     "date": "2023-01-31",
+     "gwl_m": 6.1
+    },
+    {
+     "date": "2023-03-31",
+     "gwl_m": 6.66
+    },
+    {
+     "date": "2023-08-31",
+     "gwl_m": 5.55
+    },
+    {
+     "date": "2024-01-31",
+     "gwl_m": 6.7
+    }
+   ]
+  },
+  {
+   "station": "Nirjuli Vill IIA",
+   "tehsil": "-",
+   "block": "-",
+   "village": "-",
+   "lat": 27.13111,
+   "lon": 93.73306,
+   "latest_date": "2024-01-31",
+   "latest_gwl_m": 0.0,
+   "n_readings": 4,
+   "date_range": [
+    "2023-01-31",
+    "2024-01-31"
+   ],
+   "trend": {
+    "slope_m_per_year": -0.4911,
+    "direction": "rising (water table improving)",
+    "n_points": 4,
+    "span_years": 1.0
+   },
+   "readings": [
+    {
+     "date": "2023-01-31",
+     "gwl_m": 0.05
+    },
+    {
+     "date": "2023-03-31",
+     "gwl_m": 1.21
+    },
+    {
+     "date": "2023-08-31",
+     "gwl_m": 0.39
+    },
+    {
+     "date": "2024-01-31",
+     "gwl_m": 0.0
+    }
+   ]
+  },
+  {
+   "station": "Nirjuli Vill IIB",
+   "tehsil": "-",
+   "block": "-",
+   "village": "-",
+   "lat": 27.13,
+   "lon": 93.73361,
+   "latest_date": "2024-01-31",
+   "latest_gwl_m": 0.61,
+   "n_readings": 4,
+   "date_range": [
+    "2023-01-31",
+    "2024-01-31"
+   ],
+   "trend": {
+    "slope_m_per_year": -0.3773,
+    "direction": "rising (water table improving)",
+    "n_points": 4,
+    "span_years": 1.0
+   },
+   "readings": [
+    {
+     "date": "2023-01-31",
+     "gwl_m": 0.56
+    },
+    {
+     "date": "2023-03-31",
+     "gwl_m": 1.32
+    },
+    {
+     "date": "2023-08-31",
+     "gwl_m": 0.23
+    },
+    {
+     "date": "2024-01-31",
+     "gwl_m": 0.61
+    }
+   ]
+  },
+  {
+   "station": "Sonajuli_1",
+   "tehsil": "-",
+   "block": "-",
+   "village": "-",
+   "lat": 27.02814,
+   "lon": 93.74131,
+   "latest_date": "2024-01-31",
+   "latest_gwl_m": 2.71,
+   "n_readings": 4,
+   "date_range": [
+    "2023-01-31",
+    "2024-01-31"
+   ],
+   "trend": {
+    "slope_m_per_year": -0.3818,
+    "direction": "rising (water table improving)",
+    "n_points": 4,
+    "span_years": 1.0
+   },
+   "readings": [
+    {
+     "date": "2023-01-31",
+     "gwl_m": 2.48
+    },
+    {
+     "date": "2023-03-31",
+     "gwl_m": 2.99
+    },
+    {
+     "date": "2023-08-31",
+     "gwl_m": 0.96
+    },
+    {
+     "date": "2024-01-31",
+     "gwl_m": 2.71
+    }
+   ]
+  }
+ ]
+}
