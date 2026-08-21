@@ -287,14 +287,27 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 
 /* Map area */
 #map-panel{flex:1;position:relative;overflow:hidden;}
-/* Owner report 2026-08-14: faint white grid lines visible across the
-   satellite basemap -- the classic Leaflet tile-seam artifact (adjacent
-   256px tiles rendered with a sub-pixel gap between them, browser-
-   dependent). Standard documented fix: render each tile slightly larger
-   than its own 256px box so neighbouring tiles overlap by that fraction
-   of a pixel instead of leaving a hairline gap. Purely cosmetic, changes
-   nothing about which tiles load or what they show. */
-.leaflet-tile-container img{width:256.5px!important;height:256.5px!important;}
+/* Owner report 2026-08-14, still open in item 3/20's re-check
+   (2026-08-16) and again live-tested 2026-08-20 -- a bright grid of
+   lines across the whole-India satellite view, every tile edge. The
+   256.5px oversize below (added 2026-08-14 for a real but DIFFERENT
+   problem -- hairline white gaps between adjacent tiles) was the actual
+   ROOT CAUSE of this one, not a fix for it: Leaflet 1.9.4's own leaflet.css
+   sets mix-blend-mode:plus-lighter on tile images (confirmed by fetching
+   the CDN file directly and grepping it -- not something this repo ever
+   set). At an exact 256px tile size that blend mode is a no-op (nothing
+   overlaps to blend), but the 256.5px oversize makes every tile overlap
+   its neighbour by half a pixel -- and plus-lighter ADDITIVELY blends
+   that overlapping sliver, brightening it into a visible line, at every
+   single tile boundary, forming a grid. Confirmed by direct DOM test:
+   raw tile image fetched from Esri's own server has no lines; forcing
+   mix-blend-mode back to normal on the live rendered tiles makes the
+   grid disappear completely (screenshot before/after); forcing the tile
+   size back to exactly 256px while leaving plus-lighter in place does
+   NOT remove it (so the oversize alone isn't sufficient explanation --
+   it's the combination). Fix keeps the original gap-closing intent
+   (oversize stays) and neutralizes the side effect it triggers. */
+.leaflet-tile-container img{width:256.5px!important;height:256.5px!important;mix-blend-mode:normal!important;}
 #map{width:100%;height:100%;}
 .map-overlay{position:absolute;top:1rem;right:1rem;z-index:500;display:flex;flex-direction:column;gap:var(--space-05);}
 .map-ctrl-btn{background:var(--bg-card);border:var(--border-default);color:#8a9aac;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-4);cursor:pointer;font-size:var(--fs-2);transition:all 0.2s;}
