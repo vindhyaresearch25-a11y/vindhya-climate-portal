@@ -602,14 +602,23 @@
     // level -- it does not (no documented API found; the portal is a
     // form-based dashboard, no dev docs). CGWB's own site
     // (cgwb.gov.in) was also checked, no bulk machine-readable download
-    // found. Per the prompt's own explicit rule ("Nahi hai to panel me:
-    // 'No public API...' ... Scrape mat karo"), this is left as an
-    // honest gap, not scraped. A real per-state data.gov.in OGD
-    // resource route exists in principle (same channel already used for
-    // AGMARKNET/crop stats) but real per-state resource IDs were not
-    // found/verified in the time available -- worth a dedicated future
-    // check, not chased further here.
-    setTxt('agri-gw-level', 'No public API. Source: CGWB India-WRIS. Institutional data request required.', 'var(--text-dim)');
+    // found. PENDING.md item 4 update, 2026-08-19: a real source WAS
+    // found after all -- nwdp.nwic.gov.in (National Water Data Portal)
+    // publishes CGWB's own quarterly manual groundwater-level readings as
+    // plain CSV, no login. This default text below is the fallback for a
+    // district that source doesn't (yet) cover -- groundwater_loader.js
+    // (loaded after this file) overwrites this exact field with the real
+    // reading + trend whenever dashboard/data/groundwater/<state>/
+    // <district>.json exists for the selection; this string is what stays
+    // on screen only when it does not. See scripts/16_fetch_groundwater.py.
+    // Kept short -- this field sits in a small u-fmw80 metric-card (flex,
+    // min-width 80px); the full source sentence overflowed it badly
+    // (owner-verified live, 2026-08-19) when it was the long form. The
+    // full sentence moves to a title="" hover tooltip instead.
+    setTxt('agri-gw-level', 'No CGWB station data yet', 'var(--text-dim)');
+    var gwLevelEl0 = document.getElementById('agri-gw-level');
+    if (gwLevelEl0) gwLevelEl0.title = 'No CGWB monitoring station found for this district. '
+      + 'Source: CGWB via National Water Data Portal (nwdp.nwic.gov.in).';
     renderWellIrrigation(districtKey, villageName);
   }
 

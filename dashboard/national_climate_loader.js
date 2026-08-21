@@ -136,6 +136,10 @@
     }
 
     setTxt('m-soil', 'Not available'); setBar('bar-soil', 0);
+    // Default reset -- soil_moisture_loader.js and groundwater_loader.js
+    // (both loaded after this file, both wrap onDistrictChange) overwrite
+    // these with real SMAP / CGWB-via-NWDP values right after this render,
+    // whenever real coverage exists for the selected district.
     setTxt('m-gw', 'Not available'); setBar('bar-gw', 0);
 
     if (droughtVal != null) {

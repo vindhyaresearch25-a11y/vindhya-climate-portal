@@ -265,7 +265,7 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 .nav-item.active .nav-label{color:#1a2332;font-weight:600;}
 .nav-badge{margin-left:auto;background:var(--red);color:#fff;font-size:var(--fs-1);font-weight:700;padding:2px 7px;border-radius:var(--radius-10);white-space:nowrap;}
 #sidebar.collapsed .nav-label,#sidebar.collapsed .nav-section-title,#sidebar.collapsed .sidebar-logo-text,#sidebar.collapsed .nav-badge{display:none;}
-.sidebar-footer{flex-shrink:0;padding:0.6rem 1rem;border-top:1px solid var(--border);font-size:10px;line-height:1.5;color:var(--text-dim);text-align:center;}
+.sidebar-footer{flex-shrink:0;padding:0.6rem 1rem;border-top:1px solid var(--border);font-size:10px;line-height:1.5;color:var(--text-dim);text-align:center;overflow-wrap:break-word;}
 .sidebar-footer b{color:var(--cyan);font-weight:600;}
 #sidebar.collapsed .sidebar-footer{display:none;}
 
@@ -633,7 +633,12 @@ body.mk-modal-open #pane-merakhet.active{
    .metric-row above -- nothing to change there). ---- */
 @media(min-width:768.02px) and (max-width:1024px){
   #sidebar{width:56px;}
-  #sidebar .nav-label,#sidebar .nav-section-title,#sidebar .sidebar-logo-text,#sidebar .nav-badge,#sidebar .sidebar-footer{display:none;}
+  #sidebar .nav-label,#sidebar .nav-section-title,#sidebar .sidebar-logo-text,#sidebar .nav-badge{display:none;}
+  /* Owner report (2026-08-21): attribution footer must stay visible
+     everywhere, not fold away with the other text labels just because
+     the tablet-width sidebar goes icon-only -- shrunk to fit the 56px
+     rail instead of hidden. */
+  .sidebar-footer{font-size:7px;padding:0.4rem 0.15rem;line-height:1.3;}
   .topbar-toggle{display:none;} /* tablet sidebar width is fixed, nothing to toggle */
   #content{flex-direction:column;overflow-y:auto;overflow-x:hidden;}
   #map-panel{flex:0 0 50vh;min-height:340px;}
@@ -1330,7 +1335,7 @@ body.mk-modal-open #pane-merakhet.active{
             <div class="metric-value red" id="m-gw">—</div>
             <div class="metric-bar"><div id="bar-gw" class="metric-bar-fill u-w0-red"></div></div>
             <div class="metric-trend"><i class="fa fa-arrow-down u-dim"></i> <span data-i18n>Not available</span></div>
-            <div class="metric-source" data-i18n>Source · CGWB/India-WRIS · not yet integrated</div>
+            <div class="metric-source" data-i18n>Source · CGWB via NWDP · see Groundwater tab</div>
           </div>
           <div class="metric-card good">
             <div class="metric-label" data-i18n>Data Coverage</div>
@@ -2242,8 +2247,16 @@ function setNav(el,section){
   } else if (section === 'soil') {
     setBtmTab('soilmoisture');
     if (typeof window.VindhyaSoilMoisture !== 'undefined') window.VindhyaSoilMoisture.reload();
-  } else if (section === 'crop' || section === 'advisory' || section === 'ground') {
+  } else if (section === 'crop' || section === 'advisory') {
     setBtmTab('agriculture');
+  } else if (section === 'ground') {
+    // Item: real CGWB groundwater data (scripts/16_fetch_groundwater.py) now
+    // has its own dedicated pane -- routes here instead of the Agriculture
+    // pane's older heuristic GW STRESS/RECHARGE fields (those stay exactly
+    // as they are, still honest, still indicative -- see groundwater_loader.js
+    // header for why they are not touched).
+    setBtmTab('groundwater');
+    if (typeof window.VindhyaGroundwater !== 'undefined') window.VindhyaGroundwater.reload();
   } else if (section === 'forest') {
     setBtmTab('forest');
   } else if (section === 'ai') {
@@ -2419,7 +2432,7 @@ var I18N_DICT = {
   'Source · SMAP · not yet integrated':'स्रोत · SMAP · अभी उपलब्ध नहीं',
   'Source · UNDP DiCRA (MODIS) · MP districts only':'स्रोत · UNDP DiCRA (MODIS) · केवल MP ज़िले',
   'Derived · drought probability · indicative':'व्युत्पन्न · सूखा संभावना · संकेतात्मक',
-  'Source · CGWB/India-WRIS · not yet integrated':'स्रोत · CGWB/India-WRIS · अभी उपलब्ध नहीं',
+  'Source · CGWB via NWDP · see Groundwater tab':'स्रोत · CGWB, NWDP के ज़रिए · भूजल टैब देखें',
   'Of 733 districts nationally':'राष्ट्रीय स्तर पर 733 ज़िलों में से'
 };
 
@@ -2759,7 +2772,9 @@ function onVillageChange(village){
         setTxt('m-crop', 'Not available'); setBar('bar-crop', 0);
         setTxt('m-crop-trend', 'Select a district');
       }
-      // Groundwater level/trend requires CGWB/India-WRIS data, not integrated.
+      // Default reset -- groundwater_loader.js (loaded last, wraps onDistrictChange)
+      // overwrites m-gw/bar-gw with a real CGWB-via-NWDP reading right after this,
+      // whenever dashboard/data/groundwater/<state>/<district>.json exists.
       setTxt('m-gw', 'Not available'); setBar('bar-gw', 0);
     }
   }
@@ -2878,7 +2893,9 @@ function applyDistrictMetrics(d, distKey){
     setTxt('m-crop-trend', 'Select a district');
   }
 
-  // Groundwater level/trend requires CGWB/India-WRIS data, not integrated.
+  // Default reset -- groundwater_loader.js (loaded last, wraps onDistrictChange)
+  // overwrites m-gw/bar-gw with a real CGWB-via-NWDP reading right after this,
+  // whenever dashboard/data/groundwater/<state>/<district>.json exists.
   setTxt('m-gw', 'Not available'); setBar('bar-gw', 0);
   // If a specific year is selected, override mean with year-specific data
   if (window._hazardYear && !isNaN(window._hazardYear)) {
@@ -3140,9 +3157,13 @@ function setTimelineYear(year){
     st('m-rain', Number(rainVal || 0).toFixed(0)+' mm');
     var rtEl = document.getElementById('m-rain-trend');
     if (rtEl) rtEl.textContent = (d?d.name:'') + ' (Yr '+year+')';
-    // Soil Moisture and Groundwater require SMAP/Bhuvan and CGWB/India-WRIS
-    // data respectively -- neither is integrated, at any year. Never derive
-    // a number for either from an unrelated real field.
+    // Soil Moisture (SMAP) has no per-year historical value integrated here.
+    // Groundwater DOES have a real source now (CGWB via NWDP,
+    // scripts/16_fetch_groundwater.py) but only as a single "latest reading",
+    // not a per-year time series -- showing it against a specific selected
+    // historical year would misrepresent it, so it correctly stays "Not
+    // available" in this year-specific code path only. Never derive a
+    // number for either from an unrelated real field.
     st('m-soil', 'Not available'); sb('bar-soil', 0);
     st('m-gw', 'Not available'); sb('bar-gw', 0);
     // Crop stress: same heuristic as the mean view (real drought signal
@@ -3175,6 +3196,26 @@ function toggleVillageBoundaries(){
     if(dk) loadVillageBoundaries(dk);
   }
 }
+
+// Owner report (2026-08-21): "map maximize/minimize karne par change
+// nahi hota, poora page set rehta hai" -- #map-panel is flex:1, so its
+// CSS box DOES resize immediately whenever the OS window is maximized/
+// restored/dragged; the problem is Leaflet itself never finds out. Every
+// existing invalidateSize() call in this file is wired to a SPECIFIC app
+// action (sidebar toggle, panel expand, this file's own fullscreen
+// button, the mobile media-query switch) -- none of those fire on a
+// plain browser-window resize, so Leaflet keeps rendering at its last-
+// known internal size/tile-grid until something else happens to nudge
+// it (e.g. a pan/zoom), which is exactly the "stuck" symptom reported.
+// Debounced so a drag-resize (many resize events per second) doesn't
+// call it dozens of times.
+(function(){
+  var t;
+  window.addEventListener('resize', function(){
+    clearTimeout(t);
+    t = setTimeout(function(){ if (window.leafletMap) window.leafletMap.invalidateSize(); }, 150);
+  });
+})();
 
 function toggleFullMap(){
   const mapPanel=document.getElementById('map-panel');
@@ -4169,6 +4210,7 @@ async function runChatCompletion(){
 <script src="national_forecast_loader.js"></script><script src="validation_loader.js"></script>
 <script src="soil_moisture_loader.js"></script>
 <script src="advisory_loader.js"></script>
+<script src="groundwater_loader.js"></script>
 <!-- national_selector.js is appended dynamically, not as a static tag here --
      see the fetchWithTimeout('config/data_config.json')...finally() block
      above, which guarantees it only loads after window.DATA_BASE_URL is

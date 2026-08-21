@@ -32,6 +32,9 @@ _URL_PATCHES = [
     # PENDING.md item 13 (2026-08-12): advisory layer manifest -- same
     # single-closed-literal pattern as the soil moisture manifest above.
     ("'data/advisory/manifest.json'",      f"'{GITHUB_RAW}/advisory/manifest.json'"),
+    # PENDING.md item 4 (2026-08-19): real CGWB groundwater manifest, same
+    # single-closed-literal pattern as soil moisture/advisory above.
+    ("'data/groundwater/manifest.json'",   f"'{GITHUB_RAW}/groundwater/manifest.json'"),
     # Boundary GeoJSON files (in dashboard/ root, not dashboard/data/)
     ("'mp_districts.geojson'",             f"'{GITHUB_BASE}/mp_districts.geojson'"),
     ("'mp_tehsils.geojson'",               f"'{GITHUB_BASE}/mp_tehsils.geojson'"),
@@ -50,7 +53,7 @@ _JS_FILES = ['mp_climate_loader.js', 'dicra_ndvi_loader.js', 'cadastral_loader.j
              'knowledge_base_loader.js',
              'national_selector.js',
              'national_ndvi_loader.js', 'validation_loader.js', 'soil_moisture_loader.js',
-             'advisory_loader.js', 'national_forecast_loader.js']
+             'advisory_loader.js', 'national_forecast_loader.js', 'groundwater_loader.js']
 
 
 def get_html_content():
@@ -143,6 +146,15 @@ def get_html_content():
     html = html.replace(
         "'data/advisory/'",
         f"'{GITHUB_RAW}/advisory/'"
+    )
+
+    # Groundwater files ('data/groundwater/' + stateSlug + '/' + dslug +
+    # '.json'), used by groundwater_loader.js -- PENDING.md item 4
+    # (2026-08-19, real CGWB-via-NWDP source). The manifest.json literal
+    # itself is patched separately in _URL_PATCHES above.
+    html = html.replace(
+        "'data/groundwater/'",
+        f"'{GITHUB_RAW}/groundwater/'"
     )
 
     # Fix viewport for iframe rendering

@@ -291,10 +291,42 @@
     var srcEl = gwEl ? gwEl.parentElement.querySelector('.metric-source') : null;
     if (srcEl) srcEl.textContent = 'Source · CGWB via NWDP · ' + (d.latest_reading_date || '');
 
+    // Kept short -- this field sits in a small u-fmw80 metric-card (flex,
+    // min-width 80px, sized for one line like its siblings' "MODERATE
+    // (indicative)"); the full sentence overflowed it badly (owner-verified
+    // live, 2026-08-19). Full detail moves to a title="" hover tooltip.
+    var shortDir = !d.trend ? '' : d.trend.direction.indexOf('deepening') !== -1 ? 'falling' :
+      d.trend.direction.indexOf('rising') !== -1 ? 'rising' : 'stable';
     setTxt('agri-gw-level',
-      fmt(d.latest_gwl_mean_m) + ' m bgl (' + (d.n_stations) + ' stations) · ' + trendLabel(d.trend && d.trend.direction)
-      + ' · Source: CGWB via National Water Data Portal (nwdp.nwic.gov.in)',
+      fmt(d.latest_gwl_mean_m) + ' m bgl' + (shortDir ? ' · ' + shortDir : ''),
       trendColor(d.trend && d.trend.direction));
+    var gwLevelEl = el('agri-gw-level');
+    if (gwLevelEl) gwLevelEl.title = d.n_stations + ' CGWB station(s) · ' + trendLabel(d.trend && d.trend.direction)
+      + ' · Source: CGWB via National Water Data Portal (nwdp.nwic.gov.in) · latest reading ' + (d.latest_reading_date || '');
+
+    patchWellIrrigationNote(0);
+  }
+
+  // renderWellIrrigation() (mp_climate_loader.js) writes #agri-gw-note
+  // asynchronously (its own village-profile fetch) with a fixed clause
+  // "Real groundwater-level trend for these wells is not available" --
+  // true when it was written (no source existed), now stale/wrong for a
+  // district this new source covers. There is no ordering guarantee
+  // between that fetch and this file's own manifest/district fetch (both
+  // triggered by the same selection change), so this polls briefly rather
+  // than assuming the note is already there. Patches that one clause only;
+  // the real well/tubewell-count sentence around it is untouched. Gives up
+  // silently after ~2s -- worst case the caveat is a beat stale, never
+  // fabricated.
+  function patchWellIrrigationNote(attempt) {
+    var noteEl = el('agri-gw-note');
+    var target = 'Real groundwater-level trend for these wells is not available (see GW LEVEL TREND above) -- this figure alone does not indicate whether the water table is falling.';
+    if (noteEl && noteEl.textContent.indexOf(target) !== -1) {
+      noteEl.textContent = noteEl.textContent.replace(target,
+        'A real district-level groundwater-level trend IS now available (CGWB via NWDP, see GW LEVEL TREND above) -- but it is not resolved per-well, so it does not confirm the trend at each of these exact wells individually.');
+      return;
+    }
+    if (attempt < 5) setTimeout(function () { patchWellIrrigationNote(attempt + 1); }, 400);
   }
 
   // ---------------------------------------------------------------------
