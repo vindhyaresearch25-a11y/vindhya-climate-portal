@@ -195,6 +195,40 @@ Built/changed: `dashboard/index.html` (panel markup),
 Verified locally: Bhopal shows 56,429 ha across 522/522 villages, correct
 honest CGWB message, no console errors.
 
+### RESOLVED 2026-08-19 — real CGWB groundwater-level data found and shipped
+
+The "no public API" conclusion above was correct for every source it
+checked, but missed one: **National Water Data Portal**
+(`nwdp.nwic.gov.in`) — the same government portal already trusted for
+village boundaries — publishes CGWB's own "Ground Water Level (Manual -
+Quarterly), CGWB" dataset as 95 plain CSV files, no login, no API key.
+Full account of how it was found, the LGD-code join method, the
+unit/sign-convention check, and the license finding: `docs/DATA_SOURCES.md`
+§"Groundwater / well-irrigation", "RESOLVED 2026-08-19" subsection.
+
+Built: `scripts/16_fetch_groundwater.py` (fetch + clean + LGD-join +
+per-station OLS trend + district JSON + manifest),
+`dashboard/groundwater_loader.js` (own bottom-panel tab; district/state
+tiers; also overwrites `#m-gw`/`#bar-gw` on the Climate Metrics side panel
+and `#agri-gw-level` in the Agriculture pane with real values once
+covered), `scripts/config.py` (`GWL_SOURCE_META`,
+`NATIONAL_GROUNDWATER_OUT_DIR`), sidebar "Groundwater & Irrigation" nav
+item now routes to the new tab (`index.html` `setNav()`, `section ===
+'ground'`) instead of only the Agriculture pane.
+
+First full national fetch results (read `dashboard/data/groundwater/
+manifest.json` for the live, regenerated numbers — summarized here from
+that same run, not retyped by hand): 1,393,429 real CSV rows kept across
+all 33 covered states/UTs, 0 fetch failures. **626 of 733 districts got
+real CGWB station data** (36,360 stations total), **94 more districts in
+those same covered states got an honest zero-station record** (state has
+the dataset, this specific district has no monitored station — a real
+CGWB network gap, not a fetch failure), and **Mizoram, Sikkim and Ladakh
+have no dataset on NWDP at all** (confirmed absent from the fetched page
+itself) and stay honestly "not available", same as before. Well/tubewell
+irrigated area (item 1 above) is untouched and stays real; the two are
+still never combined into one score.
+
 ## Recommended sequence
 
 1. ~~NASA POWER integration~~ — Done, verified live 2026-08-01
