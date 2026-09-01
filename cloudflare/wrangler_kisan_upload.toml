@@ -7,6 +7,9 @@
 #   wrangler d1 create vindhya-ground-truth
 #   # copy the printed database_id into the [[d1_databases]] block below
 #   wrangler d1 execute vindhya-ground-truth --remote --file=kisan_upload_schema.sql
+#   wrangler r2 bucket create vindhya-ground-truth-photos
+#   # (already reflected in the [[r2_buckets]] block below -- no id to copy,
+#   # R2 buckets are addressed by name, not a generated id like D1)
 #   wrangler secret put RATE_LIMIT_SALT --config wrangler_kisan_upload.toml
 #     # any random string -- e.g. `openssl rand -hex 32` -- only needs to
 #     # exist, its value is never read back or checked anywhere
@@ -16,6 +19,15 @@
 # SUBMIT_URL constant, and put CLOUDFLARE_ACCOUNT_ID / D1's database_id /
 # a scoped CLOUDFLARE_API_TOKEN (D1:Read permission only) into this repo's
 # GitHub Actions secrets so scripts/export_ground_truth.py can run daily.
+#
+# Live field photo (2026-09-02): the R2 bucket above stores the actual
+# JPEG bytes (see kisan_upload_worker.js's photo handling) -- D1 only
+# keeps the resulting object key. To actually SERVE a photo back (e.g. for
+# a future verification/review UI), either enable the bucket's own public
+# access in the Cloudflare dashboard, or add a GET route to this same
+# Worker that streams from env.PHOTOS -- neither is wired up yet, since
+# nothing in this repo currently needs to display a submitted photo back;
+# scripts/export_ground_truth.py only exports the object key as-is.
 
 name = "vindhya-kisan-upload"
 main = "kisan_upload_worker.js"
@@ -25,3 +37,7 @@ compatibility_date = "2026-08-01"
 binding = "DB"
 database_name = "vindhya-ground-truth"
 database_id = "78c47aad-b0a2-481d-a895-45e1e841f56e"
+
+[[r2_buckets]]
+binding = "PHOTOS"
+bucket_name = "vindhya-ground-truth-photos"

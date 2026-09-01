@@ -32,10 +32,24 @@
 --    own upload pipeline, it is a second caller of this one.
 --  * problem_description (added KISAN_DASHBOARD_PROMPT.md section 8,
 --    KRAM 6): optional free-text "what's wrong with this field" note from
---    the Kisan Dashboard's damage-report section. Photo storage is
---    explicitly deferred (spec: "Photo baad me") -- this is text+location
---    only. Same table/endpoint again -- a third caller, not a third
---    pipeline. NULL unless this specific form sets it.
+--    the Kisan Dashboard's damage-report section. Photo storage was
+--    explicitly deferred at that time (spec: "Photo baad me") -- this is
+--    text+location only. Same table/endpoint again -- a third caller, not
+--    a third pipeline. NULL unless this specific form sets it.
+--  * photo_url/photo_lat/photo_lon/photo_captured_at (added 2026-09-02,
+--    owner request "live location with photo" for Kisan Fasal Sahyog --
+--    the deferred photo work from the note above): the JPEG itself is
+--    NOT stored in this table -- it goes to an R2 bucket (binding PHOTOS,
+--    see wrangler_kisan_upload.toml) and only the resulting object key is
+--    kept here, exactly the same "big blob out, reference in" split every
+--    real Cloudflare D1+R2 app uses. photo_lat/photo_lon are the position
+--    fix taken at the MOMENT the photo was captured (dashboard/
+--    kisan_upload.html re-reads geolocation in the photo input's own
+--    'change' handler) -- they can differ slightly from the row's own
+--    lat/lon if the farmer walked between the two captures; both are kept
+--    rather than assuming they're the same point. NULL for any submission
+--    that doesn't attach a photo (Mera Khet's and the Kisan Dashboard's
+--    existing callers are unaffected).
 
 CREATE TABLE IF NOT EXISTS submissions (
   id            TEXT PRIMARY KEY,   -- random UUID, no personal meaning
@@ -47,6 +61,10 @@ CREATE TABLE IF NOT EXISTS submissions (
   area_ha       REAL,               -- optional, B1
   geometry_json TEXT,               -- optional, Mera Khet only -- see note above
   problem_description TEXT,         -- optional, Kisan Dashboard section 8 only -- see note above
+  photo_url     TEXT,               -- optional, R2 object key -- see note above
+  photo_lat     REAL,               -- optional, photo-capture-moment position
+  photo_lon     REAL,               -- optional, photo-capture-moment position
+  photo_captured_at TEXT,           -- optional, ISO 8601 UTC, client-side Date at capture
   status        TEXT NOT NULL DEFAULT 'unverified'
                 CHECK (status IN ('unverified', 'verified')),     -- B4
   ip_hash       TEXT NOT NULL,      -- salted SHA-256, day-bucketed; see above

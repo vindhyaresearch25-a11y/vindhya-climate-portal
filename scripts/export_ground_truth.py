@@ -76,7 +76,8 @@ def main() -> int:
             return 1
 
     rows = d1_query(
-        "SELECT id, created_at, crop, season, lat, lon, area_ha, status, problem_description "
+        "SELECT id, created_at, crop, season, lat, lon, area_ha, status, problem_description, "
+        "photo_url, photo_lat, photo_lon, photo_captured_at "
         "FROM submissions WHERE exported_at IS NULL"
     )
     if not rows:
@@ -126,6 +127,17 @@ def main() -> int:
             # for ordinary crop ground-truth submissions (Mera Khet's own form,
             # kisan_upload.html) -- only that form's submissions ever set it.
             "problem_description": r.get("problem_description"),
+            # Owner request 2026-09-02: live field photo, Kisan Fasal Sahyog
+            # only. photo_url is an R2 object key (not a JPEG or a public
+            # URL -- see wrangler_kisan_upload.toml's own note on why
+            # nothing serves it back yet); photo_lat/lon are the position
+            # fix taken at capture, rounded the same 3-decimal (~100m) way
+            # as the row's own lat/lon, kept separately since a farmer can
+            # walk between the two captures. None for every other caller.
+            "photo_url": r.get("photo_url"),
+            "photo_lat": round(r["photo_lat"], 3) if r.get("photo_lat") is not None else None,
+            "photo_lon": round(r["photo_lon"], 3) if r.get("photo_lon") is not None else None,
+            "photo_captured_at": r.get("photo_captured_at"),
         })
 
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")

@@ -37,6 +37,18 @@ select,input{width:100%;padding:10px 12px;border:1px solid var(--border);border-
 .msg.err{background:#fdecea;color:var(--red);border:1px solid #f3c6c1;}
 .footer-note{font-size:11px;color:var(--text-dim);text-align:center;margin-top:20px;}
 .thanks-count{font-size:12px;color:var(--text-dim);text-align:center;margin-top:4px;}
+/* Live field photo (owner request 2026-09-02): capture="environment"
+   opens the device's own camera directly (not the gallery/file picker) on
+   phones, which is what makes this a "live" photo rather than an old
+   saved one -- desktop browsers with no camera fall back to a normal file
+   picker, which is an acceptable, honestly-labeled degradation. */
+.photo-btn{display:inline-flex;align-items:center;gap:8px;background:var(--cyan);color:#fff;border:none;border-radius:8px;padding:12px 16px;font-size:14px;font-weight:600;cursor:pointer;width:100%;justify-content:center;}
+.photo-input{display:none;}
+.photo-preview{margin-top:10px;display:none;}
+.photo-preview.show{display:block;}
+.photo-preview img{width:100%;border-radius:10px;border:1px solid var(--border);display:block;}
+.photo-caption{font-size:11.5px;color:var(--text-dim);margin-top:6px;text-align:center;}
+.photo-retake{background:none;border:1px solid var(--border);color:var(--text-dim);border-radius:8px;padding:6px 12px;font-size:12px;margin-top:8px;cursor:pointer;width:100%;}
 </style>
 </head>
 <body>
@@ -72,6 +84,16 @@ select,input{width:100%;padding:10px 12px;border:1px solid var(--border);border-
     </div>
     <div class="geo-status" id="geoStatus"></div>
 
+    <label>खेत की लाइव फ़ोटो <span class="en">(Live field photo)</span> *</label>
+    <input type="file" accept="image/*" capture="environment" class="photo-input" id="photoInput">
+    <label for="photoInput" class="photo-btn" id="photoBtn">📷 अभी फ़ोटो खींचें / Take photo now</label>
+    <div class="photo-preview" id="photoPreview">
+      <img id="photoImg" alt="Field photo preview">
+      <div class="photo-caption" id="photoCaption"></div>
+      <button type="button" class="photo-retake" id="photoRetake">🔁 दोबारा खींचें / Retake</button>
+    </div>
+    <div class="geo-status" id="photoStatus"></div>
+
     <label>खेत का लगभग क्षेत्रफल, हेक्टेयर में <span class="en">(Approx. area, hectares — optional)</span></label>
     <input type="number" id="areaHa" min="0" max="10000" step="0.1" placeholder="वैकल्पिक / Optional">
 
@@ -99,6 +121,7 @@ select,input{width:100%;padding:10px 12px;border:1px solid var(--border);border-
 const SUBMIT_URL = 'https://vindhya-kisan-upload.vindhyaresearch25.workers.dev/submit';
 
 let geo = null;
+let photo = null; // { base64, mime, lat, lon, capturedAt } -- set once a live photo is captured
 
 fetch('data/crop_list.json').then(r => r.json()).then(d => {
   const sel = document.getElementById('crop');
@@ -115,12 +138,114 @@ fetch('data/crop_list.json').then(r => r.json()).then(d => {
 });
 
 function updateSubmitEnabled() {
-  const ok = geo && document.getElementById('crop').value && document.getElementById('season').value
+  const ok = geo && photo && document.getElementById('crop').value && document.getElementById('season').value
     && document.getElementById('consentCheck').checked;
   document.getElementById('submitBtn').disabled = !ok;
 }
 ['crop', 'season', 'consentCheck'].forEach(id => {
   document.getElementById(id).addEventListener('change', updateSubmitEnabled);
+});
+
+// Downscale + re-encode client-side before it ever touches the network --
+// a raw phone-camera photo is commonly 3-8 MB, which base64-inflates to
+// 4-11 MB in the JSON payload; capping the longest side at 1280px and
+// re-encoding as JPEG q=0.75 keeps every real photo well under ~400KB
+// while staying clearly legible for crop/ground-truth verification.
+function downscaleImage(file) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error('read failed'));
+    reader.onload = () => {
+      img.onerror = () => reject(new Error('decode failed'));
+      img.onload = () => {
+        const maxSide = 1280;
+        const scale = Math.min(1, maxSide / Math.max(img.width, img.height));
+        const w = Math.round(img.width * scale), h = Math.round(img.height * scale);
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', 0.75));
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function fmtTimestamp(d) {
+  const p = n => String(n).padStart(2, '0');
+  return p(d.getDate()) + '-' + p(d.getMonth() + 1) + '-' + d.getFullYear() + ' '
+    + p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
+}
+
+document.getElementById('photoInput').addEventListener('change', async (e) => {
+  const file = e.target.files && e.target.files[0];
+  const status = document.getElementById('photoStatus');
+  if (!file) return;
+  status.textContent = 'फ़ोटो और स्थान लिया जा रहा है... / Capturing photo and location...';
+  status.className = 'geo-status';
+
+  // "Live" means the photo's own location/time is captured at the moment
+  // it's taken, not silently reused from an earlier "स्थान लें" tap --
+  // the farmer may walk across the field between the two. Falls back to
+  // the already-captured `geo` (if any) rather than blocking the photo
+  // entirely when geolocation itself fails (e.g. permission just expired).
+  const capturePosition = () => new Promise((resolve) => {
+    if (!navigator.geolocation) return resolve(null);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude }),
+      () => resolve(null),
+      { enableHighAccuracy: true, timeout: 15000 }
+    );
+  });
+
+  try {
+    const [dataUrl, freshGeo] = await Promise.all([downscaleImage(file), capturePosition()]);
+    const captureGeo = freshGeo || geo;
+    const capturedAt = new Date();
+    photo = {
+      base64: dataUrl.split(',')[1],
+      mime: 'image/jpeg',
+      lat: captureGeo ? captureGeo.lat : null,
+      lon: captureGeo ? captureGeo.lon : null,
+      capturedAt: capturedAt.toISOString(),
+    };
+    // A fresh photo-time fix is more accurate than the earlier button
+    // press for the submitted location too, if we got one.
+    if (freshGeo) {
+      geo = freshGeo;
+      document.getElementById('locText').value = freshGeo.lat.toFixed(5) + ', ' + freshGeo.lon.toFixed(5);
+      const geoStatus = document.getElementById('geoStatus');
+      geoStatus.textContent = 'स्थान मिल गया / Location captured.';
+      geoStatus.className = 'geo-status ok';
+    }
+
+    document.getElementById('photoImg').src = dataUrl;
+    document.getElementById('photoCaption').textContent = (captureGeo
+      ? '📍 ' + captureGeo.lat.toFixed(5) + ', ' + captureGeo.lon.toFixed(5) + ' · '
+      : '📍 स्थान उपलब्ध नहीं / location unavailable · ')
+      + fmtTimestamp(capturedAt);
+    document.getElementById('photoPreview').classList.add('show');
+    document.getElementById('photoBtn').style.display = 'none';
+    status.textContent = captureGeo
+      ? 'फ़ोटो और स्थान दोनों लिए गए / Photo and location both captured.'
+      : 'फ़ोटो ले ली गई, पर स्थान नहीं मिला / Photo captured, but location unavailable.';
+    status.className = captureGeo ? 'geo-status ok' : 'geo-status err';
+  } catch (err) {
+    status.textContent = 'फ़ोटो लोड नहीं हो सकी, फिर कोशिश करें / Could not process photo, please try again.';
+    status.className = 'geo-status err';
+  }
+  updateSubmitEnabled();
+});
+
+document.getElementById('photoRetake').addEventListener('click', () => {
+  photo = null;
+  document.getElementById('photoInput').value = '';
+  document.getElementById('photoPreview').classList.remove('show');
+  document.getElementById('photoBtn').style.display = 'inline-flex';
+  document.getElementById('photoStatus').textContent = '';
+  updateSubmitEnabled();
 });
 
 document.getElementById('geoBtn').addEventListener('click', () => {
@@ -158,6 +283,15 @@ document.getElementById('uploadForm').addEventListener('submit', async (e) => {
     lon: geo ? geo.lon : null,
     area_ha: areaVal ? Number(areaVal) : null,
     consent: document.getElementById('consentCheck').checked,
+    // Live field photo -- captured via the device camera (capture=
+    // "environment"), downscaled client-side, with its own lat/lon/
+    // timestamp from the moment it was taken (see the photoInput
+    // 'change' handler above), not reused from an earlier button press.
+    photo_base64: photo ? photo.base64 : null,
+    photo_mime: photo ? photo.mime : null,
+    photo_lat: photo ? photo.lat : null,
+    photo_lon: photo ? photo.lon : null,
+    photo_captured_at: photo ? photo.capturedAt : null,
   };
   try {
     const r = await fetch(SUBMIT_URL, {
@@ -171,8 +305,12 @@ document.getElementById('uploadForm').addEventListener('submit', async (e) => {
       msg.className = 'msg show ok';
       document.getElementById('uploadForm').reset();
       geo = null;
+      photo = null;
       document.getElementById('locText').value = '';
       document.getElementById('geoStatus').textContent = '';
+      document.getElementById('photoPreview').classList.remove('show');
+      document.getElementById('photoBtn').style.display = 'inline-flex';
+      document.getElementById('photoStatus').textContent = '';
     } else {
       msg.textContent = 'त्रुटि / Error: ' + (data.error || r.status);
       msg.className = 'msg show err';
