@@ -572,6 +572,26 @@
     var rainTrend = el('m-rain-trend'); if (rainTrend) rainTrend.textContent = 'Select a district';
     var droughtTrend = el('drought-trend'); if (droughtTrend) droughtTrend.textContent = 'Select a district';
     var ndviDetail = el('ndvi-detail'); if (ndviDetail) ndviDetail.textContent = 'Select a district';
+    // Groundwater card (bug found live 2026-09-02 while testing the new
+    // "Dashboard nav resets everything" feature): groundwater_loader.js's
+    // updateSharedFields() reaches its trend/source spans via DOM
+    // traversal from #m-gw (gwEl.parentElement.querySelector(...)), not by
+    // their own id, and also overwrites #m-gw's className and #bar-gw's
+    // className/inline background -- none of which the generic m-*/bar-*
+    // loops above touch, so a previously-selected real district's
+    // "Broadly stable"/"Rising"/"Deepening" text and cyan styling
+    // survived a reset to no-district-selected. Reset all four explicitly
+    // back to index.html's own static default markup for this card.
+    var gwEl = el('m-gw');
+    if (gwEl) {
+      gwEl.className = 'metric-value red';
+      var gwTrend = gwEl.parentElement.querySelector('.metric-trend span');
+      if (gwTrend) gwTrend.textContent = 'Not available';
+      var gwSrc = gwEl.parentElement.querySelector('.metric-source');
+      if (gwSrc) gwSrc.textContent = 'Source · CGWB via NWDP · see Groundwater tab';
+    }
+    var gwBar = el('bar-gw');
+    if (gwBar) { gwBar.className = 'metric-bar-fill u-w0-red'; gwBar.style.background = ''; }
     // adv-title-0/adv-body-0 resets removed 2026-08-14 alongside the
     // right-panel Farmer Advisory block itself (owner instruction).
     var navBadgeHeat = el('nav-badge-heat');
@@ -582,6 +602,38 @@
     // district or village survives this switch.
     if (typeof window._mpClimateClear === 'function') window._mpClimateClear();
   }
+
+  // Owner report 2026-09-02: clicking "Dashboard" in the sidebar left
+  // whatever state/district/block/village was previously drilled into
+  // still selected -- dropdowns, boundary layers, marker, right-panel
+  // Climate Metrics and the map's own zoom/position all survived,
+  // contradicting the "start fresh, like the home page" expectation for
+  // that specific nav item (this is intentionally NOT applied to every
+  // other nav item -- Climate Risk Atlas/NDVI/Rainfall/etc. are meant to
+  // keep the current selection in effect per STANDING ORDERS #2; only
+  // "Dashboard" itself means "go back to the unselected starting view").
+  // selectState(null) already does most of this correctly (cascades
+  // current.district/block/village=null, clears every boundary layer +
+  // marker via clearBelow('state'), resets the district/block/village
+  // <select> elements via resetDownstreamFrom('state')) except: it never
+  // resets the state <select> element's own value (only ever SET when a
+  // state name is actually passed in), and its `!stateName` early-return
+  // skips resetClimateToNotAvailable() entirely, leaving a previously
+  // selected district/village's real numbers on screen. Both fixed here
+  // rather than in selectState itself, since every other real caller of
+  // selectState(null) (if any existed) would want the exact behavior it
+  // already has.
+  function resetToHome() {
+    selectState(null);
+    var stateSel = el('stateSelect');
+    if (stateSel) stateSel.value = '';
+    resetClimateToNotAvailable(null);
+    updateBreadcrumb();
+    if (window.leafletMap) {
+      window.leafletMap.flyTo([22.5, 80], 5, { duration: 1.2 }); // whole-India default view, matches index.html's own flyToSelectionOrIndia() fallback
+    }
+  }
+  window.resetLocationSelector = resetToHome;
 
   // The ONE place MP_DISTRICTS is consulted: resolves a district's real
   // name (from the SoI dropdown, same for every state) to the lowercase

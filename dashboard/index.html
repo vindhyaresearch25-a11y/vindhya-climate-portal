@@ -2696,7 +2696,15 @@ function setNav(el,section){
   // switch at all) -- switchTab()'s own pushState overwrites this with
   // the more specific pane id whenever a section does reach it.
   if (history.pushState && location.hash !== '#'+section) history.pushState(null, '', '#'+section);
-  if (section === 'dashboard') clearHazardFilter();
+  if (section === 'dashboard') {
+    clearHazardFilter();
+    // Owner request 2026-09-02: clicking Dashboard should bring everything
+    // back to the fresh, unselected home-page view -- see
+    // national_selector.js's resetToHome() for why this lives there
+    // (reuses selectState(null)'s existing dropdown/boundary/marker reset
+    // rather than duplicating it here).
+    if (typeof window.resetLocationSelector === 'function') window.resetLocationSelector();
+  }
   else if (section === 'climate') {
     // Climate Risk Atlas: show all hazards, fly to MP center
     if (window.leafletMap) window.leafletMap.flyTo([23.5,78.5],7,{duration:1.5});
