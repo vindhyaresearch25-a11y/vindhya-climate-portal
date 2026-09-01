@@ -298,6 +298,33 @@ bulletins for Gujarat and Assam). Neither the Vectorize index nor the
 Worker itself has been deployed by this session -- both require the
 owner's own Cloudflare login.
 
+## Hero landing page photos (`dashboard/index.html` `#hero` carousel, updated 2026-09-01)
+
+Decorative stock photography, not a data layer -- listed here (rather than
+invented as a new provenance section) because CLAUDE.md's "no fabrication,
+ever" rule explicitly extends to "never claim a stock photo is something
+it isn't." All 3 verified live on unsplash.com immediately before use,
+confirmed each is under the standard free-for-commercial-use **Unsplash
+License** (not the paid Unsplash+ tier -- several Getty-contributed photos
+that came up in the same searches were Unsplash+ and were rejected for
+that reason). Hot-linked from `images.unsplash.com`, same storage pattern
+already used by the pre-existing `.u-bg-gate1-4` login-gate slideshow --
+no images committed to the repo, no new asset-loading mechanism added.
+
+| Slide | Photo | Photographer | Unsplash URL | License |
+|---|---|---|---|---|
+| 1 (`.u-bg-hero1`) | Farmer plowing a field with two white oxen under a stormy sky | Saikiran Kesari | https://unsplash.com/photos/zSn8VuwV7Kg | Unsplash License |
+| 2 (`.u-bg-hero2`) | Wheat field close-up | Nitin Bhosale | https://unsplash.com/photos/U98LIYBFVJk | Unsplash License |
+| 3 (`.u-bg-hero3`) | Farmer on agricultural equipment | Rajesh Ram | https://unsplash.com/photos/HOOKgN_zIY8 | Unsplash License |
+
+Slide 1 is unchanged from what shipped previously (it was already this
+same Saikiran Kesari photo, now positively identified/credited by name for
+the first time). Slide 2 replaces a previous image
+(`photo-1560493676-04071c5f467b`) whose photographer could not be
+positively re-identified during this pass -- rather than keep an unverified
+credit, it was swapped for the Nitin Bhosale photo above. Slide 3 is new,
+added to bring the carousel to the owner's requested 3 images.
+
 ## Removed in the 2026-08 cleanup
 
 - 50 synthetic districts and ~5,000 generated villages (`08_expand_climate_data.py`)

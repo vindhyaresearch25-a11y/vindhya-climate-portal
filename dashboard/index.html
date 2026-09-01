@@ -232,14 +232,29 @@ body{min-height:100%;background:var(--bg-deep);color:var(--text);font-family:'In
    whole photo. */
 .hero-slideshow{position:absolute;inset:0;z-index:2;overflow:hidden;}
 .hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.4s ease-in-out;transform:scale(1.08);animation:none;}
-.hero-slide.active{opacity:1;animation:heroKenBurns 8s ease-out forwards;}
+.hero-slide.active{opacity:1;animation:heroKenBurns 5s ease-out forwards;}
 @keyframes heroKenBurns{0%{transform:scale(1.08)}100%{transform:scale(1)}}
 .hero-slide-credit{position:absolute;bottom:0.6rem;right:0.9rem;z-index:11;font-size:var(--fs-1);color:rgba(255,255,255,0.85);text-shadow:0 1px 3px rgba(0,0,0,0.6);}
 .hero-slide-dots{position:absolute;bottom:2.6rem;left:50%;transform:translateX(-50%);z-index:11;display:flex;gap:var(--space-06);}
+/* Prev/next arrows -- same rgba/hover/active visual language as
+   .hero-slide-dot just below (semi-transparent white, brighter on
+   hover), not a new visual idiom. */
+.hero-slide-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:11;width:40px;height:40px;border-radius:var(--radius-circle);border:none;background:rgba(255,255,255,0.25);color:#fff;font-size:var(--fs-4);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.25s;}
+.hero-slide-arrow:hover{background:rgba(255,255,255,0.5);}
+.hero-slide-arrow.prev{left:1rem;}
+.hero-slide-arrow.next{right:1rem;}
+@media(max-width:640px){.hero-slide-arrow{width:32px;height:32px;font-size:var(--fs-3);}.hero-slide-arrow.prev{left:0.4rem;}.hero-slide-arrow.next{right:0.4rem;}}
 .gov-footer{position:absolute;bottom:0;left:0;right:0;z-index:12;background:rgba(26,35,50,0.92);color:rgba(255,255,255,0.82);padding:0.4rem 1rem;text-align:center;font-size:var(--fs-1);line-height:1.6;}
 .gov-footer .gf-sep{opacity:0.5;margin:0 0.35rem;}
 .gov-footer .gf-line2{opacity:0.75;}
-@media(max-width:640px){.gov-footer{font-size:var(--fs-1);padding:0.35rem 0.6rem;}}
+/* The intro paragraph added 2026-09-01 makes hero-content taller,
+   surfacing a pre-existing gap: #hero's base padding-bottom (56px) only
+   covers gov-footer's 2-line desktop height, but gov-footer's text wraps
+   to 4-5 lines on narrow screens (~123px tall) -- without this, the
+   Continue button's bottom ~27px sat behind the footer bar. Found live
+   while checking mobile responsiveness, fixed here rather than shrinking
+   the new intro copy. */
+@media(max-width:640px){.gov-footer{font-size:var(--fs-1);padding:0.35rem 0.6rem;}#hero{padding-bottom:140px;}}
 .hero-slide-dot{width:28px;height:5px;border-radius:var(--radius-3);border:none;background:rgba(255,255,255,0.4);cursor:pointer;padding:0;transition:all 0.3s;}
 .hero-slide-dot:hover{background:rgba(255,255,255,0.7);}
 .hero-slide-dot.active{background:linear-gradient(90deg,var(--green),var(--cyan));width:40px;}
@@ -266,6 +281,10 @@ body{min-height:100%;background:var(--bg-deep);color:var(--text);font-family:'In
 .hero-boundary-row{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-4);font-weight:700;color:var(--text);margin-bottom:var(--space-03);font-variant-numeric:tabular-nums;}
 .hero-boundary-row .hb-sep{color:var(--text-dim);font-weight:400;margin:0 0.5rem;}
 .hero-boundary-label{font-size:var(--fs-1);font-weight:600;color:var(--text-dim);letter-spacing:0.5px;margin-bottom:var(--space-1);}
+/* 2-3 line landing-page introduction (owner spec 2026-09-01), matching
+   the existing typography scale -- fs-2 body copy, same as .login-sub
+   uses for its own introductory line on the gate below. */
+.hero-intro{font-size:var(--fs-2);font-weight:500;color:#33424F;line-height:1.65;max-width:760px;margin:0 auto var(--space-15);}
 .hero-climate-line{font-size:var(--fs-1);color:#5A6A7A;line-height:1.6;margin:0 auto 1.6rem;font-variant-numeric:tabular-nums;}
 .hero-sources-line{text-align:center;font-size:var(--fs-1);color:var(--text-dim);margin-bottom:var(--space-2);letter-spacing:0.3px;}
 .hero-sources-line b{color:var(--text);}
@@ -1159,8 +1178,16 @@ body.mk-modal-open #pane-merakhet.active{
 .u-bg-gate2{background-image:url('https://images.unsplash.com/photo-1530507629858-e4977d30e9e0?auto=format&fit=crop&w=1600&q=70');}
 .u-bg-gate3{background-image:url('https://images.unsplash.com/photo-1560493676-04071c5f467b?auto=format&fit=crop&w=1600&q=70');}
 .u-bg-gate4{background-image:url('https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=1600&q=70');}
-.u-bg-hero1{background-image:url('https://images.unsplash.com/photo-1620901433789-1d2f85a93653?auto=format&fit=crop&w=1600&q=75');}
-.u-bg-hero2{background-image:url('https://images.unsplash.com/photo-1560493676-04071c5f467b?auto=format&fit=crop&w=1600&q=75');}
+/* Hero carousel images -- "Farmers & Crop Insurance" theme (owner spec,
+   2026-09-01). All 3 verified live on unsplash.com immediately before use
+   (photographer + "Free to use under the Unsplash License", i.e. the
+   standard free-for-commercial-use tier, NOT Unsplash+/paid). Full
+   source/license/credit record: docs/DATA_SOURCES.md, "Hero landing page
+   photos". Same hot-link storage pattern already used for .u-bg-gate1-4
+   above -- no new asset-loading mechanism introduced. */
+.u-bg-hero1{background-image:url('https://images.unsplash.com/photo-1620901433789-1d2f85a93653?auto=format&fit=crop&w=1600&q=75');} /* Saikiran Kesari -- farmer plowing with oxen */
+.u-bg-hero2{background-image:url('https://images.unsplash.com/photo-1418995231169-b6d53c7cdbac?auto=format&fit=crop&w=1600&q=75');} /* Nitin Bhosale -- wheat field close-up */
+.u-bg-hero3{background-image:url('https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=1600&q=75');} /* Rajesh Ram -- farmer on agricultural equipment */
 /* .u-fw700 must stay declared last in this block: it deliberately
    overrides .u-mini-btn's font-weight:600 on the one 700-weight button
    (askChatAboutCadastral). Same-specificity ties resolve by stylesheet
@@ -1248,12 +1275,19 @@ body.mk-modal-open #pane-merakhet.active{
   <div class="hero-slideshow" id="heroSlideshow">
       <div class="hero-slide active u-bg-hero1"></div>
       <div class="hero-slide u-bg-hero2"></div>
+      <div class="hero-slide u-bg-hero3"></div>
   </div>
   <div class="hero-scrim"></div>
-  <div class="hero-slide-credit" id="heroSlideCredit">Photo: Unsplash (free licence)</div>
+  <!-- Credit text set per-slide by showSlide() from heroSlideCredits below,
+       not typed here -- keeps the on-screen credit truthful to whichever
+       photo is actually showing instead of one generic label for all 3. -->
+  <div class="hero-slide-credit" id="heroSlideCredit">Photo: Saikiran Kesari / Unsplash License</div>
+  <button class="hero-slide-arrow prev" onclick="goSlide(heroSlideIdx-1)" aria-label="Previous slide"><i class="fa fa-chevron-left"></i></button>
+  <button class="hero-slide-arrow next" onclick="goSlide(heroSlideIdx+1)" aria-label="Next slide"><i class="fa fa-chevron-right"></i></button>
   <div class="hero-slide-dots">
-      <button class="hero-slide-dot active" data-idx="0" onclick="goSlide(0)"></button>
-      <button class="hero-slide-dot" data-idx="1" onclick="goSlide(1)"></button>
+      <button class="hero-slide-dot active" data-idx="0" onclick="goSlide(0)" aria-label="Slide 1"></button>
+      <button class="hero-slide-dot" data-idx="1" onclick="goSlide(1)" aria-label="Slide 2"></button>
+      <button class="hero-slide-dot" data-idx="2" onclick="goSlide(2)" aria-label="Slide 3"></button>
   </div>
 
   <div class="hero-content">
@@ -1266,6 +1300,16 @@ body.mk-modal-open #pane-merakhet.active{
       <div class="line1">Intelligence Platform</div>
       <div class="line2">CLIMATE RISK &bull; SATELLITE NDVI &bull; AGRICULTURAL ADVISORY</div>
     </div>
+    <!-- Landing-page introduction (owner spec 2026-09-01): 2-3 honest
+         lines, no claim beyond what docs/METHODOLOGY.md and
+         docs/DATA_SOURCES.md already support -- IMD climate indices are
+         live for the districts actually computed (STANDING ORDERS #6),
+         boundary/village-profile coverage is national, "advisory"
+         reflects the real Kisan Sahayak module, not a promise of
+         universal live climate coverage. -->
+    <p class="hero-intro hero-text-safe">
+      A national climate-risk intelligence platform for farmers, district administrators and agri-businesses -- built on IMD gridded weather data, satellite NDVI, and Survey of India village boundaries down to the village level. Explore heatwave, drought and rainfall-extreme risk where IMD indices are computed today, and real village-level boundary and profile data anywhere in the country.
+    </p>
     <!-- Single unboxed stat row (owner spec 2026-08-06 -- the 3 boxed
          panels this replaced read as heavy/one was bare paragraph text).
          Every value still fetched from a real file below, same IDs the
@@ -1292,11 +1336,17 @@ body.mk-modal-open #pane-merakhet.active{
         <div class="role-desc">Agri-Business & Insurance</div>
       </div>
     </div>
+    <!-- Consolidated to ONE primary CTA (owner spec 2026-09-01: "prominent
+         आगे बढ़ें / Continue button", singular). The previous 4 buttons
+         (Launch Dashboard / View Risk Atlas / Kisan Sahayak / Satellite
+         Map) all called showLoginGate() with no distinct behaviour --
+         checked for any other dependency on there being 4 (docs, other
+         JS) and found none; the 3 role cards above already carry the
+         real per-role selectedRole state via selectRole(), so nothing is
+         lost by dropping the redundant buttons. Still calls
+         showLoginGate() unchanged, so STEP 1 -> STEP 2 is untouched. -->
     <div class="hero-btns">
-      <button class="btn-primary" onclick="showLoginGate()"><i class="fa fa-rocket"></i> &nbsp;Launch Dashboard</button>
-      <button class="btn-outline" onclick="showLoginGate()"><i class="fa fa-map"></i> &nbsp;View Risk Atlas</button>
-      <button class="btn-outline" onclick="showLoginGate()">🌾 &nbsp;Kisan Sahayak</button>
-      <button class="btn-outline" onclick="showLoginGate()"><i class="fa fa-satellite"></i> &nbsp;Satellite Map</button>
+      <button class="btn-primary" onclick="showLoginGate()">आगे बढ़ें / Continue &nbsp;<i class="fa fa-arrow-right"></i></button>
     </div>
   </div>
   <div class="gov-footer" id="govFooter">
@@ -2291,11 +2341,23 @@ updateClock();
 let heroSlideIdx=0, heroSlideTimer=null;
 const heroSlides=document.querySelectorAll('.hero-slide');
 const heroDots=document.querySelectorAll('.hero-slide-dot');
+const heroSlideIntervalMs=4500; // owner spec: auto-advance every 4-5s
+// Real per-photo credits (docs/DATA_SOURCES.md has the full source/license
+// record) -- indexed to match .hero-slide order in the HTML 1:1, so the
+// on-screen credit always names the photo actually showing, not one
+// generic label for all 3.
+const heroSlideCredits=[
+  'Photo: Saikiran Kesari / Unsplash License',
+  'Photo: Nitin Bhosale / Unsplash License',
+  'Photo: Rajesh Ram / Unsplash License'
+];
 function showSlide(n){
   if(!heroSlides.length) return;
   heroSlideIdx=(n+heroSlides.length)%heroSlides.length;
   heroSlides.forEach((s,i)=>s.classList.toggle('active', i===heroSlideIdx));
   heroDots.forEach((d,i)=>d.classList.toggle('active', i===heroSlideIdx));
+  var creditEl=document.getElementById('heroSlideCredit');
+  if (creditEl && heroSlideCredits[heroSlideIdx]) creditEl.textContent=heroSlideCredits[heroSlideIdx];
 }
 function nextSlide(){ showSlide(heroSlideIdx+1); }
 const heroReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -2303,17 +2365,17 @@ function goSlide(n){
   showSlide(n);
   if (heroReducedMotion) return;
   clearInterval(heroSlideTimer);
-  heroSlideTimer=setInterval(nextSlide,8000);
+  heroSlideTimer=setInterval(nextSlide,heroSlideIntervalMs);
 }
 function startSlideshow(){
   if(!heroSlides.length) return;
   showSlide(0);
   if (heroReducedMotion) return; // stay on the first slide only, no auto-rotate
-  heroSlideTimer=setInterval(nextSlide,8000);
+  heroSlideTimer=setInterval(nextSlide,heroSlideIntervalMs);
   var host=document.getElementById('heroSlideshow');
   if (host) {
     host.addEventListener('mouseenter', function(){ clearInterval(heroSlideTimer); });
-    host.addEventListener('mouseleave', function(){ heroSlideTimer=setInterval(nextSlide,8000); });
+    host.addEventListener('mouseleave', function(){ heroSlideTimer=setInterval(nextSlide,heroSlideIntervalMs); });
     host.addEventListener('touchstart', function(){ clearInterval(heroSlideTimer); }, {passive:true});
   }
 }
