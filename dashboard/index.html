@@ -1396,7 +1396,7 @@ body.mk-modal-open #pane-merakhet.active{
      dashboard" choke point, launchApp()). -->
 <audio id="heroAmbientAudio" src="audio/hero_ambient.mp3" preload="auto" loop></audio>
 <div id="heroMusicControl" class="hero-music-control u-hidden">
-  <button id="heroMusicToggleBtn" class="hero-music-toggle" onclick="toggleHeroMusic()" title="Music On/Off"><i class="fa fa-music"></i></button>
+  <button id="heroMusicToggleBtn" class="hero-music-toggle" onclick="toggleHeroMusic()" title="Pause music"><i class="fa fa-pause"></i></button>
   <input id="heroMusicVolume" class="hero-music-volume" type="range" min="0" max="1" step="0.05" value="0.15" oninput="setHeroMusicVolume(this.value)" title="Volume" aria-label="Music volume">
 </div>
 <button id="heroMusicEnableBtn" class="hero-music-enable-btn u-hidden" onclick="enableHeroMusic()">🔊 Enable Sound</button>
@@ -2450,13 +2450,14 @@ startSlideshow();
   var enableBtn = document.getElementById('heroMusicEnableBtn');
   if (!audio || !control || !enableBtn) return;
 
-  // Spec: "20-30 seconds with a seamless loop if needed" -- the real file
-  // (dashboard/audio/hero_ambient.mp3) is a longer ambient piece (~117s),
-  // not trimmed at the file level (no audio-editing tool available in
-  // this session) -- looped in-place instead via timeupdate, restarting
-  // at 0 once LOOP_END is reached, so the ON-SCREEN experience matches
-  // the requested short loop without needing to re-encode the file.
-  var LOOP_END = 25;
+  // Owner revision (2026-09-02, second pass): loop window widened from the
+  // original spec's 20-30s to a full 60s ("poora song 60 second ho") --
+  // the real file (dashboard/audio/hero_ambient.mp3) is a longer ambient
+  // piece (~117s), not trimmed at the file level (no audio-editing tool
+  // available in this session) -- looped in-place instead via timeupdate,
+  // restarting at 0 once LOOP_END is reached, so the ON-SCREEN experience
+  // matches the requested loop length without needing to re-encode the file.
+  var LOOP_END = 60;
   audio.volume = 0.15; // spec: "start at low volume"
   audio.addEventListener('timeupdate', function(){
     if (audio.currentTime >= LOOP_END) audio.currentTime = 0;
@@ -2466,10 +2467,15 @@ startSlideshow();
 
   function showControl(){ if (!stopped) control.classList.remove('u-hidden'); }
   function hideControl(){ control.classList.add('u-hidden'); }
+  // Owner revision (2026-09-02): explicit "Pause/Resume" request -- swapped
+  // the icon language from music-note/muted-speaker to play/pause glyphs,
+  // the more universally understood pause-resume convention (media
+  // players everywhere), and made the button's own title attribute say so.
   function updateToggleIcon(){
     var icon = toggleBtn.querySelector('i');
     if (!icon) return;
-    icon.className = audio.paused ? 'fa fa-volume-mute' : 'fa fa-music';
+    icon.className = audio.paused ? 'fa fa-play' : 'fa fa-pause';
+    toggleBtn.title = audio.paused ? 'Resume music' : 'Pause music';
     toggleBtn.classList.toggle('muted', audio.paused);
   }
 
