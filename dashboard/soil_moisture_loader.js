@@ -455,21 +455,40 @@
     }
   }
 
+  // Owner-reported live bug (2026-09): m-soil/m-gw intermittently stayed
+  // 'Not available' at DISTRICT level even though this file's own render()
+  // had a real value to show, then correctly appeared once a block/village
+  // was picked underneath. Root cause: national_climate_loader.js/
+  // mp_climate_loader.js write a hardcoded 'Not available' to these same
+  // fields as a synchronous default (documented there as "soil_moisture_
+  // loader.js/groundwater_loader.js overwrite this right after, whenever
+  // real coverage exists") -- an assumption that THIS file's own
+  // onDistrictChange wrapper runs outermost (last), which depends on which
+  // loader's own async boot()/setTimeout race finishes registering its
+  // wrapper last. That race is NOT guaranteed to match <script> tag order
+  // (every loader here boots off its own independent setTimeout chain --
+  // see national_selector.js's own comment on the same non-determinism for
+  // onBlockChange/onVillageChange). Deferring this file's render() to the
+  // next tick guarantees it runs strictly after the ENTIRE synchronous
+  // onDistrictChange call chain (every wrapper, in whatever order they
+  // nested) has finished -- so this file's real-data write is always the
+  // final word, never clobbered back to 'Not available' by a differently-
+  // ordered reset.
   function wireSelectionHooks() {
     var originalOnDistrictChange = window.onDistrictChange;
     window.onDistrictChange = function (distKey) {
       if (typeof originalOnDistrictChange === 'function') originalOnDistrictChange(distKey);
-      render();
+      setTimeout(render, 0);
     };
     var originalOnBlockChange = window.onBlockChange;
     window.onBlockChange = function (blockName) {
       if (typeof originalOnBlockChange === 'function') originalOnBlockChange(blockName);
-      render();
+      setTimeout(render, 0);
     };
     var originalOnVillageChange = window.onVillageChange;
     window.onVillageChange = function (vilLgd) {
       if (typeof originalOnVillageChange === 'function') originalOnVillageChange(vilLgd);
-      render();
+      setTimeout(render, 0);
     };
     var stateSel = el('stateSelect');
     if (stateSel) stateSel.addEventListener('change', function () { setTimeout(render, 300); });

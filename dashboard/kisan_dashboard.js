@@ -271,9 +271,24 @@
     if (glink) glink.href = 'https://www.google.com/maps/@' + res.centroid[1] + ',' + res.centroid[0] + ',17z/data=!3m1!1e3';
     try {
       if (KD.previewMap) { KD.previewMap.remove(); KD.previewMap = null; }
-      var map = L.map(box, { attributionControl: true, zoomControl: true });
+      // Owner-reported live bug (2026-09, Hinglish): "zoom karne par kata
+      // hai" -- zooming in on this preview cut the field polygon off,
+      // replaced by Esri's own "Map data not yet available" placeholder
+      // tiles. Root cause: this tileLayer only set maxZoom:19 with no
+      // maxNativeZoom, so once the user zoomed past Esri World Imagery's
+      // REAL tile coverage for this (often rural) area, Leaflet requested
+      // tile zoom levels the server has nothing for, and got blank/error
+      // tiles back -- the polygon itself never moved or clipped, it was
+      // just sitting on top of tiles that had stopped rendering. The main
+      // dashboard map (index.html's BASEMAPS['Satellite (Esri)']) already
+      // uses the correct fix for this exact same Esri source
+      // (maxZoom:22, maxNativeZoom:18) -- letting the zoom control go
+      // higher while Leaflet transparently upscales the last real
+      // zoom-18 tile via CSS instead of fetching a non-existent one.
+      // Mirrored here rather than reinvented.
+      var map = L.map(box, { attributionControl: true, zoomControl: true, maxZoom: 22 });
       L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        maxZoom: 19, attribution: 'Esri, Maxar, Earthstar Geographics'
+        maxZoom: 22, maxNativeZoom: 18, attribution: 'Esri, Maxar, Earthstar Geographics'
       }).addTo(map);
       var poly = L.polygon(latlngs, { color: '#C6FF00', weight: 3, fillOpacity: 0.12 }).addTo(map);
       map.fitBounds(poly.getBounds(), { padding: [20, 20], maxZoom: 18 });

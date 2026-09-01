@@ -501,6 +501,21 @@
       if (res.soil && res.soil.district) {
         var d = res.soil.district;
         h += '<span style="font-size:11.5px">जिला-स्तर औसत / District mean: <b>' + fmt(d.sm_surface_mean, 3) + ' m³/m³</b> (SD ' + fmt(d.sm_surface_stddev, 4) + ', N=' + d.n_cells + ' SMAP सेल/cells)</span>';
+        // Owner report (2026-09, Hinglish): "usme humidity actual show nahi
+        // karti, fraud lagti hai" -- this number was shown with NO date at
+        // all next to it, unlike Live Weather's "as of <date>" /
+        // Groundwater's "Source · CGWB via NWDP · <date>" convention this
+        // dashboard uses everywhere else. The real date IS available (the
+        // SMAP file's own metadata.observation_window / last_updated, see
+        // scripts/13_gee_national_soil_moisture.py) -- it just wasn't
+        // surfaced here. Never today's date -- the file's own real
+        // observation window, which can be several days old by the time a
+        // farmer opens this.
+        var soilMeta = res.soil.metadata || {};
+        var soilDateLabel = soilMeta.observation_window || soilMeta.last_updated || null;
+        h += '<div style="font-size:10px;opacity:.6;margin-top:2px">' +
+          (soilDateLabel ? ('इस माप की तिथि / As of: <b>' + soilDateLabel + '</b>') : 'तिथि उपलब्ध नहीं / Observation date not available in source file') +
+          '</div>';
         if (res.soilCell) {
           h += '<div style="margin-top:4px;font-size:11px">निकटतम SMAP सेल (≈' + fmt(res.soilCell.distance_km, 1) + ' km दूर): <b>' + fmt(res.soilCell.cell.sm_surface, 3) + ' m³/m³</b>, इसे ≈' + res.soilCell.cell.n_villages_sharing_cell + ' गाँव साझा करते हैं (share this cell)</div>';
           h += mkGridDisclaimer('~9 किमी (9 km)', res.soilCell.cell.n_villages_sharing_cell, 'गाँव (villages)');

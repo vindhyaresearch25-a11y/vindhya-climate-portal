@@ -230,11 +230,20 @@ ka area/perimeter code reuse kiya, naya nahi likha.
 
 - Polygon draw -> area/perimeter: **HUA**
 - Kheti wala hissa (cropland fraction, Dynamic World/Sentinel-2 10m):
-  **NAHI HUA** -- iske liye live per-polygon GEE query chahiye, jo browser
-  se seedhe nahi ho sakta, backend chahiye. `cloudflare/mera_khet_worker.js`
-  likha gaya (real GEE service-account OAuth2 flow) par `GEE_BACKEND_URL`
-  configure/deploy nahi hua is session me -- panel honest "not yet wired
-  up" dikhata hai, koi jhoothi number nahi.
+  **AB HUA (2026-09 update)** -- `GEE_BACKEND_URL` since configured/deployed
+  (vindhya-mera-khet.vindhyaresearch25.workers.dev/analyze verified live,
+  real ndvi + cropland_fraction + field_wetness_index_relative returned).
+  Owner report investigated this session: on `http://localhost:8010` (a
+  non-whitelisted local port) the browser blocked the request with a CORS
+  preflight failure, which LOOKED identical to "backend not deployed" in
+  the panel (both show the same honest not-available message, by design --
+  never a fake number either way) -- confirmed via curl that the worker
+  itself, and the request from an ALLOWED_ORIGINS entry
+  (`http://localhost:8000`, and the real production
+  `https://vindhyaresearch25-a11y.github.io`), both work end-to-end. Not a
+  code bug; this note was simply stale. If a genuine CORS gap is ever found
+  against the real production origin, add it to
+  `cloudflare/mera_khet_worker.js`'s `ALLOWED_ORIGINS` set (line ~107).
 - Mausam/nami -- **HUA**, district-tier (soil_moisture/climate files se),
   "yah aapke khet ka apna maap nahi" label ke saath, jaisa maanga tha
 - Ground truth (fasal poochna) -- **HUA**, existing D1 pipeline reuse

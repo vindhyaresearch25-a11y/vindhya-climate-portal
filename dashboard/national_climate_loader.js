@@ -122,10 +122,35 @@
     Object.keys(lastBase).forEach(function (id) { setTxt(id, lastBase[id] + suffix); });
   }
 
+  // Owner report (2026-09, coordinator relay): "CLIMATE HAZARD me Heat
+  // Waves / Extreme Precipitation / Drought -- sabhi State/District/Block/
+  // Village level me data ho." Live-reproduced gap: selecting a bare state
+  // (no district) leaves state_aggregate_loader.js's setChartEmptyStateNote()
+  // pointing the Rainfall/Temperature/Trends empty-chart captions at a
+  // "<State> selected -- see the state aggregate above" message; that text
+  // is only ever written from onStateSelected(), so it survives completely
+  // unchanged once the user goes on to pick one of these ~726 GEE districts
+  // (or a block/village under it) -- the pane kept telling a district-level
+  // visitor to go pick a district. This resets those 3 captions to an
+  // honest DISTRICT-tier message the moment a real GEE district is applied
+  // -- still correctly empty (no month/year series exists to chart for
+  // these districts, this file's own header explains why), but naming the
+  // actual selected district instead of a stale state-only sentence.
+  function setDistrictChartEmptyNote(districtName) {
+    var msg = districtName + ' selected -- no month/year time series available for this district ' +
+      '(ERA5-Land/CHIRPS via GEE provides a single 2000-2024 aggregate here, not a chart-able series). ' +
+      'See the Historical Indices panel above for this district\'s real aggregate numbers.';
+    ['chartRain', 'chartTemp', 'chartTrends'].forEach(function (id) {
+      var span = document.querySelector('#empty-' + id + ' span');
+      if (span) span.textContent = msg;
+    });
+  }
+
   function applyGeeMetrics(file, districtName) {
     var idx = file.indices || {};
     var meta = file.metadata || {};
     lastDistrictName = districtName;
+    setDistrictChartEmptyNote(districtName);
 
     var droughtVal = idx.drought_probability_pct != null ? idx.drought_probability_pct : null;
     setTxt('m-drought', droughtVal != null ? Number(droughtVal).toFixed(1) + '%' : 'Not available');
@@ -167,12 +192,23 @@
       setTxtLvl('m-rain-trend', districtName || '');
     }
 
-    setTxt('m-soil', 'Not available'); setBar('bar-soil', 0);
-    // Default reset -- soil_moisture_loader.js and groundwater_loader.js
-    // (both loaded after this file, both wrap onDistrictChange) overwrite
-    // these with real SMAP / CGWB-via-NWDP values right after this render,
-    // whenever real coverage exists for the selected district.
-    setTxt('m-gw', 'Not available'); setBar('bar-gw', 0);
+    // Owner-reported live bug (2026-09, confirmed): m-soil/m-gw are NOT
+    // this file's fields (soil_moisture_loader.js / groundwater_loader.js
+    // own them). This used to reset both to 'Not available' here as a
+    // "default before those loaders overwrite it" placeholder, on the
+    // assumption their own onDistrictChange wrapper always runs after this
+    // one finishes. False: this function only runs once THIS file's own
+    // climate-file fetch resolves (handleDistrictChange's fetchWithTimeout
+    // chain, async), and soil_moisture_loader.js/groundwater_loader.js's
+    // own real-data writes are gated behind THEIR OWN separate async
+    // fetches -- an unbounded race between two unrelated network requests,
+    // live-reproduced showing real SMAP/CGWB data getting clobbered back to
+    // 'Not available' whenever this line happened to resolve second. The
+    // "blank on district change" responsibility is already handled
+    // synchronously, BEFORE either async fetch starts, by
+    // national_selector.js's resetClimateToNotAvailable() (selectDistrict()
+    // calls it immediately for every non-MP-real district) -- so this file
+    // must not touch m-soil/m-gw at all.
 
     if (droughtVal != null) {
       var cs = Math.min(100, Math.max(0, Math.round(droughtVal)));

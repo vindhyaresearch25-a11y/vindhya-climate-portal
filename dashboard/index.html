@@ -655,6 +655,15 @@ body{min-height:100%;background:var(--bg-deep);color:var(--text);font-family:'In
 .metric-card.good{border-color:rgba(45,143,92,0.25);background:rgba(45,143,92,0.03);}
 .metric-label{font-size:var(--fs-1);font-weight:600;color:var(--text-dim);letter-spacing:1px;margin-bottom:var(--space-025);}
 .metric-value{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-4);font-weight:700;font-variant-numeric:tabular-nums;}
+/* Owner request (2026-09): Climate Metrics right-panel (#right-panel)
+   text read too small -- bold + a bit bigger, but staying under the
+   sidebar nav-label size (--fs-3, the "Core Dashboard" text the owner
+   compared it to) so this panel doesn't visually outrank the main nav.
+   Scoped to #right-panel only -- .metric-label/.metric-value are shared
+   classes also used by the Groundwater/Soil Moisture/Village Profile
+   panes, which are untouched by this (their own sizing stays as-is). */
+#right-panel .metric-label{font-size:var(--fs-2);font-weight:700;}
+#right-panel .metric-value{font-weight:800;}
 .metric-value.cyan{color:var(--cyan);}
 .metric-value.green{color:var(--green);}
 .metric-value.orange{color:var(--orange);}
@@ -1587,12 +1596,12 @@ body.mk-modal-open #pane-merakhet.active{
       <div class="btm-content">
         <!-- Rainfall -->
         <div class="btm-pane" id="pane-rainfall">
-          <div class="section-header"><i class="fa fa-cloud-rain u-cyan-sm"></i><div class="section-title">RAINFALL FORECAST — CENTRAL INDIA (2024–25)</div></div>
+          <div class="section-header"><i class="fa fa-cloud-rain u-cyan-sm"></i><div class="section-title">RAINFALL FORECAST</div></div>
           <div class="chart-wrap u-h200"><canvas id="chartRain"></canvas><div class="chart-empty" id="empty-chartRain"><i class="fa fa-cloud-rain chart-empty-icon"></i><span>Select a district (Bhopal, Indore, Jabalpur, Rewa or Sidhi have live IMD data) to see the rainfall forecast.</span><button class="btm-pane-empty-btn" onclick="focusLocationSelector()"><i class="fa fa-location-crosshairs"></i> Select district</button></div></div>
         </div>
         <!-- Temp -->
         <div class="btm-pane" id="pane-temp">
-          <div class="section-header"><i class="fa fa-thermometer-half u-orange-sm"></i><div class="section-title">TEMPERATURE TREND — MP REGION</div></div>
+          <div class="section-header"><i class="fa fa-thermometer-half u-orange-sm"></i><div class="section-title">TEMPERATURE TREND</div></div>
           <div class="chart-wrap u-h200"><canvas id="chartTemp"></canvas><div class="chart-empty" id="empty-chartTemp"><i class="fa fa-thermometer-half chart-empty-icon"></i><span>Select a district to see the temperature trend.</span><button class="btm-pane-empty-btn" onclick="focusLocationSelector()"><i class="fa fa-location-crosshairs"></i> Select district</button></div></div>
         </div>
         <!-- Drought -->
@@ -2548,6 +2557,19 @@ function toggleSidebar(){
   } else {
     sb.classList.toggle('collapsed');
   }
+  // Owner-reported concern (2026-09): map staying the old size / showing
+  // gray tiles after the sidebar collapses or expands. Live-verified this
+  // setTimeout(320ms) path -- just past the #sidebar CSS `transition:width
+  // 0.3s` -- already resizes the map container and calls invalidateSize()
+  // correctly (container rect and L.Map's own getSize() both land on the
+  // new width, no gray area in a live screenshot). Added transitionend as
+  // a second, belt-and-suspenders trigger (not a replacement) in case a
+  // slower device/browser makes the CSS transition run past 320ms --
+  // whichever of the two fires first does the real work, the other is then
+  // a harmless no-op call to the same idempotent invalidateSize().
+  sb.addEventListener('transitionend', function onEnd(e){
+    if (e.propertyName === 'width') { if (window.leafletMap) window.leafletMap.invalidateSize(); }
+  }, { once: true });
   setTimeout(()=>{ if(window.leafletMap) window.leafletMap.invalidateSize(); },320);
 }
 
@@ -3426,25 +3448,46 @@ function focusHazard(kind){
     if (el) { var mc = el.closest('.metric-card'); if (mc) mc.classList.add('hazard-highlight'); }
   }
 
+  // Owner report (2026-09, coordinator relay): "CLIMATE HAZARD me ...
+  // sabhi State/District/Block/Village level me data ho" -- these 3
+  // sidebar buttons used to flyTo() three DIFFERENT hardcoded
+  // Madhya-Pradesh-region coordinates unconditionally, yanking the map
+  // away from whatever state/district/block/village the user actually had
+  // selected (STANDING ORDERS #1: never hardcode MP as a default anywhere;
+  // #2: a selection must stay in effect everywhere, never get silently
+  // reset). Now flies to the real, currently-selected boundary's own
+  // bounds (national_selector.js's getCurrentSelectionBounds(), the same
+  // real geometry already drawn on the map for the deepest picked level)
+  // when one exists, and only falls back to a neutral whole-India view
+  // (not an MP-region point) when nothing has been selected yet.
+  var _selBounds = (typeof window.getCurrentSelectionBounds === 'function') ? window.getCurrentSelectionBounds() : null;
+  function flyToSelectionOrIndia(){
+    if (_selBounds && _selBounds.bounds && _selBounds.bounds.isValid()) {
+      map.flyToBounds(_selBounds.bounds, {duration:1.4, maxZoom:10, padding:[30,30]});
+    } else {
+      map.flyTo([22.5,80],5,{duration:1.4}); // whole-India default view, not an MP point
+    }
+  }
+
   if(kind==='heat'){
     if(!window.heatLayer) toggleLayer('heat');
     if(window.rainLayer) toggleLayer('rain');
     setBtmTab('temp');
-    map.flyTo([22.4,75.4],8,{duration:1.4});
+    flyToSelectionOrIndia();
     highlightMetric('m-heat');
   }
   else if(kind==='rain'){
     if(!window.rainLayer) toggleLayer('rain');
     if(window.heatLayer) toggleLayer('heat');
     setBtmTab('rainfall');
-    map.flyTo([22.3,80.2],8,{duration:1.4});
+    flyToSelectionOrIndia();
     highlightMetric('m-rain');
   }
   else if(kind==='drought'){
     if(window.heatLayer) toggleLayer('heat');
     if(window.rainLayer) toggleLayer('rain');
     setBtmTab('drought');
-    map.flyTo([24.4,78.8],8,{duration:1.4});
+    flyToSelectionOrIndia();
     highlightMetric('m-drought');
   }
 
