@@ -178,7 +178,19 @@ body{min-height:100%;background:var(--bg-deep);color:var(--text);font-family:'In
 .cad-tooltip{background:rgba(0,0,0,0.85);border:none;color:#fff;font-size:var(--fs-1);font-weight:600;padding:3px 8px;border-radius:var(--radius-4);white-space:nowrap;}
 
 /* =========== LOGIN GATE =========== */
-#loginGate{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;z-index:1100;background:#1a2332;padding:var(--space-15);}
+/* Bug found 2026-09-02 while building the new front landing page: this
+   rule's own display:flex (an ID selector, specificity 100) was silently
+   beating the .u-hidden class (specificity 10) that's supposed to keep
+   #loginGate hidden until showLoginGate() reveals it -- #loginGate was
+   ALWAYS visible, masked only by the old body{overflow:hidden} (removed
+   in the item-0 page-scroll fix) which happened to crop the page to
+   exactly #loginGate's own 100vh, hiding #hero (meant to be the true
+   first screen, per showLoginGate()'s own "STEP 1 -> STEP 2" comment)
+   stacked right below it. display removed from this base rule entirely
+   -- .u-hidden now correctly wins when present, and showLoginGate()'s
+   existing inline style.display='flex' (unchanged) still shows it on
+   demand, since an inline style always wins regardless. */
+#loginGate{position:relative;min-height:100vh;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;z-index:1100;background:#1a2332;padding:var(--space-15);}
 .gate-slideshow{position:absolute;inset:0;z-index:0;overflow:hidden;filter:blur(1.5px) saturate(1.1);transform:scale(1.03);}
 .gate-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 2.2s ease-in-out;transform:scale(1.08);}
 .gate-slide.active{opacity:0.88;animation:heroKenBurns 14s ease-out forwards;}
