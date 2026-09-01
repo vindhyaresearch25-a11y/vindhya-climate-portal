@@ -144,8 +144,33 @@
   font-display:swap;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-html,body{height:100%;overflow:hidden;}
-body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-3);font-weight:400;display:flex;flex-direction:column;font-variant-numeric:tabular-nums;}
+/* Items 4/6/8/14/20d root cause (owner live report, 2026-09-01): html/body/
+   #app/#main/#content/#map-panel were ALL pinned to exactly one viewport
+   height with overflow:hidden, so a mouse-wheel/trackpad scroll did
+   nothing over most of the page -- only the couple of inner elements that
+   had their own overflow-y:auto (#right-panel, .btm-content) would move,
+   and only while the cursor sat exactly over them. That's also why
+   #right-panel's Climate Metrics list needed its own tiny internal
+   scrollbar (measured live: scrollHeight 788 vs clientHeight 646 for
+   Jabalpur) instead of just being reachable by scrolling the page.
+   Fix: let the page scroll normally, at every width, not just mobile's
+   existing <=768px media query (see its own comment further down).
+   overflow-y:auto lives on `html` ONLY, not `body` -- found live while
+   verifying #sidebar's new position:sticky further down: giving BOTH
+   html and body a non-visible overflow makes body itself a second CSS
+   "scroll container", and since body's own height is auto-sized to
+   exactly match its content (via min-height below), it can never
+   actually scroll internally -- position:sticky computed relative to a
+   container that never itself scrolls just behaves like static. `html`
+   is the one true scrolling element here (confirmed live via
+   document.scrollingElement), so it's the only one that needs
+   overflow-y:auto; body only needs min-height so #app{flex:1} still has
+   something to grow into on a page shorter than one viewport (its own
+   `body{...}` rule, just below, is left otherwise untouched).
+   #map-panel (further down) keeps a real bounded pixel height of its own
+   so Leaflet's tile grid is never handed an unbounded box. */
+html{height:auto;min-height:100%;overflow-y:auto;overflow-x:hidden;}
+body{min-height:100%;background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-3);font-weight:400;display:flex;flex-direction:column;font-variant-numeric:tabular-nums;}
 ::-webkit-scrollbar{width:4px;height:4px;}
 ::-webkit-scrollbar-track{background:var(--bg-panel);}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:var(--radius-2);}
@@ -246,7 +271,21 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 .role-card.selected{border-color:var(--cyan);background:rgba(26,138,158,0.04);box-shadow:0 0 0 2px rgba(26,138,158,0.2);}
 
 /* =========== MAIN APP =========== */
-#app{display:none;flex:1;overflow:hidden;background:var(--bg-deep);min-height:0;}
+/* Page-scroll fix (items 4/6/8/14/20d): was overflow:hidden, one of the
+   viewport-locking layers -- see html,body's own comment above. #app no
+   longer clips; it just grows to whatever height #sidebar/#main actually
+   need and the page scrolls past it.
+   Plain `overflow:visible` (not overflow-y:visible + overflow-x:hidden as
+   two separate properties) -- found live while verifying #sidebar's new
+   position:sticky: per the CSS spec, when overflow-x and overflow-y are
+   set to different values and one of them is 'visible', the visible one
+   silently COMPUTES to 'auto' instead -- that made #app an unintended
+   scroll container, and position:sticky sticks to the nearest ancestor
+   scroll container, not necessarily the viewport -- #sidebar was sticking
+   to #app's own (never-actually-scrolling) box instead, i.e. not
+   visually sticking at all. html/body's own overflow-x:hidden (above) is
+   the real horizontal-scrollbar safety net; #app doesn't need its own. */
+#app{display:none;flex:1;overflow:visible;background:var(--bg-deep);min-height:0;}
 /* Global attribution footer -- see the HTML comment at its own tag for
    why this is a normal flow element, not position:fixed. 30px tall,
    deliberately slim so it doesn't meaningfully compete with the map for
@@ -254,7 +293,20 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 #siteFooter{flex-shrink:0;min-height:38px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0b1f45;border-top:1px solid #0b1f45;font-size:11px;font-weight:700;color:#fff;text-align:center;padding:0.4rem 1rem;line-height:1.5;}
 
 /* Sidebar */
-#sidebar{width:220px;background:var(--bg-card);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;transition:width 0.3s;flex-shrink:0;}
+/* Page-scroll fix: owner's own instruction #6 -- "left sidebar can stay
+   fixed... middle dashboard content scrolls on its own, separately."
+   position:sticky (not position:fixed) keeps it visually pinned to the
+   viewport's top as the now-taller page scrolls, without pulling it out
+   of #app's flex-row flow the way position:fixed would (that would need
+   manual width/left math and a placeholder to avoid collapsing #app's
+   layout). align-self:flex-start stops the row's default stretch from
+   forcing #sidebar to the full (now much taller) page height; max-height
+   caps it at one viewport so .sidebar-nav's own overflow-y:auto (below,
+   unchanged) still scrolls a long nav list internally -- exactly like
+   before, just anchored now instead of implicitly static inside a
+   never-scrolling page. Mobile's own media query (further down) already
+   overrides position back to fixed for its off-canvas drawer -- untouched. */
+#sidebar{width:220px;background:var(--bg-card);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;transition:width 0.3s;flex-shrink:0;position:sticky;top:0;align-self:flex-start;max-height:100vh;}
 #sidebar.collapsed{width:56px;}
 .sidebar-logo{display:flex;align-items:center;gap:var(--space-075);padding:var(--space-1);border-bottom:1px solid var(--border);min-height:56px;}
 .sidebar-logo-icon{width:32px;height:32px;border-radius:var(--radius-6);background:linear-gradient(135deg,var(--cyan),var(--teal));display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:var(--fs-3);color:#fff;font-weight:900;}
@@ -276,8 +328,26 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
    not just the nav rail -- see #siteFooter's own comment for the
    layout mechanics. */
 
-/* Main area */
-#main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+/* Main area. Page-scroll fix: overflow:hidden removed -- #main now just
+   grows to fit #topbar + #content + #bottom-panel's real combined height
+   and the page scrolls past it, same reasoning as #app above.
+   min-width:0 is load-bearing, not decorative -- found live while
+   verifying mobile: a flex item's default min-width is 'auto', which
+   means "never shrink below my content's own min-content width" UNLESS
+   the item's overflow is non-visible (overflow:hidden used to give #main
+   this for free, incidentally). #bottom-panel's .btm-tabs row (16+ tab
+   buttons, flex-wrap:wrap) has plenty of individual buttons that don't
+   need to be full-width, but flex-wrap only actually wraps them once the
+   browser knows how much width it has to wrap AGAINST -- without
+   overflow:hidden's incidental min-width:0 and without this explicit
+   one, #main (and #app's own flex row) silently grew to ~2050px to fit
+   every tab on one unwrapped line, invisibly clipped by html's own
+   overflow-x:hidden (found by comparing #main's rect to #app's rect --
+   2052px vs a 602px viewport). min-width:0 restores the "shrink to fit
+   the available space, wrap/scroll instead of overflowing" behavior
+   #main always visually had before, now achieved deliberately instead
+   of as a side effect of the old overflow:hidden lock. */
+#main{flex:1;display:flex;flex-direction:column;overflow:visible;min-width:0;}
 
 /* Top bar */
 #topbar{height:56px;background:var(--bg-card);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:var(--space-1);padding:0 1rem;flex-shrink:0;}
@@ -289,11 +359,40 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 .topbar-lang{display:flex;align-items:center;gap:var(--space-03);background:transparent;border:var(--border-default);border-radius:var(--radius-12);padding:0.25rem 0.7rem;font-size:var(--fs-1);font-weight:600;color:var(--cyan);cursor:pointer;font-family:'Inter',sans-serif;}
 .topbar-lang:hover{background:rgba(26,138,158,0.06);}
 
-/* Content */
-#content{flex:1;display:flex;overflow:hidden;}
+/* Content -- row: #map-panel beside #right-panel.
+   Page-scroll fix: dropped flex:1 (was stealing/donating height to/from
+   #bottom-panel out of #main's single bounded budget -- the literal
+   mechanism behind item 8's old "map shrinks when bottom-panel grows"
+   regression) and overflow:hidden. align-items:flex-start replaces the
+   default stretch: #map-panel now carries its OWN explicit height (see
+   below) instead of being stretched to match whichever sibling is
+   taller, and #right-panel is free to be its own natural (possibly
+   taller) content height without being clipped to the map's height or
+   forced to scroll internally -- its Climate Metrics cards join the
+   page-flow scroll per the owner's explicit steer, instead of the old
+   isolated inner scrollbar. (The two tablet/mobile media queries below
+   switch #content to flex-direction:column for their stacked layout and
+   restore align-items:stretch there, where full-width stretch is what's
+   wanted instead. min-width:0 for the same reason as #main's own comment
+   above -- #content is itself a flex item in #main's column direction,
+   so it needs the same "don't grow to fit an unwrapped descendant"
+   guard.) */
+#content{display:flex;align-items:flex-start;min-width:0;}
 
-/* Map area */
-#map-panel{flex:1;position:relative;overflow:hidden;}
+/* Map area. Page-scroll fix: was flex:1, which only produced a real pixel
+   height because #content/#main/#app were ALL bounded to exactly one
+   viewport height above it -- remove those bounds (as this fix does) and
+   flex:1 alone resolves to 0, breaking Leaflet's tile grid (it sizes
+   itself from the container's actual rendered box at init/invalidateSize,
+   per the "what NOT to break" brief). Giving #map-panel its own explicit
+   vh-based height instead is the same mechanism the existing tablet
+   (flex:0 0 50vh) and mobile (flex:0 0 45vh) breakpoints already use --
+   extended to desktop rather than invented fresh. 68vh/520px keeps the
+   map close to its old visual proportion on common laptop/desktop
+   heights while guaranteeing Leaflet a real, bounded box regardless of
+   how tall #right-panel's or #bottom-panel's content gets -- those can
+   no longer shrink the map at all, structurally, not just by convention. */
+#map-panel{height:68vh;min-height:520px;flex:1 1 auto;position:relative;overflow:hidden;}
 /* Owner report 2026-08-14, still open in item 3/20's re-check
    (2026-08-16) and again live-tested 2026-08-20 -- a bright grid of
    lines across the whole-India satellite view, every tile edge. The
@@ -378,8 +477,15 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
 .map-timeline .tl-btn-ai{border-color:rgba(201,168,67,0.4);color:var(--orange);}
 .map-timeline .tl-btn-ai:hover{background:rgba(201,168,67,0.1);}
 
-/* Right panel */
-#right-panel{width:280px;background:var(--bg-card);border-left:1px solid var(--border);overflow-y:auto;display:flex;flex-direction:column;flex-shrink:0;}
+/* Right panel. Page-scroll fix: this was the panel the owner actually
+   measured (scrollHeight 788 vs clientHeight 646 for Jabalpur) -- its
+   overflow-y:auto was clipping Climate Metrics to whatever leftover
+   height #content's old flex:1 handed it, forcing its own tiny inner
+   scrollbar. overflow-y:visible lets it take its full natural content
+   height instead and join the page's own scroll -- deliberately decided
+   to move into page-flow (unlike e.g. .sidebar-nav's long nav list,
+   which stays its own internal scroll, see #sidebar's comment above). */
+#right-panel{width:280px;background:var(--bg-card);border-left:1px solid var(--border);overflow-y:visible;display:flex;flex-direction:column;flex-shrink:0;}
 
 /* Bottom panel */
 /* AUDIT_FIX_PROMPT.md item 7a (2026-08-14): was a 180px-wide vertical
@@ -413,8 +519,33 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
    reveals the content area and grows the panel to 260px -- a one-time
    map resize at that moment, never again after (switching between
    already-expanded tabs doesn't re-trigger this). */
-#bottom-panel{height:auto;margin-top:20px;background:var(--bg-card);border:var(--border-default);border-radius:var(--radius-8) var(--radius-8) 0 0;display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;transition:height 0.25s ease;}
-#bottom-panel.expanded{height:260px;}
+/* Page-scroll fix (2026-09-01): #bottom-panel used to be capped at a
+   fixed 260px the moment .expanded was added (rule removed below), with
+   .btm-content{overflow:auto} scrolling whatever tab content didn't fit
+   inside that box -- exactly the kind of isolated inner scrollbar the
+   owner's brief calls out by name for right-panel AND bottom-panel tab
+   content, both explicitly meant to join the page-flow instead. Now that
+   #map-panel (above) has its own independent height, the panel no longer
+   needs to share a fixed budget with the map at all (that budget-sharing
+   was item 8/14c's whole reason for the 260px cap in the first place --
+   see the removed rule's old comment in git history) -- it can simply
+   grow to whatever the active tab's real content needs, and the page
+   scrolls to show all of it. overflow:hidden -> visible to match (nothing
+   left to clip); the height-transition is dropped since both states are
+   height:auto now, there's no longer a height value to animate between.
+   Mobile's own #bottom-panel{height:auto;max-height:60vh} override
+   (media query further down, UNCHANGED) deliberately keeps its own
+   bounded-height + internal-scroll behavior -- a phone screen genuinely
+   can't afford an unbounded-height tab pane the way a scrolling desktop
+   page can, so that one stays a documented exception, not an oversight.
+   min-width:0 -- this is the actual element that exposed the whole
+   min-width:auto flex pitfall (see #main's own comment for the full
+   explanation): .btm-tabs (its direct child, a flex-wrap row of 16+ tab
+   buttons) was pulling #bottom-panel, then #main, then #app's own row
+   layout, out to ~2050px wide on a 602px-wide test viewport -- invisibly
+   clipped by html's overflow-x:hidden rather than visibly broken, which
+   is what made it easy to miss without actually measuring. */
+#bottom-panel{height:auto;margin-top:20px;background:var(--bg-card);border:var(--border-default);border-radius:var(--radius-8) var(--radius-8) 0 0;display:flex;flex-direction:column;flex-shrink:0;overflow:visible;min-width:0;}
 
 /* Cards */
 .glass-card{background:var(--bg-card);border:var(--border-default);border-radius:var(--radius-8);transition:all 0.3s;box-shadow:0 1px 4px rgba(0,0,0,0.04);}
@@ -531,7 +662,12 @@ canvas.chart-canvas{max-height:100%;}
    the footer grew to two bold lines on a navy strip -- see #siteFooter's
    own rule for its real height; kept a generous buffer since this is a
    min-height, not a fixed one.) */
-.btm-content{display:none;flex:1;overflow:auto;min-height:0;padding-right:84px;}
+/* Page-scroll fix: was flex:1;overflow:auto -- the active pane's own
+   internal scrollbar inside the old fixed-260px #bottom-panel. Now that
+   #bottom-panel is height:auto with nothing to fit inside (see its own
+   comment above), the active pane's real content (chart, table, form)
+   just flows to its natural height and the PAGE scrolls past it instead. */
+.btm-content{display:none;overflow:visible;padding-right:84px;}
 #bottom-panel.expanded .btm-content{display:flex;}
 .btm-pane{display:none;flex:1;flex-direction:column;overflow:hidden;}
 .btm-pane.active{display:flex;}
@@ -645,8 +781,18 @@ body.mk-modal-open #pane-merakhet.active{
   #sidebar{width:56px;}
   #sidebar .nav-label,#sidebar .nav-section-title,#sidebar .sidebar-logo-text,#sidebar .nav-badge{display:none;}
   .topbar-toggle{display:none;} /* tablet sidebar width is fixed, nothing to toggle */
-  #content{flex-direction:column;overflow-y:auto;overflow-x:hidden;}
-  #map-panel{flex:0 0 50vh;min-height:340px;}
+  /* align-items:stretch overrides the desktop base's align-items:flex-start
+     (added for the page-scroll fix, see #content's own comment above) --
+     that flex-start is what lets #right-panel sit beside a shorter/taller
+     #map-panel WITHOUT stretching in the desktop side-by-side row layout;
+     here #content is column-direction (map stacked above right-panel), so
+     the two are never side-by-side siblings needing independent heights --
+     stretch is what makes both actually span the tablet's full width. */
+  #content{flex-direction:column;align-items:stretch;overflow-y:auto;overflow-x:hidden;}
+  /* height:auto overrides the desktop base's height:68vh -- flex-basis
+     (50vh below) already wins over it in the flex layout, but stating it
+     explicitly here avoids relying on that precedence rule. */
+  #map-panel{height:auto;flex:0 0 50vh;min-height:340px;}
   #right-panel{width:100%;border-left:none;border-top:1px solid var(--border);max-height:none;}
 }
 
@@ -654,16 +800,22 @@ body.mk-modal-open #pane-merakhet.active{
    (STANDING ORDERS / FINAL_PROMPT Phase B). Every rule below traces to
    one bullet in that spec; see the inline notes. ---- */
 @media(max-width:768px){
-  /* Desktop pins html/body/#app/#main/#content each to exactly one
-     viewport-height flex box (overflow:hidden at every level) because
-     every panel manages its own internal scroll there. Mobile stacks
-     those same panels in one column, so the WHOLE page must be allowed
-     to grow taller than one screen and scroll as a unit instead -- every
-     level in that chain needs its height-cap and clipping lifted, not
-     just #app. (#app's `display:flex` and body's `overflow:hidden` are
-     also set inline by launchApp() in JS; inline styles beat any CSS
-     rule regardless of specificity, so those two are fixed in JS, in
-     the same matchMedia handler that moves the Location Selector.) */
+  /* Page-scroll fix (2026-09-01): the desktop base rules for html/body/
+     #app/#main now already allow the whole page to scroll (see each
+     one's own comment further up) -- mobile pioneered that pattern
+     originally (this comment used to explain mobile lifting height-caps
+     that desktop still had; now desktop has the same base, so these
+     lines mostly just restate the base explicitly at this breakpoint,
+     plus the mobile-only touch-scroll momentum and bottom safe-area
+     padding for the sticky location bar). (body's `overflow` used to ALSO
+     be set inline by launchApp() in JS -- inline styles beat any CSS rule
+     regardless of specificity -- that line is removed now, not merely set
+     to 'auto': see launchApp()'s own comment for why JS must never touch
+     body's overflow at all, so there's nothing left to fight this media
+     query either. This block's own `html,body{...}` line below still
+     names both, unchanged from before this fix -- harmless here since
+     mobile has no position:sticky element depending on body NOT being a
+     scroll container, unlike desktop's #sidebar.) */
   html,body{height:auto;min-height:100%;overflow-y:auto;overflow-x:hidden;}
   #app{overflow-y:visible;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:56px;}
   #main{overflow:visible;}
@@ -684,14 +836,16 @@ body.mk-modal-open #pane-merakhet.active{
      applyMobileLayout() moves .map-info-bar to be #content's first child
      on this breakpoint; these rules make that full-width and static
      instead of the floating card it is on desktop/tablet. */
-  #content{flex-direction:column;overflow:visible;}
+  /* align-items:stretch overrides the desktop base's align-items:flex-start
+     -- see the tablet media query's identical override above for why. */
+  #content{flex-direction:column;align-items:stretch;overflow:visible;}
   #content > .map-info-bar{position:static;width:100%;max-width:none;margin:0;
     border-radius:0;box-shadow:none;backdrop-filter:none;
     background:var(--bg-card);border-bottom:1px solid var(--border);}
   .loc-field select{min-height:44px;font-size:16px;} /* >=16px avoids iOS auto-zoom-on-focus */
 
   /* Map: neeche, screen ki ~45% oonchai */
-  #map-panel{flex:0 0 45vh;min-height:260px;}
+  #map-panel{height:auto;flex:0 0 45vh;min-height:260px;} /* height:auto overrides the desktop base's 68vh, see tablet's identical note above */
   .map-ctrl-btn{width:44px;height:44px;}
 
   /* North arrow + scale bar hatao (Risk Legend box itself removed --
@@ -854,7 +1008,16 @@ body.mk-modal-open #pane-merakhet.active{
 .u-fs1-dim-block{font-size:var(--fs-1);color:var(--text-dim);display:block;}
 .u-fs1-white-bold{font-size:var(--fs-1);color:#fff;font-weight:700;}
 .u-pad-row{padding:0.25rem 0;margin-bottom:var(--space-03);}
-.u-scroll-pane{overflow-y:auto;flex:1;padding:var(--space-05);}
+/* Page-scroll fix: several bottom-tab loaders (advisory_loader.js,
+   groundwater_loader.js, soil_moisture_loader.js, validation_loader.js)
+   plus the Agriculture/Cadastral panes here in index.html all wrap their
+   content in this shared class to get an internal scrollbar inside the
+   old fixed-260px #bottom-panel. Class NAME kept as-is (those loader JS
+   files reference it directly by class and are explicitly out of scope
+   for this fix) but its behavior now matches the rest of the bottom-panel
+   content: no forced height/internal scroll, flows naturally into the
+   page-level scroll instead. */
+.u-scroll-pane{overflow-y:visible;padding:var(--space-05);}
 .u-fs1-bold{font-size:var(--fs-1);font-weight:700;}
 /* Phase 2.2 continued (2026-08-07): 53 more inline style="" -> 24 classes. */
 .u-hidden{display:none;}
@@ -1099,7 +1262,13 @@ body.mk-modal-open #pane-merakhet.active{
 </section>
 
 <!-- ============================================================ APP ============================================================ -->
-<div id="app" style="display:none;flex:1;overflow:hidden;flex-direction:row;">
+<!-- Page-scroll fix: this inline style's own overflow:hidden was silently
+     beating the #app CSS rule's overflow-y:visible (inline always wins) --
+     found live while verifying, not just in the stylesheet. Removed here
+     too so the CSS rule actually takes effect. launchApp() only ever
+     touches this element's `display`, never `overflow`, so this is safe
+     to drop from the inline attribute permanently. -->
+<div id="app" style="display:none;flex:1;flex-direction:row;">
 
   <!-- SIDEBAR -->
   <nav id="sidebar">
@@ -1964,13 +2133,19 @@ function launchApp(){
   document.getElementById('hero').style.display='none';
   const app=document.getElementById('app');
   app.style.display='flex';
-  // Desktop/tablet: body itself never scrolls, every panel scrolls
-  // internally. Mobile stacks those panels in one column taller than a
-  // screen, so the page has to be allowed to scroll as a whole instead
-  // (see the matching CSS in the <768px media query) -- an inline style
-  // here always wins over any stylesheet rule, so this can't just be
-  // left at 'hidden' and overridden in CSS.
-  document.body.style.overflow = window.innerWidth <= 768 ? 'auto' : 'hidden';
+  // Page-scroll fix (items 4/6/8/14/20d, 2026-09-01): this used to force
+  // document.body.style.overflow to 'hidden' on desktop/tablet ("every
+  // panel scrolls internally instead") -- exactly the root cause the
+  // owner reported, and an inline style here would have kept winning over
+  // any CSS fix regardless. Removed rather than set to 'auto': the CSS
+  // fix lives on `html` only now (see its own comment) -- setting the
+  // `overflow` shorthand on body from JS would set BOTH its axes to
+  // non-visible, silently making body itself a second CSS scroll
+  // container and breaking #sidebar's position:sticky elsewhere in this
+  // file (found live while verifying -- body's own height always exactly
+  // matches its content, so it can never actually scroll internally,
+  // and sticky positioned relative to a container that never itself
+  // scrolls just behaves like static).
   document.getElementById('chatFab').style.display='flex';
   initChat();
   initKisanWelcome();
@@ -2172,13 +2347,10 @@ function mobileChangeLocation(){
 
   function apply(isMobile){
     if (!content || !mapPanel || !locBar) return;
-    // Keep the inline overflow launchApp() set in sync if the breakpoint
-    // is crossed after launch (window resize, phone rotation) -- inline
-    // styles beat CSS regardless of order, so this can't be left to the
-    // stylesheet alone.
-    if (document.getElementById('app').style.display !== '') {
-      document.body.style.overflow = isMobile ? 'auto' : 'hidden';
-    }
+    // Page-scroll fix (2026-09-01): launchApp() no longer touches
+    // body.style.overflow at all (see its own comment -- the CSS fix lives
+    // on `html` only, deliberately never on `body`), so there's nothing
+    // left for this breakpoint switch to toggle back and forth either.
     if (isMobile) {
       content.insertBefore(locBar, mapPanel);
     } else {
@@ -3257,9 +3429,23 @@ function toggleFullMap(){
   const rp=document.getElementById('right-panel');
   if(mapPanel.style.position==='fixed'){
     mapPanel.style.position='';mapPanel.style.inset='';mapPanel.style.zIndex='';
+    mapPanel.style.height='';mapPanel.style.minHeight='';
     bp.style.display='';rp.style.display='';
   } else {
+    // Page-scroll fix (2026-09-01) gave #map-panel a real class-level
+    // height:68vh so Leaflet always has a bounded box outside fullscreen
+    // (see that rule's own comment) -- but an explicit height wins over
+    // position:fixed's inset-implied height, so entering fullscreen
+    // without ALSO clearing height/min-height here left the map stuck at
+    // 68vh tall while only its width went full-viewport (found live:
+    // fullscreen-on and fullscreen-off measured the identical 567.8px
+    // height). height:calc(100% - 56px) (100% of the fixed box's own
+    // containing block, the viewport, minus the inset's own top:56px --
+    // a plain height:100% overshoots the viewport bottom by exactly that
+    // 56px, found live by comparing the measured rect to window.innerHeight)
+    // restores the old fill-the-screen behaviour.
     mapPanel.style.position='fixed';mapPanel.style.inset='56px 0 0 0';mapPanel.style.zIndex='900';
+    mapPanel.style.height='calc(100% - 56px)';mapPanel.style.minHeight='0';
     bp.style.display='none';rp.style.display='none';
   }
   setTimeout(()=>window.leafletMap&&window.leafletMap.invalidateSize(),100);
