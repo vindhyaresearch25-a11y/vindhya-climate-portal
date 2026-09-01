@@ -1,0 +1,98 @@
+name: Monthly groundwater refresh
+
+# Owner request (2026-09-01): "climate/mandi ka sab current date wala
+# rahe, automatic day by day fetch hona chahiye" -- audited what's already
+# automated (mandi prices: daily, ground-truth export: daily, crop stats:
+# monthly, annual data: yearly) and found scripts/16_fetch_groundwater.py
+# (added earlier this session, real CGWB data via nwdp.nwic.gov.in) had no
+# scheduled refresh yet.
+#
+# Monthly, not daily: CGWB's own "Ground Water Level (Manual - Quarterly)"
+# dataset is what it says -- quarterly manual readings, not a live feed.
+# A daily re-fetch of 95 national CSV files would just re-download
+# unchanged data almost every day, wasting CI minutes and, more
+# importantly, wasting NWDP's own server resources for no real freshness
+# gain. Monthly (matching crop-stats-refresh.yml's own cadence and
+# reasoning) is frequent enough to pick up a new quarterly release
+# promptly without being wasteful.
+#
+# Runs entirely on GitHub servers, commits only if the fetched data
+# actually changed -- same "chore(data)" + "commit only on diff" pattern
+# as daily-mandi-prices.yml.
+
+on:
+  schedule:
+    - cron: "0 4 3 * *"   # 04:00 UTC on the 3rd of each month (after crop-stats-refresh's 1st-of-month run, so they don't contend for the same runner slot)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: groundwater-refresh
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Fetch CGWB groundwater levels (national)
+        run: python scripts/16_fetch_groundwater.py
+
+      - name: Validate the written files
+        run: |
+          python - <<'PY'
+          import json, sys
+          from pathlib import Path
+
+          out_dir = Path("dashboard/data/groundwater")
+          manifest_path = out_dir / "manifest.json"
+          if not manifest_path.exists():
+              sys.exit("groundwater manifest.json was not written")
+
+          manifest = json.loads(manifest_path.read_text())
+          totals = manifest.get("totals", {})
+          n_files = len(manifest.get("districts", []))
+          if n_files < 600:
+              sys.exit(f"only {n_files} district files listed in manifest, expected ~700+ "
+                        "(626 with real data + ~94 honest zero-station records last run)")
+
+          fails = []
+          for rel in manifest.get("districts", [])[:50]:  # spot-check a sample, not all 700+, to keep this step fast
+              f = out_dir / f"{rel}.json"
+              if not f.exists():
+                  fails.append(f"{rel}: listed in manifest but file missing")
+                  continue
+              d = json.loads(f.read_text())
+              if "metadata" not in d:
+                  fails.append(f"{rel}: missing metadata block")
+
+          if fails:
+              print("VALIDATION FAILED")
+              for x in fails[:20]:
+                  print("  -", x)
+              sys.exit(1)
+
+          print(f"Validated manifest: {n_files} district files, "
+                f"{totals.get('districts_with_data', '?')} with real station data, "
+                f"{totals.get('stations_total', '?')} stations total.")
+          PY
+
+      - name: Commit if groundwater data changed
+        run: |
+          git config user.name  "vindhya-data-bot"
+          git config user.email "actions@github.com"
+          git add dashboard/data/groundwater/
+          if git diff --staged --quiet; then
+            echo "Groundwater data unchanged since the last run."
+          else
+            git commit -m "chore(data): monthly CGWB groundwater refresh [skip ci]"
+            git push
+          fi
