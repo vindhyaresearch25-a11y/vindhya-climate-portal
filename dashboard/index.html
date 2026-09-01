@@ -392,7 +392,26 @@ body{min-height:100%;background:var(--bg-deep);color:var(--text);font-family:'In
    heights while guaranteeing Leaflet a real, bounded box regardless of
    how tall #right-panel's or #bottom-panel's content gets -- those can
    no longer shrink the map at all, structurally, not just by convention. */
-#map-panel{height:68vh;min-height:520px;flex:1 1 auto;position:relative;overflow:hidden;}
+/* AUDIT_FIX_PROMPT.md item 0C (owner, 2026-09-02): the page-scroll fix
+   above gave #map-panel a real bounded height, but #bottom-panel (the
+   17-tab panel) stayed a SIBLING of #content, not of #map-panel --
+   #content's own rendered height is the taller of #map-panel (68vh) and
+   #right-panel (however tall Climate Metrics' real content is, often
+   more), so whenever the right panel was taller, #bottom-panel started
+   below THAT height, not below the map -- leaving a visible empty gap
+   under the map specifically. Wrapping #map-panel + #bottom-panel in
+   their own column (flex:1, filling the row space #right-panel doesn't
+   take) makes #bottom-panel hug the map's own bottom edge regardless of
+   #right-panel's height -- #right-panel (owner: "jahan hai wahi rahe")
+   is untouched, still its own independent-height column beside this one.
+   Tablet/mobile (their own media queries further down) set this to
+   display:contents -- their #content is a single stacked COLUMN already
+   (map above right-panel above bottom-panel), and contents lets this
+   wrapper's two children rejoin that one shared stacking order (with
+   explicit `order` on all three siblings there) instead of forcing
+   bottom-panel to jump above the already-stacked right-panel. */
+.map-column{display:flex;flex-direction:column;flex:1;min-width:0;}
+#map-panel{height:68vh;min-height:520px;flex-shrink:0;position:relative;overflow:hidden;}
 /* Owner report 2026-08-14, still open in item 3/20's re-check
    (2026-08-16) and again live-tested 2026-08-20 -- a bright grid of
    lines across the whole-India satellite view, every tile edge. The
@@ -792,8 +811,15 @@ body.mk-modal-open #pane-merakhet.active{
   /* height:auto overrides the desktop base's height:68vh -- flex-basis
      (50vh below) already wins over it in the flex layout, but stating it
      explicitly here avoids relying on that precedence rule. */
-  #map-panel{height:auto;flex:0 0 50vh;min-height:340px;}
-  #right-panel{width:100%;border-left:none;border-top:1px solid var(--border);max-height:none;}
+  #map-panel{height:auto;flex:0 0 50vh;min-height:340px;order:1;}
+  #right-panel{width:100%;border-left:none;border-top:1px solid var(--border);max-height:none;order:2;}
+  /* item 0C: undo the desktop map-panel+bottom-panel column wrapper --
+     .map-column stops being a box at all (its two children rejoin #content's
+     own stacking order directly, see .map-column's own comment) so the
+     original map -> right-panel -> bottom-panel stack order is restored
+     here via explicit `order` on all three siblings. */
+  .map-column{display:contents;}
+  #bottom-panel{order:3;}
 }
 
 /* ---- MOBILE: <=768px -- this is the screen a farmer actually uses
@@ -845,8 +871,12 @@ body.mk-modal-open #pane-merakhet.active{
   .loc-field select{min-height:44px;font-size:16px;} /* >=16px avoids iOS auto-zoom-on-focus */
 
   /* Map: neeche, screen ki ~45% oonchai */
-  #map-panel{height:auto;flex:0 0 45vh;min-height:260px;} /* height:auto overrides the desktop base's 68vh, see tablet's identical note above */
+  #map-panel{height:auto;flex:0 0 45vh;min-height:260px;order:1;} /* height:auto overrides the desktop base's 68vh, see tablet's identical note above */
   .map-ctrl-btn{width:44px;height:44px;}
+  /* item 0C: same map-column undo as the tablet breakpoint -- see its
+     comment for why. */
+  .map-column{display:contents;}
+  #bottom-panel{order:3;}
 
   /* North arrow + scale bar hatao (Risk Legend box itself removed --
      owner instruction 2026-08-14). */
@@ -857,7 +887,7 @@ body.mk-modal-open #pane-merakhet.active{
   body.exporting-map .leaflet-control-scale{display:block!important;}
 
   /* Metrics: ek column */
-  #right-panel{width:100%;border-left:none;border-top:1px solid var(--border);max-height:none;}
+  #right-panel{width:100%;border-left:none;border-top:1px solid var(--border);max-height:none;order:2;}
   .metric-row{grid-template-columns:1fr;}
 
   /* Charts: bottom-panel's tab tile row becomes a horizontally swipeable
@@ -1326,6 +1356,7 @@ body.mk-modal-open #pane-merakhet.active{
 
     <!-- CONTENT AREA -->
     <div id="content">
+      <div class="map-column">
       <!-- MAP PANEL -->
       <div id="map-panel">
         <div id="map"></div>
@@ -1417,114 +1448,6 @@ body.mk-modal-open #pane-merakhet.active{
           <div id="boundaryLoadStatus" class="u-boundary-status"></div>
         </div>
       </div>
-
-      <!-- RIGHT PANEL -->
-      <div id="right-panel">
-        <!-- Climate Metrics -->
-        <div class="section-header">
-          <i class="fa fa-chart-bar u-cyan-sm"></i>
-          <div class="section-title" data-i18n>CLIMATE METRICS</div>
-        </div>
-        <!-- AUDIT_FIX_PROMPT.md item 13: the floating on-map Risk Legend
-             box was removed entirely, but the 4-color risk meaning it
-             carried (used by the hazard-filtered village layer/metric-
-             card risk classification) must not disappear -- this compact
-             one-line strip replaces it, here instead of the map. -->
-        <div class="risk-legend-strip">
-          <span><i class="fa fa-circle" style="color:#B02418"></i> Extreme</span>
-          <span><i class="fa fa-circle" style="color:#D9822B"></i> High</span>
-          <span><i class="fa fa-circle" style="color:#E0B84C"></i> Moderate</span>
-          <span><i class="fa fa-circle" style="color:#3E9C5A"></i> Low</span>
-        </div>
-        <!-- owner instruction 2026-08-14: "climate metric side panel ko
-             tabular fix karo" -- .climate-metrics-table below restyles
-             .metric-row/.metric-card as aligned table rows (label left,
-             value+bar right, source as a small caption) SCOPED to this
-             one panel only (descendant selector, not the base .metric-
-             card rule) so the many other panels reusing .metric-card
-             elsewhere in this file are untouched. -->
-        <div class="metric-row climate-metrics-table">
-          <div class="metric-card alert">
-            <div class="metric-label" data-i18n>Drought Risk</div>
-            <div class="metric-value red" id="m-drought">—</div>
-            <div class="metric-bar"><div id="bar-drought" class="metric-bar-fill u-w0-red"></div></div>
-            <div class="metric-trend"><i class="fa fa-arrow-up u-dim"></i> <span id="drought-trend" data-i18n>Select a district</span></div>
-            <div class="metric-source" data-i18n>Source · IMD/ERA5-Land+CHIRPS (GEE) · 2000–2024</div>
-          </div>
-          <div class="metric-card warn">
-            <div class="metric-label" data-i18n>Heatwave Severity</div>
-            <div class="metric-value orange" id="m-heat">—</div>
-            <div class="metric-bar"><div id="bar-heat" class="metric-bar-fill u-w0-orange"></div></div>
-            <div class="metric-trend"><i class="fa fa-thermometer-full u-orange"></i> <span id="heat-detail" data-i18n>Select a district</span></div>
-            <div class="metric-source" data-i18n>Source · IMD/ERA5-Land (GEE) · 2000–2024</div>
-          </div>
-          <div class="metric-card u-metric-card-span2-cyan">
-            <div class="u-flex-gap05-center">
-              <span class="u-fs1-600-dim-ls1"><span data-i18n>YEAR</span> <span id="m-year-label" class="u-orange-bold">2024</span></span>
-              <span class="u-fs1-600-dim">HW:</span><span id="m-year-hw" class="u-fs2-bold-orange">—</span>
-              <span class="u-fs1-600-dim" data-i18n>Rain:</span><span id="m-year-rain" class="u-fs2-bold-cyan">—</span>
-              <span class="u-fs1-600-dim">SPI:</span><span id="m-year-spi" class="u-fs2-bold-green">—</span>
-            </div>
-          </div>
-          <div class="metric-card alert">
-            <div class="metric-label" data-i18n>Rainfall Departure</div>
-            <div class="metric-value red" id="m-rain">—</div>
-            <div class="metric-bar"><div class="metric-bar-fill u-w0-orange"></div></div>
-            <div class="metric-trend"><i class="fa fa-cloud-rain u-cyan"></i> <span id="m-rain-trend" data-i18n>Select a district</span></div>
-            <div class="metric-source" data-i18n>Source · IMD/CHIRPS (GEE) · 2000–2024 mean</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-label" data-i18n>Soil Moisture (~9 km cell)</div>
-            <div class="metric-value cyan" id="m-soil">—</div>
-            <div class="metric-bar"><div id="bar-soil" class="metric-bar-fill u-w0-cyan"></div></div>
-            <div class="metric-trend"><i class="fa fa-arrow-down u-dim"></i> <span id="soil-trend" data-i18n>Select a district</span></div>
-            <div class="metric-source" id="soil-source" data-i18n>Source · SMAP · not yet integrated</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-label" data-i18n>NDVI Score</div>
-            <div class="metric-value cyan" id="m-ndvi">—</div>
-            <div class="metric-bar"><div id="bar-ndvi" class="metric-bar-fill u-w0-green"></div></div>
-            <div class="metric-trend"><i class="fa fa-arrow-down u-orange"></i> <span data-i18n>Vegetation stress</span></div>
-            <div class="metric-source" data-i18n>Source · UNDP DiCRA (MODIS) · MP districts only</div>
-          </div>
-          <div class="metric-card warn">
-            <div class="metric-label" data-i18n>Crop Stress</div>
-            <div class="metric-value orange" id="m-crop">—</div>
-            <div class="metric-bar"><div id="bar-crop" class="metric-bar-fill u-w0-orange"></div></div>
-            <div class="metric-trend" id="m-crop-trend"><i class="fa fa-wheat-awn u-dim"></i> <span data-i18n>Select a district</span></div>
-            <div class="metric-source" data-i18n>Derived · drought probability · indicative</div>
-          </div>
-          <div class="metric-card alert">
-            <div class="metric-label" data-i18n>Groundwater</div>
-            <div class="metric-value red" id="m-gw">—</div>
-            <div class="metric-bar"><div id="bar-gw" class="metric-bar-fill u-w0-red"></div></div>
-            <div class="metric-trend"><i class="fa fa-arrow-down u-dim"></i> <span data-i18n>Not available</span></div>
-            <div class="metric-source" data-i18n>Source · CGWB via NWDP · see Groundwater tab</div>
-          </div>
-          <div class="metric-card good">
-            <div class="metric-label" data-i18n>Data Coverage</div>
-            <div class="metric-value green" id="m-ai">— districts</div>
-            <div class="metric-bar"><div id="bar-ai" class="metric-bar-fill u-w100-green"></div></div>
-            <div class="metric-trend"><i class="fa fa-check u-green"></i> IMD + ERA5-Land/CHIRPS (GEE)</div>
-            <div class="metric-source" data-i18n>Of 733 districts nationally</div>
-          </div>
-        </div>
-
-        <!-- Farmer Advisories block (Climate indices / Village Cadastral /
-             Fertilizer & Crop Recommendation cards) removed 2026-08-14 --
-             owner instruction, chosen explicitly over redesigning it in
-             place: this duplicated the bottom "Agriculture" tab's own
-             FARMER ADVISORY section (pane-agriculture, below), which
-             already has the same information in a proper metric-card
-             grid. Real content generation this fed (applyDistrictMetrics'
-             adv.push() advisory array in this file, national_climate_
-             loader.js's adv-title-0/adv-body-0 writes, national_selector.
-             js's resetClimateToNotAvailable() advisory reset, and the
-             whole farmer_advisory_fertilizer.js module from item 10b)
-             removed alongside it -- see those files' own history for
-             what used to run here. -->
-      </div>
-    </div><!-- end content -->
 
     <!-- BOTTOM PANEL -->
     <div id="bottom-panel">
@@ -1803,6 +1726,116 @@ body.mk-modal-open #pane-merakhet.active{
         </div>
       </div><!-- btm-content -->
     </div><!-- bottom-panel -->
+      </div><!-- map-column -->
+
+      <!-- RIGHT PANEL -->
+      <div id="right-panel">
+        <!-- Climate Metrics -->
+        <div class="section-header">
+          <i class="fa fa-chart-bar u-cyan-sm"></i>
+          <div class="section-title" data-i18n>CLIMATE METRICS</div>
+        </div>
+        <!-- AUDIT_FIX_PROMPT.md item 13: the floating on-map Risk Legend
+             box was removed entirely, but the 4-color risk meaning it
+             carried (used by the hazard-filtered village layer/metric-
+             card risk classification) must not disappear -- this compact
+             one-line strip replaces it, here instead of the map. -->
+        <div class="risk-legend-strip">
+          <span><i class="fa fa-circle" style="color:#B02418"></i> Extreme</span>
+          <span><i class="fa fa-circle" style="color:#D9822B"></i> High</span>
+          <span><i class="fa fa-circle" style="color:#E0B84C"></i> Moderate</span>
+          <span><i class="fa fa-circle" style="color:#3E9C5A"></i> Low</span>
+        </div>
+        <!-- owner instruction 2026-08-14: "climate metric side panel ko
+             tabular fix karo" -- .climate-metrics-table below restyles
+             .metric-row/.metric-card as aligned table rows (label left,
+             value+bar right, source as a small caption) SCOPED to this
+             one panel only (descendant selector, not the base .metric-
+             card rule) so the many other panels reusing .metric-card
+             elsewhere in this file are untouched. -->
+        <div class="metric-row climate-metrics-table">
+          <div class="metric-card alert">
+            <div class="metric-label" data-i18n>Drought Risk</div>
+            <div class="metric-value red" id="m-drought">—</div>
+            <div class="metric-bar"><div id="bar-drought" class="metric-bar-fill u-w0-red"></div></div>
+            <div class="metric-trend"><i class="fa fa-arrow-up u-dim"></i> <span id="drought-trend" data-i18n>Select a district</span></div>
+            <div class="metric-source" data-i18n>Source · IMD/ERA5-Land+CHIRPS (GEE) · 2000–2024</div>
+          </div>
+          <div class="metric-card warn">
+            <div class="metric-label" data-i18n>Heatwave Severity</div>
+            <div class="metric-value orange" id="m-heat">—</div>
+            <div class="metric-bar"><div id="bar-heat" class="metric-bar-fill u-w0-orange"></div></div>
+            <div class="metric-trend"><i class="fa fa-thermometer-full u-orange"></i> <span id="heat-detail" data-i18n>Select a district</span></div>
+            <div class="metric-source" data-i18n>Source · IMD/ERA5-Land (GEE) · 2000–2024</div>
+          </div>
+          <div class="metric-card u-metric-card-span2-cyan">
+            <div class="u-flex-gap05-center">
+              <span class="u-fs1-600-dim-ls1"><span data-i18n>YEAR</span> <span id="m-year-label" class="u-orange-bold">2024</span></span>
+              <span class="u-fs1-600-dim">HW:</span><span id="m-year-hw" class="u-fs2-bold-orange">—</span>
+              <span class="u-fs1-600-dim" data-i18n>Rain:</span><span id="m-year-rain" class="u-fs2-bold-cyan">—</span>
+              <span class="u-fs1-600-dim">SPI:</span><span id="m-year-spi" class="u-fs2-bold-green">—</span>
+            </div>
+          </div>
+          <div class="metric-card alert">
+            <div class="metric-label" data-i18n>Rainfall Departure</div>
+            <div class="metric-value red" id="m-rain">—</div>
+            <div class="metric-bar"><div class="metric-bar-fill u-w0-orange"></div></div>
+            <div class="metric-trend"><i class="fa fa-cloud-rain u-cyan"></i> <span id="m-rain-trend" data-i18n>Select a district</span></div>
+            <div class="metric-source" data-i18n>Source · IMD/CHIRPS (GEE) · 2000–2024 mean</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label" data-i18n>Soil Moisture (~9 km cell)</div>
+            <div class="metric-value cyan" id="m-soil">—</div>
+            <div class="metric-bar"><div id="bar-soil" class="metric-bar-fill u-w0-cyan"></div></div>
+            <div class="metric-trend"><i class="fa fa-arrow-down u-dim"></i> <span id="soil-trend" data-i18n>Select a district</span></div>
+            <div class="metric-source" id="soil-source" data-i18n>Source · SMAP · not yet integrated</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label" data-i18n>NDVI Score</div>
+            <div class="metric-value cyan" id="m-ndvi">—</div>
+            <div class="metric-bar"><div id="bar-ndvi" class="metric-bar-fill u-w0-green"></div></div>
+            <div class="metric-trend"><i class="fa fa-arrow-down u-orange"></i> <span data-i18n>Vegetation stress</span></div>
+            <div class="metric-source" data-i18n>Source · UNDP DiCRA (MODIS) · MP districts only</div>
+          </div>
+          <div class="metric-card warn">
+            <div class="metric-label" data-i18n>Crop Stress</div>
+            <div class="metric-value orange" id="m-crop">—</div>
+            <div class="metric-bar"><div id="bar-crop" class="metric-bar-fill u-w0-orange"></div></div>
+            <div class="metric-trend" id="m-crop-trend"><i class="fa fa-wheat-awn u-dim"></i> <span data-i18n>Select a district</span></div>
+            <div class="metric-source" data-i18n>Derived · drought probability · indicative</div>
+          </div>
+          <div class="metric-card alert">
+            <div class="metric-label" data-i18n>Groundwater</div>
+            <div class="metric-value red" id="m-gw">—</div>
+            <div class="metric-bar"><div id="bar-gw" class="metric-bar-fill u-w0-red"></div></div>
+            <div class="metric-trend"><i class="fa fa-arrow-down u-dim"></i> <span data-i18n>Not available</span></div>
+            <div class="metric-source" data-i18n>Source · CGWB via NWDP · see Groundwater tab</div>
+          </div>
+          <div class="metric-card good">
+            <div class="metric-label" data-i18n>Data Coverage</div>
+            <div class="metric-value green" id="m-ai">— districts</div>
+            <div class="metric-bar"><div id="bar-ai" class="metric-bar-fill u-w100-green"></div></div>
+            <div class="metric-trend"><i class="fa fa-check u-green"></i> IMD + ERA5-Land/CHIRPS (GEE)</div>
+            <div class="metric-source" data-i18n>Of 733 districts nationally</div>
+          </div>
+        </div>
+
+        <!-- Farmer Advisories block (Climate indices / Village Cadastral /
+             Fertilizer & Crop Recommendation cards) removed 2026-08-14 --
+             owner instruction, chosen explicitly over redesigning it in
+             place: this duplicated the bottom "Agriculture" tab's own
+             FARMER ADVISORY section (pane-agriculture, below), which
+             already has the same information in a proper metric-card
+             grid. Real content generation this fed (applyDistrictMetrics'
+             adv.push() advisory array in this file, national_climate_
+             loader.js's adv-title-0/adv-body-0 writes, national_selector.
+             js's resetClimateToNotAvailable() advisory reset, and the
+             whole farmer_advisory_fertilizer.js module from item 10b)
+             removed alongside it -- see those files' own history for
+             what used to run here. -->
+      </div>
+    </div><!-- end content -->
+
   </div><!-- main -->
 
   <!-- Phase B: mobile-only sticky bar (FINAL_PROMPT Phase B -- "Neeche sticky
@@ -2341,6 +2374,11 @@ function mobileChangeLocation(){
   var mq = window.matchMedia('(max-width:768px)');
   var content = document.getElementById('content');
   var mapPanel = document.getElementById('map-panel');
+  // item 0C (2026-09-02): #map-panel is now wrapped in .map-column
+  // (alongside #bottom-panel, see that wrapper's own CSS comment) -- on
+  // mobile this insertBefore needs to target the WRAPPER, not #map-panel
+  // itself, since #map-panel is no longer a direct child of #content.
+  var mapColumn = document.querySelector('.map-column') || mapPanel;
   var locBar = document.querySelector('.map-info-bar');
   var placeholder = document.createComment('map-info-bar-original-position');
   if (locBar) locBar.parentNode.insertBefore(placeholder, locBar);
@@ -2352,7 +2390,7 @@ function mobileChangeLocation(){
     // on `html` only, deliberately never on `body`), so there's nothing
     // left for this breakpoint switch to toggle back and forth either.
     if (isMobile) {
-      content.insertBefore(locBar, mapPanel);
+      content.insertBefore(locBar, mapColumn);
     } else {
       mapPanel.insertBefore(locBar, placeholder);
       // Leaving mobile: the drawer/backdrop must not stay stuck open.

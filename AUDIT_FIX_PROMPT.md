@@ -72,6 +72,46 @@ click karo, screenshot do -- har ek me kuch na kuch (chart ya saaf
 
 ---
 
+# 0C. NAKSHA KE NEECHE KHALI JAGAH -- Climate panel wahan shift karo
+# + Climate Risk Atlas/NDVI/Rainfall Monitor ka data star-wise banao
+
+### Khali jagah -- CORRECTION (Climate Metrics nahi, bottom tab-panel)
+Pehle likha tha Climate Metrics panel shift karo -- **galat, ye
+correction hai**: Naksha ke neeche jo khali jagah bach rahi hai,
+usme in 17 tabs wala **poora neeche ka panel upar la kar, usi khali
+jagah me theek se fit karo** (Climate Metrics side-panel jahan hai
+wahi rahe, use mat hilao):
+Rainfall, Temperature, Drought Probability, Trends, NDVI Trend,
+7-Day Forecast, GEE Workflow, Projection Method, API Hub,
+Agriculture, Village Intelligence, Validation, Mandi Prices,
+Crop Statistics, Live Weather, Horticulture, AOI Polygon.
+
+Yaani: naksha ke neeche ka gap khatam ho, aur ye poora tab-panel
+(tab-grid + neeche uska content, jo item 0/0B me pehle se maanga
+gaya hai) seedhe naksha ke neeche, khali jagah bhar kar, poori
+chaudai me properly fit ho -- na upar khali jagah bache, na panel
+kisi aur cheez se overlap kare (item 6 ka niyam).
+
+### Data teeno star par banao
+In teeno feature ka data **State -> District -> Block -> Village**
+chaaron star par nikalo/banao (jahan jis star tak asli source ho
+wahan tak):
+- **Climate Risk Atlas**
+- **NDVI Analytics**
+- **Rainfall Monitor** (aur usi ke saath Temperature, Trends)
+
+Har star par: jo data waqai maujood hai wahi dikhao, saaf label
+ke saath ki kis star ka hai (jaise "zila-star ka anumaan" ya
+"gaon-star ka asli maap"). Jahan kisi star ka data nahi hai
+(jaise village-level NDVI sab jagah nahi), wahan "abhi uplabdh
+nahi -- [karan]" likho, kabhi khali ya bana hua number mat dikhao.
+
+**Test:** ek state, ek district, ek block, aur ek village chunkar
+in teeno feature ka data alag-alag screenshot me dikhao ki har
+star par sahi cheez aa rahi hai.
+
+---
+
 # LIVE AUDIT -- 4 kaam (2026-08-14)
 
 Maine khud live portal khol kar jaancha (Claude Code ke self-report par
