@@ -185,6 +185,19 @@ def get_html_content():
             f'data:image/jpeg;base64,{b64}'
         )
 
+    # Same pattern for the IIT Indore sidebar logo added 2026-09-01
+    # (dashboard/index.html's <img src="iit_indore_logo.png">) -- a relative
+    # local path 404s inside the Streamlit iframe just like logo.jpeg did.
+    iit_logo_path = os.path.join(DASHBOARD_DIR, 'iit_indore_logo.png')
+    if os.path.exists(iit_logo_path):
+        import base64
+        with open(iit_logo_path, 'rb') as f:
+            b64 = base64.b64encode(f.read()).decode()
+        html = html.replace(
+            'iit_indore_logo.png',
+            f'data:image/png;base64,{b64}'
+        )
+
     return html
 
 
