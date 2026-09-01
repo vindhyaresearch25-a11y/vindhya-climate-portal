@@ -119,6 +119,7 @@
   var _showToc = false;
   var _rendered = false;
   var _lastSig = '';
+  var _lastOptsSig = '';
 
   function el(id) { return document.getElementById(id); }
   function slugify(s) {
@@ -258,6 +259,29 @@
   function ctxSignature(c) {
     return [c.stateName, c.districtName, c.blockName, c.gpName, c.villageLgd].join('|');
   }
+  // The master dropdowns fill in ASYNCHRONOUSLY -- picking a state leaves
+  // #districtSelect empty for as long as the (large) districts layer takes
+  // to arrive, and picking a district likewise for blocks/villages. The
+  // selected VALUES do not change when that happens, so watching only
+  // ctxSignature left this module's own mirrored dropdowns permanently
+  // empty (caught live). Option counts are therefore tracked separately,
+  // and a change in them rebuilds just the selector -- never the whole
+  // report, which would re-run every fetch for an unchanged location.
+  function optsSignature() {
+    return ['stateSelect', 'districtSelect', 'blockSelect', 'villageSelect'].map(function (id) {
+      var e = el(id);
+      return e ? e.options.length : 0;
+    }).join(',');
+  }
+
+  function rebuildSelectorOnly() {
+    var host = document.querySelector('.vr-selector');
+    if (!host) return;
+    var tmp = document.createElement('div');
+    tmp.innerHTML = renderSelector(readContext());
+    host.parentNode.replaceChild(tmp.firstChild, host);
+    wireSelector();
+  }
 
   // =====================================================================
   // DATA LOADING -- fetch-on-select, cached, only what the current level
@@ -298,6 +322,39 @@
   }
 
   // Pull the selected village's own SoI feature + profile row.
+  // -------------------------------------------------------------------
+  // "Impossible zero" guard. The Survey of India attribute table stores
+  // SOME unrecorded fields as 0 rather than leaving them blank. Kantaphod
+  // (LGD 250870, Dewas) is a real example: population 10,405 and 1,999
+  // households, but population_male = 0, population_female = 0 and
+  // geographical_area_ha = 0. Printing those as "0" would state something
+  // false -- that a village of ten thousand people contains no women and
+  // occupies no land -- which is exactly the kind of fabricated-looking
+  // number this project forbids.
+  //
+  // So a zero is reported as "not recorded" ONLY where it is physically
+  // impossible given another real value in the SAME row. This is
+  // deliberately narrow: a genuine 0 stays 0 everywhere else (0 ha of
+  // forest, or no handpump, is real, common and meaningful). Nothing is
+  // substituted for the suppressed field -- it becomes an explicit gap.
+  var IMPOSSIBLE_ZERO = {
+    population_male:      function (v) { return has(v.population) && Number(v.population) > 0; },
+    population_female:    function (v) { return has(v.population) && Number(v.population) > 0; },
+    geographical_area_ha: function () { return true; },
+    households:           function (v) { return has(v.population) && Number(v.population) > 0; },
+    population:           function (v) { return has(v.households) && Number(v.households) > 0; }
+  };
+  function scrubImpossibleZeros(v) {
+    var dropped = [];
+    Object.keys(IMPOSSIBLE_ZERO).forEach(function (f) {
+      if (v[f] !== null && v[f] !== undefined && Number(v[f]) === 0 && IMPOSSIBLE_ZERO[f](v)) {
+        v[f] = null;
+        dropped.push(f.replace(/_/g, ' '));
+      }
+    });
+    return dropped;
+  }
+
   function villageRecord(ctx, D) {
     var out = { feature: null, profile: null, fields: null };
     if (!ctx.villageLgd) return out;
@@ -313,6 +370,7 @@
       if (row) {
         var v = {};
         for (var i = 0; i < order.length; i++) v[order[i]] = (row[i] === undefined ? null : row[i]);
+        out.droppedZeros = scrubImpossibleZeros(v);
         out.profile = v;
         out.fields = order;
       }
@@ -439,7 +497,11 @@
           tableBlock([{ label: 'Identification', align: 'left' }, { label: 'Value', align: 'left' }], rows),
           tableBlock([{ label: 'Demographic indicator', align: 'left' }, { label: 'Value', align: 'right', type: 'num' }, { label: 'Unit', align: 'left' }], demo,
             'Demographics as published in the source; a field the source left blank is omitted, never shown as 0.')
-        ]
+        ].concat(vr.droppedZeros && vr.droppedZeros.length ? [noteBlock(
+          'Not recorded for this village: ' + vr.droppedZeros.join(', ') + '. The Survey of India row stores ' +
+          'these as 0, which cannot be true alongside the non-zero figures above (a village of ' +
+          fmt(vp.population, 'num', 0) + ' people has both men and women, and occupies land). They are reported as ' +
+          'unrecorded rather than as zero, and nothing is estimated in their place.')] : [])
       }));
     })();
 
@@ -1700,11 +1762,20 @@
     setInterval(function () {
       if (!isActive()) return;
       var sig = ctxSignature(readContext());
-      if (sig === _lastSig) return;
-      _lastSig = sig;
-      // A change made on the map (or the master dropdowns) -- resync this
-      // module's own selector, and re-run the report if one is showing.
-      refresh(true);
+      var osig = optsSignature();
+      if (sig !== _lastSig) {
+        // A real selection change (dropdown OR map click) -- resync the
+        // selector and re-run the report if one is already showing.
+        _lastSig = sig;
+        _lastOptsSig = osig;
+        refresh(true);
+        return;
+      }
+      if (osig !== _lastOptsSig) {
+        // Same location, but a dropdown just finished loading its options.
+        _lastOptsSig = osig;
+        rebuildSelectorOnly();
+      }
     }, 700);
   }
 
@@ -1734,17 +1805,24 @@
     _ctx: function () { return _ctx; }
   };
 
-  // Phase 2/3 -- defined in the export section appended below.
-  function exportPdf() {
-    if (typeof window.VindhyaVillageReportExport === 'object' && window.VindhyaVillageReportExport.pdf) {
-      window.VindhyaVillageReportExport.pdf(_sections, _ctx);
+  // PDF/Excel live in village_report_export.js, and are handed the exact
+  // same section model that was just rendered on screen -- so an export can
+  // never contain a number the live report does not show.
+  function exportVia(kind) {
+    var E = window.VindhyaVillageReportExport;
+    if (!E || !E[kind]) {
+      alert('The export module (village_report_export.js) is not loaded, so ' +
+        (kind === 'pdf' ? 'PDF' : 'Excel') + ' export is unavailable. "Print Report" needs no library and still works.');
+      return;
     }
-  }
-  function exportExcel() {
-    if (typeof window.VindhyaVillageReportExport === 'object' && window.VindhyaVillageReportExport.excel) {
-      window.VindhyaVillageReportExport.excel(_sections, _ctx);
+    if (!_sections) {
+      alert('Generate the report first: choose a location and press "View Report".');
+      return;
     }
+    E[kind](_sections, _ctx);
   }
+  function exportPdf() { exportVia('pdf'); }
+  function exportExcel() { exportVia('excel'); }
 
   function boot() {
     injectCss();
