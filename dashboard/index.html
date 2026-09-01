@@ -1636,9 +1636,14 @@ body.mk-modal-open #pane-merakhet.active{
             shown elsewhere in the app is a deterministic <strong>ordinary least-squares (OLS) trend</strong>
             fit to the observed 2000-2024 annual indices, with a 95% band derived from historical
             residuals — labelled <span class="u-orange-bold">INDICATIVE</span>,
-            not a model prediction. A physically-based future scenario requires the CMIP6 Earth Engine
-            workflow (<code>scripts/05_gee_cmip6_2040.js</code>, <code>06_convert_gee_export.py</code>),
-            which must be run explicitly — see <code>docs/METHODOLOGY.md</code> §5.
+            not a model prediction. A physically-based future scenario uses the CMIP6 Earth Engine
+            workflow (<code>scripts/05b_run_cmip6_2040.py</code>, NEX-GDDP-CMIP6, SSP2-4.5, 8-model
+            ensemble, 2036-2045 vs. 2000-2014 baseline) — see <code>docs/METHODOLOGY.md</code> §5.
+            <strong>Run status:</strong> live as of 2026-09-01 for Bhopal, Indore, Jabalpur, Rewa and
+            Sidhi — the same 5 districts with a real IMD baseline (see each district's climate detail
+            view for the future/baseline/delta numbers). Every other district in the country still
+            shows only the OLS trend above, or "Data not available" where even that has no real
+            history to fit — this workflow has not been run nationally.
           </div>
         </div>
         <!-- API -->
@@ -4709,6 +4714,10 @@ async function runChatCompletion(){
 <script src="soil_moisture_loader.js"></script>
 <script src="advisory_loader.js"></script>
 <script src="groundwater_loader.js"></script>
+<!-- Village Profile & Agricultural Intelligence Report (owns #pane-village).
+     Injects its own CSS and watches the pane's class itself, so this one
+     line is the module's entire footprint in index.html. -->
+<script src="village_report.js"></script>
 <!-- national_selector.js is appended dynamically, not as a static tag here --
      see the fetchWithTimeout('config/data_config.json')...finally() block
      above, which guarantees it only loads after window.DATA_BASE_URL is
