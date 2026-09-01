@@ -174,6 +174,33 @@ body{min-height:100%;background:var(--bg-deep);color:var(--text);font-family:'In
 ::-webkit-scrollbar{width:4px;height:4px;}
 ::-webkit-scrollbar-track{background:var(--bg-panel);}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:var(--radius-2);}
+/* AUDIT_FIX_PROMPT.md item 3 -- "naksha par safed grid lines" (owner
+   re-confirmed still broken 2026-08-16, re-diagnosed live 2026-09-02).
+   Earlier passes looked for a graticule/lat-lon layer or a CSS border on
+   the tiles and correctly found neither -- verified again live: the
+   overlay pane holds exactly 5 paths (the state/district boundary casings)
+   and every .leaflet-tile computes border:0/outline:none. The real source
+   is Leaflet's OWN stock default, which this stylesheet never overrode:
+   .leaflet-container{background:#ddd}. Measured live on the deployed
+   site: getComputedStyle(.leaflet-container).backgroundColor was
+   rgb(221,221,221). Leaflet positions tiles at fractional offsets and
+   sizes them 256.5px (measured) to paper over rounding, so hairline seams
+   still expose whatever is behind them -- and while tiles are still
+   loading (every pan, zoom and flyTo) whole tiles expose it. Against dark
+   satellite imagery that pale grey reads as exactly what the owner
+   described: white vertical/horizontal lines on a grid. Painting the
+   container in the app's own deep background makes both the seams and the
+   loading state stop reading as a light grid drawn over the imagery.
+   NOT var(--bg-deep): this portal's palette is a LIGHT theme
+   (--bg-deep is #f5f7fa), which would have kept the seams pale and
+   changed nothing -- caught by measuring the computed value again after
+   the first attempt (it came back rgb(245,247,250)). #1a2332 is the dark
+   slate already used elsewhere in this file, and it is close enough to
+   Esri World Imagery's own dark ocean/earth tones that a hairline seam
+   reads as part of the map rather than a line ruled across it.
+   Pure styling -- no layer, no data, nothing else touched. */
+.leaflet-container{background:#1a2332;}
+
 /* Cadastral tooltip */
 .cad-tooltip{background:rgba(0,0,0,0.85);border:none;color:#fff;font-size:var(--fs-1);font-weight:600;padding:3px 8px;border-radius:var(--radius-4);white-space:nowrap;}
 
@@ -714,11 +741,25 @@ body{min-height:100%;background:var(--bg-deep);color:var(--text);font-family:'In
 canvas.chart-canvas{max-height:100%;}
 
 /* Bottom tabs -- item 7a: full-width wrapping tile row, not a narrow
-   scrolling column (see #bottom-panel comment above). max-height+
-   overflow-y:auto stays only as a safety net on very narrow/short
-   windows where even 3 tiles per row would exceed it; in normal desktop
-   widths every tab fits in <=2 rows and the scrollbar never appears. */
-.btm-tabs{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--border);flex-shrink:0;max-height:76px;overflow-y:auto;}
+   scrolling column (see #bottom-panel comment above).
+   Owner report 2026-09-02 ("5 tabs bilkul nahi milte"): this rule used to
+   carry max-height:76px + overflow-y:auto as a "safety net". That comment's
+   premise was measurably wrong -- there are 17 visible tabs, and 76px is
+   EXACTLY 2 rows, so any tab past row 2 was unreachable at EVERY window
+   size, not just narrow ones. Measured live on the deployed site at a
+   1470px-wide viewport: .btm-tabs clientHeight 75 vs scrollHeight 102 --
+   "AOI Polygon" (row 3) was clipped outright. Narrower windows fit fewer
+   tiles per row, so MORE rows got cut: at a ~560px panel width the hidden
+   set is exactly the owner's five (Mandi Prices, Crop Statistics, Live
+   Weather, Horticulture, AOI Polygon). The clipped rows were technically
+   reachable by an inner scroll, but ::-webkit-scrollbar above styles every
+   scrollbar to 4px wide with no arrows -- effectively invisible, so there
+   was no cue the rows existed at all.
+   The cap is simply removed: the strip now wraps to as many rows as it
+   needs and the PAGE scrolls (html{overflow-y:auto}, set above), which is
+   what item 0's whole page-scroll fix exists to make safe. No inner scroll
+   container, no hidden rows, at any width. */
+.btm-tabs{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--border);flex-shrink:0;}
 .btm-tab{flex:1 1 120px;min-width:100px;justify-content:center;text-align:center;padding:0.35rem 0.5rem;font-size:var(--fs-1);font-weight:600;color:var(--text-dim);cursor:pointer;border-right:1px solid var(--border);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:var(--space-04);transition:all 0.2s;}
 /* Owner report 2026-08-14: 10 items appeared in BOTH the sidebar and this
    bottom strip (same name, same target pane) -- confusing, looks like two
@@ -2447,12 +2488,41 @@ function startSlideshow(){
   showSlide(0);
   if (heroReducedMotion) return; // stay on the first slide only, no auto-rotate
   heroSlideTimer=setInterval(nextSlide,heroSlideIntervalMs);
+  // Owner report 2026-09-02: "pata nahi 2-3 image chal rahi hain ya ek hi
+  // static hai". Verified live on the deployed site: the timer and the
+  // three slides are all fine on their own (credits observed cycling
+  // Rajesh Ram -> Nitin Bhosale -> Rajesh Ram over ~18s untouched). The
+  // bug was this pause-on-hover block. #heroSlideshow is
+  // position:absolute;inset:0 -- it covers the ENTIRE hero, i.e. the whole
+  // viewport on the landing page -- so a cursor resting anywhere on the
+  // page (or simply sitting where it landed after the last click, which is
+  // the normal state while someone reads the page) fired mouseenter and
+  // killed the interval indefinitely. Reproduced live: with the pointer
+  // parked mid-page the hero stayed frozen on one image for 21+ seconds.
+  // That is precisely the "ek hi image" the owner saw. The touchstart
+  // handler was worse -- it cleared the timer with no matching restart, so
+  // on mobile the first tap froze the carousel permanently.
+  // A full-bleed backdrop is the wrong thing to hover-pause: pausing is
+  // only courteous over the controls a user is actually aiming at, so it
+  // is scoped to the dots/arrows, and the touch path now resumes.
+  var controls=document.querySelectorAll('.hero-slide-dots,.hero-slide-arrow');
+  function heroPause(){ clearInterval(heroSlideTimer); }
+  function heroResume(){ clearInterval(heroSlideTimer); heroSlideTimer=setInterval(nextSlide,heroSlideIntervalMs); }
+  controls.forEach(function(c){
+    c.addEventListener('mouseenter', heroPause);
+    c.addEventListener('mouseleave', heroResume);
+  });
   var host=document.getElementById('heroSlideshow');
   if (host) {
-    host.addEventListener('mouseenter', function(){ clearInterval(heroSlideTimer); });
-    host.addEventListener('mouseleave', function(){ heroSlideTimer=setInterval(nextSlide,heroSlideIntervalMs); });
-    host.addEventListener('touchstart', function(){ clearInterval(heroSlideTimer); }, {passive:true});
+    // touch: pause while the finger is down, always resume after it lifts
+    host.addEventListener('touchstart', heroPause, {passive:true});
+    host.addEventListener('touchend', heroResume, {passive:true});
+    host.addEventListener('touchcancel', heroResume, {passive:true});
   }
+  // never leave a hidden tab's timer running, and always come back running
+  document.addEventListener('visibilitychange', function(){
+    if (document.hidden) heroPause(); else if (!heroReducedMotion) heroResume();
+  });
 }
 startSlideshow();
 
@@ -2837,6 +2907,53 @@ function closeMeraKhetModal(){
           var inst = Chart.getChart(cv);
           if (inst) setTimeout(function () { inst.resize(); }, 270);
         });
+      }
+      // AUDIT_FIX_PROMPT.md item 0B, re-diagnosed live 2026-09-02.
+      // Owner: clicking Rainfall/Temperature/Drought Probability/Trends/
+      // NDVI Trend shows "kuch bhi nahi -- na chart, na text, na error".
+      // The file predicted a fetch/render failure; measured live on the
+      // deployed site it is NOT one. With Jabalpur selected all five panes
+      // build real Chart.js canvases (chartRain/chartTemp/chartDrought/
+      // chartTrends/chartNdvi, each 439x200) and the console reports zero
+      // errors. The panes render correctly -- they just render entirely
+      // OFF-SCREEN. Measured with the page at scrollY 0 on an 835px-tall
+      // viewport: the active pane's own top edge is at y=721 and its chart
+      // at y=757, so only ~78px of a 200px chart is above the fold; on the
+      // shorter window the owner uses, the whole panel sits below it. The
+      // tab highlights, the hash updates, and nothing visibly happens --
+      // which is exactly "completely blank". Nothing scrolled it into
+      // view, and before the .btm-tabs fix above the page had only ~75px
+      // of scroll range to begin with, so there was no cue either.
+      // Fix: after the panel has expanded and laid out, if the active
+      // pane is not already comfortably visible, bring it into view.
+      // Guarded so it only ever scrolls DOWN to reveal (never yanks the
+      // page around when the panel is already on screen), and skipped for
+      // the Mera Khet modal, which manages its own full-screen layout.
+      if (slug !== 'merakhet') {
+        setTimeout(function () {
+          var r = pane.getBoundingClientRect();
+          var vh = window.innerHeight || document.documentElement.clientHeight;
+          // already showing a decent slice of it? leave the page alone.
+          if (r.top < vh - 160) return;
+          var target = Math.max(0, window.scrollY + r.top - Math.max(64, vh * 0.32));
+          var from = window.scrollY;
+          // behavior:'smooth' is silently a NO-OP in some environments --
+          // caught while verifying this very fix locally: window.scrollY
+          // stayed at 0 after a smooth scrollTo(480) that an instant
+          // scrollTo(0,480) performed correctly a moment later (Chrome
+          // drops smooth scrolling under prefers-reduced-motion, and some
+          // embedded/automation views never animate it at all). Revealing
+          // the panel is the whole point of this fix, so it must not
+          // depend on the animation working: ask for smooth, then verify,
+          // and fall back to an instant jump if nothing actually moved.
+          try { window.scrollTo({ top: target, behavior: 'smooth' }); }
+          catch (e) { window.scrollTo(0, target); }
+          setTimeout(function () {
+            if (Math.abs(window.scrollY - from) < 4 && Math.abs(target - from) >= 4) {
+              window.scrollTo(0, target);
+            }
+          }, 320);
+        }, 300);
       }
     });
   });
