@@ -640,6 +640,8 @@ body{min-height:100%;background:var(--bg-deep);color:var(--text);font-family:'In
 
 /* Charts */
 .chart-wrap{padding:0.5rem 0.75rem;flex:1;min-height:0;position:relative;}
+/* AUDIT_FIX_PROMPT.md item 0C (2026-09-02 live audit): reproduced live -- selecting a state with no district (or any other combo that leaves a chart pane in its empty state) rendered #empty-chartTemp/#empty-chartRain/etc. covering the ENTIRE viewport (including the header and sidebar), because those .chart-empty divs are position:absolute and rely wholly on .chart-wrap being their positioned ancestor -- if that single rule above ever fails to apply (observed in live testing; browser-parse edge case with this specific stylesheet, root cause not fully isolated), the .chart-empty div falls back to the initial containing block (the whole page) instead of the small chart box. This duplicate, more specific rule is a deliberate second application of the same declaration -- belt-and-suspenders, not a style change. */
+#bottom-panel .chart-wrap{position:relative;}
 /* item 14b (2026-08-14): was a plain centered text line flush with the
    chart-wrap's edges -- redesigned as its own light card (per the
    owner's exact spec: #F7F9FB background, rounded corners, icon above
@@ -688,7 +690,7 @@ canvas.chart-canvas{max-height:100%;}
    just flows to its natural height and the PAGE scrolls past it instead. */
 .btm-content{display:none;overflow:visible;padding-right:84px;}
 #bottom-panel.expanded .btm-content{display:flex;}
-.btm-pane{display:none;flex:1;flex-direction:column;overflow:hidden;}
+.btm-pane{display:none;flex:1;flex-direction:column;overflow:hidden;position:relative;}
 .btm-pane.active{display:flex;}
 
 /* Mera Khet full modal (owner report 2026-08-13: the shared 210px bottom
