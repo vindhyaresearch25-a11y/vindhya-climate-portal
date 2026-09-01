@@ -154,6 +154,70 @@
   }
 
   // ---------------------------------------------------------------------
+  // Owner report (2026-09, Hinglish): "Climate Metrics panel me bhi data...
+  // sabhi panels me reflect nahi ho rahe" -- the top-of-page right-hand
+  // Climate Metrics cards (m-drought/m-heat/m-rain/m-ndvi/m-crop) stayed
+  // 'Not available' at STATE level even though this file already computes
+  // a real cross-district mean and renders it into #historical-indices-panel/
+  // #national-ndvi-panel (verified live -- those two panels DID show real
+  // numbers, the top cards did not: two different pieces of the same page
+  // silently disagreeing about whether state-level data exists). This
+  // writes the same already-computed real means into those shared cards
+  // too, honestly labelled as a state aggregate.
+  //
+  // Guarded on the selection still being this exact bare state (no district
+  // picked meanwhile) -- these fetches can resolve well after the user has
+  // already drilled into a district, whose own real per-district numbers
+  // must never be clobbered by a slower, now-stale state-wide mean.
+  function stillBareState(stateName) {
+    var sel = (typeof window.getCurrentSelection === 'function') ? window.getCurrentSelection() : {};
+    return sel.state === stateName && !sel.district;
+  }
+  function setTxt(id, v) { var e = document.getElementById(id); if (e) e.textContent = v; }
+  function setBar(id, pct) { var e = document.getElementById(id); if (e) e.style.width = pct + '%'; }
+
+  function applyStateClimateCards(stateName, rows, nTotal) {
+    if (!stillBareState(stateName)) return;
+    if (!rows.length) { return; } // resetClimateToNotAvailable()'s honest blank stays -- nothing real to show
+    function agg(geeKey, imdKey) { return mean(rows.map(function (idx) { return pick(idx, geeKey, imdKey); })); }
+    var droughtPct = agg('drought_probability_pct', 'drought_probability_pct');
+    var hw = agg('heatwave_days', 'heatwave_days_mean');
+    var severeHw = agg('severe_heatwave_days', 'severe_heatwave_days_mean');
+    var maxTmax = agg('max_summer_tmax', 'max_summer_tmax');
+    var rain = agg('annual_rain_mm', 'annual_rain_mm_mean');
+    var suffix = ' · state mean, ' + rows.length + (nTotal ? ' of ' + nTotal : '') + ' real districts';
+
+    if (droughtPct != null) {
+      setTxt('m-drought', fmt(droughtPct, 1) + '%');
+      setBar('bar-drought', Math.min(100, Math.max(0, droughtPct)));
+      setTxt('drought-trend', stateName + suffix);
+      var cs = Math.min(100, Math.max(0, Math.round(droughtPct)));
+      setTxt('m-crop', cs + '% (indicative)'); setBar('bar-crop', cs);
+      setTxt('m-crop-trend', 'Derived from state-mean drought probability');
+    }
+    if (hw != null) {
+      var heatLabel = (severeHw != null && severeHw >= 2) ? 'EXTREME' : hw >= 8 ? 'HIGH' : hw >= 2 ? 'MODERATE' : 'LOW';
+      setTxt('m-heat', heatLabel);
+      setBar('bar-heat', Math.min(100, Math.max(0, Math.round((hw / 20) * 100))));
+      setTxt('heat-detail', fmt(hw, 1) + ' heatwave d/yr' + (maxTmax != null ? ', max Tmax ' + fmt(maxTmax, 1) + '°C' : '') + ' ' + stateName + suffix);
+    }
+    if (rain != null) {
+      setTxt('m-rain', Math.round(rain) + ' mm');
+      var rtEl = document.getElementById('m-rain-trend');
+      if (rtEl) rtEl.textContent = stateName + ' 2000–2024 mean' + suffix;
+    }
+  }
+
+  function applyStateNdviCard(stateName, vals, nTotal) {
+    if (!stillBareState(stateName)) return;
+    if (!vals.length) return;
+    var m = mean(vals);
+    setTxt('m-ndvi', fmt(m, 2));
+    setBar('bar-ndvi', Math.round(m * 100));
+    setTxt('ndvi-detail', stateName + ' · state mean, ' + vals.length + (nTotal ? ' of ' + nTotal : '') + ' real districts');
+  }
+
+  // ---------------------------------------------------------------------
   // Climate aggregate -> #historical-indices-panel
   // ---------------------------------------------------------------------
   function renderClimateState(stateName, rows, nTotal) {
@@ -296,6 +360,7 @@
           });
         }
         renderClimateState(stateName, rows, nTotal);
+        applyStateClimateCards(stateName, rows, nTotal);
         setChartEmptyStateNote(stateName, rows.length > 0);
       });
     });
@@ -340,6 +405,7 @@
         loadDistrictsIndex().then(function (totals) {
           if (myToken !== currentToken) return;
           renderNdviState(stateName, all, totals ? totals[stateName] : null);
+          applyStateNdviCard(stateName, all, totals ? totals[stateName] : null);
         });
       });
     });

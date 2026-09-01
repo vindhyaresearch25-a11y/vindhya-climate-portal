@@ -286,10 +286,19 @@
       barEl.className = 'metric-bar-fill';
       barEl.style.background = 'var(--cyan)';
     }
+    // Owner report (2026-09, Hinglish): this card silently showed the same
+    // district number at block/village level with no label distinguishing
+    // it from a block/village-specific reading -- the CGWB/NWDP source is
+    // genuinely only ever resolved at district granularity (stations are
+    // aggregated to their district, not their block), so there IS no more
+    // specific real number to show here; climateLevelSuffix() says so
+    // honestly instead of leaving it ambiguous, same convention already
+    // used for the other Climate Metrics cards (national_selector.js).
+    var gwLvlSuffix = (typeof window.climateLevelSuffix === 'function') ? window.climateLevelSuffix(false) : '';
     var trendEl = gwEl ? gwEl.parentElement.querySelector('.metric-trend span') : null;
-    if (trendEl) trendEl.textContent = d.trend ? trendLabel(d.trend.direction) : t('Select a district', 'ज़िला चुनें');
+    if (trendEl) trendEl.textContent = (d.trend ? trendLabel(d.trend.direction) : t('Select a district', 'ज़िला चुनें')) + gwLvlSuffix;
     var srcEl = gwEl ? gwEl.parentElement.querySelector('.metric-source') : null;
-    if (srcEl) srcEl.textContent = 'Source · CGWB via NWDP · ' + (d.latest_reading_date || '');
+    if (srcEl) srcEl.textContent = 'Source · CGWB via NWDP · ' + (d.latest_reading_date || '') + gwLvlSuffix;
 
     // Kept short -- this field sits in a small u-fmw80 metric-card (flex,
     // min-width 80px, sized for one line like its siblings' "MODERATE
@@ -371,6 +380,29 @@
           loadDistrictsIndex().then(function (totals) {
             var host2 = el('groundwater-panel-body');
             if (host2) host2.innerHTML = renderStateTier(sel.stateName, files, totals[sel.stateName]);
+            // Owner report (2026-09): m-gw stayed 'Not available' at state
+            // level even though a real cross-district mean was already
+            // computed and shown right above in this same pane. Guarded on
+            // the selection still being this bare state so a fast
+            // drill-down into a district isn't clobbered by this slower
+            // state-wide fetch resolving late.
+            var stillSameBareState = currentSelection().stateName === sel.stateName && !currentSelection().districtName;
+            if (!stillSameBareState) return;
+            var withData = files.filter(function (f) { return f.district && f.district.n_stations; });
+            var gwEl = el('m-gw'), barEl = el('bar-gw');
+            if (withData.length) {
+              var vals = withData.map(function (f) { return f.district.latest_gwl_mean_m; }).filter(function (v) { return v != null; });
+              var meanGwl = vals.reduce(function (a, b) { return a + b; }, 0) / vals.length;
+              if (gwEl) { gwEl.textContent = fmt(meanGwl) + ' m'; gwEl.className = 'metric-value cyan'; }
+              if (barEl) { barEl.style.width = Math.min(100, Math.max(0, Math.round(meanGwl / 30 * 100))) + '%'; barEl.className = 'metric-bar-fill'; barEl.style.background = 'var(--cyan)'; }
+              var trendEl2 = gwEl ? gwEl.parentElement.querySelector('.metric-trend span') : null;
+              if (trendEl2) trendEl2.textContent = sel.stateName + ' state mean · ' + withData.length + (totals[sel.stateName] ? ' of ' + totals[sel.stateName] : '') + ' real districts';
+              var srcEl2 = gwEl ? gwEl.parentElement.querySelector('.metric-source') : null;
+              if (srcEl2) srcEl2.textContent = 'Source · CGWB via NWDP · state aggregate';
+            } else {
+              if (gwEl) gwEl.textContent = 'Not available';
+              if (barEl) barEl.style.width = '0%';
+            }
           });
         });
         return;

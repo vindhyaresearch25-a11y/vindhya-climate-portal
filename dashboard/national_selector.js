@@ -29,11 +29,14 @@
   var statesGeo = null;
   var districtsGeo = null;
   var blocksCache = {};      // state_slug -> parsed blocks/<slug>.geojson
-  var blocksInflight = {};
   var villagesCache = {};    // "state_slug/district_slug" -> parsed villages file
-  var villagesInflight = {};
   var villageProfileCache = {};    // "state_slug/district_slug" -> parsed village_profiles file
   var villageProfileInflight = {};
+  // Shared in-flight/retry state for the 4 boundary-layer fetches (states/
+  // districts/blocks/villages) -- see fetchGeoLayer() below, which owns all
+  // of loadStatesGeo/loadDistrictsGeo/loadBlocksForState/
+  // loadVillagesForDistrict's actual fetch logic now.
+  var geoInflight = {};
 
   var current = { state: null, district: null, block: null, village: null };
   var mapLayers = { state: null, district: null, block: null, village: null };
@@ -147,34 +150,80 @@
   // absolute githubusercontent URL by the time this runs, and
   // resolveDataUrl() passes any already-absolute URL through unchanged --
   // the two rewrites compose without double-prefixing either way.
+  // -----------------------------------------------------------------------
+  // Owner-reported live bug (2026-09, Hinglish): loadDistrictsGeo() (and the
+  // same shape of bug in loadStatesGeo/loadBlocksForState/
+  // loadVillagesForDistrict) can fail with a genuine "TypeError: Failed to
+  // fetch" against the Hugging Face-hosted boundary files -- reproduced here
+  // by re-triggering selectState() rapidly, which fires overlapping
+  // concurrent fetches for the SAME large file (districts.geojson is ~20 MB;
+  // loadStatesGeo/loadDistrictsGeo had no in-flight de-dup at all, unlike
+  // loadBlocksForState/loadVillagesForDistrict, which already de-duped but
+  // still had no retry path). When a fetch does fail, the affected dropdown
+  // was previously left silently empty forever -- no visible error, no way
+  // to retry short of reloading the whole page.
+  //
+  // fetchGeoLayer() centralizes the fix for all four boundary fetches in one
+  // place (this file's own established convention -- see fadeParents/
+  // clearBelow for the same "one shared function, not four patched call
+  // sites" pattern): in-flight de-dup keyed per-layer, the existing
+  // showStatus()/#boundaryLoadStatus loading text (now used by every layer,
+  // not just blocks/villages), ONE silent automatic retry after a short
+  // delay (covers a transient CDN blip/rate-limit, per the owner's own
+  // diagnosis, without bothering the user), and -- only if that retry also
+  // fails -- a persistent, honest "Failed to load X -- Retry" message with a
+  // real retry action, instead of a silent empty dropdown.
+  function fetchGeoLayer(cacheGet, cacheSet, key, url, label) {
+    var cached = cacheGet();
+    if (cached) return Promise.resolve(cached);
+    if (geoInflight[key]) return geoInflight[key];
+    showStatus('<i class="fa fa-spinner fa-spin"></i> ' + label + ' loading&hellip;');
+    function attempt(isRetry) {
+      return fetchWithTimeout(url).then(function (d) {
+        if (d) { cacheSet(d); hideStatus(); return d; }
+        if (!isRetry) {
+          return new Promise(function (resolve) { setTimeout(resolve, 1500); })
+            .then(function () { return attempt(true); });
+        }
+        showStatus('<i class="fa fa-triangle-exclamation" style="color:#e63946"></i> Failed to load ' + label +
+          ' &mdash; <a href="#" style="color:var(--cyan,#1a8a9e);text-decoration:underline;" onclick="window.__retryGeoLayer(\'' +
+          key.replace(/'/g, "\\'") + "'); return false;\">Retry</a>");
+        return null;
+      });
+    }
+    var p = attempt(false).finally(function () { delete geoInflight[key]; });
+    geoInflight[key] = p;
+    return p;
+  }
+  // Bound to the "Retry" link fetchGeoLayer() renders on a real failure.
+  // Re-running the deepest currently-selected level's own select function is
+  // enough to re-trigger every fetch that level depends on (including
+  // whichever one just failed) -- no need to track which specific layer
+  // failed beyond clearing its own inflight slot above.
+  window.__retryGeoLayer = function (key) {
+    hideStatus();
+    if (current.block) { selectBlock(current.block); return; }
+    if (current.district) { selectDistrict(current.district); return; }
+    if (current.state) { selectState(current.state); return; }
+    populateStateSelect(); // nothing selected yet -- this was the initial states.geojson fetch
+  };
+
   function loadStatesGeo() {
-    if (statesGeo) return Promise.resolve(statesGeo);
-    return fetchWithTimeout(resolveDataUrl('data/boundaries/' + 'soi/states.geojson')).then(function (d) { statesGeo = d; return d; });
+    return fetchGeoLayer(function () { return statesGeo; }, function (d) { statesGeo = d; },
+      'states', resolveDataUrl('data/boundaries/' + 'soi/states.geojson'), 'States');
   }
   function loadDistrictsGeo() {
-    if (districtsGeo) return Promise.resolve(districtsGeo);
-    return fetchWithTimeout(resolveDataUrl('data/boundaries/' + 'soi/districts.geojson')).then(function (d) { districtsGeo = d; return d; });
+    return fetchGeoLayer(function () { return districtsGeo; }, function (d) { districtsGeo = d; },
+      'districts', resolveDataUrl('data/boundaries/' + 'soi/districts.geojson'), 'Districts');
   }
   function loadBlocksForState(stateSlug) {
-    if (blocksCache[stateSlug]) return Promise.resolve(blocksCache[stateSlug]);
-    if (blocksInflight[stateSlug]) return blocksInflight[stateSlug];
-    showStatus('<i class="fa fa-spinner fa-spin"></i> Blocks/Tehsils loading&hellip;');
-    var p = fetchWithTimeout(resolveDataUrl('data/boundaries/' + 'soi/blocks/' + stateSlug + '.geojson'))
-      .then(function (d) { blocksCache[stateSlug] = d; hideStatus(); return d; })
-      .finally(function () { delete blocksInflight[stateSlug]; });
-    blocksInflight[stateSlug] = p;
-    return p;
+    return fetchGeoLayer(function () { return blocksCache[stateSlug]; }, function (d) { blocksCache[stateSlug] = d; },
+      'blocks:' + stateSlug, resolveDataUrl('data/boundaries/' + 'soi/blocks/' + stateSlug + '.geojson'), 'Blocks/Tehsils');
   }
   function loadVillagesForDistrict(stateSlug, districtSlug) {
     var key = stateSlug + '/' + districtSlug;
-    if (villagesCache[key]) return Promise.resolve(villagesCache[key]);
-    if (villagesInflight[key]) return villagesInflight[key];
-    showStatus('<i class="fa fa-spinner fa-spin"></i> Villages loading&hellip;');
-    var p = fetchWithTimeout(resolveDataUrl('data/boundaries/' + 'soi/villages/' + stateSlug + '/' + districtSlug + '.geojson'))
-      .then(function (d) { villagesCache[key] = d; hideStatus(); return d; })
-      .finally(function () { delete villagesInflight[key]; });
-    villagesInflight[key] = p;
-    return p;
+    return fetchGeoLayer(function () { return villagesCache[key]; }, function (d) { villagesCache[key] = d; },
+      'villages:' + key, resolveDataUrl('data/boundaries/' + 'soi/villages/' + stateSlug + '/' + districtSlug + '.geojson'), 'Villages');
   }
 
   function loadVillageProfilesForDistrict(stateSlug, districtSlug) {

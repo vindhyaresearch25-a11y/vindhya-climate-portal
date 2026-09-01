@@ -240,6 +240,38 @@
     return h;
   }
 
+  // Picks the most specific REAL value this district file actually has for
+  // the current selection -- per-village SMAP cell (renderVillageTier's own
+  // lookup, real) if a village is picked and present in the breakdown, else
+  // the per-block mean (renderBlockTier's own rollup, real) if a block is
+  // picked and present, else the plain district mean. Never fabricates a
+  // number for a level that has no real row of its own -- falls back one
+  // level up and says so, same convention as national_selector.js's
+  // climateLevelSuffix().
+  function resolveMostSpecificSm(file, sel, districtName) {
+    if (sel.vilLgd) {
+      var v = (file.villages || {})[String(sel.vilLgd)];
+      var cell = v ? (file.district && file.district.cells || [])[v[2]] : null;
+      if (cell && cell.sm_surface != null) {
+        return { value: cell.sm_surface, label: (v[0] || 'Village') + ' · village-tier (SMAP cell shared by ' + (cell.n_villages_sharing_cell != null ? cell.n_villages_sharing_cell : '?') + ' villages)' };
+      }
+    }
+    if (sel.blockName) {
+      var blocks = file.blocks || [];
+      var match = null;
+      for (var i = 0; i < blocks.length; i++) {
+        if (blocks[i].block_name && String(blocks[i].block_name).trim().toLowerCase() === String(sel.blockName).trim().toLowerCase()) { match = blocks[i]; break; }
+      }
+      if (match && match.sm_surface_mean != null) {
+        return { value: match.sm_surface_mean, label: sel.blockName + ' block mean (N=' + (match.n_cells_spanned != null ? match.n_cells_spanned : '?') + ' cells)' };
+      }
+      // No real per-block row for this block -- fall back to the district
+      // mean, but say so, rather than silently showing it unlabeled.
+      return { value: file.district && file.district.sm_surface_mean, label: (districtName || '') + ' district mean · district-level estimate (no block-specific data)' };
+    }
+    return { value: file.district && file.district.sm_surface_mean, label: (districtName || '') + ' district mean (~9 km cells)' };
+  }
+
   function renderStateTier(stateName, files, nComputed, nTotal) {
     var vals = files.map(function (f) { return f.district && f.district.sm_surface_mean; }).filter(function (v) { return v != null; });
     var h = '<div class="section-header"><i class="fa fa-tint" style="color:var(--cyan)"></i>'
@@ -276,7 +308,16 @@
       + '<button class="btm-pane-empty-btn" onclick="focusLocationSelector()"><i class="fa fa-location-crosshairs"></i> Select district</button>';
   }
 
-  function updateMainMetricCard(sm, meta) {
+  // trendLabel: owner report (2026-09, Hinglish) -- the right-panel Soil
+  // Moisture card previously ALWAYS showed the district mean, unchanged,
+  // regardless of whether a block or village was selected underneath it,
+  // with a generic "~9 km cell value" caption that never said which tier
+  // the number actually belonged to (the exact silent parent-substitution
+  // STANDING ORDERS #6 forbids). render() below now resolves the most
+  // specific REAL value available (per-village SMAP cell -> per-block mean
+  // -> district mean -> state mean) and passes an honest label for
+  // whichever one it actually found.
+  function updateMainMetricCard(sm, meta, trendLabel) {
     var val = el('m-soil'), bar = el('bar-soil'), trend = el('soil-trend'), src = el('soil-source');
     if (sm == null) {
       if (val) val.textContent = '—';
@@ -287,7 +328,7 @@
     }
     if (val) val.textContent = fmt(sm, 3) + ' m3/m3';
     if (bar) bar.style.width = Math.min(100, Math.max(0, Math.round(sm / 0.5 * 100))) + '%';
-    if (trend) trend.textContent = '~9 km cell value';
+    if (trend) trend.textContent = trendLabel || '~9 km cell value';
     // Standard closing-line format (item 5): Source · resolution · date.
     var dateStr = (meta && meta.last_updated) ? meta.last_updated : '';
     if (src) src.textContent = 'SMAP L4 · ~9 km' + (dateStr ? ' · ' + dateStr : '');
@@ -326,6 +367,24 @@
           loadDistrictsIndex().then(function (totals) {
             var host2 = el('soilmoisture-panel-body');
             if (host2) host2.innerHTML = renderStateTier(sel.stateName, files, files.length, totals[sel.stateName]);
+            // Owner report (2026-09): the right-panel Soil Moisture card
+            // stayed 'Not available' at state level even though a real
+            // state-wide mean was already computed and shown right above in
+            // this same pane -- STANDING ORDERS #6 kind of gap (a genuine
+            // aggregate existed, just wasn't surfaced everywhere it should
+            // be). Guarded on the selection still being this bare state
+            // (no district picked meanwhile) so a fast drill-down never gets
+            // clobbered by this slower state-wide fetch resolving late.
+            var stillSameBareState = currentSelection().stateName === sel.stateName && !currentSelection().districtName;
+            if (!stillSameBareState) return;
+            var vals = files.map(function (f) { return f.district && f.district.sm_surface_mean; }).filter(function (v) { return v != null; });
+            if (vals.length) {
+              var mean = vals.reduce(function (a, b) { return a + b; }, 0) / vals.length;
+              var nTotal = totals[sel.stateName];
+              updateMainMetricCard(mean, null, sel.stateName + ' state mean · ' + vals.length + (nTotal ? ' of ' + nTotal : '') + ' real districts');
+            } else {
+              updateMainMetricCard(null);
+            }
           });
         });
         return;
@@ -348,7 +407,8 @@
         h += renderVillageTier(file, sel.vilLgd);
         var host2 = el('soilmoisture-panel-body');
         if (host2) host2.innerHTML = h;
-        updateMainMetricCard(file.district && file.district.sm_surface_mean, file.metadata);
+        var resolved = resolveMostSpecificSm(file, sel, sel.districtName);
+        updateMainMetricCard(resolved.value, file.metadata, resolved.label);
       });
     });
   }
