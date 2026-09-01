@@ -179,6 +179,21 @@ For each district we compute three numbers per index:
 
 The **delta is the meaningful number** for impact assessment because most CMIP6 model systematic bias survives downscaling and is largely subtracted out when you compare future to historical from the same model.
 
+**Run status (2026-09-01):** this workflow has now actually been executed for
+all 5 districts, via `scripts/05b_run_cmip6_2040.py` -- a Python port of
+`scripts/05_gee_cmip6_2040.js` that calls the Earth Engine Python API directly
+(same computation, same 8-model ensemble, same windows) instead of pasting the
+script into the GEE Code Editor and exporting to Drive by hand; the result set
+is small enough (5 districts) for a single synchronous `getInfo()` call. Real
+results are in `dashboard/data/mp_climate_data.json` under each district's
+`future_2040` key (see the `metadata.cmip6_projection` block in that same
+file for source/scenario/ensemble/window) and render in the "2040 PROJECTION
+METHOD" panel and the district detail view wherever `mp_climate_loader.js`
+reads `future_2040`. This is a live physical-model scenario, separate from
+and in addition to the deterministic OLS trend in `forecast_2040.json`
+(still labelled INDICATIVE, and still the only projection shown for districts
+outside these original 5).
+
 ## 6. Risk classification (composite)
 
 Each district's overall risk band (`low / moderate / high / extreme`) is a simple ordinal sum:

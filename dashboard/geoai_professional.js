@@ -66,17 +66,25 @@
       s: 'UNDP DiCRA district zonal statistics (MODIS-derived)',
       r: 'district zonal mean, 16-day composite', c: 'EPSG:4326',
       m: 'zonal aggregation of DiCRA vector products', q: 'verified', u: '2026-07-31' },
-    { l: '2040 projection', lh: '2040 प्रक्षेपण',
+    { l: '2040 projection (indicative trend)', lh: '2040 प्रक्षेपण (सांकेतिक रुझान)',
       s: 'OLS linear trend on observed 2000-2024 annual indices', r: 'district', c: '--',
       m: 'deterministic least-squares trend, 95% residual band; NOT a CMIP6 model run',
       q: 'indicative', u: '2026-07-31' },
-    { l: 'Village boundaries (5 districts)', lh: 'ग्राम सीमाएँ (5 ज़िले)',
-      s: 'MP village boundary shapefile, LGD-coded', r: 'simplified 0.0005 deg (~55 m)',
-      c: 'EPSG:4326', m: 'reprojected, dedup on Vill_LGD, Douglas-Peucker simplification',
-      q: 'verified', u: '2026-08-01' },
-    { l: 'India state / district boundaries', lh: 'भारत राज्य / ज़िला सीमाएँ',
-      s: 'Census of India 2011 (36 states/UTs, 760 districts)', r: 'simplified 0.005-0.01 deg',
-      c: 'EPSG:4326', m: 'states dissolved from district polygons', q: 'verified', u: '2026-08-01' },
+    { l: '2040 projection (CMIP6 physical model)', lh: '2040 प्रक्षेपण (CMIP6 भौतिक मॉडल)',
+      s: 'NASA NEX-GDDP-CMIP6, SSP2-4.5, 8-model ensemble, via Google Earth Engine -- 5 districts with real IMD baseline only',
+      r: 'district (5km buffer mean)', c: 'EPSG:4326',
+      m: 'scripts/05b_run_cmip6_2040.py: future (2036-2045) vs. baseline (2000-2014) ensemble mean, same-model delta cancels most systematic bias',
+      q: 'verified-official', u: '2026-09-01' },
+    { l: 'Village boundaries (all India)', lh: 'ग्राम सीमाएँ (सम्पूर्ण भारत)',
+      s: 'Survey of India village-boundary product, via National Water Data Portal (NWDP/NWIC) -- 36 states/UTs, 654,285 villages, LGD-coded',
+      r: 'simplified 0.0005 deg (~55 m), per-district files',
+      c: 'EPSG:4326 (reprojected from source EPSG:7755)',
+      m: 'build_national_soi_boundaries.py --stage villages: topology-preserving simplify, 73->13 attribute columns',
+      q: 'verified-official', u: '2026-08-02' },
+    { l: 'India state / district / block boundaries', lh: 'भारत राज्य / ज़िला / ब्लॉक सीमाएँ',
+      s: 'Survey of India state/district/sub-district-boundary products, via NWDP -- 36 states/UTs, 733 districts, 6,312 blocks/tehsils',
+      r: 'simplified 0.0005 deg', c: 'EPSG:4326 (reprojected from source EPSG:7755)',
+      m: 'build_national_soi_boundaries.py --stage state/district/blocks', q: 'verified-official', u: '2026-08-02' },
     { l: 'Live daily weather', lh: 'वास्तविक समय मौसम',
       s: 'NASA POWER (MERRA-2 reanalysis)', r: '0.5 x 0.625 deg', c: 'EPSG:4326',
       m: 'daily point query, no interpolation or bias correction', q: 'verified', u: 'on demand' },
@@ -512,10 +520,10 @@
 
   function buildMetadataPanel() {
     if (document.getElementById('meta-modal')) return;
-    var btn = el('div', 'position:fixed;right:92px;bottom:26px;z-index:1200;background:var(--cyan);' +
-      'color:#fff;border-radius:20px;padding:8px 15px;font-size:12px;font-weight:600;' +
-      'cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.28)',
-      '<i class="fa fa-circle-info"></i> ' + t('Data sources', 'डेटा स्रोत'));
+    // Docked in #siteFooter now (owner request, 2026-09-01) -- styling
+    // (#meta-btn rule) lives in index.html's CSS instead of inline here,
+    // since it's now a normal-flow footer element, not a floating pill.
+    var btn = el('div', '', '<i class="fa fa-circle-info"></i> ' + t('Data sources', 'डेटा स्रोत'));
     btn.id = 'meta-btn';
     var modal = el('div', 'position:fixed;inset:0;z-index:1300;background:rgba(0,0,0,.45);' +
       'display:none;align-items:center;justify-content:center;padding:20px');
@@ -566,36 +574,13 @@
 
     card.innerHTML = h;
     modal.appendChild(card);
-    document.body.appendChild(btn);
+    var footerEl = document.getElementById('siteFooter');
+    (footerEl || document.body).appendChild(btn);
     document.body.appendChild(modal);
     btn.onclick = function () { modal.style.display = 'flex'; };
     modal.onclick = function (e) { if (e.target === modal) modal.style.display = 'none'; };
     var c = document.getElementById('meta-close');
     if (c) c.onclick = function () { modal.style.display = 'none'; };
-
-    // AUDIT_FIX_PROMPT.md item 20 (owner's 2026-08-16 re-check): this
-    // button's original fixed bottom:26px sat inside the bottom-panel's
-    // own tab strip once that strip grew to two rows (item 7a) and again
-    // once the panel could expand to 260px on first click (item 14c) --
-    // its own "Data sources" label rode over Projection Method/AOI Polygon
-    // tab text, the same class of overlap item 15b already fixed for the
-    // chat-FAB. #bottom-panel's real rendered height changes (collapsed
-    // tab-strip only vs a click-expanded 260px pane), so a single fixed
-    // pixel value can't stay clear of it in both states -- reposition
-    // relative to the panel's own live top edge instead, on load, on
-    // resize, and whenever .expanded toggles (same moment the shared
-    // MutationObserver in index.html reacts to a pane going active).
-    function positionMetaBtn() {
-      var bp = document.getElementById('bottom-panel');
-      var bpTop = bp ? bp.getBoundingClientRect().top : window.innerHeight;
-      btn.style.bottom = Math.max(16, (window.innerHeight - bpTop) + 10) + 'px';
-    }
-    positionMetaBtn();
-    window.addEventListener('resize', positionMetaBtn);
-    var bpEl = document.getElementById('bottom-panel');
-    if (bpEl && typeof MutationObserver !== 'undefined') {
-      new MutationObserver(positionMetaBtn).observe(bpEl, { attributes: true, attributeFilter: ['class'] });
-    }
   }
 
   function ymd(d) {

@@ -208,7 +208,9 @@
     var host = document.getElementById('future-2040-panel'); if (!host) return;
     if (!f) {
       host.innerHTML = '<div style="padding:0.6rem;font-size:0.7rem;font-weight:600;color:var(--text-dim)">'
-        + 'CMIP6 future projection unavailable. Run scripts/05_gee_cmip6_2040.js.</div>';
+        + 'CMIP6 future projection unavailable for ' + (d.name || districtKey) + '. Currently run only for '
+        + 'the 5 districts with a real IMD baseline (Bhopal, Indore, Jabalpur, Rewa, Sidhi) — '
+        + 'see scripts/05b_run_cmip6_2040.py.</div>';
       return;
     }
     function delta(v, unit, invert){

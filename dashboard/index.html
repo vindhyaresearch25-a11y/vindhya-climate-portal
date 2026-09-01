@@ -335,7 +335,16 @@ body{min-height:100%;background:var(--bg-deep);color:var(--text);font-family:'In
    why this is a normal flow element, not position:fixed. 30px tall,
    deliberately slim so it doesn't meaningfully compete with the map for
    space (item 8's rule was about a 130px cost, this is a fifth of that). */
-#siteFooter{flex-shrink:0;min-height:38px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0b1f45;border-top:1px solid #0b1f45;font-size:11px;font-weight:700;color:#fff;text-align:center;padding:0.4rem 1rem;line-height:1.5;}
+#siteFooter{flex-shrink:0;min-height:38px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0b1f45;border-top:1px solid #0b1f45;font-size:11px;font-weight:700;color:#fff;text-align:center;padding:0.4rem 1rem;line-height:1.5;}
+/* "Data sources" moved into the footer 2026-09-01 (owner request): it used
+   to be a position:fixed pill floating over the map/bottom-panel, which
+   needed its own live-repositioning JS (positionMetaBtn() in
+   geoai_professional.js) to dodge the tab strip as the panel's height
+   changed -- a recurring source of overlap bugs (item 15b/20's class of
+   issue). Docking it in the footer's own normal flow removes the need for
+   that repositioning entirely. */
+#meta-btn{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:var(--cyan);color:#fff;border-radius:14px;padding:5px 12px;font-size:10.5px;font-weight:600;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.28);white-space:nowrap;}
+@media (max-width:640px){#meta-btn{position:static;transform:none;margin-top:4px;display:inline-block;}}
 
 /* Sidebar */
 /* Page-scroll fix: owner's own instruction #6 -- "left sidebar can stay
@@ -989,6 +998,10 @@ body.mk-modal-open #pane-merakhet.active{
    actually launches, since an inline style wins over everything. */
 #chatFab{position:fixed;bottom:74px;right:22px;width:56px;height:56px;border-radius:var(--radius-circle);background:linear-gradient(135deg,var(--green),var(--teal));color:#fff;border:none;cursor:pointer;font-size:var(--fs-4);align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(45,143,92,0.35);z-index:2000;transition:all 0.25s;}
 #chatFab svg{width:22px;height:22px;}
+#chatFab i{font-size:22px;}
+@keyframes chatFabPop{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
+#chatFab{animation:chatFabPop 2.4s ease-in-out infinite;}
+#chatFab:hover{animation-play-state:paused;}
 #chatFab:hover{transform:scale(1.08);box-shadow:0 6px 22px rgba(45,143,92,0.45);}
 #chatFabPopup{position:fixed;bottom:86px;right:90px;background:var(--bg-card);color:var(--text);border:var(--border-default);padding:0.5rem 0.8rem;border-radius:var(--radius-12);font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-2);font-weight:500;box-shadow:0 4px 16px rgba(0,0,0,0.08);z-index:2000;white-space:nowrap;display:none;animation:fadeInUp 0.3s ease;cursor:pointer;user-select:none;transition:transform 0.2s,box-shadow 0.2s;}
 #chatFabPopup:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,0,0,0.12);}
@@ -1968,9 +1981,13 @@ body.mk-modal-open #pane-merakhet.active{
 <footer id="siteFooter">Developed by Water, Climate and Sustainability Lab, IIT Indore<br>Under the mentorship of Prof. Manish Goyal</footer>
 
 <!-- ============================================================ KISAN SAHAYAK ============================================================ -->
-<div id="chatFabPopup" onclick="openChat()" title="किसान सहायक खोलें / Open Kisan Sahayak" role="button" tabindex="0">किसान सहायक से पूछें / Ask Kisan Sahayak</div>
+<div id="chatFabPopup" onclick="openChat()" title="किसान सहायक खोलें / Open Kisan Sahayak" role="button" tabindex="0"><i class="fa fa-tractor" style="margin-right:6px"></i>किसान सहायक से पूछें / Ask Kisan Sahayak</div>
+<!-- Owner request 2026-09-02: a farmer icon on the Kisan Sahayak bubble,
+     not a generic chat-bubble outline -- fa-tractor matches the icon
+     already used for the "Farmers" role card on the landing page, so the
+     same pictogram means "farmer" everywhere in this app. -->
 <button id="chatFab" onclick="toggleChat()" title="किसान सहायक से पूछें / Ask Kisan Sahayak" class="u-hidden">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+  <i class="fa fa-tractor"></i>
   <span class="fab-dot"></span>
 </button>
 
@@ -4718,6 +4735,7 @@ async function runChatCompletion(){
      Injects its own CSS and watches the pane's class itself, so this one
      line is the module's entire footprint in index.html. -->
 <script src="village_report.js"></script>
+<script src="village_report_export.js"></script>
 <!-- national_selector.js is appended dynamically, not as a static tag here --
      see the fetchWithTimeout('config/data_config.json')...finally() block
      above, which guarantees it only loads after window.DATA_BASE_URL is
