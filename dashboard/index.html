@@ -1088,7 +1088,7 @@ body.mk-modal-open #pane-merakhet.active{
     <div class="hero-btns">
       <button class="btn-primary" onclick="showLoginGate()"><i class="fa fa-rocket"></i> &nbsp;Launch Dashboard</button>
       <button class="btn-outline" onclick="showLoginGate()"><i class="fa fa-map"></i> &nbsp;View Risk Atlas</button>
-      <button class="btn-outline" onclick="showLoginGate()"><i class="fa fa-comments"></i> &nbsp;Kisan Sahayak</button>
+      <button class="btn-outline" onclick="showLoginGate()">🌾 &nbsp;Kisan Sahayak</button>
       <button class="btn-outline" onclick="showLoginGate()"><i class="fa fa-satellite"></i> &nbsp;Satellite Map</button>
     </div>
   </div>
@@ -2342,6 +2342,33 @@ function closeMeraKhetModal(){
       var slug = (pane.id || '').replace(/^pane-/, '');
       if (slug && history.pushState && location.hash !== '#' + slug) {
         history.pushState(null, '', '#' + slug);
+      }
+      // AUDIT_FIX_PROMPT.md item 0B (owner report, 2026-09-01): Rainfall/
+      // Temperature/Drought Probability/Trends/NDVI Trend's charts are all
+      // created together, once, the moment a district is selected (see
+      // mp_climate_loader.js's district-change handler -- it calls `new
+      // Chart(...)` for all of them back to back, not lazily per tab
+      // click). Whichever pane happens to be .active AT THAT EXACT MOMENT
+      // (normally Rainfall, the default tab) gets a canvas with its real
+      // on-screen size; every other pane is still display:none right then,
+      // so Chart.js measures a zero/near-zero box and bakes that bad size
+      // into the chart -- it never repaints correctly later just because
+      // the pane becomes visible, because nothing ever told Chart.js its
+      // container changed size. Root-caused by reading the live Chart.js
+      // instance's own .data (real, correct values every time -- e.g.
+      // Temperature's Tmax/Tmin arrays were fine) while the rendered
+      // canvas showed only a tiny sliver -- proving this was a pure
+      // stale-size rendering bug, not a data bug. Fix: every chart
+      // instance inside a pane, the moment that pane becomes .active, gets
+      // an explicit .resize() -- Chart.js re-measures its (now genuinely
+      // visible) container and redraws at the correct size. Reuses this
+      // same observer rather than adding a 5th place charts get told to
+      // resize.
+      if (typeof Chart !== 'undefined' && Chart.getChart) {
+        pane.querySelectorAll('canvas').forEach(function (cv) {
+          var inst = Chart.getChart(cv);
+          if (inst) setTimeout(function () { inst.resize(); }, 270);
+        });
       }
     });
   });

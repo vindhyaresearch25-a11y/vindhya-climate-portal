@@ -1,3 +1,77 @@
+# 0. ROOT CAUSE -- PAGE SCROLL NAHI HOTA (sabse pehle ye fix karo)
+
+Ye is poori file ke bahut saare symptoms (item 4, 6, 8, 14, 20d --
+khali jagah, panel overlap, andar-hi-andar chhota scroll) ki asli
+jad hai. Isse pehle theek karo, phir baaki chhote items apne aap
+kam ho sakte hain.
+
+**Masla:** Main dashboard/map panel fixed/stuck hai, poora page
+mouse-wheel/trackpad se **vertically scroll nahi hota**.
+
+**Karo:**
+1. Main dashboard/map container par jahan bhi `position: fixed` ya
+   `position: sticky` laga hai, hatao.
+2. `height: 100vh` / `max-height` jo bhi page-scroll rok rahi hai,
+   hatao.
+3. `html`, `body`, `#root`, dashboard-wrapper, ya main-content par
+   `overflow: hidden` **mat lagao** jab tak bilkul zaroori na ho.
+4. Main page par ye set karo:
+   ```
+   min-height: 100vh;
+   height: auto;
+   overflow-y: auto;
+   ```
+5. Poora dashboard content -- naksha, climate metrics, charts,
+   tables, neeche ke panels -- sab **vertically scroll** ho sakein.
+6. Left sidebar zaroorat ho to fixed rakho, lekin **beech ka
+   dashboard content apne aap, alag se scroll ho**.
+7. Naksha khud responsive rahe, poore page ko lock na kare.
+8. Maujooda design, layout, rang, naksha, chart, functionality
+   **bilkul waisi hi rakho** -- sirf scroll theek karo.
+9. Parent containers me `overflow: hidden` aur fixed heights dhoondo
+   -- yahi is masle ki asli wajah ho sakti hai.
+10. Desktop, laptop, aur mobile teeno par responsive rahe.
+
+**Sabse zaroori:** poora dashboard upar se neeche mouse-wheel/
+trackpad se scroll ho sake, aur naksha apne hi section ke andar rahe,
+poore page ko freeze na kare.
+
+---
+
+# 0B. PANCH TAB BILKUL KHALI HAIN -- kuch bhi nahi dikhta (bug, styling nahi)
+
+Naksha ke neeche in paanch tabs par click karne par **kuch bhi nahi
+dikhta** -- na chart, na text, na error, bilkul khali:
+- Rainfall
+- Temperature
+- Drought Probability
+- Trends
+- NDVI Trend
+
+Ye sirf design/empty-state ka masla nahi hai (jaisa item 9/14 me
+likha), ye ek **functional bug** hai -- data fetch hi nahi ho raha
+ya render hi nahi ho raha. Pehle browser console kholkar dekho
+(F12 -> Console) ki koi JS error aa raha hai kya (404 on a data
+file? undefined variable? failed fetch?) -- root cause dhoondo,
+sirf UI mat badlo.
+
+**Theek karo:**
+- In paanchon tab ka data **district, block, aur village teeno
+  star par** fetch aur dikhao (jahan jo star ka data maujood ho --
+  village na ho to block, block na ho to district, saaf label ke
+  saath ki kis star ka hai)
+- Har tab ek asli chart/graph dikhaye (line/bar, jaisa item 7b me
+  likha hai), khali na rahe
+- Agar kisi jagah ke liye sach me data nahi hai (jaise IMD sirf 5
+  zilon me), to saaf "अभी उपलब्ध नहीं" likho -- bilkul khali screen
+  kabhi nahi
+
+**Test:** Jabalpur (ya kisi IMD-wale zile) chunkar paanchon tab
+click karo, screenshot do -- har ek me kuch na kuch (chart ya saaf
+"not available" message) dikhna chahiye.
+
+---
+
 # LIVE AUDIT -- 4 kaam (2026-08-14)
 
 Maine khud live portal khol kar jaancha (Claude Code ke self-report par
