@@ -425,6 +425,38 @@
   }
   window.getCurrentSelectionBounds = getCurrentSelectionBounds;
 
+  // AUDIT_FIX_PROMPT.md item 0C part 2 (owner 2026-09-02): Climate Risk
+  // Atlas/NDVI Analytics/Rainfall Monitor need an honest label naming which
+  // admin level a number is actually at. Exposed so national_climate_loader.js,
+  // national_ndvi_loader.js and index.html's own applyDistrictMetrics/
+  // onVillageChange (all three own different real numbers for the same
+  // district/block/village) can each compute the same suffix from the one
+  // real selection state this file already tracks, instead of guessing it
+  // independently and risking disagreement.
+  function getCurrentSelection() {
+    return { state: current.state, district: current.district, block: current.block, village: current.village };
+  }
+  window.getCurrentSelection = getCurrentSelection;
+
+  // hasSpecificData: true if the caller is about to show a number that is
+  // genuinely resolved at the CURRENT (deepest-selected) level -- e.g. a
+  // real per-village IMD reading. false if the number being shown is really
+  // the parent district's (or state's), just carried down because no deeper
+  // real source exists. Never fabricates a number itself -- only chooses
+  // the honest words to put next to whatever the caller already decided to
+  // show.
+  function climateLevelSuffix(hasSpecificData) {
+    if (hasSpecificData) {
+      if (current.village) return ' · village-level (real reading)';
+      return '';
+    }
+    if (current.village) return ' · district-level estimate (no village-specific data)';
+    if (current.block) return ' · district-level estimate (no block-specific data)';
+    return '';
+  }
+  window.climateLevelSuffix = climateLevelSuffix;
+
+
   // ---------------------------------------------------------------------
   // Dropdown population
   // ---------------------------------------------------------------------
@@ -490,6 +522,7 @@
     var heatDetail = el('heat-detail'); if (heatDetail) heatDetail.textContent = 'Select a district';
     var rainTrend = el('m-rain-trend'); if (rainTrend) rainTrend.textContent = 'Select a district';
     var droughtTrend = el('drought-trend'); if (droughtTrend) droughtTrend.textContent = 'Select a district';
+    var ndviDetail = el('ndvi-detail'); if (ndviDetail) ndviDetail.textContent = 'Select a district';
     // adv-title-0/adv-body-0 resets removed 2026-08-14 alongside the
     // right-panel Farmer Advisory block itself (owner instruction).
     var navBadgeHeat = el('nav-badge-heat');
@@ -538,7 +571,11 @@
     current.district = null; current.block = null; current.village = null;
     clearBelow('state');
     resetDownstreamFrom('state');
-    if (!stateName) { removeLayer('state'); updateBreadcrumb(); return; }
+    if (!stateName) {
+      removeLayer('state'); updateBreadcrumb();
+      if (typeof window.onStateSelected === 'function') window.onStateSelected(null);
+      return;
+    }
 
     var sel = el('stateSelect');
     if (sel && sel.value !== stateName) sel.value = stateName;
@@ -568,6 +605,12 @@
 
     resetClimateToNotAvailable(stateName);
     updateBreadcrumb();
+    // AUDIT_FIX_PROMPT.md item 0C part 2: resetClimateToNotAvailable() above
+    // always blanks the metric cards first (the safe default) -- this hook
+    // lets state_aggregate_loader.js overwrite that with a REAL mean across
+    // this state's own already-computed real districts, if any exist. If
+    // none exist yet, the cards correctly stay "Not available".
+    if (typeof window.onStateSelected === 'function') window.onStateSelected(stateName);
   }
 
   function selectDistrict(districtName, fromMap) {
@@ -576,7 +619,17 @@
     current.block = null; current.village = null;
     clearBelow('district');
     resetDownstreamFrom('district');
-    if (!districtName) { removeLayer('district'); resetClimateToNotAvailable(current.state); updateBreadcrumb(); return; }
+    if (!districtName) {
+      removeLayer('district'); resetClimateToNotAvailable(current.state); updateBreadcrumb();
+      // Stepping back UP from a district to just its state (via the
+      // District dropdown's own "-- Select District --" option, not the
+      // State dropdown) must restore the STATE-level aggregate, not force
+      // the same blank "Not available" a fresh state pick briefly shows --
+      // same principle as restoreDistrictMetricsIfReal() below for
+      // block/village step-back, applied one level up.
+      if (typeof window.onStateSelected === 'function') window.onStateSelected(current.state);
+      return;
+    }
 
     var sel = el('districtSelect');
     if (sel && sel.value !== districtName) sel.value = districtName;

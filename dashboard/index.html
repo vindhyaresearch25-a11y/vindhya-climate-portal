@@ -1796,7 +1796,7 @@ body.mk-modal-open #pane-merakhet.active{
             <div class="metric-label" data-i18n>NDVI Score</div>
             <div class="metric-value cyan" id="m-ndvi">—</div>
             <div class="metric-bar"><div id="bar-ndvi" class="metric-bar-fill u-w0-green"></div></div>
-            <div class="metric-trend"><i class="fa fa-arrow-down u-orange"></i> <span data-i18n>Vegetation stress</span></div>
+            <div class="metric-trend"><i class="fa fa-arrow-down u-orange"></i> <span id="ndvi-detail" data-i18n>Select a district</span></div>
             <div class="metric-source" data-i18n>Source · UNDP DiCRA (MODIS) · MP districts only</div>
           </div>
           <div class="metric-card warn">
@@ -2976,14 +2976,23 @@ function onVillageChange(village){
       var vi = vdata.indices;
       var setTxt = function(id,v){ var el=document.getElementById(id); if(el) el.textContent=v; };
       var setBar = function(id,pct){ var el=document.getElementById(id); if(el) el.style.width=pct+'%'; };
+      // AUDIT_FIX_PROMPT.md item 0C part 2: this branch only runs when
+      // this exact village has its own real IMD-derived sample in
+      // mp_climate_data.json (vdata.indices) -- a genuine village-level
+      // reading, not a district number relabelled. villageLvl/districtLvl
+      // below make that distinction explicit next to each number.
+      var villageLvl = (typeof window.climateLevelSuffix === 'function') ? window.climateLevelSuffix(true) : '';
+      var districtLvl = (typeof window.climateLevelSuffix === 'function') ? window.climateLevelSuffix(false) : '';
       // Drought (real IMD-derived village index; no default when absent)
       var dv = vi.drought_probability_pct != null ? vi.drought_probability_pct : null;
       setTxt('m-drought', dv != null ? Number(dv).toFixed(1)+'%' : 'Not available');
       setBar('bar-drought', Math.min(100, Math.max(0, dv || 0)));
       // item 15e: was static "Select a district" text that never updated
-      setTxt('drought-trend', dv != null ? vname + ' · 2000–2024 mean' : vname);
+      setTxt('drought-trend', (dv != null ? vname + ' · 2000–2024 mean' : vname) + villageLvl);
       // NDVI: real UNDP DiCRA district zonal series (village-level NDVI is not
-      // published), never derived from SPI/rainfall.
+      // published), never derived from SPI/rainfall -- always the district's
+      // own number, so it gets the DISTRICT suffix even inside this
+      // otherwise-village-level branch, never villageLvl.
       var nv = null, nvIsReal = false;
       if (window._dicraNdvi && window._dicraNdvi.districts && window._dicraNdvi.districts[distKey]) {
         var ndviSeries2 = window._dicraNdvi.districts[distKey].ndvi_mean;
@@ -2991,22 +3000,23 @@ function onVillageChange(village){
       }
       setTxt('m-ndvi', nvIsReal ? nv.toFixed(2) : 'Not available');
       setBar('bar-ndvi', nvIsReal ? Math.round(nv*100) : 0);
+      setTxt('ndvi-detail', (nvIsReal ? (d.name || distKey) + ' · UNDP DiCRA (MODIS)' : 'Not available') + districtLvl);
       // Heat
       var hv = vi.max_summer_tmax;
       if (hv != null) {
         setTxt('m-heat', hv >= 43 ? 'EXTREME' : hv >= 40 ? 'HIGH' : hv >= 37 ? 'MODERATE' : 'LOW');
         setBar('bar-heat', Math.min(100, Math.max(0, Math.round(hv/46*100))));
-        setTxt('heat-detail', Number(hv).toFixed(1)+'°C '+vname);
+        setTxt('heat-detail', Number(hv).toFixed(1)+'°C '+vname + villageLvl);
       } else {
         setTxt('m-heat', 'Not available');
         setBar('bar-heat', 0);
-        setTxt('heat-detail', vname);
+        setTxt('heat-detail', vname + villageLvl);
       }
       // Rain
       var rv = vi.annual_rain_mm != null ? vi.annual_rain_mm : vi.annual_rain_mm_mean;
       setTxt('m-rain', (rv != null ? Number(rv).toFixed(0)+' mm' : 'Not available'));
       var rtEl = document.getElementById('m-rain-trend');
-      if (rtEl) rtEl.textContent = vname + (window._hazardYear ? ' (Yr '+window._hazardYear+')' : '');
+      if (rtEl) rtEl.textContent = vname + (window._hazardYear ? ' (Yr '+window._hazardYear+')' : '') + villageLvl;
       // Soil moisture requires SMAP/Bhuvan data, not integrated.
       setTxt('m-soil', 'Not available');
       // Crop stress: heuristic derived transparently from real drought probability only.
@@ -3022,6 +3032,18 @@ function onVillageChange(village){
       // overwrites m-gw/bar-gw with a real CGWB-via-NWDP reading right after this,
       // whenever dashboard/data/groundwater/<state>/<district>.json exists.
       setTxt('m-gw', 'Not available'); setBar('bar-gw', 0);
+    } else {
+      // AUDIT_FIX_PROMPT.md item 0C part 2 (live-tested gap): this village
+      // has no row of its own in mp_climate_data.json's per-village sample
+      // (rare for the 5 real districts, but the lookup above is a
+      // name-equality match, so it can miss). Previously this silently left
+      // whatever the last district-level applyDistrictMetrics() call had
+      // rendered on screen, unlabeled -- looked like a village-level number
+      // but was really stale. Now explicitly re-renders the district's own
+      // real numbers (never invents a village-specific one) and
+      // applyDistrictMetrics' own climateLevelSuffix() call names it
+      // honestly as a district-level estimate for this village.
+      applyDistrictMetrics(d, distKey);
     }
   }
   // If a year is selected, override village metrics with year-specific district data
@@ -3045,6 +3067,15 @@ function updateBreadcrumb(){
 function applyDistrictMetrics(d, distKey){
   const setTxt=(id,v)=>{const el=document.getElementById(id); if(el) el.textContent=v;};
   const setBar=(id,pct)=>{const el=document.getElementById(id); if(el) el.style.width=pct+'%';};
+  // AUDIT_FIX_PROMPT.md item 0C part 2: this function is called both for a
+  // plain district selection (current.block/village null -> lvlSuffix '')
+  // AND again by national_selector.js's restoreDistrictMetricsIfReal()
+  // whenever a block is picked or a village is deselected under a real
+  // district (current.block set -> lvlSuffix names it as a district-level
+  // estimate). Never a village-specific number here -- onVillageChange
+  // below owns those, separately, only when a real per-village reading
+  // actually exists.
+  var lvlSuffix = (typeof window.climateLevelSuffix === 'function') ? window.climateLevelSuffix(false) : '';
   // Get real data from _mpClimateData if available. Uses the distKey passed
   // in (the MP_DISTRICTS lowercase key, e.g. "bhopal") rather than reading
   // document.getElementById('districtSelect').value directly -- the
@@ -3064,7 +3095,7 @@ function applyDistrictMetrics(d, distKey){
   setTxt('m-drought', (droughtVal != null ? Number(droughtVal).toFixed(1)+'%' : 'Not available'));
   setBar('bar-drought', Math.min(100, Math.max(0, droughtVal || 0)));
   // item 15e: was static "Select a district" text that never updated
-  setTxt('drought-trend', droughtVal != null ? (d.name || distKey) + ' · 2000–2024 mean' : (d.name || distKey));
+  setTxt('drought-trend', (droughtVal != null ? (d.name || distKey) + ' · 2000–2024 mean' : (d.name || distKey)) + lvlSuffix);
 
   // NDVI: real UNDP DiCRA district zonal series only (never derived from SPI).
   var ndviVal = null, ndviIsReal = false;
@@ -3074,6 +3105,7 @@ function applyDistrictMetrics(d, distKey){
   }
   setTxt('m-ndvi', ndviIsReal ? ndviVal.toFixed(2) : 'Not available');
   setBar('bar-ndvi', ndviIsReal ? Math.round(ndviVal*100) : 0);
+  setTxt('ndvi-detail', (ndviIsReal ? (d.name || distKey) + ' · UNDP DiCRA (MODIS)' : 'Not available') + lvlSuffix);
 
   // Heatwave Severity: driven by heatwave_days/severe_heatwave_days per year
   // (IMD heatwave-event criteria), not by absolute Tmax alone -- a district
@@ -3089,7 +3121,7 @@ function applyDistrictMetrics(d, distKey){
       : hwDays >= 8 ? 'HIGH' : hwDays >= 2 ? 'MODERATE' : 'LOW';
     setTxt('m-heat', heatLabel);
     setBar('bar-heat', Math.min(100, Math.max(0, Math.round((hwDays/20)*100))));
-    setTxt('heat-detail', hwDays.toFixed(1)+' heatwave d/yr' + (heatVal != null ? ', max Tmax ' + heatVal.toFixed(1)+'°C' : '') + ' ' + (d.name||''));
+    setTxt('heat-detail', hwDays.toFixed(1)+' heatwave d/yr' + (heatVal != null ? ', max Tmax ' + heatVal.toFixed(1)+'°C' : '') + ' ' + (d.name||'') + lvlSuffix);
     // Sidebar ALERT badge: only shown when this district's own heatwave
     // indices actually meet the HIGH/EXTREME threshold above -- previously
     // hardcoded on regardless of the selected district or year.
@@ -3097,7 +3129,7 @@ function applyDistrictMetrics(d, distKey){
   } else {
     setTxt('m-heat', 'Not available');
     setBar('bar-heat', 0);
-    setTxt('heat-detail', d.name||'');
+    setTxt('heat-detail', (d.name||'') + lvlSuffix);
     if (navBadgeHeat) navBadgeHeat.style.display = 'none';
   }
 
@@ -3119,10 +3151,10 @@ function applyDistrictMetrics(d, distKey){
     var sign = departure >= 0 ? '+' : '';
     if (mEl) { mEl.textContent = sign + Math.round(departure) + ' mm'; mEl.style.color = departure < 0 ? 'var(--red)' : 'var(--green)'; }
     if (rtEl) rtEl.textContent = d.name + ' ' + (rainLatestYear || '') + ' vs 2000-2024 mean' +
-      (departurePct != null ? ' (' + sign + departurePct.toFixed(0) + '%)' : '');
+      (departurePct != null ? ' (' + sign + departurePct.toFixed(0) + '%)' : '') + lvlSuffix;
   } else {
     setTxt('m-rain', 'Not available');
-    if (rtEl) rtEl.textContent = d.name + (window._hazardYear ? ' (Yr '+window._hazardYear+')' : '');
+    if (rtEl) rtEl.textContent = d.name + (window._hazardYear ? ' (Yr '+window._hazardYear+')' : '') + lvlSuffix;
   }
 
   // Soil moisture requires SMAP/Bhuvan data, not integrated -- not derived from NDVI.
@@ -4467,6 +4499,7 @@ async function runChatCompletion(){
 <script src="knowledge_base_loader.js"></script>
 <script src="national_climate_loader.js"></script>
 <script src="national_ndvi_loader.js"></script>
+<script src="state_aggregate_loader.js"></script>
 <script src="national_forecast_loader.js"></script><script src="validation_loader.js"></script>
 <script src="soil_moisture_loader.js"></script>
 <script src="advisory_loader.js"></script>

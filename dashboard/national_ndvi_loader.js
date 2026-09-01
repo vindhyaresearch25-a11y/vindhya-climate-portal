@@ -63,9 +63,29 @@
     return manifestPromise;
   }
 
+  var lastDistrictName = null;
+
+  // AUDIT_FIX_PROMPT.md item 0C part 2: same guarded-reapply pattern as
+  // national_climate_loader.js's reapplyLevelSuffix() -- only touches
+  // ndvi-detail if the selection is still this same GEE-NDVI district (a
+  // DiCRA MP district, or a since-changed selection, is a different owner
+  // entirely and must not be overwritten with a stale label).
+  function reapplyLevelSuffix() {
+    var sel = (typeof window.getCurrentSelection === 'function') ? window.getCurrentSelection() : {};
+    if (!sel.district || !lastDistrictName || slugify(sel.district) !== slugify(lastDistrictName)) return;
+    if (dicraDistricts[slugify(sel.district)]) return;
+    var el2 = document.getElementById('ndvi-detail');
+    if (!el2) return;
+    var base = el2.getAttribute('data-base');
+    if (base == null) return;
+    var suffix = (typeof window.climateLevelSuffix === 'function') ? window.climateLevelSuffix(false) : '';
+    el2.textContent = base + suffix;
+  }
+
   function applyGeeNdvi(file, districtName) {
     var summary = file.period_summary || {};
     var meta = file.metadata || {};
+    lastDistrictName = districtName;
 
     var ndviVal = summary.ndvi_mean != null ? summary.ndvi_mean : null;
     if (ndviVal != null) {
@@ -74,6 +94,13 @@
     } else {
       setTxt('m-ndvi', 'Not available');
       setBar('bar-ndvi', 0);
+    }
+    var ndviDetailEl = document.getElementById('ndvi-detail');
+    if (ndviDetailEl) {
+      var base = ndviVal != null ? (districtName || '') + ' · MODIS via GEE' : 'Not available';
+      ndviDetailEl.setAttribute('data-base', base);
+      var suffix = (typeof window.climateLevelSuffix === 'function') ? window.climateLevelSuffix(false) : '';
+      ndviDetailEl.textContent = base + suffix;
     }
 
     var host = document.getElementById('national-ndvi-panel');
@@ -148,6 +175,16 @@
     window.onDistrictChange = function (distKey) {
       if (typeof originalOnDistrictChange === 'function') originalOnDistrictChange(distKey);
       handleDistrictChange(distKey);
+    };
+    var originalOnBlockChange = window.onBlockChange;
+    window.onBlockChange = function (blockName) {
+      if (typeof originalOnBlockChange === 'function') originalOnBlockChange(blockName);
+      reapplyLevelSuffix();
+    };
+    var originalOnVillageChangeNdvi = window.onVillageChange;
+    window.onVillageChange = function (village) {
+      if (typeof originalOnVillageChangeNdvi === 'function') originalOnVillageChangeNdvi(village);
+      reapplyLevelSuffix();
     };
   }
 

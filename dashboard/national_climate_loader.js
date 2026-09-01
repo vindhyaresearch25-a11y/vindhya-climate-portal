@@ -90,15 +90,48 @@
       + 'so no value is shown rather than an unreliable one. See scripts/08_gee_national_climate.py\'s run log.';
   }
 
+  // AUDIT_FIX_PROMPT.md item 0C part 2: these ~726 GEE districts have no
+  // block/village-level source at all -- once a block/village is picked
+  // under one of them, applyGeeMetrics() itself isn't re-run (nothing here
+  // hooks onBlockChange/onVillageChange the way MP's real 5 districts do
+  // via national_selector.js's restoreDistrictMetricsIfReal()), so the
+  // labels below would otherwise silently keep reading "district-level"
+  // even after the breadcrumb has moved to a block/village. lastBase caches
+  // each label's real (district-level) text so reapplyLevelSuffix() can
+  // recompute just the honesty suffix on a block/village change without
+  // needing to refetch anything.
+  var lastBase = {};
+  var lastDistrictName = null;
+  function setTxtLvl(id, base) {
+    lastBase[id] = base;
+    var suffix = (typeof window.climateLevelSuffix === 'function') ? window.climateLevelSuffix(false) : '';
+    setTxt(id, base + suffix);
+  }
+  // Only reapplies if the selection is STILL the same GEE district that
+  // last actually rendered these labels (isMpRealDistrict / a since-changed
+  // district would mean lastBase belongs to a different place entirely --
+  // reapplying it then would silently show a stale district's numbers
+  // under the wrong breadcrumb, exactly the bug this whole feature exists
+  // to remove).
+  function reapplyLevelSuffix() {
+    var sel = (typeof window.getCurrentSelection === 'function') ? window.getCurrentSelection() : {};
+    if (!sel.district || !lastDistrictName) return;
+    if (slugify(sel.district) !== slugify(lastDistrictName)) return;
+    if (isMpRealDistrict(sel.district)) return;
+    var suffix = (typeof window.climateLevelSuffix === 'function') ? window.climateLevelSuffix(false) : '';
+    Object.keys(lastBase).forEach(function (id) { setTxt(id, lastBase[id] + suffix); });
+  }
+
   function applyGeeMetrics(file, districtName) {
     var idx = file.indices || {};
     var meta = file.metadata || {};
+    lastDistrictName = districtName;
 
     var droughtVal = idx.drought_probability_pct != null ? idx.drought_probability_pct : null;
     setTxt('m-drought', droughtVal != null ? Number(droughtVal).toFixed(1) + '%' : 'Not available');
     setBar('bar-drought', Math.min(100, Math.max(0, droughtVal || 0)));
     // item 15e (2026-08-15): was static "Select a district" text that never updated
-    setTxt('drought-trend', droughtVal != null ? (districtName || '') + ' · ' + (meta.years || '2000–2024') : (districtName || ''));
+    setTxtLvl('drought-trend', droughtVal != null ? (districtName || '') + ' · ' + (meta.years || '2000–2024') : (districtName || ''));
 
     // NDVI requires DiCRA/MODIS district series, only built for MP so far.
     setTxt('m-ndvi', 'Not available');
@@ -112,12 +145,12 @@
         : hwDays >= 8 ? 'HIGH' : hwDays >= 2 ? 'MODERATE' : 'LOW';
       setTxt('m-heat', heatLabel);
       setBar('bar-heat', Math.min(100, Math.max(0, Math.round((hwDays / 20) * 100))));
-      setTxt('heat-detail', hwDays.toFixed(1) + ' heatwave d/yr, 2000–2024 mean ' + (districtName || ''));
+      setTxtLvl('heat-detail', hwDays.toFixed(1) + ' heatwave d/yr, 2000–2024 mean ' + (districtName || ''));
       if (navBadgeHeat) navBadgeHeat.style.display = (heatLabel === 'HIGH' || heatLabel === 'EXTREME') ? '' : 'none';
     } else {
       setTxt('m-heat', 'Not available');
       setBar('bar-heat', 0);
-      setTxt('heat-detail', districtName || '');
+      setTxtLvl('heat-detail', districtName || '');
       if (navBadgeHeat) navBadgeHeat.style.display = 'none';
     }
 
@@ -126,13 +159,12 @@
     // computed honestly here -- show the real mean itself instead, with
     // a caption that says exactly that rather than implying a departure.
     var rainMean = idx.annual_rain_mm != null ? idx.annual_rain_mm : null;
-    var rtEl = document.getElementById('m-rain-trend');
     if (rainMean != null) {
       setTxt('m-rain', Math.round(rainMean) + ' mm');
-      if (rtEl) rtEl.textContent = (districtName || '') + ' 2000–2024 mean (ERA5-Land/CHIRPS)';
+      setTxtLvl('m-rain-trend', (districtName || '') + ' 2000–2024 mean (ERA5-Land/CHIRPS)');
     } else {
       setTxt('m-rain', 'Not available');
-      if (rtEl) rtEl.textContent = districtName || '';
+      setTxtLvl('m-rain-trend', districtName || '');
     }
 
     setTxt('m-soil', 'Not available'); setBar('bar-soil', 0);
@@ -213,6 +245,23 @@
     window.onDistrictChange = function (distKey) {
       if (typeof originalOnDistrictChange === 'function') originalOnDistrictChange(distKey);
       handleDistrictChange(distKey);
+    };
+    // AUDIT_FIX_PROMPT.md item 0C part 2: a block/village pick under one of
+    // these GEE districts never changes the underlying number (no
+    // sub-district source exists), but the honesty suffix next to it must
+    // still update the moment the breadcrumb goes deeper -- see lastBase/
+    // reapplyLevelSuffix() above. Composes with whatever else already
+    // wraps onBlockChange/onVillageChange (advisory_loader.js, etc.),
+    // exactly like this file already does for onDistrictChange above.
+    var originalOnBlockChange = window.onBlockChange;
+    window.onBlockChange = function (blockName) {
+      if (typeof originalOnBlockChange === 'function') originalOnBlockChange(blockName);
+      reapplyLevelSuffix();
+    };
+    var originalOnVillageChangeGee = window.onVillageChange;
+    window.onVillageChange = function (village) {
+      if (typeof originalOnVillageChangeGee === 'function') originalOnVillageChangeGee(village);
+      reapplyLevelSuffix();
     };
   }
 
