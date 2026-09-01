@@ -251,7 +251,7 @@ body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-syst
    why this is a normal flow element, not position:fixed. 30px tall,
    deliberately slim so it doesn't meaningfully compete with the map for
    space (item 8's rule was about a 130px cost, this is a fifth of that). */
-#siteFooter{flex-shrink:0;height:30px;display:flex;align-items:center;justify-content:center;background:var(--bg-card);border-top:1px solid var(--border);font-size:10.5px;color:var(--text-dim);text-align:center;padding:0 1rem;}
+#siteFooter{flex-shrink:0;min-height:38px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0b1f45;border-top:1px solid #0b1f45;font-size:11px;font-weight:700;color:#fff;text-align:center;padding:0.4rem 1rem;line-height:1.5;}
 
 /* Sidebar */
 #sidebar{width:220px;background:var(--bg-card);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;transition:width 0.3s;flex-shrink:0;}
@@ -527,9 +527,10 @@ canvas.chart-canvas{max-height:100%;}
    card) sits underneath it and gets visually covered. Reserving real
    space here, not just raising z-index, is the actual fix -- z-index
    only decides which of two overlapping things wins, it doesn't stop
-   them overlapping. (bottom offset bumped 22px->52px on 2026-09-01 when
-   #siteFooter, a 30px global footer, was added below #app -- otherwise
-   this button would now sit partly behind that footer.) */
+   them overlapping. (bottom offset bumped 22px->74px, then ->74px again on 2026-09-02 when
+   the footer grew to two bold lines on a navy strip -- see #siteFooter's
+   own rule for its real height; kept a generous buffer since this is a
+   min-height, not a fixed one.) */
 .btm-content{display:none;flex:1;overflow:auto;min-height:0;padding-right:84px;}
 #bottom-panel.expanded .btm-content{display:flex;}
 .btm-pane{display:none;flex:1;flex-direction:column;overflow:hidden;}
@@ -745,10 +746,10 @@ body.mk-modal-open #pane-merakhet.active{
   body{font-size:max(14px, var(--fs-2));}
 }
 /* ===== KISAN SAHAYAK CHAT ===== */
-#chatFab{position:fixed;bottom:52px;right:22px;width:56px;height:56px;border-radius:var(--radius-circle);background:linear-gradient(135deg,var(--green),var(--teal));color:#fff;border:none;cursor:pointer;font-size:var(--fs-4);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(45,143,92,0.35);z-index:2000;transition:all 0.25s;}
+#chatFab{position:fixed;bottom:74px;right:22px;width:56px;height:56px;border-radius:var(--radius-circle);background:linear-gradient(135deg,var(--green),var(--teal));color:#fff;border:none;cursor:pointer;font-size:var(--fs-4);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(45,143,92,0.35);z-index:2000;transition:all 0.25s;}
 #chatFab svg{width:22px;height:22px;}
 #chatFab:hover{transform:scale(1.08);box-shadow:0 6px 22px rgba(45,143,92,0.45);}
-#chatFabPopup{position:fixed;bottom:64px;right:90px;background:var(--bg-card);color:var(--text);border:var(--border-default);padding:0.5rem 0.8rem;border-radius:var(--radius-12);font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-2);font-weight:500;box-shadow:0 4px 16px rgba(0,0,0,0.08);z-index:2000;white-space:nowrap;display:none;animation:fadeInUp 0.3s ease;cursor:pointer;user-select:none;transition:transform 0.2s,box-shadow 0.2s;}
+#chatFabPopup{position:fixed;bottom:86px;right:90px;background:var(--bg-card);color:var(--text);border:var(--border-default);padding:0.5rem 0.8rem;border-radius:var(--radius-12);font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-2);font-weight:500;box-shadow:0 4px 16px rgba(0,0,0,0.08);z-index:2000;white-space:nowrap;display:none;animation:fadeInUp 0.3s ease;cursor:pointer;user-select:none;transition:transform 0.2s,box-shadow 0.2s;}
 #chatFabPopup:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,0,0,0.12);}
 #chatFabPopup.show{display:block;}
 #chatFabPopup::after{content:'';position:absolute;top:50%;right:-7px;transform:translateY(-50%);border-left:7px solid #ffffff;border-top:6px solid transparent;border-bottom:6px solid transparent;}
@@ -1656,7 +1657,7 @@ body.mk-modal-open #pane-merakhet.active{
      this element's place in the flow) so their own bottom offsets are
      bumped by this footer's height below, the same overlap-avoidance
      pattern as item 15b/20's chat-FAB and Data-sources fixes. -->
-<footer id="siteFooter">Developed by — WATER, CLIMATE AND SUSTAINABILITY LAB, IIT INDORE, under the mentorship of Prof. Manish Goyal</footer>
+<footer id="siteFooter">Developed by Water, Climate and Sustainability Lab, IIT Indore<br>Under the mentorship of Prof. Manish Goyal</footer>
 
 <!-- ============================================================ KISAN SAHAYAK ============================================================ -->
 <div id="chatFabPopup" onclick="openChat()" title="किसान सहायक खोलें / Open Kisan Sahayak" role="button" tabindex="0">किसान सहायक से पूछें / Ask Kisan Sahayak</div>
