@@ -247,6 +247,20 @@ body{min-height:100%;background:var(--bg-deep);color:var(--text);font-family:'In
 .gov-footer{position:absolute;bottom:0;left:0;right:0;z-index:12;background:rgba(26,35,50,0.92);color:rgba(255,255,255,0.82);padding:0.4rem 1rem;text-align:center;font-size:var(--fs-1);line-height:1.6;}
 .gov-footer .gf-sep{opacity:0.5;margin:0 0.35rem;}
 .gov-footer .gf-line2{opacity:0.75;}
+/* Owner instruction (2026-09-02): ambient background music control, shown
+   on both pre-dashboard screens (#hero, #loginGate) -- position:fixed with
+   a z-index above both those sections' own (1000/1100) so it renders
+   correctly regardless of which one is currently active, matching the
+   existing glass-card language (dark translucent pill, blur, thin border)
+   already used by .map-info-bar/.login-card elsewhere in this file rather
+   than inventing a new visual idiom. */
+.hero-music-control{position:fixed;top:1rem;right:1rem;z-index:1500;display:flex;align-items:center;gap:0.5rem;background:rgba(20,28,40,0.55);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.18);border-radius:var(--radius-20);padding:0.4rem 0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.25);}
+.hero-music-toggle{background:none;border:none;color:#fff;font-size:var(--fs-3);cursor:pointer;width:26px;height:26px;display:flex;align-items:center;justify-content:center;opacity:0.9;transition:opacity 0.2s;}
+.hero-music-toggle:hover{opacity:1;}
+.hero-music-toggle.muted{opacity:0.5;}
+.hero-music-volume{width:70px;accent-color:var(--cyan);cursor:pointer;}
+@media(max-width:640px){.hero-music-control{top:0.6rem;right:0.6rem;padding:0.3rem 0.6rem;}.hero-music-volume{width:50px;}}
+.hero-music-enable-btn{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);z-index:1500;background:rgba(26,138,158,0.92);color:#fff;border:none;border-radius:var(--radius-20);padding:0.6rem 1.2rem;font-size:var(--fs-2);font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,0.3);backdrop-filter:blur(6px);}
 /* The intro paragraph added 2026-09-01 makes hero-content taller,
    surfacing a pre-existing gap: #hero's base padding-bottom (56px) only
    covers gov-footer's 2-line desktop height, but gov-footer's text wraps
@@ -963,7 +977,17 @@ body.mk-modal-open #pane-merakhet.active{
   body{font-size:max(14px, var(--fs-2));}
 }
 /* ===== KISAN SAHAYAK CHAT ===== */
-#chatFab{position:fixed;bottom:74px;right:22px;width:56px;height:56px;border-radius:var(--radius-circle);background:linear-gradient(135deg,var(--green),var(--teal));color:#fff;border:none;cursor:pointer;font-size:var(--fs-4);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(45,143,92,0.35);z-index:2000;transition:all 0.25s;}
+/* Bug found 2026-09-02 (same specificity pattern as #loginGate's own fix,
+   commit 449e920): this rule's own display:flex (ID selector) was
+   silently beating the .u-hidden class marking #chatFab "hidden until
+   launchApp() reveals it" -- the Kisan Sahayak chat bubble has been
+   visible on the hero landing page and the Welcome/Login gate this whole
+   time, not just on the dashboard as intended (owner report 2026-09-02:
+   "Kisan Sahayak landing/login page me nahi hona chahiye"). display
+   removed from this base rule; launchApp()'s existing inline
+   style.display='flex' (unchanged) still shows it once the dashboard
+   actually launches, since an inline style wins over everything. */
+#chatFab{position:fixed;bottom:74px;right:22px;width:56px;height:56px;border-radius:var(--radius-circle);background:linear-gradient(135deg,var(--green),var(--teal));color:#fff;border:none;cursor:pointer;font-size:var(--fs-4);align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(45,143,92,0.35);z-index:2000;transition:all 0.25s;}
 #chatFab svg{width:22px;height:22px;}
 #chatFab:hover{transform:scale(1.08);box-shadow:0 6px 22px rgba(45,143,92,0.45);}
 #chatFabPopup{position:fixed;bottom:86px;right:90px;background:var(--bg-card);color:var(--text);border:var(--border-default);padding:0.5rem 0.8rem;border-radius:var(--radius-12);font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:var(--fs-2);font-weight:500;box-shadow:0 4px 16px rgba(0,0,0,0.08);z-index:2000;white-space:nowrap;display:none;animation:fadeInUp 0.3s ease;cursor:pointer;user-select:none;transition:transform 0.2s,box-shadow 0.2s;}
@@ -1354,6 +1378,28 @@ body.mk-modal-open #pane-merakhet.active{
     <div class="gf-line2">Last updated: <span id="govFooterDate">—</span> <span class="gf-sep">|</span> Indicative, not for legal or cadastral use</div>
   </div>
 </section>
+
+<!-- Owner instruction (2026-09-02): soft ambient background audio on the
+     pre-dashboard screens (landing page #hero AND the Welcome/Login gate
+     #loginGate -- revised mid-task from "landing page only" to both), off
+     everywhere past that point. dashboard/audio/hero_ambient.mp3 --
+     provenance: owner-supplied file (not sourced by this session from
+     Unsplash/Pexels/Pixabay as the original spec described); its own
+     embedded C2PA content-credentials metadata identifies it as
+     AI-generated via Google's C2PA-signed media pipeline (Google LLC /
+     Google C2PA Media Services, signed 2026-09-01) -- recorded honestly
+     here rather than mislabeled as a stock recording, same "no
+     fabrication, ever" standard this repo applies to data provenance.
+     One shared <audio> + one shared floating control, not duplicated per
+     page, since #hero and #loginGate are never visible at the same time
+     (see stopHeroMusic() below, called from the single real "entering the
+     dashboard" choke point, launchApp()). -->
+<audio id="heroAmbientAudio" src="audio/hero_ambient.mp3" preload="auto" loop></audio>
+<div id="heroMusicControl" class="hero-music-control u-hidden">
+  <button id="heroMusicToggleBtn" class="hero-music-toggle" onclick="toggleHeroMusic()" title="Music On/Off"><i class="fa fa-music"></i></button>
+  <input id="heroMusicVolume" class="hero-music-volume" type="range" min="0" max="1" step="0.05" value="0.15" oninput="setHeroMusicVolume(this.value)" title="Volume" aria-label="Music volume">
+</div>
+<button id="heroMusicEnableBtn" class="hero-music-enable-btn u-hidden" onclick="enableHeroMusic()">🔊 Enable Sound</button>
 
 <!-- ============================================================ APP ============================================================ -->
 <!-- Page-scroll fix: this inline style's own overflow:hidden was silently
@@ -2228,6 +2274,12 @@ var gateTaglineTimer=setInterval(function(){
 // ============================================================
 function launchApp(){
   document.getElementById('hero').style.display='none';
+  // Owner instruction (2026-09-02): ambient music plays through #hero and
+  // #loginGate, stops for good the moment the actual dashboard launches --
+  // see the "PRE-DASHBOARD AMBIENT MUSIC" block above for why this is the
+  // one call site (not showLoginGate(), since the gate is a pre-dashboard
+  // screen too, not the stopping point).
+  if (typeof window.stopHeroMusic === 'function') window.stopHeroMusic();
   const app=document.getElementById('app');
   app.style.display='flex';
   // Page-scroll fix (items 4/6/8/14/20d, 2026-09-01): this used to force
@@ -2380,6 +2432,87 @@ function startSlideshow(){
   }
 }
 startSlideshow();
+
+// ============================================================
+// PRE-DASHBOARD AMBIENT MUSIC (owner instruction, 2026-09-02)
+// Plays on #hero and #loginGate (both are "pre-dashboard" -- neither is
+// ever visible at the same time as #app); stopped for good the moment
+// launchApp() runs, see the stopHeroMusic() call added there. See the
+// <audio> tag's own HTML comment (right after #hero closes) for the
+// track's real provenance -- it's an owner-supplied AI-generated file,
+// not a stock recording, recorded honestly rather than mislabeled.
+// ============================================================
+(function(){
+  var audio = document.getElementById('heroAmbientAudio');
+  var control = document.getElementById('heroMusicControl');
+  var toggleBtn = document.getElementById('heroMusicToggleBtn');
+  var volumeSlider = document.getElementById('heroMusicVolume');
+  var enableBtn = document.getElementById('heroMusicEnableBtn');
+  if (!audio || !control || !enableBtn) return;
+
+  // Spec: "20-30 seconds with a seamless loop if needed" -- the real file
+  // (dashboard/audio/hero_ambient.mp3) is a longer ambient piece (~117s),
+  // not trimmed at the file level (no audio-editing tool available in
+  // this session) -- looped in-place instead via timeupdate, restarting
+  // at 0 once LOOP_END is reached, so the ON-SCREEN experience matches
+  // the requested short loop without needing to re-encode the file.
+  var LOOP_END = 25;
+  audio.volume = 0.15; // spec: "start at low volume"
+  audio.addEventListener('timeupdate', function(){
+    if (audio.currentTime >= LOOP_END) audio.currentTime = 0;
+  });
+
+  var stopped = false; // true forever after launchApp() -- never restarts on the dashboard
+
+  function showControl(){ if (!stopped) control.classList.remove('u-hidden'); }
+  function hideControl(){ control.classList.add('u-hidden'); }
+  function updateToggleIcon(){
+    var icon = toggleBtn.querySelector('i');
+    if (!icon) return;
+    icon.className = audio.paused ? 'fa fa-volume-mute' : 'fa fa-music';
+    toggleBtn.classList.toggle('muted', audio.paused);
+  }
+
+  function attemptAutoplay(){
+    if (stopped) return;
+    var p = audio.play();
+    if (p && typeof p.catch === 'function') {
+      p.then(function(){ showControl(); updateToggleIcon(); })
+       .catch(function(){
+         // Autoplay blocked by the browser -- spec: "gracefully show a
+         // Enable Sound button and start the music after user interaction."
+         enableBtn.classList.remove('u-hidden');
+       });
+    } else {
+      showControl(); updateToggleIcon();
+    }
+  }
+
+  window.enableHeroMusic = function(){
+    enableBtn.classList.add('u-hidden');
+    audio.play().then(function(){ showControl(); updateToggleIcon(); }).catch(function(){});
+  };
+  window.toggleHeroMusic = function(){
+    if (audio.paused) { audio.play().catch(function(){}); } else { audio.pause(); }
+    updateToggleIcon();
+  };
+  window.setHeroMusicVolume = function(v){
+    audio.volume = parseFloat(v);
+    if (audio.volume > 0 && audio.paused) { audio.play().catch(function(){}); updateToggleIcon(); }
+  };
+  // Called once, from launchApp() -- the one real "entering the dashboard"
+  // choke point (see that function's own call site) -- never called from
+  // showLoginGate() since the owner revised the spec mid-task to keep the
+  // music playing through both #hero AND #loginGate, not just #hero.
+  window.stopHeroMusic = function(){
+    stopped = true;
+    audio.pause();
+    hideControl();
+    enableBtn.classList.add('u-hidden');
+  };
+
+  attemptAutoplay();
+})();
 
 function toggleSidebar(){
   var sb = document.getElementById('sidebar');
