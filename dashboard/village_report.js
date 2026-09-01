@@ -1406,8 +1406,24 @@
     s.dispatchEvent(new Event('change', { bubbles: true }));
   }
 
+  // Gram Panchayat names come from the village layer's own real gp_name
+  // attribute, so the GP dropdown needs that file -- which otherwise only
+  // arrives when a report is generated. Selecting a block must be enough
+  // (caught live on Punjab/Ludhiana/Jagraon: the GP dropdown sat empty
+  // because this read the cache without ever filling it), so kick the
+  // fetch off here and rebuild the selector once it lands. _gpFetching
+  // guards against re-entering on every 700 ms poll tick.
+  var _gpFetching = {};
   function gpListForBlock(ctx) {
-    var res = _cache['data/boundaries/' + 'soi/villages/' + ctx.stateSlug + '/' + ctx.districtSlug + '.geojson'];
+    var url = 'data/boundaries/' + 'soi/villages/' + ctx.stateSlug + '/' + ctx.districtSlug + '.geojson';
+    var res = _cache[url];
+    if (!res) {
+      if (!_gpFetching[url]) {
+        _gpFetching[url] = true;
+        getJson(url).then(function () { rebuildSelectorOnly(); });
+      }
+      return { supported: null, names: [], loading: true };
+    }
     if (!ok(res)) return { supported: null, names: [] };
     var feats = res.data.features.filter(function (f) {
       var p = f.properties || {};
@@ -1440,7 +1456,8 @@
         }).join('') + '</select></div>';
     }
     var gpPlaceholder = !ctx.blockName ? '-- Select Block first --'
-      : (gp.supported === false ? 'Not recorded by SoI in this block' : '-- All Gram Panchayats --');
+      : (gp.loading ? 'Loading…'
+        : (gp.supported === false ? 'Not recorded by SoI in this block' : '-- All Gram Panchayats --'));
     var villageOpts = optionsOf('villageSelect');
     if (ctx.gpName) {
       var members = villagesForGp(ctx, ctx.gpName).map(function (f) { return String(f.properties.vil_lgd); });
@@ -1452,7 +1469,7 @@
       sel('vr-state', 'State / UT', optionsOf('stateSelect'), ctx.stateName, false, '-- Select State --') +
       sel('vr-district', 'District', optionsOf('districtSelect'), ctx.districtName, !ctx.stateName, '-- Select District --') +
       sel('vr-block', 'Block / Tehsil', optionsOf('blockSelect'), ctx.blockName, !ctx.districtName, '-- Select Block/Tehsil --') +
-      sel('vr-gp', 'Gram Panchayat', gp.names.map(function (n) { return { value: n, label: n }; }), ctx.gpName, !ctx.blockName || gp.supported === false, gpPlaceholder) +
+      sel('vr-gp', 'Gram Panchayat', gp.names.map(function (n) { return { value: n, label: n }; }), ctx.gpName, !ctx.blockName || gp.supported === false || gp.loading, gpPlaceholder) +
       sel('vr-village', 'Village', villageOpts, ctx.villageLgd, !ctx.blockName, '-- Select Village --') +
       '</div>' +
       '<div class="vr-actions">' +
