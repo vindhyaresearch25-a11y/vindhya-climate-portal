@@ -1083,6 +1083,32 @@ body.mk-modal-open #pane-merakhet.active{
 #chatFabPopup.show{display:block;}
 #chatFabPopup::after{content:'';position:absolute;top:50%;right:-7px;transform:translateY(-50%);border-left:7px solid #ffffff;border-top:6px solid transparent;border-bottom:6px solid transparent;}
 #chatFab .fab-dot{position:absolute;top:6px;right:8px;width:9px;height:9px;background:var(--orange);border-radius:var(--radius-circle);border:2px solid #fff;}
+/* AUDIT_FIX_PROMPT.md item 15b, re-measured live 2026-09-02 -- STILL
+   broken, and the earlier fix was aimed at the wrong element. That fix
+   put padding-right:84px on .btm-content, reserving a strip at the RIGHT
+   EDGE OF THE BOTTOM PANEL. Measured at a 1280px viewport with Jabalpur
+   selected: #chatFab is fixed at x 1199-1261, #bottom-panel ends at
+   x=1000, and #right-panel occupies x 1000-1280. So the FAB is never
+   over .btm-content at all on desktop -- it is over the Climate Metrics
+   column, and it was sitting squarely on the "Crop Stress" metric card
+   (card x 1001-1280, y 665-765; FAB y 667-728). No amount of
+   .btm-content padding can reach that.
+   Reserving vertical space cannot fix it either: the page scrolls while
+   the FAB stays pinned 74px above the viewport bottom, so a different
+   card slides under it at every scroll offset. Only a horizontal gutter
+   in the column the FAB actually sits over is correct at every scroll
+   position -- which is exactly the owner's own first suggested remedy
+   ("data-card ki padding badhao ya button ki z-index/position adjust
+   karo"). 84px matches .btm-content's existing reserve (FAB is 56px wide
+   + its 22px right offset), so both columns now clear it by the same
+   constant.
+   Scoped above 1024px only: at <=1024px #right-panel becomes a
+   full-width stacked block at order:2 (see its own media queries), the
+   FAB no longer shares a column with it, and a gutter there would just
+   waste width on a phone. */
+@media(min-width:1024.02px){
+  #right-panel{padding-right:84px;}
+}
 @media(max-width:768px){
   /* Phase B's sticky location bar (~60px) sits at the very bottom on
      mobile; both the launcher and its popup label must clear it. */

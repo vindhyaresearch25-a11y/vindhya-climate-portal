@@ -332,8 +332,20 @@
     var tabs = firstTab ? firstTab.parentNode : null;
     if (tabs && !el('advisory-tab')) {
       var tab = document.createElement('div');
-      tab.innerHTML = '<i class="fa fa-comment-dots"></i>Advisory';
-      tab.className = 'btm-tab btm-tab-dup'; // owner report 2026-08-14: sidebar already has this exact item, this button was a visible duplicate
+      tab.innerHTML = '<i class="fa fa-comment-dots"></i>' + t('Farmer Advisory', 'किसान सलाह');
+      // Un-hidden 2026-09-02 (AUDIT_FIX_PROMPT.md item 1, live re-check).
+      // This was marked btm-tab-dup on the premise "sidebar already has
+      // this exact item". That premise is no longer true and made
+      // #pane-advisory completely unreachable: the sidebar has no Farmer
+      // Advisory entry at all, and setNav()'s only 'advisory' branch is
+      // `section === 'crop' || section === 'advisory'`, which opens
+      // pane-AGRICULTURE, not this pane. Verified live -- the pane builds
+      // a full real advisory for Jabalpur (heatwave/drought/NDVI-stress
+      // flags, each citing its own IMD/MODIS numbers) that nothing on the
+      // page could open. Same class of defect as the five unreachable
+      // tabs. Renamed "Advisory" -> "Farmer Advisory" so it stays a
+      // distinct name rather than re-creating the item 1 collision.
+      tab.className = 'btm-tab';
       tab.id = 'advisory-tab';
       tab.onclick = function () {
         var panes = document.querySelectorAll('.btm-pane'), i;

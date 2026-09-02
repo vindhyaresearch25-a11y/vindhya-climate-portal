@@ -189,7 +189,25 @@
       // has confirmed the duplicate naming should be resolved -- this is
       // the richer implementation, geoai_professional.js's nasa-tab is the
       // one now marked btm-tab-dup instead.
-      tab.className = 'btm-tab';
+      // Re-hidden 2026-09-02 (item 1 / item 20's "Live Weather abhi bhi
+      // sidebar aur neeche dono me hoobahoo ek jaisa naam hai"). The
+      // un-hiding above solved the RIGHT half of that report -- this pane
+      // is the better of the two implementations and geoai's NASA-only
+      // tab is correctly the hidden one now -- but it left the original
+      // collision standing: the sidebar's "Live Weather" and this tab
+      // carry the identical name and open the identical pane
+      // (setNav('liveweather') -> setBtmTab('liveweather')). Applying item
+      // 1's own stated default ("jo sach me duplicate content hai use
+      // neeche ki patti se hatao, sirf sidebar rehne do") -- the sidebar
+      // still opens this exact rich pane, so no view is lost and the name
+      // now appears exactly once, matching how Compare / Soil Moisture /
+      // Groundwater / PMFBY / Forest / Cadastral / Mera Khet were already
+      // resolved. Note this trades against item 0C's enumeration, which
+      // lists "Live Weather" among the 17 bottom tabs -- that list simply
+      // recorded what was visible when it was written, and item 1 + item
+      // 20 are the later, explicit instruction. The strip still shows 17
+      // tabs: Farmer Advisory (previously orphaned) takes this slot.
+      tab.className = 'btm-tab btm-tab-dup';
       tab.id = 'liveweather-tab';
       tab.onclick = function () {
         var panes = document.querySelectorAll('.btm-pane'), i;
