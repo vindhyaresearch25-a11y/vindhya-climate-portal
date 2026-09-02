@@ -351,6 +351,12 @@
     if (window.leafletMap) window.leafletMap.getContainer().style.cursor = '';
     clearDrawLayers();
     lastResult = null;
+    // Published so other panels can scale a per-hectare figure by the
+    // farmer's own MEASURED area instead of asking for it again. Cleared
+    // here too -- a stale area from a previous field would silently scale
+    // the next field's numbers wrong (STANDING ORDERS #2).
+    window._meraKhetLastField = null;
+    try { window.dispatchEvent(new CustomEvent('vindhya:merakhet-field', { detail: null })); } catch (e) {}
     var b = el('mk-btn-draw'); if (b) b.textContent = 'खेत खींचें / Draw field';
     mkStatus('');
     var r = el('mk-result'); if (r) r.innerHTML = mkEmptyHtml();
@@ -391,6 +397,13 @@
       districtNdvi: null // filled in below -- {value,dateLabel,source} or null, section 4
     };
     lastResult = res;
+    // See the clearing note above. Only the fields another panel legitimately
+    // needs are published, not the whole internal result object.
+    window._meraKhetLastField = {
+      area_ha: res.area_ha, perimeter_km: res.perimeter_km,
+      district_name: res.district_name, state_name: res.state_name
+    };
+    try { window.dispatchEvent(new CustomEvent('vindhya:merakhet-field', { detail: window._meraKhetLastField })); } catch (e) {}
     mkRender(res); // render immediately with area/perimeter; district data streams in after
     mkSetDownloadEnabled(true);
 

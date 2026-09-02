@@ -1298,6 +1298,24 @@ body.mk-modal-open #pane-merakhet.active{
 .u-icon-18{width:18px;height:18px;}
 .u-logo-icon{width:36px;height:36px;flex-shrink:0;object-fit:contain;}
 .u-empty-note{font-size:10px;opacity:.7;margin-top:4px;line-height:1.5;}
+/* AUDIT_FIX_PROMPT item 10b -- Fertilizer & Crop Recommendation
+   (dashboard/fertilizer_loader.js). Kept in the same CSS-variable system as
+   the rest of the page rather than adding inline styles (PENDING.md item 9). */
+.fert-panel{font-size:var(--fs-1);line-height:1.55;padding:0 var(--space-04) var(--space-04);}
+.fert-head{font-size:var(--fs-1);color:var(--text-dim);padding:var(--space-04) 0;border-bottom:1px solid var(--border);margin-bottom:var(--space-04);}
+.fert-season{margin-bottom:var(--space-075);}
+.fert-season-h{font-weight:700;letter-spacing:.04em;color:var(--green);font-size:var(--fs-1);margin:var(--space-04) 0 var(--space-025);}
+.fert-crop{border-left:2px solid var(--border);padding-left:var(--space-05);margin-bottom:var(--space-05);}
+.fert-crop-h{font-weight:700;}
+.fert-area{font-weight:400;color:var(--text-dim);font-size:var(--fs-1);}
+.fert-dose{margin:var(--space-025) 0 var(--space-04);}
+.fert-cond{color:var(--text-dim);}
+.fert-npk{color:var(--cyan);}
+.fert-field{color:var(--orange);}
+.fert-src{font-size:10px;color:var(--text-dim);opacity:.85;}
+.fert-none{font-size:var(--fs-1);color:var(--text-dim);padding:var(--space-04) 0;}
+.fert-missing{font-size:10px;color:var(--text-dim);opacity:.85;margin-top:var(--space-025);}
+.fert-caution{font-size:10px;color:var(--text-dim);border-top:1px solid var(--border);margin-top:var(--space-05);padding-top:var(--space-04);line-height:1.6;}
 .u-boundary-status{display:none;font-size:var(--fs-1);line-height:1.5;padding:0.4rem 0.5rem;margin-top:var(--space-03);background:rgba(26,138,158,0.08);border:1px solid rgba(26,138,158,0.25);border-radius:var(--radius-5);color:var(--text);}
 .u-advisory-box-cyan{background:rgba(26,138,158,0.08);border-left:3px solid var(--cyan);padding:0.4rem 0.5rem;border-radius:var(--radius-4);margin-bottom:var(--space-05);font-size:var(--fs-1);line-height:1.4;color:var(--text);}
 .u-demo-box{background:rgba(233,30,99,0.1);border:1px solid rgba(233,30,99,0.35);border-radius:var(--radius-6);padding:0.5rem 0.7rem;margin:0.5rem 0.5rem 0;font-size:var(--fs-1);line-height:1.6;color:var(--text);}
@@ -5033,6 +5051,7 @@ async function runChatCompletion(){
 <script src="advisory_loader.js"></script>
 <script src="groundwater_loader.js"></script>
 <script src="national_cmip6_loader.js"></script>
+<script src="fertilizer_loader.js"></script>
 <!-- Village Profile & Agricultural Intelligence Report (owns #pane-village).
      Injects its own CSS and watches the pane's class itself, so this one
      line is the module's entire footprint in index.html. -->
