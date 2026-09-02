@@ -643,7 +643,7 @@ function renderCropArea(f) {
   <div class="sub">Sections 7 and 8. A mismatch is a verification flag &mdash; never an automatic fraud finding.</div>
   <div class="g2">
     <div class="box">
-      <h5>Section 7 &mdash; Girdawari vs Remote Sensing</h5>
+      <h5>Section 7 &mdash; Girdawari vs Remote Sensing <span class="tag t-sim">SIMULATED</span></h5>
       <table class="dt">
         <tr><th>Source</th><th>Crop</th><th>Confidence</th></tr>
         <tr><td>Traditional record (Girdawari)</td><td class="num">${esc(g.crop)}</td><td class="num">&mdash;</td></tr>
@@ -660,7 +660,7 @@ function renderCropArea(f) {
                   classification error &mdash; it is <b>never</b> automatically labelled fraud.</div>`}
     </div>
     <div class="box">
-      <h5>Section 8 &mdash; Actual Cultivated Area Detection</h5>
+      <h5>Section 8 &mdash; Actual Cultivated Area Detection <span class="tag t-syn">SYNTHETIC</span></h5>
       <table class="dt">
         <tr><td>Cadastral area</td><td class="num">${ha(f.cadastral_area_ha)}</td></tr>
         <tr><td>Reported cultivated area (girdawari)</td><td class="num">${ha(g.reported_area_ha)}</td></tr>
@@ -949,7 +949,7 @@ function renderCompareTable(f) {
     ['Insurance', 'Record-based input', 'Evidence-supported indicative simulation'],
   ];
   return `
-  <h3>Traditional vs Technology-Assisted &mdash; Full Comparison</h3>
+  <h3>Traditional vs Technology-Assisted &mdash; Full Comparison <span class="tag t-syn">SYNTHETIC</span></h3>
   <div class="sub">Section 17, for parcel ${esc(f.farmer_id)} / ${esc(f.khasra_no)}.</div>
   <div class="box">
     <table class="dt">
@@ -983,7 +983,7 @@ function renderVerify(f) {
   <div class="sub">Sections 18 and 19. AI is decision-support; it is never the final authority.</div>
   <div class="g2">
     <div class="box">
-      <h5>Section 18 &mdash; Anomaly detection</h5>
+      <h5>Section 18 &mdash; Anomaly detection <span class="tag t-sim">SIMULATED</span></h5>
       <table class="dt">
         <tr><th>Check</th><th>Result</th></tr>
         ${checks.map(([l, hit]) => `<tr><td>${esc(l)}</td>
@@ -997,7 +997,7 @@ function renderVerify(f) {
         parcel to a human reviewer.</div>
     </div>
     <div class="box">
-      <h5>Section 19 &mdash; Human-in-the-loop</h5>
+      <h5>Section 19 &mdash; Human-in-the-loop <span class="tag t-sim">SIMULATED</span></h5>
       ${chain(['AI Detection', 'Confidence / Risk Score', 'Human Verification', 'Final Assessment'])}
       <table class="dt">
         <tr><td>AI detection</td><td class="num">${esc(t.ai_crop)}, loss ${t.estimated_loss_pct}%</td></tr>
