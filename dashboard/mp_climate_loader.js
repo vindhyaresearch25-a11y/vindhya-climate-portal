@@ -217,7 +217,7 @@
   // district-level layer in this portal uses, so it is now authoritative
   // for all 733 districts and national_cmip6_loader.js handles every
   // district including these 5. The two agree closely where they overlap
-  // (checked 2026-09-02 for all 5: hot days within 0.5-3.6 d/yr, peak Tmax
+  // (checked 2026-09-02 for all 5: hot days within 0.4-3.6 d/yr, peak Tmax
   // within 0.3 degC), so this is a refinement, not a reversal.
   //
   // `future_2040` is deliberately still present in mp_climate_data.json,

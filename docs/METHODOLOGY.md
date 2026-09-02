@@ -235,7 +235,7 @@ spatial unit they reduce over:
 | Written | 2026-09-01 (this project's first real CMIP6 result) | 2026-09-01 |
 
 Compared directly for the same 5 districts on 2026-09-02 they agree closely
-— hot days within 0.5–3.6 d/yr, peak Tmax within 0.3 °C, annual rain within
+— hot days within 0.4–3.6 d/yr, peak Tmax within 0.3 °C, annual rain within
 6 %, R95p within 8 %; Rx1day differs most (up to ~25 %), which is expected of
 a single-maximum statistic sampled over two different footprints. So neither
 was wrong, and this is a refinement rather than a contradiction.

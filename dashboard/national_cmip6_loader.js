@@ -22,7 +22,7 @@
  * 5 km buffer around one centroid point; 09 reduces over the district's
  * real Survey of India polygon, which is the same unit every other
  * district-level layer in this portal uses. Compared directly for those 5
- * districts (2026-09-02) the two agree closely -- hot days within 0.5-3.6
+ * districts (2026-09-02) the two agree closely -- hot days within 0.4-3.6
  * d/yr, peak Tmax within 0.3 degC, annual rain within 6% -- so this is a
  * refinement, not a contradiction, and neither was "wrong". The polygon
  * version simply measures the district rather than a disc near its middle,
