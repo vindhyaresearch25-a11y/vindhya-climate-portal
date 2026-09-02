@@ -32,7 +32,8 @@ by design, not a real loss.
 | `data/mp_climate_data.json` (5 districts) | IMD 0.05° gridded daily Tmax/Tmin/Precip NetCDF, 2000–2024 | ~5.5 km | EPSG:4326 | scripts 01–04: nearest-pixel village sampling, IMD heatwave criteria, SPI, ETCCDI (base 2000–2014) | Verified | 2026-07-31 |
 | `data/dicra_ndvi.json` (52 Madhya Pradesh districts only) | UNDP DiCRA district NDVI zonal statistics (MODIS-derived) | district zonal | EPSG:4326 | script 07 aggregation | Verified | 2026-07-31 |
 | `data/forecast_2040.json` | OLS linear trend on observed 2000–2024 annual indices, 95% residual band | district | — | script 07 (deterministic, no injected noise) | Indicative | 2026-07-31 |
-| CMIP6 2040 (via scripts 05–06) | NEX-GDDP-CMIP6, 8-model ensemble, SSP2-4.5, Google Earth Engine | 0.25° | EPSG:4326 | 2036–2045 window minus 2000–2014 baseline (delta) | Verified when run | on demand |
+| `data/cmip6_2040/<state_slug>/<district_slug>.json` (**all 733 districts** — the authoritative CMIP6 layer) | NASA NEX-GDDP-CMIP6 (bias-corrected, statistically downscaled daily), 8-model ensemble (ACCESS-CM2, CMCC-ESM2, EC-Earth3, GFDL-ESM4, INM-CM5-0, MPI-ESM1-2-HR, MRI-ESM2-0, NorESM2-MM), SSP2-4.5, via Google Earth Engine | ~25 km (0.25°) native NEX-GDDP grid — coarser than most districts; **not valid at block or village scale** | EPSG:4326 | `scripts/09_gee_national_cmip6_2040.py`: `reduceRegions` (mean, 25 km scale) over each district's **real Survey of India polygon**, state-by-state, resumable. Future window 2036–2045 vs 2000–2014 historical baseline; delta computed locally from the two fetched dicts, not a third GEE call. Max-type indices (`max_summer_tmax`, `rx1day_mm`) are the **mean of the per-year maxima** (ETCCDI TXx/Rx1day), not the window maximum — see METHODOLOGY §5. `hot_days_tmax_ge40_per_yr` is a **hot-day count (Tmax ≥ 40 °C, Mar–Jun), NOT the IMD heatwave-event index** — see METHODOLOGY §5.1 | Verified — model scenario, never an observation | 2026-09-02 |
+| `mp_climate_data.json` → `future_2040` (5 MP districts, via scripts 05b/06) — **SUPERSEDED, retained for provenance, no longer rendered** | Same NEX-GDDP-CMIP6 ensemble, scenario and windows as the row above | 0.25° | EPSG:4326 | `scripts/05b_run_cmip6_2040.py`: identical computation but reduced over a **5 km buffer around each district's centroid point** rather than its polygon. This project's first real CMIP6 result (2026-09-01). Superseded 2026-09-02 by the polygon-based national layer above, which measures the district rather than a disc near its middle and is the same spatial unit as every other district-level layer here. The two agree closely for the 5 overlapping districts (hot days within 0.5–3.6 d/yr, peak Tmax within 0.3 °C, annual rain within 6 %), so this is a refinement, not a contradiction — see METHODOLOGY §5.2. Each `future_2040` block carries its own `superseded_by` + `superseded_note` | Superseded | 2026-09-02 |
 | `mp_districts/tehsils/blocks.geojson`, `data/villages_*.geojson` | MP-only boundary files, pre-national-selector | vector | EPSG:4326 | none | **Superseded, unreferenced** — replaced nationally by `data/boundaries/soi/*` below; files remain on disk (not deleted) but no dashboard code fetches them as of 2026-08-02 | 2026-08-02 |
 | `data/boundaries/soi/states.geojson` (36 states/UTs) | Survey of India `state-boundary` product, hosted via National Water Data Portal (NWDP/NWIC, Ministry of Jal Shakti), free, no login | vector, simplified 0.0005° | EPSG:4326 (reprojected from source EPSG:7755) | script `build_national_soi_boundaries.py` --stage state: topology-preserving simplify (see below) | Verified-official | 2026-08-02 |
 | `data/boundaries/soi/districts.geojson` (733 districts) | Survey of India `district-boundary` product, NWDP | vector, simplified 0.0005° | EPSG:4326 (reprojected from source EPSG:7755) | script `build_national_soi_boundaries.py` --stage district | Verified-official | 2026-08-02 |
@@ -45,7 +46,7 @@ by design, not a real loss.
 | `data/crop_yield/icrisat_district_panel.json` (20 states, 560 districts, 1990-2015) | ICRISAT District-Level Data: "Heterogeneous Climate Effect on Crop Yield and Associated Risks to Water Security in India" (Mohapatra, S. / ICRISAT), Mendeley Data, DOI `10.17632/ywp3y5j9vv.1`, CC BY 4.0 | district, annual | not applicable (tabular) | `scripts/crop_yield/01_fetch_icrisat_district_yield.py`: downloads the source's single `.xls` via Mendeley's public files API, verifies its SHA-256 against the API's own hash before parsing, keeps crop area/production/yield (rice, pearl millet, chickpea, groundnut, sugarcane) + irrigated/cropped area + fertiliser + labour + 4 seasonal (not 48 raw monthly) climate aggregates -- documented trim, raw `.xls` cached alongside (gitignored) for re-parsing | Verified-official, district-level -- **not parcel-level ground truth**, used per `docs/CROP_YIELD_METHODOLOGY.md` §4 as a regression target/sanity bound only | 2026-08-06 |
 | `data/boundaries/soi/districts_index.json` (733 districts, state_name/district_name/district_lgd only, no geometry) | Same Survey of India source as `districts.geojson` (now HF-hosted, see `data/boundaries/README.md`) -- a properties-only extract of it | district | not applicable | `scripts/build_districts_index.py`: fetches the HF-hosted `districts.geojson`, drops geometry, keeps only the 3 identifying properties. Exists because `national_districts.py` (the shared district-name list every fetch script iterates) used to read `districts.geojson` directly and broke when that ~20MB file left the working tree in the 2026-08-06 HF migration -- this ~69KB file is small enough to check into git directly rather than adding a network fetch to every data-pull script | Verified-official (derived, not independently sourced) | 2026-08-07 |
 | `data/crop_list.json` (59 crops) | Derived from `crop_stats.json`'s own crop labels (data.gov.in) | not applicable | not applicable | `scripts/build_crop_list.py`, hand-run when `crop_stats.json`'s crop set changes | Self-referential (derived) | 2026-08-07 |
-| `data/ground_truth/<state_slug>/<district_slug>.json` -- **not live yet, 0 rows** | Farmer-submitted crop/season/location via the Kisan Fasal Sahyog form (`dashboard/kisan_upload.html`), a farmer's own drawn field boundary via Mera Khet (`dashboard/mera_khet.js`, MERA_KHET_PROMPT.md BHAAG A2), AND, as of KISAN_DASHBOARD_PROMPT.md section 8 (KRAM 6), an optional free-text damage/problem description via the Kisan Dashboard's report form (`dashboard/kisan_dashboard.js`) -- same D1 table, same `/submit` endpoint, one pipeline, three callers | village/block/district (point-in-polygon resolved); polygon geometry when submitted via Mera Khet; `problem_description` (max 500 chars) when submitted via the Kisan Dashboard's report form | EPSG:4326, coordinates (and every polygon vertex) rounded to 3 decimals (~100m) before publication -- rounded a second time server-side, not trusted from the client alone | `cloudflare/kisan_upload_worker.js` (D1 write, `submissions.geometry_json` added by `cloudflare/kisan_upload_schema_002_geometry.sql`, `submissions.problem_description` added by `cloudflare/kisan_upload_schema_003_problem.sql`) + `scripts/export_ground_truth.py` (daily export, `.github/workflows/ground-truth-export.yml`) -- see `docs/GROUND_TRUTH_UPLOAD.md` for full design and current status | **Prototype, not deployed** -- Worker needs the owner's own `wrangler deploy` (credentials never handled in chat); no submissions exist to publish yet | n/a |
+| `data/ground_truth/<state_slug>/<district_slug>.json` -- **not live yet, 0 rows** | Farmer-submitted crop/season/location via the Kisan Fasal Sahyog form (`dashboard/kisan_upload.html`), a farmer's own drawn field boundary via Mera Khet (`dashboard/mera_khet.js`, MERA_KHET_PROMPT.md BHAAG A2), AND, as of KISAN_DASHBOARD_PROMPT.md section 8 (KRAM 6), an optional free-text damage/problem description via the Kisan Dashboard's report form (`dashboard/kisan_dashboard.js`) -- same D1 table, same `/submit` endpoint, one pipeline, three callers | village/block/district (point-in-polygon resolved); polygon geometry when submitted via Mera Khet; `problem_description` (max 500 chars) when submitted via the Kisan Dashboard's report form | EPSG:4326, coordinates (and every polygon vertex) rounded to 3 decimals (~100m) before publication -- rounded a second time server-side, not trusted from the client alone | `cloudflare/kisan_upload_worker.js` (D1 write, `submissions.geometry_json` added by `cloudflare/kisan_upload_schema_002_geometry.sql`, `submissions.problem_description` added by `cloudflare/kisan_upload_schema_003_problem.sql`, and — owner request 2026-09-02, "live location with photo" — an optional live field **photo** via `cloudflare/kisan_upload_schema_004_photo.sql`: `photo_url`, `photo_lat`, `photo_lon`, `photo_captured_at`. **Storage/access model:** the JPEG/PNG bytes go to a Cloudflare **R2 bucket** (binding `PHOTOS`, `vindhya-ground-truth-photos`); D1 and the daily export store only the resulting **object key**, never the image itself and never a public URL. Client downscales to ~1280 px / q0.75 before upload; the Worker enforces a 2 MB decoded cap and an image/jpeg|png allow-list. `photo_lat`/`photo_lon` are the capture-moment position, independent of the submission's own point, and are rounded to 3 decimals (~100 m) in the export like every other coordinate. **Nothing serves these photos back anywhere yet** — no dashboard panel, loader or export renders them; the key is recorded so a future reviewer can resolve it against the bucket. A submission with no photo (Mera Khet, Kisan Dashboard damage form) is entirely unaffected: same table, same `/submit` endpoint, a fourth optional field rather than a new pipeline) + `scripts/export_ground_truth.py` (daily export, `.github/workflows/ground-truth-export.yml`) -- see `docs/GROUND_TRUTH_UPLOAD.md` for full design and current status | **Prototype, not deployed** -- Worker needs the owner's own `wrangler deploy` (credentials never handled in chat); no submissions exist to publish yet | n/a |
 | Mera Khet field polygon (`dashboard/mera_khet.js`) -- client-side only, not a stored dataset | Farmer-drawn on the map; area/perimeter via `geoai_professional.js`'s spherical/haversine geometry (reused, not reimplemented); the polygon's centroid is matched against `data/boundaries/soi/districts.geojson` to attach that district's already-published soil-moisture (`data/soil_moisture/`), climate (`data/climate/`, or `data/mp_climate_data.json` for the 5 original districts), and NDVI (`data/dicra_ndvi.json` or `data/ndvi/<state>/<district>.json`) values, each carrying its own resolution/N label; field-level cropland fraction + NDVI come from a **live** Earth Engine query via `cloudflare/mera_khet_worker.js` (Sentinel-2 SR Harmonized NDVI + Dynamic World V1 cropland classification, 10 m, `POST /analyze` calling Earth Engine's REST API `value:compute` directly with a service-account token) | field (exact, farmer-drawn; NDVI/cropland resolved at 10 m for that exact polygon, live, not cached); attached weather/soil/district-NDVI values are district/grid-cell tier, explicitly labelled as such, never claimed field-specific | EPSG:4326 | No new data pipeline for weather/soil/district-NDVI -- reuses the SoI boundary file, the existing SMAP soil-moisture pipeline (`scripts/13_gee_national_soil_moisture.py`), the ERA5-Land+CHIRPS/IMD climate pipelines, and the DiCRA/MODIS NDVI files as-is. Field-level NDVI/cropland: `cloudflare/mera_khet_worker.js`'s `/analyze` endpoint, expression graph obtained via `ee.serializer.encode()` (Earth Engine's own client library, not hand-written), verified side-by-side against `ee.data.computeValue()` in Python for 3 independent polygons before deploy -- see that file's header for the full verification method | Field NDVI/cropland: real, live, deployed (`https://vindhya-mera-khet.vindhyaresearch25.workers.dev/analyze`) as of 2026-08-13. 6-month NDVI time-series graph (MERA_KHET_PROMPT.md A1.2) explicitly **not yet built** -- scoped out, needs repeated monthly Earth Engine calls, not shipped unverified | 2026-08-13 |
 | Mera Khet field wetness index (relative) (`dashboard/mera_khet.js`, section 3; `cloudflare/mera_khet_worker.js`'s `/analyze` response field `field_wetness_index_relative`) -- KHET-STAR KI NAMI item 4b, client-side only, not a stored dataset | **Live** Earth Engine query: Sentinel-1 GRD (`COPERNICUS/S1_GRD`) VV/VH backscatter (dB), most recent scene intersecting the field in a 60-day window, `reduceRegion(mean)` over the farmer's polygon vs. that SAME image's `reduceRegion(mean)` over the polygon's containing district (`FAO/GAUL/2015/level2`, a real GEE administrative-boundary asset -- verified live to correctly resolve Bhopal/Indore/Rewa for 3 independent test polygons). Chosen only after 4a (SMAP/Sentinel-1 disaggregated `SPL2SMAP_S`, 1-3 km) was independently re-verified as **not usable in GEE** -- see `docs/SOIL_MOISTURE_FIELD_SCALE_INVESTIGATION.md` (the collection was never ingested into Earth Engine's public catalog per `ee.data.listAssets()` against the real `NASA/SMAP` folder, and separately the source product itself has been paused at NASA/NSIDC since 2026-07-01 pending a Sentinel-1C/1D migration) | field (10 m, exact farmer-drawn polygon, live, not cached) vs. district (`FAO/GAUL` district polygon, not the SoI district boundary used elsewhere in this repo -- a deliberate, disclosed substitution for this one comparison) | EPSG:4326 | `cloudflare/mera_khet_worker.js`'s `buildS1WetnessExpression()`: expression graph built in Python with the real `earthengine-api` library and serialized via `ee.serializer.encode(..., for_cloud_api=True)` (never hand-written), verified byte-for-byte against `ee.data.computeValue()` for 3 independent real polygons, then structurally deep-equal-verified between the hand-transcribed JS graph and the Python-generated template. Field/district dB values converted to a percentage via the linear-power-ratio transform (`10^((field_db-district_db)/10) - 1) * 100`) -- a real, well-defined transform of the SAME acquisition's backscatter, **not** a moisture-percent claim | **NOT a m³/m³ soil-moisture measurement, and the response field is deliberately never named `soil_moisture`** -- SAR backscatter responds to vegetation and surface roughness as well as moisture, so it cannot be inverted to an absolute moisture value without ancillary data this repo does not have. Honest because both numbers come from the identical satellite pass, so calibration/speckle mostly cancel in the ratio even though the absolute value does not invert. Real, live, deployed as of 2026-08-13. Real Sentinel-1 revisit measured on the same ~1.86 ha benchmark polygon docs/MERA_KHET_BENCHMARK.json uses: only 1 scene in the last 30 days, 4 in the last 60 days (irregular gaps of 7/12/24 days) -- worse than the idealized "6-12 day combined revisit" because the observation window straddled Sentinel-1A's documented June 2026 end-of-life during the transition to the Sentinel-1C/1D pair (Copernicus SentiWiki, fetched 2026-08-13) | 2026-08-13 |
 | `data/crop_stats_des/<year>-<yy>.json` (23 files, 2000-01 through 2022-23, 372,904 records) | Directorate of Economics and Statistics (DES), Dept. of Agriculture and Farmers Welfare, data.desagri.gov.in -- CROP_DATA_PROMPT.md's designated MUKHYA (primary) crop source, kept **separate** from the legacy `crop_stats.json` (data.gov.in) and any future UPAg/state-report pull, never merged | district, season (Rabi/Kharif/Autumn/Winter/Summer/Whole Year) | not applicable (tabular); area in hectares, production in tonnes (bales for cotton/jute -- see each record's own `unit` field) | `scripts/fetch_des_apy.py`: one POST per calendar year to the exact endpoint DES's own "View Report" button calls (`/report/crop/horizontal_crop_vertical_year`), all states/districts/crops/seasons per request (verified this doesn't overload the server), parsed with the same table logic as the browser-side `scripts/des_apy_table_extractor.js` twin (used interactively first to prove correctness against on-screen values before automating) | Verified: spot-checked exact match against on-screen DES values (e.g. Nicobars/Arecanut/Kharif 2000-01: 1,254.00 ha / 2,000.00 t / 1.59 t/ha); 0 negative values; district-name reconciliation against SoI done, see `docs/DISTRICT_NAME_MAP.md` | one-time historical pull, 2026-08-07 |
@@ -366,7 +367,31 @@ research pilot study. It is bounded as follows and must stay bounded:
 IDs, khasra numbers and parcel polygons; girdawari records and land status;
 all NDVI/NDWI/EVI series and crop-health scores; all weather events, damage
 areas and loss percentages; all AI confidence and evidence scores; and all
-premium and claim values. Parcel component areas (bund/med, farm road,
+premium and claim values.
+
+**"Synthetic" here means the INPUTS are simulated — every displayed statistic
+is still computed from them by a real, re-derivable formula, never drawn.**
+That distinction is the whole point of CROP_INSURANCE_SYSTEM_PROMPT.md §21(i),
+and it was not fully honoured until the 2026-09-02 audit. `ai_confidence_pct`
+was `rng.uniform(86, 95)` — a bare random number with no link to any other
+field, repeated at 11 render sites, and driving a decision rule (`< 88` →
+"additional evidence advised"), i.e. an anomaly flag settled by a coin flip.
+It is now a weighted sum of three terms computed from this same record —
+phenology fit against the expected undamaged curve (0.45), Sentinel-2 pixel
+support derived from the parcel's cultivated area (0.25), and class
+separability over the real same-season candidate set (0.30) — with the
+components written into the file as `ai_confidence_components` so the page can
+show the arithmetic. Four evidence-score components (the NDWI, rainfall-anomaly
+and multi-temporal terms, plus both no-event terms — together ~70 % of that
+score's weight) were likewise `rng.uniform` draws and now use the real
+simulated signals already stored beside them. Random draws remain only where
+they represent simulated *measurement noise on top of* a real derivation (e.g.
+the ±2–5 % jitter on crop health), never as the whole value.
+
+**Not field-validated.** "Correctly computed from the synthetic inputs" is not
+"validated against real farmers". No number in this module has been checked
+against a real crop-loss assessment, and the page must keep saying so wherever
+a percentage appears. Parcel component areas (bund/med, farm road,
 waterbody, fallow, non-crop, cultivated) are geometrically derived from the
 generated polygons, so they sum to the cadastral area rather than being
 typed-in numbers.
@@ -376,6 +401,82 @@ Sum Insured per hectare and the actuarial/gross premium rate are
 Sum Insured is the notified Scale of Finance and varies by
 state/district/season/crop, and the actuarial rate is discovered by insurer
 bidding per cluster. Both are exposed as editable inputs in the UI.
+
+## Village Profile & Agricultural Intelligence Report (`dashboard/village_report.js`, registered 2026-09-02)
+
+**Not a new dataset — a consumer.** This module introduces no source of its
+own. It is registered here because the register's own rule is "layers not
+listed must not be displayed", and this page displays values from eight
+already-registered layers at once, so a reader needs one place that says
+exactly which.
+
+| Report section | Layer it reads | Row above |
+|---|---|---|
+| Village identity, population, households, land use, irrigation, water sources, nearest town | `data/village_profiles/<state>/<district>.json` (SoI/NWDP attribute table, HF-hosted) | SoI village profiles |
+| Climate indices | `data/climate/<state>/<district>.json` | ERA5-Land + CHIRPS via GEE |
+| NDVI | `data/ndvi/<state>/<district>.json` | MODIS MOD13Q1 v061 |
+| Soil moisture (district / block / village-cell tiers) | `data/soil_moisture/<state>/<district>.json` | NASA SMAP L4 |
+| Groundwater level + OLS trend | `data/groundwater/<state>/<district>.json` | CGWB via NWDP |
+| Crop area/production/yield | `data/crop_stats_des_by_district/<state>/<district>.json` | DES, data.desagri.gov.in |
+| Advisory flags | `data/advisory/<state>/<district>.json` | Derived rule-based layer |
+| Horticulture | `data/horticulture_stats/<state>.json` | Horticultural Statistics at a Glance 2023 |
+| Mandi prices | `data/mandi_prices.json` | AGMARKNET via data.gov.in |
+
+Two design rules this module is held to, both re-verified 2026-09-02:
+
+- **Every aggregate states what it was built from.** It is a *single-village*
+  report, so there is no cross-village population or area roll-up to label;
+  where records genuinely are combined the count travels with the number —
+  the season split emits its own "Crops reported" count, the KPI strip carries
+  "CROPS REPORTED" and "RECORDS IN SERIES" beside "TOTAL SOWN AREA", and the
+  SMAP tier table carries both an `N` column and a "What N counts" column
+  naming precisely what each N is (real cells sampled over the district
+  polygon / this block's villages / the single 9 km cell shared with N
+  others). Derived scalars — sex ratio, land-use share of total, irrigated
+  share of net sown area — are each labelled "(derived)".
+- **A gap renders as a gap, never as a zero.** An `IMPOSSIBLE_ZERO` guard
+  converts a physically-impossible published zero (male = 0 in a village of
+  10,405 people) into an explicit "Not recorded for this village" note naming
+  the suppressed fields, and every unavailable section renders "Data not
+  available for the selected location/period" plus a section-specific reason
+  rather than a blank or a 0.
+
+**Known gap, recorded not fixed:** `village_report.js` defines `t()`/
+`isHindi()` but never calls them, so the report is English-only while every
+sibling loader is bilingual. Translating ~20 sections is a separate piece of
+work; recorded here and in PENDING.md rather than left undiscovered.
+
+## Metadata contract and how it is enforced (added 2026-09-02)
+
+Every JSON served under `dashboard/data/` must carry a `metadata` block with
+**source, resolution, CRS, processing, last_updated**. This was stated in
+CLAUDE.md and here long before it was enforced: the CI check globbed
+`dashboard/data/*.json` **non-recursively** and only asserted that the key
+existed, so it inspected 10 files out of ~5,200 and `"metadata": {}` passed.
+99.8 % of published data was unchecked, and the workflow did not even run on
+data pushes.
+
+As of 2026-09-02 `.github/workflows/verify-data.yml` globs recursively,
+asserts all five keys, and triggers on `dashboard/data/**`.
+`scripts/backfill_data_metadata.py` brought all 5,200 files into compliance.
+It did **not** invent provenance: almost every file already carried real,
+detailed provenance recorded under a different key name by whichever pipeline
+wrote it (`crs` vs `CRS`, `method`/`generator` vs `processing`,
+`fetch_date`/`generated` vs `last_updated`), so the work was overwhelmingly an
+alias. Only two kinds of value were newly written, both verifiable:
+`CRS: EPSG:4326` for genuinely georeferenced layers (true by construction —
+every geometry here comes from the Survey of India files, reprojected to
+EPSG:4326 on ingest), and `processing` = the actual producing script, taken
+from a per-directory map checked against each script's own output path.
+Where neither applied, the script leaves the field alone and reports it, so
+it surfaces as a CI failure rather than being papered over.
+
+Two narrow, documented exemptions live in the CI check, per directory rather
+than blanket: `CRS` on tabular layers that carry no geometry at all (DES and
+ICRISAT crop tables, horticulture, the knowledge-base index — a coordinate
+reference system is not a property of a table of crop areas), and
+`resolution` on layers whose unit is an administrative area rather than a
+grid (advisory flags, per-district crop tables).
 
 ## Removed in the 2026-08 cleanup
 
