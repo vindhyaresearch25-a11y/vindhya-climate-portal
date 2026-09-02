@@ -2928,10 +2928,42 @@ function closeMeraKhetModal(){
       // visible) container and redraws at the correct size. Reuses this
       // same observer rather than adding a 5th place charts get told to
       // resize.
+      // Re-diagnosed live 2026-09-02: the plain .resize() above is NOT
+      // enough and never was. mp_climate_loader.rebuildCharts() builds all
+      // five charts back-to-back the moment a district is selected, while
+      // every pane except the active one is still display:none -- so those
+      // instances are constructed against a 0x0 box and Chart.js bakes
+      // chart.width=0/height=0 in permanently. Proven on the deployed
+      // build with Jabalpur selected and the pane genuinely visible at
+      // 1044x200: chart.attached was true, inst.width/inst.height were
+      // both 0, and inst.resize() -- with the inline width/height:0px
+      // styles cleared first, and also as an explicit inst.resize(w,h) --
+      // left the canvas at 0x0 every time. Destroying that instance and
+      // constructing a new Chart on the SAME canvas in the SAME container
+      // immediately produced a correct 1044x200 (1879x359 backing store).
+      // So the container was never at fault and resize() cannot recover a
+      // zero-born instance -- only a rebuild can.
+      // Only zero-sized instances are rebuilt; healthy ones just resize,
+      // so switching between already-rendered tabs stays cheap and never
+      // throws away a chart that is fine.
       if (typeof Chart !== 'undefined' && Chart.getChart) {
         pane.querySelectorAll('canvas').forEach(function (cv) {
-          var inst = Chart.getChart(cv);
-          if (inst) setTimeout(function () { inst.resize(); }, 270);
+          setTimeout(function () {
+            var inst = Chart.getChart(cv);
+            if (!inst) return;
+            if (inst.width > 0 && inst.height > 0) { inst.resize(); return; }
+            var cfg = {
+              type: inst.config.type,
+              data: inst.config.data,
+              options: inst.config.options,
+              plugins: inst.config.plugins
+            };
+            try {
+              inst.destroy();
+              cv.style.width = ''; cv.style.height = '';
+              new Chart(cv, cfg);
+            } catch (e) { /* never let one bad chart break tab switching */ }
+          }, 270);
         });
       }
       // AUDIT_FIX_PROMPT.md item 0B, re-diagnosed live 2026-09-02.

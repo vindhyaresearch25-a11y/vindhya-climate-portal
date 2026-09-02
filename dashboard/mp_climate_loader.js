@@ -222,7 +222,7 @@
     host.innerHTML = ''
       + '<div class="section-header"><i class="fa fa-clock-rotate-left" style="color:var(--orange);font-size:0.7rem"></i>'
       + '<div class="section-title">2040 PROJECTION (SSP2-4.5, 8-MODEL CMIP6 ENSEMBLE)</div></div>'
-      + '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;padding:0.75rem;">'
+      + '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.5rem;padding:0.75rem;">'
       + '  <div class="metric-card"><div class="metric-label">HEATWAVE DAYS/YR</div><div class="metric-value cyan">'+fmt(f.heatwave_days_per_yr,1)+'</div><div style="font-size:0.65rem;font-weight:600">vs baseline: '+delta(f.delta_heatwave_days_per_yr,' d')+'</div></div>'
       + '  <div class="metric-card"><div class="metric-label">PEAK TMAX</div><div class="metric-value" style="color:var(--red)">'+fmt(f.max_summer_tmax,1)+'°C</div><div style="font-size:0.65rem;font-weight:600">vs baseline: '+delta(f.delta_max_summer_tmax,'°C')+'</div></div>'
       + '  <div class="metric-card"><div class="metric-label">R95p mm/yr</div><div class="metric-value" style="color:var(--blue)">'+fmt(f.r95p_mm_per_yr,1)+'</div><div style="font-size:0.65rem;font-weight:600">vs baseline: '+delta(f.delta_r95p_mm_per_yr,' mm',true)+'</div></div>'
@@ -251,7 +251,7 @@
     host.innerHTML = ''
       + '<div class="section-header"><i class="fa fa-house" style="color:var(--green);font-size:0.7rem"></i>'
       + '<div class="section-title">VILLAGE: '+match.name+' (tehsil '+match.tehsil+', LGD '+match._id+')</div></div>'
-      + '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;padding:0.75rem;">'
+      + '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.5rem;padding:0.75rem;">'
       + '  <div class="metric-card"><div class="metric-label">HEATWAVE D/YR</div><div class="metric-value cyan">'+fmt(i.heatwave_days,1)+'</div></div>'
       + '  <div class="metric-card"><div class="metric-label">MAX TMAX</div><div class="metric-value" style="color:var(--red)">'+fmt(i.max_summer_tmax,1)+'°C</div></div>'
       + '  <div class="metric-card"><div class="metric-label">DROUGHT %</div><div class="metric-value" style="color:var(--orange)">'+fmt(i.drought_probability_pct,1)+'%</div></div>'
@@ -296,13 +296,28 @@
     // own right edge entirely (found live: futureRect.left=687 was
     // already past wrapRect.right=721 minus its own width). Explicit
     // flex-direction:column fixes the actual stacking, not just the size.
-    wrap.style.cssText = 'display:none;flex-direction:column;flex:1;overflow-y:auto;border-right:1px solid var(--border);min-width:380px;max-width:500px;';
+    // items 0C/4/7a/15d (live re-diagnosis 2026-09-02): the side-column
+    // styling below (flex:1 + min-width:380px + max-width:500px +
+    // border-right + its own overflow-y:auto) was 15d's workaround for
+    // #bottom-panel's then-FIXED 260px height. That height cap is gone
+    // (the panel is height:auto and the PAGE scrolls), so the workaround
+    // now only does harm: it ate 380px of a 694px row and squeezed the
+    // active tab pane to a 230px ribbon whose Chart.js canvas measured
+    // 0x0 and could not be resized back. .btm-content is a column now
+    // (see index.html), so this wrap is a full-width section stacked
+    // UNDER the active pane, at its own natural height -- no inner
+    // scrollbar to hide rows behind, which is what 15d actually asked for.
+    wrap.style.cssText = 'display:none;flex-direction:column;width:100%;margin-top:var(--space-075);border-top:1px solid var(--border);';
     var h = document.createElement('div'); h.id = 'historical-indices-panel'; wrap.appendChild(h);
     var f = document.createElement('div'); f.id = 'future-2040-panel'; wrap.appendChild(f);
     var v = document.createElement('div'); v.id = 'village-detail-panel'; wrap.appendChild(v);
+    // Appended LAST, not inserted first: .btm-content is now a column, so
+    // "first child" would push this reference panel ABOVE the tab pane the
+    // user just clicked. Item 0C wants the clicked tab's own content
+    // directly under the tab grid, with this historical block beneath it.
     var btmContent = bp.querySelector('.btm-content');
-    if (btmContent) btmContent.insertBefore(wrap, btmContent.firstChild);
-    else bp.insertBefore(wrap, bp.firstChild); // fallback, should never hit
+    if (btmContent) btmContent.appendChild(wrap);
+    else bp.appendChild(wrap); // fallback, should never hit
   }
 
   var HAZARD_MAP = {
@@ -363,7 +378,7 @@
     host.innerHTML = ''
       + '<div class="section-header"><i class="fa fa-chart-line" style="color:var(--cyan);font-size:0.7rem"></i>'
       + '<div class="section-title">'+titleHtml+(selYear?' <span style="color:var(--orange)">['+selYear+']</span>':'')+'</div></div>'
-      + '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;padding:0.75rem;">'
+      + '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.5rem;padding:0.75rem;">'
       + '  <div class="metric-card'+match_h(hKeys,'heatwave')+'"><div class="metric-label">HEATWAVE DAYS/YR</div><div class="metric-value cyan">'+fmt(idx.heatwave_days_mean,1)+'</div></div>'
       + '  <div class="metric-card'+match_h(hKeys,'heatwave')+'"><div class="metric-label">SEVERE HW DAYS</div><div class="metric-value" style="color:var(--red)">'+fmt(idx.severe_heatwave_days_mean,1)+'</div></div>'
       + '  <div class="metric-card'+match_h(hKeys,'tmax')+'"><div class="metric-label">MEAN SUMMER TMAX</div><div class="metric-value" style="color:var(--orange)">'+fmt(idx.mean_summer_tmax,1)+'°C</div></div>'
