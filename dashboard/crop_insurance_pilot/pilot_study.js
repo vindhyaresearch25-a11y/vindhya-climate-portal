@@ -15,8 +15,11 @@
    groundwater, ...).
    ========================================================================== */
 
-const DATA_URL = '../data/crop_insurance_pilot/synthetic_farmers_100.json';
-const BOUNDARY_URL = '../data/crop_insurance_pilot/simrol_boundary.geojson';
+// Bump DATA_VERSION whenever the generator is re-run, so returning visitors and
+// GitHub Pages' CDN pick up the new dataset instead of serving a stale cache.
+const DATA_VERSION = '2026-09-02a';
+const DATA_URL = '../data/crop_insurance_pilot/synthetic_farmers_100.json?v=' + DATA_VERSION;
+const BOUNDARY_URL = '../data/crop_insurance_pilot/simrol_boundary.geojson?v=' + DATA_VERSION;
 
 const CROP_COLOR = {
   'Soyabean': '#4C9F70', 'Wheat': '#D9A441', 'Gram': '#8E6FB0',
@@ -85,6 +88,7 @@ async function boot() {
     console.warn('[pilot] final disclaimer text differs from dataset metadata');
   }
 
+  const __t0 = performance.now();
   buildKpis();
   buildMap(bndRes);
   buildFilterOptions();
@@ -92,6 +96,9 @@ async function boot() {
   wireEvents();
   buildAnalysisTabs();
   renderAnalysisEmpty();
+  renderFraming();
+  window.__pilotRenderMs = performance.now() - __t0;
+  renderAnalytics();
 }
 
 /* ---------- KPI strip (spec section 22) ---------- */
@@ -361,6 +368,7 @@ function selectFarmer(id, zoom) {
   renderList();
   renderTwin(selected);
   renderAnalysis(selected);
+  renderSim(selected);
 
   const layer = findThemeLayer(id);
   if (layer) {
@@ -458,8 +466,10 @@ function renderTwin(f) {
       ${f.event ? twinRows([
         ['Last Documented Event', esc(f.event.type)], ['Event Date', esc(f.event.date)],
         ['Event Intensity', esc(f.event.intensity)], ['Affected Area', ha(f.event.affected_area_ha)],
-        ['Pre-event NDVI', f.event.pre_event_ndvi], ['Post-event NDVI', f.event.post_event_ndvi],
-        ['NDVI Decline', f.event.ndvi_decline_pct + '%'],
+        ['Pre-event NDVI', f.event.pre_event_ndvi],
+        ['Expected NDVI (undamaged)', f.event.expected_ndvi],
+        ['Post-event NDVI', f.event.post_event_ndvi],
+        ['NDVI decline vs expected', f.event.ndvi_decline_pct + '%'],
       ]) : `<div style="font-size:12.5px;color:var(--dim);padding:6px 0;">
         No documented weather/loss event for this parcel in the simulated pilot season.</div>`}
     </div>
@@ -846,20 +856,26 @@ function renderEventDamage(f) {
     <div class="box">
       <h5>Section 12 &mdash; Before&ndash;after damage analysis <span class="tag t-sim">SIMULATED PILOT ESTIMATE</span></h5>
       <table class="dt">
-        <tr><td>Before-event NDVI</td><td class="num">${e.pre_event_ndvi}</td></tr>
-        <tr><td>After-event NDVI</td><td class="num">${e.post_event_ndvi}</td></tr>
-        <tr><td>Simulated vegetation decline</td><td class="num">${declinePct}%</td></tr>
+        <tr><td>Before-event NDVI (last prior observation)</td><td class="num">${e.pre_event_ndvi}</td></tr>
+        <tr><td>Expected NDVI for this date (undamaged curve)</td><td class="num">${e.expected_ndvi}</td></tr>
+        <tr><td>After-event NDVI (observed)</td><td class="num">${e.post_event_ndvi}</td></tr>
+        <tr><td>Simulated vegetation decline vs expected</td><td class="num">${declinePct}%</td></tr>
         <tr><td>Damaged area</td><td class="num">${ha(t.damage_area_ha)}</td></tr>
         <tr><td>Crop-health decline</td><td class="num">${t.crop_health_score}/100 now</td></tr>
         <tr><td><b>Technology-assisted estimated crop loss</b></td><td class="num">${t.estimated_loss_pct}%</td></tr>
       </table>
       <div style="margin-top:9px;">
-        <div style="font-size:11px;color:var(--dim);font-weight:700;">NDVI before &rarr; after</div>
-        <div class="bar" style="height:13px;"><i style="width:${(e.pre_event_ndvi * 100).toFixed(0)}%;background:#2e7d32"></i></div>
+        <div style="font-size:11px;color:var(--dim);font-weight:700;">Expected (green) vs observed (red) NDVI at the event date</div>
+        <div class="bar" style="height:13px;"><i style="width:${(e.expected_ndvi * 100).toFixed(0)}%;background:#2e7d32"></i></div>
         <div class="bar" style="height:13px;margin-top:4px;"><i style="width:${(e.post_event_ndvi * 100).toFixed(0)}%;background:#b3261e"></i></div>
       </div>
       <div class="note"><b>SIMULATED PILOT ESTIMATE.</b> Damage area is computed as a share of the detected
-        cultivated area, driven by the simulated NDVI decline. It is not a field-validated measurement.</div>
+        cultivated area, driven by the simulated NDVI decline. It is not a field-validated measurement.
+        <br><br><b>Why the decline is measured against an expected curve, not month-on-month:</b> early in
+        the season a crop canopy is still growing, so comparing consecutive months would confound damage
+        with normal growth (and can even produce a negative "decline"). The anomaly is therefore measured
+        against the expected undamaged NDVI for the same date &mdash; the same principle real change
+        detection uses.</div>
     </div>
   </div>`;
 }
@@ -875,7 +891,7 @@ function renderEvidence(f) {
     ['Growth trajectory', `Current simulated stage: ${esc(t.crop_stage)}`],
   ];
   const dmgEvidence = e ? [
-    ['Vegetation decline', `NDVI ${e.pre_event_ndvi} -> ${e.post_event_ndvi} (${e.ndvi_decline_pct}% decline)`],
+    ['Vegetation decline', `Observed ${e.post_event_ndvi} vs expected ${e.expected_ndvi} for the same date (${e.ndvi_decline_pct}% below expected)`],
     ['Weather anomaly', `${esc(e.type)}, intensity ${esc(e.intensity)}, ${esc(e.date)}`],
     ['Spatial damage', `${ha(t.damage_area_ha)} of ${ha(f.cultivated_area_ha)} cultivated area affected`],
     ['Temporal change', `Decline begins at the event date and partially recovers thereafter`],
@@ -1061,4 +1077,249 @@ function renderAudit(f) {
         follow how the pilot arrived at its numbers.</div>
     </div>
   </div>`;
+}
+
+/* =============================================================================
+   PHASE 3 -- SIMULATORS (15,16), ANALYTICS (21,22), RESEARCH FRAMING (25,26,28)
+   ========================================================================== */
+
+/* ---------- Sections 15 + 16 ---------- */
+const simState = {};
+function renderSim(f) {
+  const ins = f.insurance;
+  const st = simState[f.farmer_id] || (simState[f.farmer_id] = {
+    insured_area: ins.insured_area_ha, si_per_ha: ins.sum_insured_per_ha,
+    farmer_rate: ins.farmer_premium_rate_pct, gross_rate: 11,
+    threshold: ins.threshold_yield_t_ha, actual: ins.actual_yield_t_ha,
+  });
+  const sumInsured = st.insured_area * st.si_per_ha;
+  const farmerPrem = sumInsured * st.farmer_rate / 100;
+  const grossPrem = sumInsured * st.gross_rate / 100;
+  const subsidy = Math.max(0, grossPrem - farmerPrem);
+  const perHa = st.insured_area ? farmerPrem / st.insured_area : 0;
+  const shortfall = st.threshold > 0 ? Math.max(0, (st.threshold - st.actual) / st.threshold) : 0;
+  const claim = shortfall * sumInsured;
+
+  const num = (id, label, val, step, hint) => `<label class="field" for="${id}">${esc(label)}</label>
+    <input type="number" id="${id}" value="${val}" step="${step}" data-sim="${id}">
+    ${hint ? `<div style="font-size:10px;color:var(--dim);margin-top:2px;">${hint}</div>` : ''}`;
+
+  $('simBody').innerHTML = `
+  <div class="sim-grid">
+    <div class="box">
+      <h5>Configurable parameters</h5>
+      <div style="font-size:11px;color:var(--dim);margin-bottom:6px;">
+        ${esc(f.farmer_id)} &middot; ${esc(f.girdawari.crop)} &middot; ${esc(f.girdawari.season)}
+        &middot; ${esc(f.district)}</div>
+      ${num('sIns', 'Insured area (ha)', st.insured_area, '0.01')}
+      ${num('sSi', 'Sum Insured per ha (₹)', st.si_per_ha, '500',
+            'Notified Scale of Finance in the real scheme -- varies by state/district/season/crop.')}
+      ${num('sFr', 'Farmer premium rate (%)', st.farmer_rate, '0.1',
+            'Real notified PMFBY caps: Kharif 2%, Rabi 1.5%, annual commercial/horticultural 5%.')}
+      ${num('sGr', 'Actuarial / gross premium rate (%)', st.gross_rate, '0.5',
+            'Discovered by insurer bidding per cluster -- a pilot assumption here.')}
+      ${num('sTy', 'Threshold Yield (t/ha)', st.threshold, '0.01',
+            'Computed from REAL DES Indore history: mean of best 5 of last 7 years x indemnity level.')}
+      ${num('sAy', 'Actual / estimated yield (t/ha)', st.actual, '0.01', 'SIMULATED for this pilot.')}
+      <button class="btn ghost" id="simReset" style="margin-top:9px;">Reset to dataset values</button>
+    </div>
+    <div>
+      <div class="g2">
+        <div class="box">
+          <h5>Section 15 &mdash; Premium simulation</h5>
+          <table class="dt">
+            <tr><td>Sum Insured</td><td class="num">${inr(Math.round(sumInsured))}</td></tr>
+            <tr><td>Farmer Premium (${st.farmer_rate}%)</td><td class="num">${inr(Math.round(farmerPrem))}</td></tr>
+            <tr><td>Total / gross premium (${st.gross_rate}%)</td><td class="num">${inr(Math.round(grossPrem))}</td></tr>
+            <tr><td>Subsidy component</td><td class="num">${inr(Math.round(subsidy))}</td></tr>
+            <tr><td>Premium per hectare</td><td class="num">${inr(Math.round(perHa))}</td></tr>
+          </table>
+          <div style="font-size:11px;color:var(--dim);margin-top:7px;">
+            Sum Insured = Insured area &times; Sum Insured/ha &middot;
+            Farmer Premium = Sum Insured &times; farmer rate &middot;
+            Subsidy = Gross premium &minus; Farmer premium</div>
+          <div class="note"><b>Pilot/Indicative Insurance Premium Simulation &mdash; Not an Official
+            Premium Determination.</b></div>
+        </div>
+        <div class="box">
+          <h5>Section 16 &mdash; Indicative claim simulation</h5>
+          <table class="dt">
+            <tr><td>Technology-Assisted Loss Estimate</td><td class="num">${f.tech.estimated_loss_pct}%</td></tr>
+            <tr><td>Threshold Yield</td><td class="num">${st.threshold} t/ha</td></tr>
+            <tr><td>Actual / estimated yield</td><td class="num">${st.actual} t/ha</td></tr>
+            <tr><td>Yield shortfall</td><td class="num">${(shortfall * 100).toFixed(1)}%</td></tr>
+            <tr><td>Indemnity level</td><td class="num">${f.insurance.indemnity_level_pct}%</td></tr>
+            <tr><td><b>Indicative Claim</b></td><td class="num"><b>${inr(Math.round(claim))}</b></td></tr>
+          </table>
+          <div style="font-size:11px;color:var(--dim);margin-top:7px;">
+            Indicative Claim = ((Threshold Yield &minus; Actual Yield) &divide; Threshold Yield) &times; Sum Insured.
+            <b>Note this is a yield-shortfall computation, not simply Loss%&nbsp;&times;&nbsp;Sum Insured</b>,
+            and it is not presented as the official PMFBY formula &mdash; the parameters above are
+            configurable precisely because the notified values differ by scheme, season and crop.</div>
+          <div class="note"><b>Indicative research simulation only. Final insurance claim determination is
+            subject to applicable scheme rules, notified parameters, approved assessment methodology and
+            authorized verification.</b></div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+  $('simBody').querySelectorAll('[data-sim]').forEach(el => el.addEventListener('input', () => {
+    const map = { sIns: 'insured_area', sSi: 'si_per_ha', sFr: 'farmer_rate', sGr: 'gross_rate', sTy: 'threshold', sAy: 'actual' };
+    const v = parseFloat(el.value);
+    if (!isNaN(v)) { st[map[el.dataset.sim]] = v; renderSim(f); }
+  }));
+  const rb = $('simReset');
+  if (rb) rb.addEventListener('click', () => { delete simState[f.farmer_id]; renderSim(f); });
+}
+
+/* ---------- Sections 21 + 22 ---------- */
+const CH = {};
+function bins(vals, edges, labels) {
+  const out = new Array(labels.length).fill(0);
+  vals.forEach(v => {
+    for (let i = edges.length - 1; i >= 0; i--) { if (v >= edges[i]) { out[i]++; return; } }
+    out[0]++;
+  });
+  return out;
+}
+function countBy(arr, fn) {
+  const m = {};
+  arr.forEach(x => { const k = fn(x); m[k] = (m[k] || 0) + 1; });
+  return m;
+}
+
+function renderAnalytics() {
+  const F = FARMERS;
+  const n = F.length;
+  const sum = (fn) => F.reduce((a, f) => a + (fn(f) || 0), 0);
+  const agree = F.filter(f => f.girdawari.crop === f.tech.ai_crop).length;
+  const mismatch = n - agree;
+  const areaMismatch = F.filter(f => Math.abs(f.tech.area_difference_pct) >= 30).length;
+  const damaged = F.filter(f => f.tech.damage_area_ha > 0);
+  const needVer = F.filter(f => f.tech.verification_required).length;
+  const repArea = sum(f => f.girdawari.reported_area_ha);
+  const detArea = sum(f => f.tech.detected_cultivated_area_ha);
+
+  const metrics = [
+    ['Crop classification agreement', (agree / n * 100).toFixed(0) + '%'],
+    ['Crop mismatch', (mismatch / n * 100).toFixed(0) + '% (' + mismatch + ')'],
+    ['Area mismatch (>=30%)', (areaMismatch / n * 100).toFixed(0) + '% (' + areaMismatch + ')'],
+    ['Average AI confidence', (sum(f => f.tech.ai_confidence_pct) / n).toFixed(1) + '%'],
+    ['Average evidence score', (sum(f => f.tech.evidence_score_pct) / n).toFixed(1) + '%'],
+    ['Damaged parcels', damaged.length + ' of ' + n],
+    ['Total estimated damage area', sum(f => f.tech.damage_area_ha).toFixed(2) + ' ha'],
+    ['Parcels requiring verification', needVer + ' of ' + n],
+    ['Reported area (traditional)', repArea.toFixed(1) + ' ha'],
+    ['Detected area (technology)', detArea.toFixed(1) + ' ha'],
+    ['Traditional vs technology area difference', (repArea - detArea).toFixed(1) + ' ha (' + ((repArea - detArea) / repArea * 100).toFixed(1) + '%)'],
+    ['Potential reduction in manual verification', (100 - needVer / n * 100).toFixed(0) + '% auto-cleared'],
+  ];
+  $('anaMetrics').innerHTML = metrics.map(([k, v]) =>
+    `<div class="mrow"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div></div>`).join('');
+
+  const specs = [
+    ['chCrop', 'Crop distribution', 'bar', countBy(F, f => f.girdawari.crop)],
+    ['chHealth', 'Crop-health distribution (simulated)', 'bar', null],
+    ['chEvent', 'Damage by event type (simulated)', 'bar', null],
+    ['chArea', 'Area mismatch distribution', 'bar', null],
+    ['chAgree', 'Crop classification agreement', 'doughnut', { 'Match': agree, 'Mismatch': mismatch }],
+    ['chIns', 'Insurance status', 'doughnut', countBy(F, f => f.insurance.status)],
+    ['chVer', 'Verification status', 'doughnut', countBy(F, f => f.tech.verification_status)],
+    ['chLoss', 'Estimated loss distribution (simulated)', 'bar', null],
+  ];
+  $('anaCharts').innerHTML = specs.map(([id, title]) =>
+    `<div class="chartbox"><h5>${esc(title)}</h5><div class="cw"><canvas id="${id}"></canvas></div></div>`).join('');
+
+  const healthLabels = ['<25', '25-39', '40-54', '55-74', '75-100'];
+  const healthData = bins(F.map(f => f.tech.crop_health_score), [0, 25, 40, 55, 75], healthLabels);
+  const evMap = countBy(damaged, f => f.event ? f.event.type : 'None');
+  const areaLabels = ['<10%', '10-20%', '20-30%', '30-40%', '>=40%'];
+  const areaData = bins(F.map(f => Math.abs(f.tech.area_difference_pct)), [0, 10, 20, 30, 40], areaLabels);
+  const lossLabels = ['0%', '<15%', '15-30%', '30-50%', '>50%'];
+  const lossData = [F.filter(f => f.tech.estimated_loss_pct === 0).length,
+    F.filter(f => f.tech.estimated_loss_pct > 0 && f.tech.estimated_loss_pct < 15).length,
+    F.filter(f => f.tech.estimated_loss_pct >= 15 && f.tech.estimated_loss_pct < 30).length,
+    F.filter(f => f.tech.estimated_loss_pct >= 30 && f.tech.estimated_loss_pct <= 50).length,
+    F.filter(f => f.tech.estimated_loss_pct > 50).length];
+
+  mkChart('chCrop', 'bar', Object.keys(countBy(F, f => f.girdawari.crop)),
+          Object.values(countBy(F, f => f.girdawari.crop)),
+          Object.keys(countBy(F, f => f.girdawari.crop)).map(c => CROP_COLOR[c] || '#9aa7b2'));
+  mkChart('chHealth', 'bar', healthLabels, healthData,
+          ['#b3261e', '#e2711d', '#e0a800', '#8bbf3f', '#2e7d32']);
+  mkChart('chEvent', 'bar', Object.keys(evMap), Object.values(evMap),
+          Object.keys(evMap).map(e => EVENT_COLOR[e] || '#888'));
+  mkChart('chArea', 'bar', areaLabels, areaData, ['#2e7d32', '#8bbf3f', '#e0a800', '#e2711d', '#b3261e']);
+  mkChart('chAgree', 'doughnut', ['Match', 'Mismatch'], [agree, mismatch], ['#2e7d32', '#e2711d']);
+  const insM = countBy(F, f => f.insurance.status);
+  mkChart('chIns', 'doughnut', Object.keys(insM), Object.values(insM), ['#0d5c63', '#8bbf3f']);
+  const verM = countBy(F, f => f.tech.verification_status);
+  mkChart('chVer', 'doughnut', Object.keys(verM), Object.values(verM), ['#e2711d', '#2e7d32']);
+  mkChart('chLoss', 'bar', lossLabels, lossData, ['#cfd8dc', '#ffe082', '#ffb74d', '#f4743b', '#b3261e']);
+
+  const ms = (window.__pilotRenderMs || 0).toFixed(0);
+  $('anaNote').innerHTML = `<b>SYNTHETIC PILOT STUDY RESULTS &mdash; NOT FIELD-VALIDATED RESULTS.</b>
+    Every figure above is computed from the 100 synthetic farmer records and describes only this simulated
+    dataset. <b>Processing-time comparison:</b> this browser loaded, classified and rendered all
+    ${n} parcels in <b>${ms} ms</b> (a real measurement of this page). The traditional side is deliberately
+    <i>not</i> quantified here, because no field-visit timing was measured in this pilot &mdash; stating a
+    manual figure would be an invented number. No accuracy claim is made: none of these results has been
+    validated against real field observations.`;
+}
+
+function mkChart(id, type, labels, data, colors) {
+  const c = document.getElementById(id);
+  if (!c || !window.Chart) return;
+  if (CH[id]) CH[id].destroy();
+  CH[id] = new Chart(c.getContext('2d'), {
+    type,
+    data: { labels, datasets: [{ data, backgroundColor: colors, borderWidth: type === 'doughnut' ? 0 : 1 }] },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: type === 'doughnut', position: 'bottom', labels: { boxWidth: 11, font: { size: 10 } } } },
+      scales: type === 'bar' ? { y: { beginAtZero: true, ticks: { precision: 0 } },
+                                 x: { ticks: { font: { size: 9 }, maxRotation: 45, minRotation: 0 } } } : {},
+    },
+  });
+}
+
+/* ---------- Sections 25, 26, 28 ---------- */
+function renderFraming() {
+  const wf = ['100 Synthetic Farmers', 'Cadastral Parcel / Khasra', 'Girdawari',
+    'Multi-Temporal Remote Sensing', 'GIS Parcel Alignment', 'Actual Cultivated Area Detection',
+    'AI Crop Classification', 'Crop Growth & Health Monitoring', 'Weather / Event Detection',
+    'Before-After Change Detection', 'Crop Damage Mapping', 'Technology-Assisted Loss Estimate',
+    'Traditional vs Technology Comparison', 'Insurance Premium Simulation',
+    'Indicative Claim Simulation', 'Anomaly Detection', 'Human Verification',
+    'Auditable Pilot Decision-Support Dashboard'];
+  $('workflow').innerHTML = wf.map((s, i) =>
+    `${i ? '<span class="a">&rarr;</span>' : ''}<span class="n">${esc(s)}</span>`).join('');
+
+  const rv = [
+    ['Parcel-level transparency', 'Each assessment is tied to a specific khasra polygon rather than an aggregate.'],
+    ['Crop identification', 'Record-based crop entry can be cross-checked against a classification with a stated confidence.'],
+    ['Cultivated-area estimation', 'Separates genuinely cropped land from bund, fallow, road and waterbody inside the same parcel.'],
+    ['Spatial crop-loss assessment', 'Damage is expressed as an area within the parcel, not only as a percentage.'],
+    ['Evidence-based verification', 'Every loss estimate carries weighted, inspectable evidence factors.'],
+    ['Insurance decision support', 'Premium and claim simulations are driven by configurable, visible parameters.'],
+    ['Detection of record/ground discrepancies', 'Crop and area mismatches surface automatically as flags.'],
+    ['Auditability', 'A per-parcel data-source register and audit timeline accompany every assessment.'],
+    ['Reduced unnecessary manual verification', 'Risk-based routing sends only flagged parcels to human review.'],
+  ];
+  $('researchValue').innerHTML = rv.map(([t, d]) =>
+    `<div class="ri"><b>${esc(t)}</b>${esc(d)}</div>`).join('');
+
+  const lims = [
+    ['Farmers are synthetic', 'All 100 farmer records are generated. They are not real people, and names are deliberately non-realistic placeholders.'],
+    ['Cadastral data are simulated', 'Parcel polygons are generated inside a real village boundary. They are not real khasra boundaries from any land-record system.'],
+    ['Satellite / remote-sensing data are simulated', 'NDVI, NDWI and EVI series are modelled phenology curves, not satellite observations. Only the optional live Earth Engine check returns real imagery-derived values.'],
+    ['Weather events are simulated', 'Event type, date, intensity and affected area are generated for the pilot scenarios.'],
+    ['Results are not field validated', 'No figure on this page has been checked against ground observation or an authorised CCE.'],
+    ['Insurance outputs are indicative simulations', 'Premiums and claims are illustrative computations on configurable parameters, not official determinations.'],
+    ['AI estimates require real-world validation', 'Confidence and evidence scores describe the simulation, not demonstrated model accuracy.'],
+    ['Final insurance decisions must follow official procedures', 'Any real deployment would need field validation, authorised datasets, applicable government protocols and regulatory approval.'],
+  ];
+  $('limitations').innerHTML = lims.map(([t, d]) =>
+    `<div class="li"><b>${esc(t)}</b>${esc(d)}</div>`).join('');
 }

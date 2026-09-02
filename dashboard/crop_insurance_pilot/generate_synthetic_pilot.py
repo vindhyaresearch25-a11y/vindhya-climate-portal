@@ -109,6 +109,9 @@ MONTHS = ["June", "July", "August", "September", "October"]
 STAGES = ["Sowing", "Emergence", "Vegetative Growth", "Flowering",
           "Grain/Fruit Development", "Maturity"]
 
+# Relative canopy vigour Jun -> Oct for a normal, undamaged crop.
+SHAPE_F = [0.30, 0.68, 1.00, 0.88, 0.55]
+
 EVENT_BY_SCENARIO = {
     "drought":     ("Drought / dry spell",      "Prolonged rainfall deficit"),
     "excess_rain": ("Excess rainfall",          "Continuous heavy rainfall spell"),
@@ -294,16 +297,21 @@ def decompose(parcel_m, rng, scenario):
     return comps
 
 
-def ndvi_series(rng, scenario, event_month_idx, peak):
+# A "Very Severe" event must produce a deeper decline than a "Moderate" one --
+# otherwise the intensity label and the vegetation response contradict each other.
+INTENSITY_FACTOR = {"Moderate": 0.75, "Severe": 1.05, "Very Severe": 1.40}
+
+
+def ndvi_series(rng, scenario, event_month_idx, peak, intensity=None):
     """SIMULATED phenology curve with event-driven decline and partial recovery.
     This is NOT a satellite observation."""
-    shape_f = [0.30, 0.68, 1.00, 0.88, 0.55]  # Jun -> Oct relative vigour
     out = []
-    for i, f in enumerate(shape_f):
+    for i, f in enumerate(SHAPE_F):
         v = peak * f + rng.uniform(-0.02, 0.02)
         if scenario != "healthy" and event_month_idx is not None and i >= event_month_idx:
             drop = {"drought": 0.34, "excess_rain": 0.26, "flood": 0.40,
                     "pest": 0.22, "hail": 0.36}.get(scenario, 0.20)
+            drop = min(0.85, drop * INTENSITY_FACTOR.get(intensity, 1.0))
             v *= 1.0 - drop * (0.62 ** (i - event_month_idx))
         out.append(max(0.06, round(v, 3)))
     return out
@@ -342,7 +350,7 @@ def build_farmer(n, pm, scenario, scen_label, crop, binfo, base, rng, props, lon
 
     # Section 9 -- SIMULATED remote sensing
     peak = rng.uniform(0.68, 0.82)
-    ts = ndvi_series(rng, scenario, ev_month_idx, peak)
+    ts = ndvi_series(rng, scenario, ev_month_idx, peak, ev_intensity)
     ndwi, evi = [], []
     for k, v in enumerate(ts):
         adj = 0.0
@@ -356,11 +364,19 @@ def build_farmer(n, pm, scenario, scen_label, crop, binfo, base, rng, props, lon
         ndwi.append(round(min(0.55, max(-0.35, v * 0.42 - 0.16 + adj)), 3))
         evi.append(round(v * rng.uniform(0.72, 0.80), 3))
 
+    # Damage is measured as a vegetation ANOMALY against the expected undamaged
+    # curve for the SAME date -- not as a raw month-on-month difference. Early in
+    # the season the canopy is still growing, so a month-on-month comparison
+    # confounds damage with normal growth and can even yield a negative "decline".
+    expected_curve = [peak * k for k in SHAPE_F]
     if ev_month_idx is not None:
-        ndvi_before, ndvi_after = ts[ev_month_idx - 1], ts[ev_month_idx]
-        decline = (ndvi_before - ndvi_after) / ndvi_before * 100.0
+        ndvi_before = ts[ev_month_idx - 1]          # last observation before the event
+        ndvi_after = ts[ev_month_idx]               # first observation after it
+        ndvi_expected = round(expected_curve[ev_month_idx], 3)
+        decline = max(0.0, (expected_curve[ev_month_idx] - ndvi_after)
+                      / expected_curve[ev_month_idx] * 100.0)
     else:
-        ndvi_before = ndvi_after = None
+        ndvi_before = ndvi_after = ndvi_expected = None
         decline = 0.0
 
     # Section 12 -- damage, as a share of CULTIVATED area
@@ -372,7 +388,13 @@ def build_farmer(n, pm, scenario, scen_label, crop, binfo, base, rng, props, lon
         dmg_frac = damage_area = 0.0
         loss_pct = 0.0
 
-    health = int(max(8, min(97, round(100 * (ts[-1] / max(peak, 1e-6)) * rng.uniform(0.9, 1.02)))))
+    # Crop health = vigour RETAINED against the expected undamaged curve for the
+    # same dates. Using the raw October value instead would score every parcel as
+    # "stressed" simply because canopies senesce at maturity.
+    # Score the WORST observed condition against expectation: a season average
+    # would let pre-event months and post-event recovery mask the damage.
+    retained = min(min(1.0, ts[i] / e) for i, e in enumerate(expected_curve))
+    health = int(max(8, min(97, round(100 * retained * rng.uniform(0.95, 1.02)))))
     stage = STAGES[min(len(STAGES) - 1, 2 + (n % 4))]
 
     # Section 6/7 -- AI/RS classification
@@ -404,7 +426,7 @@ def build_farmer(n, pm, scenario, scen_label, crop, binfo, base, rng, props, lon
     # Section 13 -- explicit weighted evidence components
     if scenario in EVENT_BY_SCENARIO:
         ev_components = [
-            {"factor": "NDVI decline", "value": "%.1f%%" % decline,
+            {"factor": "NDVI decline vs expected", "value": "%.1f%% below expected" % decline,
              "score": round(min(100, decline * 2.4), 1), "weight": 0.30},
             {"factor": "NDWI / waterlogging signal",
              "value": "%.3f -> %.3f" % (ndwi[ev_month_idx - 1], ndwi[ev_month_idx]),
@@ -489,7 +511,7 @@ def build_farmer(n, pm, scenario, scen_label, crop, binfo, base, rng, props, lon
             "area_difference_ha": r2(area_diff), "area_difference_pct": round(area_diff_pct, 1),
             "crop_stage": stage, "crop_health_score": health,
             "vegetation_anomaly": ("None detected" if scenario == "healthy"
-                                   else "%.1f%% NDVI decline after event" % decline),
+                                   else "%.1f%% below expected NDVI after event" % decline),
             "damage_area_ha": r2(damage_area), "estimated_loss_pct": loss_pct,
             "evidence_score_pct": evidence_score, "evidence_components": ev_components,
             "verification_required": verification_required,
@@ -506,9 +528,10 @@ def build_farmer(n, pm, scenario, scen_label, crop, binfo, base, rng, props, lon
             "date": ev_date, "type": ev_type, "description": ev_desc,
             "intensity": ev_intensity, "affected_area_ha": r2(damage_area),
             "pre_event_ndvi": ndvi_before, "post_event_ndvi": ndvi_after,
+            "expected_ndvi": ndvi_expected,
             "ndvi_decline_pct": round(decline, 1),
-            "pre_event_condition": "Healthy canopy, NDVI %.2f" % ndvi_before,
-            "post_event_condition": "Stressed canopy, NDVI %.2f" % ndvi_after,
+            "pre_event_condition": "Canopy before event, NDVI %.2f" % ndvi_before,
+            "post_event_condition": "Stressed canopy, NDVI %.2f (expected %.2f)" % (ndvi_after, ndvi_expected),
         },
 
         "anomalies": anomalies,
