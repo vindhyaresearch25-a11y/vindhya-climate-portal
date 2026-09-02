@@ -792,8 +792,33 @@ canvas.chart-canvas{max-height:100%;}
    #bottom-panel is height:auto with nothing to fit inside (see its own
    comment above), the active pane's real content (chart, table, form)
    just flows to its natural height and the PAGE scrolls past it instead. */
+/* AUDIT_FIX_PROMPT.md items 0C/4/7a/15d, re-diagnosed live 2026-09-02 on
+   the deployed site with Jabalpur selected. This container was a flex ROW.
+   Its children are the 17 tab panes (only one .active at a time) PLUS
+   #mp-legacy-panel-wrap (Historical Indices + 2040 Projection + village
+   detail), which mp_climate_loader.js injects as .btm-content's FIRST
+   child and which item 15d's own earlier fix deliberately styled as a
+   side column (min-width:380px;max-width:500px;border-right).
+   Measured consequence on a 1200px viewport: .btm-content is 694px wide,
+   the legacy wrap took 380px of it starting at x=221, and the active tab
+   pane was left a 230px ribbon at x=601 -- so #chartRain's own canvas
+   measured 0x0 while its .chart-wrap was 230x200, and Chart.js would not
+   recover it (verified: inst.resize() and an explicit inst.resize(220,190)
+   both left it 0x0, while inst.data.labels still held all 12 real months).
+   That single row layout is simultaneously the owner's "khali jagah
+   naksha ke neeche BAYEN taraf" (item 4 -- 380px of dead column to the
+   LEFT of the pane whenever the wrap has nothing to show), item 7a's
+   "patli column, bagal me jagah khali", item 15d's cramped Historical
+   Indices, and the reason item 0C's 17-tab panel is not "poori chaudai".
+   Fixing it as a COLUMN is only safe now: 15d originally moved the wrap
+   into this row precisely because #bottom-panel then had a FIXED 260px
+   height, so stacking starved it. #bottom-panel is height:auto since the
+   page-scroll fix, so stacked sections each take their natural height and
+   the page scrolls -- 15d's root cause is gone, and the side column that
+   worked around it is now the defect. Active pane goes full width on top,
+   legacy wrap full width beneath it (see mp_climate_loader.js). */
 .btm-content{display:none;overflow:visible;padding-right:84px;}
-#bottom-panel.expanded .btm-content{display:flex;}
+#bottom-panel.expanded .btm-content{display:flex;flex-direction:column;}
 .btm-pane{display:none;flex:1;flex-direction:column;overflow:hidden;position:relative;}
 .btm-pane.active{display:flex;}
 
@@ -1494,6 +1519,7 @@ body.mk-modal-open #pane-merakhet.active{
            nothing is lost: Crop Health above reaches the same bottom
            tab directly. -->
       <div class="nav-item" onclick="setNav(this,&#39;pmfby&#39;)"><span class="nav-icon"><i class="fa fa-shield-halved"></i></span><span class="nav-label" data-i18n>PMFBY Insurance</span></div>
+      <div class="nav-item" onclick="window.open(&#39;crop_insurance_pilot/pilot_study.html&#39;,&#39;_blank&#39;)" title="Synthetic 100-farmer crop-insurance pilot study -- a separate research proof-of-concept page built entirely on SYNTHETIC/SIMULATED farmer, parcel, remote-sensing and insurance data. This is NOT the Cadastral Map, and contains no real land records."><span class="nav-icon"><i class="fa fa-flask"></i></span><span class="nav-label" data-i18n style="font-size:10.5px;">Crop Insurance Pilot</span><span class="nav-badge" data-i18n>SYN</span></div>
       <div class="nav-section-title" data-i18n>ECOLOGY</div>
       <div class="nav-item" onclick="setNav(this,&#39;forest&#39;)"><span class="nav-icon"><i class="fa fa-tree"></i></span><span class="nav-label" data-i18n>Forest Monitor</span><span class="nav-badge" data-i18n>SOON</span></div>
       <div class="nav-section-title" data-i18n>ANALYTICS</div>

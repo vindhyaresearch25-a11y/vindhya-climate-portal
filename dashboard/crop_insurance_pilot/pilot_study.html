@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Synthetic 100-Farmer Crop Insurance Pilot Study -- SIMULATED DATA</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<style>
+  :root{
+    --ink:#101a24; --ink-2:#33465a; --dim:#64798e; --line:#dfe6ee;
+    --bg:#eef2f6; --card:#ffffff;
+    --brand:#0d5c63; --brand-2:#12868f; --brand-ink:#083c41;
+    --syn:#8a2f00; --syn-bg:#fff1e6; --syn-line:#e0873f;
+    --ok:#1a6b3c; --ok-bg:#e6f4ec;
+    --warn:#8a6100; --warn-bg:#fff6e0;
+    --bad:#96231f; --bad-bg:#fdecec;
+    --shadow:0 1px 2px rgba(16,26,36,.06),0 4px 14px rgba(16,26,36,.06);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:14px;line-height:1.45;}
+  h1,h2,h3,h4{margin:0;font-weight:700;letter-spacing:-.01em;}
+  code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+
+  /* ---- Sticky synthetic-data banner (spec sections 2, 26, 29) ---- */
+  #synBanner{position:sticky;top:0;z-index:6000;background:var(--syn-bg);
+    border-bottom:2px solid var(--syn-line);color:var(--syn);
+    padding:7px 16px;font-size:12.5px;font-weight:800;text-align:center;
+    display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;}
+  #synBanner .pill{background:var(--syn);color:#fff;border-radius:20px;padding:2px 10px;font-size:11px;
+    letter-spacing:.04em;}
+
+  header.page{padding:16px 22px 10px;max-width:1680px;margin:0 auto;}
+  header.page .back{font-size:12px;color:var(--brand-ink);text-decoration:none;font-weight:600;}
+  header.page h1{font-size:21px;color:var(--brand-ink);margin:6px 0 4px;max-width:1100px;}
+  header.page .positioning{font-size:13px;color:var(--ink-2);max-width:1000px;}
+  header.page .positioning b{color:var(--brand);}
+  .rq{margin-top:9px;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--brand-2);
+    border-radius:0 8px 8px 0;padding:9px 13px;font-size:12.5px;color:var(--ink-2);max-width:1100px;box-shadow:var(--shadow);}
+  .rq b{color:var(--brand-ink);}
+
+  .wrap{max-width:1680px;margin:0 auto;padding:0 22px 26px;}
+
+  /* ---- KPI strip (spec section 22) ---- */
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:9px;margin:12px 0 14px;}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:9px 11px;box-shadow:var(--shadow);}
+  .kpi .l{font-size:10.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.045em;font-weight:700;line-height:1.25;}
+  .kpi .v{font-size:19px;font-weight:800;color:var(--brand-ink);margin-top:3px;}
+  .kpi .u{font-size:11px;color:var(--dim);font-weight:600;}
+
+  /* ---- Main split: GIS map is the central component (spec section 4) ---- */
+  .split{display:grid;grid-template-columns:1fr 372px;gap:14px;align-items:start;}
+  @media (max-width:1080px){.split{grid-template-columns:1fr;}}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);}
+  .panel > h2{font-size:12.5px;color:var(--brand-ink);padding:10px 13px;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .panel > h2 .sec{background:var(--brand);color:#fff;border-radius:5px;font-size:10px;padding:2px 6px;font-weight:800;}
+  .panel .body{padding:12px 13px;}
+
+  #map{height:66vh;min-height:480px;border-radius:0 0 10px 10px;}
+  .maphead{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:9px 12px;border-bottom:1px solid var(--line);}
+  .layer-toggles{display:flex;gap:5px;flex-wrap:wrap;}
+  .lt{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--ink-2);
+    background:#f2f6f9;border:1px solid var(--line);border-radius:20px;padding:3px 9px;cursor:pointer;user-select:none;}
+  .lt input{margin:0;cursor:pointer;}
+  .lt .sw{width:11px;height:11px;border-radius:3px;display:inline-block;border:1px solid rgba(0,0,0,.25);}
+  .lt.off{opacity:.45;}
+
+  /* ---- Search + filters (spec section 4) ---- */
+  .field{display:block;font-size:10.5px;color:var(--dim);font-weight:700;text-transform:uppercase;
+    letter-spacing:.04em;margin:9px 0 3px;}
+  input[type=text],input[type=number],select{width:100%;padding:6px 8px;border:1px solid var(--line);
+    border-radius:6px;font-size:12.5px;font-family:inherit;background:#fff;color:var(--ink);}
+  input[type=text]:focus,select:focus{outline:2px solid var(--brand-2);outline-offset:-1px;}
+  .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .btn{background:var(--brand);color:#fff;border:none;border-radius:6px;padding:7px 13px;
+    font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;}
+  .btn:hover{background:var(--brand-ink);}
+  .btn.ghost{background:#fff;color:var(--brand-ink);border:1px solid var(--brand-2);}
+  .btn.ghost:hover{background:#f0f7f7;}
+
+  .reslist{max-height:330px;overflow-y:auto;border:1px solid var(--line);border-radius:8px;margin-top:10px;}
+  .res{padding:7px 10px;border-bottom:1px solid var(--line);cursor:pointer;font-size:12px;}
+  .res:last-child{border-bottom:none;}
+  .res:hover{background:#f2f8f8;}
+  .res.sel{background:#e4f1f1;border-left:3px solid var(--brand);}
+  .res .r1{display:flex;justify-content:space-between;gap:8px;font-weight:700;color:var(--brand-ink);}
+  .res .r2{color:var(--dim);font-size:11px;margin-top:1px;display:flex;justify-content:space-between;gap:8px;}
+
+  /* ---- Tags ---- */
+  .tag{display:inline-block;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:800;
+    letter-spacing:.03em;white-space:nowrap;}
+  .t-syn{background:var(--syn-bg);color:var(--syn);border:1px solid var(--syn-line);}
+  .t-sim{background:#eef0ff;color:#33379b;border:1px solid #b9bdf0;}
+  .t-real{background:var(--ok-bg);color:var(--ok);border:1px solid #a9d3ba;}
+  .t-ok{background:var(--ok-bg);color:var(--ok);}
+  .t-warn{background:var(--warn-bg);color:var(--warn);}
+  .t-bad{background:var(--bad-bg);color:var(--bad);}
+
+  /* ---- Digital twin (spec section 23) ---- */
+  .twin-empty{padding:34px 16px;text-align:center;color:var(--dim);font-size:13px;}
+  .twin-empty .big{font-size:30px;display:block;margin-bottom:8px;opacity:.5;}
+  .twin-head{padding:12px 14px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#f6fafa,#fff);}
+  .twin-head .id{font-size:17px;font-weight:800;color:var(--brand-ink);}
+  .twin-head .sub{font-size:12px;color:var(--dim);margin-top:2px;}
+  .tw-sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:0;}
+  .tw-sec{padding:11px 14px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .tw-sec.wide{grid-column:1/-1;}
+  .tw-sec h4{font-size:10.5px;color:var(--brand);text-transform:uppercase;letter-spacing:.05em;
+    margin-bottom:6px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+  .row{display:flex;justify-content:space-between;gap:10px;padding:2.5px 0;font-size:12.5px;
+    border-bottom:1px dashed #eef2f5;}
+  .row:last-child{border-bottom:none;}
+  .row .k{color:var(--dim);}
+  .row .v{font-weight:700;text-align:right;}
+
+  .note{font-size:11px;color:var(--ink-2);background:#f7fafb;border-left:3px solid var(--syn-line);
+    border-radius:0 6px 6px 0;padding:7px 10px;margin-top:9px;line-height:1.5;}
+
+  /* ---- Final disclaimer (spec section 29) ---- */
+  .disclaimer-final{margin-top:16px;background:var(--syn-bg);border:2px solid var(--syn-line);
+    border-radius:10px;padding:14px 16px;}
+  .disclaimer-final h3{font-size:12.5px;color:var(--syn);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;}
+  .disclaimer-final p{margin:0;font-size:12.5px;color:#5c2a0c;line-height:1.6;}
+
+  footer.page{max-width:1680px;margin:0 auto;padding:14px 22px 34px;font-size:11.5px;color:var(--dim);}
+
+  /* ---- Leaflet popup (spec section 24) ---- */
+  .leaflet-popup-content{margin:10px 12px;min-width:250px;}
+  .pop h4{font-size:13px;color:var(--brand-ink);margin-bottom:2px;}
+  .pop .psub{font-size:10.5px;color:var(--dim);margin-bottom:6px;}
+  .pop .prow{display:flex;justify-content:space-between;gap:10px;font-size:11.5px;padding:1.5px 0;
+    border-bottom:1px dashed #eef2f5;}
+  .pop .prow .k{color:var(--dim);}
+  .pop .prow .v{font-weight:700;}
+  .pop .pfoot{margin-top:7px;font-size:10px;color:var(--syn);font-weight:700;}
+  .maplegend{background:#fff;border:1px solid var(--line);border-radius:7px;padding:7px 9px;font-size:11px;
+    box-shadow:var(--shadow);line-height:1.5;}
+  .maplegend b{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--dim);margin-bottom:3px;}
+  .maplegend .li{display:flex;align-items:center;gap:6px;}
+  .maplegend .sw{width:12px;height:12px;border-radius:3px;border:1px solid rgba(0,0,0,.25);}
+</style>
+</head>
+<body>
+
+<div id="synBanner">
+  <span class="pill">SYNTHETIC</span>
+  <span>PILOT STUDY / PROOF-OF-CONCEPT &mdash; 100 SYNTHETIC FARMERS, SIMULATED CADASTRAL, REMOTE-SENSING, WEATHER &amp; INSURANCE DATA</span>
+  <span class="pill">NOT OFFICIAL PMFBY ASSESSMENT</span>
+</div>
+
+<header class="page">
+  <a class="back" href="../index.html">&larr; VINDHYA Climate Portal</a>
+  &nbsp;|&nbsp;
+  <a class="back" href="index.html">Simrol 8-Module Pilot (real-data build)</a>
+  <h1>GIS, Remote Sensing and AI-Assisted Cadastral-Level Crop Insurance Assessment:
+      A Synthetic 100-Farmer Pilot Study</h1>
+  <p class="positioning">
+    <b>A Pilot Decision-Support Framework</b> &mdash; not an automated insurance claim approval system.
+    Core concept: <b>&ldquo;From Record-Based Assessment to Evidence-Based Parcel Intelligence.&rdquo;</b>
+    This prototype does not claim to replace official PMFBY procedures; it demonstrates a
+    technology-assisted decision-support and verification framework.
+  </p>
+  <div class="rq">
+    <b>Research question:</b> &ldquo;Can cadastral-level integration of GIS, multi-temporal remote sensing and AI
+    provide a more spatially explicit, transparent and evidence-supported approach to crop identification,
+    cultivated-area estimation and crop-loss assessment compared with conventional record-based assessment?&rdquo;
+    <br><b>Demonstrates:</b> Traditional Records &rarr; Technology-Assisted Assessment &rarr; Comparison &rarr; Insurance Decision Support.
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="split">
+    <!-- ===== Interactive GIS map: the central component (spec section 4) ===== -->
+    <div class="panel">
+      <h2><span class="sec">SECTION 4</span> Interactive GIS Map &mdash; 100 Synthetic Cadastral Parcels
+        <span class="tag t-real">REAL village boundary (Survey of India)</span>
+        <span class="tag t-syn">SYNTHETIC parcels</span>
+      </h2>
+      <div class="maphead">
+        <div class="layer-toggles" id="layerToggles"></div>
+      </div>
+      <div id="map"></div>
+    </div>
+
+    <!-- ===== Search / filters + result list ===== -->
+    <div class="panel">
+      <h2><span class="sec">SECTION 4</span> Search &amp; Filters</h2>
+      <div class="body">
+        <label class="field" for="q">Search &mdash; Farmer ID / Khasra No. / Village</label>
+        <input type="text" id="q" placeholder="e.g. SF-001, SYN-102/1, Simrol" autocomplete="off">
+        <div class="fgrid">
+          <div><label class="field" for="fCrop">Crop</label><select id="fCrop"></select></div>
+          <div><label class="field" for="fSeason">Season</label><select id="fSeason"></select></div>
+          <div><label class="field" for="fInsurance">Insurance status</label><select id="fInsurance"></select></div>
+          <div><label class="field" for="fDamage">Damage</label><select id="fDamage"></select></div>
+          <div><label class="field" for="fEvent">Event</label><select id="fEvent"></select></div>
+          <div><label class="field" for="fVerify">Verification status</label><select id="fVerify"></select></div>
+        </div>
+        <div style="display:flex;gap:7px;margin-top:11px;align-items:center;flex-wrap:wrap;">
+          <button class="btn ghost" id="btnReset">Reset filters</button>
+          <span id="resCount" style="font-size:11.5px;color:var(--dim);font-weight:700;"></span>
+        </div>
+        <div class="reslist" id="reslist"></div>
+        <div class="note">
+          Every parcel, farmer, crop record and figure in this list is <b>SYNTHETIC / SIMULATED</b>,
+          generated with a fixed seed for a research pilot study. Farmer names are deliberately
+          non-realistic placeholders (<span class="mono">SYN-FARMER-001</span>); no real identities,
+          Aadhaar numbers, bank details or policy numbers exist anywhere in this dataset.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Selected parcel digital twin (spec section 23) ===== -->
+  <div class="panel" style="margin-top:14px;" id="twinPanel">
+    <h2><span class="sec">SECTION 23</span> Selected Parcel &mdash; Digital Twin
+      <span class="tag t-syn">SYNTHETIC</span>
+      <span id="twinTitleId" class="mono" style="margin-left:auto;color:var(--dim);font-size:11px;"></span>
+    </h2>
+    <div id="twin">
+      <div class="twin-empty"><span class="big">&#9635;</span>
+        Select any parcel on the map, or any row in the result list, to open its full digital profile.</div>
+    </div>
+  </div>
+
+  <!-- ===== Final disclaimer, exact wording (spec section 29) ===== -->
+  <div class="disclaimer-final">
+    <h3>&#9888; Final Disclaimer</h3>
+    <p id="finalDisclaimer">This is a Pilot Study/Proof-of-Concept based entirely on synthetic and simulated data.
+    The farmer records, cadastral parcels, crop observations, remote-sensing observations, weather events,
+    crop-loss estimates, insurance premiums and claim values are generated for research and demonstration
+    purposes only. The system does not represent actual farmer records, official satellite observations,
+    official crop-loss assessment or official PMFBY claim determination. Real-world deployment would require
+    field validation, authorized datasets, applicable government protocols and regulatory approval.</p>
+  </div>
+</div>
+
+<footer class="page">
+  <b>What is real on this page:</b> the Simrol village polygon (Survey of India via NWDP, vil_lgd 476504,
+  Mhow block, Indore district, Madhya Pradesh) and its Census population/household fields; the per-crop yield
+  baselines and PMFBY threshold yields derived from real DES (data.desagri.gov.in) Indore district records;
+  and the notified PMFBY farmer premium-share caps.
+  <b>Everything else is synthetic or simulated</b> and is labelled as such wherever it appears.
+</footer>
+
+<script src="pilot_study.js"></script>
+</body>
+</html>

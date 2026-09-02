@@ -392,14 +392,14 @@ def build_farmer(n, pm, scenario, scen_label, crop, binfo, base, rng, props, lon
     anomalies = []
     if scenario == "crop_mismatch":
         anomalies.append("Crop mismatch: girdawari record differs from AI/RS classification")
-    if abs(area_diff_pct) >= 15:
+    if abs(area_diff_pct) >= 30:
         anomalies.append("Cultivated-area mismatch: reported area exceeds detected cultivated area by %.1f%%" % area_diff_pct)
     if scenario == "mortgaged":
         anomalies.append("Bank-linked/mortgaged holding: lender interest recorded, verification of insured area advised")
     if loss_pct >= 45:
         anomalies.append("High simulated loss estimate: field inspection recommended before assessment")
-    if ai_conf < 90:
-        anomalies.append("AI confidence below 90%: additional evidence advised")
+    if ai_conf < 88:
+        anomalies.append("AI confidence below 88%: additional evidence advised")
 
     # Section 13 -- explicit weighted evidence components
     if scenario in EVENT_BY_SCENARIO:
@@ -426,7 +426,7 @@ def build_farmer(n, pm, scenario, scen_label, crop, binfo, base, rng, props, lon
              "score": round(rng.uniform(82, 95), 1), "weight": 0.5},
         ]
     evidence_score = round(sum(x["score"] * x["weight"] for x in ev_components), 1)
-    verification_required = bool(anomalies) or loss_pct >= 25 or ai_conf < 90
+    verification_required = bool(anomalies) or loss_pct >= 30
 
     # Sections 15/16 -- insurance
     rate_key = "Commercial" if crop in COMMERCIAL_CROPS else season
