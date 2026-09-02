@@ -140,6 +140,88 @@ code was fine).**
   deliberately left alone to avoid a collision, same reasoning as
   Module 1's status note above.
 
+## STATUS LOG (2026-09-02) -- Synthetic 100-Farmer PILOT STUDY (owner's 29-section spec)
+
+**HUA.** Naya standalone page `dashboard/crop_insurance_pilot/pilot_study.html`
+(+ `pilot_study.js`, + generator `generate_synthetic_pilot.py`, + dataset
+`dashboard/data/crop_insurance_pilot/synthetic_farmers_100.json`). Purana
+8-module page (`index.html`) **chhua nahi** -- uska real data (DES yield, IMD
+Indore trends, live GEE) waisa hi hai; dono pages cross-linked hain.
+
+**Kyun naya page, purana replace nahi:** 8-module build me real-data
+integrations live-tested hain; unhe 29-section research spec me merge karne se
+regression ka risk tha. Isliye scale-up alag page par, same real assets reuse
+karke.
+
+- **Dataset (sections 2,3):** 100 farmers, spec ka exact scenario split
+  (20 healthy / 15 drought / 15 excess rain / 10 flood / 10 pest / 10 hail /
+  10 crop-mismatch / 5 area-mismatch / 5 mortgaged). Fixed seed (20260819) --
+  md5-verified ki regeneration byte-identical hai. Parcel components
+  (bund/road/water/fallow/non-crop/cultivated) **geometry se nikale** hain
+  (negative-buffer ring + difference), isliye cadastral area se exactly sum
+  hote hain (max residual 0.01 ha) -- ginti-ke numbers nahi.
+- **REAL cheezein reuse hui:** Simrol SoI boundary (har parcel uske andar
+  clip hua), Census population/households, DES Indore yield history se per-crop
+  baseline aur PMFBY threshold yield (best 5 of last 7 x indemnity level),
+  notified PMFBY farmer premium caps. Tomato drop kar diya kyunki uska real DES
+  baseline Indore me nahi tha -- baseline ghadne se mana kiya (generator khud
+  `SystemExit` karta hai agar baseline missing ho).
+- **Sections 4,23,24 (Phase 1):** map par 100 parcels, 6 thematic layers +
+  6 component layers, search (farmer ID/khasra/village) + 6 filters, digital
+  twin (6 groups), popup (spec ke sab fields).
+- **Sections 5-14,17-20 (Phase 2):** 8-tab analysis panel.
+- **Sections 15,16,21,22,25,26,27,28,29 (Phase 3):** premium simulator (6
+  editable params), alag claim simulator (yield-shortfall, **Loss% x SI nahi**),
+  12 metrics + 8 charts, research value, 8 limitations, 18-node workflow,
+  section 29 disclaimer **verbatim** (page runtime par assert karta hai ki
+  uska text dataset metadata se match kare).
+- **Section 9 ki imaandari:** 100 parcels ke liye live GEE calls practical
+  nahi, isliye per-parcel Jun-Oct series **SIMULATED** hai aur page par saaf
+  likha hai. Uske saath ek "Run live satellite check (real Google Earth
+  Engine)" button hai jo selected parcel ke liye **asli** call karta hai --
+  **live site par SUCCESS verify ho gaya** (NDVI 0.1156, cropland fraction
+  0.41, Sentinel-1 wetness, image date 2026-08-20). Ye pichhle session ka
+  khula gap (Module 7 ka success path localhost CORS ki wajah se unverified
+  tha) ab band ho gaya.
+- **Nav:** sidebar me alag item "Crop Insurance Pilot" + SYN badge, new tab me
+  khulta hai. `setNav('cadastral')` aur `cadastral_loader.js` **bilkul nahi
+  chhue** -- wo stub real MP Bhulekh/Revenue records ke intezaar me disabled hi
+  rahega; ye synthetic pilot wo feature nahi hai.
+
+**Live testing me mile 4 asli bugs (padh kar nahi, chalakar mile) -- sab fix:**
+1. `runGee()` maan leta tha ki uska button maujood hai; dusre tab se call karne
+   par throw karta tha. Null-guard laga.
+2. Crop health October NDVI se nikal raha tha -- senescence ki wajah se 100 me
+   se 84 parcels "stressed" dikh rahe the. Ab health = expected undamaged curve
+   ke against worst retained vigour (healthy 90-97, pest 74-80, hail 59-65,
+   flood 56-62).
+3. Event intensity aur NDVI decline alag-alag draw ho rahe the, to "Very
+   Severe" event "Moderate" se kam nuksan kar sakta tha. Ab decline intensity
+   se scale hota hai; loss monotonic hai (Moderate 15-31%, Severe 25-48%,
+   Very Severe 30-64%).
+4. **Sabse bada:** month-on-month decline se **negative loss** aa raha tha
+   (-99% tak), kyunki season ke shuru me canopy khud badh raha hota hai aur
+   "after" month "before" se zyada ho sakta hai. Ab decline = usi date ke
+   expected undamaged NDVI ke against anomaly (jo real change detection karta
+   hai). Ab ek bhi negative loss nahi, aur UI me expected baseline bhi dikhta
+   hai taaki calculation check ki ja sake.
+
+**Anomaly thresholds tune kiye:** area-mismatch 15% -> 30% (bund+fallow ki
+wajah se 15-25% gap normal hai), AI confidence 90% -> 88%. Verification
+required 84/100 se 52/100 aaya -- warna "manual verification kam hui" wala
+research claim hi bekaar tha.
+
+**NAHI KIYA / khula hua:**
+- CCE database abhi bhi client-side hi hai, D1 me nahi (Workers-edit
+  credentials nahi hain -- wahi limitation jo pichhle session me thi).
+- Module 6 (AI image damage segmentation) is page par nahi hai -- wo 8-module
+  page par conceptual mockup hi hai, koi model abhi bhi nahi bana.
+- Health/loss/evidence sab simulated model ke andar internally consistent hain,
+  lekin **kisi real field observation se validate nahi** -- Limitations section
+  me saaf likha hai, aur koi accuracy claim nahi kiya gaya.
+
+---
+
 ---
 
 # ZAROORI NIYAM -- sab modules par lagu, sabse pehle padho
