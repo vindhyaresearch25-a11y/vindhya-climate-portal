@@ -61,6 +61,21 @@
       .catch(function () { cache[key] = null; return null; });
   }
 
+  // #future-2040-panel lives inside #mp-legacy-panel-wrap, which
+  // mp_climate_loader.js creates with display:none and only ever reveals
+  // (style.display='flex') for one of the 5 original IMD districts, then
+  // hides again (_mpClimateClear()) once the selection moves away. This
+  // loader must do the exact same reveal/hide itself for every OTHER
+  // district -- writing into #future-2040-panel alone is not enough, its
+  // parent wrap stays display:none otherwise and nothing becomes visible.
+  // Found live 2026-09-02: the wrap and the panel both existed and this
+  // loader's fetch/render logic was correct, but the wrap's display was
+  // never toggled here, so real data was written into an invisible box.
+  function setWrapVisible(visible) {
+    var wrap = document.getElementById('mp-legacy-panel-wrap');
+    if (wrap) wrap.style.display = visible ? 'flex' : 'none';
+  }
+
   function renderEmpty(host, label) {
     host.innerHTML = ''
       + '<div class="section-header"><i class="fa fa-clock-rotate-left" style="color:var(--orange);font-size:0.7rem"></i>'
@@ -68,12 +83,14 @@
       + '<div style="padding:0.6rem;font-size:0.7rem;font-weight:600;color:var(--text-dim)">'
       + 'CMIP6 future projection not available for ' + (label || 'this selection')
       + '. See scripts/09_gee_national_cmip6_2040.py.</div>';
+    setWrapVisible(true); // show the honest "not available" message too, not just silence
   }
 
   function render(file, districtName) {
     var host = document.getElementById('future-2040-panel');
     if (!host) return;
     if (!file) { renderEmpty(host, districtName); return; }
+    setWrapVisible(true);
     host.innerHTML = ''
       + '<div class="section-header"><i class="fa fa-clock-rotate-left" style="color:var(--orange);font-size:0.7rem"></i>'
       + '<div class="section-title">2040 PROJECTION (SSP2-4.5, 8-MODEL CMIP6 ENSEMBLE)</div></div>'
@@ -104,15 +121,25 @@
     });
   }
 
-  // Wrap whatever's already assigned to onDistrictChange (national_selector.js's
-  // own dispatcher, itself already wrapping index.html's original handler) --
-  // same composition pattern every other loader in this codebase uses, so
-  // load order never matters.
-  var originalOnDistrictChange = window.onDistrictChange;
-  window.onDistrictChange = function (distKey) {
-    if (typeof originalOnDistrictChange === 'function') originalOnDistrictChange(distKey);
-    var sel = (typeof window.getCurrentSelection === 'function') ? window.getCurrentSelection() : null;
-    var stateName = sel ? sel.state : null;
-    handleSelection(stateName, distKey);
-  };
+  // Wrap whatever's assigned to onDistrictChange -- but NOT at script-parse
+  // time. Real bug found live 2026-09-02: national_selector.js's own boot()
+  // (which is what actually assigns window.onDistrictChange to a real
+  // function) runs on setTimeout(boot,50), AFTER every loader <script> tag
+  // has already executed synchronously. Capturing window.onDistrictChange
+  // here at top level grabbed `undefined`, wrapped it, and then
+  // national_selector.js's boot() overwrote window.onDistrictChange
+  // completely a moment later, discarding this wrapper entirely -- this
+  // loader silently never ran. groundwater_loader.js already solved this
+  // exact race with its own delayed boot(); same fix here.
+  function boot() {
+    if (typeof window.onDistrictChange !== 'function') { setTimeout(boot, 200); return; }
+    var originalOnDistrictChange = window.onDistrictChange;
+    window.onDistrictChange = function (distKey) {
+      originalOnDistrictChange(distKey);
+      var sel = (typeof window.getCurrentSelection === 'function') ? window.getCurrentSelection() : null;
+      var stateName = sel ? sel.state : null;
+      handleSelection(stateName, distKey);
+    };
+  }
+  setTimeout(boot, 1000);
 })();
