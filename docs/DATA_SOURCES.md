@@ -402,6 +402,54 @@ Sum Insured is the notified Scale of Finance and varies by
 state/district/season/crop, and the actuarial rate is discovered by insurer
 bidding per cluster. Both are exposed as editable inputs in the UI.
 
+## Fertiliser dose reference (`data/fertilizer_doses.json`, added 2026-09-02)
+
+AUDIT_FIX_PROMPT.md item 10b. Powers the Agriculture tab's "Fertilizer &
+Crop Recommendation" card (`dashboard/fertilizer_loader.js`), built by
+`scripts/build_fertilizer_doses.py`.
+
+| Layer / file | Source | Resolution | CRS | Processing | Quality | Updated |
+|---|---|---|---|---|---|---|
+| `data/fertilizer_doses.json` (12 crops, 22 dose rows) | **Crop Production Guide — Agriculture 2020**, Directorate of Agriculture, Chepauk, Chennai 600 005 **and** Tamil Nadu Agricultural University, Coimbatore 641 003. <https://agritech.tnau.ac.in/pdf/AGRICULTURE.pdf> | Per crop × stated growing condition (irrigated / rainfed / variety / hybrid). **Not** per district, **not** per field, **not** a soil-test prescription | n/a — agronomic reference table, no geometry | `scripts/build_fertilizer_doses.py`: each N : P₂O₅ : K₂O row transcribed from the page cited on that row, from the guide's own **"blanket recommendation"** statements | Verified — real published state POP, each row page-cited | 2026-09-02 |
+
+**What was transcribed, and what deliberately was not.** Every row is the
+guide's own *blanket recommendation* — the value it instructs the reader to
+use **only when a soil test is not available**; its standing instruction in
+each of these sections is to follow the soil test wherever one exists, and
+the card repeats that on screen. Doses appearing in the guide's
+**seed-production** chapters (identifiable by roguing / male parent /
+isolation-distance context) are for seed multiplication, not grain
+cultivation, and were excluded rather than presented as general doses.
+
+**Attribution method, because a near-miss here would be a fabrication.** A
+naive nearest-heading match mis-assigned wheat's 80:40:40 to a millet
+chapter. Attribution is therefore done through the guide's own table of
+contents page ranges (PDF page = printed page + 12, verified against three
+independent chapter headings), so each row is provably the crop it claims
+to be, and each row stores the printed page so a reader can check it.
+
+**Applicability, stated in the file and on screen.** These are recommendations
+issued for **Tamil Nadu**. They are that state's Directorate of Agriculture
+and TNAU's own published figures, **not a national ICAR dose**, and other
+states' agricultural universities publish their own package of practices
+with different numbers. Extending coverage means adding rows from those
+states' own POPs, each page-cited the same way — a dose written from memory
+must never enter this file.
+
+**Season assignment is not in this file.** Which crops a place grows, and in
+which season, comes from that district's **own real DES records**
+(`data/crop_stats_des_by_district/`, which carry a published `season` field
+per crop-year), using its latest reported year, which the card prints. DES
+"Summer" renders as Zayad; "Whole Year" crops get their own block rather
+than being forced into one of the three seasons. A crop with no transcribed
+dose is named on screen under "Dose not available for: …" — never filled in
+from a similar crop.
+
+**Area scaling** uses the farmer's own measured field from Mera Khet
+(`window._meraKhetLastField.area_ha`, published and cleared by
+`dashboard/mera_khet.js`). With no measured field only the per-hectare
+figure is shown; an assumed field size would be an invented number.
+
 ## Village Profile & Agricultural Intelligence Report (`dashboard/village_report.js`, registered 2026-09-02)
 
 **Not a new dataset — a consumer.** This module introduces no source of its
