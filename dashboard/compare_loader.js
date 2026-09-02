@@ -367,8 +367,22 @@
       var rows = cols.map(function (c) {
         var cell = getCellValue(loc, b, c.key, state.year);
         var val = cell ? c.fmt(cell.value) + (cell.isPeriodAvg ? ' (avg)' : '') : t('Data not available', 'आंकड़े उपलब्ध नहीं');
-        return '<div style="display:flex;justify-content:space-between;padding:3px 0;font-size:11.5px;border-bottom:1px solid var(--border)">' +
-          '<span style="opacity:.7">' + c.label + '</span><span style="font-weight:600">' + val + '</span></div>';
+        // cell.note carries what the number was actually built from -- e.g.
+        // "sum of 412/430 villages, SoI 2026-08-02" or "2019 mean of 23 obs".
+        // The desktop table exposes it via title=, i.e. HOVER ONLY, and this
+        // mobile renderer used to drop it entirely -- so on a touch device a
+        // summed population or an NDVI mean appeared as a bare number with
+        // its contributing count reachable by no route at all. Every
+        // aggregate in this repo is supposed to travel with its N
+        // (docs/METHODOLOGY.md Sec 3.1), so it is rendered as visible text
+        // here rather than as a tooltip that touch cannot open.
+        var note = (cell && cell.note)
+          ? '<div style="font-size:9.5px;opacity:.6;padding:0 0 2px;text-align:right">' + cell.note + '</div>'
+          : '';
+        return '<div style="padding:3px 0;font-size:11.5px;border-bottom:1px solid var(--border)">' +
+          '<div style="display:flex;justify-content:space-between">' +
+          '<span style="opacity:.7">' + c.label + '</span><span style="font-weight:600">' + val + '</span></div>' +
+          note + '</div>';
       }).join('');
       return '<div style="border:1.5px solid ' + loc.color + ';border-radius:8px;padding:10px;margin-bottom:10px;background:' + loc.color + '0d">' +
         '<div style="font-weight:700;font-size:12.5px;margin-bottom:6px">' + loc.districtName + ', ' + loc.stateName + '</div>' + rows + '</div>';
