@@ -335,6 +335,15 @@ doosre panel me jaate hi selection yaad rahe (STANDING ORDERS item 2
 ke mutabik -- ek selection sab jagah update kare).
 
 ### 10b. Fertilizer & Crop Recommendation -- Mera Khet se jodo
+> **STATUS 2026-09-02: HUA, LIVE VERIFIED.** `dashboard/fertilizer_loader.js`
+> + `dashboard/data/fertilizer_doses.json` (12 fasal, 22 dose row, har ek par
+> asli printed page citation) + `scripts/build_fertilizer_doses.py`. Teeno
+> mausam alag, Mera Khet ke naape area se scaled, har dose ke neeche
+> "स्रोत · साल" line, aur jis fasal ka cited dose nahi mila uske liye
+> imaandaar "Dose not available for: ..." -- doosri fasal se udhaar nahi.
+> Panel ab Agriculture tab ke FARMER ADVISORY section me hai (sidebar wala
+> block 2026-08-14 ko wahin consolidate ho gaya tha). Poora detail
+> PENDING.md item 16 me.
 Ye khali card ab **Mera Khet ke polygon data se bharo**:
 - Kisan ne apna khet naapa ho (Mera Khet se) to uska **kshetrafal
   (area)** yahan istemal ho fertilizer ki matra nikalne ke liye

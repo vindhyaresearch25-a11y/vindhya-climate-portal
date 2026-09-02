@@ -358,6 +358,119 @@ backend ki tarah.
 
 ---
 
+# 15. METHODOLOGY AUDIT (2026-09-02) -- HUA, aur jo naya mila
+
+Owner ka kehna: "sab data/mean value validated hon, scientific statistical
+analysis ho, actual values dikhein, Data Sources update karo, jo ruka hai
+poora karo."
+
+## Jo VERIFY hua (code doc se milta hai, kuch nahi badla)
+
+- IMD heatwave criteria, McKee SPI (zero-inflated gamma, q/2 convention),
+  ETCCDI fixed 2000-2014 base -- `02_compute_indices.py` doc ke mutabik hai
+- `classify_risk()` ordinal sum METHODOLOGY Sec 6 se bilkul milta hai, aur
+  poore repo me sirf EK jagah hai (client-side duplicate nahi hai)
+- `08_gee_national_climate.py` sach me `02_compute_indices.py` ke asli
+  function importlib se import karta hai (METHODOLOGY Sec 7 #9 ka apna daava)
+- `forecast_2040.json` asli OLS + residual-derived 95% band hai, INDICATIVE
+  label ke saath
+- CGWB groundwater trend asli OLS slope hai (>=4 point, +/-0.02 m/yr dead
+  band) -- ab threshold tooltip me bhi likha hai
+- DES crop stats, mandi table, horticulture -- koi chhupa hua "enhancement"
+  nahi mila (mandi CHART ka ek issue tha, neeche dekho)
+
+## Jo THEEK kiya (5 fabrication + 2 statistical defect)
+
+1. `MP_DISTRICTS` me hardcoded risk/drought/heat/ndvi literal -- asli
+   computed value se match hi nahi karte the (risk "low" vs likha
+   "moderate"/"extreme"). Hataya.
+2. SPI se NDVI banane wala invented formula (`spi_12*0.1+0.45`). Hataya.
+3. Chat ka `rain=1100, heat=38` fallback jo "(IMD-derived)" likh ke dikhta
+   tha. Ab null, aur honest gap message.
+4. `GW STRESS 62%` -- invented coefficients (droughtPct*1.1 +10 -15). Ab
+   asli CGWB trend par bhejta hai. RECHARGE bhi vaise hi hataya.
+5. Pilot ka `ai_confidence_pct = rng.uniform(86,95)` -- pura random tha aur
+   ek decision rule bhi chala raha tha. Ab teen real weighted term.
+6. CMIP6 ka `max_summer_tmax`/`rx1day_mm` window-maximum the, aur window
+   alag lambai ke hain (10 saal future vs 15 saal baseline) -- delta me
+   systematic bias tha (Bhopal delta_rx1day -189.9mm!). Ab per-year maxima
+   ka mean.
+7. CMIP6 ka "HEATWAVE DAYS/YR" asal me Tmax>=40 ka hot-day count tha, aur
+   observed IMD heatwave index ke bilkul bagal me wahi label leke baitha
+   tha (0.4 vs ~38). Ab `hot_days_tmax_ge40_per_yr` + "HOT DAYS/YR".
+
+## CMIP6 -- ab EK method, poore desh ke liye
+
+05b (centroid ke aas-paas 5km buffer, 5 MP zile) aur 09 (asli SoI district
+polygon, 733 zile) dono ek hi panel bhar rahe the. Dono ke number paas-paas
+hain (hot days 0.5-3.6 d/yr, peak Tmax 0.3C ke andar), to ye sudhaar hai,
+virodh nahi. **Polygon wala (09) ab authoritative hai sabhi 733 ke liye**,
+un 5 MP zilon ke liye bhi. `future_2040` mp_climate_data.json me
+`superseded_by` flag ke saath raha, delete nahi kiya.
+
+## CI ka bada gap band kiya
+
+metadata check `dashboard/data/*.json` par tha -- NON-recursive. 5,200 me se
+sirf 10 file dekhta tha, aur sirf key ki maujoodgi (khali `{}` bhi pass ho
+jata tha). Ab recursive, paanchon key check karta hai, aur
+`dashboard/data/**` par trigger bhi hota hai.
+`scripts/backfill_data_metadata.py` ne sabhi 5,200 file compliant kar di --
+zyadatar sirf alias tha (crs/method/generator pehle se maujood the).
+
+---
+
+# 16. FERTILIZER CARD (AUDIT_FIX_PROMPT item 10b) -- **HUA, LIVE VERIFIED**
+
+Pichhle audit agent ne chhod diya tha ("needs an ICAR dose corpus").
+Ab bana. Corpus ki samasya ka hal: **source se, banake nahi.**
+
+- Dose: `dashboard/data/fertilizer_doses.json` (12 fasal, 22 row) --
+  "Crop Production Guide - Agriculture 2020" (Directorate of Agriculture,
+  Chennai + TNAU) se page-by-page utara gaya, asli 460-page PDF fetch karke.
+  Har row par **asli printed page number** hai.
+- Mausam: hardcode NAHI. Us zile ke apne DES record se (`season` field),
+  latest reported year. Summer -> Zayad, "Whole Year" ka apna block.
+- Kshetrafal: Mera Khet ka asli naapa hua area (`window._meraKhetLastField`).
+  Naapa nahi to sirf per-hectare -- maan liya gaya khet size invented number
+  hota.
+- Jis fasal ka cited dose nahi mila: naam leke "Dose not available for: ..."
+  likha jata hai. Doosri fasal se udhaar NAHI.
+
+Live verify (Indore, DES 2022-23): Kharif me Soybean 2,44,719 ha 20:40:20
+(p.175), Maize 135:62.5:50 aur hybrid 250:75:75 (p.105); Rabi me Wheat
+2,09,917 ha 80:40:40 (p.123); Zayad me Groundnut. Area scaling: 20:40:20 x
+1.25 ha = 25:50:25 (arithmetic check pass).
+
+**IMANDAARI ki baat jo card khud likhta hai:** ye TAMIL NADU ke liye jaari
+blanket dose hain, national ICAR figure nahi -- doosre rajya ke apne POP
+alag hain; aur blanket dose sirf tab hai jab soil test na ho, soil test
+hamesha upar hai.
+
+**Agla kadam (nahi kiya, jaanbujh kar):** MP/Punjab/Rajasthan ke apne POP
+se aur crop add karna. Har naya row usi tarah page-cited hona chahiye --
+yaad se likha number is file me KABHI mat daalo.
+
+---
+
+# 17. JO ABHI BHI BAAKI HAI (record kiya, kiya nahi)
+
+1. **Village Report sirf English me hai.** `village_report.js` me `t()` aur
+   `isHindi()` define hain par kabhi call nahi hote -- ~20 section, saare
+   "Data not available" message, table header sab English. Baaki har loader
+   bilingual hai. Alag se kaam hai, chhota nahi.
+2. **~390 inline style** un 10 naye loader .js file me jo Phase 2.2 ke baad
+   bane (item 9 me pehle se likha tha, abhi bhi khula).
+3. **Compare ka mobile card `cell.note` gira deta hai** -- desktop par
+   village-count hover me aata hai, mobile par kisi bhi raaste se nahi
+   dikhta. Aggregate ka N mobile par gayab.
+4. **NDVI coverage** aur **soil moisture/advisory** ka rishta -- NDVI badhne
+   par `15_build_advisory.py` dobara chalana hai (item 13 me likha hai).
+5. **IMD resolution mismatch (item 6 upar)** -- abhi bhi aapke faisle ka
+   intezaar. METHODOLOGY/DATA_SOURCES "0.05 deg (~5.5 km)" kehte hain, par
+   imdlib se naapa temp grid 1 deg nikla. Chupchap NAHI badla.
+
+---
+
 # NIYAM -- sab par
 
 - Koi banaya hua aankda nahi
