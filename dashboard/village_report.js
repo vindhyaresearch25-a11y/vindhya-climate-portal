@@ -937,11 +937,20 @@
       var blocks = [];
       var dataLevel = 'district';
       var kpis = [];
+      // " (N=12 cells)" -- omitted entirely rather than printed as "N=0" or
+      // "N=?" when the underlying file has no count for that tier.
+      function nSuffix(n, what) {
+        return (n === null || n === undefined || isNaN(n)) ? '' : ' (N=' + n + ' ' + what + ')';
+      }
 
       if (sm.district) {
-        kpis.push({ label: 'DISTRICT SURFACE SM', value: fmt(sm.district.sm_surface_mean, 'num', 4) + ' m³/m³', color: 'var(--cyan)' });
+        // N added to every tile 2026-09-02: these tiles showed a bare mean
+        // while the table further down the same section carried the real
+        // contributing counts. An aggregate without its N is not auditable
+        // (docs/METHODOLOGY.md Sec 3.1), and the tile is what gets read.
+        kpis.push({ label: 'DISTRICT SURFACE SM' + nSuffix(sm.district.n_cells, 'cells'), value: fmt(sm.district.sm_surface_mean, 'num', 4) + ' m³/m³', color: 'var(--cyan)' });
         if (has(sm.district.sm_rootzone_mean)) {
-          kpis.push({ label: 'DISTRICT ROOT-ZONE SM', value: fmt(sm.district.sm_rootzone_mean, 'num', 4) + ' m³/m³', color: 'var(--blue)' });
+          kpis.push({ label: 'DISTRICT ROOT-ZONE SM' + nSuffix(sm.district.n_cells, 'cells'), value: fmt(sm.district.sm_rootzone_mean, 'num', 4) + ' m³/m³', color: 'var(--blue)' });
         }
       }
       // Block tier -- real, computed from that block's own villages' cells.
@@ -950,7 +959,7 @@
         blockRow = sm.blocks.filter(function (b) { return b.block_name === ctx.blockName; })[0] || null;
         if (blockRow) {
           dataLevel = 'block';
-          kpis.push({ label: 'BLOCK SURFACE SM', value: fmt(blockRow.sm_surface_mean, 'num', 4) + ' m³/m³', color: 'var(--green)' });
+          kpis.push({ label: 'BLOCK SURFACE SM' + nSuffix(blockRow.n_villages, 'villages'), value: fmt(blockRow.sm_surface_mean, 'num', 4) + ' m³/m³', color: 'var(--green)' });
         }
       }
       // Village tier -- the real 9 km cell nearest this village's centroid.
@@ -962,7 +971,7 @@
           villCell = sm.district.cells.filter(function (c) { return c.cell_index === cellIdx; })[0] || null;
           if (villCell) {
             dataLevel = 'village';
-            kpis.push({ label: 'VILLAGE CELL SURFACE SM', value: fmt(villCell.sm_surface, 'num', 4) + ' m³/m³', color: 'var(--teal)' });
+            kpis.push({ label: 'VILLAGE CELL SURFACE SM' + nSuffix(villCell.n_villages_sharing_cell, 'villages share this cell'), value: fmt(villCell.sm_surface, 'num', 4) + ' m³/m³', color: 'var(--teal)' });
           }
         }
       }
@@ -1261,13 +1270,24 @@
         return [s.n + '. ' + s.title, s.available ? 'Available' : 'Not available',
           s.available ? (s.level || '—') : '—', s.source || '—'];
       });
+      // The register used to omit its own row, so the table listed 19 rows
+      // against a "of 20" count -- a reader could not reconcile the two.
+      rows.push(['20. Data Availability Summary & Source Register', 'Available', 'Report-wide',
+                 'Computed live from what actually loaded for this selection']);
       S.push(section(20, 'Data Availability Summary & Source Register', {
         icon: 'fa-clipboard-check', available: true,
         level: 'Report-wide',
         source: 'Computed live from what actually loaded for this selection — not a static list',
         blocks: [
           kpiBlock([
-            { label: 'SECTIONS WITH REAL DATA', value: String(S.filter(function (s) { return s.available; }).length) + ' of ' + String(S.length + 1), color: 'var(--green)' },
+            // Off-by-one fixed 2026-09-02. This IIFE runs while S still holds
+            // sections 1-19 (section 20 is pushed at the end of this same
+            // block), so the numerator could only ever reach 19 while the
+            // denominator was already S.length + 1 = 20 -- the report could
+            // never say "20 of 20" and permanently understated its own
+            // coverage by one. Section 20 is always available (it is this
+            // summary), so it is counted explicitly on both sides.
+            { label: 'SECTIONS WITH REAL DATA', value: String(S.filter(function (s) { return s.available; }).length + 1) + ' of ' + String(S.length + 1), color: 'var(--green)' },
             { label: 'SELECTION LEVEL', value: lvl ? lvl.toUpperCase() : '—', color: 'var(--cyan)' },
             { label: 'GENERATED', value: new Date().toLocaleString('en-IN'), color: 'var(--teal)' }
           ]),

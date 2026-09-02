@@ -192,7 +192,13 @@
       setBar('bar-drought', Math.min(100, Math.max(0, droughtPct)));
       setTxt('drought-trend', stateName + suffix);
       var cs = Math.min(100, Math.max(0, Math.round(droughtPct)));
-      setTxt('m-crop', cs + '% (indicative)'); setBar('bar-crop', cs);
+      // Routed through index.html's single setCropStress() writer
+      // (2026-09-02 audit) so the card's basis line and tooltip always
+      // state the formula actually used -- four call sites previously
+      // wrote this card on two different scales under one label.
+      if (typeof window.setCropStress === 'function') {
+        window.setCropStress(cs, 'drought probability', 'drought probability percent, shown as-is');
+      } else { setTxt('m-crop', cs + '% (indicative)'); setBar('bar-crop', cs); }
       setTxt('m-crop-trend', 'Derived from state-mean drought probability');
     }
     if (hw != null) {

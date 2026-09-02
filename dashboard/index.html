@@ -2042,7 +2042,7 @@ body.mk-modal-open #pane-merakhet.active{
             <div class="metric-value orange" id="m-crop">—</div>
             <div class="metric-bar"><div id="bar-crop" class="metric-bar-fill u-w0-orange"></div></div>
             <div class="metric-trend" id="m-crop-trend"><i class="fa fa-wheat-awn u-dim"></i> <span data-i18n>Select a district</span></div>
-            <div class="metric-source" data-i18n>Derived · drought probability · indicative</div>
+            <div class="metric-source" id="m-crop-source" data-i18n>Derived · drought probability · indicative</div>
           </div>
           <div class="metric-card alert">
             <div class="metric-label" data-i18n>Groundwater</div>
@@ -3516,12 +3516,10 @@ function onVillageChange(village){
       setTxt('m-soil', 'Not available');
       // Crop stress: heuristic derived transparently from real drought probability only.
       if (dv != null) {
-        var cs = Math.min(100, Math.max(0, Math.round(dv)));
-        setTxt('m-crop', cs+'% (indicative)'); setBar('bar-crop', cs);
-        setTxt('m-crop-trend', 'Derived from drought probability');
+        setCropStress(dv, 'drought probability',
+          'drought probability percent, shown as-is');
       } else {
-        setTxt('m-crop', 'Not available'); setBar('bar-crop', 0);
-        setTxt('m-crop-trend', 'Select a district');
+        setCropStress(null);
       }
       // Default reset -- groundwater_loader.js (loaded last, wraps onDistrictChange)
       // overwrites m-gw/bar-gw with a real CGWB-via-NWDP reading right after this,
@@ -3658,12 +3656,10 @@ function applyDistrictMetrics(d, distKey){
   // Crop stress: heuristic derived transparently from real drought probability
   // only (no NDVI blend, since NDVI is not always available). Labelled indicative.
   if (droughtVal != null) {
-    var cs = Math.min(100, Math.max(0, Math.round(droughtVal)));
-    setTxt('m-crop', cs+'% (indicative)'); setBar('bar-crop', cs);
-    setTxt('m-crop-trend', 'Derived from drought probability');
+    setCropStress(droughtVal, 'drought probability',
+      'drought probability percent, shown as-is');
   } else {
-    setTxt('m-crop', 'Not available'); setBar('bar-crop', 0);
-    setTxt('m-crop-trend', 'Select a district');
+    setCropStress(null);
   }
 
   // Default reset -- groundwater_loader.js (loaded last, wraps onDistrictChange)
@@ -3964,12 +3960,14 @@ function setTimelineYear(year){
     // only), applied to this year's SPI-derived drought label, clearly
     // marked indicative.
     if (spiVal != null) {
-      var csYear = Math.min(100, Math.max(0, Math.round((2 - spiVal) / 4 * 100)));
-      st('m-crop', csYear + '% (indicative)'); sb('bar-crop', csYear);
-      st('m-crop-trend', 'Derived from SPI-12, ' + year);
+      // NOTE: a DIFFERENT scale from the two call sites above -- SPI-12
+      // rescaled to 0-100, not a probability percent. Values from this
+      // per-year view are therefore not comparable with the mean view's,
+      // which is exactly why the basis is now written next to the number.
+      setCropStress((2 - spiVal) / 4 * 100, 'SPI-12, ' + year,
+        'SPI-12 linearly rescaled to 0-100 as (2 - SPI) / 4 x 100');
     } else {
-      st('m-crop', 'Not available'); sb('bar-crop', 0);
-      st('m-crop-trend', 'Select a district');
+      setCropStress(null);
     }
   }
   if (typeof _mpClimateRefresh === 'function') _mpClimateRefresh();
@@ -4622,6 +4620,51 @@ async function sendChat(){
   }
 
   runChatCompletion();
+}
+
+// ---------------------------------------------------------------------
+// Crop Stress card -- ONE writer, added 2026-09-02 (methodology audit).
+//
+// Four places wrote #m-crop, using TWO different and non-comparable scales
+// under the identical on-screen label "N% (indicative)":
+//   * Math.round(drought_probability_pct)            (3 call sites)
+//   * Math.round((2 - spi_12) / 4 * 100)             (the per-year view)
+// and the card's SOURCE line was the static string "Derived - drought
+// probability - indicative" in all four cases, so on the SPI path the card
+// stated a provenance that was not the one used. A reader comparing the
+// mean view against a single-year view was comparing two different scales
+// with nothing on screen distinguishing them.
+//
+// This does not invent a better crop-stress metric -- there is no published
+// per-district crop-stress index in this portal's sources to replace it
+// with. It makes the existing derivation honest: the basis is written next
+// to the number every time it is set, so the label can never drift from the
+// formula, and the tooltip says plainly that this is a restatement of the
+// drought signal rather than an independent measurement of crop condition.
+function setCropStress(pct, basisShort, basisLong) {
+  var v = document.getElementById('m-crop');
+  var bar = document.getElementById('bar-crop');
+  var trend = document.getElementById('m-crop-trend');
+  var src = document.getElementById('m-crop-source');
+  if (pct == null || isNaN(pct)) {
+    if (v) { v.textContent = 'Not available'; v.title = ''; }
+    if (bar) bar.style.width = '0%';
+    if (trend) trend.textContent = 'Select a district';
+    if (src) src.textContent = 'Derived · no drought signal for this selection';
+    return;
+  }
+  var n = Math.min(100, Math.max(0, Math.round(pct)));
+  if (v) {
+    v.textContent = n + '% (indicative)';
+    v.title = 'Not an independent measurement of crop condition. It is a direct '
+      + 'restatement of this selection\'s real drought signal on a 0-100 scale ('
+      + basisLong + '). No published per-district crop-stress index exists in this '
+      + 'portal\'s sources, so none is claimed -- for a real vegetation signal see '
+      + 'the NDVI Analytics panel, and for the rule-based flags see Advisory.';
+  }
+  if (bar) bar.style.width = n + '%';
+  if (trend) trend.textContent = 'Derived from ' + basisShort;
+  if (src) src.textContent = 'Derived · ' + basisShort + ' · indicative';
 }
 
 function getLocalResponse(question){
