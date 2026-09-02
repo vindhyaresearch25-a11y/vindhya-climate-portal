@@ -120,6 +120,46 @@
   .note{font-size:11px;color:var(--ink-2);background:#f7fafb;border-left:3px solid var(--syn-line);
     border-radius:0 6px 6px 0;padding:7px 10px;margin-top:9px;line-height:1.5;}
 
+  /* ---- Analysis tabs (spec sections 5-20) ---- */
+  .an-tabs{display:flex;gap:4px;flex-wrap:wrap;padding:10px 13px 0;border-bottom:1px solid var(--line);}
+  .an-tab{padding:7px 12px;border-radius:7px 7px 0 0;background:#eef2f6;color:var(--dim);
+    font-size:11.5px;font-weight:700;cursor:pointer;border:1px solid var(--line);border-bottom:none;
+    margin-bottom:-1px;}
+  .an-tab.active{background:#fff;color:var(--brand-ink);border-color:var(--line);border-bottom:1px solid #fff;}
+  .an-panel{display:none;padding:14px;}
+  .an-panel.active{display:block;}
+  .an-panel h3{font-size:13px;color:var(--brand-ink);margin-bottom:3px;}
+  .an-panel .sub{font-size:11.5px;color:var(--dim);margin-bottom:10px;}
+  .g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media (max-width:900px){.g2{grid-template-columns:1fr;}}
+  .box{border:1px solid var(--line);border-radius:8px;padding:11px 13px;background:#fbfdfe;}
+  .box h5{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--brand);margin-bottom:7px;}
+  table.dt{width:100%;border-collapse:collapse;font-size:12px;}
+  table.dt th{text-align:left;color:var(--dim);font-size:10.5px;text-transform:uppercase;
+    letter-spacing:.04em;padding:5px 6px;border-bottom:1px solid var(--line);}
+  table.dt td{padding:5px 6px;border-bottom:1px solid #eef2f5;}
+  table.dt tr:last-child td{border-bottom:none;}
+  table.dt td.num{text-align:right;font-weight:700;}
+  .chain{display:flex;flex-wrap:wrap;gap:5px;align-items:center;font-size:11px;margin:6px 0 10px;}
+  .chain .st{background:#eef4f6;border:1px solid var(--line);border-radius:5px;padding:3px 8px;font-weight:600;color:var(--ink-2);}
+  .chain .ar{color:var(--dim);}
+  .bar{height:9px;border-radius:5px;background:#e7edf2;overflow:hidden;margin-top:3px;}
+  .bar > i{display:block;height:100%;border-radius:5px;}
+  .hil-btns{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px;}
+  .hil-btns button{font-size:11.5px;padding:6px 11px;border-radius:6px;border:1px solid var(--line);
+    background:#fff;font-weight:700;cursor:pointer;font-family:inherit;color:var(--ink-2);}
+  .hil-btns button:hover{border-color:var(--brand-2);color:var(--brand-ink);}
+  .hil-state{margin-top:8px;font-size:12px;font-weight:700;}
+  ul.tl{list-style:none;padding:0;margin:6px 0 0;border-left:2px solid var(--brand-2);}
+  ul.tl li{position:relative;padding:0 0 11px 15px;font-size:11.5px;}
+  ul.tl li::before{content:'';position:absolute;left:-5px;top:5px;width:8px;height:8px;border-radius:50%;background:var(--brand-2);}
+  ul.tl li .t{color:var(--dim);font-size:10.5px;}
+  .stage-strip{display:flex;gap:3px;margin-top:8px;flex-wrap:wrap;}
+  .stage-strip .sg{flex:1;min-width:74px;text-align:center;font-size:10px;font-weight:700;padding:5px 3px;
+    border-radius:5px;background:#eef2f6;color:var(--dim);border:1px solid var(--line);}
+  .stage-strip .sg.on{background:var(--brand);color:#fff;border-color:var(--brand);}
+  .stage-strip .sg.evt{background:var(--bad-bg);color:var(--bad);border-color:#e4a9a6;}
+
   /* ---- Final disclaimer (spec section 29) ---- */
   .disclaimer-final{margin-top:16px;background:var(--syn-bg);border:2px solid var(--syn-line);
     border-radius:10px;padding:14px 16px;}
@@ -228,6 +268,14 @@
       <div class="twin-empty"><span class="big">&#9635;</span>
         Select any parcel on the map, or any row in the result list, to open its full digital profile.</div>
     </div>
+  </div>
+
+  <!-- ===== Analysis modules (spec sections 5-20) ===== -->
+  <div class="panel" style="margin-top:14px;" id="analysisPanel">
+    <h2><span class="sec">SECTIONS 5-20</span> Parcel Analysis &mdash; Traditional vs Technology-Assisted
+      <span class="tag t-sim">SIMULATED</span></h2>
+    <div class="an-tabs" id="anTabs"></div>
+    <div id="anPanels"></div>
   </div>
 
   <!-- ===== Final disclaimer, exact wording (spec section 29) ===== -->
