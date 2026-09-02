@@ -1,61 +1,62 @@
 {
-  "metadata": {
-    "source": "Derived, rule-based layer computed entirely from this portal's own already-published pipeline outputs -- climate indices (ERA5-Land (ECMWF) + CHIRPS (UCSB), via Google Earth Engine, 2000-2024), NDVI (UNDP DiCRA or MODIS/GEE, where available), soil moisture (NASA SMAP L4/GEE, where available). NOT a machine-learning model, NOT a probability/confidence score -- every flag is a fixed, code-defined threshold rule. See docs/METHODOLOGY.md Sec 9 for the exact rules; scripts/15_build_advisory.py is the reference implementation.",
-    "method": "Rule-based thresholds on real stored values; see each flag's own 'basis'/'note' for the exact source field(s) and threshold used.",
-    "state": "Karnataka",
-    "district": "Dakshina Kannada",
-    "district_lgd": 534,
-    "data_quality": "derived (rule-based, not independently measured) -- see 'source' for the real underlying pipeline output each flag traces to",
-    "flags_present": [
-      "drought_risk",
-      "heatwave_risk",
-      "irrigation_need"
-    ],
-    "last_updated": "2026-08-12"
-  },
-  "flags": {
-    "heatwave_risk": {
-      "level": "LOW",
-      "basis": {
-        "heatwave_days": 0.0,
-        "severe_heatwave_days": 0.0,
-        "source_file": "dashboard/data/climate/karnataka/dakshina_kannada.json",
-        "source_fields": {
-          "heatwave_days": "indices.heatwave_days",
-          "severe_heatwave_days": "indices.severe_heatwave_days"
-        }
-      },
-      "note": "0.00 heatwave days/yr and 0.00 severe heatwave days/yr (2000-2024 mean, ERA5-Land (ECMWF) + CHIRPS (UCSB), via Google Earth Engine, 2000-2024). Threshold: severe_heatwave_days>=2 -> EXTREME, heatwave_days>=8 -> HIGH, >=2 -> MODERATE, else LOW (same bands as the district climate panel)."
-    },
-    "drought_risk": {
-      "level": "LOW",
-      "basis": {
-        "drought_probability_pct": 14.1,
-        "spi_12": 0.0,
-        "severe_drought_months": 0.72,
-        "source_file": "dashboard/data/climate/karnataka/dakshina_kannada.json",
-        "source_fields": {
-          "drought_probability_pct": "indices.drought_probability_pct",
-          "spi_12": "indices.spi_12",
-          "severe_drought_months": "indices.severe_drought_months"
-        }
-      },
-      "note": "drought_probability_pct=14.1%, spi_12=0.00 (2000-2024, ERA5-Land (ECMWF) + CHIRPS (UCSB), via Google Earth Engine, 2000-2024). Below both threshold bands -> LOW."
-    },
-    "irrigation_need": {
-      "level": "LOW",
-      "basis": {
-        "sm_surface_mean": 0.4449,
-        "sm_rootzone_mean": 0.4552,
-        "n_cells": 42,
-        "observation_window": "2026-08-07T11:12Z to 2026-08-12T11:12Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
-        "source_file": "dashboard/data/soil_moisture/karnataka/dakshina_kannada.json",
-        "source_fields": {
-          "sm_surface_mean": "district.sm_surface_mean",
-          "sm_rootzone_mean": "district.sm_rootzone_mean"
-        }
-      },
-      "note": "sm_surface_mean=0.445 m3/m3 (0-5cm), sm_rootzone_mean=0.455 m3/m3 (0-100cm), N=42 SMAP cells, window 2026-08-07T11:12Z to 2026-08-12T11:12Z (3-hourly SMAP L4 images, averaged per grid cell over this window). Threshold (same as the Soil Moisture tab): <0.15 -> HIGH (irrigate soon), <0.30 -> MODERATE, else LOW. No per-district soil-moisture time series is stored yet (SMAP pipeline keeps a current ~5-day window only), so this is the fixed reference band, not a trend."
+ "metadata": {
+  "source": "Derived, rule-based layer computed entirely from this portal's own already-published pipeline outputs -- climate indices (ERA5-Land (ECMWF) + CHIRPS (UCSB), via Google Earth Engine, 2000-2024), NDVI (UNDP DiCRA or MODIS/GEE, where available), soil moisture (NASA SMAP L4/GEE, where available). NOT a machine-learning model, NOT a probability/confidence score -- every flag is a fixed, code-defined threshold rule. See docs/METHODOLOGY.md Sec 9 for the exact rules; scripts/15_build_advisory.py is the reference implementation.",
+  "method": "Rule-based thresholds on real stored values; see each flag's own 'basis'/'note' for the exact source field(s) and threshold used.",
+  "state": "Karnataka",
+  "district": "Dakshina Kannada",
+  "district_lgd": 534,
+  "data_quality": "derived (rule-based, not independently measured) -- see 'source' for the real underlying pipeline output each flag traces to",
+  "flags_present": [
+   "drought_risk",
+   "heatwave_risk",
+   "irrigation_need"
+  ],
+  "last_updated": "2026-08-12",
+  "processing": "Rule-based thresholds on real stored values; see each flag's own 'basis'/'note' for the exact source field(s) and threshold used."
+ },
+ "flags": {
+  "heatwave_risk": {
+   "level": "LOW",
+   "basis": {
+    "heatwave_days": 0.0,
+    "severe_heatwave_days": 0.0,
+    "source_file": "dashboard/data/climate/karnataka/dakshina_kannada.json",
+    "source_fields": {
+     "heatwave_days": "indices.heatwave_days",
+     "severe_heatwave_days": "indices.severe_heatwave_days"
     }
+   },
+   "note": "0.00 heatwave days/yr and 0.00 severe heatwave days/yr (2000-2024 mean, ERA5-Land (ECMWF) + CHIRPS (UCSB), via Google Earth Engine, 2000-2024). Threshold: severe_heatwave_days>=2 -> EXTREME, heatwave_days>=8 -> HIGH, >=2 -> MODERATE, else LOW (same bands as the district climate panel)."
+  },
+  "drought_risk": {
+   "level": "LOW",
+   "basis": {
+    "drought_probability_pct": 14.1,
+    "spi_12": 0.0,
+    "severe_drought_months": 0.72,
+    "source_file": "dashboard/data/climate/karnataka/dakshina_kannada.json",
+    "source_fields": {
+     "drought_probability_pct": "indices.drought_probability_pct",
+     "spi_12": "indices.spi_12",
+     "severe_drought_months": "indices.severe_drought_months"
+    }
+   },
+   "note": "drought_probability_pct=14.1%, spi_12=0.00 (2000-2024, ERA5-Land (ECMWF) + CHIRPS (UCSB), via Google Earth Engine, 2000-2024). Below both threshold bands -> LOW."
+  },
+  "irrigation_need": {
+   "level": "LOW",
+   "basis": {
+    "sm_surface_mean": 0.4449,
+    "sm_rootzone_mean": 0.4552,
+    "n_cells": 42,
+    "observation_window": "2026-08-07T11:12Z to 2026-08-12T11:12Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
+    "source_file": "dashboard/data/soil_moisture/karnataka/dakshina_kannada.json",
+    "source_fields": {
+     "sm_surface_mean": "district.sm_surface_mean",
+     "sm_rootzone_mean": "district.sm_rootzone_mean"
+    }
+   },
+   "note": "sm_surface_mean=0.445 m3/m3 (0-5cm), sm_rootzone_mean=0.455 m3/m3 (0-100cm), N=42 SMAP cells, window 2026-08-07T11:12Z to 2026-08-12T11:12Z (3-hourly SMAP L4 images, averaged per grid cell over this window). Threshold (same as the Soil Moisture tab): <0.15 -> HIGH (irrigate soon), <0.30 -> MODERATE, else LOW. No per-district soil-moisture time series is stored yet (SMAP pipeline keeps a current ~5-day window only), so this is the fixed reference band, not a trend."
   }
+ }
 }

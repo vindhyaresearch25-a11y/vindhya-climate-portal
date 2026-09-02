@@ -106,7 +106,8 @@ A day at station/grid is a heatwave day when **either**:
 1. Tmax ≥ 40°C **and** Tmax − climatological_normal ≥ 4.5°C, **or**
 2. Tmax ≥ 45°C (absolute threshold)
 
-Severe heatwave: departure ≥ 6.5°C **or** Tmax ≥ 47°C.
+Severe heatwave: Tmax ≥ 40°C **and** departure ≥ 6.5°C, **or** Tmax ≥ 47°C.
+(The Tmax ≥ 40°C precondition on the departure branch is the IMD rule and is what `scripts/02_compute_indices.py`'s `heatwave_for_village()` actually applies — this line previously omitted it, which read as a looser criterion than the code has ever used. Corrected 2026-09-02.)
 
 A heatwave **event** requires ≥ 2 consecutive days meeting the criteria. Restricted to March–June (Indian heatwave season). The climatological normal is the smoothed (15-day rolling) mean of Tmax for each day-of-year across 2000–2024.
 
@@ -140,6 +141,8 @@ $$ H(x) = q + (1-q) \cdot G(x) $$
 
 where q = fraction of zero months and G is the gamma CDF for positive values. SPI is then computed as the inverse standard normal CDF of H(x).
 
+For a month whose total is exactly zero, H(x) is not single-valued (the whole probability mass q sits at that one point), so the code assigns it **q/2** — the midpoint of the zero atom, the standard convention. H(x) is then clipped to [1e-6, 1−1e-6] before the normal inverse so an all-zero or all-wet month cannot produce ±∞. Both details are in `_spi_from_monthly()`; documented here 2026-09-02 so the published SPI is reproducible from this file alone.
+
 SPI is computed at three time scales: **3, 6, 12 months**.
 
 Drought thresholds:
@@ -162,7 +165,7 @@ Reference: Karl et al. (1999), Zhang et al. (2011). Computed per year:
 | CWD     | Maximum consecutive wet-day spell (rainfall ≥ 1 mm)                   |
 | ETD     | Count of days exceeding 95th percentile                               |
 
-Wet-day threshold: 1 mm. Percentile thresholds are computed from the full 2000–2024 wet-day series, then applied per year.
+Wet-day threshold: 1 mm. Percentile thresholds are computed from the wet-day series of the **fixed 2000–2014 base period** and then applied to every year, per ETCCDI convention — so a year is never scored against a distribution that includes itself. (`EXT_PRECIP_BASE_PERIOD` in `scripts/config.py`; `extreme_for_village()` falls back to the full record only if the base period somehow holds fewer than 5 years of days.) **This line previously said the thresholds came from the full 2000–2024 record**, which contradicted both the code and revision note 2 below; it was stale text left behind by that very fix. Corrected 2026-09-02.
 
 ## 5. Future projection methodology
 
@@ -176,6 +179,80 @@ For each district we compute three numbers per index:
 1. `future` — ensemble mean over 2036–2045
 2. `baseline` — ensemble mean over 2000–2014 (historical experiment)
 3. `delta = future − baseline`
+
+**Max-type indices are the mean of the per-year maxima, not the maximum over
+the window** (`_mean_annual_max()` in both CMIP6 scripts). This matters
+because the two windows are different lengths: 10 years for the future,
+15 for the baseline. A plain window maximum grows with window length — a
+15-year baseline simply has more chances to contain an extreme than a
+10-year future window — so `future.max() − baseline.max()` carried a
+systematic negative bias that was an artefact of the window lengths rather
+than a climate signal. It was found live on 2026-09-02: Bhopal's published
+`delta_rx1day_mm` was **−189.9 mm against a future Rx1day of 152.6 mm**,
+implying a 15-year baseline maximum of 342.5 mm and reading on screen as a
+large projected *drop* in extreme rainfall. Averaging the per-year maxima is
+window-length invariant and is the ETCCDI Rx1day/TXx definition §4.3 already
+specifies. Affects `max_summer_tmax` and `rx1day_mm` only; hot-day counts,
+annual rainfall and R95p were already per-year rates and were never affected.
+
+### 5.1 "Hot days" in the CMIP6 layer are NOT IMD heatwave days
+
+The CMIP6 scripts compute a **plain count of March–June days with Tmax ≥
+40 °C**, divided by the number of years. That is a *hot-day count*. It is
+**not** the IMD heatwave-event index of §4.1, which additionally requires a
+≥ 4.5 °C departure from the day-of-year normal **and** a run of ≥ 2
+consecutive qualifying days.
+
+The two are an order of magnitude apart for the same place — Bhopal's
+observed IMD heatwave days average **0.4 per year**, while its CMIP6
+hot-day count is **≈ 38 per year in the baseline window**. Until 2026-09-02
+both were rendered on adjacent panels under the identical label "HEATWAVE
+DAYS/YR", which invited the reader to infer a ~100× increase that does not
+exist and was never claimed by either number. The output field is now called
+`hot_days_tmax_ge40_per_yr` and the dashboard card reads "HOT DAYS/YR (TMAX
+≥ 40 °C)" with the distinction stated in the panel footer.
+
+The full IMD definition is not reproduced in the CMIP6 layer because the
+consecutive-run and day-of-year-departure logic is a poor fit for Earth
+Engine's server-side image algebra, and because **the delta is the reported
+quantity anyway**: future minus baseline under one consistent definition is
+meaningful regardless of which threshold defines "hot", whereas the absolute
+count is not comparable to the observed IMD series and should not be read
+against it.
+
+### 5.2 Two CMIP6 pipelines, and which one is authoritative
+
+Two scripts produce CMIP6 2040 output. They run the **identical** 8-model
+NEX-GDDP-CMIP6 ensemble, the same SSP2-4.5 scenario, the same 2036–2045 vs
+2000–2014 windows and the same index definitions. The only difference is the
+spatial unit they reduce over:
+
+| | `scripts/05b_run_cmip6_2040.py` | `scripts/09_gee_national_cmip6_2040.py` |
+|---|---|---|
+| Coverage | the 5 original IMD districts | all 733 districts |
+| Spatial unit | 5 km buffer around one centroid **point** | the district's real Survey of India **polygon** |
+| Output | `mp_climate_data.json` → `future_2040` | `data/cmip6_2040/<state>/<district>.json` |
+| Written | 2026-09-01 (this project's first real CMIP6 result) | 2026-09-01 |
+
+Compared directly for the same 5 districts on 2026-09-02 they agree closely
+— hot days within 0.5–3.6 d/yr, peak Tmax within 0.3 °C, annual rain within
+6 %, R95p within 8 %; Rx1day differs most (up to ~25 %), which is expected of
+a single-maximum statistic sampled over two different footprints. So neither
+was wrong, and this is a refinement rather than a contradiction.
+
+**The polygon version (09) is authoritative for all 733 districts,
+including the original 5.** It measures the district rather than a disc near
+its middle, and it is the same spatial unit every other district-level layer
+in this portal already uses, so one method now covers the whole country. As
+of 2026-09-02 `dashboard/national_cmip6_loader.js` renders every district
+including those 5 (its previous skip-the-5 branch is gone), and
+`mp_climate_loader.js`'s `renderFuturePanel()` no longer draws a competing
+version of the same panel.
+
+`future_2040` is deliberately **retained** in `mp_climate_data.json`, flagged
+`superseded_by`, rather than deleted: it is a real computed result and
+deleting real results is not how provenance works here. It is no longer
+rendered anywhere.
 
 The **delta is the meaningful number** for impact assessment because most CMIP6 model systematic bias survives downscaling and is largely subtracted out when you compare future to historical from the same model.
 
@@ -208,7 +285,29 @@ Each district's overall risk band (`low / moderate / high / extreme`) is a simpl
 
 Total ≥ 4 → extreme, ≥ 3 → high, ≥ 1 → moderate, else low.
 
-This is intentionally simple and replaceable. A production system would calibrate weights against historical impact data (crop loss, mortality, declared drought years).
+This is intentionally simple and replaceable. A production system would
+calibrate weights against historical impact data (crop loss, mortality,
+declared drought years).
+
+**It is a labelled ordinal band, not a calibrated risk model, and must never
+be presented as one.** The thresholds above are an editorial choice; no
+weight in the table was fitted to any observed outcome, and the resulting
+`low/moderate/high/extreme` label carries no probability, no return period
+and no confidence interval. Verified 2026-09-02 that `classify_risk()` in
+`scripts/04_build_dashboard_json.py` is the **only** implementation of this
+table anywhere in the repo — it is not replicated client-side in
+`national_selector.js`, `geoai_professional.js` or any loader, so the code
+and this table cannot drift apart.
+
+Also corrected 2026-09-02: `dashboard/index.html`'s `MP_DISTRICTS` table used
+to carry hardcoded `risk:"moderate"`/`"extreme"` literals (plus `drought`,
+`heat` and `ndvi` literals) as pre-fetch defaults. None matched what this
+scoring actually produces — the real computed band is `low` for all five
+districts, against literals claiming `moderate` and `extreme` — so any failed
+or slow fetch of `mp_climate_data.json` displayed an invented risk band that
+was indistinguishable from a computed one. The literals are gone; the fields
+are now absent until the real file populates them, and every consumer already
+guards on `!= null`.
 
 ## 7. Limitations
 
@@ -222,9 +321,35 @@ This is intentionally simple and replaceable. A production system would calibrat
 8. **NDVI coverage is Madhya Pradesh only, plus a small MODIS/GEE start elsewhere.** `dashboard/data/dicra_ndvi.json` covers all 52 MP districts (UNDP DiCRA, manual per-district download, not an API). Since 2026-08-08, `scripts/10_gee_national_ndvi.py` (MODIS MOD13Q1 v061 via Google Earth Engine, real per-year district-mean NDVI) has begun closing the rest of the country, benchmarked and run for one state (see `NIGHT_LOG.md` for the exact district count/timing) -- still a small fraction of the ~680 remaining non-MP districts. Every district still lacking a file (either source) shows "Not available", never a substitute value. The two NDVI sources are served from separate files/loaders (`dicra_ndvi.json`+`dicra_ndvi_loader.js` vs `dashboard/data/ndvi/`+`national_ndvi_loader.js`) and are never merged into one number.
 9. **National climate indices (beyond the 5 original IMD districts) use ERA5-Land + CHIRPS via Google Earth Engine, not IMD.** IMD's own 0.05° gridded product is not published on Earth Engine and no raw IMD NetCDF file is available on the machine this pipeline runs on (checked directly against `scripts/config.py`'s `IMD_TMAX_DIR`/`IMD_TMIN_DIR`/`IMD_PRECIP_DIR` before writing `scripts/08_gee_national_climate.py`). ERA5-Land (~9 km) and CHIRPS (~5.5 km) are coarser than IMD's ~5.5 km grid for temperature specifically, and are a genuinely different product, not a substitute manufactured to fill the gap -- the exact same heatwave/SPI/ETCCDI functions from `02_compute_indices.py` are applied unchanged, only the input series differs. Every such district's output JSON states this in its own metadata block; Bhopal, Indore, Jabalpur, Rewa and Sidhi are untouched and remain IMD-derived.
 10. **ERA5-Land/CHIRPS are validated against IMD for the 5 original districts, not assumed accurate.** `scripts/11_build_validation.py` (Phase 8.6) pulls the same ERA5-Land/CHIRPS series used for the national climate layer above, for Bhopal/Indore/Jabalpur/Rewa/Sidhi specifically, and computes real Pearson correlation, mean bias, and RMSE against those districts' actual IMD `annual_trends` numbers (`dashboard/data/validation/madhya_pradesh/*.json`). This checks the national layer's plausibility on the one set of districts where a ground-truth IMD series exists; it is not a claim that the same skill holds everywhere ERA5-Land/CHIRPS are used nationally -- that would need IMD data for those districts too, which is exactly what's unavailable (see #9).
-11. **Kisan Sahayak citation policy: citations are generated from retrieved documents only, never by the model.** See the dedicated sub-section below -- this is a considered, code-enforced design decision, not a gap to be "fixed" by asking the model to cite more carefully.
+11. **CMIP6 "hot days" and observed IMD "heatwave days" are different
+    indices and are not comparable.** See §5.1. The CMIP6 layer counts
+    March–June days with Tmax ≥ 40 °C; the observed layer applies the full
+    IMD heatwave-event definition (departure ≥ 4.5 °C plus a ≥ 2-day run).
+    Only the CMIP6 *delta* (future − baseline, one consistent definition on
+    both sides) is meaningful; its absolute value must not be read against
+    the observed series.
 
-### 7.1 Kisan Sahayak citation policy (added 2026-08-08)
+12. **CMIP6 max-type indices were window-length biased before 2026-09-02.**
+    See §5. `max_summer_tmax` and `rx1day_mm` were the single maximum over
+    each window, and the two windows are unequal (10 future vs 15 baseline
+    years), so their published deltas were biased low. The scripts now
+    average the per-year maxima. Any district file that does **not** carry a
+    `metadata.max_index_definition` block predates this fix and still holds
+    the old values; `national_cmip6_loader.js` detects exactly that and
+    prints a visible provisional-delta warning on those two cards rather
+    than showing a number it knows to be biased.
+
+13. **The CMIP6 spatial unit changed for 5 districts on 2026-09-02.** See
+    §5.2. Bhopal, Indore, Jabalpur, Rewa and Sidhi were previously served
+    from a 5 km-buffer-around-centroid computation and are now served from
+    their real Survey of India district polygon, like every other district.
+    Numbers shift slightly (hot days within 3.6 d/yr, peak Tmax within
+    0.3 °C); anything citing those five districts' 2040 projection from
+    before that date should be re-checked against the polygon values.
+
+14. **Kisan Sahayak citation policy: citations are generated from retrieved documents only, never by the model.** See the dedicated sub-section below -- this is a considered, code-enforced design decision, not a gap to be "fixed" by asking the model to cite more carefully.
+
+### 7.1 Kisan Sahayak citation policy (added 2026-08-08; item 14 above)
 
 Live testing of `cloudflare/kisan_sahayak_worker.js` (the chat Worker) found the
 model inventing plausible-sounding citations -- a fabricated manual title

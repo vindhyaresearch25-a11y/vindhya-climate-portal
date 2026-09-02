@@ -201,33 +201,38 @@
   // block/village nationwide, triggered from national_selector.js's own
   // selection handlers) -- nothing left for this file to call here.
 
+  // 2026-09-02 methodology audit: this function no longer renders anything.
+  //
+  // It used to draw the "2040 PROJECTION" panel for the 5 original MP
+  // districts from mp_climate_data.json's `future_2040`
+  // (scripts/05b_run_cmip6_2040.py, a 5 km buffer around a single centroid
+  // point), while national_cmip6_loader.js drew the SAME panel for the
+  // other 728 from each district's real Survey of India polygon
+  // (scripts/09_gee_national_cmip6_2040.py). Two spatial units feeding one
+  // panel meant the 5 MP districts' numbers were not built the same way as
+  // everyone else's, with nothing on screen saying so.
+  //
+  // The polygon version is the more correct of the two (it measures the
+  // district, not a disc near its middle) and is what every other
+  // district-level layer in this portal uses, so it is now authoritative
+  // for all 733 districts and national_cmip6_loader.js handles every
+  // district including these 5. The two agree closely where they overlap
+  // (checked 2026-09-02 for all 5: hot days within 0.5-3.6 d/yr, peak Tmax
+  // within 0.3 degC), so this is a refinement, not a reversal.
+  //
+  // `future_2040` is deliberately still present in mp_climate_data.json,
+  // now flagged `superseded_by`, because deleting a real computed result is
+  // not how provenance works here -- see docs/METHODOLOGY.md Sec 5.2. The
+  // function is kept (rather than removed) because it has existing call
+  // sites; making it a no-op is what stops the double render.
   function renderFuturePanel(districtKey){
-    var d = state.data && state.data.districts[districtKey];
-    if (!d) return;
-    var f = d.future_2040;
-    var host = document.getElementById('future-2040-panel'); if (!host) return;
-    if (!f) {
-      host.innerHTML = '<div style="padding:0.6rem;font-size:0.7rem;font-weight:600;color:var(--text-dim)">'
-        + 'CMIP6 future projection unavailable for ' + (d.name || districtKey) + '. Currently run only for '
-        + 'the 5 districts with a real IMD baseline (Bhopal, Indore, Jabalpur, Rewa, Sidhi) — '
-        + 'see scripts/05b_run_cmip6_2040.py.</div>';
-      return;
-    }
-    function delta(v, unit, invert){
-      var arrow = v > 0.5 ? '▲' : v < -0.5 ? '▼' : '◆';
-      var color = invert ? (v > 0 ? 'var(--green)' : 'var(--red)')
-                         : (v > 0 ? 'var(--red)' : 'var(--green)');
-      return '<span style="color:'+color+'">'+arrow+' '+fmt(Math.abs(v),1)+unit+'</span>';
-    }
-    host.innerHTML = ''
-      + '<div class="section-header"><i class="fa fa-clock-rotate-left" style="color:var(--orange);font-size:0.7rem"></i>'
-      + '<div class="section-title">2040 PROJECTION (SSP2-4.5, 8-MODEL CMIP6 ENSEMBLE)</div></div>'
-      + '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.5rem;padding:0.75rem;">'
-      + '  <div class="metric-card"><div class="metric-label">HEATWAVE DAYS/YR</div><div class="metric-value cyan">'+fmt(f.heatwave_days_per_yr,1)+'</div><div style="font-size:0.65rem;font-weight:600">vs baseline: '+delta(f.delta_heatwave_days_per_yr,' d')+'</div></div>'
-      + '  <div class="metric-card"><div class="metric-label">PEAK TMAX</div><div class="metric-value" style="color:var(--red)">'+fmt(f.max_summer_tmax,1)+'°C</div><div style="font-size:0.65rem;font-weight:600">vs baseline: '+delta(f.delta_max_summer_tmax,'°C')+'</div></div>'
-      + '  <div class="metric-card"><div class="metric-label">R95p mm/yr</div><div class="metric-value" style="color:var(--blue)">'+fmt(f.r95p_mm_per_yr,1)+'</div><div style="font-size:0.65rem;font-weight:600">vs baseline: '+delta(f.delta_r95p_mm_per_yr,' mm',true)+'</div></div>'
-      + '  <div class="metric-card"><div class="metric-label">Rx1day mm</div><div class="metric-value" style="color:var(--blue)">'+fmt(f.rx1day_mm,1)+'</div><div style="font-size:0.65rem;font-weight:600">vs baseline: '+delta(f.delta_rx1day_mm,' mm',true)+'</div></div>'
-      + '</div>';
+    // Clear only. Leaving the previous district's projection on screen
+    // while national_cmip6_loader.js's fetch is still in flight would be
+    // exactly the "stale data from a previous selection" that STANDING
+    // ORDERS #2 forbids, so this still runs on every selection -- it just
+    // no longer draws a second, differently-derived version of the panel.
+    var host = document.getElementById('future-2040-panel');
+    if (host) host.innerHTML = '';
   }
 
   function renderVillagePanel(districtKey, villageName){
@@ -592,27 +597,63 @@
       advisoryEl.innerHTML = parts.join(' ');
     }
 
-    // Groundwater: no CGWB/India-WRIS data is integrated into this dashboard, so
-    // an absolute water-table depth is never shown. The stress/recharge fields
-    // below are a heuristic derived from real IMD drought probability and
-    // rainfall -- labelled INDICATIVE, not a groundwater measurement.
-    var haveDroughtSignal = (vi && vi.drought_probability_pct != null) || (idx && idx.drought_probability_pct != null);
-    if (haveDroughtSignal && rain != null) {
-      var droughtPct = (vi && vi.drought_probability_pct != null) ? vi.drought_probability_pct : idx.drought_probability_pct;
-      var gwStress = Math.min(100, Math.max(5, droughtPct * 1.1 + (heat != null && heat > 39 ? 10 : 0) - (rain > 1200 ? 15 : 0)));
-      var gwStressLabel = gwStress > 65 ? 'HIGH (indicative)' : gwStress > 45 ? 'MODERATE (indicative)' : gwStress > 30 ? 'LOW-MODERATE (indicative)' : 'LOW (indicative)';
-      var gwStressColor = gwStress > 65 ? 'var(--red)' : gwStress > 45 ? 'var(--orange)' : gwStress > 30 ? 'var(--green)' : 'var(--cyan)';
-      setTxt('agri-gw-stress', gwStress.toFixed(0)+'% '+gwStressLabel, gwStressColor);
-      var irrNeed = season === 'kharif' ? (rain < 800 ? 'HIGH' : 'LOW') : season === 'rabi' ? 'MODERATE' : 'HIGH';
-      var irrNeedColor = irrNeed === 'HIGH' ? 'var(--red)' : irrNeed === 'MODERATE' ? 'var(--orange)' : 'var(--green)';
-      setTxt('agri-gw-irr-need', irrNeed, irrNeedColor);
-      var recharge = rain > 1200 ? 'GOOD (indicative)' : rain > 800 ? 'MODERATE (indicative)' : 'POOR (indicative)';
-      var rechargeColor = rain > 1200 ? 'var(--green)' : rain > 800 ? 'var(--yellow)' : 'var(--red)';
-      setTxt('agri-gw-recharge', recharge, rechargeColor);
+    // Groundwater, rewritten 2026-09-02 (methodology audit).
+    //
+    // WHAT WAS HERE AND WHY IT WENT. Three fields were computed from a
+    // heuristic with invented coefficients and then printed as if measured:
+    //
+    //   gwStress = min(100, max(5, droughtPct*1.1 + (heat>39 ? 10 : 0)
+    //                                             - (rain>1200 ? 15 : 0)))
+    //
+    // rendered as e.g. "62% MODERATE (indicative)". The 1.1 multiplier, the
+    // +10 and the -15 come from no published method, no source and no
+    // calibration -- they were chosen to look plausible. A two-significant-
+    // figure percentage is read as a measurement no matter what word follows
+    // it, and "(indicative)" does not make an invented coefficient real.
+    // `recharge` (GOOD/MODERATE/POOR straight off rainfall thresholds) and
+    // `irrNeed` (season plus a rainfall cut-off) had the same problem.
+    //
+    // The header comment that justified them -- "no CGWB/India-WRIS data is
+    // integrated into this dashboard" -- was also simply out of date. Since
+    // 2026-08-19 (PENDING.md item 4) this portal serves REAL CGWB quarterly
+    // groundwater-level readings from the National Water Data Portal, with a
+    // real OLS trend per district, via groundwater_loader.js. There is no
+    // longer any reason to estimate groundwater from rainfall: the measured
+    // article is right there.
+    //
+    // So: GW STRESS and RECHARGE now defer to that real layer, and
+    // IRRIGATION NEED defers to the advisory layer's `irrigation_need` flag,
+    // which is a documented threshold on real SMAP soil moisture
+    // (docs/METHODOLOGY.md Sec 9.4) rather than a guess from rainfall.
+    // groundwater_loader.js writes #agri-gw-level itself; these three are
+    // set to an honest pointer so no stale invented number can survive, and
+    // the panel never goes blank.
+    setTxt('agri-gw-stress',
+      'See GW LEVEL TREND (real CGWB stations)', 'var(--text-dim)');
+    var gwStressEl = document.getElementById('agri-gw-stress');
+    if (gwStressEl) gwStressEl.title = 'A single-number "groundwater stress %" is not published for '
+      + 'Indian districts and this portal will not manufacture one. The real, measured quantity is the '
+      + 'CGWB groundwater-level trend shown in the GW LEVEL TREND field and in the Groundwater tab '
+      + '(source: CGWB via National Water Data Portal).';
+    setTxt('agri-gw-recharge', 'No published recharge-rate source', 'var(--text-dim)');
+    var rechargeEl = document.getElementById('agri-gw-recharge');
+    if (rechargeEl) rechargeEl.title = 'Groundwater recharge rate is not published per district in any '
+      + 'free, machine-readable source found for this portal. It was previously guessed from annual '
+      + 'rainfall alone, which is not a recharge measurement -- removed 2026-09-02.';
+    // Irrigation need: real value if the advisory layer has one for this
+    // district, otherwise an honest gap. Never derived here.
+    var advIrr = (window._vindhyaAdvisory && window._vindhyaAdvisory.flags
+                  && window._vindhyaAdvisory.flags.irrigation_need) || null;
+    if (advIrr && advIrr.level) {
+      var lv = String(advIrr.level).toUpperCase();
+      setTxt('agri-gw-irr-need', lv,
+        lv === 'HIGH' ? 'var(--red)' : lv === 'MODERATE' ? 'var(--orange)' : 'var(--green)');
+      var irrEl = document.getElementById('agri-gw-irr-need');
+      if (irrEl) irrEl.title = 'From the advisory layer\'s irrigation_need flag: a fixed, documented '
+        + 'threshold on this district\'s real NASA SMAP L4 surface soil moisture '
+        + '(docs/METHODOLOGY.md Sec 9.4), not an estimate from rainfall.';
     } else {
-      setTxt('agri-gw-stress', 'Not available', 'var(--text-dim)');
       setTxt('agri-gw-irr-need', 'Not available', 'var(--text-dim)');
-      setTxt('agri-gw-recharge', 'Not available', 'var(--text-dim)');
     }
     // MERA_KHET_PROMPT.md B2: checked 2026-08-09 whether India-WRIS
     // (indiawris.gov.in) has a public API/bulk download for groundwater

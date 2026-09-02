@@ -194,7 +194,7 @@
         + '<div class="metric-value" style="color:' + trendColor(d.trend.direction) + ';font-size:1rem;">' + trendLabel(d.trend.direction) + '</div>'
         + '<div style="font-size:var(--fs-1);color:var(--text-dim);margin-top:0.3rem;">'
         + fmt(d.trend.mean_slope_m_per_year, 4) + ' m/yr · N=' + d.trend.n_stations_with_trend + ' ' + t('stations with a real trend', 'स्टेशन जिनके लिए वास्तविक ट्रेंड मौजूद है') + ' '
-        + infoIcon('Plain OLS slope on each station\'s own real quarterly readings (>=4 points needed), averaged across stations. Indicative trend on real history, not a projection -- same style as forecast_2040.json.')
+        + infoIcon('Plain OLS slope (numpy polyfit, degree 1) on each station\'s own real quarterly CGWB readings, in metres per year; a station needs >= 4 real readings to get a trend at all, and the district figure is the mean of its stations\' slopes. Direction band: slope > +0.02 m/yr = deepening (water level number rising = water table falling), slope < -0.02 m/yr = rising, and anything between those two = broadly stable -- that +/-0.02 m/yr dead band is a stated magnitude threshold, not a statistical significance test, so a slope inside it is reported as stable rather than as a weak trend. Indicative trend on real history, not a projection -- same style as forecast_2040.json.')
         + '</div></div></div>';
     } else {
       h += '<div style="padding:0 0.75rem 0.5rem;color:var(--text-dim);font-size:var(--fs-1);">'

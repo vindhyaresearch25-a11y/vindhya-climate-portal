@@ -155,9 +155,17 @@
       (meta.last_updated || '--') + '. ' +
       t('Prices are published APMC arrivals. No value is interpolated or ' +
         'carried forward from a previous day. Modal price is the most ' +
-        'frequently traded price, not an average.',
+        'frequently traded price, not an average -- that is true of every ' +
+        'row in the table below, which shows each market as published. ' +
+        'The chart is the one exception and says so on its own axis: where ' +
+        'a commodity traded in more than one market today, its bar is the ' +
+        'plain mean of those markets\' modal prices, with the market count ' +
+        'shown in the tooltip.',
         'भाव प्रकाशित APMC आवक हैं। कोई मान अनुमानित नहीं है और न ही पिछले दिन से ' +
-        'आगे बढ़ाया गया है। मॉडल भाव सर्वाधिक कारोबार वाला भाव है, औसत नहीं।') +
+        'आगे बढ़ाया गया है। मॉडल भाव सर्वाधिक कारोबार वाला भाव है, औसत नहीं -- यह ' +
+        'नीचे दी गई तालिका की हर पंक्ति पर लागू होता है। केवल चार्ट अपवाद है: जहाँ ' +
+        'एक जिंस आज एक से अधिक मंडी में बिकी, वहाँ उसका बार उन मंडियों के मॉडल भाव ' +
+        'का साधारण औसत है, और मंडियों की संख्या टूलटिप में दी गई है।') +
       '</div></div>';
 
     box.innerHTML = h;
@@ -184,7 +192,7 @@
     });
     var rows = Object.keys(byCommodity).map(function (name) {
       var c = byCommodity[name];
-      return { name: name, modal: c.modalSum / c.n, min: c.min, max: c.max };
+      return { name: name, modal: c.modalSum / c.n, n: c.n, min: c.min, max: c.max };
     }).sort(function (a, b) { return b.modal - a.modal; }).slice(0, 12);
 
     if (_mandiChart) { try { _mandiChart.destroy(); } catch (e) {} }
@@ -193,7 +201,12 @@
       data: {
         labels: rows.map(function (r) { return r.name; }),
         datasets: [{
-          label: t('Modal price (₹/quintal)', 'मॉडल भाव (₹/क्विंटल)'),
+          // Label says "mean across markets" because for any commodity with
+          // n > 1 this bar IS an average -- the panel footer's "modal price
+          // is not an average" line was, until 2026-09-02, contradicted by
+          // this very chart with nothing on screen resolving it.
+          label: t('Modal price, mean across markets (₹/quintal)',
+                   'मॉडल भाव, मंडियों का औसत (₹/क्विंटल)'),
           data: rows.map(function (r) { return Math.round(r.modal); }),
           backgroundColor: 'rgba(92,195,205,0.55)',
           borderColor: '#5cc3cd',
@@ -208,7 +221,13 @@
             callbacks: {
               afterLabel: function (item) {
                 var r = rows[item.dataIndex];
-                return t('Range: ', 'रेंज: ') + inr(r.min) + ' – ' + inr(r.max);
+                // Always show how many real market records the bar is built
+                // from -- an aggregate without its count is not auditable
+                // (FINAL_PROMPT.md Phase 8.2 / docs/METHODOLOGY.md Sec 3.1).
+                var basis = (r.n > 1)
+                  ? t('mean of ', 'का औसत: ') + r.n + t(' markets', ' मंडी')
+                  : t('1 market (as published, not averaged)', '1 मंडी (प्रकाशित, औसत नहीं)');
+                return [t('Range: ', 'रेंज: ') + inr(r.min) + ' – ' + inr(r.max), basis];
               }
             }
           }

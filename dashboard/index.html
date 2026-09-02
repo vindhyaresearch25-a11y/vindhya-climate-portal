@@ -2200,17 +2200,36 @@ window.__dataConfigPromise.finally(function(){
 // MADHYA PRADESH ADMINISTRATIVE HIERARCHY
 // India > MP > District (all 55) > Block/Tehsil > Village
 // ============================================================
-// Each district: lat/lng centroid + risk + sample blocks, each block with sample villages.
+// Each district: lat/lng centroid + sample blocks, each block with sample villages.
+//
+// NO risk/drought/heat/ndvi LITERALS HERE -- removed 2026-09-02 methodology
+// audit. This table used to ship hardcoded risk:"moderate"/"extreme",
+// drought:50/78/46/58/54, heat:40/44/38/39/38 and ndvi:0.47/0.38/0.56/0.49/0.52.
+// None of them matched what the pipeline actually computes (real values:
+// risk "low" for all five, drought 16-17%, max summer Tmax 41.9-44.0 degC,
+// NDVI 0.29-0.48) -- so any moment the real fetch of data/mp_climate_data.json
+// was slow or failed, the page displayed invented numbers that looked exactly
+// like real ones. That is the specific "invented MP_DISTRICTS risk numbers"
+// defect CLAUDE.md STANDING ORDERS #7 names as already-removed and forbids
+// reintroducing; it had crept back in as a "default".
+//
+// mp_climate_loader.js (lines ~39-42) populates .risk/.drought/.heat/.ndvi on
+// these objects from the real computed JSON. Until it does, the fields are
+// genuinely absent, and every consumer already guards with `!= null` -- an
+// absent value now renders as "not available" instead of a plausible lie.
+// lat/lng are real Survey of India centroids (they match scripts/config.py
+// DISTRICTS) and the block/village names are real administrative names, so
+// those stay.
 const MP_DISTRICTS = {
-  bhopal:       {name:"Bhopal",       lat:23.260, lng:77.413, risk:"moderate", drought:50, heat:40, ndvi:0.47,
+  bhopal:       {name:"Bhopal",       lat:23.260, lng:77.413,
                  blocks:{Berasia:["Phanda","Nazirabad"], Huzur:["Kolar","Bairagarh"], Phanda:["Mubarakpur","Ratibad"]}},
-  indore:       {name:"Indore",       lat:22.7196, lng:75.8577, risk:"extreme", drought:78, heat:44, ndvi:0.38,
+  indore:       {name:"Indore",       lat:22.7196, lng:75.8577,
                  blocks:{Indore:["Kanadia","Rau"], Depalpur:["Hatod","Betma"], Mhow:["Manpur","Simrol"], Sanwer:["Kampel","Palda"]}},
-  jabalpur:     {name:"Jabalpur",     lat:23.181, lng:79.986, risk:"moderate", drought:46, heat:38, ndvi:0.56,
+  jabalpur:     {name:"Jabalpur",     lat:23.181, lng:79.986,
                  blocks:{Jabalpur:["Panagar","Patan"], Sihora:["Majholi","Kundam"], Shahpura:["Bargi","Barela"]}},
-  rewa:         {name:"Rewa",         lat:24.531, lng:81.297, risk:"moderate", drought:58, heat:39, ndvi:0.49,
+  rewa:         {name:"Rewa",         lat:24.531, lng:81.297,
                  blocks:{Rewa:["Raipur Karchuliyan","Gangeo"], Mauganj:["Hanumana","Naigarhi"], Teonthar:["Sirmour","Jawa"]}},
-  sidhi:        {name:"Sidhi",        lat:24.418, lng:81.881, risk:"moderate", drought:54, heat:38, ndvi:0.52,
+  sidhi:        {name:"Sidhi",        lat:24.418, lng:81.881,
                  blocks:{Sidhi:["Rampur Naikin","Kusmi","Sahijana"], Churhat:["Majhauli","Sihawal"], Gopadbanas:["Bahri","Dhauhani"]}}
 };
 
@@ -4606,16 +4625,40 @@ function getLocalResponse(question){
   else if (m >= 10 || m <= 2) season = 'Rabi (Winter)';
   else season = 'Zayed (Summer)';
 
-  var rain = 1100, drought = 30, heat = 38, ndvi = 0.42;
-  if (d && d.drought != null) drought = d.drought;
+  // 2026-09-02 methodology audit. Three fabrications lived here:
+  //   1. `var rain = 1100, ... heat = 38` -- invented fallback constants
+  //      that were then printed as "(IMD-derived)" / "(IMD-आधारित)" even
+  //      when no district was selected and no IMD number existed.
+  //   2. `ndvi = Math.max(0.1, Math.min(0.9, di.spi_12*0.1+0.45))` --
+  //      an NDVI value manufactured arithmetically out of a drought index
+  //      with invented coefficients. NDVI is a measured reflectance
+  //      quantity; it cannot be derived from SPI, and there is no source
+  //      for that formula. (It happened to be dead code -- the local
+  //      `ndvi` and `drought` variables were written and never read -- but
+  //      an unused fabrication is still a fabrication waiting to be wired
+  //      up, so it is gone rather than left in place.)
+  // Now: both start null and are only ever set from a real stored value.
+  // The rendering below prints the weather line only when a real number
+  // exists, and says so plainly when one does not.
+  var rain = null, heat = null;
   if (d && d.heat != null) heat = d.heat;
-  if (d && d.ndvi != null) ndvi = d.ndvi;
   if (typeof _mpClimateData !== 'undefined' && _mpClimateData && _mpClimateData.districts && dk) {
     var di = _mpClimateData.districts[dk]?.indices || {};
-    if (di.drought_probability_pct != null) drought = di.drought_probability_pct;
     if (di.max_summer_tmax != null) heat = di.max_summer_tmax;
     if (di.annual_rain_mm_mean != null) rain = di.annual_rain_mm_mean;
-    if (di.spi_12 != null) ndvi = Math.max(0.1, Math.min(0.9, di.spi_12*0.1+0.45));
+  }
+  // One shared builder so every reply that mentions weather uses the same
+  // honest wording, and no reply can accidentally print a placeholder.
+  function weatherLine(hi){
+    if (rain == null && heat == null) {
+      return hi ? 'मौसम: इस चयन के लिए IMD-आधारित वर्षा/तापमान का आँकड़ा उपलब्ध नहीं है।'
+                : 'Weather: no IMD-derived rainfall/temperature figure is available for this selection.';
+    }
+    var bits = [];
+    if (rain != null) bits.push((hi ? 'औसत वर्षा ' : 'avg rain ') + Math.round(rain) + 'mm');
+    if (heat != null) bits.push((hi ? 'अधिकतम ग्रीष्म तापमान ' : 'max summer temp ') + Math.round(heat) + '°C');
+    return (hi ? '**मौसम:** ' : '**Weather:** ') + bits.join(', ')
+         + (hi ? ' (IMD-आधारित, 2000-2024 औसत)' : ' (IMD-derived, 2000-2024 mean)');
   }
 
   var isHi = chatLangHi;
@@ -4633,8 +4676,8 @@ function getLocalResponse(question){
     var kharifCrops = ['Rice', 'Soybean', 'Maize', 'Cotton'];
     var rabiCrops = ['Wheat', 'Chickpea', 'Mustard', 'Gram'];
     var cropList = season.indexOf('Kharif') >= 0 ? kharifCrops.join(', ') : rabiCrops.join(', ');
-    if (isHi) return dName + ' में इस मौसम (' + season + ') में आमतौर पर उगाई जाने वाली फसलें: ' + cropList + '।' + nl + '**मौसम:** औसत वर्षा ' + Math.round(rain) + 'mm, तापमान ' + Math.round(heat) + '°C (IMD-आधारित)।' + nl + nl + 'सटीक उपज और लाभ के आँकड़े इस जिले के लिए सत्यापित स्रोत से उपलब्ध नहीं हैं — Crop Health पैनल में data.gov.in से असली आँकड़े देखें, या स्थानीय कृषि विभाग/KVK से सलाह लें।';
-    return 'Crops commonly grown in ' + dName + ' this season (' + season + '): ' + cropList + '.' + nl + '**Weather:** avg rain ' + Math.round(rain) + 'mm, temp ' + Math.round(heat) + '°C (IMD-derived).' + nl + nl + 'Verified yield and profit figures for this specific district are not available from a sourced dataset here — check the Crop Health panel for real data.gov.in statistics, or consult your local Agriculture Department/KVK.';
+    if (isHi) return dName + ' में इस मौसम (' + season + ') में आमतौर पर उगाई जाने वाली फसलें: ' + cropList + '।' + nl + weatherLine(true) + nl + nl + 'सटीक उपज और लाभ के आँकड़े इस जिले के लिए सत्यापित स्रोत से उपलब्ध नहीं हैं — Crop Health पैनल में data.gov.in से असली आँकड़े देखें, या स्थानीय कृषि विभाग/KVK से सलाह लें।';
+    return 'Crops commonly grown in ' + dName + ' this season (' + season + '): ' + cropList + '.' + nl + weatherLine(false) + nl + nl + 'Verified yield and profit figures for this specific district are not available from a sourced dataset here — check the Crop Health panel for real data.gov.in statistics, or consult your local Agriculture Department/KVK.';
   }
 
   // 2. Which crop gives highest profit? -- same fabrication removed; see note above.
@@ -4697,8 +4740,14 @@ function getLocalResponse(question){
   // 6. Which crop this season? -- same fabrication removed as #1/#2.
   if (q.indexOf('this season') >= 0 || q.indexOf('इस मौसम') >= 0 || q.indexOf('मौसम में फसल') >= 0) {
     var seasonCrop = season.indexOf('Kharif') >= 0 ? 'Soybean' : (season.indexOf('Rabi') >= 0 ? 'Wheat' : 'Moong (Summer)');
-    if (isHi) return '**' + season + ' — ' + dName + ' में आमतौर पर उगाई जाने वाली फसल:** ' + seasonCrop + nl + '**मौसम:** तापमान ' + Math.round(heat) + '°C, वर्षा ' + Math.round(rain) + 'mm (IMD-आधारित)' + nl + '**सिंचाई सलाह:** ' + (rain > 800 ? 'वर्षा पर्याप्त दिख रही है' : 'वर्षा कम है — सिंचाई की योजना बनाएँ') + nl + nl + 'उपज और लाभ के सत्यापित आँकड़े यहाँ उपलब्ध नहीं — Crop Health पैनल देखें।';
-    return '**' + season + ' — commonly grown crop in ' + dName + ':** ' + seasonCrop + nl + '**Weather:** temp ' + Math.round(heat) + '°C, rain ' + Math.round(rain) + 'mm (IMD-derived)' + nl + '**Irrigation note:** ' + (rain > 800 ? 'rainfall looks adequate' : 'rainfall is low — plan for irrigation') + nl + nl + 'Verified yield/profit figures aren\'t available here — check the Crop Health panel.';
+    // Irrigation note is only offered when a REAL rainfall number exists --
+    // it used to be decided by `rain > 800` against the invented 1100 mm
+    // fallback, i.e. every district with no data was told its rainfall
+    // "looks adequate" (2026-09-02 audit).
+    var irrHi = (rain == null) ? '' : nl + '**सिंचाई सलाह:** ' + (rain > 800 ? 'वर्षा पर्याप्त दिख रही है' : 'वर्षा कम है — सिंचाई की योजना बनाएँ');
+    var irrEn = (rain == null) ? '' : nl + '**Irrigation note:** ' + (rain > 800 ? 'rainfall looks adequate' : 'rainfall is low — plan for irrigation');
+    if (isHi) return '**' + season + ' — ' + dName + ' में आमतौर पर उगाई जाने वाली फसल:** ' + seasonCrop + nl + weatherLine(true) + irrHi + nl + nl + 'उपज और लाभ के सत्यापित आँकड़े यहाँ उपलब्ध नहीं — Crop Health पैनल देखें।';
+    return '**' + season + ' — commonly grown crop in ' + dName + ':** ' + seasonCrop + nl + weatherLine(false) + irrEn + nl + nl + 'Verified yield/profit figures aren\'t available here — check the Crop Health panel.';
   }
 
   return null; // not a chip question, use API

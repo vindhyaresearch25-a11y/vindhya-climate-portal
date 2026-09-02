@@ -398,14 +398,66 @@ def build_farmer(n, pm, scenario, scen_label, crop, binfo, base, rng, props, lon
     stage = STAGES[min(len(STAGES) - 1, 2 + (n % 4))]
 
     # Section 6/7 -- AI/RS classification
+    #
+    # ai_confidence_pct is COMPUTED, not drawn. Until 2026-09-02 it was
+    # `round(rng.uniform(86.0, 95.0), 1)` -- a pure random number with no
+    # connection to any other field in the record, which is exactly the
+    # "random display number" CROP_INSURANCE_SYSTEM_PROMPT.md Sec 21(i)
+    # forbids. It was also the single most-repeated figure in the UI (11
+    # render sites) AND it drove a decision rule below (`ai_conf < 88` ->
+    # "additional evidence advised"), i.e. an anomaly flag decided by a coin
+    # flip. Being a synthetic study does not excuse that: the requirement is
+    # that every number be correctly computed FROM the synthetic inputs by a
+    # real formula, so that a reader can re-derive it.
+    #
+    # Three real, weighted terms, all traceable to fields stored in this same
+    # record. The components are written into the output so the UI can show
+    # the arithmetic, exactly as it already does for the evidence score:
+    #
+    #  1. PHENOLOGY FIT (w 0.45) -- how closely this parcel's own simulated
+    #     NDVI series tracks the undamaged expected curve for the same dates.
+    #     A classifier keyed on crop phenology is most confident on a clean,
+    #     on-curve signal and least confident on a disturbed canopy.
+    #  2. PIXEL SUPPORT (w 0.25) -- a Sentinel-2 pixel is 10 m x 10 m =
+    #     0.01 ha, so a parcel's cultivated area IS its pixel count. More
+    #     pixels = more samples = a better-supported class decision. Log
+    #     scaled, saturating at 1000 px (10 ha): the 20th pixel adds far more
+    #     than the 1000th does.
+    #  3. CLASS SEPARABILITY (w 0.30) -- 1.0 when the classifier's crop and
+    #     the girdawari crop agree (one consistent hypothesis). When they
+    #     disagree, the decision was taken among the real set of same-season
+    #     candidate crops, so confidence falls as that candidate set grows:
+    #     more plausible alternatives means less separable.
+    px_per_ha = 100.0 * 100.0            # 10 m Sentinel-2 pixel = 0.01 ha
+    n_pixels = max(1.0, cult * px_per_ha)
+    support = min(1.0, math.log10(n_pixels) / 3.0)
+    dev = [abs(ts[i] - e) / e for i, e in enumerate(expected_curve) if e > 0]
+    fit = max(0.0, 1.0 - (sum(dev) / len(dev) if dev else 0.0))
+
     if scenario == "crop_mismatch":
         alts = [x for x in CROPS if x != crop and x in base and base[x]["season"] == binfo["season"]] \
             or [x for x in CROPS if x != crop and x in base]
         ai_crop = alts[n % len(alts)]
-        ai_conf = round(rng.uniform(86.0, 95.0), 1)
+        separability = 1.0 / (1.0 + 0.5 * len(alts))
     else:
         ai_crop = crop
-        ai_conf = round(rng.uniform(88.0, 97.0), 1)
+        alts = []
+        separability = 1.0
+
+    ai_conf_components = [
+        {"factor": "Phenology fit to expected curve",
+         "value": "mean deviation from expected = %.1f%%" % ((1.0 - fit) * 100.0),
+         "score": round(100.0 * fit, 1), "weight": 0.45},
+        {"factor": "Pixel support (Sentinel-2 10 m)",
+         "value": "%d pixels over %.2f ha cultivated" % (int(n_pixels), cult),
+         "score": round(100.0 * support, 1), "weight": 0.25},
+        {"factor": "Class separability",
+         "value": ("classifier agrees with girdawari crop"
+                   if not alts else
+                   "%d same-season candidate crops considered" % len(alts)),
+         "score": round(100.0 * separability, 1), "weight": 0.30},
+    ]
+    ai_conf = round(sum(c["score"] * c["weight"] for c in ai_conf_components), 1)
 
     area_diff = reported_area - cult
     area_diff_pct = (area_diff / reported_area * 100.0) if reported_area else 0.0
@@ -423,29 +475,67 @@ def build_farmer(n, pm, scenario, scen_label, crop, binfo, base, rng, props, lon
     if ai_conf < 88:
         anomalies.append("AI confidence below 88%: additional evidence advised")
 
-    # Section 13 -- explicit weighted evidence components
+    # Section 13 -- explicit weighted evidence components.
+    #
+    # Every component score below is DERIVED from a quantity stored elsewhere
+    # in this same record, so a reader can re-add them and get the published
+    # evidence score back. Four of the seven used to be `rng.uniform(...)`
+    # draws (2026-09-02 audit): the NDWI, rainfall-anomaly and
+    # multi-temporal components in the event branch, and both components in
+    # the no-event branch -- together roughly 70% of the total weight. They
+    # were replaced with the real signals that were already being simulated
+    # and stored a few lines above, which is what Sec 21(i) asks for. The
+    # weights themselves are a fixed, stated editorial choice, not fitted to
+    # anything -- that is why they are printed on screen next to each score.
     if scenario in EVENT_BY_SCENARIO:
+        # Real observed NDWI step across the event date. Waterlogging shows
+        # up as a POSITIVE step (more surface water), drought as a negative
+        # one; the magnitude of the step is the evidence, so use its size and
+        # keep the sign in the displayed value for the reader.
+        ndwi_step = ndwi[ev_month_idx] - ndwi[ev_month_idx - 1]
+        # 0.30 NDWI is the largest step this simulator produces (flood), so
+        # scale against that and clamp.
+        ndwi_score = min(100.0, abs(ndwi_step) / 0.30 * 100.0)
+        # Real observed departure of the series from the expected curve,
+        # measured over every date AFTER the event rather than just the
+        # event date -- a persistent depression is stronger evidence than a
+        # single-date dip, and that persistence is a real property of `ts`.
+        post = [(expected_curve[k] - ts[k]) / expected_curve[k]
+                for k in range(ev_month_idx, len(ts)) if expected_curve[k] > 0]
+        persistence = sum(1 for d in post if d > 0.05) / len(post) if post else 0.0
+        mt_score = min(100.0, 100.0 * (0.5 * persistence + 0.5 * min(1.0, decline / 50.0)))
         ev_components = [
             {"factor": "NDVI decline vs expected", "value": "%.1f%% below expected" % decline,
              "score": round(min(100, decline * 2.4), 1), "weight": 0.30},
             {"factor": "NDWI / waterlogging signal",
-             "value": "%.3f -> %.3f" % (ndwi[ev_month_idx - 1], ndwi[ev_month_idx]),
-             "score": round(min(100, 55 + (35 if scenario in ("flood", "excess_rain") else 0) + rng.uniform(-6, 6)), 1),
-             "weight": 0.20},
+             "value": "%.3f -> %.3f (step %+.3f)" % (ndwi[ev_month_idx - 1], ndwi[ev_month_idx], ndwi_step),
+             "score": round(ndwi_score, 1), "weight": 0.20},
             {"factor": "Rainfall / weather anomaly", "value": "%s (%s)" % (ev_type, ev_intensity),
-             "score": round({"Moderate": 62, "Severe": 80, "Very Severe": 92}[ev_intensity] + rng.uniform(-4, 4), 1),
+             "score": float({"Moderate": 62, "Severe": 80, "Very Severe": 92}[ev_intensity]),
              "weight": 0.20},
             {"factor": "Spatial damage pattern", "value": "%.2f ha contiguous within parcel" % damage_area,
              "score": round(min(100, 45 + dmg_frac * 60), 1), "weight": 0.15},
-            {"factor": "Multi-temporal change detection", "value": "%d-date series, Jun-Oct" % len(ts),
-             "score": round(rng.uniform(72, 93), 1), "weight": 0.15},
+            {"factor": "Multi-temporal change detection",
+             "value": "%d-date series, Jun-Oct; %.0f%% of post-event dates below expected"
+                      % (len(ts), persistence * 100.0),
+             "score": round(mt_score, 1), "weight": 0.15},
         ]
     else:
+        # No event: the evidence is that nothing departed from expectation.
+        # Score the real closeness of the series to the expected curve
+        # (`fit`, computed above for the classifier) and the real absence of
+        # any single-date drop, instead of drawing a number in the 80s.
+        worst_drop = max([(e - ts[k]) / e for k, e in enumerate(expected_curve) if e > 0] or [0.0])
+        stability = max(0.0, 1.0 - worst_drop / 0.25)
         ev_components = [
-            {"factor": "Multi-temporal vegetation stability", "value": "no anomaly detected",
-             "score": round(rng.uniform(84, 96), 1), "weight": 0.5},
-            {"factor": "Crop calendar consistency", "value": "matches %s calendar" % season,
-             "score": round(rng.uniform(82, 95), 1), "weight": 0.5},
+            {"factor": "Multi-temporal vegetation stability",
+             "value": "no anomaly detected; worst single-date departure %.1f%% below expected"
+                      % (worst_drop * 100.0),
+             "score": round(100.0 * stability, 1), "weight": 0.5},
+            {"factor": "Crop calendar consistency",
+             "value": "matches %s calendar; mean departure from expected curve %.1f%%"
+                      % (season, (1.0 - fit) * 100.0),
+             "score": round(100.0 * fit, 1), "weight": 0.5},
         ]
     evidence_score = round(sum(x["score"] * x["weight"] for x in ev_components), 1)
     verification_required = bool(anomalies) or loss_pct >= 30
@@ -507,6 +597,7 @@ def build_farmer(n, pm, scenario, scen_label, crop, binfo, base, rng, props, lon
 
         "tech": {
             "ai_crop": ai_crop, "ai_confidence_pct": ai_conf,
+            "ai_confidence_components": ai_conf_components,
             "detected_cultivated_area_ha": r2(cult),
             "area_difference_ha": r2(area_diff), "area_difference_pct": round(area_diff_pct, 1),
             "crop_stage": stage, "crop_health_score": health,

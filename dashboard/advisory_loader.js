@@ -291,7 +291,17 @@
         return;
       }
       loadDistrictFile(stateSlug, dslug).then(function (file) {
-        if (!file) { showEmpty(t('Failed to load', 'लोड नहीं हुआ') + ' · ' + sel.districtName); return; }
+        if (!file) {
+          window._vindhyaAdvisory = null;
+          showEmpty(t('Failed to load', 'लोड नहीं हुआ') + ' · ' + sel.districtName); return;
+        }
+        // Published so other panels can reuse this district's REAL advisory
+        // flags instead of re-deriving their own version of the same idea.
+        // Added 2026-09-02: the Agriculture pane's IRRIGATION NEED field used
+        // to be guessed from season + a rainfall cut-off; it now reads
+        // irrigation_need from here, which is a documented threshold on real
+        // SMAP soil moisture (docs/METHODOLOGY.md Sec 9.4).
+        window._vindhyaAdvisory = file;
         var contextNote = null;
         if (sel.vilLgd) {
           contextNote = t('District-wide · not village-specific', 'ज़िला-स्तर · गाँव-विशिष्ट नहीं') + ' '

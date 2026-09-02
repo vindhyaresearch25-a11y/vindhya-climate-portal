@@ -69,6 +69,26 @@ def gee_init():
     ee.data.setDeadline(90_000)
 
 
+def _mean_annual_max(coll: "ee.ImageCollection", band: str, years: "ee.List", out_name: str) -> "ee.Image":
+    """Mean of the PER-YEAR maxima, not the max over the whole window.
+
+    Identical to scripts/09_gee_national_cmip6_2040.py's helper of the same
+    name -- see that file for the full reasoning. Short version: a plain
+    `.max()` over a collection grows with the window's LENGTH, so a 15-year
+    baseline (2000-2014) vs a 10-year future window (2036-2045) produced a
+    delta that was a window-length artefact rather than a climate signal
+    (found live 2026-09-02: Bhopal delta_rx1day_mm = -189.9 mm against a
+    future Rx1day of 152.6 mm). The mean of per-year maxima is
+    window-length invariant and is the ETCCDI Rx1day/TXx definition
+    docs/METHODOLOGY.md Sec 4.3 already documents.
+    """
+    def one_year(y):
+        y = ee.Number(y)
+        return (coll.filter(ee.Filter.calendarRange(y, y, "year"))
+                    .select(band).max())
+    return ee.ImageCollection(years.map(one_year)).mean().rename(out_name)
+
+
 def indices_for_model_scenario(model: str, scenario: str, date_range: tuple[str, str]) -> ee.Image:
     col = (
         ee.ImageCollection(CMIP6_COLLECTION)
@@ -77,8 +97,16 @@ def indices_for_model_scenario(model: str, scenario: str, date_range: tuple[str,
         .filter(ee.Filter.date(date_range[0], date_range[1]))
     )
     n_years = ee.Date(date_range[1]).difference(ee.Date(date_range[0]), "year")
+    years = ee.List.sequence(ee.Date(date_range[0]).get("year"),
+                             ee.Date(date_range[1]).get("year"))
 
-    # ---- HEATWAVE (Mar-Jun season, matches config.py HW_SEASON_MONTHS)
+    # ---- HOT DAYS (Mar-Jun season, matches config.py HW_SEASON_MONTHS)
+    # NAMING, deliberate: a plain count of days with Tmax >= 40 degC. This is
+    # NOT the IMD heatwave-event definition used for the observed indices in
+    # 02_compute_indices.py (which also needs a >= 4.5 degC departure from
+    # the day-of-year normal and a >= 2-day consecutive run). The two are an
+    # order of magnitude apart for the same district and must never share a
+    # label -- hence `hot_days_tmax_ge40_per_yr`. docs/METHODOLOGY.md Sec 5.1.
     hw_season = col.filter(ee.Filter.calendarRange(3, 6, "month")).map(
         lambda im: im.addBands(im.select("tasmax").subtract(273.15).rename("tmaxC"))
     )
@@ -86,9 +114,9 @@ def indices_for_model_scenario(model: str, scenario: str, date_range: tuple[str,
         hw_season.map(lambda im: im.select("tmaxC").gte(40.0).rename("hw"))
         .sum()
         .divide(n_years)
-        .rename("heatwave_days_per_yr")
+        .rename("hot_days_tmax_ge40_per_yr")
     )
-    max_tmax = hw_season.select("tmaxC").max().rename("max_summer_tmax")
+    max_tmax = _mean_annual_max(hw_season, "tmaxC", years, "max_summer_tmax")
 
     # ---- PRECIP (pr is kg/m2/s -> mm/day = *86400)
     pr_mm = col.map(
@@ -108,7 +136,7 @@ def indices_for_model_scenario(model: str, scenario: str, date_range: tuple[str,
         .divide(n_years)
         .rename("r95p_mm_per_yr")
     )
-    rx1day = pr_mm.select("pr_mm").max().rename("rx1day_mm")
+    rx1day = _mean_annual_max(pr_mm, "pr_mm", years, "rx1day_mm")
 
     return ee.Image.cat([hw_days, max_tmax, annual_pr, r95p, rx1day, p95])
 
@@ -140,7 +168,7 @@ def main():
     print(f"[gee] computing baseline ensemble (historical, {BASELINE_RANGE[0]}..{BASELINE_RANGE[1]})...")
     baseline_img = ensemble_mean("historical", BASELINE_RANGE)
     delta_img = future_img.subtract(baseline_img).rename(
-        ["d_heatwave", "d_maxTmax", "d_annualRain", "d_r95p", "d_rx1day", "d_p95"]
+        ["d_hot_days", "d_maxTmax", "d_annualRain", "d_r95p", "d_rx1day", "d_p95"]
     )
 
     print("[gee] reducing to district buffers (scale=25000m)...")
@@ -163,19 +191,19 @@ def main():
             {
                 "key": key,
                 "name": d["name"],
-                "future_heatwave_days_per_yr": f.get("heatwave_days_per_yr"),
+                "future_hot_days_tmax_ge40_per_yr": f.get("hot_days_tmax_ge40_per_yr"),
                 "future_max_summer_tmax": f.get("max_summer_tmax"),
                 "future_annual_rain_mm": f.get("annual_rain_mm"),
                 "future_r95p_mm_per_yr": f.get("r95p_mm_per_yr"),
                 "future_rx1day_mm": f.get("rx1day_mm"),
                 "future_p95": f.get("p95"),
-                "baseline_heatwave_days_per_yr": b.get("heatwave_days_per_yr"),
+                "baseline_hot_days_tmax_ge40_per_yr": b.get("hot_days_tmax_ge40_per_yr"),
                 "baseline_max_summer_tmax": b.get("max_summer_tmax"),
                 "baseline_annual_rain_mm": b.get("annual_rain_mm"),
                 "baseline_r95p_mm_per_yr": b.get("r95p_mm_per_yr"),
                 "baseline_rx1day_mm": b.get("rx1day_mm"),
                 "baseline_p95": b.get("p95"),
-                "delta_d_heatwave": dl.get("d_heatwave"),
+                "delta_d_hot_days": dl.get("d_hot_days"),
                 "delta_d_maxTmax": dl.get("d_maxTmax"),
                 "delta_d_annualRain": dl.get("d_annualRain"),
                 "delta_d_r95p": dl.get("d_r95p"),

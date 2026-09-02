@@ -1,199 +1,201 @@
 {
-  "metadata": {
-    "source": "MODIS Terra Vegetation Indices 16-Day Global 250m (MOD13Q1 v061), via Google Earth Engine -- real satellite product, distinct from dashboard/data/dicra_ndvi.json (UNDP DiCRA, MP's 52 districts only); the two are never merged. Phase 8.4.",
-    "resolution": "250 m native MOD13Q1 pixel, 16-day composite; a per-year value here is the spatial mean over this district's polygon of that year's temporal-mean composite (GEE reduceRegion, bestEffort=True).",
-    "crs": "EPSG:4326",
-    "method": "ee.ImageCollection('MODIS/061/MOD13Q1').select('NDVI'), filtered to each calendar year, .mean() temporal composite, then ee.Reducer.mean().combine(stdDev).combine(count) spatially over the district polygon at 250 m scale. NDVI band values scaled by MOD13Q1's own documented factor (0.0001). One GEE request per year (not per-scene) to keep this tractable at national scale.",
-    "baseline": "2000-2024 (years with zero qualifying MOD13Q1 composites for this district are omitted from the series, never interpolated)",
-    "data_quality": "verified-official (real MODIS product)",
-    "unit_count": "25 years with real MOD13Q1 composites out of 25 nominal years; per-year pixel counts and std dev in 'annual_ndvi' below (Phase 8.2: never mean-only)",
-    "state": "Delhi",
-    "district": "North West",
-    "district_lgd": 82,
-    "last_updated": "2026-08-12"
+ "metadata": {
+  "source": "MODIS Terra Vegetation Indices 16-Day Global 250m (MOD13Q1 v061), via Google Earth Engine -- real satellite product, distinct from dashboard/data/dicra_ndvi.json (UNDP DiCRA, MP's 52 districts only); the two are never merged. Phase 8.4.",
+  "resolution": "250 m native MOD13Q1 pixel, 16-day composite; a per-year value here is the spatial mean over this district's polygon of that year's temporal-mean composite (GEE reduceRegion, bestEffort=True).",
+  "crs": "EPSG:4326",
+  "method": "ee.ImageCollection('MODIS/061/MOD13Q1').select('NDVI'), filtered to each calendar year, .mean() temporal composite, then ee.Reducer.mean().combine(stdDev).combine(count) spatially over the district polygon at 250 m scale. NDVI band values scaled by MOD13Q1's own documented factor (0.0001). One GEE request per year (not per-scene) to keep this tractable at national scale.",
+  "baseline": "2000-2024 (years with zero qualifying MOD13Q1 composites for this district are omitted from the series, never interpolated)",
+  "data_quality": "verified-official (real MODIS product)",
+  "unit_count": "25 years with real MOD13Q1 composites out of 25 nominal years; per-year pixel counts and std dev in 'annual_ndvi' below (Phase 8.2: never mean-only)",
+  "state": "Delhi",
+  "district": "North West",
+  "district_lgd": 82,
+  "last_updated": "2026-08-12",
+  "CRS": "EPSG:4326",
+  "processing": "ee.ImageCollection('MODIS/061/MOD13Q1').select('NDVI'), filtered to each calendar year, .mean() temporal composite, then ee.Reducer.mean().combine(stdDev).combine(count) spatially over the district polygon at 250 m scale. NDVI band values scaled by MOD13Q1's own documented factor (0.0001). One GEE request per year (not per-scene) to keep this tractable at national scale."
+ },
+ "annual_ndvi": [
+  {
+   "year": 2000,
+   "n_composites": 20,
+   "ndvi_mean": 0.2752,
+   "ndvi_stddev": 0.0659,
+   "pixel_count": 3038
   },
-  "annual_ndvi": [
-    {
-      "year": 2000,
-      "n_composites": 20,
-      "ndvi_mean": 0.2752,
-      "ndvi_stddev": 0.0659,
-      "pixel_count": 3038
-    },
-    {
-      "year": 2001,
-      "n_composites": 23,
-      "ndvi_mean": 0.3017,
-      "ndvi_stddev": 0.0804,
-      "pixel_count": 3038
-    },
-    {
-      "year": 2002,
-      "n_composites": 23,
-      "ndvi_mean": 0.2917,
-      "ndvi_stddev": 0.0823,
-      "pixel_count": 3038
-    },
-    {
-      "year": 2003,
-      "n_composites": 23,
-      "ndvi_mean": 0.2974,
-      "ndvi_stddev": 0.0805,
-      "pixel_count": 3038
-    },
-    {
-      "year": 2004,
-      "n_composites": 23,
-      "ndvi_mean": 0.314,
-      "ndvi_stddev": 0.0866,
-      "pixel_count": 3038
-    },
-    {
-      "year": 2005,
-      "n_composites": 23,
-      "ndvi_mean": 0.316,
-      "ndvi_stddev": 0.0831,
-      "pixel_count": 3038
-    },
-    {
-      "year": 2006,
-      "n_composites": 23,
-      "ndvi_mean": 0.3127,
-      "ndvi_stddev": 0.0833,
-      "pixel_count": 3038
-    },
-    {
-      "year": 2007,
-      "n_composites": 23,
-      "ndvi_mean": 0.316,
-      "ndvi_stddev": 0.0828,
-      "pixel_count": 3038
-    },
-    {
-      "year": 2008,
-      "n_composites": 23,
-      "ndvi_mean": 0.3119,
-      "ndvi_stddev": 0.0877,
-      "pixel_count": 3038
-    },
-    {
-      "year": 2009,
-      "n_composites": 23,
-      "ndvi_mean": 0.2926,
-      "ndvi_stddev": 0.0824,
-      "pixel_count": 3038
-    },
-    {
-      "year": 2010,
-      "n_composites": 23,
-      "ndvi_mean": 0.2909,
-      "ndvi_stddev": 0.0804,
-      "pixel_count": 3038
-    },
-    {
-      "year": 2011,
-      "n_composites": 23,
-      "ndvi_mean": 0.3091,
-      "ndvi_stddev": 0.0837,
-      "pixel_count": 3038
-    },
-    {
-      "year": 2012,
-      "n_composites": 23,
-      "ndvi_mean": 0.2889,
-      "ndvi_stddev": 0.0779,
-      "pixel_count": 3038
-    },
-    {
-      "year": 2013,
-      "n_composites": 23,
-      "ndvi_mean": 0.3262,
-      "ndvi_stddev": 0.0927,
-      "pixel_count": 3038
-    },
-    {
-      "year": 2014,
-      "n_composites": 23,
-      "ndvi_mean": 0.2966,
-      "ndvi_stddev": 0.0769,
-      "pixel_count": 3038
-    },
-    {
-      "year": 2015,
-      "n_composites": 23,
-      "ndvi_mean": 0.3146,
-      "ndvi_stddev": 0.0852,
-      "pixel_count": 3038
-    },
-    {
-      "year": 2016,
-      "n_composites": 23,
-      "ndvi_mean": 0.303,
-      "ndvi_stddev": 0.0862,
-      "pixel_count": 3038
-    },
-    {
-      "year": 2017,
-      "n_composites": 23,
-      "ndvi_mean": 0.3183,
-      "ndvi_stddev": 0.0845,
-      "pixel_count": 3038
-    },
-    {
-      "year": 2018,
-      "n_composites": 23,
-      "ndvi_mean": 0.3147,
-      "ndvi_stddev": 0.0888,
-      "pixel_count": 3038
-    },
-    {
-      "year": 2019,
-      "n_composites": 23,
-      "ndvi_mean": 0.3269,
-      "ndvi_stddev": 0.0863,
-      "pixel_count": 3038
-    },
-    {
-      "year": 2020,
-      "n_composites": 23,
-      "ndvi_mean": 0.3448,
-      "ndvi_stddev": 0.0912,
-      "pixel_count": 3038
-    },
-    {
-      "year": 2021,
-      "n_composites": 23,
-      "ndvi_mean": 0.3262,
-      "ndvi_stddev": 0.0807,
-      "pixel_count": 3038
-    },
-    {
-      "year": 2022,
-      "n_composites": 23,
-      "ndvi_mean": 0.3398,
-      "ndvi_stddev": 0.0866,
-      "pixel_count": 3038
-    },
-    {
-      "year": 2023,
-      "n_composites": 23,
-      "ndvi_mean": 0.3443,
-      "ndvi_stddev": 0.0901,
-      "pixel_count": 3038
-    },
-    {
-      "year": 2024,
-      "n_composites": 23,
-      "ndvi_mean": 0.3266,
-      "ndvi_stddev": 0.0851,
-      "pixel_count": 3038
-    }
-  ],
-  "period_summary": {
-    "years_covered": 25,
-    "ndvi_mean": 0.312,
-    "ndvi_stddev": 0.0178,
-    "ndvi_min": 0.2752,
-    "ndvi_max": 0.3448
+  {
+   "year": 2001,
+   "n_composites": 23,
+   "ndvi_mean": 0.3017,
+   "ndvi_stddev": 0.0804,
+   "pixel_count": 3038
+  },
+  {
+   "year": 2002,
+   "n_composites": 23,
+   "ndvi_mean": 0.2917,
+   "ndvi_stddev": 0.0823,
+   "pixel_count": 3038
+  },
+  {
+   "year": 2003,
+   "n_composites": 23,
+   "ndvi_mean": 0.2974,
+   "ndvi_stddev": 0.0805,
+   "pixel_count": 3038
+  },
+  {
+   "year": 2004,
+   "n_composites": 23,
+   "ndvi_mean": 0.314,
+   "ndvi_stddev": 0.0866,
+   "pixel_count": 3038
+  },
+  {
+   "year": 2005,
+   "n_composites": 23,
+   "ndvi_mean": 0.316,
+   "ndvi_stddev": 0.0831,
+   "pixel_count": 3038
+  },
+  {
+   "year": 2006,
+   "n_composites": 23,
+   "ndvi_mean": 0.3127,
+   "ndvi_stddev": 0.0833,
+   "pixel_count": 3038
+  },
+  {
+   "year": 2007,
+   "n_composites": 23,
+   "ndvi_mean": 0.316,
+   "ndvi_stddev": 0.0828,
+   "pixel_count": 3038
+  },
+  {
+   "year": 2008,
+   "n_composites": 23,
+   "ndvi_mean": 0.3119,
+   "ndvi_stddev": 0.0877,
+   "pixel_count": 3038
+  },
+  {
+   "year": 2009,
+   "n_composites": 23,
+   "ndvi_mean": 0.2926,
+   "ndvi_stddev": 0.0824,
+   "pixel_count": 3038
+  },
+  {
+   "year": 2010,
+   "n_composites": 23,
+   "ndvi_mean": 0.2909,
+   "ndvi_stddev": 0.0804,
+   "pixel_count": 3038
+  },
+  {
+   "year": 2011,
+   "n_composites": 23,
+   "ndvi_mean": 0.3091,
+   "ndvi_stddev": 0.0837,
+   "pixel_count": 3038
+  },
+  {
+   "year": 2012,
+   "n_composites": 23,
+   "ndvi_mean": 0.2889,
+   "ndvi_stddev": 0.0779,
+   "pixel_count": 3038
+  },
+  {
+   "year": 2013,
+   "n_composites": 23,
+   "ndvi_mean": 0.3262,
+   "ndvi_stddev": 0.0927,
+   "pixel_count": 3038
+  },
+  {
+   "year": 2014,
+   "n_composites": 23,
+   "ndvi_mean": 0.2966,
+   "ndvi_stddev": 0.0769,
+   "pixel_count": 3038
+  },
+  {
+   "year": 2015,
+   "n_composites": 23,
+   "ndvi_mean": 0.3146,
+   "ndvi_stddev": 0.0852,
+   "pixel_count": 3038
+  },
+  {
+   "year": 2016,
+   "n_composites": 23,
+   "ndvi_mean": 0.303,
+   "ndvi_stddev": 0.0862,
+   "pixel_count": 3038
+  },
+  {
+   "year": 2017,
+   "n_composites": 23,
+   "ndvi_mean": 0.3183,
+   "ndvi_stddev": 0.0845,
+   "pixel_count": 3038
+  },
+  {
+   "year": 2018,
+   "n_composites": 23,
+   "ndvi_mean": 0.3147,
+   "ndvi_stddev": 0.0888,
+   "pixel_count": 3038
+  },
+  {
+   "year": 2019,
+   "n_composites": 23,
+   "ndvi_mean": 0.3269,
+   "ndvi_stddev": 0.0863,
+   "pixel_count": 3038
+  },
+  {
+   "year": 2020,
+   "n_composites": 23,
+   "ndvi_mean": 0.3448,
+   "ndvi_stddev": 0.0912,
+   "pixel_count": 3038
+  },
+  {
+   "year": 2021,
+   "n_composites": 23,
+   "ndvi_mean": 0.3262,
+   "ndvi_stddev": 0.0807,
+   "pixel_count": 3038
+  },
+  {
+   "year": 2022,
+   "n_composites": 23,
+   "ndvi_mean": 0.3398,
+   "ndvi_stddev": 0.0866,
+   "pixel_count": 3038
+  },
+  {
+   "year": 2023,
+   "n_composites": 23,
+   "ndvi_mean": 0.3443,
+   "ndvi_stddev": 0.0901,
+   "pixel_count": 3038
+  },
+  {
+   "year": 2024,
+   "n_composites": 23,
+   "ndvi_mean": 0.3266,
+   "ndvi_stddev": 0.0851,
+   "pixel_count": 3038
   }
+ ],
+ "period_summary": {
+  "years_covered": 25,
+  "ndvi_mean": 0.312,
+  "ndvi_stddev": 0.0178,
+  "ndvi_min": 0.2752,
+  "ndvi_max": 0.3448
+ }
 }

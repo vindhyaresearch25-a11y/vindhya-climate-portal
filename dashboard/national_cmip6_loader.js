@@ -7,17 +7,29 @@
  * polygon -- see that script's header and the JSON's own metadata block
  * for scenario/ensemble/window details).
  *
- * Scope split with mp_climate_loader.js's renderFuturePanel(): that
- * function already renders this exact same "2040 PROJECTION" panel for
- * the 5 original MP districts (Bhopal/Indore/Jabalpur/Rewa/Sidhi) from
- * mp_climate_data.json's `future_2040` field (scripts/05b_run_cmip6_2040.py,
- * a 5km-buffer-around-centroid method, run once as this project's first
- * real CMIP6 result before the national version existed). This file
- * DELIBERATELY does not touch those 5 -- MP_DISTRICTS[key] existing is the
- * exact same real-district check mp_climate_loader.js and
- * national_selector.js's mpRealDataKey() already use elsewhere in this
- * codebase, reused here rather than re-invented, so the two loaders never
- * race on the same panel for the same district.
+ * Scope, revised 2026-09-02 (methodology audit): this loader is now
+ * authoritative for ALL 733 districts, INCLUDING the 5 original MP ones
+ * (Bhopal/Indore/Jabalpur/Rewa/Sidhi). It previously skipped those 5 and
+ * let mp_climate_loader.js's renderFuturePanel() draw them from
+ * mp_climate_data.json's `future_2040` field
+ * (scripts/05b_run_cmip6_2040.py, a 5km-buffer-around-a-single-centroid
+ * method, this project's first real CMIP6 result, written before the
+ * national version existed).
+ *
+ * Why the switch: both pipelines run the identical 8-model NEX-GDDP-CMIP6
+ * ensemble, the same SSP2-4.5 scenario and the same 2036-2045 vs 2000-2014
+ * windows -- the ONLY difference is the spatial unit. 05b reduces over a
+ * 5 km buffer around one centroid point; 09 reduces over the district's
+ * real Survey of India polygon, which is the same unit every other
+ * district-level layer in this portal uses. Compared directly for those 5
+ * districts (2026-09-02) the two agree closely -- hot days within 0.5-3.6
+ * d/yr, peak Tmax within 0.3 degC, annual rain within 6% -- so this is a
+ * refinement, not a contradiction, and neither was "wrong". The polygon
+ * version simply measures the district rather than a disc near its middle,
+ * so it wins, and having ONE method for all 733 districts removes the risk
+ * of two differently-derived numbers appearing under one label. The 05b
+ * output is retained in mp_climate_data.json, flagged `superseded_by`, for
+ * provenance -- see docs/METHODOLOGY.md Sec 5.2 and docs/DATA_SOURCES.md.
  *
  * Pattern copied from groundwater_loader.js (manifest existence check,
  * 30s fetch timeout, honest "Not available" fallback) rather than
@@ -50,6 +62,37 @@
     var color = invert ? (v > 0 ? 'var(--green)' : 'var(--red)')
                        : (v > 0 ? 'var(--red)' : 'var(--green)');
     return '<span style="color:' + color + '">' + arrow + ' ' + fmt(Math.abs(v), 1) + unit + '</span>';
+  }
+
+  // Field-name compatibility. Files written before the 2026-09-02 audit
+  // call the Tmax>=40 day count `heatwave_days_per_yr`; files written after
+  // it call the same quantity `hot_days_tmax_ge40_per_yr` (the rename was
+  // the point -- the old name claimed the IMD heatwave-event definition,
+  // which this number has never been). The VALUE is identical under either
+  // key, so reading both is safe and the label above is correct either way.
+  function hotDays(f) {
+    return (f.hot_days_tmax_ge40_per_yr !== undefined && f.hot_days_tmax_ge40_per_yr !== null)
+      ? f.hot_days_tmax_ge40_per_yr : f.heatwave_days_per_yr;
+  }
+  function hotDaysDelta(f) {
+    return (f.delta_hot_days_tmax_ge40_per_yr !== undefined && f.delta_hot_days_tmax_ge40_per_yr !== null)
+      ? f.delta_hot_days_tmax_ge40_per_yr : f.delta_heatwave_days_per_yr;
+  }
+
+  // PEAK TMAX and Rx1day are max-type indices. Files written after the
+  // 2026-09-02 audit carry metadata.max_index_definition and use the mean
+  // of the PER-YEAR maxima (window-length invariant, the ETCCDI TXx/Rx1day
+  // convention). Older files used a single maximum over the whole window,
+  // which grows with window length -- so their 10-year-future vs
+  // 15-year-baseline delta carries a systematic negative artefact. Rather
+  // than silently show a delta we know is biased, say so on screen until
+  // that district's file has been recomputed.
+  function methodNote(f) {
+    var corrected = !!(f.metadata && f.metadata.max_index_definition);
+    if (corrected) return '';
+    return '<br><span style="color:var(--orange)">Peak Tmax / Rx1day for this district have not yet been recomputed with the'
+      + ' window-length-invariant (per-year maxima) method &mdash; their <i>vs baseline</i> change compares a 10-year future'
+      + ' window against a 15-year baseline window and is biased low. Treat those two deltas as provisional.</span>';
   }
 
   function loadDistrictFile(stateSlug, dslug) {
@@ -95,25 +138,28 @@
       + '<div class="section-header"><i class="fa fa-clock-rotate-left" style="color:var(--orange);font-size:0.7rem"></i>'
       + '<div class="section-title">2040 PROJECTION (SSP2-4.5, 8-MODEL CMIP6 ENSEMBLE)</div></div>'
       + '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;padding:0.75rem;">'
-      + '  <div class="metric-card"><div class="metric-label">HEATWAVE DAYS/YR</div><div class="metric-value cyan">' + fmt(file.heatwave_days_per_yr, 1) + '</div><div style="font-size:0.65rem;font-weight:600">vs baseline: ' + delta(file.delta_heatwave_days_per_yr, ' d') + '</div></div>'
-      + '  <div class="metric-card"><div class="metric-label">PEAK TMAX</div><div class="metric-value" style="color:var(--red)">' + fmt(file.max_summer_tmax, 1) + '°C</div><div style="font-size:0.65rem;font-weight:600">vs baseline: ' + delta(file.delta_max_summer_tmax, '°C') + '</div></div>'
-      + '  <div class="metric-card"><div class="metric-label">R95p mm/yr</div><div class="metric-value" style="color:var(--blue)">' + fmt(file.r95p_mm_per_yr, 1) + '</div><div style="font-size:0.65rem;font-weight:600">vs baseline: ' + delta(file.delta_r95p_mm_per_yr, ' mm', true) + '</div></div>'
-      + '  <div class="metric-card"><div class="metric-label">Rx1day mm</div><div class="metric-value" style="color:var(--blue)">' + fmt(file.rx1day_mm, 1) + '</div><div style="font-size:0.65rem;font-weight:600">vs baseline: ' + delta(file.delta_rx1day_mm, ' mm', true) + '</div></div>'
+      + '  <div class="metric-card" title="Mean number of March-June days per year with daily Tmax >= 40 degC, in the CMIP6 ensemble. This is a HOT-DAY COUNT. It is NOT the IMD heatwave-event index shown in the observed panels (which also requires a >= 4.5 degC departure from the day-of-year normal and a run of >= 2 consecutive days) -- the two are an order of magnitude apart and are not comparable.">'
+      + '    <div class="metric-label">HOT DAYS/YR (TMAX &ge; 40&deg;C)</div><div class="metric-value cyan">' + fmt(hotDays(file), 1) + '</div><div style="font-size:0.65rem;font-weight:600">vs baseline: ' + delta(hotDaysDelta(file), ' d') + '</div></div>'
+      + '  <div class="metric-card" title="Mean of the per-year March-June maxima (ETCCDI TXx convention), averaged over the 8-model ensemble."><div class="metric-label">PEAK TMAX</div><div class="metric-value" style="color:var(--red)">' + fmt(file.max_summer_tmax, 1) + '°C</div><div style="font-size:0.65rem;font-weight:600">vs baseline: ' + delta(file.delta_max_summer_tmax, '°C') + '</div></div>'
+      + '  <div class="metric-card" title="Annual rainfall on days above the ensemble 95th-percentile wet-day threshold."><div class="metric-label">R95p mm/yr</div><div class="metric-value" style="color:var(--blue)">' + fmt(file.r95p_mm_per_yr, 1) + '</div><div style="font-size:0.65rem;font-weight:600">vs baseline: ' + delta(file.delta_r95p_mm_per_yr, ' mm', true) + '</div></div>'
+      + '  <div class="metric-card" title="Mean of the per-year maximum 1-day rainfall (ETCCDI Rx1day convention)."><div class="metric-label">Rx1day mm</div><div class="metric-value" style="color:var(--blue)">' + fmt(file.rx1day_mm, 1) + '</div><div style="font-size:0.65rem;font-weight:600">vs baseline: ' + delta(file.delta_rx1day_mm, ' mm', true) + '</div></div>'
       + '</div>'
       + '<div style="padding:0 0.75rem 0.6rem;font-size:0.62rem;color:var(--text-dim)">Source · NASA NEX-GDDP-CMIP6 via Google Earth Engine · '
       + (file.metadata ? file.metadata.future_window : '2036-2045') + ' vs ' + (file.metadata ? file.metadata.baseline_window : '2000-2014')
-      + ' baseline · district-level (real SoI polygon, ~25km native grid) · not valid at block/village scale</div>';
+      + ' baseline · district-level (real SoI polygon, ~25km native grid) · not valid at block/village scale'
+      + '<br>Model scenario, not an observation. &ldquo;Hot days&rdquo; here = days with Tmax &ge; 40&deg;C &mdash; <b>a different index from the IMD heatwave-event count</b> shown in the observed panels; compare the <i>vs baseline</i> change, not the absolute value against observed numbers.'
+      + methodNote(file)
+      + '</div>';
   }
 
   function handleSelection(stateName, districtName) {
     var host = document.getElementById('future-2040-panel');
     if (!host || !districtName) return;
-    // The 5 original MP districts keep mp_climate_loader.js's own
-    // renderFuturePanel() (their own, separately-run 5km-buffer version,
-    // predates this national file) -- never overwritten here.
-    var lcKey = districtName.trim().toLowerCase();
-    if (typeof window.MP_DISTRICTS !== 'undefined' && window.MP_DISTRICTS[lcKey]) return;
-
+    // No district is skipped any more. The 5 original MP districts used to
+    // be handed to mp_climate_loader.js's renderFuturePanel() (05b's
+    // centroid-buffer version); as of the 2026-09-02 methodology audit this
+    // loader's real-SoI-polygon numbers are authoritative for every
+    // district, so all 733 take the same path. See the file header.
     if (!stateName) { renderEmpty(host, districtName); return; }
     var stateSlug = slugify(stateName), dslug = slugify(districtName);
     loadDistrictFile(stateSlug, dslug).then(function (file) {

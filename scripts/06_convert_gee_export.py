@@ -36,7 +36,7 @@ def main():
         print(f"[warn] {cmip_file} not found — skipping CMIP6 conversion")
     else:
         df = pd.read_csv(cmip_file)
-        # Expected columns: key, name, future_heatwave_days_per_yr, future_max_summer_tmax,
+        # Expected columns: key, name, future_hot_days_tmax_ge40_per_yr, future_max_summer_tmax,
         # future_annual_rain_mm, future_r95p_mm_per_yr, future_rx1day_mm, future_p95,
         # baseline_*, delta_*
         future = {}
@@ -46,15 +46,15 @@ def main():
                 "scenario": C.CMIP6_SCENARIO,
                 "window":   list(C.FUTURE_WINDOW),
                 "ensemble_models": C.CMIP6_MODELS,
-                "heatwave_days_per_yr":     round(float(row.get("future_heatwave_days_per_yr", 0)), 1),
+                "hot_days_tmax_ge40_per_yr": round(float(row.get("future_hot_days_tmax_ge40_per_yr", 0)), 1),
                 "max_summer_tmax":          round(float(row.get("future_max_summer_tmax", 0)), 1),
                 "annual_rain_mm":           round(float(row.get("future_annual_rain_mm", 0)), 0),
                 "r95p_mm_per_yr":           round(float(row.get("future_r95p_mm_per_yr", 0)), 1),
                 "rx1day_mm":                round(float(row.get("future_rx1day_mm", 0)), 1),
-                "baseline_heatwave_days_per_yr": round(float(row.get("baseline_heatwave_days_per_yr", 0)), 1),
+                "baseline_hot_days_tmax_ge40_per_yr": round(float(row.get("baseline_hot_days_tmax_ge40_per_yr", 0)), 1),
                 "baseline_max_summer_tmax":      round(float(row.get("baseline_max_summer_tmax", 0)), 1),
                 "baseline_annual_rain_mm":       round(float(row.get("baseline_annual_rain_mm", 0)), 0),
-                "delta_heatwave_days_per_yr":    round(float(row.get("delta_d_heatwave", 0)), 1),
+                "delta_hot_days_tmax_ge40_per_yr": round(float(row.get("delta_d_hot_days", 0)), 1),
                 "delta_max_summer_tmax":         round(float(row.get("delta_d_maxTmax", 0)), 1),
                 "delta_annual_rain_mm":          round(float(row.get("delta_d_annualRain", 0)), 0),
                 "delta_r95p_mm_per_yr":          round(float(row.get("delta_d_r95p", 0)), 1),

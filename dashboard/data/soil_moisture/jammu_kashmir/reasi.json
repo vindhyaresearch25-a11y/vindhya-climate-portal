@@ -11,7 +11,9 @@
   "observation_window": "2026-08-07T11:10Z to 2026-08-12T11:10Z (3-hourly SMAP L4 images, averaged per grid cell over this window)",
   "data_quality": "verified-official (real NASA SMAP L4 dataset, GEE-computed)",
   "last_updated": "2026-08-12",
-  "village_boundary_coverage": "full"
+  "village_boundary_coverage": "full",
+  "CRS": "EPSG:4326",
+  "processing": "Each district's real SMAP grid cells (few per district at 9km) are sampled directly via Earth Engine (ee.Image.sample over the district polygon -- each cell's own value AND location kept, not collapsed into one reduceRegion mean). Village tier: the SMAP cell nearest to the village polygon's centroid (nearest cell-center match). Block tier: mean + standard deviation of its villages' assigned cell values, N = village count. District tier: mean + standard deviation of the real SMAP cells sampled directly over the district polygon, N = cell count (independent of village-boundary coverage). State tier (computed client-side in the dashboard loader): mean + standard deviation of its districts' values, N = districts actually computed so far -- always shown against the state's real total district count."
  },
  "district": {
   "sm_surface_mean": 0.3855,

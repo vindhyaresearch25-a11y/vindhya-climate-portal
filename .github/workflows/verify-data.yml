@@ -9,6 +9,11 @@ on:
     paths:
       - "scripts/fetch_verify_sources.py"
       - ".github/workflows/verify-data.yml"
+      # Added 2026-09-02: the metadata/plausibility checks below exist to
+      # catch a bad DATA file, but this workflow never ran when a data file
+      # changed -- only on the Monday cron or the manual button, so a bad
+      # file could sit live for up to a week. Data pushes now trigger it.
+      - "dashboard/data/**"
 
 permissions:
   contents: write
@@ -40,11 +45,80 @@ jobs:
           if 'metadata' not in d:
               fails.append("mp_climate_data.json is missing its metadata block")
 
-          # 2. Every dashboard JSON must declare provenance
-          for f in glob.glob('dashboard/data/*.json'):
-              j = json.load(open(f))
-              if isinstance(j, dict) and 'metadata' not in j:
-                  fails.append(f"{f} has no metadata block")
+          # 2. Every dashboard JSON must declare provenance.
+          #
+          # Was `glob.glob('dashboard/data/*.json')` -- NON-recursive, so it
+          # checked 10 files out of ~5,200 served ones and saw nothing inside
+          # climate/, ndvi/, cmip6_2040/, groundwater/, soil_moisture/,
+          # advisory/, crop_stats_des*/, horticulture_stats/, state_reports/,
+          # crop_yield/, knowledge_base/, validation/ or crop_insurance_pilot/.
+          # 99.8% of the served data was unchecked. (The recursive idiom was
+          # already used by the GeoJSON check below; it simply was not applied
+          # here.) It also only tested that the KEY existed, so `"metadata": {}`
+          # passed -- which is how two manifest files with no source, no CRS and
+          # no last_updated sailed through. Both fixed 2026-09-02.
+          #
+          # REQUIRED_KEYS is the contract stated in CLAUDE.md and
+          # docs/DATA_SOURCES.md. Two documented exemptions, per-directory and
+          # deliberately narrow -- a blanket waiver would defeat the check:
+          #   - CRS on tabular files that carry no geometry at all (DES/ICRISAT
+          #     crop tables, horticulture, the knowledge-base index). A
+          #     coordinate reference system is not a meaningful property of a
+          #     table of crop areas.
+          #   - resolution on files whose unit is an administrative area rather
+          #     than a grid (advisory flags, per-district crop tables).
+          # Anything not listed here must carry all five keys.
+          REQUIRED_KEYS = ('source', 'resolution', 'CRS', 'processing', 'last_updated')
+          EXEMPT = {
+              'crop_stats_des':            ('resolution', 'CRS'),
+              'crop_stats_des_by_district':('resolution', 'CRS'),
+              'crop_yield':                ('resolution', 'CRS'),
+              'horticulture_stats':        ('resolution', 'CRS'),
+              'knowledge_base':            ('resolution', 'CRS'),
+              'state_reports':             ('resolution', 'CRS'),
+              'advisory':                  ('resolution', 'CRS'),
+              'crop_list.json':            ('resolution', 'CRS'),
+              'crop_stats.json':           ('resolution', 'CRS'),
+              'crop_stats_comparison.json':('resolution', 'CRS'),
+              'mandi_prices.json':         ('resolution', 'CRS'),
+              'sources_manifest.json':     ('resolution', 'CRS'),
+              'forecast_2040.json':        ('resolution', 'CRS'),
+              'dicra_ndvi.json':           ('resolution',),
+              'climate_manifest.json':     ('resolution', 'CRS'),
+              'ndvi_manifest.json':        ('resolution', 'CRS'),
+          }
+
+          def exempt_for(path):
+              parts = Path(path).parts
+              waived = set()
+              for token in list(parts) + [Path(path).name]:
+                  waived.update(EXEMPT.get(token, ()))
+              return waived
+
+          meta_fails = []
+          for f in glob.glob('dashboard/data/**/*.json', recursive=True):
+              try:
+                  j = json.load(open(f))
+              except Exception as e:
+                  meta_fails.append(f"{f} is not valid JSON: {e}")
+                  continue
+              if not isinstance(j, dict):
+                  # A top-level array can carry no metadata at all. Previously
+                  # waved through by an isinstance() guard; now called out.
+                  meta_fails.append(f"{f} is a top-level JSON array, so it can carry no metadata block")
+                  continue
+              m = j.get('metadata')
+              if not isinstance(m, dict) or not m:
+                  meta_fails.append(f"{f} has no usable metadata block")
+                  continue
+              waived = exempt_for(f)
+              missing = [k for k in REQUIRED_KEYS if k not in m and k not in waived]
+              if missing:
+                  meta_fails.append(f"{f} metadata is missing {missing}")
+          if meta_fails:
+              # Report a bounded sample so a systemic miss doesn't bury the log.
+              fails.append(f"{len(meta_fails)} data files failed the metadata contract; first 20:")
+              fails.extend('    ' + x for x in meta_fails[:20])
 
           # 3. Physical plausibility of published village indices
           bad = 0
