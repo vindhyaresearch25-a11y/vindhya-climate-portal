@@ -452,6 +452,36 @@ yaad se likha number is file me KABHI mat daalo.
 
 ---
 
+# 16b. CMIP6 RERUN -- 544 / 733 HUA, 189 BAAKI (6 rajya)
+
+Corrected statistics wala rerun (per-year maxima + `hot_days_tmax_ge40_per_yr`)
+**544 zilon me poora ho gaya, 30 rajya** -- pushed. Baaki **189 zile, 6 rajya**:
+Tamil Nadu, Telangana, Tripura, Uttar Pradesh, Uttarakhand, West Bengal.
+
+**Kyun ruka:** GEE process teen baar beech me hi mar gaya (stdout buffered
+tha, isliye log me sirf startup warning bache -- clean exit hota to flush
+hota). Per-year-maxima wala change ensemble ko kaafi bhaari bana deta hai,
+har rajya ab minute lagata hai.
+
+**Ye state SURAKSHIT hai, aur khud batati hai:**
+- `national_cmip6_loader.js` dono key spelling padhta hai
+  (`hotDays()`/`hotDaysDelta()`), to purane aur naye dono zile theek render
+  hote hain.
+- Jis zile ki file me `metadata.max_index_definition` nahi hai, uske
+  Peak Tmax / Rx1day delta par panel **saaf-saaf "provisional" chetavani**
+  dikhata hai -- galat number chupchap nahi dikhata.
+
+**Poora karne ke liye (ek line):**
+```
+cd scripts && python3 -u 09_gee_national_cmip6_2040.py --stage run \
+  --states "Tamil Nadu,Telangana,Tripura,Uttar Pradesh,Uttarakhand,West Bengal" --force
+```
+`-u` zaroori hai (warna crash par log khali milega). Ek-do rajya ek baar me
+chalao. Baad me `python3 scripts/backfill_data_metadata.py --write` chalana
+mat bhoolna (CRS key ke liye).
+
+---
+
 # 17. JO ABHI BHI BAAKI HAI (record kiya, kiya nahi)
 
 1. **Village Report sirf English me hai.** `village_report.js` me `t()` aur
@@ -465,7 +495,14 @@ yaad se likha number is file me KABHI mat daalo.
    dikhta. Aggregate ka N mobile par gayab.
 4. **NDVI coverage** aur **soil moisture/advisory** ka rishta -- NDVI badhne
    par `15_build_advisory.py` dobara chalana hai (item 13 me likha hai).
-5. **IMD resolution mismatch (item 6 upar)** -- abhi bhi aapke faisle ka
+5. **Live site par district dropdown is session me test nahi ho paya.**
+   `districts.geojson` (~20 MB, Hugging Face se) is automation session me
+   30s timeout ke andar load nahi hua, isliye live par district chun kar
+   panel nahi dekh paye. **Console me ek bhi error nahi tha** aur ye file
+   maine chhui bhi nahi -- ye pehle se aisa hi hai (network/environment ka
+   maamla). Deployed file-level verify sab pass hua (neeche), aur poora
+   interactive behaviour local server par asli data se verify kiya.
+6. **IMD resolution mismatch (item 6 upar)** -- abhi bhi aapke faisle ka
    intezaar. METHODOLOGY/DATA_SOURCES "0.05 deg (~5.5 km)" kehte hain, par
    imdlib se naapa temp grid 1 deg nikla. Chupchap NAHI badla.
 
